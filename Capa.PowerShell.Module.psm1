@@ -343,9 +343,7 @@ function Initialize-CapaSDK
 		[string]$UserName = "",
 		[string]$Password = "",
 		[Parameter(Mandatory = $true)]
-		[ValidateSet("Dev", "Prod")]
 		[string]$DefaultManagementPoint,
-		[ValidateSet("Dev", "Prod")]
 		[string]$InstanceManagementPoint
 	)
 	
@@ -413,25 +411,15 @@ function Initialize-CapaSDK
 		$oCMS.SetDatabaseSettings($Server, $Database, $false) | Out-Null
 	}
 	
-	if ($DefaultManagementPoint -eq "Dev")
+	if ($DefaultManagementPoint -ne "")
 	{
-		$DefaultManagementPoint = "1"
+		$oCMS.SetDefaultManagementPoint($DefaultManagementPoint) | Out-Null
 	}
-	else
-	{
-		$DefaultManagementPoint = "2"
-	}
-	$oCMS.SetDefaultManagementPoint($DefaultManagementPoint) | Out-Null
 	
-	if ($InstanceManagementPoint -eq "Dev")
+	if ($InstanceManagementPoint -ne "")
 	{
-		$InstanceManagementPoint = "1"
+		$oCMS.SetInstanceManagementPoint($InstanceManagementPoint) | Out-Null
 	}
-	else
-	{
-		$InstanceManagementPoint = "2"
-	}
-	$oCMS.SetInstanceManagementPoint($InstanceManagementPoint) | Out-Null
 	
 	return $oCMS
 }

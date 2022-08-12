@@ -81,6 +81,10 @@
 		'Get-CapaGroups',
 		'Get-CapaGroupPackages',
 		'Get-CapaPackageFolder',
+		'Add-CapaPackageToGroup',
+		'Remove-CapaPackageFromGroup',
+		'Get-CapaUnits',
+		'Get-CapaPackageUnits',
 		'Get-CapaPackagesGroups',
 		'Initialize-CapaSDK'
 	) #For performance, list functions explicitly

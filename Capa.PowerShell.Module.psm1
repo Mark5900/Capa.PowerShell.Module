@@ -227,7 +227,233 @@ function Get-CapaPackageFolder
 	Return $aUnits
 }
 
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246807/Add+package+to+group
+	
+	.DESCRIPTION
+		A detailed description of the Add-CapaPackageToGroup function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.PARAMETER GroupName
+		A description of the GroupName parameter.
+	
+	.PARAMETER GroupType
+		A description of the GroupType parameter.
+	
+	.EXAMPLE
+		PS C:\> Add-CapaPackageToGroup -CapaSDK $CapaSDK -PackageName 'value2' -PackageVersion 'value3' -PackageType Computer -GroupName 'value5' -GroupType Dynamic_ADSI
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Add-CapaPackageToGroup
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[string]$GroupName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
+		[string]$GroupType
+	)
+	
+	$bool = $CapaSDK.AddPackageToGroup($PackageName, $PackageVersion, $PackageType, $GroupName, $GroupType)
+	Return $bool
+}
 
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247008/Remove+package+from+group
+	
+	.DESCRIPTION
+		A detailed description of the Remove-CapaPackageFromGroup function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.PARAMETER GroupName
+		A description of the GroupName parameter.
+	
+	.PARAMETER GroupType
+		A description of the GroupType parameter.
+	
+	.EXAMPLE
+		PS C:\> Remove-CapaPackageFromGroup -CapaSDK $CapaSDK -PackageName $PackageName -PackageVersion $PackageVersion -PackageType Computer -GroupName $GroupName -GroupType Dynamic_ADSI
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Remove-CapaPackageFromGroup
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[string]$GroupName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
+		[string]$GroupType
+	)
+	
+	$bool = $CapaSDK.RemovePackageFromGroup($PackageName, $PackageVersion, $PackageType, $GroupName, $GroupType)
+	Return $bool
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247572/Get+units
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaUnits function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER Type
+		A description of the Type parameter.
+	
+	.EXAMPLE
+		PS C:\> Get-CapaUnits -CapaSDK $CapaSDK -Type Computer
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaUnits
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$Type
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetUnits($Type)
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split("|")
+		$oaUnits += [pscustomobject]@{
+			Name		   = $aItem[0];
+			Created	       = $aItem[1];
+			LastExecuted   = $aItem[2];
+			Status		   = $aItem[3];
+			Description    = $aItem[4];
+			GUID		   = $aItem[5];
+			ID			   = $aItem[6];
+			TypeName	   = $aItem[7];
+			UUID		   = $aItem[8];
+			IsMobileDevice = $aItem[9];
+			location	   = $aItem[10]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247456/Get+package+units
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaPackageUnits function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER Name
+		A description of the Name parameter.
+	
+	.PARAMETER Version
+		A description of the Version parameter.
+	
+	.PARAMETER Type
+		A description of the Type parameter.
+	
+	.EXAMPLE
+		PS C:\> Get-CapaPackageUnits -CapaSDK $CapaSDK -Name $Name -Version $Version -Type Computer
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaPackageUnits
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$Name,
+		[Parameter(Mandatory = $true)]
+		[string]$Version,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$Type
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetUnits($Type)
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split("|")
+		$oaUnits += [pscustomobject]@{
+			Name		   = $aItem[0];
+			Created	       = $aItem[1];
+			LastExecuted   = $aItem[2];
+			Status		   = $aItem[3];
+			Description    = $aItem[4];
+			GUID		   = $aItem[5];
+			ID			   = $aItem[6];
+			TypeName	   = $aItem[7];
+			UUID		   = $aItem[8];
+			IsMobileDevice = $aItem[9];
+			location	   = $aItem[10]
+		}
+	}
+	
+	Return $oaUnits
+}
 
 <#
     Custom functions to things Capa SDK does not cotain

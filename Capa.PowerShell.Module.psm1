@@ -98,12 +98,12 @@ function Get-CapaGroups
 		$CapaSDK,
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
-		[string]$Type = ""
+		[string]$GroupType = ""
 	)
 	
 	$oaUnits = @()
 	
-	$aUnits = $CapaSDK.GetGroups($Type)
+	$aUnits = $CapaSDK.GetGroups($GroupType)
 	foreach ($sItem in $aUnits)
 	{
 		$aItem = $sItem.Split("|")
@@ -133,7 +133,7 @@ function Get-CapaGroups
 	.PARAMETER GroupName
 		A description of the GroupName parameter.
 	
-	.PARAMETER Type
+	.PARAMETER GroupType
 		A description of the Type parameter.
 	
 	.EXAMPLE
@@ -152,12 +152,12 @@ function Get-CapaGroupPackages
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
-		[string]$Type
+		[string]$GroupType
 	)
 	
 	$oaUnits = @()
 	
-	$aUnits = $CapaSDK.GetGroupPackages($GroupName, $Type)
+	$aUnits = $CapaSDK.GetGroupPackages($GroupName, $GroupType)
 	foreach ($sItem in $aUnits)
 	{
 		$aItem = $sItem.Split("|")
@@ -216,14 +216,14 @@ function Get-CapaPackageFolder
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[string]$Type,
+		[string]$GroupType,
 		[Parameter(Mandatory = $true)]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
 		[string]$PackageVersion
 	)
 	
-	$aUnits = $CapaSDK.GetPackageFolder($PackageName, $PackageVersion, $Type)
+	$aUnits = $CapaSDK.GetPackageFolder($PackageName, $PackageVersion, $GroupType)
 	Return $aUnits
 }
 
@@ -369,17 +369,17 @@ function Get-CapaPackageUnits
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[string]$Name,
+		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
-		[string]$Version,
+		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[string]$Type
+		[string]$PackageType
 	)
 	
 	$oaUnits = @()
 	
-	$aUnits = $CapaSDK.GetUnits($Type)
+	$aUnits = $CapaSDK.GetPackageUnits($PackageName, $PackageVersion, $PackageType)
 	foreach ($sItem in $aUnits)
 	{
 		$aItem = $sItem.Split("|")
@@ -391,10 +391,7 @@ function Get-CapaPackageUnits
 			Description    = $aItem[4];
 			GUID		   = $aItem[5];
 			ID			   = $aItem[6];
-			TypeName	   = $aItem[7];
-			UUID		   = $aItem[8];
-			IsMobileDevice = $aItem[9];
-			location	   = $aItem[10]
+			TypeName	   = $aItem[7]
 		}
 	}
 	
@@ -660,7 +657,7 @@ function Get-CapaUnits
 	.PARAMETER CapaSDK
 		A description of the CapaSDK parameter.
 	
-	.PARAMETER Type
+	.PARAMETER PackageType
 		A description of the Type parameter.
 	
 	.PARAMETER PackageName
@@ -670,7 +667,7 @@ function Get-CapaUnits
 		A description of the PackageVersion parameter.
 	
 	.EXAMPLE
-				PS C:\> Initialize-CapaPackagePromote -CapaSDK $value1 -Type Computer -PackageName 'Value3' -PackageVersion 'Value4'
+		PS C:\> Initialize-CapaPackagePromote -CapaSDK $value1 -Type Computer -PackageName 'Value3' -PackageVersion 'Value4'
 	
 	.NOTES
 		Additional information about the function.
@@ -683,14 +680,14 @@ function Initialize-CapaPackagePromote
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[PackageType]$Type,
+		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
 		[string]$PackageVersion
 	)
 	
-	$bool = $CapaSDK.PackagePromote($PackageName, $PackageVersion, $Type)
+	$bool = $CapaSDK.PackagePromote($PackageName, $PackageVersion, $PackageType)
 	Return $bool
 }
 
@@ -704,7 +701,7 @@ function Initialize-CapaPackagePromote
 	.PARAMETER CapaSDK
 		A description of the CapaSDK parameter.
 	
-	.PARAMETER Type
+	.PARAMETER PackageType
 		A description of the Type parameter.
 	
 	.PARAMETER PackageName
@@ -720,7 +717,7 @@ function Initialize-CapaPackagePromote
 		A description of the ChangelogText parameter.
 	
 	.EXAMPLE
-				PS C:\> Set-CapaPackageFolder -CapaSDK $value1 -Type Computer -PackageName 'Value3' -PackageVersion 'Value4' -FolderStructure 'Value5'
+		PS C:\> Set-CapaPackageFolder -CapaSDK $value1 -Type Computer -PackageName 'Value3' -PackageVersion 'Value4' -FolderStructure 'Value5'
 	
 	.NOTES
 		Additional information about the function.
@@ -733,7 +730,7 @@ function Set-CapaPackageFolder
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[string]$Type,
+		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
@@ -743,7 +740,7 @@ function Set-CapaPackageFolder
 		[string]$ChangelogText
 	)
 	
-	$bool = $CapaSDK.SetPackageFolder($PackageName, $PackageVersion, $Type, $FolderStructure, $ChangelogText)
+	$bool = $CapaSDK.SetPackageFolder($PackageName, $PackageVersion, $PackageType, $FolderStructure, $ChangelogText)
 	
 	Return $bool
 }

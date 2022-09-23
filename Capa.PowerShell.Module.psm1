@@ -514,7 +514,7 @@ function Initialize-CapaSDK
 		[string]$Database = "",
 		[string]$UserName = "",
 		[string]$Password = "",
-		[Parameter(Mandatory = $true)]
+		[Parameter(Mandatory = $false)]
 		[string]$DefaultManagementPoint,
 		[string]$InstanceManagementPoint
 	)

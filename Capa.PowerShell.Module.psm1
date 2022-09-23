@@ -223,7 +223,7 @@ function Get-CapaPackageFolder
 		[string]$PackageVersion
 	)
 	
-	$aUnits = $CapaSDK.GetPackageFolder($PackageName, $PackageVersion, $GroupType)
+	$aUnits = $CapaSDK.GetPackageFolder($PackageName, $PackageVersion, $PackageType)
 	Return $aUnits
 }
 

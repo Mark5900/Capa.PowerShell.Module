@@ -83,10 +83,19 @@
 		'Get-CapaPackageFolder',
 		'Add-CapaPackageToGroup',
 		'Remove-CapaPackageFromGroup',
-		'Get-CapaUnits',
 		'Get-CapaPackageUnits',
 		'Get-CapaPackagesGroups',
-		'Initialize-CapaSDK'
+		'Initialize-CapaSDK',
+		'Get-CapaUnits',
+		'Initialize-CapaPackagePromote',
+		'Set-CapaPackageFolder',
+		'Add-CapaUnitToPackage',
+		'Get-CapaPackageGroups',
+		'Remove-CapaUnitFromPackage',
+		'Disable-CapaPackageSchedule',
+		'Copy-CapaPackageRelation',
+		'Remove-CapaPackage',
+		'Export-CapaPackage'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

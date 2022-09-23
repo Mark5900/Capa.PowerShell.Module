@@ -216,7 +216,7 @@ function Get-CapaPackageFolder
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[string]$GroupType,
+		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]

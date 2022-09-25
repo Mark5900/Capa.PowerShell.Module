@@ -1346,3 +1346,142 @@ function Export-CapaPackage
 	$bool = $CapaSDK.ExportPackage($PackageName, $PackageVersion, $PackageType, $ToFolder)
 	Return $bool
 }
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247492/Get+unit+last+runtime
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaUnitLastRuntime function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaUnitLastRuntime -CapaSDK $value1 -UnitName "" -UnitType ""
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaUnitLastRuntime
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$UnitName = "",
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User', '1', '2')]
+		[string]$UnitType = ""
+	)
+	
+	if ($UnitType -eq 'Computer')
+	{
+		$UnitType = "1"
+	}
+	else
+	{
+		$UnitType = "2"
+	}
+	
+	$aUnits = $CapaSDK.GetUnitLastRuntime($UnitName, $UnitType)
+	
+	Return $aUnits
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247758/Set+unit+status
+	
+	.DESCRIPTION
+		A detailed description of the Set-CapaUnitStatus function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER Status
+		A description of the Status parameter.
+	
+	.EXAMPLE
+				PS C:\> Set-CapaUnitStatus -CapaSDK $value1 -UnitName "" -Status ""
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Set-CapaUnitStatus
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$UnitName = "",
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Active', 'Inactive')]
+		[string]$Status = ""
+	)
+	
+	$aUnits = $CapaSDK.SetUnitStatus($UnitName, $Status)
+	
+	Return $aUnits
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247310/Add+unit+to+folder
+	
+	.DESCRIPTION
+		A detailed description of the Add-CapaUnitToFolder function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.PARAMETER FolderStructure
+		A description of the FolderStructure parameter.
+	
+	.PARAMETER CreateFolder
+		Default is false
+	
+	.EXAMPLE
+				PS C:\> Add-CapaUnitToFolder -CapaSDK $value1 -UnitName "" -UnitType "" -FolderStructure ""
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Add-CapaUnitToFolder
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$UnitName = "",
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$UnitType = "",
+		[Parameter(Mandatory = $true)]
+		[string]$FolderStructure = "",
+		[ValidateSet('true', 'false')]
+		[string]$CreateFolder
+	)
+	
+	$aUnits = $CapaSDK.AddUnitToFolder($UnitName, $UnitType, $FolderStructure, $CreateFolder)
+	
+	Return $aUnits
+}

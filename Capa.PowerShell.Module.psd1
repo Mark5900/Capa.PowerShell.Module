@@ -95,7 +95,10 @@
 		'Disable-CapaPackageSchedule',
 		'Copy-CapaPackageRelation',
 		'Remove-CapaPackage',
-		'Export-CapaPackage'
+		'Export-CapaPackage',
+		'Get-CapaUnitLastRuntime',
+		'Set-CapaUnitStatus',
+		'Add-CapaUnitToFolder'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

@@ -569,7 +569,7 @@ function Initialize-CapaSDK
 	}
 	
 	Add-Type -Path $Destination
-	$oCMS = New-Object CapaInstaller.SDK
+	$oCMS = New-Object -ComObject CapaInstaller.SDK
 	
 	If ($UserName -ne "" -or $Password -ne "")
 	{

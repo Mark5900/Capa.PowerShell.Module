@@ -98,7 +98,11 @@
 		'Export-CapaPackage',
 		'Get-CapaUnitLastRuntime',
 		'Set-CapaUnitStatus',
-		'Add-CapaUnitToFolder'
+		'Add-CapaUnitToFolder',
+		'Get-CapaGroupUnits',
+		'Remove-CapaGroup',
+		'Remove-CapaUnitByUUID',
+		'Get-CapaUnitFolder'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

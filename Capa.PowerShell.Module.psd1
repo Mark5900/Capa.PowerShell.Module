@@ -102,7 +102,8 @@
 		'Get-CapaGroupUnits',
 		'Remove-CapaGroup',
 		'Remove-CapaUnitByUUID',
-		'Get-CapaUnitFolder'
+		'Get-CapaUnitFolder',
+		'Remove-CapaUnitFromGroup'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

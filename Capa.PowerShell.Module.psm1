@@ -107,13 +107,23 @@ function Get-CapaGroups
 	foreach ($sItem in $aUnits)
 	{
 		$aItem = $sItem.Split("|")
+		
+		if ($aItem[2] -eq "1") {
+			$UnitType = "Computer"
+		}
+		else
+		{
+			$UnitType = "User"
+		}
+		
 		$oaUnits += [pscustomobject]@{
-			Name	    = $aItem[0];
-			Type	    = $aItem[1];
-			UnitTypeID  = $aItem[2];
-			Description = $aItem[3];
-			GUID	    = $aItem[4];
-			ID		    = $aItem[5]
+			Name	    	= $aItem[0];
+			Type	    	= $aItem[1];
+			UnitTypeID  	= $aItem[2];
+			UnitTypeName	= $UnitType;
+			Description 	= $aItem[3];
+			GUID	    	= $aItem[4];
+			ID		    	= $aItem[5]
 		}
 	}
 	

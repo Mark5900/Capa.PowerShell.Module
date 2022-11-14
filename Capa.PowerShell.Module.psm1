@@ -1666,3 +1666,302 @@ function Remove-CapaUnitFromGroup
 	
 	Return $bool
 }
+
+<#
+	.SYNOPSIS
+		Used to convert DataType number to a string that makes sense
+	
+	.DESCRIPTION
+		A detailed description of the Convert-CapaDataType function.
+	
+	.PARAMETER Datatype
+		A description of the Datatype parameter.
+	
+	.EXAMPLE
+				PS C:\> Convert-CapaDataType
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Convert-CapaDataType
+{
+	param
+	(
+		$Datatype
+	)
+	
+	switch ($DataType)
+	{
+		1 { $Datatype = 'String' }
+		2 { $Datatype = 'Time' }
+		3 { $Datatype = 'Integer' }
+		Default { $Datatype = $Datatype }
+	}
+	
+	return $Datatype
+}
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246358/Get+custom+inventory+for+unit
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaCustomInventoryForUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.PARAMETER Uuid
+		A description of the Uuid parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaCustomInventoryForUnit -Uuid 'Value1'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaCustomInventoryForUnit
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(ParameterSetName = 'NameType',
+				   Mandatory = $true)]
+		[string]$UnitName,
+		[Parameter(ParameterSetName = 'NameType',
+				   Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$UnitType,
+		[Parameter(ParameterSetName = 'Uuid',
+				   Mandatory = $true)]
+		[string]$Uuid
+	)
+	
+	$oaUnits = @()
+	
+	if ($PSCmdlet.ParameterSetName -eq 'NameType')
+	{
+		$aUnits = $CapaSDK.GetCustomInventoryForUnit($UnitName, $UnitType)
+	}
+	else
+	{
+		$aUnits = $CapaSDK.GetCustomInventoryForUnitUUID($Uuid)
+	}
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split('|')
+		$DataType = Convert-CapaDataType -Datatype $aItem[3]
+		$oaUnits += [pscustomobject]@{
+			Category = $aItem[0];
+			Entry    = $aItem[1];
+			Value    = $aItem[2];
+			Datatype = $DataType;
+			GUID	 = $aItem[4];
+			ID	     = $aItem[5]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246368/Get+hardware+inventory+for+unit
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaHardwareInventoryForUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaHardwareInventoryForUnit -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaHardwareInventoryForUnit
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$UnitName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$UnitType
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetHardwareInventoryForUnit($UnitName, $UnitType)
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split('|')
+		$DataType = Convert-CapaDataType -Datatype $aItem[3]
+		$oaUnits += [pscustomobject]@{
+			Category = $aItem[0];
+			Entry    = $aItem[1];
+			Value    = $aItem[2];
+			Datatype = $DataType;
+			GUID	 = $aItem[4];
+			ID	     = $aItem[5]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246378/Get+logon+history+for+unit
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaLogonHistoryForUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaLogonHistoryForUnit -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaLogonHistoryForUnit
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$UnitName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$UnitType
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetLogonHistoryForUnit($UnitName, $UnitType)
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split('|')
+		$DataType = Convert-CapaDataType -Datatype $aItem[3]
+		$oaUnits += [pscustomobject]@{
+			Category = $aItem[0];
+			Entry    = $aItem[1];
+			Value    = $aItem[2];
+			Datatype = $DataType;
+			GUID	 = $aItem[4];
+			ID	     = $aItem[5]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246398/Get+software+inventory+for+unit
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaSoftwareInventoryForUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.PARAMETER Uuid
+		A description of the Uuid parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaSoftwareInventoryForUnit -UnitType Computer -Uuid 'Value2'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaSoftwareInventoryForUnit
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(ParameterSetName = 'NameType',
+				   Mandatory = $true)]
+		[string]$UnitName,
+		[Parameter(ParameterSetName = 'NameType',
+				   Mandatory = $true)]
+		[Parameter(ParameterSetName = 'Uuid',
+				   Mandatory = $true)]
+		[ValidateSet('Computer', 'User', '1', '2')]
+		[string]$UnitType,
+		[Parameter(ParameterSetName = 'Uuid',
+				   Mandatory = $true)]
+		[string]$Uuid
+	)
+	
+	if ($UnitType -eq 'Computer')
+	{
+		$UnitType = '1'
+	}
+	if ($UnitType -eq 'User')
+	{
+		$UnitType = '2'
+	}
+	
+	$oaUnits = @()
+	
+	if ($PSCmdlet.ParameterSetName -eq 'NameType')
+	{
+		$aUnits = $CapaSDK.GetSoftwareInventoryForUnit($UnitName, $UnitType)
+	}
+	else
+	{
+		$aUnits = $CapaSDK.GetSoftwareInventoryForUnit($Uuid, $UnitType)
+	}
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split('|')
+		$oaUnits += [pscustomobject]@{
+			SoftwareName		   = $aItem[0];
+			SoftwareVersion	       = $aItem[1];
+			InstallDate		       = $aItem[2];
+			SoftwareMeteringModule = $aItem[3];
+			SoftwareAppCode	       = $aItem[4];
+			SoftwareDescription    = $aItem[5];
+			SoftwareID			   = $aItem[6];
+			SoftwareVendor		   = $aItem[7]
+		}
+	}
+	
+	Return $oaUnits
+}

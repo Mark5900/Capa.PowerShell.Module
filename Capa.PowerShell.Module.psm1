@@ -601,7 +601,7 @@ function Initialize-CapaSDK
 		$oCMS.SetInstanceManagementPoint($InstanceManagementPoint) | Out-Null
 	}
 	
-	$oCMS.SetSplitter (";") | Out-Null
+	$oCMS.SetSplitter(";") | Out-Null
 	
 	return $oCMS
 }
@@ -1759,7 +1759,7 @@ function Get-CapaCustomInventoryForUnit
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$DataType = Convert-CapaDataType -Datatype $aItem[3]
 		$oaUnits += [pscustomobject]@{
 			Category = $aItem[0];
@@ -1815,7 +1815,7 @@ function Get-CapaHardwareInventoryForUnit
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$DataType = Convert-CapaDataType -Datatype $aItem[3]
 		$oaUnits += [pscustomobject]@{
 			Category = $aItem[0];
@@ -1871,7 +1871,7 @@ function Get-CapaLogonHistoryForUnit
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$DataType = Convert-CapaDataType -Datatype $aItem[3]
 		$oaUnits += [pscustomobject]@{
 			Category = $aItem[0];
@@ -1953,7 +1953,7 @@ function Get-CapaSoftwareInventoryForUnit
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			SoftwareName		   = $aItem[0];
 			SoftwareVersion	       = $aItem[1];

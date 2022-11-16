@@ -48,7 +48,7 @@ function Get-CapaPackages
 	$aUnits = $CapaSDK.GetPackages($Type)
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split("|")
+		$aItem = $sItem.Split(";")
 		$oaUnits += [pscustomobject]@{
 			Name			   = $aItem[0];
 			Version		       = $aItem[1];
@@ -106,7 +106,7 @@ function Get-CapaGroups
 	$aUnits = $CapaSDK.GetGroups($GroupType)
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split("|")
+		$aItem = $sItem.Split(";")
 		
 		if ($aItem[2] -eq "1") {
 			$UnitType = "Computer"
@@ -170,7 +170,7 @@ function Get-CapaGroupPackages
 	$aUnits = $CapaSDK.GetGroupPackages($GroupName, $GroupType)
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split("|")
+		$aItem = $sItem.Split(";")
 		$oaUnits += [pscustomobject]@{
 			Name			   = $aItem[0];
 			Version		       = $aItem[1];
@@ -392,7 +392,7 @@ function Get-CapaPackageUnits
 	$aUnits = $CapaSDK.GetPackageUnits($PackageName, $PackageVersion, $PackageType)
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split("|")
+		$aItem = $sItem.Split(";")
 		$oaUnits += [pscustomobject]@{
 			Name		   = $aItem[0];
 			Created	       = $aItem[1];
@@ -525,6 +525,7 @@ function Initialize-CapaSDK
 		[string]$DefaultManagementPoint,
 		[string]$InstanceManagementPoint
 	)
+	#TODO: DLL'en er ikke nok til at få modulet til at virke og måske ikke nødvendig overhovedet at have med i installationen 
 	
 	$CapaSDKDllName = "CapaInstaller.SDK.dll"
 	$ModulePaths = $env:PSModulePath -split ";"
@@ -600,6 +601,8 @@ function Initialize-CapaSDK
 		$oCMS.SetInstanceManagementPoint($InstanceManagementPoint) | Out-Null
 	}
 	
+	$oCMS.SetSplitter (";") | Out-Null
+	
 	return $oCMS
 }
 
@@ -638,7 +641,7 @@ function Get-CapaUnits
 	$aUnits = $CapaSDK.GetUnits($Type)
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split("|")
+		$aItem = $sItem.Split(";")
 		$oaUnits += [pscustomobject]@{
 			Name		   = $aItem[0];
 			Created	       = $aItem[1];
@@ -856,7 +859,7 @@ function Get-CapaPackageGroups
 	$aUnits = $CapaSDK.GetPackageGroups($PackageName, $PackageVersion, $PackageType)
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split("|")
+		$aItem = $sItem.Split(";")
 		$oaUnits += [pscustomobject]@{
 			Name	    = $aItem[0];
 			Type	    = $aItem[1];
@@ -1480,7 +1483,7 @@ function Get-CapaGroupUnits
 	$aUnits = $CapaSDK.GetGroupUnits($GroupName, $GroupType)
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split("|")
+		$aItem = $sItem.Split(";")
 		$oaUnits += [pscustomobject]@{
 			Name		 = $aItem[0];
 			Created	     = $aItem[1];

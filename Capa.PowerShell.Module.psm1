@@ -32,39 +32,39 @@
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaPackages
-{
+#TODO: #3 Coverter data til de rigtige datatyper
+
+function Get-CapaPackages {
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Computer', 'User')]
-		[string]$Type = ""
+		[string]$Type = ''
 	)
 	
 	$oaUnits = @()
 	
 	$aUnits = $CapaSDK.GetPackages($Type)
-	foreach ($sItem in $aUnits)
-	{
-		$aItem = $sItem.Split(";")
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name			   = $aItem[0];
-			Version		       = $aItem[1];
-			Type			   = $aItem[2];
-			DisplayName	       = $aItem[3];
-			IsMandatory	       = $aItem[4];
-			ScheduleId		   = $aItem[5];
-			Description	       = $aItem[6];
-			GUID			   = $aItem[7];
-			ID				   = $aItem[8];
-			IsInteractive	   = $aItem[9];
+			Name               = $aItem[0];
+			Version            = $aItem[1];
+			Type               = $aItem[2];
+			DisplayName        = $aItem[3];
+			IsMandatory        = $aItem[4];
+			ScheduleId         = $aItem[5];
+			Description        = $aItem[6];
+			GUID               = $aItem[7];
+			ID                 = $aItem[8];
+			IsInteractive      = $aItem[9];
 			DependendPackageID = $aItem[10];
 			IsInventoryPackage = $aItem[11];
-			CollectMode	       = $aItem[12];
-			Priority		   = $aItem[13];
-			ServerDeploy	   = $aItem[14]
+			CollectMode        = $aItem[12];
+			Priority           = $aItem[13];
+			ServerDeploy       = $aItem[14]
 		}
 	}
 	
@@ -90,40 +90,36 @@ function Get-CapaPackages
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaGroups
-{
+function Get-CapaGroups {
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
-		[string]$GroupType = ""
+		[string]$GroupType = ''
 	)
 	
 	$oaUnits = @()
 	
 	$aUnits = $CapaSDK.GetGroups($GroupType)
-	foreach ($sItem in $aUnits)
-	{
-		$aItem = $sItem.Split(";")
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split(';')
 		
-		if ($aItem[2] -eq "1") {
-			$UnitType = "Computer"
-		}
-		else
-		{
-			$UnitType = "User"
+		if ($aItem[2] -eq '1') {
+			$UnitType = 'Computer'
+		} else {
+			$UnitType = 'User'
 		}
 		
 		$oaUnits += [pscustomobject]@{
-			Name	    	= $aItem[0];
-			Type	    	= $aItem[1];
-			UnitTypeID  	= $aItem[2];
+			Name         = $aItem[0];
+			Type         = $aItem[1];
+			UnitTypeID   = $aItem[2];
 			UnitTypeName	= $UnitType;
-			Description 	= $aItem[3];
-			GUID	    	= $aItem[4];
-			ID		    	= $aItem[5]
+			Description  = $aItem[3];
+			GUID         = $aItem[4];
+			ID           = $aItem[5]
 		}
 	}
 	
@@ -152,8 +148,7 @@ function Get-CapaGroups
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaGroupPackages
-{
+function Get-CapaGroupPackages {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -168,25 +163,24 @@ function Get-CapaGroupPackages
 	$oaUnits = @()
 	
 	$aUnits = $CapaSDK.GetGroupPackages($GroupName, $GroupType)
-	foreach ($sItem in $aUnits)
-	{
-		$aItem = $sItem.Split(";")
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name			   = $aItem[0];
-			Version		       = $aItem[1];
-			Type			   = $aItem[2];
-			DisplayName	       = $aItem[3];
-			IsMandatory	       = $aItem[4];
-			ScheduleId		   = $aItem[5];
-			Description	       = $aItem[6];
-			GUID			   = $aItem[7];
-			ID				   = $aItem[8];
-			IsInteractive	   = $aItem[9];
+			Name               = $aItem[0];
+			Version            = $aItem[1];
+			Type               = $aItem[2];
+			DisplayName        = $aItem[3];
+			IsMandatory        = $aItem[4];
+			ScheduleId         = $aItem[5];
+			Description        = $aItem[6];
+			GUID               = $aItem[7];
+			ID                 = $aItem[8];
+			IsInteractive      = $aItem[9];
 			DependendPackageID = $aItem[10];
 			IsInventoryPackage = $aItem[11];
-			CollectMode	       = $aItem[12];
-			Priority		   = $aItem[13];
-			ServerDeploy	   = $aItem[14]
+			CollectMode        = $aItem[12];
+			Priority           = $aItem[13];
+			ServerDeploy       = $aItem[14]
 		}
 	}
 	
@@ -218,8 +212,7 @@ function Get-CapaGroupPackages
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaPackageFolder
-{
+function Get-CapaPackageFolder {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -268,8 +261,7 @@ function Get-CapaPackageFolder
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaPackageToGroup
-{
+function Add-CapaPackageToGroup {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -323,8 +315,7 @@ function Add-CapaPackageToGroup
 	.NOTES
 		Additional information about the function.
 #>
-function Remove-CapaPackageFromGroup
-{
+function Remove-CapaPackageFromGroup {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -372,8 +363,7 @@ function Remove-CapaPackageFromGroup
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaPackageUnits
-{
+function Get-CapaPackageUnits {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -390,18 +380,17 @@ function Get-CapaPackageUnits
 	$oaUnits = @()
 	
 	$aUnits = $CapaSDK.GetPackageUnits($PackageName, $PackageVersion, $PackageType)
-	foreach ($sItem in $aUnits)
-	{
-		$aItem = $sItem.Split(";")
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name		   = $aItem[0];
-			Created	       = $aItem[1];
-			LastExecuted   = $aItem[2];
-			Status		   = $aItem[3];
-			Description    = $aItem[4];
-			GUID		   = $aItem[5];
-			ID			   = $aItem[6];
-			TypeName	   = $aItem[7]
+			Name         = $aItem[0];
+			Created      = $aItem[1];
+			LastExecuted = $aItem[2];
+			Status       = $aItem[3];
+			Description  = $aItem[4];
+			GUID         = $aItem[5];
+			ID           = $aItem[6];
+			TypeName     = $aItem[7]
 		}
 	}
 	
@@ -433,38 +422,31 @@ function Get-CapaPackageUnits
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaPackagesGroups
-{
+function Get-CapaPackagesGroups {
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
-		[string]$GroupType = "",
+		[string]$GroupType = '',
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Computer', 'User')]
-		[string]$PackageType = ""
+		[string]$PackageType = ''
 	)
 	
 	$oaUnits = Get-CapaPackages -CapaSDK $CapaSDK -Type $PackageType
-	$oaUnits | Add-Member -NotePropertyName LinkedGroups -NotePropertyValue ""
+	$oaUnits | Add-Member -NotePropertyName LinkedGroups -NotePropertyValue ''
 	
 	$AllGroups = Get-CapaGroups -CapaSDK $CapaSDK -Type $GroupType
-	foreach ($Group in $AllGroups)
-	{
-		if ($Group.Type -ne "Catalog" -and $Group.Type -ne "PowerScheme")
-		{
+	foreach ($Group in $AllGroups) {
+		if ($Group.Type -ne 'Catalog' -and $Group.Type -ne 'PowerScheme') {
 			$AllGroupPackages = Get-CapaGroupPackages -CapaSDK $CapaSDK -GroupName $Group.Name -Type $Group.Type
-			foreach ($Package in $AllGroupPackages)
-			{
+			foreach ($Package in $AllGroupPackages) {
 				$CurrentPCK = $oaUnits | Where-Object { $_.Name -eq $Package.Name -and $_.Version -eq $Package.Version }
-				If ($CurrentPCK.LinkedGroups -eq "")
-				{
+				If ($CurrentPCK.LinkedGroups -eq '') {
 					$CurrentPCK.LinkedGroups = $Group.Name
-				}
-				else
-				{
+				} else {
 					$CurrentPCK.LinkedGroups += ";$($Group.Name)"
 				}
 			}
@@ -509,68 +491,56 @@ function Get-CapaPackagesGroups
 	.NOTES
 		Additional information about the function.
 #>
-function Initialize-CapaSDK
-{
+function Initialize-CapaSDK {
 	[CmdletBinding()]
 	param
 	(
-		[string]$CapaSdkDllPath = "",
+		[string]$CapaSdkDllPath = '',
 		[Parameter(Mandatory = $true)]
 		[string]$Server,
 		[Parameter(Mandatory = $true)]
-		[string]$Database = "",
-		[string]$UserName = "",
-		[string]$Password = "",
+		[string]$Database = '',
+		[string]$UserName = '',
+		[string]$Password = '',
 		[Parameter(Mandatory = $false)]
 		[string]$DefaultManagementPoint,
 		[string]$InstanceManagementPoint
 	)
-	#TODO: DLL'en er ikke nok til at få modulet til at virke og måske ikke nødvendig overhovedet at have med i installationen 
+	#TODO: #1 DLL'en er ikke nok til at få modulet til at virke og måske ikke nødvendig overhovedet at have med i installationen 
 	
-	$CapaSDKDllName = "CapaInstaller.SDK.dll"
-	$ModulePaths = $env:PSModulePath -split ";"
+	$CapaSDKDllName = 'CapaInstaller.SDK.dll'
+	$ModulePaths = $env:PSModulePath -split ';'
 	
 	# If CapaSdkDllPath i not null then insert DLL file in module folder
-	If ($CapaSdkDllPath -ne "")
-	{
-		foreach ($Path in $ModulePaths)
-		{
+	If ($CapaSdkDllPath -ne '') {
+		foreach ($Path in $ModulePaths) {
 			$TestPath = "$Path\Capa.PowerShell.Module\"
-			If (Test-Path $TestPath)
-			{
+			If (Test-Path $TestPath) {
 				$Destination = "$TestPath\$CapaSDKDllName"
 				Copy-Item -Path $CapaSdkDllPath -Destination $Destination -Force
 			}
 		}
 	}
 	# Finds CapaInstaller SDK DLL, if it does not exist then ask for the DLL file
-	Else
-	{
-		$NewDllFilePath = ""
-		foreach ($Path in $ModulePaths)
-		{
+	Else {
+		$NewDllFilePath = ''
+		foreach ($Path in $ModulePaths) {
 			$TestPath = "$Path\Capa.PowerShell.Module\"
-			If (Test-Path $TestPath)
-			{
+			If (Test-Path $TestPath) {
 				$TestDllPath = "$TestPath\$CapaSDKDllName"
-				If (Test-Path $TestDllPath)
-				{
+				If (Test-Path $TestDllPath) {
 					$Destination = $TestDllPath
-				}
-				elseif ($NewDllFilePath -eq "")
-				{
+				} elseif ($NewDllFilePath -eq '') {
 					#Browsing file
 					Add-Type -AssemblyName System.Windows.Forms
 					$FileBrowser = New-Object System.Windows.Forms.OpenFileDialog
-					$FileBrowser.Filter = "Dll (*.dll)| *.dll"
+					$FileBrowser.Filter = 'Dll (*.dll)| *.dll'
 					[void]$FileBrowser.ShowDialog()
 					$NewDllFilePath = $FileBrowser.FileName
 					
 					$Destination = "$TestDllPath\$CapaSDKDllName"
 					Copy-Item -Path $NewDllFilePath -Destination $Destination -Force
-				}
-				Else
-				{
+				} Else {
 					$Destination = "$TestDllPath\$CapaSDKDllName"
 					Copy-Item -Path $NewDllFilePath -Destination $Destination -Force
 				}
@@ -582,26 +552,21 @@ function Initialize-CapaSDK
 	Add-Type -Path $Destination
 	$oCMS = New-Object -ComObject CapaInstaller.SDK
 	
-	If ($UserName -ne "" -or $Password -ne "")
-	{
+	If ($UserName -ne '' -or $Password -ne '') {
 		$oCMS.SetDatabaseSettings($Server, $Database, $true, $UserName, $Password) | Out-Null
-	}
-	else
-	{
+	} else {
 		$oCMS.SetDatabaseSettings($Server, $Database, $false) | Out-Null
 	}
 	
-	if ($DefaultManagementPoint -ne "")
-	{
+	if ($DefaultManagementPoint -ne '') {
 		$oCMS.SetDefaultManagementPoint($DefaultManagementPoint) | Out-Null
 	}
 	
-	if ($InstanceManagementPoint -ne "")
-	{
+	if ($InstanceManagementPoint -ne '') {
 		$oCMS.SetInstanceManagementPoint($InstanceManagementPoint) | Out-Null
 	}
 	
-	$oCMS.SetSplitter (";") | Out-Null
+	$oCMS.SetSplitter (';') | Out-Null
 	
 	return $oCMS
 }
@@ -625,35 +590,33 @@ function Initialize-CapaSDK
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnits
-{
+function Get-CapaUnits {
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Computer', 'User')]
-		[string]$Type = ""
+		[string]$Type = ''
 	)
 	
 	$oaUnits = @()
 	
 	$aUnits = $CapaSDK.GetUnits($Type)
-	foreach ($sItem in $aUnits)
-	{
-		$aItem = $sItem.Split(";")
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name		   = $aItem[0];
-			Created	       = $aItem[1];
+			Name           = $aItem[0];
+			Created        = $aItem[1];
 			LastExecuted   = $aItem[2];
-			Status		   = $aItem[3];
+			Status         = $aItem[3];
 			Description    = $aItem[4];
-			GUID		   = $aItem[5];
-			ID			   = $aItem[6];
-			TypeName	   = $aItem[7];
-			UUID		   = $aItem[8];
+			GUID           = $aItem[5];
+			ID             = $aItem[6];
+			TypeName       = $aItem[7];
+			UUID           = $aItem[8];
 			IsMobileDevice = $aItem[9];
-			Location	   = $aItem[10]
+			Location       = $aItem[10]
 		}
 	}
 	
@@ -685,8 +648,7 @@ function Get-CapaUnits
 	.NOTES
 		Additional information about the function.
 #>
-function Initialize-CapaPackagePromote
-{
+function Initialize-CapaPackagePromote {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -735,8 +697,7 @@ function Initialize-CapaPackagePromote
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaPackageFolder
-{
+function Set-CapaPackageFolder {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -789,8 +750,7 @@ function Set-CapaPackageFolder
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaUnitToPackage
-{
+function Add-CapaUnitToPackage {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -839,8 +799,7 @@ function Add-CapaUnitToPackage
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaPackageGroups
-{
+function Get-CapaPackageGroups {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -857,16 +816,15 @@ function Get-CapaPackageGroups
 	$oaUnits = @()
 	
 	$aUnits = $CapaSDK.GetPackageGroups($PackageName, $PackageVersion, $PackageType)
-	foreach ($sItem in $aUnits)
-	{
-		$aItem = $sItem.Split(";")
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name	    = $aItem[0];
-			Type	    = $aItem[1];
+			Name        = $aItem[0];
+			Type        = $aItem[1];
 			UnitTypeID  = $aItem[2];
 			Description = $aItem[3];
-			GUID	    = $aItem[4];
-			ID		    = $aItem[5]
+			GUID        = $aItem[4];
+			ID          = $aItem[5]
 		}
 	}
 	
@@ -904,8 +862,7 @@ function Get-CapaPackageGroups
 	.NOTES
 		Additional information about the function.
 #>
-function Remove-CapaUnitFromPackage
-{
+function Remove-CapaUnitFromPackage {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -924,12 +881,9 @@ function Remove-CapaUnitFromPackage
 		[string]$UnitType
 	)
 	
-	if ($PackageType -eq 'Computer')
-	{
+	if ($PackageType -eq 'Computer') {
 		$PackageType = 1
-	}
-	else
-	{
+	} else {
 		$PackageType = 2
 	}
 	
@@ -962,8 +916,7 @@ function Remove-CapaUnitFromPackage
 	.NOTES
 		Additional information about the function.
 #>
-function Disable-CapaPackageSchedule
-{
+function Disable-CapaPackageSchedule {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -1027,8 +980,7 @@ function Disable-CapaPackageSchedule
 	.NOTES
 		Additional information about the function.
 #>
-function Copy-CapaPackageRelation
-{
+function Copy-CapaPackageRelation {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -1049,10 +1001,10 @@ function Copy-CapaPackageRelation
 		[string]$ToPackageVersion,
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('All', 'None')]
-		[string]$CopyGroups = "None",
+		[string]$CopyGroups = 'None',
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('All', 'None')]
-		[string]$CopyUnits = "None",
+		[string]$CopyUnits = 'None',
 		[bool]$UnlinkGroupsAndUnitsFromExistingPackage = $false,
 		[bool]$DisableScheduleOnExistingPackage = $false
 	)
@@ -1064,142 +1016,109 @@ function Copy-CapaPackageRelation
 	$FuctionSuccessful = $true
 	
 	# Get data if needed
-	if ($CopyGroups -eq "All" -or $UnlinkGroupsAndUnitsFromExistingPackage -eq $true)
-	{
+	if ($CopyGroups -eq 'All' -or $UnlinkGroupsAndUnitsFromExistingPackage -eq $true) {
 		$AllFromGroups = Get-CapaPackageGroups -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageType $FromPackageType -PackageVersion $FromPackageVersion
 		$AllToGroups = Get-CapaPackageGroups -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageType $ToPackageType -PackageVersion $ToPackageVersion
 		Write-Host "$($AllFromGroups.Count) linked groups"
 	}
-	if ($CopyUnits -eq "All" -or $UnlinkGroupsAndUnitsFromExistingPackage -eq $true)
-	{
+	if ($CopyUnits -eq 'All' -or $UnlinkGroupsAndUnitsFromExistingPackage -eq $true) {
 		$AllFromUnits = Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType
 		$AllToUnits = Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType
 		Write-Host "$($AllFromUnits.Count) linked units"
 	}
 	
 	# Copy Groups
-	if ($CopyGroups -eq "All")
-	{
-		foreach ($Group in $AllFromGroups)
-		{
+	if ($CopyGroups -eq 'All') {
+		foreach ($Group in $AllFromGroups) {
 			Write-Host "Adding package to group: $($Group.Name)"
 			$bool = Add-CapaPackageToGroup -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -GroupName $Group.Name -GroupType $Group.Type
-			if ($bool -eq $false)
-			{
+			if ($bool -eq $false) {
 				# Is it already added to the group
 				$Check = $AllToGroups | Where-Object { $_.Name -eq $Group.Name -and $_.Type -eq $Group.Type }
 				
-				if ($Check.Count -eq 1)
-				{
-					Write-Host "Group is already linked"
-				}
-				else
-				{
+				if ($Check.Count -eq 1) {
+					Write-Host 'Group is already linked'
+				} else {
 					Write-Host "$bool" -ForegroundColor Red
 					$AGroupCopyHasFailed = $true
 				}
-			}
-			else
-			{
+			} else {
 				Write-Host "$bool"
 			}
 		}
 	}
 	
 	# Copy Units
-	if ($CopyUnits -eq "All")
-	{
-		foreach ($Unit in $AllFromUnits)
-		{
+	if ($CopyUnits -eq 'All') {
+		foreach ($Unit in $AllFromUnits) {
 			
 			$bool = Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageType $ToPackageType -PackageName $ToPackageName -PackageVersion $ToPackageVersion -UnitName $Unit.Name -UnitType $Unit.TypeName
-			if ($bool -eq $false)
-			{
+			if ($bool -eq $false) {
 				# Is it already added to the unit
 				$Check = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.TypeName -eq $Unit.TypeName }
 				
-				if ($Check.Count -eq 1)
-				{
-					Write-Host "Unit is already linked"
-				}
-				else
-				{
+				if ($Check.Count -eq 1) {
+					Write-Host 'Unit is already linked'
+				} else {
 					Write-Host "$bool" -ForegroundColor Red
 					$AUnitCopyHasFailed = $true
 				}
-			}
-			else
-			{
+			} else {
 				Write-Host "$bool"
 			}
 		}
 	}
 	
-	If ($AGroupCopyHasFailed -eq $true -or $AUnitCopyHasFailed -eq $true)
-	{
-		Write-Host "Skipping:" -ForegroundColor Red
-		Write-Host "    Unlink Groups And Units From Existing Package" -ForegroundColor Red
-		Write-Host "    Disable Schedule On Existing Package" -ForegroundColor Red
-		Write-Host ""
-		Write-Host "Because copying a group- or unit link failed" -ForegroundColor Red
+	If ($AGroupCopyHasFailed -eq $true -or $AUnitCopyHasFailed -eq $true) {
+		Write-Host 'Skipping:' -ForegroundColor Red
+		Write-Host '    Unlink Groups And Units From Existing Package' -ForegroundColor Red
+		Write-Host '    Disable Schedule On Existing Package' -ForegroundColor Red
+		Write-Host ''
+		Write-Host 'Because copying a group- or unit link failed' -ForegroundColor Red
 		$FuctionSuccessful = $false
-	}
-	else
-	{
+	} else {
 		# Unlink Groups And Units From Existing Package
-		if ($UnlinkGroupsAndUnitsFromExistingPackage -eq $true)
-		{
-			foreach ($Group in $AllFromGroups)
-			{
+		if ($UnlinkGroupsAndUnitsFromExistingPackage -eq $true) {
+			foreach ($Group in $AllFromGroups) {
 				Write-Host "Unlinking group $($Group.Name)"
 				$bool = Remove-CapaPackageFromGroup -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType -GroupName $Group.Name -GroupType $Group.Type
-				if ($bool -eq $false)
-				{
+				if ($bool -eq $false) {
 					Write-Host "$bool" -ForegroundColor Red
 					$AGroupUnlinkHasFailed = $true
-				}
-				else
-				{
+				} else {
 					Write-Host "$bool"
 				}
 			}
-			foreach ($Unit in $AllFromUnits)
-			{
+			foreach ($Unit in $AllFromUnits) {
 				Write-Host "Unlinking unit $($Group.Name)"
 				
-				if ($Unit.TypeName -eq "Computers")
-				{
-					$Unit.TypeName = "Computer"
+				if ($Unit.TypeName -eq 'Computers') {
+					$Unit.TypeName = 'Computer'
 				}
 				
 				$bool = Remove-CapaUnitFromPackage -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType -UnitName $Unit.Name -UnitType $Unit.TypeName
-				if ($bool -eq $false)
-				{
+				if ($bool -eq $false) {
 					Write-Host "$bool" -ForegroundColor Red
 					$AUnitUnlinkHasFailed = $true
-				}
-				else
-				{
+				} else {
 					Write-Host "$bool"
 				}
 			}
 		}
 		
 		# Disable Schedule On Existing Package
-		if ($DisableScheduleOnExistingPackage -eq $true)
-		{
+		if ($DisableScheduleOnExistingPackage -eq $true) {
 			Disable-CapaPackageSchedule -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType
 		}
 		
-		#TODOLATER: $CopyPackageSchedule
-        <#
+		#TODOLATER: #2 CopyPackageSchedule der findes ikke en funktion i SDK'en
+		<#
             Currently not avalible in the SDK, there is set fuction but not get
             https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247048/Set+Package+Schedule
         #>
 	}
 	
-	if ($AGroupUnlinkHasFailed -eq $true -or $AUnitUnlinkHasFailed -eq $true)
-	{
+	if ($AGroupUnlinkHasFailed -eq $true -or $AUnitUnlinkHasFailed -eq $true) {
 		$FuctionSuccessful = $false
 	}
 	
@@ -1234,8 +1153,7 @@ function Copy-CapaPackageRelation
 	.NOTES
 		Additional information about the function.
 #>
-function Remove-CapaPackage
-{
+function Remove-CapaPackage {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -1248,7 +1166,7 @@ function Remove-CapaPackage
 		[Parameter(Mandatory = $true)]
 		[string]$PackageVersion,
 		[ValidateSet('True', 'False')]
-		[string]$Force = "True"
+		[string]$Force = 'True'
 	)
 	
 	$bool = $CapaSDK.DeletePackage($PackageName, $PackageVersion, $PackageType, $Force)
@@ -1283,8 +1201,7 @@ function Remove-CapaPackage
 	.NOTES
 		Additional information about the function.
 #>
-function Export-CapaPackage
-{
+function Export-CapaPackage {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -1326,26 +1243,22 @@ function Export-CapaPackage
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitLastRuntime
-{
+function Get-CapaUnitLastRuntime {
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[string]$UnitName = "",
+		[string]$UnitName = '',
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User', '1', '2')]
-		[string]$UnitType = ""
+		[string]$UnitType = ''
 	)
 	
-	if ($UnitType -eq 'Computer')
-	{
-		$UnitType = "1"
-	}
-	else
-	{
-		$UnitType = "2"
+	if ($UnitType -eq 'Computer') {
+		$UnitType = '1'
+	} else {
+		$UnitType = '2'
 	}
 	
 	$aUnits = $CapaSDK.GetUnitLastRuntime($UnitName, $UnitType)
@@ -1375,17 +1288,16 @@ function Get-CapaUnitLastRuntime
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaUnitStatus
-{
+function Set-CapaUnitStatus {
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[string]$UnitName = "",
+		[string]$UnitName = '',
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Active', 'Inactive')]
-		[string]$Status = ""
+		[string]$Status = ''
 	)
 	
 	$aUnits = $CapaSDK.SetUnitStatus($UnitName, $Status)
@@ -1421,19 +1333,18 @@ function Set-CapaUnitStatus
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaUnitToFolder
-{
+function Add-CapaUnitToFolder {
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[string]$UnitName = "",
+		[string]$UnitName = '',
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[string]$UnitType = "",
+		[string]$UnitType = '',
 		[Parameter(Mandatory = $true)]
-		[string]$FolderStructure = "",
+		[string]$FolderStructure = '',
 		[ValidateSet('true', 'false')]
 		[string]$CreateFolder
 	)
@@ -1465,8 +1376,7 @@ function Add-CapaUnitToFolder
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaGroupUnits
-{
+function Get-CapaGroupUnits {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -1481,18 +1391,17 @@ function Get-CapaGroupUnits
 	$oaUnits = @()
 	
 	$aUnits = $CapaSDK.GetGroupUnits($GroupName, $GroupType)
-	foreach ($sItem in $aUnits)
-	{
-		$aItem = $sItem.Split(";")
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name		 = $aItem[0];
-			Created	     = $aItem[1];
+			Name         = $aItem[0];
+			Created      = $aItem[1];
 			LastExecuted = $aItem[2];
-			Status	     = $aItem[3];
+			Status       = $aItem[3];
 			Description  = $aItem[4];
-			GUID		 = $aItem[5];
-			ID		     = $aItem[6];
-			TypeName	 = $aItem[7]
+			GUID         = $aItem[5];
+			ID           = $aItem[6];
+			TypeName     = $aItem[7]
 		}
 	}
 	
@@ -1524,8 +1433,7 @@ function Get-CapaGroupUnits
 	.NOTES
 		Additional information about the function.
 #>
-function Remove-CapaGroup
-{
+function Remove-CapaGroup {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -1564,8 +1472,7 @@ function Remove-CapaGroup
 	.NOTES
 		Additional information about the function.
 #>
-function Remove-CapaUnitByUUID
-{
+function Remove-CapaUnitByUUID {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -1601,8 +1508,7 @@ function Remove-CapaUnitByUUID
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitFolder
-{
+function Get-CapaUnitFolder {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -1647,8 +1553,7 @@ function Get-CapaUnitFolder
 	.NOTES
 		Additional information about the function.
 #>
-function Remove-CapaUnitFromGroup
-{
+function Remove-CapaUnitFromGroup {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -1686,15 +1591,13 @@ function Remove-CapaUnitFromGroup
 	.NOTES
 		Additional information about the function.
 #>
-function Convert-CapaDataType
-{
+function Convert-CapaDataType {
 	param
 	(
 		$Datatype
 	)
 	
-	switch ($DataType)
-	{
+	switch ($DataType) {
 		1 { $Datatype = 'String' }
 		2 { $Datatype = 'Time' }
 		3 { $Datatype = 'Integer' }
@@ -1728,37 +1631,32 @@ function Convert-CapaDataType
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaCustomInventoryForUnit
-{
+function Get-CapaCustomInventoryForUnit {
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[string]$UnitName,
 		[Parameter(ParameterSetName = 'NameType',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$UnitType,
 		[Parameter(ParameterSetName = 'Uuid',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[string]$Uuid
 	)
 	
 	$oaUnits = @()
 	
-	if ($PSCmdlet.ParameterSetName -eq 'NameType')
-	{
+	if ($PSCmdlet.ParameterSetName -eq 'NameType') {
 		$aUnits = $CapaSDK.GetCustomInventoryForUnit($UnitName, $UnitType)
-	}
-	else
-	{
+	} else {
 		$aUnits = $CapaSDK.GetCustomInventoryForUnitUUID($Uuid)
 	}
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split('|')
 		$DataType = Convert-CapaDataType -Datatype $aItem[3]
 		$oaUnits += [pscustomobject]@{
@@ -1766,8 +1664,8 @@ function Get-CapaCustomInventoryForUnit
 			Entry    = $aItem[1];
 			Value    = $aItem[2];
 			Datatype = $DataType;
-			GUID	 = $aItem[4];
-			ID	     = $aItem[5]
+			GUID     = $aItem[4];
+			ID       = $aItem[5]
 		}
 	}
 	
@@ -1796,8 +1694,7 @@ function Get-CapaCustomInventoryForUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaHardwareInventoryForUnit
-{
+function Get-CapaHardwareInventoryForUnit {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -1813,8 +1710,7 @@ function Get-CapaHardwareInventoryForUnit
 	
 	$aUnits = $CapaSDK.GetHardwareInventoryForUnit($UnitName, $UnitType)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split('|')
 		$DataType = Convert-CapaDataType -Datatype $aItem[3]
 		$oaUnits += [pscustomobject]@{
@@ -1822,8 +1718,8 @@ function Get-CapaHardwareInventoryForUnit
 			Entry    = $aItem[1];
 			Value    = $aItem[2];
 			Datatype = $DataType;
-			GUID	 = $aItem[4];
-			ID	     = $aItem[5]
+			GUID     = $aItem[4];
+			ID       = $aItem[5]
 		}
 	}
 	
@@ -1852,8 +1748,7 @@ function Get-CapaHardwareInventoryForUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaLogonHistoryForUnit
-{
+function Get-CapaLogonHistoryForUnit {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -1869,8 +1764,7 @@ function Get-CapaLogonHistoryForUnit
 	
 	$aUnits = $CapaSDK.GetLogonHistoryForUnit($UnitName, $UnitType)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split('|')
 		$DataType = Convert-CapaDataType -Datatype $aItem[3]
 		$oaUnits += [pscustomobject]@{
@@ -1878,8 +1772,8 @@ function Get-CapaLogonHistoryForUnit
 			Entry    = $aItem[1];
 			Value    = $aItem[2];
 			Datatype = $DataType;
-			GUID	 = $aItem[4];
-			ID	     = $aItem[5]
+			GUID     = $aItem[4];
+			ID       = $aItem[5]
 		}
 	}
 	
@@ -1911,58 +1805,51 @@ function Get-CapaLogonHistoryForUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaSoftwareInventoryForUnit
-{
+function Get-CapaSoftwareInventoryForUnit {
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[string]$UnitName,
 		[Parameter(ParameterSetName = 'NameType',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[Parameter(ParameterSetName = 'Uuid',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[ValidateSet('Computer', 'User', '1', '2')]
 		[string]$UnitType,
 		[Parameter(ParameterSetName = 'Uuid',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[string]$Uuid
 	)
 	
-	if ($UnitType -eq 'Computer')
-	{
+	if ($UnitType -eq 'Computer') {
 		$UnitType = '1'
 	}
-	if ($UnitType -eq 'User')
-	{
+	if ($UnitType -eq 'User') {
 		$UnitType = '2'
 	}
 	
 	$oaUnits = @()
 	
-	if ($PSCmdlet.ParameterSetName -eq 'NameType')
-	{
+	if ($PSCmdlet.ParameterSetName -eq 'NameType') {
 		$aUnits = $CapaSDK.GetSoftwareInventoryForUnit($UnitName, $UnitType)
-	}
-	else
-	{
+	} else {
 		$aUnits = $CapaSDK.GetSoftwareInventoryForUnit($Uuid, $UnitType)
 	}
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split('|')
 		$oaUnits += [pscustomobject]@{
-			SoftwareName		   = $aItem[0];
-			SoftwareVersion	       = $aItem[1];
-			InstallDate		       = $aItem[2];
+			SoftwareName           = $aItem[0];
+			SoftwareVersion        = $aItem[1];
+			InstallDate            = $aItem[2];
 			SoftwareMeteringModule = $aItem[3];
-			SoftwareAppCode	       = $aItem[4];
+			SoftwareAppCode        = $aItem[4];
 			SoftwareDescription    = $aItem[5];
-			SoftwareID			   = $aItem[6];
-			SoftwareVendor		   = $aItem[7]
+			SoftwareID             = $aItem[6];
+			SoftwareVendor         = $aItem[7]
 		}
 	}
 	

@@ -108,7 +108,8 @@
 		'Get-CapaCustomInventoryForUnit',
 		'Get-CapaHardwareInventoryForUnit',
 		'Get-CapaLogonHistoryForUnit',
-		'Get-CapaSoftwareInventoryForUnit'
+		'Get-CapaSoftwareInventoryForUnit',
+		'Create-CapaGroup'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

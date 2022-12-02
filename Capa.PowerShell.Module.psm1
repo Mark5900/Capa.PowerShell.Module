@@ -1855,3 +1855,50 @@ function Get-CapaSoftwareInventoryForUnit {
 	
 	Return $oaUnits
 }
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246224/Create+group
+	
+	.DESCRIPTION
+		A detailed description of the Create-CapaGroup function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER GroupName
+		A description of the GroupName  parameter.
+	
+	.PARAMETER GroupType
+		A description of the GroupType  parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.EXAMPLE
+				PS C:\> Create-CapaGroup -CapaSDK $value1 -GroupName  'Value2' -GroupType  Calendar -UnitType Computer
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Create-CapaGroup
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$GroupName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Calendar', 'Department', 'Static')]
+		[string]$GroupType,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[String]$UnitType
+	)
+	
+	$value = $CapaSDK.CreateGroup($GroupName, $GroupType, $UnitType)
+	
+	return $value
+}

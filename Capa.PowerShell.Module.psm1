@@ -1881,8 +1881,7 @@ function Get-CapaSoftwareInventoryForUnit {
 	.NOTES
 		Additional information about the function.
 #>
-function Create-CapaGroup
-{
+function Create-CapaGroup {
 	[CmdletBinding()]
 	param
 	(
@@ -1899,6 +1898,307 @@ function Create-CapaGroup
 	)
 	
 	$value = $CapaSDK.CreateGroup($GroupName, $GroupType, $UnitType)
+	
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247732/Set+unit+label
+	
+	.DESCRIPTION
+		A detailed description of the Set-CapaUnitLabel function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.PARAMETER Label
+		A description of the Label parameter.
+	
+	.EXAMPLE
+				PS C:\> Set-CapaUnitLabel -CapaSDK $value1 -UnitName 'Value2' -UnitType 'Value3' -Label 'Value4'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Set-CapaUnitLabel {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$UnitName,
+		[Parameter(Mandatory = $true)]
+		[string]$UnitType,
+		[Parameter(Mandatory = $true)]
+		[string]$Label
+	)
+	
+	$value = $CapaSDK.SetUnitLabel($UnitName, $UnitType, $Label)
+	
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247648/Remove+unit+from+business+unit
+	
+	.DESCRIPTION
+		A detailed description of the Remove-CapaUnitFromBusinessUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.EXAMPLE
+		PS C:\> Remove-CapaUnitFromBusinessUnit -CapaSDK $value1 -UnitName 'Value2' -UnitType 'Value3'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Remove-CapaUnitFromBusinessUnit {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$UnitName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$UnitType
+	)
+	
+	$value = $CapaSDK.RemoveUnitFromBusinessUnit($UnitName, $UnitType)
+	
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247294/Add+unit+to+business+unit
+	
+	.DESCRIPTION
+		A detailed description of the Add-CapaUnitToBusinessUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.PARAMETER BusinessUnit
+		A description of the BusinessUnit parameter.
+	
+	.EXAMPLE
+				PS C:\> Add-CapaUnitToBusinessUnit -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer -BusinessUnit 'Value4'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Add-CapaUnitToBusinessUnit {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$UnitName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$UnitType,
+		[Parameter(Mandatory = $true)]
+		[string]$BusinessUnit
+	)
+	
+	$value = $CapaSDK.AddUnitToBusinessUnit($UnitName, $UnitType, $BusinessUnit)
+	
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247318/Add+unit+to+group
+	
+	.DESCRIPTION
+		A detailed description of the Add-CapaUnitToGroup function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.PARAMETER GroupName
+		A description of the GroupName parameter.
+	
+	.PARAMETER GroupType
+		A description of the GroupType parameter.
+	
+	.EXAMPLE
+				PS C:\> Add-CapaUnitToGroup -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer -GroupName 'Value4' -GroupType Calendar
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Add-CapaUnitToGroup {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$UnitName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User', 'Printer')]
+		[string]$UnitType,
+		[Parameter(Mandatory = $true)]
+		[string]$GroupName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Calendar', 'Department', 'Reinstall', 'Security', 'Static', 'Dynamic_SQL', 'Dynamic_ADSI')]
+		[string]$GroupType
+	)
+	
+	if ($GroupType -eq 'Dynamic_SQL' -and $UnitType -eq 'Printer' -or $GroupType -eq 'Dynamic_ADSI' -and $UnitType -eq 'Printer') {
+		Write-Host "GroupType $GroupType only works for UnitType Printer"
+		return 'False'
+	} else {
+		$value = $CapaSDK.AddUnitToGroup($UnitName, $UnitType, $GroupName, $GroupType)
+		
+		return $value
+	}
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247482/Get+unit+groups
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaUnitGroups function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaUnitGroups -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaUnitGroups {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$UnitName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$UnitType
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetUnitGroups($UnitName, $UnitType)
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			Name        = $aItem[0];
+			Type        = $aItem[1];
+			unitTypeID  = $aItem[2];
+			Description = $aItem[3];
+			GUID        = $aItem[4];
+			ID          = $aItem[5]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246796/Add+Package+to+BusinessUnit
+	
+	.DESCRIPTION
+		A detailed description of the Add-CapaPackageToBusinessUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.PARAMETER BusinessUnitName
+		A description of the BusinessUnitName parameter.
+	
+	.EXAMPLE
+				PS C:\> Add-CapaPackageToBusinessUnit -CapaSDK $value1 -PackageName $value2 -PackageVersion $value3 -PackageType Computer -BusinessUnitName $value5
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Add-CapaPackageToBusinessUnit {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		$PackageName,
+		[Parameter(Mandatory = $true)]
+		$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User', '1', '2')]
+		$PackageType,
+		[Parameter(Mandatory = $true)]
+		$BusinessUnitName
+	)
+	
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
+	}
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
+	}
+	
+	$value = $CapaSDK.AddPackageToBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
 	
 	return $value
 }

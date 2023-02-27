@@ -109,7 +109,13 @@
 		'Get-CapaHardwareInventoryForUnit',
 		'Get-CapaLogonHistoryForUnit',
 		'Get-CapaSoftwareInventoryForUnit',
-		'Create-CapaGroup'
+		'Create-CapaGroup',
+		'Set-CapaUnitLabel',
+		'Remove-CapaUnitFromBusinessUnit',
+		'Add-CapaUnitToBusinessUnit',
+		'Add-CapaUnitToGroup',
+		'Get-CapaUnitGroups',
+		'Add-CapaPackageToBusinessUnit'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

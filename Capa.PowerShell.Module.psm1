@@ -1923,12 +1923,13 @@ function Create-CapaGroup {
 		A description of the Label parameter.
 	
 	.EXAMPLE
-				PS C:\> Set-CapaUnitLabel -CapaSDK $value1 -UnitName 'Value2' -UnitType 'Value3' -Label 'Value4'
+		PS C:\> Set-CapaUnitLabel -CapaSDK $value1 -UnitName 'Value2' -UnitType 'Value3' -Label 'Value4'
 	
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaUnitLabel {
+function Set-CapaUnitLabel
+{
 	[CmdletBinding()]
 	param
 	(
@@ -1937,6 +1938,7 @@ function Set-CapaUnitLabel {
 		[Parameter(Mandatory = $true)]
 		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
 		[string]$UnitType,
 		[Parameter(Mandatory = $true)]
 		[string]$Label

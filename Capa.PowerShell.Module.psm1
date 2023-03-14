@@ -2204,3 +2204,184 @@ function Add-CapaPackageToBusinessUnit {
 	
 	return $value
 }
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246290/Get+groups+on+Business+Unit
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaGroupsInBusinessUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER BusinessUnit
+		A description of the BusinessUnit parameter.
+	
+	.PARAMETER Type
+		A description of the Type parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaGroupsInBusinessUnit -CapaSDK $value1 -BusinessUnit 'Value2'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaGroupsInBusinessUnit
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$BusinessUnit,
+		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
+		[string]$Type = ""
+	)
+	
+	$oaUnits = @()
+	
+	If ($Type -eq "")
+	{
+		$aUnits = $CapaSDK.GetGroupsInBusinessUnit($BusinessUnit)
+	}
+	Else
+	{
+		$aUnits = $CapaSDK.GetGroupsInBusinessUnit($BusinessUnit,$Type)
+	}
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			Name	    = $aItem[0];
+			Type	    = $aItem[1];
+			unitTypeID  = $aItem[2];
+			Description = $aItem[3];
+			GUID	    = $aItem[4];
+			ID		    = $aItem[5]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247592/Get+units+on+business+unit
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaUnitsOnBusinessUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER BusinessUnit
+		A description of the BusinessUnit parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaUnitsOnBusinessUnit -CapaSDK $value1 -BusinessUnit 'Value2'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaUnitsOnBusinessUnit
+{
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$BusinessUnit,
+		[ValidateSet('Computer', 'User')]
+		[string]$UnitType = ""
+	)
+	
+	$oaUnits = @()
+	
+	if ($UnitType -eq "")
+	{
+		$aUnits = $CapaSDK.GetUnitsOnBusinessUnit($BusinessUnit)
+	}
+	Else
+	{
+		$aUnits = $CapaSDK.GetUnitsOnBusinessUnit($BusinessUnit,$UnitType)
+	}
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			Name		   = $aItem[0];
+			Created	       = $aItem[1];
+			LastExecuted   = $aItem[2];
+			Status		   = $aItem[3];
+			Description    = $aItem[4];
+			GUID		   = $aItem[5];
+			ID			   = $aItem[6];
+			TypeName	   = $aItem[7];
+			UUID		   = $aItem[8];
+			IsMobileDevice = $aItem[9];
+			Location	   = $aItem[10]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246232/Create+group+in+Business+Unit
+	
+	.DESCRIPTION
+		A detailed description of the Create-CapaGroupInBusinessUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER GroupName
+		A description of the GroupName parameter.
+	
+	.PARAMETER GroupType
+		A description of the GroupType parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType  parameter.
+	
+	.PARAMETER BusinessUnit
+		A description of the BusinessUnit parameter.
+	
+	.EXAMPLE
+				PS C:\> Create-CapaGroupInBusinessUnit -CapaSDK $value1 -GroupName 'Value2' -GroupType Calendar -UnitType  'Value4' -BusinessUnit 'Value5'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Create-CapaGroupInBusinessUnit
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$GroupName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Calendar', 'Department', 'Static')]
+		[string]$GroupType,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$UnitType,
+		[Parameter(Mandatory = $true)]
+		[string]$BusinessUnit
+	)
+	
+	$value = $CapaSDK.CreateGroupInBusinessUnit($GroupName,$GroupType,$UnitType,$BusinessUnit)
+	
+	return $value
+}

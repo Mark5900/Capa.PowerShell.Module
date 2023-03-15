@@ -118,7 +118,9 @@
 		'Add-CapaPackageToBusinessUnit',
 		'Get-CapaGroupsInBusinessUnit',
 		'Get-CapaUnitsOnBusinessUnit',
-		'Create-CapaGroupInBusinessUnit'
+		'Create-CapaGroupInBusinessUnit',
+		'Get-CapaDllVersion',
+		'Get-CapaSchedule'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

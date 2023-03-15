@@ -128,7 +128,13 @@
 		'Get-CapaGroupFolder',
 		'Set-CapaGroupDescription',
 		'Set-CapaGroupFolder',
-		'Set-CapaGroupFolderInABusinessUnit'
+		'Set-CapaGroupFolderInABusinessUnit',
+		'Get-CapaMeteringGroups',
+		'Get-CapaUpdateInventoryForUnit',
+		'Get-CapaUserInventory',
+		'Get-CapaCustomInventoryCategoriesAndEntries',
+		'Set-CapaCustomInventory',
+		'Set-CapaHardwareInventory'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

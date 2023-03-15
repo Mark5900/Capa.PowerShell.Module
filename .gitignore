@@ -5,4 +5,3 @@
 *.Run.ps1
 *.Package.ps1
 CustomMenu.inf
-bin\*

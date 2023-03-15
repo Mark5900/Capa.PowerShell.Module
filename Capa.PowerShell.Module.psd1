@@ -120,7 +120,15 @@
 		'Get-CapaUnitsOnBusinessUnit',
 		'Create-CapaGroupInBusinessUnit',
 		'Get-CapaDllVersion',
-		'Get-CapaSchedule'
+		'Get-CapaSchedule',
+		'Create-CapaADGroup',
+		'Remove-CapaGroupInBusinessUnit',
+		'Get-CapaApplicationGroups',
+		'Get-CapaGroupDescription',
+		'Get-CapaGroupFolder',
+		'Set-CapaGroupDescription',
+		'Set-CapaGroupFolder',
+		'Set-CapaGroupFolderInABusinessUnit'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

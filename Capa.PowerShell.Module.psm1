@@ -33,7 +33,7 @@
 		Additional information about the function.
 #>
 #TODO: #3 Coverter data til de rigtige datatyper
-
+#TODO: #7 Sammel funktioner der har noget med BU'er i den overordnede funktion uden BU
 function Get-CapaPackages {
 	param
 	(
@@ -1928,8 +1928,7 @@ function Create-CapaGroup {
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaUnitLabel
-{
+function Set-CapaUnitLabel {
 	[CmdletBinding()]
 	param
 	(
@@ -2228,8 +2227,7 @@ function Add-CapaPackageToBusinessUnit {
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaGroupsInBusinessUnit
-{
+function Get-CapaGroupsInBusinessUnit {
 	[CmdletBinding()]
 	param
 	(
@@ -2238,30 +2236,26 @@ function Get-CapaGroupsInBusinessUnit
 		[Parameter(Mandatory = $true)]
 		[string]$BusinessUnit,
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
-		[string]$Type = ""
+		[string]$Type = ''
 	)
 	
 	$oaUnits = @()
 	
-	If ($Type -eq "")
-	{
+	If ($Type -eq '') {
 		$aUnits = $CapaSDK.GetGroupsInBusinessUnit($BusinessUnit)
-	}
-	Else
-	{
-		$aUnits = $CapaSDK.GetGroupsInBusinessUnit($BusinessUnit,$Type)
+	} Else {
+		$aUnits = $CapaSDK.GetGroupsInBusinessUnit($BusinessUnit, $Type)
 	}
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name	    = $aItem[0];
-			Type	    = $aItem[1];
+			Name        = $aItem[0];
+			Type        = $aItem[1];
 			unitTypeID  = $aItem[2];
 			Description = $aItem[3];
-			GUID	    = $aItem[4];
-			ID		    = $aItem[5]
+			GUID        = $aItem[4];
+			ID          = $aItem[5]
 		}
 	}
 	
@@ -2290,8 +2284,7 @@ function Get-CapaGroupsInBusinessUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitsOnBusinessUnit
-{
+function Get-CapaUnitsOnBusinessUnit {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -2299,35 +2292,31 @@ function Get-CapaUnitsOnBusinessUnit
 		[Parameter(Mandatory = $true)]
 		[string]$BusinessUnit,
 		[ValidateSet('Computer', 'User')]
-		[string]$UnitType = ""
+		[string]$UnitType = ''
 	)
 	
 	$oaUnits = @()
 	
-	if ($UnitType -eq "")
-	{
+	if ($UnitType -eq '') {
 		$aUnits = $CapaSDK.GetUnitsOnBusinessUnit($BusinessUnit)
-	}
-	Else
-	{
-		$aUnits = $CapaSDK.GetUnitsOnBusinessUnit($BusinessUnit,$UnitType)
+	} Else {
+		$aUnits = $CapaSDK.GetUnitsOnBusinessUnit($BusinessUnit, $UnitType)
 	}
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name		   = $aItem[0];
-			Created	       = $aItem[1];
+			Name           = $aItem[0];
+			Created        = $aItem[1];
 			LastExecuted   = $aItem[2];
-			Status		   = $aItem[3];
+			Status         = $aItem[3];
 			Description    = $aItem[4];
-			GUID		   = $aItem[5];
-			ID			   = $aItem[6];
-			TypeName	   = $aItem[7];
-			UUID		   = $aItem[8];
+			GUID           = $aItem[5];
+			ID             = $aItem[6];
+			TypeName       = $aItem[7];
+			UUID           = $aItem[8];
 			IsMobileDevice = $aItem[9];
-			Location	   = $aItem[10]
+			Location       = $aItem[10]
 		}
 	}
 	
@@ -2362,8 +2351,7 @@ function Get-CapaUnitsOnBusinessUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Create-CapaGroupInBusinessUnit
-{
+function Create-CapaGroupInBusinessUnit {
 	[CmdletBinding()]
 	param
 	(
@@ -2381,7 +2369,7 @@ function Create-CapaGroupInBusinessUnit
 		[string]$BusinessUnit
 	)
 	
-	$value = $CapaSDK.CreateGroupInBusinessUnit($GroupName,$GroupType,$UnitType,$BusinessUnit)
+	$value = $CapaSDK.CreateGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
 	
 	return $value
 }
@@ -2400,8 +2388,7 @@ function Create-CapaGroupInBusinessUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaDllVersion
-{
+function Get-CapaDllVersion {
 	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
@@ -2432,8 +2419,7 @@ function Get-CapaDllVersion
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaSchedule
-{
+function Get-CapaSchedule {
 	[CmdletBinding()]
 	param
 	(
@@ -2447,25 +2433,395 @@ function Get-CapaSchedule
 	
 	$aUnits = $CapaSDK.GetSchedule($Id)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split('|')
 		$oaUnits += [pscustomobject]@{
-			Id	    = $aItem[0];
-			ScheduleStart	    = $aItem[1];
-			ScheduleEnd  = $aItem[2];
-			Occurrences = $aItem[3];
-			IntervalStart	    = $aItem[4];
-			IntervalEnd   	= $aItem[5];
-			Recurrence	      = $aItem[6];
+			Id                = $aItem[0];
+			ScheduleStart     = $aItem[1];
+			ScheduleEnd       = $aItem[2];
+			Occurrences       = $aItem[3];
+			IntervalStart     = $aItem[4];
+			IntervalEnd       = $aItem[5];
+			Recurrence        = $aItem[6];
 			RecurrencePattern = $aItem[7];
-			Run			      = $aItem[8];
-			LastRun		      = $aItem[9];
-			Active		      = $aItem[10];
-			WOL			      = $aItem[11];
-			Guid			  = $aItem[12];
+			Run               = $aItem[8];
+			LastRun           = $aItem[9];
+			Active            = $aItem[10];
+			WOL               = $aItem[11];
+			Guid              = $aItem[12]
 		}
 	}
 	
 	Return $oaUnits
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246216/Create+AD+group
+	
+	.DESCRIPTION
+		A detailed description of the Create-CapaADGroup function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER GroupName
+		A description of the GroupName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.PARAMETER LDAPPath
+		A description of the LDAPPath parameter.
+	
+	.PARAMETER recursive
+		A description of the recursive parameter.
+	
+	.EXAMPLE
+				PS C:\> Create-CapaADGroup -CapaSDK $value1 -GroupName 'Value2' -UnitType Computer -LDAPPath 'Value4' -recursive 'Value5'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Create-CapaADGroup {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$GroupName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[String]$UnitType,
+		[Parameter(Mandatory = $true)]
+		[String]$LDAPPath,
+		[Parameter(Mandatory = $true)]
+		[String]$recursive
+	)
+	
+	$value = $CapaSDK.CreateADGroup($GroupName, $UnitType, $LDAPPath, $recursive)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246248/Delete+Group+in+Business+Unit
+	
+	.DESCRIPTION
+		A detailed description of the Remove-CapaGroupInBusinessUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER GroupName
+		A description of the GroupName parameter.
+	
+	.PARAMETER GroupType
+		A description of the GroupType parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.PARAMETER BusinessUnit
+		A description of the BusinessUnit parameter.
+	
+	.EXAMPLE
+				PS C:\> Remove-CapaGroupInBusinessUnit -CapaSDK $value1 -GroupName 'Value2' -GroupType Calendar -UnitType Computer -BusinessUnit 'Value5'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Remove-CapaGroupInBusinessUnit {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$GroupName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Calendar', 'Department', 'Static')]
+		[String]$GroupType,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[String]$UnitType,
+		[Parameter(Mandatory = $true)]
+		[String]$BusinessUnit
+	)
+	
+	$value = $CapaSDK.DeleteGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246256/Get+application+groups
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaApplicationGroups function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaApplicationGroups -CapaSDK $value1
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaApplicationGroups {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetApplicationGroups()
+	
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split('|')
+		$oaUnits += [pscustomobject]@{
+			Id          = $aItem[0];
+			Name        = $aItem[1];
+			Version     = $aItem[2];
+			Vendor      = $aItem[3];
+			AppCode     = $aItem[4];
+			Description = $aItem[5];
+			GUID        = $aItem[6]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246264/Get+Group+Description
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaGroupDescription function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER GroupName
+		A description of the GroupName parameter.
+	
+	.PARAMETER GroupType
+		A description of the GroupType parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaGroupDescription -CapaSDK $value1 -GroupName 'Value2' -GroupType Dynamic_ADSI
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaGroupDescription {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$GroupName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
+		[String]$GroupType
+	)
+	
+	$value = $CapaSDK.GetGroupDescription($GroupName, $GroupType)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246272/Get+Group+Folder
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaGroupFolder function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER GroupName
+		A description of the GroupName parameter.
+	
+	.PARAMETER GroupType
+		A description of the GroupType parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.EXAMPLE
+		PS C:\> Get-CapaGroupFolder -CapaSDK $value1 -GroupName 'Value2' -GroupType Dynamic_ADSI
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaGroupFolder {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$GroupName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Dynamic_ADSI', 'Department', 'Dynamic_SQL', 'Static')]
+		[String]$GroupType,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$UnitType
+	)
+	
+	$value = $CapaSDK.GetGroupFolder($GroupName, $GroupType, $UnitType)
+	return $value
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246310/Set+Group+Description
+	
+	.DESCRIPTION
+		A detailed description of the Set-CapaGroupDescription function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER GroupName
+		A description of the GroupName parameter.
+	
+	.PARAMETER GroupType
+		A description of the GroupType parameter.
+	
+	.PARAMETER Description
+		A description of the Description parameter.
+	
+	.EXAMPLE
+				PS C:\> Set-CapaGroupDescription -CapaSDK $value1 -GroupName 'Value2' -GroupType Dynamic_ADSI
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Set-CapaGroupDescription {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$GroupName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
+		[String]$GroupType,
+		[Parameter(Mandatory = $false)]
+		[String]$Description = ''
+	)
+	
+	$value = $CapaSDK.SetGroupDescription($GroupName, $GroupType, $Description)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246318/Set+Group+Folder
+	
+	.DESCRIPTION
+		A detailed description of the Set-CapaGroupFolder function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER GroupName
+		A description of the GroupName parameter.
+	
+	.PARAMETER GroupType
+		A description of the GroupType parameter.
+	
+	.PARAMETER FolderStructure
+		A description of the FolderStructure  parameter.
+	
+	.EXAMPLE
+				PS C:\> Set-CapaGroupFolder -CapaSDK $value1 -GroupName $value2 -GroupType Dynamic_ADSI -FolderStructure  $value4
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Set-CapaGroupFolder {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		$GroupName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Dynamic_ADSI', 'Department', 'Dynamic_SQL', 'Static')]
+		$GroupType,
+		[Parameter(Mandatory = $true)]
+		$FolderStructure
+	)
+	
+	$value = $CapaSDK.SetGroupFolder($GroupName, $GroupType, $FolderStructure)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246326/Set+Group+folder+in+a+Business+Unit
+	
+	.DESCRIPTION
+		A detailed description of the Set-CapaGroupFolderInABusinessUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER GroupName
+		A description of the GroupName parameter.
+	
+	.PARAMETER GroupType
+		A description of the GroupType parameter.
+	
+	.PARAMETER FolderStructure
+		A description of the FolderStructure  parameter.
+	
+	.PARAMETER BusinessunitName
+		A description of the BusinessunitName parameter.
+	
+	.EXAMPLE
+				PS C:\> Set-CapaGroupFolderInABusinessUnit -CapaSDK 'Value1' -GroupName 'Value2' -GroupType Dynamic_ADSI -FolderStructure  'Value4' -BusinessunitName 'Value5'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Set-CapaGroupFolderInABusinessUnit {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		[String]$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$GroupName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Dynamic_ADSI', 'Department', 'Dynamic_SQL', 'Static')]
+		[String]$GroupType,
+		[Parameter(Mandatory = $true)]
+		[String]$FolderStructure,
+		[Parameter(Mandatory = $true)]
+		[string]$BusinessunitName
+	)
+	
+	$value = $CapaSDK.SetGroupFolderBU($GroupName, $GroupType, $FolderStructure, $BusinessunitName)
+	return $value
 }

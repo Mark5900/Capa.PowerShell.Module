@@ -3228,3 +3228,312 @@ function Set-CapaHardwareInventory
 	
 	return $value
 }
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246463/Link+profile+to+device
+	
+	.DESCRIPTION
+		A detailed description of the Add-CapaUnitToProfile function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER Uuid
+		A description of the Uuid parameter.
+	
+	.PARAMETER ProfileName
+		A description of the ProfileName parameter.
+	
+	.PARAMETER ChangelogComment
+		A description of the ChangelogComment  parameter.
+	
+	.EXAMPLE
+				PS C:\> Add-CapaUnitToProfile -Uuid 'Value1'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Add-CapaUnitToProfile
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(ParameterSetName = 'NameType',
+				   Mandatory = $true)]
+		[String]$UnitName,
+		[Parameter(ParameterSetName = 'Uuid',
+				   Mandatory = $true)]
+		[String]$Uuid,
+		[Parameter(Mandatory = $true)]
+		[String]$ProfileName,
+		[Parameter(Mandatory = $false)]
+		[String]$ChangelogComment
+	)
+	
+	switch ($PsCmdlet.ParameterSetName)
+	{
+		'Uuid' {
+			$value = $CapaSDK.AddUnitToProfile($UnitName, $ProfileName, $ChangelogComment)
+			break
+		}
+		'NameType' {
+			$value = $CapaSDK.AddUnitToProfile($Uuid, $ProfileName, $ChangelogComment)
+			break
+		}
+	}
+	
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246474/Unlink+profile+from+device
+	
+	.DESCRIPTION
+		A detailed description of the Unlink-CapaUnitFromProfile function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER ProfileName
+		A description of the ProfileName parameter.
+	
+	.PARAMETER ChangelogComment
+		A description of the ChangelogComment parameter.
+	
+	.PARAMETER Uuid
+		A description of the Uuid parameter.
+	
+	.EXAMPLE
+				PS C:\> Unlink-CapaUnitFromProfile -Uuid 'Value1'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Unlink-CapaUnitFromProfile
+{
+	[CmdletBinding(DefaultParameterSetName = 'Uuid')]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(ParameterSetName = 'NameType',
+				   Mandatory = $true)]
+		[String]$UnitName,
+		[Parameter(Mandatory = $true)]
+		[String]$ProfileName,
+		[Parameter(Mandatory = $true)]
+		[String]$ChangelogComment,
+		[Parameter(ParameterSetName = 'Uuid',
+				   Mandatory = $true)]
+		[String]$Uuid
+	)
+	
+	switch ($PsCmdlet.ParameterSetName)
+	{
+		'NameType' {
+			$value = $CapaSDK.UnlinkUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
+			break
+		}
+		'Uuid' {
+			$value = $CapaSDK.UnlinkUnitFromProfile($Uuid, $ProfileName, $ChangelogComment)
+			break
+		}
+	}
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246487/Remove+profile+from+device
+	
+	.DESCRIPTION
+		A detailed description of the Remove-CapaProfileFromDevice function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UUID
+		A description of the UUID  parameter.
+	
+	.PARAMETER ProfileName
+		A description of the ProfileName parameter.
+	
+	.PARAMETER ChangelogComment
+		A description of the ChangelogComment  parameter.
+	
+	.EXAMPLE
+				PS C:\> Remove-CapaProfileFromDevice -UnitName 'Value1'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Remove-CapaProfileFromDevice
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(ParameterSetName = 'NameType',
+				   Mandatory = $true)]
+		[String]$UnitName,
+		[Parameter(ParameterSetName = 'Uuid',
+				   Mandatory = $true)]
+		[String]$UUID,
+		[Parameter(Mandatory = $true)]
+		[String]$ProfileName,
+		[Parameter(Mandatory = $true)]
+		[String]$ChangelogComment
+	)
+	
+	switch ($PsCmdlet.ParameterSetName)
+	{
+		'NameType' {
+			$value = $CapaSDK.RemoveUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
+			break
+		}
+		'Uuid' {
+			$value = $CapaSDK.RemoveUnitFromProfile($UUID, $ProfileName, $ChangelogComment)
+			break
+		}
+	}
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246500/Add+Exchange+Payload+to+Profile
+	
+	.DESCRIPTION
+		A detailed description of the Add-CapaExchangePayloadToProfile function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER ProfileID
+		A description of the ProfileID parameter.
+	
+	.PARAMETER AccountName
+		A description of the AccountName  parameter.
+	
+	.PARAMETER DomainandUserName
+		A description of the DomainandUserName parameter.
+	
+	.PARAMETER Password
+		A description of the Password parameter.
+	
+	.PARAMETER EmailAddress
+		A description of the EmailAddress parameter.
+	
+	.PARAMETER ExchangeActiveSyncHost
+		A description of the ExchangeActiveSyncHost parameter.
+	
+	.PARAMETER UseSSL
+		A description of the UseSSL parameter.
+	
+	.PARAMETER PastDaysofMailtoSync
+		A description of the PastDaysofMailtoSync parameter.
+	
+	.PARAMETER AllowMove
+		A description of the AllowMove parameter.
+	
+	.PARAMETER UseOnlyinMail
+		A description of the UseOnlyinMail parameter.
+	
+	.PARAMETER UseSMIME
+		A description of the UseSMIME parameter.
+	
+	.PARAMETER AllowRecentAddressSyncing
+		A description of the AllowRecentAddressSyncing parameter.
+	
+	.PARAMETER Syncinterval
+		A description of the Syncinterval parameter.
+	
+	.PARAMETER SyncEmail
+		A description of the SyncEmail parameter.
+	
+	.PARAMETER SyncCalendar
+		A description of the SyncCalendar parameter.
+	
+	.PARAMETER SyncContacts
+		A description of the SyncContacts parameter.
+	
+	.PARAMETER SyncTasks
+		A description of the SyncTasks parameter.
+	
+	.PARAMETER ChangelogComment
+		A description of the ChangelogComment  parameter.
+	
+	.EXAMPLE
+		PS C:\> Add-CapaExchangePayloadToProfile -CapaSDK $value1 -ProfileID $value2 -AccountName  'Value3' -DomainandUserName 'Value4' -Password $value5 -EmailAddress 'Value6' -ExchangeActiveSyncHost 'Value7' -UseSSL $value8
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Add-CapaExchangePayloadToProfile
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[int]$ProfileID,
+		[Parameter(Mandatory = $true)]
+		[string]$AccountName,
+		[Parameter(Mandatory = $true)]
+		[string]$DomainandUserName,
+		[Parameter(Mandatory = $false)]
+		[securestring]$Password = "",
+		[Parameter(Mandatory = $true)]
+		[string]$EmailAddress,
+		[Parameter(Mandatory = $true)]
+		[string]$ExchangeActiveSyncHost,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('True', 'False')]
+		[bool]$UseSSL,
+		[Parameter(Mandatory = $false)]
+		[ValidateSet('0', '1', '3', '7', '14', '31')]
+		[int]$PastDaysofMailtoSync = 0,
+		[ValidateSet('True', 'False')]
+		[bool]$AllowMove = $false,
+		[ValidateSet('True', 'False')]
+		[bool]$UseOnlyinMail = $false,
+		[ValidateSet('True', 'False')]
+		[bool]$UseSMIME = $false,
+		[ValidateSet('False', 'True')]
+		[bool]$AllowRecentAddressSyncing = $false,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Automatic Push', 'Manually', '15 minutes', '30 minutes', '60 minutes')]
+		[string]$Syncinterval,
+		[ValidateSet('False', 'True')]
+		[bool]$SyncEmail = $false,
+		[ValidateSet('False', 'True')]
+		[bool]$SyncCalendar = $false,
+		[ValidateSet('False', 'True')]
+		[bool]$SyncContacts = $false,
+		[ValidateSet('False', 'True')]
+		[bool]$SyncTasks = $false,
+		[string]$ChangelogComment = ""
+	)
+	
+	$value = $CapaSDK.AddExchangePayloadToProfile($ProfileID, $AccountName, $DomainandUserName, $Password, $EmailAddress, $ExchangeActiveSyncHost, $UseSSL, $PastDaysofMailtoSync, $AllowMove, $UseOnlyinMail, $UseSMIME, $AllowRecentAddressSyncing, $Syncinterval, $SyncEmail, $SyncCalendar, $SyncContacts, $SyncTasks, $ChangelogComment)
+	return $value
+}

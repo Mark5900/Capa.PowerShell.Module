@@ -141,16 +141,21 @@
 		'Add-CapaExchangePayloadToProfile',
 		'Add-CapaWifiPayloadToProfile',
 		'Add-CapaEnforcePasscodeAndroid',
-		'Add-KeyValueToAppConfigAndroid',
-		'Add-KeyValueToAppConfigIOS',
+		'Add-CapaKeyValueToAppConfigAndroid',
+		'Add-CapaKeyValueToAppConfigIOS',
 		'Assign-CapaProfileToBusinessUnit',
 		'Clone-CapaDeviceApplication',
 		'Create-CapaProfile',
-		'Edit-ExchangePayload',
+		'Edit-CapaExchangePayload',
 		'Edit-CapaWifiPayload',
 		'Get-CapaDeviceApplications',
 		'Get-CapaProfiles',
-		'Link-CapaProfileToGroup'
+		'Link-CapaProfileToGroup',
+		'Get-CapaOSDiskConfigration',
+		'Get-CapaOSImages',
+		'Get-CapaOSInstallationTypes',
+		'Get-CapaOSPoints',
+		'Get-CapaOSServers'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

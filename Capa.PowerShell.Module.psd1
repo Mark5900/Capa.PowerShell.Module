@@ -155,7 +155,27 @@
 		'Get-CapaOSImages',
 		'Get-CapaOSInstallationTypes',
 		'Get-CapaOSPoints',
-		'Get-CapaOSServers'
+		'Get-CapaOSServers',
+		'Add-CapaPackageToManagementServer',
+		'Clone-CapaPackage',
+		'Copy-CapaPackage',
+		'Create-CapaPackage',
+		'Enable-CapaPackageSchedule',
+		'Exist-CapaPackage',
+		'Get-CapaAllInventoryPackages',
+		'Get-CapatAllNoneInventoryPackages',
+		'Get-CapaLog',
+		'Get-CapaPackageDescription',
+		'Get-CapaPackagesOnBusinessUnit',
+		'Get-CapaPackagesOnManagementServer',
+		'Get-CapaPackageStatus',
+		'Import-CapaPackage',
+		'Remove-CapaPackageFromBusinessUnit',
+		'Remove-CapaPackageFromManagementServer',
+		'Set-CapaPackageDescription',
+		'Set-CapaPackagePriority',
+		'Set-CapaPackageSchedule',
+		'Update-CapaPackageNow'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

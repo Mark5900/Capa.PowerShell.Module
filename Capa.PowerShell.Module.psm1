@@ -2438,7 +2438,7 @@ function Get-CapaSchedule {
 	$aUnits = $CapaSDK.GetSchedule($Id)
 	
 	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			Id                = $aItem[0];
 			ScheduleStart     = $aItem[1];
@@ -2590,7 +2590,7 @@ function Get-CapaApplicationGroups {
 	$aUnits = $CapaSDK.GetApplicationGroups()
 	
 	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			Id          = $aItem[0];
 			Name        = $aItem[1];
@@ -2862,7 +2862,7 @@ function Get-CapaMeteringGroups
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			Name		    = $aItem[0];
 			Version	    = $aItem[1];
@@ -2921,7 +2921,7 @@ function Get-CapaUpdateInventoryForUnit
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			Qfename		   = $aItem[0];
 			InstallDate	       = $aItem[1];
@@ -2973,7 +2973,7 @@ function Get-CapaUserInventory
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			Category	     = $aItem[0];
 			Entry  = $aItem[1];
@@ -3019,7 +3019,7 @@ function Get-CapaCustomInventoryCategoriesAndEntries
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		
 		$Datatype = Convert-CapaDataType -Datatype $aItem [2]
 		
@@ -4228,7 +4228,7 @@ function Get-CapaDeviceApplications
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			ID = $aItem[0];
 			Name    = $aItem[1];
@@ -4275,7 +4275,7 @@ function Get-CapaProfiles
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			ID		    = $aItem[0];
 			Name	    = $aItem[1];
@@ -4381,7 +4381,7 @@ function Get-CapaOSDiskConfigration
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			ID		    = $aItem[0];
 			Name	    = $aItem[1];
@@ -4433,7 +4433,7 @@ function Get-CapaOSImages
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			ID		    = $aItem[0];
 			Name	    = $aItem[1];
@@ -4486,7 +4486,7 @@ function Get-CapaOSInstallationTypes
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			ID		    = $aItem[0];
 			GUID	    = $aItem[1];
@@ -4529,7 +4529,7 @@ function Get-CapaOSPoints
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			ID   = $aItem[0];
 			Name = $aItem[1];
@@ -4592,7 +4592,7 @@ function Get-CapaOSServers
 	
 	foreach ($sItem in $aUnits)
 	{
-		$aItem = $sItem.Split('|')
+		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			ID   = $aItem[0];
 			Name = $aItem[1];
@@ -4604,4 +4604,1147 @@ function Get-CapaOSServers
 	}
 	
 	Return $oaUnits
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246815/Add+package+to+management+server
+	
+	.DESCRIPTION
+		A detailed description of the Add-CapaPackageToManagementServer function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName  parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion  parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.PARAMETER ServerName
+		A description of the ServerName parameter.
+	
+	.EXAMPLE
+				PS C:\> Add-CapaPackageToManagementServer -CapaSDK $value1 -PackageName  'Value2' -PackageVersion  'Value3' -PackageType 1 -ServerName 'Value5'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Add-CapaPackageToManagementServer
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[string]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[string]$ServerName
+	)
+	
+	if ($PackageType -eq "Computer")
+	{
+		$PackageType = "1"
+	}
+	if ($PackageType -eq "User")
+	{
+		$PackageType = "2"
+	}
+	
+	$value = $CapaSDK.AddPackageToManagementServer($PackageName, $PackageVersion, $PackageType,$ServerName)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246823/Clone+Package
+	
+	.DESCRIPTION
+		A detailed description of the Clone-CapaPackage function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.PARAMETER NewVersion
+		A description of the NewVersion  parameter.
+	
+	.EXAMPLE
+		PS C:\> Clone-CapaPackage -CapaSDK $value1
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Clone-CapaPackage
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[string]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[string]$NewVersion
+	)
+	
+	$value = $CapaSDK.ClonePackage($PackageName, $PackageVersion, $PackageType, $NewVersion)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246842/Copy+Package
+	
+	.DESCRIPTION
+		A detailed description of the Copy-CapaPackage function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.EXAMPLE
+				PS C:\> Copy-CapaPackage -CapaSDK $value1
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Copy-CapaPackage
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[string]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[string]$NewName,
+		[Parameter(Mandatory = $true)]
+		[string]$NewVersion
+	)
+	
+	if ($PackageType -eq "Computer")
+	{
+		$PackageType = "1"
+	}
+	if ($PackageType -eq "User")
+	{
+		$PackageType = "2"
+	}
+	
+	$value = $CapaSDK.CopyPackage($PackageName, $PackageVersion, $PackageType, $NewName, $NewVersion)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246850/Create+package
+	
+	.DESCRIPTION
+		A detailed description of the Create-CapaPackage function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName  parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion  parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.PARAMETER DisplayName
+		A description of the DisplayName  parameter.
+	
+	.EXAMPLE
+				PS C:\> Create-CapaPackage -CapaSDK $value1 -PackageName  'Value2' -PackageVersion  'Value3' -UnitType Computer -DisplayName  'Value5'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Create-CapaPackage
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$UnitType,
+		[Parameter(Mandatory = $true)]
+		[string]$DisplayName
+	)
+	
+	$value = $CapaSDK.CreatePackage($PackageName, $PackageVersion, $UnitType, $DisplayName)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246866/Enable+Package+Schedule
+	
+	.DESCRIPTION
+		A detailed description of the Enable-CapaPackageSchedule function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName  parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion  parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType  parameter.
+	
+	.EXAMPLE
+				PS C:\> Enable-CapaPackageSchedule -CapaSDK $value1 -PackageName  'Value2' -PackageVersion  'Value3' -PackageType  'Value4'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Enable-CapaPackageSchedule
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[string]$PackageType
+	)
+	
+	if ($PackageType -eq "Computer")
+	{
+		$PackageType = "1"
+	}
+	if ($PackageType -eq "User")
+	{
+		$PackageType = "2"
+	}
+	
+	$value = $CapaSDK.EnablePackageSchedule($PackageName, $PackageVersion, $PackageType)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246874/Exist+package
+	
+	.DESCRIPTION
+		A detailed description of the Exist-CapaPackage function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER Name
+		A description of the Name parameter.
+	
+	.PARAMETER Version
+		A description of the Version  parameter.
+	
+	.EXAMPLE
+				PS C:\> Exist-CapaPackage -CapaSDK $value1 -Name 'Value2' -Version  'Value3'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Exist-CapaPackage
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$Name,
+		[Parameter(Mandatory = $true)]
+		[string]$Version,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[string]$Type
+	)
+	
+	if ($PackageType -eq "Computer")
+	{
+		$PackageType = "1"
+	}
+	if ($PackageType -eq "User")
+	{
+		$PackageType = "2"
+	}
+	
+	$value = $CapaSDK.ExistPackage($Name, $Version, $Type)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246890/Get+all+inventory+packages
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaAllInventoryPackages function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaAllInventoryPackages -CapaSDK $value1
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaAllInventoryPackages
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[string]$PackageType = ""
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetAllInventoryPackages($PackageType)
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			Name		    = $aItem[0];
+			Version	    = $aItem[1];
+			Type	    = $aItem[2];
+			DisplayName	    = $aItem[3];
+			IsMandatory	    = $aItem[4];
+			ScheduleId   = $aItem[5];
+			Description= $aItem[6];
+			GUID = $aItem[7];
+			ID = $aItem[8];
+			IsInteractive = $aItem[9];
+			DependendPackageID = $aItem[10];
+			IsInventoryPackage = $aItem[11];
+			CollectMode = $aItem[12];
+			Priority = $aItem[13];
+			ServerDeploy = $aItem[14]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246900/Get+all+none+inventory+packages
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapatAllNoneInventoryPackages function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapatAllNoneInventoryPackages -CapaSDK $value1
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapatAllNoneInventoryPackages
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[string]$PackageType = ""
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetAllNoneInventoryPackages($PackageType)
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			Name			   = $aItem[0];
+			Version		       = $aItem[1];
+			Type			   = $aItem[2];
+			DisplayName	       = $aItem[3];
+			IsMandatory	       = $aItem[4];
+			ScheduleId		   = $aItem[5];
+			Description	       = $aItem[6];
+			GUID			   = $aItem[7];
+			ID				   = $aItem[8];
+			IsInteractive	   = $aItem[9];
+			DependendPackageID = $aItem[10];
+			IsInventoryPackage = $aItem[11];
+			CollectMode	       = $aItem[12];
+			Priority		   = $aItem[13];
+			ServerDeploy	   = $aItem[14]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246920/Get+log
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaLog function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaLog -CapaSDK $value1 -UnitName 'Value2' -UnitType 'Value3' -PackageName 'Value4' -PackageVersion 'Value5' -PackageType 1
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaLog
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$UnitName,
+		[Parameter(Mandatory = $true)]
+		[String]$UnitType,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[String]$PackageType
+	)
+	
+	if ($PackageType -eq "Computer")
+	{
+		$PackageType = "1"
+	}
+	if ($PackageType -eq "User")
+	{
+		$PackageType = "2"
+	}
+	
+	$value = $CapaSDK.GetLog($UnitName, $UnitType, $PackageName, $PackageVersion, $PackageType)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246928/Get+Package+Description
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaPackageDescription function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName  parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion  parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType  parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaPackageDescription -CapaSDK $value1 -PackageName  'Value2' -PackageVersion  'Value3' -PackageType  'Value4'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaPackageDescription
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[String]$PackageType
+	)
+	
+	if ($PackageType -eq "Computer")
+	{
+		$PackageType = "1"
+	}
+	if ($PackageType -eq "User")
+	{
+		$PackageType = "2"
+	}
+	
+	$value = $CapaSDK.GetPackageDescription($PackageName, $PackageVersion, $PackageType)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246964/Get+packages+on+Business+Unit
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaPackagesOnBusinessUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER BusinessUnit
+		A description of the BusinessUnit parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaPackagesOnBusinessUnit -CapaSDK $value1 -BusinessUnit 'Value2'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaPackagesOnBusinessUnit
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$BusinessUnit
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetOSDiskConfiguration($OSPointID)
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			Name = $aItem[0];
+			Version = $aItem[1];
+			Type = $aItem[2];
+			DisplayName = $aItem[3];
+			IsMandatory = $aItem[4];
+			ScheduleId = $aItem[5];
+			Description = $aItem[7];
+			GUID = $aItem[8];
+			ID = $aItem[9];
+			IsInteractive = $aItem[10];
+			DependendPackageID = $aItem[11];
+			IsInventoryPackage = $aItem[12];
+			CollectMode = $aItem[13];
+			Priority = $aItem[14];
+			ServerDeploy = $aItem[15]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246974/Get+packages+on+management+server
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaPackagesOnManagementServer function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER ServerName
+		A description of the ServerName  parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.EXAMPLE
+		PS C:\> Get-CapaPackagesOnManagementServer -CapaSDK $value1
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaPackagesOnManagementServer
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$ServerName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[String]$PackageType
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetOSDiskConfiguration($ServerName, $PackageType)
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			Name = $aItem[0];
+			Version = $aItem[1];
+			Type = $aItem[2];
+			DisplayName = $aItem[3];
+			IsMandatory = $aItem[4];
+			ScheduleId = $aItem[5];
+			Description = $aItem[7];
+			GUID = $aItem[8];
+			ID = $aItem[9];
+			IsInteractive = $aItem[10];
+			DependendPackageID = $aItem[11];
+			IsInventoryPackage = $aItem[12];
+			CollectMode = $aItem[13];
+			Priority = $aItem[14];
+			ServerDeploy = $aItem[15]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246944/Get+package+status
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaPackageStatus function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName  parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaPackageStatus -CapaSDK $value1 -UnitName  'Value2' -UnitType Computer
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaPackageStatus
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$UnitName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[String]$UnitType
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetPackageStatus($UnitName, $UnitType)
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			UnitName = $aItem[0];
+			PackageName = $aItem[1];
+			PackageVersion = $aItem[2];
+			Status = $aItem[3];
+			DisplayStatus = $aItem[4]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246984/Import+package
+	
+	.DESCRIPTION
+		A detailed description of the Import-CapaPackage function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER FilePath
+		A description of the FilePath  parameter.
+	
+	.PARAMETER OverrideCIPCdata
+		A description of the OverrideCIPCdata   parameter.
+	
+	.PARAMETER ImportFolderStructure
+		A description of the ImportFolderStructure  parameter.
+	
+	.PARAMETER ImportSchedule
+		A description of the ImportSchedule  parameter.
+	
+	.PARAMETER ChangelogComment
+		A description of the ChangelogComment parameter.
+	
+	.EXAMPLE
+				PS C:\> Import-CapaPackage -CapaSDK $value1 -FilePath  'Value2' -OverrideCIPCdata   $value3 -ImportFolderStructure  $value4 -ImportSchedule  $value5
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Import-CapaPackage
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$FilePath,
+		[Parameter(Mandatory = $true)]
+		[bool]$OverrideCIPCdata,
+		[Parameter(Mandatory = $true)]
+		[bool]$ImportFolderStructure,
+		[Parameter(Mandatory = $true)]
+		[bool]$ImportSchedule,
+		[String]$ChangelogComment = ""
+	)
+	
+	$value = $CapaSDK.ImportPackage($FilePath, $OverrideCIPCdata, $ImportFolderStructure, $ImportSchedule, $ChangelogComment)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247000/Remove+Package+From+BusinessUnit
+	
+	.DESCRIPTION
+		A detailed description of the Remove-CapaPackageFromBusinessUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName  parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.PARAMETER BusinessUnitName
+		A description of the BusinessUnitName  parameter.
+	
+	.EXAMPLE
+				PS C:\> Remove-CapaPackageFromBusinessUnit -CapaSDK $value1 -PackageName  'Value2' -PackageVersion 'Value3' -PackageType Computer -BusinessUnitName  'Value5'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Remove-CapaPackageFromBusinessUnit
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[String]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[String]$BusinessUnitName
+	)
+	
+	$value = $CapaSDK.RemovePackageFromBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247016/Remove+package+from+management+server
+	
+	.DESCRIPTION
+		A detailed description of the Remove-CapaPackageFromManagementServer function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.PARAMETER ServerName
+		A description of the ServerName parameter.
+	
+	.EXAMPLE
+				PS C:\> Remove-CapaPackageFromManagementServer -CapaSDK $value1 -PackageName 'Value2' -PackageVersion 'Value3' -PackageType 1 -ServerName 'Value5'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Remove-CapaPackageFromManagementServer
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[String]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[String]$ServerName
+	)
+	
+	if ($PackageType -eq "Computer")
+	{
+		$PackageType = "1"
+	}
+	if ($PackageType -eq "User")
+	{
+		$PackageType = "2"
+	}
+	
+	$value = $CapaSDK.RemovePackageFromManagementServer($PackageName, $PackageVersion, $PackageType, $ServerName)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247024/Set+Package+Description
+	
+	.DESCRIPTION
+		A detailed description of the Set-CapaPackageDescription function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.PARAMETER Description
+		A description of the Description parameter.
+	
+	.EXAMPLE
+				PS C:\> Set-CapaPackageDescription -CapaSDK $value1 -PackageName 'Value2' -PackageVersion 'Value3' -PackageType 1 -Description ""
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Set-CapaPackageDescription
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[String]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[String]$Description = ""
+	)
+	
+	if ($PackageType -eq "Computer")
+	{
+		$PackageType = "1"
+	}
+	if ($PackageType -eq "User")
+	{
+		$PackageType = "2"
+	}
+	
+	$value = $CapaSDK.SetPackageDescription($PackageName, $PackageVersion, $PackageType, $Description)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247040/Set+Package+Property
+	
+	.DESCRIPTION
+		A detailed description of the Set-CapaPackagePriority function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName  parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion  parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType  parameter.
+	
+	.PARAMETER Priority
+		A description of the Priority parameter.
+	
+	.EXAMPLE
+				PS C:\> Set-CapaPackagePriority -CapaSDK $value1 -PackageName  'Value2' -PackageVersion  'Value3' -PackageType  'Value4'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Set-CapaPackagePriority
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[String]$PackageType,
+		[Integer]$Priority = 500
+	)
+	
+	if ($PackageType -eq "Computer")
+	{
+		$PackageType = "1"
+	}
+	if ($PackageType -eq "User")
+	{
+		$PackageType = "2"
+	}
+	
+	$value = $CapaSDK.SetPackagePriority($PackageName, $PackageVersion, $PackageType, $Priority)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247048/Set+Package+Schedule
+	
+	.DESCRIPTION
+		A detailed description of the Set-CapaPackageSchedule function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion  parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.PARAMETER ScheduleStart
+		A description of the ScheduleStart parameter.
+	
+	.PARAMETER ScheduleEnd
+		A description of the ScheduleEnd parameter.
+	
+	.PARAMETER ScheduleIntervalBegin
+		A description of the ScheduleIntervalBegin  parameter.
+	
+	.PARAMETER ScheduleIntervalEnd
+		A description of the ScheduleIntervalEnd  parameter.
+	
+	.PARAMETER ScheduleRecurrence
+		A description of the ScheduleRecurrence parameter.
+	
+	.PARAMETER ScheduleRecurrencePattern
+		A description of the ScheduleRecurrencePattern  parameter.
+	
+	.EXAMPLE
+		PS C:\> Set-CapaPackageSchedule -CapaSDK $value1 -PackageName 'Value2' -PackageVersion  'Value3' -PackageType Computer -ScheduleStart 'Value5' -ScheduleEnd 'Value6' -ScheduleIntervalBegin  'Value7' -ScheduleIntervalEnd  'Value8' -ScheduleRecurrence Once -ScheduleRecurrencePattern  'Value10'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Set-CapaPackageSchedule
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[String]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[String]$ScheduleStart,
+		[Parameter(Mandatory = $true)]
+		[String]$ScheduleEnd,
+		[Parameter(Mandatory = $true)]
+		[String]$ScheduleIntervalBegin,
+		[Parameter(Mandatory = $true)]
+		[String]$ScheduleIntervalEnd,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Once', 'PeriodicalDaily', 'PeriodicalWeekly', 'Always')]
+		[String]$ScheduleRecurrence,
+		[String]$ScheduleRecurrencePattern = ""
+	)
+	
+	$value = $CapaSDK.SetPackageSchedule($PackageName, $PackageVersion, $PackageType, $ScheduleStart, $ScheduleEnd, $ScheduleIntervalBegin, $ScheduleIntervalEnd, $ScheduleRecurrence, $ScheduleRecurrencePattern)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247056/Update+Now+on+Package
+	
+	.DESCRIPTION
+		A detailed description of the Update-CapaPackageNow function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PackageName
+		A description of the PackageName  parameter.
+	
+	.PARAMETER PackageVersion
+		A description of the PackageVersion parameter.
+	
+	.PARAMETER PackageType
+		A description of the PackageType parameter.
+	
+	.EXAMPLE
+				PS C:\> Update-CapaPackageNow -CapaSDK $value1 -PackageName  'Value2' -PackageVersion 'Value3' -PackageType Computer
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Update-CapaPackageNow
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[String]$PackageType
+	)
+	
+	$value = $CapaSDK.PackageUpdateNow($PackageName, $PackageVersion, $PackageType)
+	return $value
 }

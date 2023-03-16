@@ -134,7 +134,23 @@
 		'Get-CapaUserInventory',
 		'Get-CapaCustomInventoryCategoriesAndEntries',
 		'Set-CapaCustomInventory',
-		'Set-CapaHardwareInventory'
+		'Set-CapaHardwareInventory',
+		'Add-CapaUnitToProfile',
+		'Unlink-CapaUnitFromProfile',
+		'Remove-CapaProfileFromDevice',
+		'Add-CapaExchangePayloadToProfile',
+		'Add-CapaWifiPayloadToProfile',
+		'Add-CapaEnforcePasscodeAndroid',
+		'Add-KeyValueToAppConfigAndroid',
+		'Add-KeyValueToAppConfigIOS',
+		'Assign-CapaProfileToBusinessUnit',
+		'Clone-CapaDeviceApplication',
+		'Create-CapaProfile',
+		'Edit-ExchangePayload',
+		'Edit-CapaWifiPayload',
+		'Get-CapaDeviceApplications',
+		'Get-CapaProfiles',
+		'Link-CapaProfileToGroup'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

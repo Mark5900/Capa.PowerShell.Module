@@ -175,7 +175,15 @@
 		'Set-CapaPackageDescription',
 		'Set-CapaPackagePriority',
 		'Set-CapaPackageSchedule',
-		'Update-CapaPackageNow'
+		'Update-CapaPackageNow',
+		'Count-CapaConscomActions',
+		'Get-CapaBusinessUnits',
+		'Get-CapaExternalTools',
+		'Get-CapaManagementPoint',
+		'Get-CapaManagementServers',
+		'Rebuild-CapaKitFileOnPoint',
+		'Rebuild-CapaKitFileOnManagementServer',
+		'Reset-CapaLastRunDateOnGlobalTask'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

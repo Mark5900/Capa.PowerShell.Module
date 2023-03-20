@@ -220,7 +220,10 @@
 		'Set-CapaUnitName',
 		'Set-CapaUnitPackageStatus',
 		'Set-CapaUnitWSUSGroup',
-		'Set-CapaWakeOnLAN'
+		'Set-CapaWakeOnLAN',
+		'Get-CapaVppPrograms',
+		'Get-CapaVppUsers',
+		'Invite-CapaUnitToVppProgram'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

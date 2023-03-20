@@ -15,7 +15,7 @@
 			WorkStation = $aItem[7];
 			WorkStation = $aItem[8];
 			WorkStation = $aItem[9];
-			WorkStat-ion = $aItem[10];
+			WorkStation = $aItem[10];
 			WorkStation = $aItem[11];
 			WorkStation = $aItem[12];
 			WorkStation = $aItem[13];

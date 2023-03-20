@@ -8200,3 +8200,94 @@ function Invite-CapaUnitToVppProgram
 	$value = $CapaSDK.InviteUnitToVppProgram($VppProgramID, $UnitID, $UserFullName, $UserEmailName, $UserDescription)
 	return $value
 }
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247844/Get+WSUS+Groups
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaWSUSGroups function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER PointID
+		A description of the PointID  parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaWSUSGroups -CapaSDK $value1 -PointID  $value2
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaWSUSGroups
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[int]$PointID
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetWSUSGroups($PointID)
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			ID = $aItem[0];
+			Name = $aItem[1];
+			GUID = $aItem[2]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247854/Get+WSUS+points
+	
+	.DESCRIPTION
+		A detailed description of the Get-CapaWSUSPoints function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaWSUSPoints -CapaSDK $value1
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Get-CapaWSUSPoints
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetWSUSPoints()
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			ID   = $aItem[0];
+			Name = $aItem[1];
+			GUID = $aItem[2]
+		}
+	}
+	
+	Return $oaUnits
+}

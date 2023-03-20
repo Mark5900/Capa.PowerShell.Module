@@ -223,7 +223,9 @@
 		'Set-CapaWakeOnLAN',
 		'Get-CapaVppPrograms',
 		'Get-CapaVppUsers',
-		'Invite-CapaUnitToVppProgram'
+		'Invite-CapaUnitToVppProgram',
+		'Get-CapaWSUSGroups',
+		'Get-CapaWSUSPoints'
 	) #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

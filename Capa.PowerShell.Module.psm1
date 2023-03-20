@@ -495,7 +495,6 @@ function Initialize-CapaSDK {
 	[CmdletBinding()]
 	param
 	(
-		[string]$CapaSdkDllPath = '',
 		[Parameter(Mandatory = $true)]
 		[string]$Server,
 		[Parameter(Mandatory = $true)]
@@ -506,50 +505,6 @@ function Initialize-CapaSDK {
 		[string]$DefaultManagementPoint,
 		[string]$InstanceManagementPoint
 	)
-	#TODO: #1 DLL'en er ikke nok til at få modulet til at virke og måske ikke nødvendig overhovedet at have med i installationen 
-	
-	$CapaSDKDllName = 'CapaInstaller.SDK.dll'
-	$ModulePaths = $env:PSModulePath -split ';'
-	
-	# If CapaSdkDllPath i not null then insert DLL file in module folder
-	If ($CapaSdkDllPath -ne '') {
-		foreach ($Path in $ModulePaths) {
-			$TestPath = "$Path\Capa.PowerShell.Module\"
-			If (Test-Path $TestPath) {
-				$Destination = "$TestPath\$CapaSDKDllName"
-				Copy-Item -Path $CapaSdkDllPath -Destination $Destination -Force
-			}
-		}
-	}
-	# Finds CapaInstaller SDK DLL, if it does not exist then ask for the DLL file
-	Else {
-		$NewDllFilePath = ''
-		foreach ($Path in $ModulePaths) {
-			$TestPath = "$Path\Capa.PowerShell.Module\"
-			If (Test-Path $TestPath) {
-				$TestDllPath = "$TestPath\$CapaSDKDllName"
-				If (Test-Path $TestDllPath) {
-					$Destination = $TestDllPath
-				} elseif ($NewDllFilePath -eq '') {
-					#Browsing file
-					Add-Type -AssemblyName System.Windows.Forms
-					$FileBrowser = New-Object System.Windows.Forms.OpenFileDialog
-					$FileBrowser.Filter = 'Dll (*.dll)| *.dll'
-					[void]$FileBrowser.ShowDialog()
-					$NewDllFilePath = $FileBrowser.FileName
-					
-					$Destination = "$TestDllPath\$CapaSDKDllName"
-					Copy-Item -Path $NewDllFilePath -Destination $Destination -Force
-				} Else {
-					$Destination = "$TestDllPath\$CapaSDKDllName"
-					Copy-Item -Path $NewDllFilePath -Destination $Destination -Force
-				}
-			}
-			
-		}
-	}
-	
-	Add-Type -Path $Destination
 	$oCMS = New-Object -ComObject CapaInstaller.SDK
 	
 	If ($UserName -ne '' -or $Password -ne '') {

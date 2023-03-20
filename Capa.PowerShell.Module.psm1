@@ -74,6 +74,7 @@ function Get-CapaPackages {
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246280/Get+groups
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246290/Get+groups+on+Business+Unit
 	
 	.DESCRIPTION
 		A detailed description of the Get-CapaGroups function.
@@ -97,12 +98,22 @@ function Get-CapaGroups {
 		$CapaSDK,
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
-		[string]$GroupType = ''
+		[string]$GroupType = '',
+		[string]$BusinessUnit = ''
 	)
 	
 	$oaUnits = @()
 	
-	$aUnits = $CapaSDK.GetGroups($GroupType)
+	if ($BusinessUnit -eq '') {
+		$aUnits = $CapaSDK.GetGroups($GroupType)
+	} Else {
+		If ($GroupType -eq '') {
+			$aUnits = $CapaSDK.GetGroupsInBusinessUnit($BusinessUnit)
+		} Else {
+			$aUnits = $CapaSDK.GetGroupsInBusinessUnit($BusinessUnit, $GroupType)
+		}
+	}
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		
@@ -1083,6 +1094,7 @@ function Copy-CapaPackageRelation {
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246831/Delete+Package
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247000/Remove+Package+From+BusinessUnit
 	
 	.DESCRIPTION
 		A detailed description of the Remove-CapaPackage function.
@@ -1114,18 +1126,24 @@ function Remove-CapaPackage {
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[string]$PackageType,
-		[Parameter(Mandatory = $true)]
-		[string]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[string]$PackageVersion,
+		[String]$PackageType,
+		[String]$BusinessUnitName = '',
 		[ValidateSet('True', 'False')]
 		[string]$Force = 'True'
+
 	)
+	if ($BusinessUnitName -eq '') {
+		$value = $CapaSDK.DeletePackage($PackageName, $PackageVersion, $PackageType, $Force)
+	} else {
+		$value = $CapaSDK.RemovePackageFromBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
+	}
 	
-	$bool = $CapaSDK.DeletePackage($PackageName, $PackageVersion, $PackageType, $Force)
-	Return $bool
+	Return $value
 }
 
 <#
@@ -1366,6 +1384,7 @@ function Get-CapaGroupUnits {
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246240/Delete+group
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246248/Delete+Group+in+Business+Unit
 	
 	.DESCRIPTION
 		A detailed description of the Remove-CapaGroup function.
@@ -1400,12 +1419,17 @@ function Remove-CapaGroup {
 		[string]$GroupType,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[string]$UnitType
+		[string]$UnitType,
+		[String]$BusinessUnit = ''
 	)
 	
-	$bool = $CapaSDK.DeleteGroup($GroupName, $GroupType, $UnitType)
+	if ($BusinessUnit -eq '') {
+		$value = $CapaSDK.DeleteGroup($GroupName, $GroupType, $UnitType)
+	} else {
+		$value = $CapaSDK.DeleteGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
+	}
 	
-	Return $bool
+	Return $value
 }
 
 <#
@@ -1556,10 +1580,10 @@ function Convert-CapaDataType {
 		1 { $Datatype = 'String' }
 		2 { $Datatype = 'Time' }
 		3 { $Datatype = 'Integer' }
-		"I" { $Datatype = 'Integer' }
-		"T" { $Datatype = 'Time' }
-		"S" { $Datatype = 'String' }
-		"N" { $Datatype = 'Text' }
+		'I' { $Datatype = 'Integer' }
+		'T' { $Datatype = 'Time' }
+		'S' { $Datatype = 'String' }
+		'N' { $Datatype = 'Text' }
 		Default { $Datatype = $Datatype }
 	}
 	
@@ -1818,6 +1842,7 @@ function Get-CapaSoftwareInventoryForUnit {
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246224/Create+group
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246232/Create+group+in+Business+Unit
 	
 	.DESCRIPTION
 		A detailed description of the Create-CapaGroup function.
@@ -1853,10 +1878,15 @@ function Create-CapaGroup {
 		[string]$GroupType,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[String]$UnitType
+		[String]$UnitType,
+		[string]$BusinessUnit = ''
 	)
 	
-	$value = $CapaSDK.CreateGroup($GroupName, $GroupType, $UnitType)
+	if ($BusinessUnit -eq '') {
+		$value = $CapaSDK.CreateGroup($GroupName, $GroupType, $UnitType)
+	} else {
+		$value = $CapaSDK.CreateGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
+	}
 	
 	return $value
 }
@@ -2027,8 +2057,7 @@ function Add-CapaUnitToBusinessUnit {
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaUnitToGroup
-{
+function Add-CapaUnitToGroup {
 	[CmdletBinding()]
 	param
 	(
@@ -2044,22 +2073,16 @@ function Add-CapaUnitToGroup
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Calendar', 'Department', 'Reinstall', 'Security', 'Static', 'Dynamic_SQL', 'Dynamic_ADSI')]
 		[string]$GroupType,
-		[String]$BusinessUnitName = ""
+		[String]$BusinessUnitName = ''
 	)
 	
-	if (($GroupType -eq 'Dynamic_SQL' -or $GroupType -eq 'Dynamic_ADSI') -and $UnitType -ne 'Printer')
-	{
+	if (($GroupType -eq 'Dynamic_SQL' -or $GroupType -eq 'Dynamic_ADSI') -and $UnitType -ne 'Printer') {
 		Write-Error "GroupType $GroupType only works for UnitType Printer"
 		return 'False'
-	}
-	else
-	{
-		if ($BusinessUnitName -eq "")
-		{
+	} else {
+		if ($BusinessUnitName -eq '') {
 			$value = $CapaSDK.AddUnitToGroup($UnitName, $UnitType, $GroupName, $GroupType, $BusinessUnitName)
-		}
-		else
-		{
+		} else {
 			$value = $CapaSDK.AddUnitToGroupBU($UnitName, $UnitType, $GroupName, $GroupType)
 		}
 		
@@ -2090,8 +2113,7 @@ function Add-CapaUnitToGroup
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitGroups
-{
+function Get-CapaUnitGroups {
 	[CmdletBinding()]
 	param
 	(
@@ -2180,64 +2202,6 @@ function Add-CapaPackageToBusinessUnit {
 	return $value
 }
 
-
-<#
-	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246290/Get+groups+on+Business+Unit
-	
-	.DESCRIPTION
-		A detailed description of the Get-CapaGroupsInBusinessUnit function.
-	
-	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
-	
-	.PARAMETER BusinessUnit
-		A description of the BusinessUnit parameter.
-	
-	.PARAMETER Type
-		A description of the Type parameter.
-	
-	.EXAMPLE
-				PS C:\> Get-CapaGroupsInBusinessUnit -CapaSDK $value1 -BusinessUnit 'Value2'
-	
-	.NOTES
-		Additional information about the function.
-#>
-function Get-CapaGroupsInBusinessUnit {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[string]$BusinessUnit,
-		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
-		[string]$Type = ''
-	)
-	
-	$oaUnits = @()
-	
-	If ($Type -eq '') {
-		$aUnits = $CapaSDK.GetGroupsInBusinessUnit($BusinessUnit)
-	} Else {
-		$aUnits = $CapaSDK.GetGroupsInBusinessUnit($BusinessUnit, $Type)
-	}
-	
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
-			Name        = $aItem[0];
-			Type        = $aItem[1];
-			unitTypeID  = $aItem[2];
-			Description = $aItem[3];
-			GUID        = $aItem[4];
-			ID          = $aItem[5]
-		}
-	}
-	
-	Return $oaUnits
-}
-
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247592/Get+units+on+business+unit
@@ -2297,57 +2261,6 @@ function Get-CapaUnitsOnBusinessUnit {
 	}
 	
 	Return $oaUnits
-}
-
-<#
-	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246232/Create+group+in+Business+Unit
-	
-	.DESCRIPTION
-		A detailed description of the Create-CapaGroupInBusinessUnit function.
-	
-	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
-	
-	.PARAMETER GroupName
-		A description of the GroupName parameter.
-	
-	.PARAMETER GroupType
-		A description of the GroupType parameter.
-	
-	.PARAMETER UnitType
-		A description of the UnitType  parameter.
-	
-	.PARAMETER BusinessUnit
-		A description of the BusinessUnit parameter.
-	
-	.EXAMPLE
-				PS C:\> Create-CapaGroupInBusinessUnit -CapaSDK $value1 -GroupName 'Value2' -GroupType Calendar -UnitType  'Value4' -BusinessUnit 'Value5'
-	
-	.NOTES
-		Additional information about the function.
-#>
-function Create-CapaGroupInBusinessUnit {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[string]$GroupName,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Calendar', 'Department', 'Static')]
-		[string]$GroupType,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
-		[string]$UnitType,
-		[Parameter(Mandatory = $true)]
-		[string]$BusinessUnit
-	)
-	
-	$value = $CapaSDK.CreateGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
-	
-	return $value
 }
 
 
@@ -2480,58 +2393,6 @@ function Create-CapaADGroup {
 	$value = $CapaSDK.CreateADGroup($GroupName, $UnitType, $LDAPPath, $recursive)
 	return $value
 }
-
-
-<#
-	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246248/Delete+Group+in+Business+Unit
-	
-	.DESCRIPTION
-		A detailed description of the Remove-CapaGroupInBusinessUnit function.
-	
-	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
-	
-	.PARAMETER GroupName
-		A description of the GroupName parameter.
-	
-	.PARAMETER GroupType
-		A description of the GroupType parameter.
-	
-	.PARAMETER UnitType
-		A description of the UnitType parameter.
-	
-	.PARAMETER BusinessUnit
-		A description of the BusinessUnit parameter.
-	
-	.EXAMPLE
-				PS C:\> Remove-CapaGroupInBusinessUnit -CapaSDK $value1 -GroupName 'Value2' -GroupType Calendar -UnitType Computer -BusinessUnit 'Value5'
-	
-	.NOTES
-		Additional information about the function.
-#>
-function Remove-CapaGroupInBusinessUnit {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[String]$GroupName,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Calendar', 'Department', 'Static')]
-		[String]$GroupType,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
-		[String]$UnitType,
-		[Parameter(Mandatory = $true)]
-		[String]$BusinessUnit
-	)
-	
-	$value = $CapaSDK.DeleteGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
-	return $value
-}
-
 
 <#
 	.SYNOPSIS
@@ -2711,6 +2572,7 @@ function Set-CapaGroupDescription {
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246318/Set+Group+Folder
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246326/Set+Group+folder+in+a+Business+Unit
 	
 	.DESCRIPTION
 		A detailed description of the Set-CapaGroupFolder function.
@@ -2745,60 +2607,16 @@ function Set-CapaGroupFolder {
 		[ValidateSet('Dynamic_ADSI', 'Department', 'Dynamic_SQL', 'Static')]
 		$GroupType,
 		[Parameter(Mandatory = $true)]
-		$FolderStructure
+		$FolderStructure,
+		[string]$BusinessunitName = ''
 	)
 	
-	$value = $CapaSDK.SetGroupFolder($GroupName, $GroupType, $FolderStructure)
-	return $value
-}
-
-
-<#
-	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246326/Set+Group+folder+in+a+Business+Unit
+	if ($BusinessunitName -eq '') {
+		$value = $CapaSDK.SetGroupFolder($GroupName, $GroupType, $FolderStructure)
+	} else {
+		$value = $CapaSDK.SetGroupFolderBU($GroupName, $GroupType, $FolderStructure, $BusinessunitName)
+	}
 	
-	.DESCRIPTION
-		A detailed description of the Set-CapaGroupFolderInABusinessUnit function.
-	
-	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
-	
-	.PARAMETER GroupName
-		A description of the GroupName parameter.
-	
-	.PARAMETER GroupType
-		A description of the GroupType parameter.
-	
-	.PARAMETER FolderStructure
-		A description of the FolderStructure  parameter.
-	
-	.PARAMETER BusinessunitName
-		A description of the BusinessunitName parameter.
-	
-	.EXAMPLE
-				PS C:\> Set-CapaGroupFolderInABusinessUnit -CapaSDK 'Value1' -GroupName 'Value2' -GroupType Dynamic_ADSI -FolderStructure  'Value4' -BusinessunitName 'Value5'
-	
-	.NOTES
-		Additional information about the function.
-#>
-function Set-CapaGroupFolderInABusinessUnit {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		[String]$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[String]$GroupName,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Dynamic_ADSI', 'Department', 'Dynamic_SQL', 'Static')]
-		[String]$GroupType,
-		[Parameter(Mandatory = $true)]
-		[String]$FolderStructure,
-		[Parameter(Mandatory = $true)]
-		[string]$BusinessunitName
-	)
-	
-	$value = $CapaSDK.SetGroupFolderBU($GroupName, $GroupType, $FolderStructure, $BusinessunitName)
 	return $value
 }
 
@@ -2819,8 +2637,7 @@ function Set-CapaGroupFolderInABusinessUnit {
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaMeteringGroups
-{
+function Get-CapaMeteringGroups {
 	[CmdletBinding()]
 	param
 	(
@@ -2832,18 +2649,17 @@ function Get-CapaMeteringGroups
 	
 	$aUnits = $CapaSDK.GetMeteringGroups()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name		    = $aItem[0];
-			Version	    = $aItem[1];
-			Vendor	    = $aItem[2];
-			AppCode	    = $aItem[3];
-			Description	    = $aItem[4];
+			Name           = $aItem[0];
+			Version        = $aItem[1];
+			Vendor         = $aItem[2];
+			AppCode        = $aItem[3];
+			Description    = $aItem[4];
 			MeteringModule = $aItem[5];
-			GUID		   = $aItem[6];
-			ID = $aItem[7]
+			GUID           = $aItem[6];
+			ID             = $aItem[7]
 		}
 	}
 	
@@ -2873,8 +2689,7 @@ function Get-CapaMeteringGroups
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUpdateInventoryForUnit
-{
+function Get-CapaUpdateInventoryForUnit {
 	[CmdletBinding()]
 	param
 	(
@@ -2891,17 +2706,16 @@ function Get-CapaUpdateInventoryForUnit
 	
 	$aUnits = $CapaSDK.GetUpdateInventoryForUnit($UnitName, $UnitType)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Qfename		   = $aItem[0];
-			InstallDate	       = $aItem[1];
-			UpdateID		   = $aItem[2];
-			UpdateName	       = $aItem[3];
-			Revision    = $aItem[4];
+			Qfename      = $aItem[0];
+			InstallDate  = $aItem[1];
+			UpdateID     = $aItem[2];
+			UpdateName   = $aItem[3];
+			Revision     = $aItem[4];
 			InstallCount = $aItem[5];
-			Status		   = $aItem[6]
+			Status       = $aItem[6]
 		}
 	}
 	
@@ -2928,8 +2742,7 @@ function Get-CapaUpdateInventoryForUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUserInventory
-{
+function Get-CapaUserInventory {
 	[CmdletBinding()]
 	param
 	(
@@ -2943,16 +2756,15 @@ function Get-CapaUserInventory
 	
 	$aUnits = $CapaSDK.GetUserInventory($UserName)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Category	     = $aItem[0];
-			Entry  = $aItem[1];
-			Value	 = $aItem[2];
-			Datatype   = $aItem[3];
-			GUID	 = $aItem[4];
-			ID = $aItem[5]
+			Category = $aItem[0];
+			Entry    = $aItem[1];
+			Value    = $aItem[2];
+			Datatype = $aItem[3];
+			GUID     = $aItem[4];
+			ID       = $aItem[5]
 		}
 	}
 	
@@ -2976,8 +2788,7 @@ function Get-CapaUserInventory
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaCustomInventoryCategoriesAndEntries
-{
+function Get-CapaCustomInventoryCategoriesAndEntries {
 	[CmdletBinding()]
 	param
 	(
@@ -2989,8 +2800,7 @@ function Get-CapaCustomInventoryCategoriesAndEntries
 	
 	$aUnits = $CapaSDK.GetCustomInventoryCategoriesAndEntrie($UserName)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		
 		$Datatype = Convert-CapaDataType -Datatype $aItem [2]
@@ -2998,7 +2808,7 @@ function Get-CapaCustomInventoryCategoriesAndEntries
 		$oaUnits += [pscustomobject]@{
 			Category = $aItem[0];
 			Entry    = $aItem[1];
-			Datatype    = $Datatype
+			Datatype = $Datatype
 		}
 	}
 	
@@ -3043,24 +2853,23 @@ function Get-CapaCustomInventoryCategoriesAndEntries
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaCustomInventory
-{
+function Set-CapaCustomInventory {
 	[CmdletBinding(DefaultParameterSetName = 'NameType')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
-		           Mandatory = $true)]
+			Mandatory = $true)]
 		[String]
 		$UnitName,
 		[Parameter(ParameterSetName = 'NameType',
-		           Mandatory = $true)]
+			Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]
 		$UnitType,
 		[Parameter(ParameterSetName = 'Uuid',
-		           Mandatory = $true)]
+			Mandatory = $true)]
 		[String]
 		$Uuid,
 		[Parameter(Mandatory = $true)]
@@ -3079,37 +2888,34 @@ function Set-CapaCustomInventory
 	)
 	
 	switch ($UnitType) {
-		"Computer" {
-			$UnitType = "1"
+		'Computer' {
+			$UnitType = '1'
 		}
-		"User" {
-			$UnitType = "2"
+		'User' {
+			$UnitType = '2'
 		}
 		default {}
 	}
 	
 	switch ($DataType) {
-		"Integer" {
-			$DataType = "I"
+		'Integer' {
+			$DataType = 'I'
 		}
-		"Time" {
-			$DataType = "T"
+		'Time' {
+			$DataType = 'T'
 		}
-		"String" {
-			$DataType = "S"
+		'String' {
+			$DataType = 'S'
 		}
-		"Text"{
-			$DataType = "N"
+		'Text' {
+			$DataType = 'N'
 		}
 		default {}
 	}
 	
-	if ($PSCmdlet.ParameterSetName -eq "NameType")
-	{
+	if ($PSCmdlet.ParameterSetName -eq 'NameType') {
 		$value = $CapaSDK.SetCustomInventory($UnitName, $UnitType, $Section, $Name, $Value, $DataType)
-	}
-	Else
-	{
+	} Else {
 		$value = $CapaSDK.SetCustomInventoryUUID($Uuid, $Section, $Name, $Value, $DataType)
 	}
 	
@@ -3133,22 +2939,21 @@ function Set-CapaCustomInventory
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaHardwareInventory
-{
+function Set-CapaHardwareInventory {
 	[CmdletBinding(DefaultParameterSetName = 'NameType')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[String]$UnitName,
 		[Parameter(ParameterSetName = 'NameType',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]$UnitType,
 		[Parameter(ParameterSetName = 'Uuid',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[String]$Uuid,
 		[Parameter(Mandatory = $true)]
 		[String]$Section,
@@ -3161,40 +2966,35 @@ function Set-CapaHardwareInventory
 		[String]$DataType
 	)
 	
-	switch ($UnitType)
-	{
-		"Computer" {
-			$UnitType = "1"
+	switch ($UnitType) {
+		'Computer' {
+			$UnitType = '1'
 		}
-		"User" {
-			$UnitType = "2"
-		}
-		default { }
-	}
-	
-	switch ($DataType)
-	{
-		"Integer" {
-			$DataType = "I"
-		}
-		"Time" {
-			$DataType = "T"
-		}
-		"String" {
-			$DataType = "S"
-		}
-		"Text"{
-			$DataType = "N"
+		'User' {
+			$UnitType = '2'
 		}
 		default { }
 	}
 	
-	if ($PSCmdlet.ParameterSetName -eq "NameType")
-	{
+	switch ($DataType) {
+		'Integer' {
+			$DataType = 'I'
+		}
+		'Time' {
+			$DataType = 'T'
+		}
+		'String' {
+			$DataType = 'S'
+		}
+		'Text' {
+			$DataType = 'N'
+		}
+		default { }
+	}
+	
+	if ($PSCmdlet.ParameterSetName -eq 'NameType') {
 		$value = $CapaSDK.SetHardwareInventory($UnitName, $UnitType, $Section, $Name, $Value, $DataType)
-	}
-	Else
-	{
+	} Else {
 		$value = $CapaSDK.SetHardwareInventoryUUID($Uuid, $Section, $Name, $Value, $DataType)
 	}
 	
@@ -3230,18 +3030,17 @@ function Set-CapaHardwareInventory
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaUnitToProfile
-{
+function Add-CapaUnitToProfile {
 	[CmdletBinding()]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[String]$UnitName,
 		[Parameter(ParameterSetName = 'Uuid',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[String]$Uuid,
 		[Parameter(Mandatory = $true)]
 		[String]$ProfileName,
@@ -3249,8 +3048,7 @@ function Add-CapaUnitToProfile
 		[String]$ChangelogComment
 	)
 	
-	switch ($PsCmdlet.ParameterSetName)
-	{
+	switch ($PsCmdlet.ParameterSetName) {
 		'Uuid' {
 			$value = $CapaSDK.AddUnitToProfile($UnitName, $ProfileName, $ChangelogComment)
 			break
@@ -3293,27 +3091,25 @@ function Add-CapaUnitToProfile
 	.NOTES
 		Additional information about the function.
 #>
-function Unlink-CapaUnitFromProfile
-{
+function Unlink-CapaUnitFromProfile {
 	[CmdletBinding(DefaultParameterSetName = 'Uuid')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[String]$ProfileName,
 		[Parameter(Mandatory = $true)]
 		[String]$ChangelogComment,
 		[Parameter(ParameterSetName = 'Uuid',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[String]$Uuid
 	)
 	
-	switch ($PsCmdlet.ParameterSetName)
-	{
+	switch ($PsCmdlet.ParameterSetName) {
 		'NameType' {
 			$value = $CapaSDK.UnlinkUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
 			break
@@ -3355,18 +3151,17 @@ function Unlink-CapaUnitFromProfile
 	.NOTES
 		Additional information about the function.
 #>
-function Remove-CapaProfileFromDevice
-{
+function Remove-CapaProfileFromDevice {
 	[CmdletBinding()]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[String]$UnitName,
 		[Parameter(ParameterSetName = 'Uuid',
-				   Mandatory = $true)]
+			Mandatory = $true)]
 		[String]$UUID,
 		[Parameter(Mandatory = $true)]
 		[String]$ProfileName,
@@ -3374,8 +3169,7 @@ function Remove-CapaProfileFromDevice
 		[String]$ChangelogComment
 	)
 	
-	switch ($PsCmdlet.ParameterSetName)
-	{
+	switch ($PsCmdlet.ParameterSetName) {
 		'NameType' {
 			$value = $CapaSDK.RemoveUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
 			break
@@ -3459,8 +3253,7 @@ function Remove-CapaProfileFromDevice
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaExchangePayloadToProfile
-{
+function Add-CapaExchangePayloadToProfile {
 	[CmdletBinding()]
 	param
 	(
@@ -3473,7 +3266,7 @@ function Add-CapaExchangePayloadToProfile
 		[Parameter(Mandatory = $true)]
 		[string]$DomainandUserName,
 		[Parameter(Mandatory = $false)]
-		[securestring]$Password = "",
+		[securestring]$Password = '',
 		[Parameter(Mandatory = $true)]
 		[string]$EmailAddress,
 		[Parameter(Mandatory = $true)]
@@ -3503,7 +3296,7 @@ function Add-CapaExchangePayloadToProfile
 		[bool]$SyncContacts = $false,
 		[ValidateSet('False', 'True')]
 		[bool]$SyncTasks = $false,
-		[string]$ChangelogComment = ""
+		[string]$ChangelogComment = ''
 	)
 	
 	$value = $CapaSDK.AddExchangePayloadToProfile($ProfileID, $AccountName, $DomainandUserName, $Password, $EmailAddress, $ExchangeActiveSyncHost, $UseSSL, $PastDaysofMailtoSync, $AllowMove, $UseOnlyinMail, $UseSMIME, $AllowRecentAddressSyncing, $Syncinterval, $SyncEmail, $SyncCalendar, $SyncContacts, $SyncTasks, $ChangelogComment)
@@ -3566,8 +3359,7 @@ function Add-CapaExchangePayloadToProfile
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaWifiPayloadToProfile
-{
+function Add-CapaWifiPayloadToProfile {
 	[CmdletBinding()]
 	param
 	(
@@ -3584,44 +3376,31 @@ function Add-CapaWifiPayloadToProfile
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('None', 'WEP', 'WPA', 'Any')]
 		[string]$SecurityType,
-		[string]$Password = "",
+		[string]$Password = '',
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Automatic', 'Manual', 'None')]
 		[string]$ProxyType,
-		[string]$ProxyServer = "",
-		[string]$ProxyPort = "",
-		[string]$ProxyAuthentication = "",
-		[string]$ProxyPassword = "",
-		[string]$ProxyServerConfigURL = "",
-		[string]$ChangelogComment = ""
+		[string]$ProxyServer = '',
+		[string]$ProxyPort = '',
+		[string]$ProxyAuthentication = '',
+		[string]$ProxyPassword = '',
+		[string]$ProxyServerConfigURL = '',
+		[string]$ChangelogComment = ''
 	)
 	
-	if ($Password -eq "" -and $SecurityType -ne "None")
-	{
+	if ($Password -eq '' -and $SecurityType -ne 'None') {
 		Write-Error "Password cannot be NULL when choosing SecurityType: $SecurityType"
-	}
-	elseif ($ProxyType -eq "Manual" -and $ProxyServer -eq "")
-	{
+	} elseif ($ProxyType -eq 'Manual' -and $ProxyServer -eq '') {
 		Write-Error "ProxyServer cannot be NULL when choosing ProxyType: $ProxyType"
-	}
-	elseif ($ProxyType -eq "Manual" -and $ProxyPort -eq "")
-	{
+	} elseif ($ProxyType -eq 'Manual' -and $ProxyPort -eq '') {
 		Write-Error "ProxyPort cannot be NULL when choosing ProxyType: $ProxyType"
-	}
-	elseif ($ProxyType -eq "Manual" -and $ProxyAuthentication -eq "")
-	{
+	} elseif ($ProxyType -eq 'Manual' -and $ProxyAuthentication -eq '') {
 		Write-Error "ProxyAuthentication cannot be NULL when choosing ProxyType: $ProxyType"
-	}
-	elseif ($ProxyType -eq "Manual" -and $ProxyPassword -eq "")
-	{
+	} elseif ($ProxyType -eq 'Manual' -and $ProxyPassword -eq '') {
 		Write-Error "ProxyPassword cannot be NULL when choosing ProxyType: $ProxyType"
-	}
-	elseif ($ProxyType -eq "Automatic" -and $ProxyServerConfigURL -eq "")
-	{
+	} elseif ($ProxyType -eq 'Automatic' -and $ProxyServerConfigURL -eq '') {
 		Write-Error "ProxyServerConfigURL cannot be NULL when choosing ProxyType: $ProxyType"
-	}
-	Else
-	{
+	} Else {
 		$value = $CapaSDK.AddWifiPayloadToProfile($ProfileID, $NetworkName, $HiddenNetwork, $AutoJoin, $SecurityType, $Password, $ProxyType, $ProxyType, $ProxyServer, $ProxyPort, $ProxyAuthentication, $ProxyPassword, $ProxyServerConfigURL, $ChangelogComment)
 		return $value
 	}
@@ -3653,10 +3432,9 @@ function Add-CapaWifiPayloadToProfile
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaEnforcePasscodeAndroid
-{
+function Add-CapaEnforcePasscodeAndroid {
 	[CmdletBinding()]
-	[Alias("Edit-CapaEnforcePasscodeAndroid")]
+	[Alias('Edit-CapaEnforcePasscodeAndroid')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -3665,7 +3443,7 @@ function Add-CapaEnforcePasscodeAndroid
 		[int]$ProfileId,
 		[Parameter(Mandatory = $true)]
 		[string]$Passcode,
-		$ChangelogComment = ""
+		$ChangelogComment = ''
 	)
 	
 	$value = $CapaSDK.AddEditEnforcePasscodeAndroid($ProfileId, $Passcode, $ChangelogComment)
@@ -3704,10 +3482,9 @@ function Add-CapaEnforcePasscodeAndroid
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaKeyValueToAppConfigAndroid
-{
+function Add-CapaKeyValueToAppConfigAndroid {
 	[CmdletBinding()]
-	[Alias("Edit-CapaKeyValueToAppConfigAndroid")]
+	[Alias('Edit-CapaKeyValueToAppConfigAndroid')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -3721,7 +3498,7 @@ function Add-CapaKeyValueToAppConfigAndroid
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('String', 'Bool', 'Hidden', 'Integer')]
 		$KeyValueType,
-		$ChangelogComment = ""
+		$ChangelogComment = ''
 	)
 	
 	$value = $CapaSDK.AddKeyValueToAppConfigAndroid($DeviceApplicationID, $Key, $Value, $KeyValueType, $ChangelogComment)
@@ -3760,10 +3537,9 @@ function Add-CapaKeyValueToAppConfigAndroid
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaKeyValueToAppConfigIOS
-{
+function Add-CapaKeyValueToAppConfigIOS {
 	[CmdletBinding()]
-	[Alias("Edit-CapaKeyValueToAppConfigIOS")]
+	[Alias('Edit-CapaKeyValueToAppConfigIOS')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -3777,7 +3553,7 @@ function Add-CapaKeyValueToAppConfigIOS
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('String', 'Boolean', 'Int', 'Float', 'DateTime')]
 		[string]$KeyValueType,
-		[string]$ChangelogComment = ""
+		[string]$ChangelogComment = ''
 	)
 	
 	$value = $CapaSDK.AddKeyValueToAppConfigIOS($DeviceApplicationID, $Key, $Value, $KeyValueType, $ChangelogComment)
@@ -3810,8 +3586,7 @@ function Add-CapaKeyValueToAppConfigIOS
 	.NOTES
 		Additional information about the function.
 #>
-function Assign-CapaProfileToBusinessUnit
-{
+function Assign-CapaProfileToBusinessUnit {
 	[CmdletBinding()]
 	param
 	(
@@ -3821,7 +3596,7 @@ function Assign-CapaProfileToBusinessUnit
 		[int]$ProfileId,
 		[Parameter(Mandatory = $true)]
 		[string]$BusinessUnitName,
-		[string]$ChangelogComment = ""
+		[string]$ChangelogComment = ''
 	)
 	
 	$value = $CapaSDK.AssignProfileToBusinessUnit($ProfileId, $BusinessUnitName, $ChangelogComment)
@@ -3854,8 +3629,7 @@ function Assign-CapaProfileToBusinessUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Clone-CapaDeviceApplication
-{
+function Clone-CapaDeviceApplication {
 	[CmdletBinding()]
 	param
 	(
@@ -3865,7 +3639,7 @@ function Clone-CapaDeviceApplication
 		[int]$DeviceApplicationID,
 		[Parameter(Mandatory = $true)]
 		[string]$NewName,
-		[string]$ChangelogComment = ""
+		[string]$ChangelogComment = ''
 	)
 	
 	$value = $CapaSDK.CloneDeviceApplication($DeviceApplicationID, $NewName, $ChangelogComment)
@@ -3901,8 +3675,7 @@ function Clone-CapaDeviceApplication
 	.NOTES
 		Additional information about the function.
 #>
-function Create-CapaProfile
-{
+function Create-CapaProfile {
 	[CmdletBinding()]
 	param
 	(
@@ -3914,16 +3687,13 @@ function Create-CapaProfile
 		[string]$Description,
 		[Parameter(Mandatory = $true)]
 		[int]$Priority,
-		[string]$ChangelogComment = "",
-		[string]$BusinessUnitId = ""
+		[string]$ChangelogComment = '',
+		[string]$BusinessUnitId = ''
 	)
 	
-	if ($BusinessUnitId -eq "")
-	{
+	if ($BusinessUnitId -eq '') {
 		$value = $CapaSDK.CreateProfile($Name, $Description, $Priority, $ChangelogComment)
-	}
-	else
-	{
+	} else {
 		$value = $CapaSDK.CreateProfileInBusinessUnit($Name, $Description, $Priority, $ChangelogComment, $BusinessUnitId)
 	}
 	
@@ -4000,8 +3770,7 @@ function Create-CapaProfile
 	.NOTES
 		Additional information about the function.
 #>
-function Edit-CapaExchangePayload
-{
+function Edit-CapaExchangePayload {
 	[CmdletBinding()]
 	param
 	(
@@ -4016,7 +3785,7 @@ function Edit-CapaExchangePayload
 		[Parameter(Mandatory = $true)]
 		[string]$DomainandUserName,
 		[Parameter(Mandatory = $false)]
-		[securestring]$Password = "",
+		[securestring]$Password = '',
 		[Parameter(Mandatory = $true)]
 		[string]$EmailAddress,
 		[Parameter(Mandatory = $true)]
@@ -4044,7 +3813,7 @@ function Edit-CapaExchangePayload
 		[bool]$SyncContacts = $false,
 		[ValidateSet('False', 'True')]
 		[bool]$SyncTasks = $false,
-		[string]$ChangelogComment = ""
+		[string]$ChangelogComment = ''
 	)
 	
 	$value = $CapaSDK.EditExchangePayload($ProfileID, $CurrentAccountName, $AccountName, $DomainandUserName, $Password, $EmailAddress, $ExchangeActiveSyncHost, $UseSSL, $PastDaysofMailtoSync, $AllowMove, $UseOnlyinMail, $UseSMIME, $AllowRecentAddressSyncing, $Syncinterval, $SyncEmail, $SyncContacts, $SyncTasks, $ChangelogComment)
@@ -4106,8 +3875,7 @@ function Edit-CapaExchangePayload
 	.NOTES
 		Additional information about the function.
 #>
-function Edit-CapaWifiPayload
-{
+function Edit-CapaWifiPayload {
 	[CmdletBinding()]
 	param
 	(
@@ -4126,44 +3894,31 @@ function Edit-CapaWifiPayload
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('None', 'WEP', 'WPA', 'Any')]
 		[string]$SecurityType,
-		[string]$Password = "",
+		[string]$Password = '',
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Automatic', 'Manual', 'None')]
 		[string]$ProxyType,
-		[string]$ProxyServer = "",
-		[string]$ProxyPort = "",
-		[string]$ProxyAuthentication = "",
-		[string]$ProxyPassword = "",
-		[string]$ProxyServerConfigURL = "",
-		[string]$ChangelogComment = ""
+		[string]$ProxyServer = '',
+		[string]$ProxyPort = '',
+		[string]$ProxyAuthentication = '',
+		[string]$ProxyPassword = '',
+		[string]$ProxyServerConfigURL = '',
+		[string]$ChangelogComment = ''
 	)
 	
-	if ($Password -eq "" -and $SecurityType -ne "None")
-	{
+	if ($Password -eq '' -and $SecurityType -ne 'None') {
 		Write-Error "Password cannot be NULL when choosing SecurityType: $SecurityType"
-	}
-	elseif ($ProxyType -eq "Manual" -and $ProxyServer -eq "")
-	{
+	} elseif ($ProxyType -eq 'Manual' -and $ProxyServer -eq '') {
 		Write-Error "ProxyServer cannot be NULL when choosing ProxyType: $ProxyType"
-	}
-	elseif ($ProxyType -eq "Manual" -and $ProxyPort -eq "")
-	{
+	} elseif ($ProxyType -eq 'Manual' -and $ProxyPort -eq '') {
 		Write-Error "ProxyPort cannot be NULL when choosing ProxyType: $ProxyType"
-	}
-	elseif ($ProxyType -eq "Manual" -and $ProxyAuthentication -eq "")
-	{
+	} elseif ($ProxyType -eq 'Manual' -and $ProxyAuthentication -eq '') {
 		Write-Error "ProxyAuthentication cannot be NULL when choosing ProxyType: $ProxyType"
-	}
-	elseif ($ProxyType -eq "Manual" -and $ProxyPassword -eq "")
-	{
+	} elseif ($ProxyType -eq 'Manual' -and $ProxyPassword -eq '') {
 		Write-Error "ProxyPassword cannot be NULL when choosing ProxyType: $ProxyType"
-	}
-	elseif ($ProxyType -eq "Automatic" -and $ProxyServerConfigURL -eq "")
-	{
+	} elseif ($ProxyType -eq 'Automatic' -and $ProxyServerConfigURL -eq '') {
 		Write-Error "ProxyServerConfigURL cannot be NULL when choosing ProxyType: $ProxyType"
-	}
-	Else
-	{
+	} Else {
 		$value = $CapaSDK.EditWifiPayload($ProfileID, $CurrentNetworkName, $NetworkName, $HiddenNetwork, $AutoJoin, $SecurityType, $Password, $ProxyType, $ProxyType, $ProxyServer, $ProxyPort, $ProxyAuthentication, $ProxyPassword, $ProxyServerConfigURL, $ChangelogComment)
 		return $value
 	}
@@ -4185,8 +3940,7 @@ function Edit-CapaWifiPayload
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaDeviceApplications
-{
+function Get-CapaDeviceApplications {
 	[CmdletBinding()]
 	param
 	(
@@ -4198,17 +3952,16 @@ function Get-CapaDeviceApplications
 	
 	$aUnits = $CapaSDK.GetDeviceApplications()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID = $aItem[0];
-			Name    = $aItem[1];
-			Description    = $aItem[2];
-			Priority = $aItem[3];
-			Version	 = $aItem[4];
-			CMPID	     = $aItem[5];
-			GUID	    = $aItem[6]
+			ID          = $aItem[0];
+			Name        = $aItem[1];
+			Description = $aItem[2];
+			Priority    = $aItem[3];
+			Version     = $aItem[4];
+			CMPID       = $aItem[5];
+			GUID        = $aItem[6]
 		}
 	}
 	
@@ -4232,8 +3985,7 @@ function Get-CapaDeviceApplications
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaProfiles
-{
+function Get-CapaProfiles {
 	[CmdletBinding()]
 	param
 	(
@@ -4245,17 +3997,16 @@ function Get-CapaProfiles
 	
 	$aUnits = $CapaSDK.GetProfiles()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID		    = $aItem[0];
-			Name	    = $aItem[1];
+			ID          = $aItem[0];
+			Name        = $aItem[1];
 			Description = $aItem[2];
 			Priority    = $aItem[3];
-			Version	    = $aItem[4];
-			CMPID	    = $aItem[5];
-			GUID	    = $aItem[6]
+			Version     = $aItem[4];
+			CMPID       = $aItem[5];
+			GUID        = $aItem[6]
 		}
 	}
 	
@@ -4294,8 +4045,7 @@ function Get-CapaProfiles
 	.NOTES
 		Additional information about the function.
 #>
-function Link-CapaProfileToGroup
-{
+function Link-CapaProfileToGroup {
 	[CmdletBinding()]
 	param
 	(
@@ -4308,8 +4058,8 @@ function Link-CapaProfileToGroup
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('AD', 'Department', 'Dynamic', 'Static')]
 		[string]$GroupType,
-		[string]$BusinessUnitName = "",
-		[string]$ChangelogComment = ""
+		[string]$BusinessUnitName = '',
+		[string]$ChangelogComment = ''
 	)
 	
 	$value = $CapaSDK.AddProfileToGroup($ProfileId, $GroupName, $GroupType, $BusinessUnitName, $ChangelogComment)
@@ -4336,8 +4086,7 @@ function Link-CapaProfileToGroup
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaOSDiskConfigration
-{
+function Get-CapaOSDiskConfigration {
 	[CmdletBinding()]
 	param
 	(
@@ -4351,17 +4100,16 @@ function Get-CapaOSDiskConfigration
 	
 	$aUnits = $CapaSDK.GetOSDiskConfiguration($OSPointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID		    = $aItem[0];
-			Name	    = $aItem[1];
-			Comment = $aItem[2];
-			GUID    = $aItem[3];
-			Laptop	    = $aItem[4];
-			LeaveDisk	    = $aItem[5];
-			WorkStation	    = $aItem[6]
+			ID          = $aItem[0];
+			Name        = $aItem[1];
+			Comment     = $aItem[2];
+			GUID        = $aItem[3];
+			Laptop      = $aItem[4];
+			LeaveDisk   = $aItem[5];
+			WorkStation = $aItem[6]
 		}
 	}
 	
@@ -4388,8 +4136,7 @@ function Get-CapaOSDiskConfigration
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaOSImages
-{
+function Get-CapaOSImages {
 	[CmdletBinding()]
 	param
 	(
@@ -4403,18 +4150,17 @@ function Get-CapaOSImages
 	
 	$aUnits = $CapaSDK.GetOSImages($OSPointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID		    = $aItem[0];
-			Name	    = $aItem[1];
-			Description	    = $aItem[2];
-			Filename	    = $aItem[3];
-			GUID	    = $aItem[4];
+			ID          = $aItem[0];
+			Name        = $aItem[1];
+			Description = $aItem[2];
+			Filename    = $aItem[3];
+			GUID        = $aItem[4];
 			ImageFile   = $aItem[5];
-			LocalFile = $aItem[6];
-			OSName   = $aItem[7]
+			LocalFile   = $aItem[6];
+			OSName      = $aItem[7]
 		}
 	}
 	
@@ -4441,8 +4187,7 @@ function Get-CapaOSImages
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaOSInstallationTypes
-{
+function Get-CapaOSInstallationTypes {
 	[CmdletBinding()]
 	param
 	(
@@ -4456,12 +4201,11 @@ function Get-CapaOSInstallationTypes
 	
 	$aUnits = $CapaSDK.GetOSInstallationTypes($OSPointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID		    = $aItem[0];
-			GUID	    = $aItem[1];
+			ID   = $aItem[0];
+			GUID = $aItem[1];
 			Type = $aItem[2]
 		}
 	}
@@ -4486,8 +4230,7 @@ function Get-CapaOSInstallationTypes
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaOSPoints
-{
+function Get-CapaOSPoints {
 	[CmdletBinding()]
 	param
 	(
@@ -4499,28 +4242,27 @@ function Get-CapaOSPoints
 	
 	$aUnits = $CapaSDK.GetOSPoints($OSPointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID   = $aItem[0];
-			Name = $aItem[1];
-			Description = $aItem[2];
-			GUID = $aItem[3];
-			FileBoot = $aItem[4];
+			ID                = $aItem[0];
+			Name              = $aItem[1];
+			Description       = $aItem[2];
+			GUID              = $aItem[3];
+			FileBoot          = $aItem[4];
 			FileDriverMapping = $aItem[5];
-			FileOSDGui = $aItem[6];
+			FileOSDGui        = $aItem[6];
 			FolderCommonFiles = $aItem[7];
-			FolderDrivers = $aItem[8];
-			FolderImages = $aItem[9];
-			FolderOSD = $aItem[10];
+			FolderDrivers     = $aItem[8];
+			FolderImages      = $aItem[9];
+			FolderOSD         = $aItem[10];
 			FolderMediaMaster = $aItem[11];
-			FolderScripts = $aItem[12];
-			FolderWinPE = $aItem[13];
-			OSDVersion = $aItem[14];
-			Servername = $aItem[15];
-			Sharename	      = $aItem[16];
-			UncPath	      = $aItem[17]
+			FolderScripts     = $aItem[12];
+			FolderWinPE       = $aItem[13];
+			OSDVersion        = $aItem[14];
+			Servername        = $aItem[15];
+			Sharename         = $aItem[16];
+			UncPath           = $aItem[17]
 		}
 	}
 	
@@ -4547,8 +4289,7 @@ function Get-CapaOSPoints
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaOSServers
-{
+function Get-CapaOSServers {
 	[CmdletBinding()]
 	param
 	(
@@ -4562,16 +4303,15 @@ function Get-CapaOSServers
 	
 	$aUnits = $CapaSDK.GetOSServers($OSPointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID   = $aItem[0];
-			Name = $aItem[1];
-			IP = $aItem[2];
-			Servername   = $aItem[3];
-			Sharename   = $aItem[4];
-			UncPath   = $aItem[5]
+			ID         = $aItem[0];
+			Name       = $aItem[1];
+			IP         = $aItem[2];
+			Servername = $aItem[3];
+			Sharename  = $aItem[4];
+			UncPath    = $aItem[5]
 		}
 	}
 	
@@ -4607,8 +4347,7 @@ function Get-CapaOSServers
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaPackageToManagementServer
-{
+function Add-CapaPackageToManagementServer {
 	[CmdletBinding()]
 	param
 	(
@@ -4625,16 +4364,14 @@ function Add-CapaPackageToManagementServer
 		[string]$ServerName
 	)
 	
-	if ($PackageType -eq "Computer")
-	{
-		$PackageType = "1"
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
 	}
-	if ($PackageType -eq "User")
-	{
-		$PackageType = "2"
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
 	}
 	
-	$value = $CapaSDK.AddPackageToManagementServer($PackageName, $PackageVersion, $PackageType,$ServerName)
+	$value = $CapaSDK.AddPackageToManagementServer($PackageName, $PackageVersion, $PackageType, $ServerName)
 	return $value
 }
 
@@ -4667,8 +4404,7 @@ function Add-CapaPackageToManagementServer
 	.NOTES
 		Additional information about the function.
 #>
-function Clone-CapaPackage
-{
+function Clone-CapaPackage {
 	[CmdletBinding()]
 	param
 	(
@@ -4706,8 +4442,7 @@ function Clone-CapaPackage
 	.NOTES
 		Additional information about the function.
 #>
-function Copy-CapaPackage
-{
+function Copy-CapaPackage {
 	[CmdletBinding()]
 	param
 	(
@@ -4726,13 +4461,11 @@ function Copy-CapaPackage
 		[string]$NewVersion
 	)
 	
-	if ($PackageType -eq "Computer")
-	{
-		$PackageType = "1"
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
 	}
-	if ($PackageType -eq "User")
-	{
-		$PackageType = "2"
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
 	}
 	
 	$value = $CapaSDK.CopyPackage($PackageName, $PackageVersion, $PackageType, $NewName, $NewVersion)
@@ -4768,8 +4501,7 @@ function Copy-CapaPackage
 	.NOTES
 		Additional information about the function.
 #>
-function Create-CapaPackage
-{
+function Create-CapaPackage {
 	[CmdletBinding()]
 	param
 	(
@@ -4816,8 +4548,7 @@ function Create-CapaPackage
 	.NOTES
 		Additional information about the function.
 #>
-function Enable-CapaPackageSchedule
-{
+function Enable-CapaPackageSchedule {
 	[CmdletBinding()]
 	param
 	(
@@ -4832,13 +4563,11 @@ function Enable-CapaPackageSchedule
 		[string]$PackageType
 	)
 	
-	if ($PackageType -eq "Computer")
-	{
-		$PackageType = "1"
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
 	}
-	if ($PackageType -eq "User")
-	{
-		$PackageType = "2"
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
 	}
 	
 	$value = $CapaSDK.EnablePackageSchedule($PackageName, $PackageVersion, $PackageType)
@@ -4868,8 +4597,7 @@ function Enable-CapaPackageSchedule
 	.NOTES
 		Additional information about the function.
 #>
-function Exist-CapaPackage
-{
+function Exist-CapaPackage {
 	[CmdletBinding()]
 	param
 	(
@@ -4884,13 +4612,11 @@ function Exist-CapaPackage
 		[string]$Type
 	)
 	
-	if ($PackageType -eq "Computer")
-	{
-		$PackageType = "1"
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
 	}
-	if ($PackageType -eq "User")
-	{
-		$PackageType = "2"
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
 	}
 	
 	$value = $CapaSDK.ExistPackage($Name, $Version, $Type)
@@ -4917,39 +4643,37 @@ function Exist-CapaPackage
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaAllInventoryPackages
-{
+function Get-CapaAllInventoryPackages {
 	[CmdletBinding()]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
-		[string]$PackageType = ""
+		[string]$PackageType = ''
 	)
 	
 	$oaUnits = @()
 	
 	$aUnits = $CapaSDK.GetAllInventoryPackages($PackageType)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name		    = $aItem[0];
-			Version	    = $aItem[1];
-			Type	    = $aItem[2];
-			DisplayName	    = $aItem[3];
-			IsMandatory	    = $aItem[4];
-			ScheduleId   = $aItem[5];
-			Description= $aItem[6];
-			GUID = $aItem[7];
-			ID = $aItem[8];
-			IsInteractive = $aItem[9];
+			Name               = $aItem[0];
+			Version            = $aItem[1];
+			Type               = $aItem[2];
+			DisplayName        = $aItem[3];
+			IsMandatory        = $aItem[4];
+			ScheduleId         = $aItem[5];
+			Description        = $aItem[6];
+			GUID               = $aItem[7];
+			ID                 = $aItem[8];
+			IsInteractive      = $aItem[9];
 			DependendPackageID = $aItem[10];
 			IsInventoryPackage = $aItem[11];
-			CollectMode = $aItem[12];
-			Priority = $aItem[13];
-			ServerDeploy = $aItem[14]
+			CollectMode        = $aItem[12];
+			Priority           = $aItem[13];
+			ServerDeploy       = $aItem[14]
 		}
 	}
 	
@@ -4975,39 +4699,37 @@ function Get-CapaAllInventoryPackages
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapatAllNoneInventoryPackages
-{
+function Get-CapatAllNoneInventoryPackages {
 	[CmdletBinding()]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
-		[string]$PackageType = ""
+		[string]$PackageType = ''
 	)
 	
 	$oaUnits = @()
 	
 	$aUnits = $CapaSDK.GetAllNoneInventoryPackages($PackageType)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name			   = $aItem[0];
-			Version		       = $aItem[1];
-			Type			   = $aItem[2];
-			DisplayName	       = $aItem[3];
-			IsMandatory	       = $aItem[4];
-			ScheduleId		   = $aItem[5];
-			Description	       = $aItem[6];
-			GUID			   = $aItem[7];
-			ID				   = $aItem[8];
-			IsInteractive	   = $aItem[9];
+			Name               = $aItem[0];
+			Version            = $aItem[1];
+			Type               = $aItem[2];
+			DisplayName        = $aItem[3];
+			IsMandatory        = $aItem[4];
+			ScheduleId         = $aItem[5];
+			Description        = $aItem[6];
+			GUID               = $aItem[7];
+			ID                 = $aItem[8];
+			IsInteractive      = $aItem[9];
 			DependendPackageID = $aItem[10];
 			IsInventoryPackage = $aItem[11];
-			CollectMode	       = $aItem[12];
-			Priority		   = $aItem[13];
-			ServerDeploy	   = $aItem[14]
+			CollectMode        = $aItem[12];
+			Priority           = $aItem[13];
+			ServerDeploy       = $aItem[14]
 		}
 	}
 	
@@ -5045,8 +4767,7 @@ function Get-CapatAllNoneInventoryPackages
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaLog
-{
+function Get-CapaLog {
 	[CmdletBinding()]
 	param
 	(
@@ -5065,13 +4786,11 @@ function Get-CapaLog
 		[String]$PackageType
 	)
 	
-	if ($PackageType -eq "Computer")
-	{
-		$PackageType = "1"
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
 	}
-	if ($PackageType -eq "User")
-	{
-		$PackageType = "2"
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
 	}
 	
 	$value = $CapaSDK.GetLog($UnitName, $UnitType, $PackageName, $PackageVersion, $PackageType)
@@ -5104,8 +4823,7 @@ function Get-CapaLog
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaPackageDescription
-{
+function Get-CapaPackageDescription {
 	[CmdletBinding()]
 	param
 	(
@@ -5120,13 +4838,11 @@ function Get-CapaPackageDescription
 		[String]$PackageType
 	)
 	
-	if ($PackageType -eq "Computer")
-	{
-		$PackageType = "1"
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
 	}
-	if ($PackageType -eq "User")
-	{
-		$PackageType = "2"
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
 	}
 	
 	$value = $CapaSDK.GetPackageDescription($PackageName, $PackageVersion, $PackageType)
@@ -5153,8 +4869,7 @@ function Get-CapaPackageDescription
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaPackagesOnBusinessUnit
-{
+function Get-CapaPackagesOnBusinessUnit {
 	[CmdletBinding()]
 	param
 	(
@@ -5168,25 +4883,24 @@ function Get-CapaPackagesOnBusinessUnit
 	
 	$aUnits = $CapaSDK.GetOSDiskConfiguration($OSPointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name = $aItem[0];
-			Version = $aItem[1];
-			Type = $aItem[2];
-			DisplayName = $aItem[3];
-			IsMandatory = $aItem[4];
-			ScheduleId = $aItem[5];
-			Description = $aItem[7];
-			GUID = $aItem[8];
-			ID = $aItem[9];
-			IsInteractive = $aItem[10];
+			Name               = $aItem[0];
+			Version            = $aItem[1];
+			Type               = $aItem[2];
+			DisplayName        = $aItem[3];
+			IsMandatory        = $aItem[4];
+			ScheduleId         = $aItem[5];
+			Description        = $aItem[7];
+			GUID               = $aItem[8];
+			ID                 = $aItem[9];
+			IsInteractive      = $aItem[10];
 			DependendPackageID = $aItem[11];
 			IsInventoryPackage = $aItem[12];
-			CollectMode = $aItem[13];
-			Priority = $aItem[14];
-			ServerDeploy = $aItem[15]
+			CollectMode        = $aItem[13];
+			Priority           = $aItem[14];
+			ServerDeploy       = $aItem[15]
 		}
 	}
 	
@@ -5216,8 +4930,7 @@ function Get-CapaPackagesOnBusinessUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaPackagesOnManagementServer
-{
+function Get-CapaPackagesOnManagementServer {
 	[CmdletBinding()]
 	param
 	(
@@ -5234,25 +4947,24 @@ function Get-CapaPackagesOnManagementServer
 	
 	$aUnits = $CapaSDK.GetOSDiskConfiguration($ServerName, $PackageType)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name = $aItem[0];
-			Version = $aItem[1];
-			Type = $aItem[2];
-			DisplayName = $aItem[3];
-			IsMandatory = $aItem[4];
-			ScheduleId = $aItem[5];
-			Description = $aItem[7];
-			GUID = $aItem[8];
-			ID = $aItem[9];
-			IsInteractive = $aItem[10];
+			Name               = $aItem[0];
+			Version            = $aItem[1];
+			Type               = $aItem[2];
+			DisplayName        = $aItem[3];
+			IsMandatory        = $aItem[4];
+			ScheduleId         = $aItem[5];
+			Description        = $aItem[7];
+			GUID               = $aItem[8];
+			ID                 = $aItem[9];
+			IsInteractive      = $aItem[10];
 			DependendPackageID = $aItem[11];
 			IsInventoryPackage = $aItem[12];
-			CollectMode = $aItem[13];
-			Priority = $aItem[14];
-			ServerDeploy = $aItem[15]
+			CollectMode        = $aItem[13];
+			Priority           = $aItem[14];
+			ServerDeploy       = $aItem[15]
 		}
 	}
 	
@@ -5282,8 +4994,7 @@ function Get-CapaPackagesOnManagementServer
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaPackageStatus
-{
+function Get-CapaPackageStatus {
 	[CmdletBinding()]
 	param
 	(
@@ -5300,15 +5011,14 @@ function Get-CapaPackageStatus
 	
 	$aUnits = $CapaSDK.GetPackageStatus($UnitName, $UnitType)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			UnitName = $aItem[0];
-			PackageName = $aItem[1];
+			UnitName       = $aItem[0];
+			PackageName    = $aItem[1];
 			PackageVersion = $aItem[2];
-			Status = $aItem[3];
-			DisplayStatus = $aItem[4]
+			Status         = $aItem[3];
+			DisplayStatus  = $aItem[4]
 		}
 	}
 	
@@ -5347,8 +5057,7 @@ function Get-CapaPackageStatus
 	.NOTES
 		Additional information about the function.
 #>
-function Import-CapaPackage
-{
+function Import-CapaPackage {
 	[CmdletBinding()]
 	param
 	(
@@ -5362,64 +5071,12 @@ function Import-CapaPackage
 		[bool]$ImportFolderStructure,
 		[Parameter(Mandatory = $true)]
 		[bool]$ImportSchedule,
-		[String]$ChangelogComment = ""
+		[String]$ChangelogComment = ''
 	)
 	
 	$value = $CapaSDK.ImportPackage($FilePath, $OverrideCIPCdata, $ImportFolderStructure, $ImportSchedule, $ChangelogComment)
 	return $value
 }
-
-
-<#
-	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247000/Remove+Package+From+BusinessUnit
-	
-	.DESCRIPTION
-		A detailed description of the Remove-CapaPackageFromBusinessUnit function.
-	
-	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
-	
-	.PARAMETER PackageName
-		A description of the PackageName  parameter.
-	
-	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
-	
-	.PARAMETER PackageType
-		A description of the PackageType parameter.
-	
-	.PARAMETER BusinessUnitName
-		A description of the BusinessUnitName  parameter.
-	
-	.EXAMPLE
-				PS C:\> Remove-CapaPackageFromBusinessUnit -CapaSDK $value1 -PackageName  'Value2' -PackageVersion 'Value3' -PackageType Computer -BusinessUnitName  'Value5'
-	
-	.NOTES
-		Additional information about the function.
-#>
-function Remove-CapaPackageFromBusinessUnit
-{
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageVersion,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
-		[String]$PackageType,
-		[Parameter(Mandatory = $true)]
-		[String]$BusinessUnitName
-	)
-	
-	$value = $CapaSDK.RemovePackageFromBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
-	return $value
-}
-
 
 <#
 	.SYNOPSIS
@@ -5449,8 +5106,7 @@ function Remove-CapaPackageFromBusinessUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Remove-CapaPackageFromManagementServer
-{
+function Remove-CapaPackageFromManagementServer {
 	[CmdletBinding()]
 	param
 	(
@@ -5467,13 +5123,11 @@ function Remove-CapaPackageFromManagementServer
 		[String]$ServerName
 	)
 	
-	if ($PackageType -eq "Computer")
-	{
-		$PackageType = "1"
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
 	}
-	if ($PackageType -eq "User")
-	{
-		$PackageType = "2"
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
 	}
 	
 	$value = $CapaSDK.RemovePackageFromManagementServer($PackageName, $PackageVersion, $PackageType, $ServerName)
@@ -5509,8 +5163,7 @@ function Remove-CapaPackageFromManagementServer
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaPackageDescription
-{
+function Set-CapaPackageDescription {
 	[CmdletBinding()]
 	param
 	(
@@ -5524,16 +5177,14 @@ function Set-CapaPackageDescription
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]$PackageType,
 		[Parameter(Mandatory = $true)]
-		[String]$Description = ""
+		[String]$Description = ''
 	)
 	
-	if ($PackageType -eq "Computer")
-	{
-		$PackageType = "1"
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
 	}
-	if ($PackageType -eq "User")
-	{
-		$PackageType = "2"
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
 	}
 	
 	$value = $CapaSDK.SetPackageDescription($PackageName, $PackageVersion, $PackageType, $Description)
@@ -5569,8 +5220,7 @@ function Set-CapaPackageDescription
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaPackagePriority
-{
+function Set-CapaPackagePriority {
 	[CmdletBinding()]
 	param
 	(
@@ -5586,13 +5236,11 @@ function Set-CapaPackagePriority
 		[Integer]$Priority = 500
 	)
 	
-	if ($PackageType -eq "Computer")
-	{
-		$PackageType = "1"
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
 	}
-	if ($PackageType -eq "User")
-	{
-		$PackageType = "2"
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
 	}
 	
 	$value = $CapaSDK.SetPackagePriority($PackageName, $PackageVersion, $PackageType, $Priority)
@@ -5643,8 +5291,7 @@ function Set-CapaPackagePriority
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaPackageSchedule
-{
+function Set-CapaPackageSchedule {
 	[CmdletBinding()]
 	param
 	(
@@ -5668,7 +5315,7 @@ function Set-CapaPackageSchedule
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Once', 'PeriodicalDaily', 'PeriodicalWeekly', 'Always')]
 		[String]$ScheduleRecurrence,
-		[String]$ScheduleRecurrencePattern = ""
+		[String]$ScheduleRecurrencePattern = ''
 	)
 	
 	$value = $CapaSDK.SetPackageSchedule($PackageName, $PackageVersion, $PackageType, $ScheduleStart, $ScheduleEnd, $ScheduleIntervalBegin, $ScheduleIntervalEnd, $ScheduleRecurrence, $ScheduleRecurrencePattern)
@@ -5701,8 +5348,7 @@ function Set-CapaPackageSchedule
 	.NOTES
 		Additional information about the function.
 #>
-function Update-CapaPackageNow
-{
+function Update-CapaPackageNow {
 	[CmdletBinding()]
 	param
 	(
@@ -5741,8 +5387,7 @@ function Update-CapaPackageNow
 	.NOTES
 		Additional information about the function.
 #>
-function Count-CapaConscomActions
-{
+function Count-CapaConscomActions {
 	[CmdletBinding()]
 	param
 	(
@@ -5773,8 +5418,7 @@ function Count-CapaConscomActions
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaBusinessUnits
-{
+function Get-CapaBusinessUnits {
 	[CmdletBinding()]
 	param
 	(
@@ -5786,13 +5430,12 @@ function Get-CapaBusinessUnits
 	
 	$aUnits = $CapaSDK.GetBusinessUnits()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			Name = $aItem[0];
 			GUID = $aItem[1];
-			Id = $aItem[2]
+			Id   = $aItem[2]
 		}
 	}
 	
@@ -5816,8 +5459,7 @@ function Get-CapaBusinessUnits
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaExternalTools
-{
+function Get-CapaExternalTools {
 	[CmdletBinding()]
 	param
 	(
@@ -5829,13 +5471,12 @@ function Get-CapaExternalTools
 	
 	$aUnits = $CapaSDK.GetExternalTools()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID = $aItem[0];
-			Name = $aItem[1];
-			Path = $aItem[2];
+			ID        = $aItem[0];
+			Name      = $aItem[1];
+			Path      = $aItem[2];
 			Arguments = $aItem[3]
 		}
 	}
@@ -5864,40 +5505,35 @@ function Get-CapaExternalTools
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaManagementPoint
-{
+function Get-CapaManagementPoint {
 	[CmdletBinding()]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
-		[int]$CmpId = ""
+		[int]$CmpId = ''
 	)
 	
 	$oaUnits = @()
 	
-	if ($CmpId -eq "")
-	{
+	if ($CmpId -eq '') {
 		$aUnits = $CapaSDK.GetManagementPoints()
-	}
-	else
-	{
+	} else {
 		$aUnits = $CapaSDK.GetManagementPoint($OSPointID)
 	}
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Id = $aItem[0];
-			Name = $aItem[1];
+			Id          = $aItem[0];
+			Name        = $aItem[1];
 			Description = $aItem[2];
-			Drive = $aItem[3];
-			GUID = $aItem[4];
+			Drive       = $aItem[3];
+			GUID        = $aItem[4];
 			LocalFolder = $aItem[5];
-			Server = $aItem[7];
-			Share = $aItem[8];
-			ParentGUID = $aItem[9]
+			Server      = $aItem[7];
+			Share       = $aItem[8];
+			ParentGUID  = $aItem[9]
 		}
 	}
 	
@@ -5921,8 +5557,7 @@ function Get-CapaManagementPoint
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaManagementServers
-{
+function Get-CapaManagementServers {
 	[CmdletBinding()]
 	param
 	(
@@ -5934,19 +5569,18 @@ function Get-CapaManagementServers
 	
 	$aUnits = $CapaSDK.GetManagementServers()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name = $aItem[0];
-			Path = $aItem[1];
-			Version = $aItem[2];
-			Drive = $aItem[3];
-			Server = $aItem[4];
-			Share = $aItem[5];
+			Name          = $aItem[0];
+			Path          = $aItem[1];
+			Version       = $aItem[2];
+			Drive         = $aItem[3];
+			Server        = $aItem[4];
+			Share         = $aItem[5];
 			IsParentShare = $aItem[7];
-			GUID = $aItem[8];
-			ID = $aItem[9]
+			GUID          = $aItem[8];
+			ID            = $aItem[9]
 		}
 	}
 	
@@ -5982,8 +5616,7 @@ function Get-CapaManagementServers
 	.NOTES
 		Additional information about the function.
 #>
-function Rebuild-CapaKitFileOnPoint
-{
+function Rebuild-CapaKitFileOnPoint {
 	[CmdletBinding()]
 	param
 	(
@@ -6000,13 +5633,11 @@ function Rebuild-CapaKitFileOnPoint
 		[int]$PointID
 	)
 	
-	if ($PackageType -eq "Computer")
-	{
-		$PackageType = "1"
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
 	}
-	if ($PackageType -eq "User")
-	{
-		$PackageType = "2"
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
 	}
 	
 	$value = $CapaSDK.RebuildKitFileOnPoint($PackageName, $PackageVersion, $PackageType, $PointID)
@@ -6042,8 +5673,7 @@ function Rebuild-CapaKitFileOnPoint
 	.NOTES
 		Additional information about the function.
 #>
-function Rebuild-CapaKitFileOnManagementServer
-{
+function Rebuild-CapaKitFileOnManagementServer {
 	[CmdletBinding()]
 	param
 	(
@@ -6060,13 +5690,11 @@ function Rebuild-CapaKitFileOnManagementServer
 		[String]$ServerName
 	)
 	
-	if ($PackageType -eq "Computer")
-	{
-		$PackageType = "1"
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
 	}
-	if ($PackageType -eq "User")
-	{
-		$PackageType = "2"
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
 	}
 	
 	$value = $CapaSDK.RebuildKitFileOnServer($PackageName, $PackageVersion, $PackageType, $ServerName)
@@ -6093,8 +5721,7 @@ function Rebuild-CapaKitFileOnManagementServer
 	.NOTES
 		Additional information about the function.
 #>
-function Reset-CapaLastRunDateOnGlobalTask
-{
+function Reset-CapaLastRunDateOnGlobalTask {
 	[CmdletBinding()]
 	param
 	(
@@ -6135,8 +5762,7 @@ function Reset-CapaLastRunDateOnGlobalTask
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaPrinterToUnit
-{
+function Add-CapaPrinterToUnit {
 	[CmdletBinding()]
 	param
 	(
@@ -6181,8 +5807,7 @@ function Add-CapaPrinterToUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaUnitToCalendarGroup
-{
+function Add-CapaUnitToCalendarGroup {
 	[CmdletBinding()]
 	param
 	(
@@ -6262,8 +5887,7 @@ function Add-CapaUnitToCalendarGroup
 	.NOTES
 		Additional information about the function.
 #>
-function Add-CapaUnitToReinstall
-{
+function Add-CapaUnitToReinstall {
 	[CmdletBinding()]
 	param
 	(
@@ -6282,20 +5906,20 @@ function Add-CapaUnitToReinstall
 		[int]$DiskConfigID,
 		[Parameter(Mandatory = $true)]
 		[int]$InstallTypeID,
-		[String]$NewUnitName = "",
+		[String]$NewUnitName = '',
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Silent', 'AlwaysConfirm', 'ConfirmOnlyIfUserLoggedOn')]
-		[String]$ReinstallMode = "Silent",
+		[String]$ReinstallMode = 'Silent',
 		[ValidateSet('True', 'False')]
 		[bool]$Active = $true,
 		[ValidateSet('True', 'False')]
 		[bool]$UnlinkAllPackagesAndGroups = $false,
 		[ValidateSet('True', 'False')]
 		[bool]$UnlinkAllAdvPackages = $false,
-		[String]$ChangelogComment = "",
-		[String]$ReinstallStartDate = "",
-		[String]$CustomField1 = "",
-		[String]$CustomField2 = ""
+		[String]$ChangelogComment = '',
+		[String]$ReinstallStartDate = '',
+		[String]$CustomField1 = '',
+		[String]$CustomField2 = ''
 	)
 	
 	$value = $CapaSDK.AddUnitToReinstall($ComputerName, $OSpointID, $OSserverID, $OSImageID, $DiskConfigID, $InstallTypeID, $NewUnitName, $ReinstallMode, $Active, $UnlinkAllPackagesAndGroups, $ChangelogComment, $ReinstallStartDate, $CustomField1, $CustomField2)
@@ -6322,8 +5946,7 @@ function Add-CapaUnitToReinstall
 	.NOTES
 		Additional information about the function.
 #>
-function Clear-CapaPrimaryUser
-{
+function Clear-CapaPrimaryUser {
 	[CmdletBinding()]
 	param
 	(
@@ -6375,8 +5998,7 @@ function Clear-CapaPrimaryUser
 	.NOTES
 		Additional information about the function.
 #>
-function Create-CapaUnit
-{
+function Create-CapaUnit {
 	[CmdletBinding()]
 	param
 	(
@@ -6391,19 +6013,16 @@ function Create-CapaUnit
 		[int]$LinkToManagementServerID,
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Active', 'Inactive')]
-		[String]$Status = "Active",
-		[String]$Uuid = "",
-		[String]$SerialNumber = "",
+		[String]$Status = 'Active',
+		[String]$Uuid = '',
+		[String]$SerialNumber = '',
 		[ValidateSet('Windows', 'OSX', 'iOS', 'Android', 'WindowsPhone')]
-		[String]$UnitDeviceType = ""
+		[String]$UnitDeviceType = ''
 	)
 	
-	if ($UnitDeviceType -eq "")
-	{
+	if ($UnitDeviceType -eq '') {
 		$value = $CapaSDK.CreateUnit($UnitName, $UnitType, $LinkToManagementServerID, $Status)
-	}
-	else
-	{
+	} else {
 		$value = $CapaSDK.CreateUnit($UnitName, $UnitType, $LinkToManagementServerID, $Status, $Uuid, $SerialNumber, $UnitDeviceType)
 	}
 	
@@ -6433,8 +6052,7 @@ function Create-CapaUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Delete-CapaUnit
-{
+function Delete-CapaUnit {
 	[CmdletBinding()]
 	param
 	(
@@ -6478,8 +6096,7 @@ function Delete-CapaUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Exist-CapaUnit
-{
+function Exist-CapaUnit {
 	[CmdletBinding()]
 	param
 	(
@@ -6497,12 +6114,9 @@ function Exist-CapaUnit
 		[String]$Uuid
 	)
 	
-	if ($PSCmdlet.ParameterSetName -eq 'NameType')
-	{
+	if ($PSCmdlet.ParameterSetName -eq 'NameType') {
 		$value = $CapaSDK.ExistUnit($UnitName, $UnitType)	
-	}
-	else
-	{
+	} else {
 		$value = $CapaSDK.ExistUUID($Uuid)
 	}
 	
@@ -6535,8 +6149,7 @@ function Exist-CapaUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Exist-CapaUnitLocation
-{
+function Exist-CapaUnitLocation {
 	[CmdletBinding()]
 	param
 	(
@@ -6581,8 +6194,7 @@ function Exist-CapaUnitLocation
 	.NOTES
 		Additional information about the function.
 #>
-function Exist-CapaUnitOnManagementPoint
-{
+function Exist-CapaUnitOnManagementPoint {
 	[CmdletBinding(DefaultParameterSetName = 'NameType')]
 	param
 	(
@@ -6621,8 +6233,7 @@ function Exist-CapaUnitOnManagementPoint
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaDevicesLinkedToVppUser
-{
+function Get-CapaDevicesLinkedToVppUser {
 	[CmdletBinding()]
 	param
 	(
@@ -6636,21 +6247,20 @@ function Get-CapaDevicesLinkedToVppUser
 	
 	$aUnits = $CapaSDK.GetDevicesLinkedToVppUser($vppUserID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name = $aItem[0];
-			Created = $aItem[1];
-			LastExecuted = $aItem[2];
-			Status = $aItem[3];
-			Description = $aItem[4];
-			GUID = $aItem[5];
-			ID = $aItem[7];
-			TypeName = $aItem[8];
-			UUID = $aItem[9];
-			IsMobileDevice  = $aItem[10];
-			location = $aItem[11]
+			Name           = $aItem[0];
+			Created        = $aItem[1];
+			LastExecuted   = $aItem[2];
+			Status         = $aItem[3];
+			Description    = $aItem[4];
+			GUID           = $aItem[5];
+			ID             = $aItem[7];
+			TypeName       = $aItem[8];
+			UUID           = $aItem[9];
+			IsMobileDevice = $aItem[10];
+			location       = $aItem[11]
 		}
 	}
 	
@@ -6680,8 +6290,7 @@ function Get-CapaDevicesLinkedToVppUser
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaGroupPrinters
-{
+function Get-CapaGroupPrinters {
 	[CmdletBinding()]
 	param
 	(
@@ -6698,18 +6307,17 @@ function Get-CapaGroupPrinters
 	
 	$aUnits = $CapaSDK.GetGroupPrinters($GroupName, $GroupType)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			DisplayName = $aItem[0];
-			Created = $aItem[1];
-			Status = $aItem[2];
+			Created     = $aItem[1];
+			Status      = $aItem[2];
 			Description = $aItem[3];
-			GUID = $aItem[4];
-			ID = $aItem[5];
-			TypeName = $aItem[7];
-			UUID = $aItem[8]
+			GUID        = $aItem[4];
+			ID          = $aItem[5];
+			TypeName    = $aItem[7];
+			UUID        = $aItem[8]
 		}
 	}
 	
@@ -6739,8 +6347,7 @@ function Get-CapaGroupPrinters
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaReinstallStatus
-{
+function Get-CapaReinstallStatus {
 	[CmdletBinding()]
 	param
 	(
@@ -6771,8 +6378,7 @@ function Get-CapaReinstallStatus
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitDescription
-{
+function Get-CapaUnitDescription {
 	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
@@ -6802,8 +6408,7 @@ function Get-CapaUnitDescription
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitLinkedUnits
-{
+function Get-CapaUnitLinkedUnits {
 	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
@@ -6819,18 +6424,17 @@ function Get-CapaUnitLinkedUnits
 	
 	$aUnits = $CapaSDK.GetUnitLinkedUnits($UnitName, $UnitType)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name = $aItem[0];
-			Created = $aItem[1];
+			Name         = $aItem[0];
+			Created      = $aItem[1];
 			LastExecuted = $aItem[2];
-			Status = $aItem[3];
-			Description = $aItem[4];
-			GUID = $aItem[5];
-			ID = $aItem[7];
-			TypeName = $aItem[8]
+			Status       = $aItem[3];
+			Description  = $aItem[4];
+			GUID         = $aItem[5];
+			ID           = $aItem[7];
+			TypeName     = $aItem[8]
 		}
 	}
 	
@@ -6857,8 +6461,7 @@ function Get-CapaUnitLinkedUnits
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitLinkedUser
-{
+function Get-CapaUnitLinkedUser {
 	[CmdletBinding()]
 	param
 	(
@@ -6872,18 +6475,17 @@ function Get-CapaUnitLinkedUser
 	
 	$aUnits = $CapaSDK.GetUnitLinkedUser($ComputerName)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name = $aItem[0];
-			Created = $aItem[1];
+			Name         = $aItem[0];
+			Created      = $aItem[1];
 			LastExecuted = $aItem[2];
-			Status = $aItem[3];
-			Description = $aItem[4];
-			GUID = $aItem[5];
-			ID = $aItem[7];
-			TypeName = $aItem[8]
+			Status       = $aItem[3];
+			Description  = $aItem[4];
+			GUID         = $aItem[5];
+			ID           = $aItem[7];
+			TypeName     = $aItem[8]
 		}
 	}
 	
@@ -6913,8 +6515,7 @@ function Get-CapaUnitLinkedUser
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitManagementPoint
-{
+function Get-CapaUnitManagementPoint {
 	[CmdletBinding()]
 	param
 	(
@@ -6954,8 +6555,7 @@ function Get-CapaUnitManagementPoint
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitManagementServerRelation
-{
+function Get-CapaUnitManagementServerRelation {
 	[CmdletBinding()]
 	param
 	(
@@ -7000,8 +6600,7 @@ function Get-CapaUnitManagementServerRelation
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitPackageStatus
-{
+function Get-CapaUnitPackageStatus {
 	[CmdletBinding()]
 	param
 	(
@@ -7018,13 +6617,10 @@ function Get-CapaUnitPackageStatus
 		[String]$PackageVersion
 	)
 	
-	if ($UnitType -eq "Computer")
-	{
-		$PackageType = "1"
-	}
-	else
-	{
-		$PackageType = "2"
+	if ($UnitType -eq 'Computer') {
+		$PackageType = '1'
+	} else {
+		$PackageType = '2'
 	}
 	
 	$value = $CapaSDK.GetUnitPackageStatus($UnitName, $UnitType, $PackageName, $PackageVersion, $PackageType)
@@ -7054,8 +6650,7 @@ function Get-CapaUnitPackageStatus
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitPackages
-{
+function Get-CapaUnitPackages {
 	[CmdletBinding()]
 	param
 	(
@@ -7072,25 +6667,24 @@ function Get-CapaUnitPackages
 	
 	$aUnits = $CapaSDK.GetUnitPackages($UnitName, $UnitType)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name			   = $aItem[0];
-			Version		       = $aItem[1];
-			Type			   = $aItem[2];
-			DisplayName	       = $aItem[3];
-			IsMandatory	       = $aItem[4];
-			ScheduleId		   = $aItem[5];
-			Description	       = $aItem[7];
-			GUID			   = $aItem[8];
-			ID				   = $aItem[9];
-			IsInteractive	   = $aItem[10];
+			Name               = $aItem[0];
+			Version            = $aItem[1];
+			Type               = $aItem[2];
+			DisplayName        = $aItem[3];
+			IsMandatory        = $aItem[4];
+			ScheduleId         = $aItem[5];
+			Description        = $aItem[7];
+			GUID               = $aItem[8];
+			ID                 = $aItem[9];
+			IsInteractive      = $aItem[10];
 			DependendPackageID = $aItem[11];
 			IsInventoryPackage = $aItem[12];
-			CollectMode	       = $aItem[13];
-			Priority		   = $aItem[14];
-			ServerDeploy	   = $aItem[15]
+			CollectMode        = $aItem[13];
+			Priority           = $aItem[14];
+			ServerDeploy       = $aItem[15]
 		}
 	}
 	
@@ -7120,8 +6714,7 @@ function Get-CapaUnitPackages
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitRelations
-{
+function Get-CapaUnitRelations {
 	[CmdletBinding()]
 	param
 	(
@@ -7138,24 +6731,23 @@ function Get-CapaUnitRelations
 	
 	$aUnits = $CapaSDK.GetUnitRelations($UnitName, $UnitType)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			RelationType = $aItem[0];
-			Name = $aItem[1];
-			Created = $aItem[2];
+			Name         = $aItem[1];
+			Created      = $aItem[2];
 			LastExecuted = $aItem[3];
-			Status = $aItem[4];
-			Description = $aItem[5];
-			GUID = $aItem[7];
-			ID = $aItem[8];
-			TypeName = $aItem[9];
-			UUID = $aItem[10];
-			IsMobile = $aItem[11];
-			Location = $aItem[12];
-			CmpId = $aItem[13];
-			BuId = $aItem[14]
+			Status       = $aItem[4];
+			Description  = $aItem[5];
+			GUID         = $aItem[7];
+			ID           = $aItem[8];
+			TypeName     = $aItem[9];
+			UUID         = $aItem[10];
+			IsMobile     = $aItem[11];
+			Location     = $aItem[12];
+			CmpId        = $aItem[13];
+			BuId         = $aItem[14]
 		}
 	}
 	
@@ -7185,8 +6777,7 @@ function Get-CapaUnitRelations
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitWSUSGroup
-{
+function Get-CapaUnitWSUSGroup {
 	[CmdletBinding()]
 	param
 	(
@@ -7229,8 +6820,7 @@ function Get-CapaUnitWSUSGroup
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitsInFolder
-{
+function Get-CapaUnitsInFolder {
 	[CmdletBinding()]
 	param
 	(
@@ -7249,21 +6839,20 @@ function Get-CapaUnitsInFolder
 	
 	$aUnits = $CapaSDK.GetUnitsInFolder($FolderStructure, $UnitType, $BusinessUnitName)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name = $aItem[0];
-			Created = $aItem[1];
-			LastExecuted = $aItem[2];
-			Status = $aItem[3];
-			Description = $aItem[4];
-			GUID = $aItem[5];
-			ID = $aItem[7];
-			TypeName = $aItem[8];
-			UUID = $aItem[9];
-			IsMobileDevice  = $aItem[10];
-			Location = $aItem[11]
+			Name           = $aItem[0];
+			Created        = $aItem[1];
+			LastExecuted   = $aItem[2];
+			Status         = $aItem[3];
+			Description    = $aItem[4];
+			GUID           = $aItem[5];
+			ID             = $aItem[7];
+			TypeName       = $aItem[8];
+			UUID           = $aItem[9];
+			IsMobileDevice = $aItem[10];
+			Location       = $aItem[11]
 		}
 	}
 	
@@ -7287,8 +6876,7 @@ function Get-CapaUnitsInFolder
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUsers
-{
+function Get-CapaUsers {
 	[CmdletBinding()]
 	param
 	(
@@ -7300,24 +6888,23 @@ function Get-CapaUsers
 	
 	$aUnits = $CapaSDK.GetUsers()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name = $aItem[0];
-			Created = $aItem[1];
-			LastExecuted = $aItem[2];
-			Status = $aItem[3];
-			Description = $aItem[4];
-			GUID = $aItem[5];
-			ID = $aItem[7];
-			TypeName = $aItem[8];
-			UUID = $aItem[9];
-			Location = $aItem[10];
-			FullName = $aItem[11];
-			EmailPrimary = $aItem[12];
+			Name           = $aItem[0];
+			Created        = $aItem[1];
+			LastExecuted   = $aItem[2];
+			Status         = $aItem[3];
+			Description    = $aItem[4];
+			GUID           = $aItem[5];
+			ID             = $aItem[7];
+			TypeName       = $aItem[8];
+			UUID           = $aItem[9];
+			Location       = $aItem[10];
+			FullName       = $aItem[11];
+			EmailPrimary   = $aItem[12];
 			EmailSecondary = $aItem[13];
-			EmailTertiary = $aItem[14]
+			EmailTertiary  = $aItem[14]
 		}
 	}
 	
@@ -7344,8 +6931,7 @@ function Get-CapaUsers
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUsersLinkedToVppUser
-{
+function Get-CapaUsersLinkedToVppUser {
 	[CmdletBinding()]
 	param
 	(
@@ -7359,24 +6945,23 @@ function Get-CapaUsersLinkedToVppUser
 	
 	$aUnits = $CapaSDK.GetUsersLinkedToVppUser($VppUserID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name = $aItem[0];
-			Created = $aItem[1];
-			LastExecuted = $aItem[2];
-			Status = $aItem[3];
-			Description = $aItem[4];
-			GUID = $aItem[5];
-			ID = $aItem[7];
-			TypeName = $aItem[8];
-			UUID = $aItem[9];
-			Location = $aItem[10];
-			FullName = $aItem[11];
-			EmailPrimary = $aItem[12];
+			Name           = $aItem[0];
+			Created        = $aItem[1];
+			LastExecuted   = $aItem[2];
+			Status         = $aItem[3];
+			Description    = $aItem[4];
+			GUID           = $aItem[5];
+			ID             = $aItem[7];
+			TypeName       = $aItem[8];
+			UUID           = $aItem[9];
+			Location       = $aItem[10];
+			FullName       = $aItem[11];
+			EmailPrimary   = $aItem[12];
 			EmailSecondary = $aItem[13];
-			EmailTertiary = $aItem[14]
+			EmailTertiary  = $aItem[14]
 		}
 	}
 	
@@ -7403,8 +6988,7 @@ function Get-CapaUsersLinkedToVppUser
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaWSUSGroupUnits
-{
+function Get-CapaWSUSGroupUnits {
 	[CmdletBinding()]
 	param
 	(
@@ -7418,21 +7002,20 @@ function Get-CapaWSUSGroupUnits
 	
 	$aUnits = $CapaSDK.GetOSDiskConfiguration($OSPointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name = $aItem[0];
-			Created = $aItem[1];
-			LastExecuted = $aItem[2];
-			Status = $aItem[3];
-			Description = $aItem[4];
-			GUID = $aItem[5];
-			ID = $aItem[7];
-			TypeName = $aItem[8];
-			UUID = $aItem[9];
+			Name           = $aItem[0];
+			Created        = $aItem[1];
+			LastExecuted   = $aItem[2];
+			Status         = $aItem[3];
+			Description    = $aItem[4];
+			GUID           = $aItem[5];
+			ID             = $aItem[7];
+			TypeName       = $aItem[8];
+			UUID           = $aItem[9];
 			IsMobileDevice = $aItem[10];
-			Location = $aItem[11]
+			Location       = $aItem[11]
 		}
 	}
 	
@@ -7465,8 +7048,7 @@ function Get-CapaWSUSGroupUnits
 	.NOTES
 		Additional information about the function.
 #>
-function Move-CapaDeviceToPoint
-{
+function Move-CapaDeviceToPoint {
 	[CmdletBinding()]
 	param
 	(
@@ -7510,8 +7092,7 @@ function Move-CapaDeviceToPoint
 	.NOTES
 		Additional information about the function.
 #>
-function Remove-CapaUnitFromCalendarGroup
-{
+function Remove-CapaUnitFromCalendarGroup {
 	[CmdletBinding()]
 	param
 	(
@@ -7550,8 +7131,7 @@ function Remove-CapaUnitFromCalendarGroup
 	.NOTES
 		Additional information about the function.
 #>
-function Remove-CapaUnitFromReinstall
-{
+function Remove-CapaUnitFromReinstall {
 	[CmdletBinding()]
 	param
 	(
@@ -7591,8 +7171,7 @@ function Remove-CapaUnitFromReinstall
 	.NOTES
 		Additional information about the function.
 #>
-function Rename-CapaUnit
-{
+function Rename-CapaUnit {
 	[CmdletBinding()]
 	param
 	(
@@ -7634,8 +7213,7 @@ function Rename-CapaUnit
 	.NOTES
 		Additional information about the function.
 #>
-function Restart-CapaAgent
-{
+function Restart-CapaAgent {
 	[CmdletBinding()]
 	param
 	(
@@ -7648,13 +7226,11 @@ function Restart-CapaAgent
 		[String]$UnitType
 	)
 	
-	if ($PackageType -eq "Computer")
-	{
-		$PackageType = "1"
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
 	}
-	if ($PackageType -eq "User")
-	{
-		$PackageType = "2"
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
 	}
 	
 	$value = $CapaSDK.RestartAgent($UnitName, $UnitType)
@@ -7687,8 +7263,7 @@ function Restart-CapaAgent
 	.NOTES
 		Additional information about the function.
 #>
-function Send-CapaUnitCommand
-{
+function Send-CapaUnitCommand {
 	[CmdletBinding()]
 	param
 	(
@@ -7730,8 +7305,7 @@ function Send-CapaUnitCommand
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaPrimaryUser
-{
+function Set-CapaPrimaryUser {
 	[CmdletBinding()]
 	param
 	(
@@ -7773,8 +7347,7 @@ function Set-CapaPrimaryUser
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaUnitDescription
-{
+function Set-CapaUnitDescription {
 	[CmdletBinding()]
 	param
 	(
@@ -7785,7 +7358,7 @@ function Set-CapaUnitDescription
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$UnitType,
-		[String]$Description = ""
+		[String]$Description = ''
 	)
 	
 	$value = $CapaSDK.SetUnitDescription($UnitName, $UnitType, $Description)
@@ -7818,8 +7391,7 @@ function Set-CapaUnitDescription
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaUnitName
-{
+function Set-CapaUnitName {
 	[CmdletBinding()]
 	param
 	(
@@ -7873,8 +7445,7 @@ function Set-CapaUnitName
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaUnitPackageStatus
-{
+function Set-CapaUnitPackageStatus {
 	[CmdletBinding()]
 	param
 	(
@@ -7892,16 +7463,13 @@ function Set-CapaUnitPackageStatus
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Waiting', 'Failed', 'Installed', 'Uninstall', 'Cancel')]
 		[String]$Status,
-		[String]$ChangelogComment = ""
+		[String]$ChangelogComment = ''
 	)
 	
-	if ($UnitType -eq "Computer")
-	{
-		$PackageType = "1"
-	}
-	else
-	{
-		$PackageType = "2"
+	if ($UnitType -eq 'Computer') {
+		$PackageType = '1'
+	} else {
+		$PackageType = '2'
 	}
 	
 	$value = $CapaSDK.SetUnitPackageStatus($UnitName, $UnitType, $PackageName, $PackageVersion, $Status, $ChangelogComment)
@@ -7934,8 +7502,7 @@ function Set-CapaUnitPackageStatus
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaUnitWSUSGroup
-{
+function Set-CapaUnitWSUSGroup {
 	[CmdletBinding()]
 	param
 	(
@@ -7974,8 +7541,7 @@ function Set-CapaUnitWSUSGroup
 	.NOTES
 		Additional information about the function.
 #>
-function Set-CapaWakeOnLAN
-{
+function Set-CapaWakeOnLAN {
 	[CmdletBinding()]
 	param
 	(
@@ -7985,7 +7551,7 @@ function Set-CapaWakeOnLAN
 		[String]$UnitName
 	)
 	
-	$value = $CapaSDK.SetWakeOnLAN($UnitName, "1")
+	$value = $CapaSDK.SetWakeOnLAN($UnitName, '1')
 	return $value
 }
 
@@ -8006,8 +7572,7 @@ function Set-CapaWakeOnLAN
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaVppPrograms
-{
+function Get-CapaVppPrograms {
 	[CmdletBinding()]
 	param
 	(
@@ -8019,17 +7584,16 @@ function Get-CapaVppPrograms
 	
 	$aUnits = $CapaSDK.GetVppPrograms()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID  = $aItem[0];
-			Name  = $aItem[1];
-			OrganisationName  = $aItem[2];
-			Email  = $aItem[3];
-			ExpireDate  = $aItem[4];
-			GUID  = $aItem[5];
-			Description  = $aItem[7]
+			ID               = $aItem[0];
+			Name             = $aItem[1];
+			OrganisationName = $aItem[2];
+			Email            = $aItem[3];
+			ExpireDate       = $aItem[4];
+			GUID             = $aItem[5];
+			Description      = $aItem[7]
 		}
 	}
 	
@@ -8057,44 +7621,39 @@ function Get-CapaVppPrograms
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaVppUsers
-{
+function Get-CapaVppUsers {
 	[CmdletBinding()]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
-		[int]$VppProgramID = ""
+		[int]$VppProgramID = ''
 	)
 	
 	$oaUnits = @()
 	
-	if ($VppProgramID -eq "")
-	{
+	if ($VppProgramID -eq '') {
 		$aUnits = $CapaSDK.GetVppUsersAll()
-	}
-	Else
-	{
+	} Else {
 		$aUnits = $CapaSDK.GetVppUsers($VppProgramID)
 	}
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID  = $aItem[0];
-			Status  = $aItem[1];
-			Updated  = $aItem[2];
-			UserID  = $aItem[3];
-			ClientUserIDStr  = $aItem[4];
-			Name  = $aItem[5];
-			Description  = $aItem[7];
-			Email  = $aItem[8];
-			ItsIdHash  = $aItem[9];
-			InviteUrl = $aItem[10];
-			InviteCode  = $aItem[11];
-			VPPAccountID  = $aItem[12];
-			GUID  = $aItem[13]
+			ID              = $aItem[0];
+			Status          = $aItem[1];
+			Updated         = $aItem[2];
+			UserID          = $aItem[3];
+			ClientUserIDStr = $aItem[4];
+			Name            = $aItem[5];
+			Description     = $aItem[7];
+			Email           = $aItem[8];
+			ItsIdHash       = $aItem[9];
+			InviteUrl       = $aItem[10];
+			InviteCode      = $aItem[11];
+			VPPAccountID    = $aItem[12];
+			GUID            = $aItem[13]
 		}
 	}
 	
@@ -8133,8 +7692,7 @@ function Get-CapaVppUsers
 	.NOTES
 		Additional information about the function.
 #>
-function Invite-CapaUnitToVppProgram
-{
+function Invite-CapaUnitToVppProgram {
 	[CmdletBinding()]
 	param
 	(
@@ -8176,8 +7734,7 @@ function Invite-CapaUnitToVppProgram
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaWSUSGroups
-{
+function Get-CapaWSUSGroups {
 	[CmdletBinding()]
 	param
 	(
@@ -8191,11 +7748,10 @@ function Get-CapaWSUSGroups
 	
 	$aUnits = $CapaSDK.GetWSUSGroups($PointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID = $aItem[0];
+			ID   = $aItem[0];
 			Name = $aItem[1];
 			GUID = $aItem[2]
 		}
@@ -8221,8 +7777,7 @@ function Get-CapaWSUSGroups
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaWSUSPoints
-{
+function Get-CapaWSUSPoints {
 	[CmdletBinding()]
 	param
 	(
@@ -8234,8 +7789,7 @@ function Get-CapaWSUSPoints
 	
 	$aUnits = $CapaSDK.GetWSUSPoints()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			ID   = $aItem[0];

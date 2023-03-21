@@ -1,0 +1,53 @@
+﻿	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetOSDiskConfiguration($OSPointID)
+	
+	foreach ($sItem in $aUnits)
+	{
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			WorkStation = $aItem[0];
+			WorkStation = $aItem[1];
+			WorkStation = $aItem[2];
+			WorkStation = $aItem[3];
+			WorkStation = $aItem[4];
+			WorkStation = $aItem[5];
+			WorkStation = $aItem[7];
+			WorkStation = $aItem[8];
+			WorkStation = $aItem[9];
+			WorkStation = $aItem[10];
+			WorkStation = $aItem[11];
+			WorkStation = $aItem[12];
+			WorkStation = $aItem[13];
+			WorkStation = $aItem[14];
+			WorkStation = $aItem[15]
+		}
+	}
+	
+	Return $oaUnits
+	
+	
+############################################################################################################################################
+	
+	$value = $CapaSDK.AddProfileToGroup($ProfileId)
+	return $value
+	
+############################################################################################################################################
+	
+	[ValidateSet('1', '2', 'Computer', 'User')]
+	
+	if ($PackageType -eq "Computer")
+	{
+		$PackageType = "1"
+	}
+	if ($PackageType -eq "User")
+	{
+		$PackageType = "2"
+	}
+	
+############################################################################################################################################
+	
+	[Parameter(ParameterSetName = 'NameType',
+	
+	if ($PSCmdlet.ParameterSetName -eq 'NameType') {}
+	else {}

@@ -34,8 +34,7 @@
 	.NOTES
 		Additional information about the function.
 #>
-function Initialize-CapaSDK
-{
+function Initialize-CapaSDK {
 	[CmdletBinding()]
 	param
 	(
@@ -51,22 +50,17 @@ function Initialize-CapaSDK
 	)
 	$oCMS = New-Object -ComObject CapaInstaller.SDK
 	
-	If ($UserName -ne '' -or $Password -ne '')
-	{
+	If ($UserName -ne '' -or $Password -ne '') {
 		$oCMS.SetDatabaseSettings($Server, $Database, $true, $UserName, $Password) | Out-Null
-	}
-	else
-	{
+	} else {
 		$oCMS.SetDatabaseSettings($Server, $Database, $false) | Out-Null
 	}
 	
-	if ($DefaultManagementPoint -ne '')
-	{
+	if ($DefaultManagementPoint -ne '') {
 		$oCMS.SetDefaultManagementPoint($DefaultManagementPoint) | Out-Null
 	}
 	
-	if ($InstanceManagementPoint -ne '')
-	{
+	if ($InstanceManagementPoint -ne '') {
 		$oCMS.SetInstanceManagementPoint($InstanceManagementPoint) | Out-Null
 	}
 	

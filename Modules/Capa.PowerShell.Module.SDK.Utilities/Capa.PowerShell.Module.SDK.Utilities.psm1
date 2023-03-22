@@ -151,3 +151,130 @@ function Get-CapaReinstallStatus
 	$value = $CapaSDK.GetReinstallStatus($UnitName, $UnitType)
 	return $value
 }
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247640/Move+Device+To+Management+Point
+	
+	.DESCRIPTION
+		A detailed description of the Move-CapaDeviceToPoint function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER DeviceUUID
+		A description of the DeviceUUID  parameter.
+	
+	.PARAMETER PointName
+		A description of the PointName  parameter.
+	
+	.PARAMETER ManagementServerFQDN
+		A description of the ManagementServerFQDN  parameter.
+	
+	.EXAMPLE
+				PS C:\> Move-CapaDeviceToPoint -CapaSDK $value1 -DeviceUUID  $value2 -PointName  $value3 -ManagementServerFQDN  $value4
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Move-CapaDeviceToPoint
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		$DeviceUUID,
+		[Parameter(Mandatory = $true)]
+		$PointName,
+		[Parameter(Mandatory = $true)]
+		$ManagementServerFQDN
+	)
+	
+	$value = $CapaSDK.MoveDeviceToPoint($DeviceUUID, $PointName, $ManagementServerFQDN)
+	return $value
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247696/Restart+Agent+using+SDK
+	
+	.DESCRIPTION
+		A detailed description of the Restart-CapaAgent function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.EXAMPLE
+				PS C:\> Restart-CapaAgent -CapaSDK $value1 -UnitName 'Value2' -UnitType 'Value3'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Restart-CapaAgent
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$UnitName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[String]$UnitType
+	)
+	
+	if ($PackageType -eq 'Computer')
+	{
+		$PackageType = '1'
+	}
+	if ($PackageType -eq 'User')
+	{
+		$PackageType = '2'
+	}
+	
+	$value = $CapaSDK.RestartAgent($UnitName, $UnitType)
+	return $value
+}
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247774/Set+Wake+On+LAN
+	
+	.DESCRIPTION
+		A detailed description of the Set-CapaWakeOnLAN function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName  parameter.
+	
+	.EXAMPLE
+				PS C:\> Set-CapaWakeOnLAN -CapaSDK $value1 -UnitName  'Value2'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Set-CapaWakeOnLAN
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$UnitName
+	)
+	
+	$value = $CapaSDK.SetWakeOnLAN($UnitName, '1')
+	return $value
+}

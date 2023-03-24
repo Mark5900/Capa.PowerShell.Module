@@ -144,19 +144,19 @@ function Get-CapaOSInstallationTypes {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246700/Get+OS+points
+		Gets a list of OS Points.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaOSPoints function.
+		Gets a list of OS Points.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaOSPoints -CapaSDK $value1
+		PS C:\> Get-CapaOSPoints -CapaSDK $CapaSDK
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246700/Get+OS+points
 #>
 function Get-CapaOSPoints {
 	[CmdletBinding()]
@@ -199,22 +199,22 @@ function Get-CapaOSPoints {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246710/Get+OS+servers
+		Gets a list of OS Servers including sub servers.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaOSServers function.
+		Gets a list of OS Servers including sub servers.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER OSPointID
-		A description of the OSPointID parameter.
+		The ID of the OS Point.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaOSServers -CapaSDK $value1 -OSPointID $value2
+		PS C:\> Get-CapaOSServers -CapaSDK $CapaSDK -OSPointID 1
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246710/Get+OS+servers
 #>
 function Get-CapaOSServers {
 	[CmdletBinding()]

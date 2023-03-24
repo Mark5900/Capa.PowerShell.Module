@@ -1,24 +1,23 @@
 ﻿<#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247844/Get+WSUS+Groups
+		Gets a list of WSUS groups.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaWSUSGroups function.
+		Gets a list of WSUS groups.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PointID
-		A description of the PointID  parameter.
+		The IS of the WSUS point.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaWSUSGroups -CapaSDK $value1 -PointID  $value2
+			Get-CapaWSUSGroups -CapaSDK $CapaSDK -PointID 1
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247844/Get+WSUS+Groups
 #>
-function Get-CapaWSUSGroups
-{
+function Get-CapaWSUSGroups {
 	[CmdletBinding()]
 	param
 	(
@@ -32,8 +31,7 @@ function Get-CapaWSUSGroups
 	
 	$aUnits = $CapaSDK.GetWSUSGroups($PointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			ID   = $aItem[0];
@@ -47,22 +45,21 @@ function Get-CapaWSUSGroups
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247854/Get+WSUS+points
+		Get a list of WSUS points.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaWSUSPoints function.
+		Get a list of WSUS points.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaWSUSPoints -CapaSDK $value1
+			Get-CapaWSUSPoints -CapaSDK $CapaSDK
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247854/Get+WSUS+points
 #>
-function Get-CapaWSUSPoints
-{
+function Get-CapaWSUSPoints {
 	[CmdletBinding()]
 	param
 	(
@@ -74,8 +71,7 @@ function Get-CapaWSUSPoints
 	
 	$aUnits = $CapaSDK.GetWSUSPoints()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			ID   = $aItem[0];
@@ -89,25 +85,24 @@ function Get-CapaWSUSPoints
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247622/Get+WSUS+Group+units
+		Gets a list of units linked to a WSUS group.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaWSUSGroupUnits function.
+		Gets a list of units linked to a WSUS group.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER WSUSGroupName
-		A description of the WSUSGroupName parameter.
+		The name of the WSUS group.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaWSUSGroupUnits -CapaSDK $value1 -WSUSGroupName 'Value2'
+			Get-CapaWSUSGroupUnits -CapaSDK $CapaSDK -WSUSGroupName "WSUS Group"
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247622/Get+WSUS+Group+units
 #>
-function Get-CapaWSUSGroupUnits
-{
+function Get-CapaWSUSGroupUnits {
 	[CmdletBinding()]
 	param
 	(
@@ -121,21 +116,20 @@ function Get-CapaWSUSGroupUnits
 	
 	$aUnits = $CapaSDK.GetOSDiskConfiguration($OSPointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name		   = $aItem[0];
-			Created	       = $aItem[1];
+			Name           = $aItem[0];
+			Created        = $aItem[1];
 			LastExecuted   = $aItem[2];
-			Status		   = $aItem[3];
+			Status         = $aItem[3];
 			Description    = $aItem[4];
-			GUID		   = $aItem[5];
-			ID			   = $aItem[7];
-			TypeName	   = $aItem[8];
-			UUID		   = $aItem[9];
+			GUID           = $aItem[5];
+			ID             = $aItem[7];
+			TypeName       = $aItem[8];
+			UUID           = $aItem[9];
 			IsMobileDevice = $aItem[10];
-			Location	   = $aItem[11]
+			Location       = $aItem[11]
 		}
 	}
 	

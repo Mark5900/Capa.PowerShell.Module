@@ -13,4 +13,96 @@ To one of the paths you find when running
 ```powershell
 $env:PSModulePath
 ```
-Create a folder called "Capa.PowerShell.Module" and copy-paste [Capa.PowerShell.Module.psd1](Capa.PowerShell.Module.psd1) & [Capa.PowerShell.Module.psm1](Capa.PowerShell.Module.psm1)
+Copy all folders from [Modules](Modules/)
+
+## How to use 🛠️
+For the module to work correctly, you need to run PowerShell as an administrator or else you will get the error
+```powershell
+OperationStopped: Requested registry access is not allowed.
+```
+When running the command Initialize-CapaSDK because it sets a splitter used to spilt returned array so it is made into an object array.
+### How to import module
+You can import the whole module
+```powershell
+Import-Module Capa.PowerShell.Module
+```
+You can import only the SDK part of the module
+```powershell
+Import-Module Capa.PowerShell.Module.SDK
+```
+Or you can import smaller part of the module
+```powershell
+Import-Module Capa.PowerShell.Module.SDK.Authentication
+Import-Module Capa.PowerShell.Module.SDK.User
+```
+### A exampel
+```powershell
+Import-Module Capa.PowerShell.Module.SDK.Authentication
+Import-Module Capa.PowerShell.Module.SDK.Units
+<#
+    .NOTES
+    ===========================================================================
+    Created with: 	Visual Studio Code
+    Created on: 
+    Created by:   	MARA
+    Organization: IT-Center Fyn
+    Filename:
+    ===========================================================================
+    .DESCRIPTION
+        TODO: A description of the file.
+#>
+##################
+### PARAMETERS ###
+##################
+# DO NOT CHANGE
+# Change as needed
+$CapaServer = 'CISRVKURSUS'
+$Database = 'CapaInstaller'
+$DefaultManagementPointDev = '1'
+$DefaultManagementPointProd = $null #Keep null if you don't have two enviroments
+
+#################
+### FUNCTIONS ###
+#################
+
+##############
+### SCRIPT ###
+##############
+
+If ($DefaultManagementPointProd -eq $null){
+    $oCMSDev = Initialize-CapaSDK -Server $CapaServer -Database $Database
+    $oCMSProd = $oCMSDev
+}
+else{
+    $oCMSDev = Initialize-CapaSDK -Server $CapaServer -Database $Database -DefaultManagementPoint $DefaultManagementPointDev
+    $oCMSProd = Initialize-CapaSDK -Server $CapaServer -Database $Database -DefaultManagementPoint $DefaultManagementPointProd
+}
+
+Get-CapaUnits -CapaSDK $oCMSDev
+```
+Output:
+```powershell
+Name           : CIKURSUS
+Created        : 11-11-2021 14:24:23
+LastExecuted   : 22-03-2023 19:14:03
+Status         : Active
+Description    : 
+GUID           : bc79d9fc-67d8-4221-bd81-423652ed7615
+ID             : 2
+TypeName       : Users
+UUID           : 9401eb49-26d5-42f6-adec-edc9c1e619b8
+IsMobileDevice : False
+Location       : CIKURSUS.LOCAL
+
+Name           : ADMINISTRATOR
+Created        : 18-11-2021 15:11:46
+LastExecuted   : 18-11-2021 15:12:45
+Status         : Active
+Description    : 
+GUID           : 883853dc-fafd-4a94-9a85-dff6e8d360e1
+ID             : 6
+TypeName       : Users
+UUID           : 65654f58-ab21-46e1-8cfb-f3ce7aea11e8
+IsMobileDevice : False
+Location       : CIKURSUS.LOCAL
+```

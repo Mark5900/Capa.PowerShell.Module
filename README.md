@@ -1,5 +1,5 @@
 # Capa.PowerShell.Module
-This modules is made to use [CapaInstaller Software Development Kit functions](https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246085/SDK+-+CapaInstaller+Software+Development+Kit+functions) in PowerShell 7.
+This modules is made to use [CapaInstaller Software Development Kit functions](https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246085/SDK+-+CapaInstaller+Software+Development+Kit+functions) in PowerShell 7 and now also supports [PowerPacks](https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455297/PowerShell+Scripting+Library).
 Any help and feedback is welcome! 😁
 
 ## Installation
@@ -16,7 +16,7 @@ $env:PSModulePath
 Copy all folders from [Modules](Modules/)
 
 ## How to use 🛠️
-For the module to work correctly, you need to run PowerShell as an administrator or else you will get the error
+For the SDK part of the module to work correctly, you need to run PowerShell as an administrator or else you will get the error
 ```powershell
 OperationStopped: Requested registry access is not allowed.
 ```
@@ -35,6 +35,13 @@ Or you can import smaller part of the module
 Import-Module Capa.PowerShell.Module.SDK.Authentication
 Import-Module Capa.PowerShell.Module.SDK.User
 ```
+
+### PowerPack
+To import all PowerPack commands run
+```powershell
+    Import-Module Capa.PowerShell.Module.PowerPack
+```
+There are some usefull [VSCode PowerPack snippets](Documentation/VSCODE%20PowerPack%20snippets.md) that you can use if you want to.
 ### A exampel
 ```powershell
 Import-Module Capa.PowerShell.Module.SDK.Authentication

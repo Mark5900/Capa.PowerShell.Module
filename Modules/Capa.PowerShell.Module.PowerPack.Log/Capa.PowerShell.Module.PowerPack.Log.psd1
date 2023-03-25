@@ -61,7 +61,7 @@
 	NestedModules          = @()
 	
 	# Functions to export from this module
-	FunctionsToExport      = '*' #For performance, list functions explicitly
+	FunctionsToExport      = 'Log_SectionHeader' #For performance, list functions explicitly
 	
 	# Cmdlets to export from this module
 	CmdletsToExport        = '*' 

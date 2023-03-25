@@ -61,7 +61,9 @@
 	NestedModules          = @()
 	
 	# Functions to export from this module
-	FunctionsToExport      = '*' #For performance, list functions explicitly
+	FunctionsToExport      = 'Job_Start',
+	'Job_WriteLog'
+	#For performance, list functions explicitly
 	
 	# Cmdlets to export from this module
 	CmdletsToExport        = '*' 

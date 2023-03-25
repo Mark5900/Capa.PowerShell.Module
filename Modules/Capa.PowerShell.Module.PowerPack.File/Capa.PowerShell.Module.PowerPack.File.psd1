@@ -22,7 +22,7 @@
 	Description            = 'Module description'
 	
 	# Minimum version of the Windows PowerShell engine required by this module
-	PowerShellVersion      = '3.0'
+	PowerShellVersion      = '7.0'
 	
 	# Name of the Windows PowerShell host required by this module
 	PowerShellHostName     = ''
@@ -61,7 +61,21 @@
 	NestedModules          = @()
 	
 	# Functions to export from this module
-	FunctionsToExport      = '*' #For performance, list functions explicitly
+	FunctionsToExport      = 
+	'File_AppendToFile',
+	'File_CopyFile',
+	'File_CopyTree',
+	'File_CreateDir',
+	'File_DelEmptyFolder',
+	'File_DeleteLineInFile',
+	'File_DelTree',
+	'File_ExistFile',
+	'File_ExistDir',
+	'File_FindFile',
+	'File_GetFileVersion',
+	'File_RenameDir',
+	'File_RenameFile'
+	#For performance, list functions explicitly
 	
 	# Cmdlets to export from this module
 	CmdletsToExport        = '*' 

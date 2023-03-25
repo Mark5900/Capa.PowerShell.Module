@@ -17,10 +17,14 @@
 
 function Job_WriteLog {
     param (
-        [string]$FunctionName,
+        [string]$FunctionName = '',
         [Parameter(Mandatory = $true)]
         [string]$Text
     )
 
-    $Global:Cs.Job_WriteLog($FunctionName, $Text)
+    if ($FunctionName -ne '') {
+        $Global:Cs.Job_WriteLog($FunctionName, $Text)
+    } else {
+        $Global:Cs.Job_WriteLog($Text)
+    }
 }

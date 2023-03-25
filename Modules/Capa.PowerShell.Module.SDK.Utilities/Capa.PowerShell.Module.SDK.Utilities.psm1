@@ -1,33 +1,32 @@
 ﻿<#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246216/Create+AD+group
-	
+		Create an CapaInstaller AD group.
+
 	.DESCRIPTION
-		A detailed description of the Create-CapaADGroup function.
+		Create an CapaInstaller AD group.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER GroupName
-		A description of the GroupName parameter.
+		The name of the group.
 	
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The type of the elements in the group. This can be either "Computer" or "User"
 	
 	.PARAMETER LDAPPath
-		A description of the LDAPPath parameter.
+		The LDAP path of the elements in the group.
 	
 	.PARAMETER recursive
-		A description of the recursive parameter.
+		Indicates whether the group should be processed recursively.
 	
 	.EXAMPLE
-				PS C:\> Create-CapaADGroup -CapaSDK $value1 -GroupName 'Value2' -UnitType Computer -LDAPPath 'Value4' -recursive 'Value5'
-	
+		PS C:\> Create-CapaADGroup -CapaSDK $CapaSDK -GroupName 'TestGroup' -UnitType 'Computer' -LDAPPath 'LDAP://OU=TestOU,DC=capa,DC=local' -recursive 'true'
+
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246216/Create+AD+group
 #>
-function Create-CapaADGroup
-{
+function Create-CapaADGroup {
 	[CmdletBinding()]
 	param
 	(
@@ -50,37 +49,36 @@ function Create-CapaADGroup
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246920/Get+log
+		Returns the log for a unit package relation.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaLog function.
+		Returns the log for a unit package relation.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		The name of the unit.
 	
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The type of the unit. This can be either "Computer" or "User"
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of the package, this can be either "Computer" or "User"
 	
 	.EXAMPLE
-				PS C:\> Get-CapaLog -CapaSDK $value1 -UnitName 'Value2' -UnitType 'Value3' -PackageName 'Value4' -PackageVersion 'Value5' -PackageType 1
+		PS C:\> Get-CapaLog -CapaSDK $CapaSDK -UnitName 'TestComputer' -UnitType 'Computer' -PackageName 'WinRaR' -PackageVersion '5.50' -PackageType 'Computer'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246920/Get+log
 #>
-function Get-CapaLog
-{
+function Get-CapaLog {
 	[CmdletBinding()]
 	param
 	(
@@ -99,12 +97,10 @@ function Get-CapaLog
 		[String]$PackageType
 	)
 	
-	if ($PackageType -eq 'Computer')
-	{
+	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
 	}
-	if ($PackageType -eq 'User')
-	{
+	if ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 	
@@ -114,28 +110,27 @@ function Get-CapaLog
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247466/Get+reinstall+status
+		Gets the reinstall status for a unit.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaReinstallStatus function.
+		Gets the reinstall status for a unit.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		The name of the unit.
 	
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The type of the unit. This can be either "Computer" or "User"
 	
 	.EXAMPLE
-		PS C:\> Get-CapaReinstallStatus
+		Test-CapaReinstallStatus -CapaSDK $CapaSDK -UnitName 'TestComputer' -UnitType 'Computer'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247466/Get+reinstall+status
 #>
-function Get-CapaReinstallStatus
-{
+function Get-CapaReinstallStatus {
 	[CmdletBinding()]
 	param
 	(
@@ -154,31 +149,32 @@ function Get-CapaReinstallStatus
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247640/Move+Device+To+Management+Point
+		Moves a device from its current Management Point to the specified Management Point. 
 	
 	.DESCRIPTION
-		A detailed description of the Move-CapaDeviceToPoint function.
+		Moves a device from its current Management Point to the specified Management Point. If a Management Server is specified, the device will be linked to it.
+
+All relations to the device in the old Management Point will be removed, including but not limited to packages, profiles, applications, groups, folders, primary user, user relations, management server.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER DeviceUUID
-		A description of the DeviceUUID  parameter.
+		The UUID of the device.
 	
 	.PARAMETER PointName
-		A description of the PointName  parameter.
+		The name of the Management Point the device should be moved to.
 	
 	.PARAMETER ManagementServerFQDN
-		A description of the ManagementServerFQDN  parameter.
+		The name of the Management Server the device should be linked to. If an empty string is specified, the device will not be linked to a Management Server after the move.
 	
 	.EXAMPLE
-				PS C:\> Move-CapaDeviceToPoint -CapaSDK $value1 -DeviceUUID  $value2 -PointName  $value3 -ManagementServerFQDN  $value4
-	
+		Move-CapaDeviceToPoint -CapaSDK $CapaSDK -DeviceUUID '12345678-1234-1234-1234-123456789012' -PointName 'TestManagementPoint' -ManagementServerFQDN 'TestManagementServer'
+
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247640/Move+Device+To+Management+Point
 #>
-function Move-CapaDeviceToPoint
-{
+function Move-CapaDeviceToPoint {
 	[CmdletBinding()]
 	param
 	(
@@ -198,28 +194,28 @@ function Move-CapaDeviceToPoint
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247696/Restart+Agent+using+SDK
+		Sets an action to restart an agent.
 	
 	.DESCRIPTION
-		A detailed description of the Restart-CapaAgent function.
+		Sets an action to restart an agent.
+		If a user is specified, the agent on the computers linked to the user will be restarted.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		The name of the unit.
 	
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The type of the unit. This can be either "Computer" or "User"
 	
 	.EXAMPLE
-				PS C:\> Restart-CapaAgent -CapaSDK $value1 -UnitName 'Value2' -UnitType 'Value3'
+		Restart-CapaAgent -CapaSDK $CapaSDK -UnitName 'TestComputer' -UnitType 'Computer'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247696/Restart+Agent+using+SDK
 #>
-function Restart-CapaAgent
-{
+function Restart-CapaAgent {
 	[CmdletBinding()]
 	param
 	(
@@ -232,12 +228,10 @@ function Restart-CapaAgent
 		[String]$UnitType
 	)
 	
-	if ($PackageType -eq 'Computer')
-	{
+	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
 	}
-	if ($PackageType -eq 'User')
-	{
+	if ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 	
@@ -247,25 +241,24 @@ function Restart-CapaAgent
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247774/Set+Wake+On+LAN
+		Set a action to perform a Wake On LAN Request for the unit.	
 	
 	.DESCRIPTION
-		A detailed description of the Set-CapaWakeOnLAN function.
+		Set a action to perform a Wake On LAN Request for the unit.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER UnitName
-		A description of the UnitName  parameter.
+		The name of the unit.
 	
 	.EXAMPLE
-				PS C:\> Set-CapaWakeOnLAN -CapaSDK $value1 -UnitName  'Value2'
+		Set-CapaWakeOnLAN -CapaSDK $CapaSDK -UnitName 'TestComputer'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247774/Set+Wake+On+LAN
 #>
-function Set-CapaWakeOnLAN
-{
+function Set-CapaWakeOnLAN {
 	[CmdletBinding()]
 	param
 	(

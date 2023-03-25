@@ -1,31 +1,36 @@
 ﻿<#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246224/Create+group
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246232/Create+group+in+Business+Unit
+		Create a group.
 	
 	.DESCRIPTION
-		A detailed description of the Create-CapaGroup function.
+		Create a group, either in global scope or in a business unit.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER GroupName
-		A description of the GroupName  parameter.
+		The name of the group.
 	
 	.PARAMETER GroupType
-		A description of the GroupType  parameter.
+		The type of the group, either Calendar, Department or Static.
 	
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The type of elements in the group, either Computer or User.
+
+	.PARAMETER BusinessUnit
+		The name of the business unit to create the group in, if not specified the group will be created in global scope.
 	
 	.EXAMPLE
-				PS C:\> Create-CapaGroup -CapaSDK $value1 -GroupName  'Value2' -GroupType  Calendar -UnitType Computer
+		PS C:\> Create-CapaGroup -CapaSDK $CapaSDk -GroupName  'Jylland' -GroupType  Static -UnitType Computer
+
+	.EXAMPLE
+		PS C:\> Create-CapaGroup -CapaSDK $CapaSDk -GroupName  'Jylland' -GroupType  Static -UnitType Computer -BusinessUnit 'Denmark'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246224/Create+group
+		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246232/Create+group+in+Business+Unit
 #>
-function Create-CapaGroup
-{
+function Create-CapaGroup {
 	[CmdletBinding()]
 	param
 	(
@@ -42,12 +47,9 @@ function Create-CapaGroup
 		[string]$BusinessUnit = ''
 	)
 	
-	if ($BusinessUnit -eq '')
-	{
+	if ($BusinessUnit -eq '') {
 		$value = $CapaSDK.CreateGroup($GroupName, $GroupType, $UnitType)
-	}
-	else
-	{
+	} else {
 		$value = $CapaSDK.CreateGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
 	}
 	
@@ -56,28 +58,27 @@ function Create-CapaGroup
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246264/Get+Group+Description
+		Get a groups description.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaGroupDescription function.
+		Returns a string with the description of the group.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER GroupName
-		A description of the GroupName parameter.
+		The name of the group.
 	
 	.PARAMETER GroupType
-		A description of the GroupType parameter.
+		The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaGroupDescription -CapaSDK $value1 -GroupName 'Value2' -GroupType Dynamic_ADSI
+				PS C:\> Get-CapaGroupDescription -CapaSDK $CapaSDK -GroupName 'Default' -GroupType Static
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246264/Get+Group+Description
 #>
-function Get-CapaGroupDescription
-{
+function Get-CapaGroupDescription {
 	[CmdletBinding()]
 	param
 	(
@@ -97,31 +98,28 @@ function Get-CapaGroupDescription
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246272/Get+Group+Folder
+		Gets the folder structure of a group.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaGroupFolder function.
+		Returns a string with the folder structure of a group.
+		Someting like: "Folder1\Folder2".
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER GroupName
-		A description of the GroupName parameter.
+		The name of the group.
 	
 	.PARAMETER GroupType
-		A description of the GroupType parameter.
-	
-	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The type of the group, either Dynamic_ADSI, Department, Dynamic_SQL or Static.
 	
 	.EXAMPLE
-		PS C:\> Get-CapaGroupFolder -CapaSDK $value1 -GroupName 'Value2' -GroupType Dynamic_ADSI
+		PS C:\> Get-CapaGroupFolder -CapaSDK $CapaSDK -GroupName 'Default' -GroupType Dynamic_ADSI
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246272/Get+Group+Folder
 #>
-function Get-CapaGroupFolder
-{
+function Get-CapaGroupFolder {
 	[CmdletBinding()]
 	param
 	(
@@ -131,40 +129,36 @@ function Get-CapaGroupFolder
 		[String]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Department', 'Dynamic_SQL', 'Static')]
-		[String]$GroupType,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
-		[string]$UnitType
+		[String]$GroupType
 	)
 	
-	$value = $CapaSDK.GetGroupFolder($GroupName, $GroupType, $UnitType)
+	$value = $CapaSDK.GetGroupFolder($GroupName, $GroupType)
 	return $value
 }
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246910/Get+group+packages
+		Returns packages linked to a group.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaGroupPackages function.
+		Returns array of packages linked to a group.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER GroupName
-		A description of the GroupName parameter.
+		The name of the group.
 	
 	.PARAMETER GroupType
-		A description of the Type parameter.
+		The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
 	
 	.EXAMPLE
 		PS C:\> Get-CapaGroupPackages -CapaSDK $CapaSDK -GroupName $GroupName -Type Dynamic_ADSI
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246910/Get+group+packages
 #>
-function Get-CapaGroupPackages
-{
+function Get-CapaGroupPackages {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -179,25 +173,24 @@ function Get-CapaGroupPackages
 	$oaUnits = @()
 	
 	$aUnits = $CapaSDK.GetGroupPackages($GroupName, $GroupType)
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name			   = $aItem[0];
-			Version		       = $aItem[1];
-			Type			   = $aItem[2];
-			DisplayName	       = $aItem[3];
-			IsMandatory	       = $aItem[4];
-			ScheduleId		   = $aItem[5];
-			Description	       = $aItem[6];
-			GUID			   = $aItem[7];
-			ID				   = $aItem[8];
-			IsInteractive	   = $aItem[9];
+			Name               = $aItem[0];
+			Version            = $aItem[1];
+			Type               = $aItem[2];
+			DisplayName        = $aItem[3];
+			IsMandatory        = $aItem[4];
+			ScheduleId         = $aItem[5];
+			Description        = $aItem[6];
+			GUID               = $aItem[7];
+			ID                 = $aItem[8];
+			IsInteractive      = $aItem[9];
 			DependendPackageID = $aItem[10];
 			IsInventoryPackage = $aItem[11];
-			CollectMode	       = $aItem[12];
-			Priority		   = $aItem[13];
-			ServerDeploy	   = $aItem[14]
+			CollectMode        = $aItem[12];
+			Priority           = $aItem[13];
+			ServerDeploy       = $aItem[14]
 		}
 	}
 	
@@ -206,28 +199,27 @@ function Get-CapaGroupPackages
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247436/Get+group+Printers
+		Returns printers linked to a group.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaGroupPrinters function.
+		Returns array of printers linked to a group.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER GroupName
-		A description of the GroupName parameter.
+		The name of the group.
 	
 	.PARAMETER GroupType
-		A description of the GroupType parameter.
+		The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
 	
 	.EXAMPLE
 				PS C:\> Get-CapaGroupPrinters -CapaSDK $value1 -GroupName 'Value2' -GroupType Dynamic_ADSI
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247436/Get+group+Printers
 #>
-function Get-CapaGroupPrinters
-{
+function Get-CapaGroupPrinters {
 	[CmdletBinding()]
 	param
 	(
@@ -244,18 +236,17 @@ function Get-CapaGroupPrinters
 	
 	$aUnits = $CapaSDK.GetGroupPrinters($GroupName, $GroupType)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			DisplayName = $aItem[0];
-			Created	    = $aItem[1];
-			Status	    = $aItem[2];
+			Created     = $aItem[1];
+			Status      = $aItem[2];
 			Description = $aItem[3];
-			GUID	    = $aItem[4];
-			ID		    = $aItem[5];
+			GUID        = $aItem[4];
+			ID          = $aItem[5];
 			TypeName    = $aItem[7];
-			UUID	    = $aItem[8]
+			UUID        = $aItem[8]
 		}
 	}
 	
@@ -264,26 +255,32 @@ function Get-CapaGroupPrinters
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246280/Get+groups
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246290/Get+groups+on+Business+Unit
+		Get groups.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaGroups function.
+		Get either all groups or from all groups from specific business unit.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		CapaSDK object.
 	
 	.PARAMETER Type
-		A description of the Type parameter.
+		If specified, only groups of this type will be returned.
+		Can be one of the following: Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
+
+	.PARAMETER BusinessUnit
+		If specified, only groups from this business unit will be returned.
 	
 	.EXAMPLE
 		PS C:\> Get-CapaGroups -CapaSDK $CapaSDK
+
+	.EXAMPLE
+		PS C:\> Get-CapaGroups -CapaSDK $CapaSDK -GroupType Dynamic_ADSI
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246280/Get+groups
+		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246290/Get+groups+on+Business+Unit
 #>
-function Get-CapaGroups
-{
+function Get-CapaGroups {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -296,43 +293,33 @@ function Get-CapaGroups
 	
 	$oaUnits = @()
 	
-	if ($BusinessUnit -eq '')
-	{
+	if ($BusinessUnit -eq '') {
 		$aUnits = $CapaSDK.GetGroups($GroupType)
-	}
-	Else
-	{
-		If ($GroupType -eq '')
-		{
+	} Else {
+		If ($GroupType -eq '') {
 			$aUnits = $CapaSDK.GetGroupsInBusinessUnit($BusinessUnit)
-		}
-		Else
-		{
+		} Else {
 			$aUnits = $CapaSDK.GetGroupsInBusinessUnit($BusinessUnit, $GroupType)
 		}
 	}
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		
-		if ($aItem[2] -eq '1')
-		{
+		if ($aItem[2] -eq '1') {
 			$UnitType = 'Computer'
-		}
-		else
-		{
+		} else {
 			$UnitType = 'User'
 		}
 		
 		$oaUnits += [pscustomobject]@{
-			Name		 = $aItem[0];
-			Type		 = $aItem[1];
+			Name         = $aItem[0];
+			Type         = $aItem[1];
 			UnitTypeID   = $aItem[2];
 			UnitTypeName = $UnitType;
 			Description  = $aItem[3];
-			GUID		 = $aItem[4];
-			ID		     = $aItem[5]
+			GUID         = $aItem[4];
+			ID           = $aItem[5]
 		}
 	}
 	
@@ -341,28 +328,27 @@ function Get-CapaGroups
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247446/Get+group+units
+		Get units linked to a group.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaGroupUnits function.
+		Returns array of units linked to a group.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER GroupName
-		A description of the GroupName parameter.
+		The name of the group.
 	
 	.PARAMETER GroupType
-		A description of the GroupType parameter.
+		The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaGroupUnits -CapaSDK $value1 -GroupName 'Value2' -GroupType Dynamic_ADSI
+				PS C:\> Get-CapaGroupUnits -CapaSDK $CapaSDK -GroupName 'Test' -GroupType Static
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247446/Get+group+units
 #>
-function Get-CapaGroupUnits
-{
+function Get-CapaGroupUnits {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -377,18 +363,17 @@ function Get-CapaGroupUnits
 	$oaUnits = @()
 	
 	$aUnits = $CapaSDK.GetGroupUnits($GroupName, $GroupType)
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name		 = $aItem[0];
-			Created	     = $aItem[1];
+			Name         = $aItem[0];
+			Created      = $aItem[1];
 			LastExecuted = $aItem[2];
-			Status	     = $aItem[3];
+			Status       = $aItem[3];
 			Description  = $aItem[4];
-			GUID		 = $aItem[5];
-			ID		     = $aItem[6];
-			TypeName	 = $aItem[7]
+			GUID         = $aItem[5];
+			ID           = $aItem[6];
+			TypeName     = $aItem[7]
 		}
 	}
 	
@@ -397,32 +382,37 @@ function Get-CapaGroupUnits
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246240/Delete+group
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246248/Delete+Group+in+Business+Unit
+		Removes a group.
 	
 	.DESCRIPTION
-		A detailed description of the Remove-CapaGroup function.
+		Removes a group either from a business unit or from global.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER GroupName
-		A description of the GroupName parameter.
+		The name of the group.
 	
 	.PARAMETER GroupType
-		A description of the GroupType parameter.
+		The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
 	
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The type of the unit in the group, either Computer or User.
+
+	.PARAMETER BusinessUnit
+		If specified, the group will be removed in this business unit.
 	
 	.EXAMPLE
-				PS C:\> Remove-CapaGroup -CapaSDK $value1 -GroupName 'Value2' -GroupType Dynamic_ADSI -UnitType Computer
+				PS C:\> Remove-CapaGroup -CapaSDK $CapaSDK -GroupName 'Lenovo' -GroupType Static -UnitType Computer
+
+	.EXAMPLE
+				PS C:\> Remove-CapaGroup -CapaSDK $CapaSDK -GroupName 'Lenovo' -GroupType Static -UnitType Computer -BusinessUnit 'Test'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246240/Delete+group
+		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246248/Delete+Group+in+Business+Unit
 #>
-function Remove-CapaGroup
-{
+function Remove-CapaGroup {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -438,12 +428,9 @@ function Remove-CapaGroup
 		[String]$BusinessUnit = ''
 	)
 	
-	if ($BusinessUnit -eq '')
-	{
+	if ($BusinessUnit -eq '') {
 		$value = $CapaSDK.DeleteGroup($GroupName, $GroupType, $UnitType)
-	}
-	else
-	{
+	} else {
 		$value = $CapaSDK.DeleteGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
 	}
 	
@@ -452,31 +439,30 @@ function Remove-CapaGroup
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246310/Set+Group+Description
+		Set a group description.
 	
 	.DESCRIPTION
-		A detailed description of the Set-CapaGroupDescription function.
+		Sets a group description.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER GroupName
-		A description of the GroupName parameter.
+		The name of the group.
 	
 	.PARAMETER GroupType
-		A description of the GroupType parameter.
+		The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
 	
 	.PARAMETER Description
-		A description of the Description parameter.
+		The description of the group.
 	
 	.EXAMPLE
-				PS C:\> Set-CapaGroupDescription -CapaSDK $value1 -GroupName 'Value2' -GroupType Dynamic_ADSI
+				PS C:\> Set-CapaGroupDescription -CapaSDK $CapaSDK -GroupName 'Lenovo' -GroupType Static
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246310/Set+Group+Description
 #>
-function Set-CapaGroupDescription
-{
+function Set-CapaGroupDescription {
 	[CmdletBinding()]
 	param
 	(
@@ -497,32 +483,34 @@ function Set-CapaGroupDescription
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246318/Set+Group+Folder
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246326/Set+Group+folder+in+a+Business+Unit
+		Sets the folder structure of a group.
 	
 	.DESCRIPTION
-		A detailed description of the Set-CapaGroupFolder function.
+		Sets the folder structure of a group, either in a business unit or global.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		CapaSDK object.
 	
 	.PARAMETER GroupName
-		A description of the GroupName parameter.
+		The name of the group.
 	
 	.PARAMETER GroupType
-		A description of the GroupType parameter.
+		The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL or Static.
 	
 	.PARAMETER FolderStructure
-		A description of the FolderStructure  parameter.
+		The folder structure example: "Folder1\Folder2\Folder3".
 	
 	.EXAMPLE
-				PS C:\> Set-CapaGroupFolder -CapaSDK $value1 -GroupName $value2 -GroupType Dynamic_ADSI -FolderStructure  $value4
+		PS C:\> Set-CapaGroupFolder -CapaSDK $CapaSDK -GroupName "Lenovo" -GroupType Static -FolderStructure  "Static\Manufacturers"
+
+	.EXAMPLE
+		PS C:\> Set-CapaGroupFolder -CapaSDK $CapaSDK -GroupName "Lenovo" -GroupType Static -FolderStructure  "Static\Manufacturers" -BusinessunitName "Test"
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246318/Set+Group+Folder
+		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246326/Set+Group+folder+in+a+Business+Unit
 #>
-function Set-CapaGroupFolder
-{
+function Set-CapaGroupFolder {
 	[CmdletBinding()]
 	param
 	(
@@ -538,12 +526,9 @@ function Set-CapaGroupFolder
 		[string]$BusinessunitName = ''
 	)
 	
-	if ($BusinessunitName -eq '')
-	{
+	if ($BusinessunitName -eq '') {
 		$value = $CapaSDK.SetGroupFolder($GroupName, $GroupType, $FolderStructure)
-	}
-	else
-	{
+	} else {
 		$value = $CapaSDK.SetGroupFolderBU($GroupName, $GroupType, $FolderStructure, $BusinessunitName)
 	}
 	
@@ -552,22 +537,21 @@ function Set-CapaGroupFolder
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246256/Get+application+groups
+		Get a list of all application groups.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaApplicationGroups function.
+		Get a list of all application groups.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaApplicationGroups -CapaSDK $value1
+				PS C:\> Get-CapaApplicationGroups -CapaSDK $CapaSDK
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246256/Get+application+groups
 #>
-function Get-CapaApplicationGroups
-{
+function Get-CapaApplicationGroups {
 	[CmdletBinding()]
 	param
 	(
@@ -579,17 +563,16 @@ function Get-CapaApplicationGroups
 	
 	$aUnits = $CapaSDK.GetApplicationGroups()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Id		    = $aItem[0];
-			Name	    = $aItem[1];
-			Version	    = $aItem[2];
-			Vendor	    = $aItem[3];
-			AppCode	    = $aItem[4];
+			Id          = $aItem[0];
+			Name        = $aItem[1];
+			Version     = $aItem[2];
+			Vendor      = $aItem[3];
+			AppCode     = $aItem[4];
 			Description = $aItem[5];
-			GUID	    = $aItem[6]
+			GUID        = $aItem[6]
 		}
 	}
 	

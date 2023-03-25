@@ -1,38 +1,44 @@
 ﻿<#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246140/Set+database+settings
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246148/Set+default+management+point
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246158/Set+instance+management+point
+		Create a new CapaSDK object that is needed for all other functions.
 	
 	.DESCRIPTION
-		A detailed description of the Initialize-CapaSDK function.
-	
-	.PARAMETER CapaSdkDllPath
-		A description of the CapaSdkDllPath parameter.
+		Create a new CapaSDK object that is needed for all other functions, with the option to set the database settings and management points.
 	
 	.PARAMETER Server
-		A description of the Server parameter.
+		The name of the server where the database is located.
 	
 	.PARAMETER Database
-		A description of the Database parameter.
+		The name of the database.
 	
 	.PARAMETER UserName
-		A description of the UserName parameter.
+		If set, the database will be accessed with the given username and password.
+		Default is to use Windows Authentication.
 	
 	.PARAMETER Password
-		A description of the Password parameter.
+		If set, the database will be accessed with the given username and password.
+		Default is to use Windows Authentication.
 	
 	.PARAMETER DefaultManagementPoint
-		A description of the DefaultManagementPoint parameter.
+		Id of the default management point.
 	
 	.PARAMETER InstanceManagementPoint
-		A description of the InstanceManagementPoint parameter.
+		Id of the instance management point.
 	
 	.EXAMPLE
-		PS C:\> Initialize-CapaSDK -Server 'value1' -Database 'value2' -DefaultManagementPoint Dev
+		PS C:\> Initialize-CapaSDK -Server 'CAPASQL01' -Database 'CapaInstaller' -DefaultManagementPoint 1
+
+	.EXAMPLE
+		PS C:\> Initialize-CapaSDK -Server 'CAPASQL01' -Database 'CapaInstaller' -DefaultManagementPoint 1 -InstanceManagementPoint 1
+
+	.EXAMPLE
+		PS C:\> Initialize-CapaSDK -Server 'CAPASQL01' -Database 'CapaInstaller' -UserName 'sa' -Password 'P@ssw0rd' -DefaultManagementPoint 1
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246140/Set+database+settings
+		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246148/Set+default+management+point
+		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246158/Set+instance+management+point
+		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246174/Set+splitter
 #>
 function Initialize-CapaSDK {
 	[CmdletBinding()]

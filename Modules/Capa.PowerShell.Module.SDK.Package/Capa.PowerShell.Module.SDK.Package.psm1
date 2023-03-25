@@ -1,30 +1,30 @@
 ﻿<#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246796/Add+Package+to+BusinessUnit
+		Adds a package to a business unit.
 	
 	.DESCRIPTION
-		A detailed description of the Add-CapaPackageToBusinessUnit function.
+		Adds a package to a business unit.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
-	
+		The type of the package, either Computer or User.
+
 	.PARAMETER BusinessUnitName
-		A description of the BusinessUnitName parameter.
+		The name of the business unit.
 	
 	.EXAMPLE
-				PS C:\> Add-CapaPackageToBusinessUnit -CapaSDK $value1 -PackageName $value2 -PackageVersion $value3 -PackageType Computer -BusinessUnitName $value5
+		PS C:\> Add-CapaPackageToBusinessUnit -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion 'v3.0' -PackageType Computer -BusinessUnitName 'HeadQuarterBronx'
 	
 	.NOTES
-		Additional information about the function.
+		for more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246796/Add+Package+to+BusinessUnit
 #>
 function Add-CapaPackageToBusinessUnit {
 	[CmdletBinding()]
@@ -57,34 +57,34 @@ function Add-CapaPackageToBusinessUnit {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246807/Add+package+to+group
+		Adds a package to a group.
 	
 	.DESCRIPTION
-		A detailed description of the Add-CapaPackageToGroup function.
+		Adds a package to a group.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of the package, either Computer or User.
 	
 	.PARAMETER GroupName
-		A description of the GroupName parameter.
+		The name of the group.
 	
 	.PARAMETER GroupType
-		A description of the GroupType parameter.
+		The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
 	
 	.EXAMPLE
-		PS C:\> Add-CapaPackageToGroup -CapaSDK $CapaSDK -PackageName 'value2' -PackageVersion 'value3' -PackageType Computer -GroupName 'value5' -GroupType Dynamic_ADSI
+		PS C:\> Add-CapaPackageToGroup -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion 'v3.0' -PackageType Computer -GroupName 'Bronx' -GroupType 'Dynamic_ADSI'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246807/Add+package+to+group
 #>
 function Add-CapaPackageToGroup {
 	param
@@ -111,31 +111,31 @@ function Add-CapaPackageToGroup {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246815/Add+package+to+management+server
+		Adds a package to a management server.
 	
 	.DESCRIPTION
-		A detailed description of the Add-CapaPackageToManagementServer function.
+		Adds a package to a management server.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName  parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion  parameter.
+		The version of the package.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of the package, either Computer or User.
 	
 	.PARAMETER ServerName
-		A description of the ServerName parameter.
+		The name of the server.
 	
 	.EXAMPLE
-				PS C:\> Add-CapaPackageToManagementServer -CapaSDK $value1 -PackageName  'Value2' -PackageVersion  'Value3' -PackageType 1 -ServerName 'Value5'
+		PS C:\> Add-CapaPackageToManagementServer -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion 'v3.0' -PackageType Computer -ServerName 'Server1'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246815/Add+package+to+management+server
 #>
 function Add-CapaPackageToManagementServer {
 	[CmdletBinding()]
@@ -167,31 +167,31 @@ function Add-CapaPackageToManagementServer {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246823/Clone+Package
+		Clone a package in Root Point.
 	
 	.DESCRIPTION
-		A detailed description of the Clone-CapaPackage function.
+		Clone a package in Root Point.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of the package, either Computer or User.
 	
 	.PARAMETER NewVersion
-		A description of the NewVersion  parameter.
+		The new version of the package.
 	
 	.EXAMPLE
-		PS C:\> Clone-CapaPackage -CapaSDK $value1
+		PS C:\> Clone-CapaPackage -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion 'v3.0' -PackageType Computer -NewVersion 'v3.1'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246823/Clone+Package
 #>
 function Clone-CapaPackage {
 	[CmdletBinding()]
@@ -216,19 +216,34 @@ function Clone-CapaPackage {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246842/Copy+Package
+		Copy a package in Root Point.
 	
 	.DESCRIPTION
-		A detailed description of the Copy-CapaPackage function.
+		Copy a package in Root Point.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		the CapaSDK object.
+
+	.PARAMETER PackageName
+		The name of the package.
+
+	.PARAMETER PackageVersion
+		The version of the package.
+
+	.PARAMETER PackageType
+		The type of the package, either Computer or User.
+
+	.PARAMETER NewName
+		The new name of the package.
+
+	.PARAMETER NewVersion
+		The new version of the package.
 	
 	.EXAMPLE
-				PS C:\> Copy-CapaPackage -CapaSDK $value1
+		PS C:\> Copy-CapaPackage -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion 'v3.0' -PackageType Computer -NewName 'Winrar' -NewVersion 'v3.1'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246842/Copy+Package
 #>
 function Copy-CapaPackage {
 	[CmdletBinding()]
@@ -262,49 +277,61 @@ function Copy-CapaPackage {
 
 <#
 	.SYNOPSIS
-		Custom funktion 
+		Custom funktion to copy a package relations.
 	
 	.DESCRIPTION
-		A detailed description of the Copy-CapaPackageRelation function.
+		Custom funktion to copy a package relations, that uses other CapaSDK functions.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER FromPackageType
-		A description of the FromPackageType parameter.
+		The type of the package to copy relations from, either Computer or User.
 	
 	.PARAMETER FromPackageName
-		A description of the FromPackageName parameter.
+		The name of the package to copy relations from.
 	
 	.PARAMETER FromPackageVersion
-		A description of the FromPackageVersion parameter.
+		The version of the package to copy relations from.
 	
 	.PARAMETER ToPackageType
-		A description of the ToPackageType parameter.
+		The type of the package to copy relations to, either Computer or User.
 	
 	.PARAMETER ToPackageName
-		A description of the ToPackageName parameter.
+		The name of the package to copy relationsto.
 	
 	.PARAMETER ToPackageVersion
-		A description of the ToPackageVersion parameter.
+		The version of the package to copy relations to.
 	
 	.PARAMETER CopyGroups
-		A description of the CopyGroups parameter.
+		If set to All, all groups will be copied. If set to None, no groups will be copied.
 	
 	.PARAMETER CopyUnits
-		A description of the CopyUnits parameter.
+		If set to All, all units will be copied. If set to None, no units will be copied.
 	
 	.PARAMETER UnlinkGroupsAndUnitsFromExistingPackage
-		A description of the UnlinkGroupsAndUnitsFromExistingPackage parameter.
+		If set to true, all groups and units will be unlinked from the existing package.
 	
 	.PARAMETER DisableScheduleOnExistingPackage
-		A description of the DisableScheduleOnExistingPackage parameter.
+		If set to true, the schedule will be disabled on the existing package.
 	
 	.EXAMPLE
-				PS C:\> Copy-CapaPackageRelation -CapaSDK $value1 -FromPackageType Computer -FromPackageName 'Value3' -FromPackageVersion 'Value4' -ToPackageType Computer -ToPackageName 'Value6' -ToPackageVersion 'Value7'
+		PS C:\> Copy-CapaPackageRelation @(
+			CapaSDK = $CapaSDK
+			FromPackageType = 'Winrar'
+			FromPackageName = 'v3.0'
+			FromPackageVersion = 'Computer'
+			ToPackageType = 'Winrar'
+			ToPackageName = 'v3.1'
+			ToPackageVersion = 'Computer'
+			CopyGroups = 'All'
+			CopyUnits = "None"
+			UnlinkGroupsAndUnitsFromExistingPackage = $true
+			DisableScheduleOnExistingPackage = $true
+		)
 	
 	.NOTES
-		Additional information about the function.
+		Custom command.
 #>
 function Copy-CapaPackageRelation {
 	param
@@ -453,31 +480,31 @@ function Copy-CapaPackageRelation {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246850/Create+package
+		Create a package in the CapaInstaller.
 	
 	.DESCRIPTION
-		A detailed description of the Create-CapaPackage function.
-	
+		Create a new package in the CapaInstaller.
+
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName  parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion  parameter.
+		The version of the package.
 	
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The type of unit.
 	
 	.PARAMETER DisplayName
-		A description of the DisplayName  parameter.
+		The display name of the package.
 	
 	.EXAMPLE
-				PS C:\> Create-CapaPackage -CapaSDK $value1 -PackageName  'Value2' -PackageVersion  'Value3' -UnitType Computer -DisplayName  'Value5'
+				PS C:\> Create-CapaPackage -CapaSDK $CapaSDK -PackageName 'TestPackage' -PackageVersion 'v1.0.0' -UnitType 'Computer' -DisplayName 'Test Package'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246850/Create+package
 #>
 function Create-CapaPackage {
 	[CmdletBinding()]
@@ -502,28 +529,28 @@ function Create-CapaPackage {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246858/Disable+Package+Schedule
+		Disable a packages schedule. 
 	
 	.DESCRIPTION
-		A detailed description of the Disable-CapaPackageSchedule function.
+		Diable a packages schedule if a schedule is set.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of package, can be Computer or User.
 	
 	.EXAMPLE
-				PS C:\> Disable-CapaPackageSchedule -CapaSDK $value1 -PackageName 'Value2' -PackageVersion 'Value3' -PackageType Computer
+				PS C:\> Disable-CapaPackageSchedule -CapaSDK $CapaSDK -PackageName 'TestPackage' -PackageVersion 'v1.0.0' -PackageType 'Computer'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246858/Disable+Package+Schedule
 #>
 function Disable-CapaPackageSchedule {
 	param
@@ -545,25 +572,25 @@ function Disable-CapaPackageSchedule {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246866/Enable+Package+Schedule
+		Enable a packages schedule.
 	
 	.DESCRIPTION
-		A detailed description of the Enable-CapaPackageSchedule function.
+		Eanble a packages schedule if a schedule is set.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName  parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion  parameter.
+		The version of the package.
 	
 	.PARAMETER PackageType
-		A description of the PackageType  parameter.
+		The type of package, can be either Computer or User.
 	
 	.EXAMPLE
-				PS C:\> Enable-CapaPackageSchedule -CapaSDK $value1 -PackageName  'Value2' -PackageVersion  'Value3' -PackageType  'Value4'
+				For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246866/Enable+Package+Schedule
 	
 	.NOTES
 		Additional information about the function.
@@ -596,25 +623,28 @@ function Enable-CapaPackageSchedule {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246874/Exist+package
+		Verifies if a package exists.
 	
 	.DESCRIPTION
-		A detailed description of the Exist-CapaPackage function.
+		Veirfies if a package exists.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER Name
-		A description of the Name parameter.
+		The name of the package.
+
+	.PARAMETER Type
+		The type of package, can be either Computer or User.
 	
 	.PARAMETER Version
-		A description of the Version  parameter.
+		The version of the package.
 	
 	.EXAMPLE
-				PS C:\> Exist-CapaPackage -CapaSDK $value1 -Name 'Value2' -Version  'Value3'
+				PS C:\> Exist-CapaPackage -CapaSDK $CapaSDK -Name 'TestPackage' -Version 'v1.0.0' -Type 'Computer'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246874/Exist+package
 #>
 function Exist-CapaPackage {
 	[CmdletBinding()]
@@ -644,31 +674,31 @@ function Exist-CapaPackage {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246882/Export+package
+		Export a package.
 	
 	.DESCRIPTION
-		A detailed description of the Export-CapaPackage function.
+		Eports a package to a folder.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of package, can be either Computer or User.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package.
 	
 	.PARAMETER ToFolder
-		A description of the ToFolder parameter.
+		Path to the folder where the package should be exported to.
 	
 	.EXAMPLE
-				PS C:\> Export-CapaPackage -CapaSDK $value1 -PackageType Computer -PackageName 'Value3' -PackageVersion 'Value4' -ToFolder 'Value5'
+				PS C:\> Export-CapaPackage -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'TestPackage' -PackageVersion 'v1.0.0' -ToFolder 'C:\Temp'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246882/Export+package
 #>
 function Export-CapaPackage {
 	param
@@ -692,28 +722,28 @@ function Export-CapaPackage {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246928/Get+Package+Description
+		Get a description of a package.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaPackageDescription function.
+		Get a description of a package.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName  parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion  parameter.
+		The version of the package.
 	
 	.PARAMETER PackageType
-		A description of the PackageType  parameter.
+		The type of package, can be either Computer or User.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaPackageDescription -CapaSDK $value1 -PackageName  'Value2' -PackageVersion  'Value3' -PackageType  'Value4'
+				PS C:\> Get-CapaPackageDescription -CapaSDK $CapaSDK -PackageName 'TestPackage' -PackageVersion 'v1.0.0' -PackageType 'Computer'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246928/Get+Package+Description
 #>
 function Get-CapaPackageDescription {
 	[CmdletBinding()]
@@ -743,28 +773,28 @@ function Get-CapaPackageDescription {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246936/Get+Package+Folder
+		Get the folder structure of a package.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaPackageFolder function.
+		Get the folder structure of a package.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER Type
-		A description of the Type parameter.
+		The type of package, can be either Computer or User.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package.
 	
 	.EXAMPLE
-		PS C:\> Get-CapaPackageFolder -CapaSDK $CapaSDK -Type Computer -PackageName $PackageName -PackageVersion $PackageVersion
+				PS C:\> Get-CapaPackageFolder -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'TestPackage' -PackageVersion 'v1.0.0'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246936/Get+Package+Folder
 #>
 function Get-CapaPackageFolder {
 	param
@@ -786,28 +816,28 @@ function Get-CapaPackageFolder {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246300/Get+package+groups
+		Get grops linked to a package.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaPackageGroups function.
+		Get grops linked to a package.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of package, can be either Computer or User.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaPackageGroups -CapaSDK $value1 -PackageType Computer -PackageName 'Value3' -PackageVersion 'Value4'
+				PS C:\> Get-CapaPackageGroups -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'TestPackage' -PackageVersion 'v1.0.0'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246300/Get+package+groups
 #>
 function Get-CapaPackageGroups {
 	param
@@ -843,23 +873,29 @@ function Get-CapaPackageGroups {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246954/Get+packages
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246964/Get+packages+on+Business+Unit
+		Get a list of packages.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaPackages function.
+		Get a list of packages and if a BusinessUnit is specified, get the packages on that BusinessUnit.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER Type
-		A description of the Type parameter.
+		If specified, only get packages of this type. Can be either Computer or User.
+
+	.PARAMETER BusinessUnit
+		If specified, only get packages on this BusinessUnit.
 	
 	.EXAMPLE
-		PS C:\> Get-CapaPackages -CapaSDK $CapaSDK
+				PS C:\> Get-CapaPackages -CapaSDK $CapaSDK -Type 'Computer'
+
+	.EXAMPLE
+				PS C:\> Get-CapaPackages -CapaSDK $CapaSDK -Type 'Computer' -BusinessUnit 'TestBusinessUnit'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246954/Get+packages
+		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246964/Get+packages+on+Business+Unit
 #>
 function Get-CapaPackages {
 	param
@@ -906,25 +942,25 @@ function Get-CapaPackages {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246974/Get+packages+on+management+server
+		Get a list of packages on a management server.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaPackagesOnManagementServer function.
+		Get a list of packages on a management server.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER ServerName
-		A description of the ServerName  parameter.
+		The name of the management server.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of package, can be either Computer or User.
 	
 	.EXAMPLE
-		PS C:\> Get-CapaPackagesOnManagementServer -CapaSDK $value1
+				PS C:\> Get-CapaPackagesOnManagementServer -CapaSDK $CapaSDK -ServerName 'TestServer' -PackageType 'Computer'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246974/Get+packages+on+management+server
 #>
 function Get-CapaPackagesOnManagementServer {
 	[CmdletBinding()]
@@ -969,25 +1005,25 @@ function Get-CapaPackagesOnManagementServer {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246944/Get+package+status
+		Gets a list of packages and their status on a unit.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaPackageStatus function.
+		Gets a list of packages and their status on a unit.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER UnitName
-		A description of the UnitName  parameter.
+		The name of the unit, can also be the UUID.
 	
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The type of unit, can be either Computer or User.
 	
 	.EXAMPLE
 				PS C:\> Get-CapaPackageStatus -CapaSDK $value1 -UnitName  'Value2' -UnitType Computer
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246944/Get+package+status
 #>
 function Get-CapaPackageStatus {
 	[CmdletBinding()]
@@ -1022,28 +1058,28 @@ function Get-CapaPackageStatus {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247456/Get+package+units
+		Gets a list of units linked to a package.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaPackageUnits function.
+		Gets a list of units linked to a package.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
-	.PARAMETER Name
-		A description of the Name parameter.
-	
-	.PARAMETER Version
-		A description of the Version parameter.
-	
-	.PARAMETER Type
-		A description of the Type parameter.
+	.PARAMETER PackageName
+		The name of the package.
+
+	.PARAMETER PackageVersion
+		The version of the package.
+
+	.PARAMETER PackageType
+		The type of package, can be either Computer or User.
 	
 	.EXAMPLE
-		PS C:\> Get-CapaPackageUnits -CapaSDK $CapaSDK -Name $Name -Version $Version -Type Computer
+				PS C:\> Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247456/Get+package+units
 #>
 function Get-CapaPackageUnits {
 	param
@@ -1081,34 +1117,35 @@ function Get-CapaPackageUnits {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246984/Import+package
+		Imports a package into CapaInstaller.
 	
 	.DESCRIPTION
-		A detailed description of the Import-CapaPackage function.
+		Imports a package into CapaInstaller.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER FilePath
-		A description of the FilePath  parameter.
+		Specifies the path to the zip file containing the package.
 	
 	.PARAMETER OverrideCIPCdata
-		A description of the OverrideCIPCdata   parameter.
+		If the zip file contains metadata used by the Package Creator, setting this to true will override these metadata if any already exists in the CMS database.
 	
 	.PARAMETER ImportFolderStructure
-		A description of the ImportFolderStructure  parameter.
+		Determines wether or not the folder structure will be imported from the exported package.
+		If this is true, the package will be placed in the folder it was located in, when it was exported. Any folders in that structure that doesn't already exist, will be created in CMS.
 	
 	.PARAMETER ImportSchedule
-		A description of the ImportSchedule  parameter.
+		Determines wether or not the schedule will be imported from the package.
 	
 	.PARAMETER ChangelogComment
-		A description of the ChangelogComment parameter.
+		An optional comment to add to the changelog.
 	
 	.EXAMPLE
-				PS C:\> Import-CapaPackage -CapaSDK $value1 -FilePath  'Value2' -OverrideCIPCdata   $value3 -ImportFolderStructure  $value4 -ImportSchedule  $value5
+				PS C:\> Import-CapaPackage -CapaSDK $value1 -FilePath 'C:\Temp\Package.zip' -OverrideCIPCdata $true -ImportFolderStructure $true -ImportSchedule $true
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246984/Import+package
 #>
 function Import-CapaPackage {
 	[CmdletBinding()]
@@ -1133,28 +1170,28 @@ function Import-CapaPackage {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246992/Promote+Package
+		Initializes a package promotion.
 	
 	.DESCRIPTION
-		A detailed description of the Initialize-CapaPackagePromote function.
+		Initialize a package promotion.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageType
-		A description of the Type parameter.
+		The type of package, can be either Computer or User.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package.
 	
 	.EXAMPLE
-		PS C:\> Initialize-CapaPackagePromote -CapaSDK $value1 -Type Computer -PackageName 'Value3' -PackageVersion 'Value4'
+				PS C:\> Initialize-CapaPackagePromote -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246992/Promote+Package
 #>
 function Initialize-CapaPackagePromote {
 	param
@@ -1176,32 +1213,35 @@ function Initialize-CapaPackagePromote {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246831/Delete+Package
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247000/Remove+Package+From+BusinessUnit
+		Removes a package.
 	
 	.DESCRIPTION
-		A detailed description of the Remove-CapaPackage function.
+		Delete a package, if business units are specified, the package will only be removed from that business unit.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of package, can be either Computer or User.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package.
 	
 	.PARAMETER Force
-		A description of the Force parameter.
+		Force deletion of the package regardless of any linked units, groups, or business units.
 	
 	.EXAMPLE
-		PS C:\> Remove-CapaPackage -CapaSDK $value1 -PackageType Computer -PackageName 'Value3' -PackageVersion 'Value4'
+				PS C:\> Remove-CapaPackage -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50' -Force $true
+
+	.EXAMPLE
+				PS C:\> Remove-CapaPackage -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50' -Force $true -BusinessUnitName 'MyBusinessUnit'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246831/Delete+Package
+		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247000/Remove+Package+From+BusinessUnit
 #>
 function Remove-CapaPackage {
 	param
@@ -1231,34 +1271,34 @@ function Remove-CapaPackage {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247008/Remove+package+from+group
+		Removes a package from a group.
 	
 	.DESCRIPTION
-		A detailed description of the Remove-CapaPackageFromGroup function.
+		Removes a package from a group.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package to remove from the group.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package to remove from the group.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of package to remove from the group.
 	
 	.PARAMETER GroupName
-		A description of the GroupName parameter.
+		The name of the group to remove the package from.
 	
 	.PARAMETER GroupType
-		A description of the GroupType parameter.
+		The type of group to remove the package from.
 	
 	.EXAMPLE
-		PS C:\> Remove-CapaPackageFromGroup -CapaSDK $CapaSDK -PackageName $PackageName -PackageVersion $PackageVersion -PackageType Computer -GroupName $GroupName -GroupType Dynamic_ADSI
+				PS C:\> Remove-CapaPackageFromGroup -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -GroupName 'MyGroup' -GroupType 'Static'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247008/Remove+package+from+group
 #>
 function Remove-CapaPackageFromGroup {
 	param
@@ -1285,31 +1325,31 @@ function Remove-CapaPackageFromGroup {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247016/Remove+package+from+management+server
+		Removes a package from a management server.
 	
 	.DESCRIPTION
-		A detailed description of the Remove-CapaPackageFromManagementServer function.
+		Removes a package from a management server.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package to remove from the management server.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package to remove from the management server.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of package to remove from the management server.
 	
 	.PARAMETER ServerName
-		A description of the ServerName parameter.
+		The name of the management server to remove the package from.
 	
 	.EXAMPLE
-				PS C:\> Remove-CapaPackageFromManagementServer -CapaSDK $value1 -PackageName 'Value2' -PackageVersion 'Value3' -PackageType 1 -ServerName 'Value5'
+				PS C:\> Remove-CapaPackageFromManagementServer -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -ServerName 'MyServer'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247016/Remove+package+from+management+server
 #>
 function Remove-CapaPackageFromManagementServer {
 	[CmdletBinding()]
@@ -1341,31 +1381,31 @@ function Remove-CapaPackageFromManagementServer {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247024/Set+Package+Description
+		Set the description of a package.
 	
 	.DESCRIPTION
-		A detailed description of the Set-CapaPackageDescription function.
+		Set the description of a package.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package to set the description of.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package to set the description of.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of package to set the description of.
 	
 	.PARAMETER Description
-		A description of the Description parameter.
+		The description to set.
 	
 	.EXAMPLE
-				PS C:\> Set-CapaPackageDescription -CapaSDK $value1 -PackageName 'Value2' -PackageVersion 'Value3' -PackageType 1 -Description ""
+				PS C:\> Set-CapaPackageDescription -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -Description 'This is a description'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247024/Set+Package+Description
 #>
 function Set-CapaPackageDescription {
 	[CmdletBinding()]
@@ -1397,34 +1437,34 @@ function Set-CapaPackageDescription {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247032/Set+Package+Folder
+		Set the folder structure of a package.
 	
 	.DESCRIPTION
-		A detailed description of the Set-CapaPackageFolder function.
+		Set the folder structure of a package.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageType
-		A description of the Type parameter.
+		The type of package to set the folder structure of, either Computer or User.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package to set the folder structure of.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package to set the folder structure of.
 	
 	.PARAMETER FolderStructure
-		A description of the FolderStructure parameter.
+		The folder structure to set, for example 'Folder1\Folder2'.
 	
 	.PARAMETER ChangelogText
-		A description of the ChangelogText parameter.
+		An optional changelog text to set.
 	
 	.EXAMPLE
-		PS C:\> Set-CapaPackageFolder -CapaSDK $value1 -Type Computer -PackageName 'Value3' -PackageVersion 'Value4' -FolderStructure 'Value5'
-	
+				PS C:\> Set-CapaPackageFolder -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50' -FolderStructure 'Folder1\Folder2' -ChangelogText 'This is a changelog'
+
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247032/Set+Package+Folder
 #>
 function Set-CapaPackageFolder {
 	param
@@ -1450,31 +1490,31 @@ function Set-CapaPackageFolder {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247040/Set+Package+Property
+		Sets an package property.
 	
 	.DESCRIPTION
-		A detailed description of the Set-CapaPackagePriority function.
+		Sets an package property.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName  parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion  parameter.
+		The version of the package.
 	
 	.PARAMETER PackageType
-		A description of the PackageType  parameter.
+		The type of the package.
 	
 	.PARAMETER Priority
-		A description of the Priority parameter.
+		The priority of the package, default is 500.
 	
 	.EXAMPLE
-				PS C:\> Set-CapaPackagePriority -CapaSDK $value1 -PackageName  'Value2' -PackageVersion  'Value3' -PackageType  'Value4'
-	
+				PS C:\> Set-CapaPackagePriority -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -Priority 500
+
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247040/Set+Package+Property
 #>
 function Set-CapaPackagePriority {
 	[CmdletBinding()]
@@ -1505,46 +1545,72 @@ function Set-CapaPackagePriority {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247048/Set+Package+Schedule
+		Sets the schedule of a package.
 	
 	.DESCRIPTION
-		A detailed description of the Set-CapaPackageSchedule function.
+		Sets the schedule of a package.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion  parameter.
+		The version of the package.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of the package, either Computer or User.
 	
 	.PARAMETER ScheduleStart
-		A description of the ScheduleStart parameter.
+		The start date of the schedule, for example '2015-05-15 12:00'.
 	
 	.PARAMETER ScheduleEnd
-		A description of the ScheduleEnd parameter.
+		The Schedule start date in the format  "yyyy-MM-dd HH:mm" eg. "2015-04-15 12:05". If no end date is wanted, leave empty.
 	
 	.PARAMETER ScheduleIntervalBegin
-		A description of the ScheduleIntervalBegin  parameter.
+		The Schedule Interval begins time in the format  HH:mm" eg. "06:00". If left empty it is set to 00:00.
 	
 	.PARAMETER ScheduleIntervalEnd
-		A description of the ScheduleIntervalEnd  parameter.
+		The Schedule Interval end time in the format  HH:mm" eg. "12:00". If left empty it is set to 00:00.
 	
 	.PARAMETER ScheduleRecurrence
-		A description of the ScheduleRecurrence parameter.
+		The Schedule Recurrence for the schedule, either Once, PeriodicalDaily, PeriodicalWeekly or Always.
 	
 	.PARAMETER ScheduleRecurrencePattern
-		A description of the ScheduleRecurrencePattern  parameter.
+		Is used to further detail the Schedule Recurrence when set to PeriodicalDaily or PeriodicalWeekly
+			Possible values:
+			ScheduleRecurrence = "PeriodicalDaily"
+				ScheduleRecurrencePattern  = "RecurEveryWeekDay" sets the recurrence pattern to run every weekday
+				ScheduleRecurrencePattern  = "" Sets the recurrence pattern to recur every day including weekend days.
+			
+			ScheduleRecurrence = "PeriodicalWeekly"
+				ScheduleRecurrencePattern   = "1,3,5" Will set the schedule pattern to run Monday, Wednesday and Friday. All weekdays can be combined with a comma (,) (1,2,3,4,5,6,7)
+					Monday = 1
+					Tuesday = 2
+					Wednesday = 3
+					Thursday = 4
+					Friday = 5
+					Saturday = 6
+					Sunday = 7
+				ScheduleRecurrencePattern   = "" Will set the schedule recurrence pattern to run every weekday 
 	
 	.EXAMPLE
-		PS C:\> Set-CapaPackageSchedule -CapaSDK $value1 -PackageName 'Value2' -PackageVersion  'Value3' -PackageType Computer -ScheduleStart 'Value5' -ScheduleEnd 'Value6' -ScheduleIntervalBegin  'Value7' -ScheduleIntervalEnd  'Value8' -ScheduleRecurrence Once -ScheduleRecurrencePattern  'Value10'
+				PS C:\> Set-CapaPackageSchedule @(
+					CapaSDK = $CapaSDK
+					PackageName = 'Winrar'
+					PackageVersion = '5.50'
+					PackageType = 'Computer'
+					ScheduleStart = '2015-05-15 12:00'
+					ScheduleEnd = '2015-05-15 12:00'
+					ScheduleIntervalBegin = '06:00'
+					ScheduleIntervalEnd = '12:00'
+					ScheduleRecurrence = 'PeriodicalDaily'
+					ScheduleRecurrencePattern = 'RecurEveryWeekDay'
+				)
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247048/Set+Package+Schedule
 #>
 function Set-CapaPackageSchedule {
 	[CmdletBinding()]
@@ -1579,28 +1645,32 @@ function Set-CapaPackageSchedule {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247056/Update+Now+on+Package
+		Performs a update now on a package.
 	
 	.DESCRIPTION
-		A detailed description of the Update-CapaPackageNow function.
+		Performs the Update now procedure on a package. This will create a SyncJob to the CiSync service residing on the Point-server with the 'AutoJob' bit set which 
+		will (after completion) in turn create 'auto-syncjobs' to child servers as well as BaseAgent-DistributionServers when/if the package is assigned or the child 
+		servers are 'replica' servers.
+
+		This function is equivalent to the CM-plugin right-click action on a package.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName  parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of the package, either Computer or User.
 	
 	.EXAMPLE
-				PS C:\> Update-CapaPackageNow -CapaSDK $value1 -PackageName  'Value2' -PackageVersion 'Value3' -PackageType Computer
-	
+				PS C:\> Update-CapaPackageNow -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer'
+
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247056/Update+Now+on+Package
 #>
 function Update-CapaPackageNow {
 	[CmdletBinding()]
@@ -1623,22 +1693,22 @@ function Update-CapaPackageNow {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246890/Get+all+inventory+packages
+		Gets all inventory packages.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaAllInventoryPackages function.
+		Gets all inventory packages.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of the package, either Computer or User.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaAllInventoryPackages -CapaSDK $value1
+				PS C:\> Get-CapaAllInventoryPackages -CapaSDK $CapaSDK -PackageType 'Computer'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246890/Get+all+inventory+packages
 #>
 function Get-CapaAllInventoryPackages {
 	[CmdletBinding()]
@@ -1679,22 +1749,22 @@ function Get-CapaAllInventoryPackages {
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246900/Get+all+none+inventory+packages
+		Returns all none inventory packages.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapatAllNoneInventoryPackages function.
+		Returns all none inventory packages.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The type of the package, either Computer or User.
 	
 	.EXAMPLE
-				PS C:\> Get-CapatAllNoneInventoryPackages -CapaSDK $value1
+				PS C:\> Get-CapatAllNoneInventoryPackages -CapaSDK $CapaSDK -PackageType 'Computer'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246900/Get+all+none+inventory+packages
 #>
 function Get-CapatAllNoneInventoryPackages {
 	[CmdletBinding()]

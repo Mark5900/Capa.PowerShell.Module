@@ -1,24 +1,23 @@
 ﻿<#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247078/Count+conscom+actions
+		Counts the number of conscom actions.
 	
 	.DESCRIPTION
-		A detailed description of the Count-CapaConscomActions function.
+		Counts the number of conscom actions.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER ManagementServerID
-		A description of the ManagementServerID parameter.
+		The management server ID to check for. If omitted, conscom actions for all servers are counted.
 	
 	.EXAMPLE
-				PS C:\> Count-CapaConscomActions -CapaSDK $value1 -ManagementServerID $value2
+		PS C:\> Count-CapaConscomActions -CapaSDK $CapaSDK -ManagementServerID 1
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247078/Count+conscom+actions
 #>
-function Count-CapaConscomActions
-{
+function Count-CapaConscomActions {
 	[CmdletBinding()]
 	param
 	(
@@ -34,22 +33,21 @@ function Count-CapaConscomActions
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247086/Get+Business+Units
+		Get a list of all business units.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaBusinessUnits function.
+		Get a list of all business units.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaBusinessUnits -CapaSDK $value1
+		PS C:\> Get-CapaBusinessUnits -CapaSDK $CapaSDK
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247086/Get+Business+Units
 #>
-function Get-CapaBusinessUnits
-{
+function Get-CapaBusinessUnits {
 	[CmdletBinding()]
 	param
 	(
@@ -61,8 +59,7 @@ function Get-CapaBusinessUnits
 	
 	$aUnits = $CapaSDK.GetBusinessUnits()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			Name = $aItem[0];
@@ -76,22 +73,21 @@ function Get-CapaBusinessUnits
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247096/Get+external+tools
+		Get a list of all external tools.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaExternalTools function.
+		Get a list of all external tools.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaExternalTools -CapaSDK $value1
+		PS C:\> Get-CapaExternalTools -CapaSDK $CapaSDK
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247096/Get+external+tools
 #>
-function Get-CapaExternalTools
-{
+function Get-CapaExternalTools {
 	[CmdletBinding()]
 	param
 	(
@@ -103,13 +99,12 @@ function Get-CapaExternalTools
 	
 	$aUnits = $CapaSDK.GetExternalTools()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID	      = $aItem[0];
-			Name	  = $aItem[1];
-			Path	  = $aItem[2];
+			ID        = $aItem[0];
+			Name      = $aItem[1];
+			Path      = $aItem[2];
 			Arguments = $aItem[3]
 		}
 	}
@@ -119,26 +114,25 @@ function Get-CapaExternalTools
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247106/Get+management+point
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247116/Get+management+points
+		Get management points or a specific management point.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaManagementPoint function.
+		If CmpId is not specified, all management points are returned.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER CmpId
-		A description of the CmpId parameter.
+		The ID of the management point to return. If omitted, all management points are returned.
 	
 	.EXAMPLE
 				PS C:\> Get-CapaManagementPoint -CapaSDK $value1 -CmpId $value2
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247106/Get+management+point
+		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247116/Get+management+points
 #>
-function Get-CapaManagementPoint
-{
+function Get-CapaManagementPoint {
 	[CmdletBinding()]
 	param
 	(
@@ -149,27 +143,23 @@ function Get-CapaManagementPoint
 	
 	$oaUnits = @()
 	
-	if ($CmpId -eq '')
-	{
+	if ($CmpId -eq '') {
 		$aUnits = $CapaSDK.GetManagementPoints()
-	}
-	else
-	{
+	} else {
 		$aUnits = $CapaSDK.GetManagementPoint($OSPointID)
 	}
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Id		    = $aItem[0];
-			Name	    = $aItem[1];
+			Id          = $aItem[0];
+			Name        = $aItem[1];
 			Description = $aItem[2];
-			Drive	    = $aItem[3];
-			GUID	    = $aItem[4];
+			Drive       = $aItem[3];
+			GUID        = $aItem[4];
 			LocalFolder = $aItem[5];
-			Server	    = $aItem[7];
-			Share	    = $aItem[8];
+			Server      = $aItem[7];
+			Share       = $aItem[8];
 			ParentGUID  = $aItem[9]
 		}
 	}
@@ -179,22 +169,21 @@ function Get-CapaManagementPoint
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247126/Get+management+servers
+		Get a list of all management servers.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaManagementServers function.
+		Get a list of all management servers.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaManagementServers -CapaSDK $value1
+		PS C:\> Get-CapaManagementServers -CapaSDK $CapaSDK
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247126/Get+management+servers
 #>
-function Get-CapaManagementServers
-{
+function Get-CapaManagementServers {
 	[CmdletBinding()]
 	param
 	(
@@ -206,19 +195,18 @@ function Get-CapaManagementServers
 	
 	$aUnits = $CapaSDK.GetManagementServers()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name		  = $aItem[0];
-			Path		  = $aItem[1];
-			Version	      = $aItem[2];
-			Drive		  = $aItem[3];
-			Server	      = $aItem[4];
-			Share		  = $aItem[5];
+			Name          = $aItem[0];
+			Path          = $aItem[1];
+			Version       = $aItem[2];
+			Drive         = $aItem[3];
+			Server        = $aItem[4];
+			Share         = $aItem[5];
 			IsParentShare = $aItem[7];
-			GUID		  = $aItem[8];
-			ID		      = $aItem[9]
+			GUID          = $aItem[8];
+			ID            = $aItem[9]
 		}
 	}
 	
@@ -227,34 +215,33 @@ function Get-CapaManagementServers
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247136/Rebuild+kit+on+Management+Point
+		Rebuilds CapaInstaller.kit file on all Management Servers in the given Management Point.
 	
 	.DESCRIPTION
-		A detailed description of the Rebuild-CapaKitFileOnPoint function.
+		Rebuilds CapaInstaller.kit file on all Management Servers in the given Management Point.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName  parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion  parameter.
+		The version of the package.
 	
 	.PARAMETER PackageType
-		A description of the PackageType  parameter.
+		The type of the package.
 	
 	.PARAMETER PointID
-		A description of the PointID parameter.
+		The ID of the management point.
 	
 	.EXAMPLE
-				PS C:\> Rebuild-CapaKitFileOnPoint -CapaSDK $value1 -PackageName  'Value2' -PackageVersion  'Value3' -PackageType  'Value4' -PointID $value5
-	
+		PS C:\> Rebuild-CapaKitFileOnPoint -CapaSDK $CapaSDK -PackageName 'WinRaR' -PackageVersion '5.50' -PackageType 'Computer' -PointID 1
+
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247136/Rebuild+kit+on+Management+Point
 #>
-function Rebuild-CapaKitFileOnPoint
-{
+function Rebuild-CapaKitFileOnPoint {
 	[CmdletBinding()]
 	param
 	(
@@ -271,12 +258,10 @@ function Rebuild-CapaKitFileOnPoint
 		[int]$PointID
 	)
 	
-	if ($PackageType -eq 'Computer')
-	{
+	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
 	}
-	if ($PackageType -eq 'User')
-	{
+	if ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 	
@@ -286,34 +271,33 @@ function Rebuild-CapaKitFileOnPoint
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247144/Rebuild+kit+on+Management+Server
+		Rebuilds CapaInstaller.kit file on Management Server. 
 	
 	.DESCRIPTION
-		A detailed description of the Rebuild-CapaKitFileOnServer function.
+		Rebuilds CapaInstaller.kit file on Management Server. The function sets an action for the assigned Replicator to perform.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER PackageName
-		A description of the PackageName  parameter.
+		The name of the package.
 	
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The version of the package.
 	
 	.PARAMETER PackageType
-		A description of the PackageType  parameter.
+		The type of the package.
 	
 	.PARAMETER ServerName
-		A description of the ServerName  parameter.
+		The management server to which the package is to be added to.
 	
 	.EXAMPLE
-				PS C:\> Rebuild-CapaKitFileOnServer -CapaSDK $value1 -PackageName  'Value2' -PackageVersion 'Value3' -PackageType  'Value4' -ServerName  'Value5'
-	
+		PS C:\> Rebuild-CapaKitFileOnManagementServer -CapaSDK $CapaSDK -PackageName 'WinRaR' -PackageVersion '5.50' -PackageType 'Computer' -ServerName 'MS1'
+
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247144/Rebuild+kit+on+Management+Server
 #>
-function Rebuild-CapaKitFileOnManagementServer
-{
+function Rebuild-CapaKitFileOnManagementServer {
 	[CmdletBinding()]
 	param
 	(
@@ -330,12 +314,10 @@ function Rebuild-CapaKitFileOnManagementServer
 		[String]$ServerName
 	)
 	
-	if ($PackageType -eq 'Computer')
-	{
+	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
 	}
-	if ($PackageType -eq 'User')
-	{
+	if ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 	
@@ -345,25 +327,38 @@ function Rebuild-CapaKitFileOnManagementServer
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247152/Reset+LastRun+Date+On+Global+Task
+		Resets the last run date on a global task.
 	
 	.DESCRIPTION
-		A detailed description of the Reset-CapaLastRunDateOnGlobalTask function.
+		Returns the last run date on a global task.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER TaskDisplayName
-		A description of the TaskDisplayName parameter.
+		The display name of the task. Can be one of the following:
+			Auto Archive Changelog
+			Cleanup Performance Index Data
+			Clear Changeset
+			Clear Deleted Units
+			Group Health Check
+			Inventory Cleanup
+			Process Metering History
+			Process SQL groups
+			System Health
+			Update Active Directory Groups
+			Update Application Groups
+			Update OS Version
+			Update Unit Commands
+			Update Unlicensed Software Queries
 	
 	.EXAMPLE
-				PS C:\> Reset-CapaLastRunDateOnGlobalTask -CapaSDK $value1 -TaskDisplayName 'Auto Archive Changelog'
-	
+		PS C:\> Reset-CapaLastRunDateOnGlobalTask -CapaSDK $CapaSDK -TaskDisplayName 'Auto Archive Changelog'
+
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247152/Reset+LastRun+Date+On+Global+Task
 #>
-function Reset-CapaLastRunDateOnGlobalTask
-{
+function Reset-CapaLastRunDateOnGlobalTask {
 	[CmdletBinding()]
 	param
 	(

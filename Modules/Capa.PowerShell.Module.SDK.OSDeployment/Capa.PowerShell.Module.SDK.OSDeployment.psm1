@@ -1,24 +1,23 @@
 ﻿<#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246664/Get+OS+disk+configurations
+		Gets a list of OS Disk Configurations.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaOSDiskConfigration function.
+		Gets a list of OS Disk Configurations.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER OSPointID
-		A description of the OSPointID parameter.
+		The ID of the OS Point.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaOSDiskConfigration -CapaSDK $value1 -OSPointID $value2
+		PS C:\> Get-CapaOSDiskConfigration -CapaSDK $CapaSDK -OSPointID 1
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246664/Get+OS+disk+configurations
 #>
-function Get-CapaOSDiskConfigration
-{
+function Get-CapaOSDiskConfigration {
 	[CmdletBinding()]
 	param
 	(
@@ -32,15 +31,14 @@ function Get-CapaOSDiskConfigration
 	
 	$aUnits = $CapaSDK.GetOSDiskConfiguration($OSPointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID		    = $aItem[0];
-			Name	    = $aItem[1];
-			Comment	    = $aItem[2];
-			GUID	    = $aItem[3];
-			Laptop	    = $aItem[4];
+			ID          = $aItem[0];
+			Name        = $aItem[1];
+			Comment     = $aItem[2];
+			GUID        = $aItem[3];
+			Laptop      = $aItem[4];
 			LeaveDisk   = $aItem[5];
 			WorkStation = $aItem[6]
 		}
@@ -51,25 +49,24 @@ function Get-CapaOSDiskConfigration
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246676/Get+OS+images
+		Gets a list of OS Images.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaOSImages function.
+		Gets a list of OS Images.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER OSPointID
-		A description of the OSPointID parameter.
+		The ID of the OS Point.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaOSImages -CapaSDK $value1 -OSPointID $value2
+		PS C:\> Get-CapaOSImages -CapaSDK $CapaSDK -OSPointID 1
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246676/Get+OS+images
 #>
-function Get-CapaOSImages
-{
+function Get-CapaOSImages {
 	[CmdletBinding()]
 	param
 	(
@@ -83,18 +80,17 @@ function Get-CapaOSImages
 	
 	$aUnits = $CapaSDK.GetOSImages($OSPointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID		    = $aItem[0];
-			Name	    = $aItem[1];
+			ID          = $aItem[0];
+			Name        = $aItem[1];
 			Description = $aItem[2];
 			Filename    = $aItem[3];
-			GUID	    = $aItem[4];
+			GUID        = $aItem[4];
 			ImageFile   = $aItem[5];
 			LocalFile   = $aItem[6];
-			OSName	    = $aItem[7]
+			OSName      = $aItem[7]
 		}
 	}
 	
@@ -103,25 +99,24 @@ function Get-CapaOSImages
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246688/Get+OS+installation+types
+		Get a list of OS Installation Types.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaOSInstallationTypes function.
+		Get a list of OS Installation Types.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER OSPointID
-		A description of the OSPointID  parameter.
+		The ID of the OS Point.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaOSInstallationTypes -CapaSDK $value1 -OSPointID  $value2
+		PS C:\> Get-CapaOSInstallationTypes -CapaSDK $CapaSDK -OSPointID 1
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246688/Get+OS+installation+types
 #>
-function Get-CapaOSInstallationTypes
-{
+function Get-CapaOSInstallationTypes {
 	[CmdletBinding()]
 	param
 	(
@@ -135,8 +130,7 @@ function Get-CapaOSInstallationTypes
 	
 	$aUnits = $CapaSDK.GetOSInstallationTypes($OSPointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
 			ID   = $aItem[0];
@@ -150,22 +144,21 @@ function Get-CapaOSInstallationTypes
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246700/Get+OS+points
+		Gets a list of OS Points.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaOSPoints function.
+		Gets a list of OS Points.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaOSPoints -CapaSDK $value1
+		PS C:\> Get-CapaOSPoints -CapaSDK $CapaSDK
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246700/Get+OS+points
 #>
-function Get-CapaOSPoints
-{
+function Get-CapaOSPoints {
 	[CmdletBinding()]
 	param
 	(
@@ -177,28 +170,27 @@ function Get-CapaOSPoints
 	
 	$aUnits = $CapaSDK.GetOSPoints($OSPointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID			      = $aItem[0];
-			Name			  = $aItem[1];
-			Description	      = $aItem[2];
-			GUID			  = $aItem[3];
-			FileBoot		  = $aItem[4];
+			ID                = $aItem[0];
+			Name              = $aItem[1];
+			Description       = $aItem[2];
+			GUID              = $aItem[3];
+			FileBoot          = $aItem[4];
 			FileDriverMapping = $aItem[5];
-			FileOSDGui	      = $aItem[6];
+			FileOSDGui        = $aItem[6];
 			FolderCommonFiles = $aItem[7];
-			FolderDrivers	  = $aItem[8];
-			FolderImages	  = $aItem[9];
-			FolderOSD		  = $aItem[10];
+			FolderDrivers     = $aItem[8];
+			FolderImages      = $aItem[9];
+			FolderOSD         = $aItem[10];
 			FolderMediaMaster = $aItem[11];
-			FolderScripts	  = $aItem[12];
-			FolderWinPE	      = $aItem[13];
-			OSDVersion	      = $aItem[14];
-			Servername	      = $aItem[15];
-			Sharename		  = $aItem[16];
-			UncPath		      = $aItem[17]
+			FolderScripts     = $aItem[12];
+			FolderWinPE       = $aItem[13];
+			OSDVersion        = $aItem[14];
+			Servername        = $aItem[15];
+			Sharename         = $aItem[16];
+			UncPath           = $aItem[17]
 		}
 	}
 	
@@ -207,25 +199,24 @@ function Get-CapaOSPoints
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246710/Get+OS+servers
+		Gets a list of OS Servers including sub servers.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaOSServers function.
+		Gets a list of OS Servers including sub servers.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER OSPointID
-		A description of the OSPointID parameter.
+		The ID of the OS Point.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaOSServers -CapaSDK $value1 -OSPointID $value2
+		PS C:\> Get-CapaOSServers -CapaSDK $CapaSDK -OSPointID 1
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246710/Get+OS+servers
 #>
-function Get-CapaOSServers
-{
+function Get-CapaOSServers {
 	[CmdletBinding()]
 	param
 	(
@@ -239,13 +230,12 @@ function Get-CapaOSServers
 	
 	$aUnits = $CapaSDK.GetOSServers($OSPointID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID		   = $aItem[0];
-			Name	   = $aItem[1];
-			IP		   = $aItem[2];
+			ID         = $aItem[0];
+			Name       = $aItem[1];
+			IP         = $aItem[2];
 			Servername = $aItem[3];
 			Sharename  = $aItem[4];
 			UncPath    = $aItem[5]

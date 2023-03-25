@@ -1,36 +1,41 @@
 ﻿<#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247828/Invite+unit+to+vpp
+		Creates a VPP user at Apple where an invitation URL is generated. This invitation is then sent to the device where the user will have the option to accept or decline.
 	
 	.DESCRIPTION
-		A detailed description of the Invite-CapaUnitToVppProgram function.
+		Creates a VPP user at Apple where an invitation URL is generated. This invitation is then sent to the device where the user will have the option to accept or decline.
+		If the user accepts the invitation, its Apple ID will be linked to the VPP user at Apple, which can be seen in the system after the next synchronization cycle.
+		
+		There are a few requirements for the operation to succeed.
+			The device must be running iOS8 or higher.
+			The device should not already be enrolled in the Volume Purchase Program specified.
+			If an invitation previously sent to the device was not accepted, a VPP user will already exist at Apple. In order to avoid creating multiple VPP users, the system will reuse that original invitation and send it to the device again.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER VppProgramID
-		A description of the VppProgramID  parameter.
+		The VPP user will be created in the program with the specified id.
 	
 	.PARAMETER UnitID
-		A description of the UnitID  parameter.
+		The id of the iOS device which should receive an invitation.
 	
 	.PARAMETER UserFullName
-		A description of the UserFullName  parameter.
+		The fullname of the vpp user being created.
 	
 	.PARAMETER UserEmailName
-		A description of the UserEmailName  parameter.
+		The email of the vpp user being created.
 	
 	.PARAMETER UserDescription
-		A description of the UserDescription  parameter.
+		The description of the vpp user being created.
 	
 	.EXAMPLE
-				PS C:\> Invite-CapaUnitToVppProgram -CapaSDK $value1 -VppProgramID  $value2 -UnitID  $value3 -UserFullName  'Value4' -UserEmailName  'Value5' -UserDescription  'Value6'
+		Invite-CapaUnitToVppProgram -CapaSDK $CapaSDK -VppProgramID 1 -UnitID 1 -UserFullName 'Test User' -UserEmailName 'Test@test.com' -UserDescription 'Test User'
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247828/Invite+unit+to+vpp
 #>
-function Invite-CapaUnitToVppProgram
-{
+function Invite-CapaUnitToVppProgram {
 	[CmdletBinding()]
 	param
 	(
@@ -54,26 +59,28 @@ function Invite-CapaUnitToVppProgram
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247808/Get+vpp+users
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247818/Get+vpp+users+all
+		Gets a list of all VPP users.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaVppUsers function.
+		Gets a list of all VPP users, if VppProgramID is specified, only VPP users for the specified program will be returned.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER VppProgramID
 		A description of the VppProgramID parameter.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaVppUsers -CapaSDK $value1
+			Get-CapaVppUsers -CapaSDK $CapaSDK
+
+	.EXAMPLE
+			Get-CapaVppUsers -CapaSDK $CapaSDK -VppProgramID 1
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247808/Get+vpp+users
+		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247818/Get+vpp+users+all
 #>
-function Get-CapaVppUsers
-{
+function Get-CapaVppUsers {
 	[CmdletBinding()]
 	param
 	(
@@ -84,32 +91,28 @@ function Get-CapaVppUsers
 	
 	$oaUnits = @()
 	
-	if ($VppProgramID -eq '')
-	{
+	if ($VppProgramID -eq '') {
 		$aUnits = $CapaSDK.GetVppUsersAll()
-	}
-	Else
-	{
+	} Else {
 		$aUnits = $CapaSDK.GetVppUsers($VppProgramID)
 	}
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID			    = $aItem[0];
-			Status		    = $aItem[1];
-			Updated		    = $aItem[2];
-			UserID		    = $aItem[3];
+			ID              = $aItem[0];
+			Status          = $aItem[1];
+			Updated         = $aItem[2];
+			UserID          = $aItem[3];
 			ClientUserIDStr = $aItem[4];
-			Name		    = $aItem[5];
-			Description	    = $aItem[7];
-			Email		    = $aItem[8];
-			ItsIdHash	    = $aItem[9];
-			InviteUrl	    = $aItem[10];
-			InviteCode	    = $aItem[11];
+			Name            = $aItem[5];
+			Description     = $aItem[7];
+			Email           = $aItem[8];
+			ItsIdHash       = $aItem[9];
+			InviteUrl       = $aItem[10];
+			InviteCode      = $aItem[11];
 			VPPAccountID    = $aItem[12];
-			GUID		    = $aItem[13]
+			GUID            = $aItem[13]
 		}
 	}
 	
@@ -118,22 +121,21 @@ function Get-CapaVppUsers
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247798/Get+vpp+programs
+		Gets a list of all VPP programs.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaVppPrograms function.
+		Gets a list of all VPP programs.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaVppPrograms -CapaSDK $value1
+		Get-CapaVppPrograms -CapaSDK $CapaSDK
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247798/Get+vpp+programs
 #>
-function Get-CapaVppPrograms
-{
+function Get-CapaVppPrograms {
 	[CmdletBinding()]
 	param
 	(
@@ -145,17 +147,16 @@ function Get-CapaVppPrograms
 	
 	$aUnits = $CapaSDK.GetVppPrograms()
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			ID			     = $aItem[0];
-			Name			 = $aItem[1];
+			ID               = $aItem[0];
+			Name             = $aItem[1];
 			OrganisationName = $aItem[2];
-			Email		     = $aItem[3];
-			ExpireDate	     = $aItem[4];
-			GUID			 = $aItem[5];
-			Description	     = $aItem[7]
+			Email            = $aItem[3];
+			ExpireDate       = $aItem[4];
+			GUID             = $aItem[5];
+			Description      = $aItem[7]
 		}
 	}
 	
@@ -164,25 +165,24 @@ function Get-CapaVppPrograms
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247426/Get+devices+linked+to+vpp+user
+		Gets a list of devices linked to a VPP user.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaDevicesLinkedToVppUser function.
+		Gets a list of devices linked to a VPP user.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER vppUserID
-		A description of the vppUserID  parameter.
+		The ID of the VPP user.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaDevicesLinkedToVppUser -CapaSDK $value1 -vppUserID  $value2
+		Get-CapaDevicesLinkedToVppUser -CapaSDK $CapaSDK -vppUserID 1
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247426/Get+devices+linked+to+vpp+user
 #>
-function Get-CapaDevicesLinkedToVppUser
-{
+function Get-CapaDevicesLinkedToVppUser {
 	[CmdletBinding()]
 	param
 	(
@@ -196,21 +196,20 @@ function Get-CapaDevicesLinkedToVppUser
 	
 	$aUnits = $CapaSDK.GetDevicesLinkedToVppUser($vppUserID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name		   = $aItem[0];
-			Created	       = $aItem[1];
+			Name           = $aItem[0];
+			Created        = $aItem[1];
 			LastExecuted   = $aItem[2];
-			Status		   = $aItem[3];
+			Status         = $aItem[3];
 			Description    = $aItem[4];
-			GUID		   = $aItem[5];
-			ID			   = $aItem[7];
-			TypeName	   = $aItem[8];
-			UUID		   = $aItem[9];
+			GUID           = $aItem[5];
+			ID             = $aItem[7];
+			TypeName       = $aItem[8];
+			UUID           = $aItem[9];
 			IsMobileDevice = $aItem[10];
-			location	   = $aItem[11]
+			location       = $aItem[11]
 		}
 	}
 	
@@ -219,25 +218,24 @@ function Get-CapaDevicesLinkedToVppUser
 
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247612/Get+users+linked+to+vpp+user
+		Gets a list of users linked to a VPP user.
 	
 	.DESCRIPTION
-		A detailed description of the Get-CapaUsersLinkedToVppUser function.
+		Gets a list of users linked to a vpp user, including inventory variables like full name and emails.
 	
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 	
 	.PARAMETER VppUserID
-		A description of the VppUserID  parameter.
+		The ID of the VPP user.
 	
 	.EXAMPLE
-				PS C:\> Get-CapaUsersLinkedToVppUser -CapaSDK $value1 -VppUserID  $value2
+		Get-CapaUsersLinkedToVppUser -CapaSDK $CapaSDK -VppUserID 1
 	
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247612/Get+users+linked+to+vpp+user
 #>
-function Get-CapaUsersLinkedToVppUser
-{
+function Get-CapaUsersLinkedToVppUser {
 	[CmdletBinding()]
 	param
 	(
@@ -251,21 +249,20 @@ function Get-CapaUsersLinkedToVppUser
 	
 	$aUnits = $CapaSDK.GetUsersLinkedToVppUser($VppUserID)
 	
-	foreach ($sItem in $aUnits)
-	{
+	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name		   = $aItem[0];
-			Created	       = $aItem[1];
+			Name           = $aItem[0];
+			Created        = $aItem[1];
 			LastExecuted   = $aItem[2];
-			Status		   = $aItem[3];
+			Status         = $aItem[3];
 			Description    = $aItem[4];
-			GUID		   = $aItem[5];
-			ID			   = $aItem[7];
-			TypeName	   = $aItem[8];
-			UUID		   = $aItem[9];
-			Location	   = $aItem[10];
-			FullName	   = $aItem[11];
+			GUID           = $aItem[5];
+			ID             = $aItem[7];
+			TypeName       = $aItem[8];
+			UUID           = $aItem[9];
+			Location       = $aItem[10];
+			FullName       = $aItem[11];
 			EmailPrimary   = $aItem[12];
 			EmailSecondary = $aItem[13];
 			EmailTertiary  = $aItem[14]

@@ -62,7 +62,7 @@ In the installation or uninstallation script delete all and use the following sn
 			"  Job_Start -JobType 'WS' -PackageName $$AppName -PackageVersion $$AppRelease -LogPath $$LogFile -Action 'INSTALL'",
 			"  Log_SectionHeader -Name 'Begin'",
 			"  Job_WriteLog -Text (\"[Init]: Starting package: '\" + $$AppName + \"' Release: '\" + $$AppRelease + \"'\")",
-			"  If (!(Sys_IsMinimumRequiredDiskspaceAvailable -Drive 'c:' -MinimumRequiredDiskspace 1500)) { Exit-PSScript 3333 }",
+			"  If (!(Sys_IsMinimumRequiredDiskspaceAvailable -Drive 'c:' -MinimumRequiredDiskspace 1500)) { Exit_MissingDiskSpace }",
 			"  If ($$global:DownloadPackage -and $$InputObject) { Start-PSDownloadPackage }",
 			"",
 			"  Job_WriteLog -Text (\"[Init]: `$$PackageRoot:` '\" + $$Packageroot + \"'\")",

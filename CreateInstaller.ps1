@@ -69,6 +69,10 @@ New-Installer -ProductName $ProductName -UpgradeCode $UpgradeCode -Content {
                 New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack' -Content {
                     New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Capa.PowerShell.Module.PowerPack.psd1
                 }
+                New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Exit' -Content {
+                    New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Exit\Capa.PowerShell.Module.PowerPack.Exit.psd1
+                    New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Exit\Capa.PowerShell.Module.PowerPack.Exit.psm1
+                }
                 New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.File' -Content {
                     New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.File\Capa.PowerShell.Module.PowerPack.File.psd1
                     New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.File\Capa.PowerShell.Module.PowerPack.File.psm1

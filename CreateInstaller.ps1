@@ -1,7 +1,7 @@
 Import-Module PSMSI
 $ProductName = 'Capa.PowerShell.Module'
 $UpgradeCode = '84859CA1-0F7D-47BF-8D36-AE22F5E171AD'
-$Version = '1.0.18.0'
+$Version = '1.0.19.0'
 
 
 New-Installer -ProductName $ProductName -UpgradeCode $UpgradeCode -Content {
@@ -88,10 +88,6 @@ New-Installer -ProductName $ProductName -UpgradeCode $UpgradeCode -Content {
                 New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Log' -Content {
                     New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Log\Capa.PowerShell.Module.PowerPack.Log.psd1
                     New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Log\Capa.PowerShell.Module.PowerPack.Log.psm1
-                }
-                New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.MSI' -Content {
-                    New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.MSI\Capa.PowerShell.Module.PowerPack.MSI.psd1
-                    New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.MSI\Capa.PowerShell.Module.PowerPack.MSI.psm1
                 }
                 New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.MSI' -Content {
                     New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.MSI\Capa.PowerShell.Module.PowerPack.MSI.psd1

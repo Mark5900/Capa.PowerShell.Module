@@ -1,6 +1,6 @@
 @{
     # Version number of this module.
-    ModuleVersion          = '1.0.18.0'
+    ModuleVersion          = '1.0.19.0'
 	
     # ID used to uniquely identify this module
     GUID                   = '7ee1fe82-bd0c-4b41-90be-3c0e55b814c0'
@@ -37,16 +37,16 @@
 	
     # Modules that must be imported into the global environment prior to importing
     # this module
-    RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.File'; RequiredVersion = '1.0.18.0'; },
-        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Ini'; RequiredVersion = '1.0.18.0'; },
-        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; RequiredVersion = '1.0.18.0'; },
-        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Log'; RequiredVersion = '1.0.18.0'; },
-        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.MSI'; RequiredVersion = '1.0.18.0'; },
-        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Reg'; RequiredVersion = '1.0.18.0'; },
-        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Service'; RequiredVersion = '1.0.18.0'; },
-        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Shell'; RequiredVersion = '1.0.18.0'; },
-        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Sys'; RequiredVersion = '1.0.18.0'; },
-        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.UsrMgr'; RequiredVersion = '1.0.18.0'; })
+    RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.File'; RequiredVersion = '1.0.19.0'; },
+        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Ini'; RequiredVersion = '1.0.19.0'; },
+        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; RequiredVersion = '1.0.19.0'; },
+        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Log'; RequiredVersion = '1.0.19.0'; },
+        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.MSI'; RequiredVersion = '1.0.19.0'; },
+        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Reg'; RequiredVersion = '1.0.19.0'; },
+        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Service'; RequiredVersion = '1.0.19.0'; },
+        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Shell'; RequiredVersion = '1.0.19.0'; },
+        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Sys'; RequiredVersion = '1.0.19.0'; },
+        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.UsrMgr'; RequiredVersion = '1.0.19.0'; })
 	
     # Assemblies that must be loaded prior to importing this module
     RequiredAssemblies     = @()

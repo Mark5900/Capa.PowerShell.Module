@@ -64,7 +64,20 @@
 	FunctionsToExport      = 'Exit_RetryLater',
 	'Exit_ApplicationAlreadyInstalled',
 	'Exit_RebootRequested',
-	'Exit_MissingDiskSpace'
+	'Exit_MissingDiskSpace',
+	'Exit_CommandSucceded',
+	'Exit_ModuleNotFound',
+	'Exit_CommandNotDelivered',
+	'Exit_CommandObsolete',
+	'Exit_CommandTimedOut',
+	'Exit_CommandFailed',
+	'Exit_CommandHandlingFailed',
+	'Exit_CommandNotRecognized',
+	'Exit_PowerShellExecutionFailed',
+	'Exit_PackageNotCompliant',
+	'Exit_PackageCancelled',
+	'Exit_PackageFailedInstall',
+	'Exit_PackageFailedUninstall'
 	#For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

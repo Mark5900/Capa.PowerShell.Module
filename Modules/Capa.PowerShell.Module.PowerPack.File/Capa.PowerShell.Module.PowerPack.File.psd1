@@ -68,11 +68,13 @@
 	'File_CreateDir',
 	'File_DelEmptyFolder',
 	'File_DeleteLineInFile',
+	'File_DelFile',
 	'File_DelTree',
 	'File_ExistFile',
 	'File_ExistDir',
 	'File_FindFile',
 	'File_GetFileVersion',
+	'File_GetProductVersion',
 	'File_RenameDir',
 	'File_RenameFile'
 	#For performance, list functions explicitly

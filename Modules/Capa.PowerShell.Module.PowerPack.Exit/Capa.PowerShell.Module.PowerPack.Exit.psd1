@@ -22,7 +22,7 @@
 	Description            = 'Module description'
 	
 	# Minimum version of the Windows PowerShell engine required by this module
-	PowerShellVersion      = '3.0'
+	PowerShellVersion      = '7.0'
 	
 	# Name of the Windows PowerShell host required by this module
 	PowerShellHostName     = ''

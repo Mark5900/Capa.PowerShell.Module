@@ -1,7 +1,7 @@
 Import-Module PSMSI
 $ProductName = 'Capa.PowerShell.Module'
 $UpgradeCode = '84859CA1-0F7D-47BF-8D36-AE22F5E171AD'
-$Version = '1.0.19.0'
+$Version = '1.0.19.1'
 
 
 New-Installer -ProductName $ProductName -UpgradeCode $UpgradeCode -Content {

@@ -4,7 +4,7 @@
 	RootModule             = '.\Capa.PowerShell.Module.PowerPack.UsrMgr.psm1'
 	
 	# Version number of this module.
-	ModuleVersion          = '1.0.19.0'
+	ModuleVersion          = '1.0.19.1'
 	
 	# ID used to uniquely identify this module
 	GUID                   = '14954de0-a882-4a3a-93f4-c631a63acf90'

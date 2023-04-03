@@ -90,7 +90,8 @@
 	'Set-CapaPackageSchedule',
 	'Update-CapaPackageNow',
 	'Get-CapaAllInventoryPackages',
-	'Get-CapatAllNoneInventoryPackages'
+	'Get-CapatAllNoneInventoryPackages',
+	'New-CapaPowerPack'
 	#For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

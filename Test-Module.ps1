@@ -8,36 +8,17 @@ $DefaultManagementPointProd = $null #Keep null if you don't have two enviroments
 
 $oCMSDev = Initialize-CapaSDK -Server $CapaServer -Database $Database
 
-function Update-CapaPackageScriptAndKit {
-    param (
-        [Parameter(Mandatory = $true)]
-        [String]$PackageName,
-        [Parameter(Mandatory = $true)]
-        [String]$PackageVersion,
-        [Parameter(Mandatory = $true)]
-        [String]$ScriptContent,
-        [Parameter(Mandatory = $true)]
-        [ValidateSet('Install', 'Uninstall')]
-        [String]$ScriptType,
-        [Parameter(Mandatory = $true)]
-        [ValidateSet('PowerPack', 'VBScript')]
-        [String]$PackageType,
-        [Parameter(Mandatory = $true, ParameterSetName = 'VBScript')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
-        [String]$PackageFolderPath,
-        [Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
-        [string]$SqlServerInstance,
-        [Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
-        [string]$Database,
-        [Parameter(Mandatory = $false, ParameterSetName = 'PowerPack')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
-        [pscredential]$Credential = $null,
-        [Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
-        [String]$KitFolderPath
-    )
-    
-}
+# TestFunction
+Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Install' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database
+Write-Host 'Test 1'
+Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Uninstall' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database
+Write-Host 'Test 2'
+Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Install' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs' -KitFolderPath 'C:\Users\CIKursus\Downloads\Kit'
+Write-Host 'Test 3'
+
+Update-CapaPackageScriptAndKit -PackageName 'Opgave 1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Install' -PackageType 'VBScript' -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs'
+Write-Host 'Test 4'
+Update-CapaPackageScriptAndKit -PackageName 'Opgave 1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Uninstall' -PackageType 'VBScript' -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs'
+Write-Host 'Test 5'
+Update-CapaPackageScriptAndKit -PackageName 'Opgave 1' -PackageVersion 'v1.0' -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs' -KitFolderPath 'C:\Users\CIKursus\Downloads\Kit\'
+Write-Host 'Test 6'

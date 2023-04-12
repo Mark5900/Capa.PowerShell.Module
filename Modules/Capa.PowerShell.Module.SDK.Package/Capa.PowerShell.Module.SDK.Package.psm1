@@ -1938,7 +1938,8 @@ function New-CapaPowerPack {
 		# Remove Temp Folder
 		Remove-Item -Path $TempTempFolder -Recurse -Force | Out-Null
 	} Catch {
-		Write-Error $_.Exception.Message
+		$PSCmdlet.ThrowTerminatingError($PSitem)
+		return -1
 	}
 }
 
@@ -2101,7 +2102,8 @@ function Update-CapaPackageScriptAndKit {
 			Copy-Item -Path "$KitFolderPath\*" -Destination $KitPath -Recurse -Force | Out-Null
 		}
 	} catch {
-		Write-Error $_.Exception.Message
+		$PSCmdlet.ThrowTerminatingError($PSitem)
+		return -1
 	}
     
 }

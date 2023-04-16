@@ -26,16 +26,17 @@ function New-CapaPackageWithGit {
     )
     try {
         # Parameters
-        $GitIgnoreFile = Join-Path $PSScriptRoot 'Dependencies\.gitignore'
+        $GitIgnoreFile = Join-Path $PSScriptRoot 'Dependecies\.gitignore'
+        $UpdatePackageScript = Join-Path $PSScriptRoot 'Dependecies\UpdatePackage.ps1'
 
         if ($PackageType -eq 'VB') {
             $Prefix = 'VB'
-            $TempInstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.cis'
-            $TempUninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.cis'
+            $TempInstallScript = Join-Path $PSScriptRoot 'Dependecies\Install.cis'
+            $TempUninstallScript = Join-Path $PSScriptRoot 'Dependecies\Uninstall.cis'
         } ElseIf ($PackageType -eq 'PowerPack') {
             $Prefix = 'PP'
-            $TempInstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.ps1'
-            $TempUninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.ps1'
+            $TempInstallScript = Join-Path $PSScriptRoot 'Dependecies\Install.ps1'
+            $TempUninstallScript = Join-Path $PSScriptRoot 'Dependecies\Uninstall.ps1'
         }
 
         $PackagePath = Join-Path $BasePath "Capa_$($Prefix)_$PackageName"
@@ -47,12 +48,35 @@ function New-CapaPackageWithGit {
 
         # Copy files
         Copy-Item -Path $GitIgnoreFile -Destination $PackagePath -Force | Out-Null
-        #TODO: Make script to support development
+
+        # Copy UpdatePackage.ps1
+        if ((Test-Path "$PackagePath\UpdatePackage.ps1") -eq $false) {
+            $UpdatePackageScriptPath = Join-Path $PackagePath 'UpdatePackage.ps1'
+
+            Copy-Item -Path $UpdatePackageScript -Destination $PackagePath -Force | Out-Null
+
+            # Replace in UpdatePackage.ps1
+            if ($null -ne $CapaServer) {
+                $UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+                $UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$CapaServer = ' + "''", '$CapaServer = ' + "'$CapaServer'")
+                $UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+            }
+            if ($null -ne $Database) {
+                $UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+                $UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$Database = ' + "''", '$Database = ' + "'$Database'")
+                $UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+            }
+            if ($null -ne $DefaultManagementPoint) {
+                $UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+                $UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$DefaultManagementPointDev = ' + "''", '$DefaultManagementPointDev = ' + "'$DefaultManagementPoint'")
+                $UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+            }
+        }
 
         # Create scripts
         if ($PackageType -eq 'VB') {
-            $InstallScriptDestination = Join-Path $ScriptPath '$PackageName.cis'
-            $UninstallScriptDestination = Join-Path $ScriptPath '$PackageName__Uninstall.cis'
+            $InstallScriptDestination = Join-Path $ScriptPath "$PackageName.cis"
+            $UninstallScriptDestination = Join-Path $ScriptPath "$($PackageName)_Uninstall.cis"
 
             $InstallContent = Get-Content $TempInstallScript
             $InstallContent = $InstallContent.Replace('PACKAGENAME', $PackageName)
@@ -74,7 +98,13 @@ function New-CapaPackageWithGit {
             Copy-Item -Path $TempUninstallScript -Destination $ScriptPath -Force | Out-Null
         }
     } catch {
+
         $PSCmdlet.ThrowTerminatingError($PSitem)
         return -1
     }
 }
+
+
+# Test
+New-CapaPackageWithGit -PackageName 'Test' -PackageVersion 'v1.0' -PackageType 'VB' -BasePath 'D:\PowerShell'
+#New-CapaPackageWithGit -PackageName 'Test2' -PackageVersion 'v1.0' -PackageType 'PowerPack' -BasePath 'D:\PowerShell' -CapaServer $CapaServer -Database $Database -DefaultManagementPoint $DefaultManagementPointDev

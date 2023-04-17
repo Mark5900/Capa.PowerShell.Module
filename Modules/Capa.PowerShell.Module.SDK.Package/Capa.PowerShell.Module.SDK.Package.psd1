@@ -92,7 +92,8 @@
 	'Get-CapaAllInventoryPackages',
 	'Get-CapatAllNoneInventoryPackages',
 	'New-CapaPowerPack',
-	'Update-CapaPackageScriptAndKit'
+	'Update-CapaPackageScriptAndKit',
+	'New-CapaPackageWithGit'
 	#For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

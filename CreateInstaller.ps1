@@ -43,7 +43,6 @@ New-Installer -ProductName $ProductName -UpgradeCode $UpgradeCode -Content {
                     New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Capa.PowerShell.Module.SDK.Package.psm1
                     New-InstallerDirectory -DirectoryName 'Dependecies' -Content {
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependecies\CapaInstaller.kit
-                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependecies\ciPackage.xml
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependecies\.gitignore
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependecies\ciPackage.xml
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependecies\Install.cis

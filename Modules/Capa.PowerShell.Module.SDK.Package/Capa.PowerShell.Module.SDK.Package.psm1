@@ -1982,6 +1982,10 @@ function New-CapaPowerPack {
     .PARAMETER KitFolderPath
         The path to the folder containing files to set as kit.
 
+	.EXAMPLE
+		$ScriptContent = Get-Content -Path 'C:\Users\CIKursus\Downloads\InstallScript.ps1' | Out-String
+		Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent $ScriptContent -ScriptType 'Install' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database
+
     .EXAMPLE
         Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Install' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database
 
@@ -2076,7 +2080,7 @@ function Update-CapaPackageScriptAndKit {
 
 	# Script
 	try {
-		#TODO: Update script
+		# Update script
 		if ($PSCmdlet.ParameterSetName -like 'PowerPack*') {
 			$ScriptContentBytes = [System.Text.Encoding]::UTF8.GetBytes("$ScriptContent")
 			$ScriptContentBase64 = [System.Convert]::ToBase64String($ScriptContentBytes)

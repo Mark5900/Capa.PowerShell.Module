@@ -16,7 +16,7 @@ function New-CapaPackageWithGit {
         [Parameter(Mandatory = $true)]
         [string]$PackageVersion,
         [Parameter(Mandatory = $true)]
-        [ValidateSet('VB', 'PowerPack')]
+        [ValidateSet('VBScript', 'PowerPack')]
         [string]$PackageType,
         [Parameter(Mandatory = $true)]
         [string]$BasePath,
@@ -29,7 +29,7 @@ function New-CapaPackageWithGit {
         $GitIgnoreFile = Join-Path $PSScriptRoot 'Dependecies\.gitignore'
         $UpdatePackageScript = Join-Path $PSScriptRoot 'Dependecies\UpdatePackage.ps1'
 
-        if ($PackageType -eq 'VB') {
+        if ($PackageType -eq 'VBScript') {
             $Prefix = 'VB'
             $TempInstallScript = Join-Path $PSScriptRoot 'Dependecies\Install.cis'
             $TempUninstallScript = Join-Path $PSScriptRoot 'Dependecies\Uninstall.cis'
@@ -74,7 +74,7 @@ function New-CapaPackageWithGit {
         }
 
         # Create scripts
-        if ($PackageType -eq 'VB') {
+        if ($PackageType -eq 'VBScript') {
             $InstallScriptDestination = Join-Path $ScriptPath "$PackageName.cis"
             $UninstallScriptDestination = Join-Path $ScriptPath "$($PackageName)_Uninstall.cis"
 
@@ -106,5 +106,5 @@ function New-CapaPackageWithGit {
 
 
 # Test
-New-CapaPackageWithGit -PackageName 'Test' -PackageVersion 'v1.0' -PackageType 'VB' -BasePath 'D:\PowerShell'
-#New-CapaPackageWithGit -PackageName 'Test2' -PackageVersion 'v1.0' -PackageType 'PowerPack' -BasePath 'D:\PowerShell' -CapaServer $CapaServer -Database $Database -DefaultManagementPoint $DefaultManagementPointDev
+New-CapaPackageWithGit -PackageName 'Test' -PackageVersion 'v1.0' -PackageType 'VBScript' -BasePath 'D:\PowerShell'
+New-CapaPackageWithGit -PackageName 'Test2' -PackageVersion 'v1.0' -PackageType 'PowerPack' -BasePath 'D:\PowerShell' -CapaServer $CapaServer -Database $Database -DefaultManagementPoint $DefaultManagementPointDev

@@ -1874,8 +1874,8 @@ function New-CapaPowerPack {
 		[string]$Database,
 		[pscredential]$Credential = $null
 	)
-	$XMLFile = "$PSScriptRoot\Dependecies\ciPackage.xml"
-	$KitFile = "$PSScriptRoot\Dependecies\CapaInstaller.kit"
+	$XMLFile = "$PSScriptRoot\Dependencies\ciPackage.xml"
+	$KitFile = "$PSScriptRoot\Dependencies\CapaInstaller.kit"
 	$TempFolder = "C:\Users\$env:UserName\AppData\Local\CapaInstaller\CMS\TempScripts"
 	$TempTempFolder = "$TempFolder\Temp"
 	$PackageTempFolder = "$TempTempFolder\$($PackageName)_$($PackageVersion)"
@@ -2162,22 +2162,24 @@ function New-CapaPackageWithGit {
 		[Parameter(Mandatory = $true)]
 		[string]$BasePath,
 		$CapaServer,
+		$SQLServer,
 		$Database,
-		$DefaultManagementPoint
+		$DefaultManagementPoint,
+		$PackageBasePath
 	)
 	try {
 		# Parameters
-		$GitIgnoreFile = Join-Path $PSScriptRoot 'Dependecies\.gitignore'
-		$UpdatePackageScript = Join-Path $PSScriptRoot 'Dependecies\UpdatePackage.ps1'
+		$GitIgnoreFile = Join-Path $PSScriptRoot 'Dependencies\.gitignore'
+		$UpdatePackageScript = Join-Path $PSScriptRoot 'Dependencies\UpdatePackage.ps1'
 
 		if ($PackageType -eq 'VBScript') {
 			$Prefix = 'VB'
-			$TempInstallScript = Join-Path $PSScriptRoot 'Dependecies\Install.cis'
-			$TempUninstallScript = Join-Path $PSScriptRoot 'Dependecies\Uninstall.cis'
+			$TempInstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.cis'
+			$TempUninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.cis'
 		} ElseIf ($PackageType -eq 'PowerPack') {
 			$Prefix = 'PP'
-			$TempInstallScript = Join-Path $PSScriptRoot 'Dependecies\Install.ps1'
-			$TempUninstallScript = Join-Path $PSScriptRoot 'Dependecies\Uninstall.ps1'
+			$TempInstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.ps1'
+			$TempUninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.ps1'
 		}
 
 		$PackagePath = Join-Path $BasePath "Capa_$($Prefix)_$PackageName"
@@ -2202,6 +2204,11 @@ function New-CapaPackageWithGit {
 				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$CapaServer = ' + "''", '$CapaServer = ' + "'$CapaServer'")
 				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
 			}
+			if ($null -ne $SQLServer) {
+				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$SQLServer = ' + "''", '$SQLServer = ' + "'$SQLServer'")
+				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+			}
 			if ($null -ne $Database) {
 				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
 				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$Database = ' + "''", '$Database = ' + "'$Database'")
@@ -2210,6 +2217,11 @@ function New-CapaPackageWithGit {
 			if ($null -ne $DefaultManagementPoint) {
 				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
 				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$DefaultManagementPointDev = ' + "''", '$DefaultManagementPointDev = ' + "'$DefaultManagementPoint'")
+				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+			}
+			if ($null -ne $PackageBasePath) {
+				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$PackageBasePath = ' + "''", '$PackageBasePath = ' + "'$PackageBasePath'")
 				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
 			}
 		}

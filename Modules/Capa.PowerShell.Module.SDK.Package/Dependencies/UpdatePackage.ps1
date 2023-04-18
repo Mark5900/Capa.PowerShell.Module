@@ -5,25 +5,22 @@ Import-Module SqlServer
     .NOTES
     ===========================================================================
     Created with:	Visual Studio Code
-    Created on: 
+    Created on:     2023-04-18
     Created by:		MARA
     Organization:	
-    Filename:
+    Filename:       UpdatePackage.ps1
     ===========================================================================
     .DESCRIPTION
-        TODO: A description of the file.
+        Updates/create a package in your CapaInstaller environment.
+        Remember to change the variables at the top of the script, to match your environment.
 #>
 ##################
-### PARAMETERS ###
-##################
-# DO NOT CHANGE
-
 # Change as needed
-$CapaServer = 'CISRVKURSUS'
-$SQLServer = 'CISRVKURSUS'
-$Database = 'CapaInstaller'
-$DefaultManagementPointDev = '1'
-$PackageBasePath = '\\CISRVKURSUS.CIKURSUS.local\CMPProduction\ComputerJobs'
+$CapaServer = ''
+$SQLServer = ''
+$Database = ''
+$DefaultManagementPointDev = ''
+$PackageBasePath = ''
 
 #################
 ### FUNCTIONS ###
@@ -247,6 +244,15 @@ try {
             PackageBasePath = $PackageBasePath
         }
         Update-CapaPackageScriptAndKit @KitSplatt
+
+        $RebuildSplat = @{
+            CapaSDK        = $oCMSDev
+            PackageName    = $PackageInfo.PackageName
+            PackageVersion = $PackageInfo.PackageVersion
+            PackageType    = 'Computer'
+            ServerName     = $CapaServer
+        }
+        Rebuild-CapaKitFileOnManagementServer @RebuildSplat
         Write-Host "Remember to rebuild CapaInstaller.kit for $($PackageInfo.PackageName) $($PackageInfo.PackageVersion)"
     }
 } catch {

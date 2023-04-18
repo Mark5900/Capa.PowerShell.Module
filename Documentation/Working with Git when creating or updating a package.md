@@ -8,6 +8,7 @@ All the examples in this document are based on using GitHub as the package repos
 ## Creating a new package
 
 1. Creating local folder structure
+
    To create a new package you need to create a local folder structure that matches the structure of the package repository. You can use the following command to create the folder structure:
 
    ```powershell
@@ -46,7 +47,7 @@ All the examples in this document are based on using GitHub as the package repos
     |   |   |   └───Uninstall.ps1
     ```
 
-    Important do not change the name of the folder **Capa_PP_MyPackage**. The name of the folder is used by the script UpdatePackage.ps1 to determine the package name and type.
+    Important do not change the name of the folder **Capa_PP_MyPackage**. The name of the folder is used by the script UpdatePackage.ps1 to determine the package name and type (VBscript or PowerPack, only computer packages are supported at the momment).
 
 2. Create the repository and publish to GitHub
    1. Open GitHub Desktop > File > Add local repository...
@@ -97,7 +98,7 @@ E.g. either in **C:\Temp\MyPackage\Capa_PP_MyPackage** or in **C:\Temp\MyPackage
 ## Contributing to the package repository
 1. Open GitHub Desktop > File > Clone repository...
 2. Select the repository you want to clone > Check the Local Path > Click **Clone**.
-3. Do as described in the sections [Creating local folder structure](#Creating local folder structure) & [Updating an existing package](#updating-an-existing-package).
+3. Do as described in the sections [Creating local folder structure](#creating-a-new-package) & [Updating an existing package](#updating-an-existing-package).
 
 ## Creating a new package version
 You can create a new version of a package by creating a new folder in the package folder and copying the files from the previous version to the new version folder. Or you can use the script New-CapaPackageVersion.ps1.
@@ -109,5 +110,4 @@ To get around this you can copy the script UpdatePackage.ps1 to the version fold
 ## Other useful things too look into
 
 We will recommend that you use branches when working on a package and use code reviews when merging the changes to the main branch.
-This will make it easier to track changes and to make sure that the changes are tested before they are merged to the main branch.
-And encourage you to have a second pair of eyes look at the changes before they are merged to the main branch, and you promote the package to production.
+This will make it easier to track changes and encourage to have another person to test the package before it is merged to the main branch in GitHub and promoting the package to production in CapaInstaller.

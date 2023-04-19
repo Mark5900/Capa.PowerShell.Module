@@ -1,37 +1,24 @@
-﻿<#	
-	.NOTES
-	===========================================================================
-	 Created with: 	SAPIEN Technologies, Inc., PowerShell Studio 2022 v5.8.209
-	 Created on:   	11-08-2022 08:22
-	 Created by:   	Mark5900
-	 Organization: 	
-	 Filename:     	Test-Module.ps1
-	===========================================================================
-	.DESCRIPTION
-	The Test-Module.ps1 script lets you test the functions and other features of
-	your module in your PowerShell Studio module project. It's part of your project,
-	but it is not included in your module.
+﻿Import-Module Capa.PowerShell.Module
+Import-Module SqlServer
 
-	In this test script, import the module (be careful to import the correct version)
-	and write commands that test the module features. You can include Pester
-	tests, too.
+$CapaServer = 'CISRVKURSUS'
+$Database = 'CapaInstaller'
+$DefaultManagementPointDev = '1'
+$DefaultManagementPointProd = $null #Keep null if you don't have two enviroments
 
-	To run the script, click Run or Run in Console. Or, when working on any file
-	in the project, click Home\Run or Home\Run in Console, or in the Project pane, 
-	right-click the project name, and then click Run Project.
-#>
+$oCMSDev = Initialize-CapaSDK -Server $CapaServer -Database $Database
 
+# TestFunction
+Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Install' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database
+Write-Host 'Test 1'
+Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Uninstall' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database
+Write-Host 'Test 2'
+Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Install' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs' -KitFolderPath 'C:\Users\CIKursus\Downloads\Kit'
+Write-Host 'Test 3'
 
-#Explicitly import the module for testing
-Import-Module 'Capa.PowerShell.Module'
-
-#Run each module function
-Write-HelloWorld
-
-#Sample Pester Test
-#Describe "Test Capa.PowerShell.Module" {
-#	It "tests Write-HellowWorld" {
-#		Write-HelloWorld | Should BeExactly "Hello World"
-#	}	
-#}
-
+Update-CapaPackageScriptAndKit -PackageName 'Opgave 1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Install' -PackageType 'VBScript' -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs'
+Write-Host 'Test 4'
+Update-CapaPackageScriptAndKit -PackageName 'Opgave 1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Uninstall' -PackageType 'VBScript' -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs'
+Write-Host 'Test 5'
+Update-CapaPackageScriptAndKit -PackageName 'Opgave 1' -PackageVersion 'v1.0' -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs' -KitFolderPath 'C:\Users\CIKursus\Downloads\Kit\'
+Write-Host 'Test 6'

@@ -41,6 +41,16 @@ New-Installer -ProductName $ProductName -UpgradeCode $UpgradeCode -Content {
                 New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Package' -Content {
                     New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Capa.PowerShell.Module.SDK.Package.psd1
                     New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Capa.PowerShell.Module.SDK.Package.psm1
+                    New-InstallerDirectory -DirectoryName 'Dependencies' -Content {
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\CapaInstaller.kit
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\.gitignore
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\ciPackage.xml
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\Install.cis
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\Uninstall.cis
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\Install.ps1
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\Uninstall.ps1
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\UpdatePackage.ps1
+                    }
                 }
                 New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.SystemSdk' -Content {
                     New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.SystemSdk\Capa.PowerShell.Module.SDK.SystemSdk.psd1

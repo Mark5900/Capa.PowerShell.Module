@@ -67,7 +67,7 @@
 	'Clone-CapaPackage',
 	'Copy-CapaPackage',
 	'Copy-CapaPackageRelation',
-	'Create-CapaPackag',
+	'Create-CapaPackage',
 	'Disable-CapaPackageSchedule',
 	'Enable-CapaPackageSchedule',
 	'Exist-CapaPackage',
@@ -90,7 +90,10 @@
 	'Set-CapaPackageSchedule',
 	'Update-CapaPackageNow',
 	'Get-CapaAllInventoryPackages',
-	'Get-CapatAllNoneInventoryPackages'
+	'Get-CapatAllNoneInventoryPackages',
+	'New-CapaPowerPack',
+	'Update-CapaPackageScriptAndKit',
+	'New-CapaPackageWithGit'
 	#For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

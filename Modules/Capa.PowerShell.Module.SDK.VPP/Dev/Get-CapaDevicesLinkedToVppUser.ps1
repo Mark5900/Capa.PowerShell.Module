@@ -24,7 +24,7 @@ function Get-CapaDevicesLinkedToVppUser {
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[Integer]$vppUserID
+		[Int]$vppUserID
 	)
 	
 	$oaUnits = @()

@@ -39,7 +39,7 @@ function Set-CapaPackagePriority {
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]$PackageType,
-		[Integer]$Priority = 500
+		[Int]$Priority = 500
 	)
 	
 	if ($PackageType -eq 'Computer') {

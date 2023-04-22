@@ -38,6 +38,7 @@ function Import-FunctionsToPSMFiles {
             $Files = Get-ChildItem -Path $DevFolder -File | Where-Object { $_.Name -notlike '*Test.ps1' }
             foreach ($File in $Files) {
                 Get-Content -Path $File.FullName | Out-File -FilePath $ModuleFile -Append
+                Add-Content -Path $ModuleFile -Value "`n"
             }
 
             # Copy folders from dev to module folder

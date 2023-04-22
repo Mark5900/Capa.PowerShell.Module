@@ -35,7 +35,7 @@ function Import-FunctionsToPSMFiles {
             $ModuleFile = Join-Path $Folder.FullName "$($Folder.Name).psm1"
             Set-Content -Path $ModuleFile -Value ''
 
-            $Files = Get-ChildItem -Path $DevFolder -File | Where-Object { $_.Name -notlike '*Test.ps1' }
+            $Files = Get-ChildItem -Path $DevFolder -File | Where-Object { $_.Name -notlike '*Tests.ps1' }
             foreach ($File in $Files) {
                 Get-Content -Path $File.FullName | Out-File -FilePath $ModuleFile -Append
                 Add-Content -Path $ModuleFile -Value "`n"

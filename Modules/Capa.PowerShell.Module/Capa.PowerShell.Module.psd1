@@ -15,7 +15,7 @@
 	Copyright              = '(c) 2023. All rights reserved.'
 	
 	# Description of the functionality provided by this module
-	Description            = 'PowerShell module for CapaInstaller'
+	Description            = 'PowerShell module for CapaInstaller containing functions for both the SDK and PowerPack.'
 	
 	# Minimum version of the Windows PowerShell engine required by this module
 	PowerShellVersion      = '7.0'

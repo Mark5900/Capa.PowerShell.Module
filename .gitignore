@@ -6,3 +6,4 @@
 *.Package.ps1
 CustomMenu.inf
 \bin*
+DELETEME.ps1

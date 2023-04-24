@@ -1,4 +1,5 @@
-﻿<#
+
+<#
 	.SYNOPSIS
 		Determines if a service exists.
 
@@ -21,6 +22,8 @@ function Service_Exist {
 
 	return $Value
 }
+
+
 
 <#
 	.SYNOPSIS
@@ -55,6 +58,7 @@ function Service_Start {
 	}
 }
 
+
 <#
 	.SYNOPSIS
 		Stops a service.
@@ -87,3 +91,5 @@ function Service_Stop {
 		$Global:cs.Service_Stop($ServiceName, $MaxTimeout)
 	}
 }
+
+

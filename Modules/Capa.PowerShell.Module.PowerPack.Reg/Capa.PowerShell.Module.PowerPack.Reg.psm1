@@ -1,4 +1,34 @@
-﻿<#
+
+<#
+	.SYNOPSIS
+		Creates a registry key.
+
+	.PARAMETER RegRoot
+		The root of the registry key, can be HKLM, HKCU or HKU.
+
+	.PARAMETER RegPath
+		The path of the registry key.
+
+	.EXAMPLE
+		PS C:\> Reg_CreateKey -RegRoot "HKLM" -RegPath "SOFTWARE\CapaSystems"
+
+	.NOTES
+		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455819/cs.Reg+CreateKey
+#>
+function Reg_CreateKey {
+	param (
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
+		[string]$RegRoot,
+		[Parameter(Mandatory = $true)]
+		[string]$RegPath
+	)
+
+	$Global:cs.Reg_CreateKey($RegRoot, $RegPath)
+}
+
+
+<#
 	.SYNOPSIS
 		Deletes a registry value.
 
@@ -31,33 +61,6 @@ function Reg_DeleteVariable {
 	$Global:cs.Reg_DeleteVariable($RegRoot, $RegPath, $RegValue)
 }
 
-<#
-	.SYNOPSIS
-		Creates a registry key.
-
-	.PARAMETER RegRoot
-		The root of the registry key, can be HKLM, HKCU or HKU.
-
-	.PARAMETER RegPath
-		The path of the registry key.
-
-	.EXAMPLE
-		PS C:\> Reg_CreateKey -RegRoot "HKLM" -RegPath "SOFTWARE\CapaSystems"
-
-	.NOTES
-		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455819/cs.Reg+CreateKey
-#>
-function Reg_CreateKey {
-	param (
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
-		[string]$RegRoot,
-		[Parameter(Mandatory = $true)]
-		[string]$RegPath
-	)
-
-	$Global:cs.Reg_CreateKey($RegRoot, $RegPath)
-}
 
 <#
 	.SYNOPSIS
@@ -91,6 +94,7 @@ function Reg_DelTree {
 
 	$Global:cs.Reg_DelTree($RegRoot, $RegPath, $RegKey)
 }
+
 
 <#
 	.SYNOPSIS
@@ -127,6 +131,7 @@ function Reg_EnumKey {
 	$Global:cs.Reg_EnumKey($RegRoot, $RegPath, $MustExist)
 }
 
+
 <#
 	.SYNOPSIS
 		Exists a registry key.
@@ -156,6 +161,7 @@ function Reg_ExistKey {
 
 	return $Value
 }
+
 
 <#
 	.SYNOPSIS
@@ -192,6 +198,7 @@ function Reg_ExistVariable {
 	return $Value
 }
 
+
 <#
 	.SYNOPSIS
 		Gets a registry string.
@@ -226,6 +233,7 @@ function Reg_GetString {
 
 	return $Value
 }
+
 
 <#
 	.SYNOPSIS
@@ -265,6 +273,7 @@ function Reg_SetDword {
 	$Global:cs.Reg_SetDword($RegRoot, $RegKey, $RegValue, $RegData)
 }
 
+
 <#
 	.SYNOPSIS
 		Sets a registry expand string.
@@ -302,6 +311,7 @@ function Reg_SetExpandString {
 
 	$Global:cs.Reg_SetExpandString($RegRoot, $RegKey, $RegValue, $RegData)
 }
+
 
 <#
 	.SYNOPSIS
@@ -341,6 +351,7 @@ function Reg_SetInteger {
 	$Global:cs.Reg_SetInteger($RegRoot, $RegKey, $RegValue, $RegData)
 }
 
+
 <#
 	.SYNOPSIS
 		Sets a registry string.
@@ -378,3 +389,5 @@ function Reg_SetString {
 
 	$Global:cs.Reg_SetString($RegRoot, $RegKey, $RegValue, $RegData)
 }
+
+

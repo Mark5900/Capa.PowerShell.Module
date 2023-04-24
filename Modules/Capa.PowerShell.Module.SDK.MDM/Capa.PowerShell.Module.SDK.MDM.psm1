@@ -1,196 +1,47 @@
-﻿<#
-	.SYNOPSIS
-		Link profile to a device.
-	
-	.DESCRIPTION
-		The Add-CapaUnitToProfile function links a profile to a device.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER UnitName
-		The unit name of the unit.
-	
-	.PARAMETER Uuid
-		The UUID of the unit.
-	
-	.PARAMETER ProfileName
-		The name of the MDM profile.
-	
-	.PARAMETER ChangelogComment
-		A comment that will be added to the changelog.
-	
-	.EXAMPLE
-		PS C:\> Add-CapaUnitToProfile -CapaSDK $CapaSDK -UnitName 'Testdev01' -ProfileName 'Wi-Fi settings'
-
-	.EXAMPLE
-		PS C:\> Add-CapaUnitToProfile -CapaSDK $CapaSDK -Uuid '4eea2959-fb4c-4afe-b61f-810cb3019cd6' -ProfileName 'Wi-Fi settings'
-
-	.EXAMPLE
-		PS C:\> Add-CapaUnitToProfile -CapaSDK $CapaSDK -UnitName 'Testdev01' -ProfileName 'Wi-Fi settings' -ChangelogComment 'Linking profile to device'
-
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246463/Link+profile+to+device
-#>
-function Add-CapaUnitToProfile {
-	[CmdletBinding()]
-	[Alias('Link-CapaUnitToProfile')]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(ParameterSetName = 'NameType',
-			Mandatory = $true)]
-		[String]$UnitName,
-		[Parameter(ParameterSetName = 'Uuid',
-			Mandatory = $true)]
-		[String]$Uuid,
-		[Parameter(Mandatory = $true)]
-		[String]$ProfileName,
-		[Parameter(Mandatory = $false)]
-		[String]$ChangelogComment
-	)
-	
-	switch ($PsCmdlet.ParameterSetName) {
-		'Uuid' {
-			$value = $CapaSDK.AddUnitToProfile($UnitName, $ProfileName, $ChangelogComment)
-			break
-		}
-		'NameType' {
-			$value = $CapaSDK.AddUnitToProfile($Uuid, $ProfileName, $ChangelogComment)
-			break
-		}
-	}
-	
-	return $value
-}
 
 <#
 	.SYNOPSIS
-		Unlink profile from a device.
+		Add a new Enforce Passcode payload or edit an existing one.
 	
 	.DESCRIPTION
-		This will unlink a profile from a device and not remove the profile from the physical device.
+		Add a new Enforce Passcode payload or edit an existing payload in the specified profile.
 	
 	.PARAMETER CapaSDK
 		The CapaSDK object.
 	
-	.PARAMETER UnitName
-		The unit name of the unit.
+	.PARAMETER ProfileId
+		The ID of the profile to add the payload to.
 	
-	.PARAMETER ProfileName
-		The name of the MDM profile.
-	
-	.PARAMETER ChangelogComment
-		A comment that will be added to the changelog.
-	
-	.PARAMETER Uuid
-		The UUID of the unit.
-	
-	.EXAMPLE
-		PS C:\> Unlink-CapaUnitFromProfile -CapaSDK $CapaSDK -UnitName 'Testdev01' -ProfileName 'Wi-Fi settings'
-
-	.EXAMPLE
-		PS C:\> Unlink-CapaUnitFromProfile -CapaSDK $CapaSDK -Uuid '4eea2959-fb4c-4afe-b61f-810cb3019cd6' -ProfileName 'Wi-Fi settings'
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246474/Unlink+profile+from+device
-#>
-function Unlink-CapaUnitFromProfile {
-	[CmdletBinding(DefaultParameterSetName = 'Uuid')]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(ParameterSetName = 'NameType',
-			Mandatory = $true)]
-		[String]$UnitName,
-		[Parameter(Mandatory = $true)]
-		[String]$ProfileName,
-		[Parameter(Mandatory = $true)]
-		[String]$ChangelogComment,
-		[Parameter(ParameterSetName = 'Uuid',
-			Mandatory = $true)]
-		[String]$Uuid
-	)
-	
-	switch ($PsCmdlet.ParameterSetName) {
-		'NameType' {
-			$value = $CapaSDK.UnlinkUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
-			break
-		}
-		'Uuid' {
-			$value = $CapaSDK.UnlinkUnitFromProfile($Uuid, $ProfileName, $ChangelogComment)
-			break
-		}
-	}
-	return $value
-}
-
-<#
-	.SYNOPSIS
-		This function will remove a profile from a device.
-	
-	.DESCRIPTION
-		This function will remove a profile from a device, subsequently when the device reports successful removal of the profile, the relation is then removed from the database
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-
-	.PARAMETER UnitName
-		The unit name of the unit.
-	
-	.PARAMETER UUID
-		The UUID of the unit.
-	
-	.PARAMETER ProfileName
-		The name of the MDM profile.
+	.PARAMETER Passcode
+		The passcode to enforce.
 	
 	.PARAMETER ChangelogComment
-		The comment that will be added to the changelog.
+		The comment you wish to be added to the changelog.
 	
 	.EXAMPLE
-		PS C:\> Remove-CapaProfileFromDevice -CapaSDK $CapaSDK -UnitName 'Testdev01' -ProfileName 'Wi-Fi settings'
-
-	.EXAMPLE
-		PS C:\> Remove-CapaProfileFromDevice -CapaSDK $CapaSDK -Uuid '4eea2959-fb4c-4afe-b61f-810cb3019cd6' -ProfileName 'Wi-Fi settings'
-
-	.EXAMPLE
-		PS C:\> Remove-CapaProfileFromDevice -CapaSDK $CapaSDK -UnitName 'Testdev01' -ProfileName 'Wi-Fi settings' -ChangelogComment 'Removing profile from device'
+		PS C:\> Add-CapaEnforcePasscodeAndroid -CapaSDK $CapaSDK -ProfileId 1 -Passcode '12345678' -ChangelogComment 'Adding Enforce Passcode payload to profile'
 	
 	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246487/Remove+profile+from+device
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246520/Add+edit+Enforce+Passcode+Android
 #>
-function Remove-CapaProfileFromDevice {
+function Add-CapaEnforcePasscodeAndroid {
 	[CmdletBinding()]
+	[Alias('Edit-CapaEnforcePasscodeAndroid')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
-		[Parameter(ParameterSetName = 'NameType',
-			Mandatory = $true)]
-		[String]$UnitName,
-		[Parameter(ParameterSetName = 'Uuid',
-			Mandatory = $true)]
-		[String]$UUID,
 		[Parameter(Mandatory = $true)]
-		[String]$ProfileName,
+		[int]$ProfileId,
 		[Parameter(Mandatory = $true)]
-		[String]$ChangelogComment
+		[string]$Passcode,
+		$ChangelogComment = ''
 	)
 	
-	switch ($PsCmdlet.ParameterSetName) {
-		'NameType' {
-			$value = $CapaSDK.RemoveUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
-			break
-		}
-		'Uuid' {
-			$value = $CapaSDK.RemoveUnitFromProfile($UUID, $ProfileName, $ChangelogComment)
-			break
-		}
-	}
+	$value = $CapaSDK.AddEditEnforcePasscodeAndroid($ProfileId, $Passcode, $ChangelogComment)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -334,6 +185,187 @@ function Add-CapaExchangePayloadToProfile {
 	return $value
 }
 
+
+<#
+	.SYNOPSIS
+		Add a new key/value setting to an existing AppConfig payload in the specified profile.
+	
+	.DESCRIPTION
+		Add a new Key/Value setting to an existing AppConfig payload in the specified profile.
+		If a setting with the specified key and type already exists, its value will be overwritten with the new value instead of creating a new setting.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER DeviceApplicationID
+		The ID of the Device Application you wish to edit.
+	
+	.PARAMETER Key
+		The key of the new setting.
+	
+	.PARAMETER Value
+		The value of the new setting.
+	
+	.PARAMETER KeyValueType
+		The type of the new setting. Valid types are: String, Bool, Hidden, Integer
+	
+	.PARAMETER ChangelogComment
+		the comment you wish to be added to the changelog.
+	
+	.EXAMPLE
+		PS C:\> Add-CapaKeyValueToAppConfigAndroid -CapaSDK $CapaSDK -DeviceApplicationID 1 -Key 'AllowSync' -Value 'True' -KeyValueType 'Bool' -ChangelogComment 'Adding new key/value setting to AppConfig payload'
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246531/Add+edit+Key+Value+setting+to+Android+AppConfig
+#>
+function Add-CapaKeyValueToAppConfigAndroid {
+	[CmdletBinding()]
+	[Alias('Edit-CapaKeyValueToAppConfigAndroid')]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[int]$DeviceApplicationID,
+		[Parameter(Mandatory = $true)]
+		[string]$Key,
+		[Parameter(Mandatory = $true)]
+		[string]$Value,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('String', 'Bool', 'Hidden', 'Integer')]
+		$KeyValueType,
+		$ChangelogComment = ''
+	)
+	
+	$value = $CapaSDK.AddKeyValueToAppConfigAndroid($DeviceApplicationID, $Key, $Value, $KeyValueType, $ChangelogComment)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		Add a new key/value setting to an existing AppConfig payload in the specified profile.
+	
+	.DESCRIPTION
+		Add a new Key/Value setting to an existing AppConfig payload in the specified profile.
+		If a setting with the specified key and type already exists, its value will be overwritten with the new value instead of creating a new setting.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER DeviceApplicationID
+		The id of the Device Application you wish to edit.
+	
+	.PARAMETER Key
+		The Key of the new setting.
+	
+	.PARAMETER Value
+		The Value of the new setting.
+	
+	.PARAMETER KeyValueType
+		The type of the new setting. Valid types are: String, Boolean, Int, Float, DateTime. (DateTime format: dd-MM-yyyy HH:mm:ss).
+	
+	.PARAMETER ChangelogComment
+		The comment you wish to be added to the changelog.
+	
+	.EXAMPLE
+		PS C:\> Add-CapaKeyValueToAppConfigIOS -CapaSDK $CapaSDK -DeviceApplicationID 1 -Key 'AllowSync' -Value 'True' -KeyValueType 'Boolean' -ChangelogComment 'Adding new key/value setting to AppConfig payload'
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246542/Add+edit+Key+Value+setting+to+iOS+AppConfig
+#>
+function Add-CapaKeyValueToAppConfigIOS {
+	[CmdletBinding()]
+	[Alias('Edit-CapaKeyValueToAppConfigIOS')]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[int]$DeviceApplicationID,
+		[Parameter(Mandatory = $true)]
+		[string]$Key,
+		[Parameter(Mandatory = $true)]
+		[string]$Value,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('String', 'Boolean', 'Int', 'Float', 'DateTime')]
+		[string]$KeyValueType,
+		[string]$ChangelogComment = ''
+	)
+	
+	$value = $CapaSDK.AddKeyValueToAppConfigIOS($DeviceApplicationID, $Key, $Value, $KeyValueType, $ChangelogComment)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		Link profile to a device.
+	
+	.DESCRIPTION
+		The Add-CapaUnitToProfile function links a profile to a device.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER UnitName
+		The unit name of the unit.
+	
+	.PARAMETER Uuid
+		The UUID of the unit.
+	
+	.PARAMETER ProfileName
+		The name of the MDM profile.
+	
+	.PARAMETER ChangelogComment
+		A comment that will be added to the changelog.
+	
+	.EXAMPLE
+		PS C:\> Add-CapaUnitToProfile -CapaSDK $CapaSDK -UnitName 'Testdev01' -ProfileName 'Wi-Fi settings'
+
+	.EXAMPLE
+		PS C:\> Add-CapaUnitToProfile -CapaSDK $CapaSDK -Uuid '4eea2959-fb4c-4afe-b61f-810cb3019cd6' -ProfileName 'Wi-Fi settings'
+
+	.EXAMPLE
+		PS C:\> Add-CapaUnitToProfile -CapaSDK $CapaSDK -UnitName 'Testdev01' -ProfileName 'Wi-Fi settings' -ChangelogComment 'Linking profile to device'
+
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246463/Link+profile+to+device
+#>
+function Add-CapaUnitToProfile {
+	[CmdletBinding()]
+	[Alias('Link-CapaUnitToProfile')]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(ParameterSetName = 'NameType',
+			Mandatory = $true)]
+		[String]$UnitName,
+		[Parameter(ParameterSetName = 'Uuid',
+			Mandatory = $true)]
+		[String]$Uuid,
+		[Parameter(Mandatory = $true)]
+		[String]$ProfileName,
+		[Parameter(Mandatory = $false)]
+		[String]$ChangelogComment
+	)
+	
+	switch ($PsCmdlet.ParameterSetName) {
+		'Uuid' {
+			$value = $CapaSDK.AddUnitToProfile($UnitName, $ProfileName, $ChangelogComment)
+			break
+		}
+		'NameType' {
+			$value = $CapaSDK.AddUnitToProfile($Uuid, $ProfileName, $ChangelogComment)
+			break
+		}
+	}
+	
+	return $value
+}
+
+
 <#
 	.SYNOPSIS
 		Add a new WiFi payload to a profile.
@@ -451,158 +483,6 @@ function Add-CapaWifiPayloadToProfile {
 	}
 }
 
-<#
-	.SYNOPSIS
-		Add a new Enforce Passcode payload or edit an existing one.
-	
-	.DESCRIPTION
-		Add a new Enforce Passcode payload or edit an existing payload in the specified profile.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER ProfileId
-		The ID of the profile to add the payload to.
-	
-	.PARAMETER Passcode
-		The passcode to enforce.
-	
-	.PARAMETER ChangelogComment
-		The comment you wish to be added to the changelog.
-	
-	.EXAMPLE
-		PS C:\> Add-CapaEnforcePasscodeAndroid -CapaSDK $CapaSDK -ProfileId 1 -Passcode '12345678' -ChangelogComment 'Adding Enforce Passcode payload to profile'
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246520/Add+edit+Enforce+Passcode+Android
-#>
-function Add-CapaEnforcePasscodeAndroid {
-	[CmdletBinding()]
-	[Alias('Edit-CapaEnforcePasscodeAndroid')]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[int]$ProfileId,
-		[Parameter(Mandatory = $true)]
-		[string]$Passcode,
-		$ChangelogComment = ''
-	)
-	
-	$value = $CapaSDK.AddEditEnforcePasscodeAndroid($ProfileId, $Passcode, $ChangelogComment)
-	return $value
-}
-
-<#
-	.SYNOPSIS
-		Add a new key/value setting to an existing AppConfig payload in the specified profile.
-	
-	.DESCRIPTION
-		Add a new Key/Value setting to an existing AppConfig payload in the specified profile.
-		If a setting with the specified key and type already exists, its value will be overwritten with the new value instead of creating a new setting.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER DeviceApplicationID
-		The ID of the Device Application you wish to edit.
-	
-	.PARAMETER Key
-		The key of the new setting.
-	
-	.PARAMETER Value
-		The value of the new setting.
-	
-	.PARAMETER KeyValueType
-		The type of the new setting. Valid types are: String, Bool, Hidden, Integer
-	
-	.PARAMETER ChangelogComment
-		the comment you wish to be added to the changelog.
-	
-	.EXAMPLE
-		PS C:\> Add-CapaKeyValueToAppConfigAndroid -CapaSDK $CapaSDK -DeviceApplicationID 1 -Key 'AllowSync' -Value 'True' -KeyValueType 'Bool' -ChangelogComment 'Adding new key/value setting to AppConfig payload'
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246531/Add+edit+Key+Value+setting+to+Android+AppConfig
-#>
-function Add-CapaKeyValueToAppConfigAndroid {
-	[CmdletBinding()]
-	[Alias('Edit-CapaKeyValueToAppConfigAndroid')]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[int]$DeviceApplicationID,
-		[Parameter(Mandatory = $true)]
-		[string]$Key,
-		[Parameter(Mandatory = $true)]
-		[string]$Value,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('String', 'Bool', 'Hidden', 'Integer')]
-		$KeyValueType,
-		$ChangelogComment = ''
-	)
-	
-	$value = $CapaSDK.AddKeyValueToAppConfigAndroid($DeviceApplicationID, $Key, $Value, $KeyValueType, $ChangelogComment)
-	return $value
-}
-
-<#
-	.SYNOPSIS
-		Add a new key/value setting to an existing AppConfig payload in the specified profile.
-	
-	.DESCRIPTION
-		Add a new Key/Value setting to an existing AppConfig payload in the specified profile.
-		If a setting with the specified key and type already exists, its value will be overwritten with the new value instead of creating a new setting.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER DeviceApplicationID
-		The id of the Device Application you wish to edit.
-	
-	.PARAMETER Key
-		The Key of the new setting.
-	
-	.PARAMETER Value
-		The Value of the new setting.
-	
-	.PARAMETER KeyValueType
-		The type of the new setting. Valid types are: String, Boolean, Int, Float, DateTime. (DateTime format: dd-MM-yyyy HH:mm:ss).
-	
-	.PARAMETER ChangelogComment
-		The comment you wish to be added to the changelog.
-	
-	.EXAMPLE
-		PS C:\> Add-CapaKeyValueToAppConfigIOS -CapaSDK $CapaSDK -DeviceApplicationID 1 -Key 'AllowSync' -Value 'True' -KeyValueType 'Boolean' -ChangelogComment 'Adding new key/value setting to AppConfig payload'
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246542/Add+edit+Key+Value+setting+to+iOS+AppConfig
-#>
-function Add-CapaKeyValueToAppConfigIOS {
-	[CmdletBinding()]
-	[Alias('Edit-CapaKeyValueToAppConfigIOS')]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[int]$DeviceApplicationID,
-		[Parameter(Mandatory = $true)]
-		[string]$Key,
-		[Parameter(Mandatory = $true)]
-		[string]$Value,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('String', 'Boolean', 'Int', 'Float', 'DateTime')]
-		[string]$KeyValueType,
-		[string]$ChangelogComment = ''
-	)
-	
-	$value = $CapaSDK.AddKeyValueToAppConfigIOS($DeviceApplicationID, $Key, $Value, $KeyValueType, $ChangelogComment)
-	return $value
-}
 
 <#
 	.SYNOPSIS
@@ -646,6 +526,7 @@ function Assign-CapaProfileToBusinessUnit {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Clone an existing Device Application and its payloads.
@@ -687,6 +568,7 @@ function Clone-CapaDeviceApplication {
 	$value = $CapaSDK.CloneDeviceApplication($DeviceApplicationID, $NewName, $ChangelogComment)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -892,6 +774,7 @@ function Edit-CapaExchangePayload {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Edit an existing WiFi payload.
@@ -1015,6 +898,7 @@ function Edit-CapaWifiPayload {
 	}
 }
 
+
 <#
 	.SYNOPSIS
 		Get all the Device Applications.
@@ -1059,6 +943,7 @@ function Get-CapaDeviceApplications {
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		Get all profiles.
@@ -1102,6 +987,7 @@ function Get-CapaProfiles {
 	
 	Return $oaUnits
 }
+
 
 <#
 	.SYNOPSIS
@@ -1154,3 +1040,134 @@ function Link-CapaProfileToGroup {
 	$value = $CapaSDK.AddProfileToGroup($ProfileId, $GroupName, $GroupType, $BusinessUnitName, $ChangelogComment)
 	return $value
 }
+
+
+<#
+	.SYNOPSIS
+		This function will remove a profile from a device.
+	
+	.DESCRIPTION
+		This function will remove a profile from a device, subsequently when the device reports successful removal of the profile, the relation is then removed from the database
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+
+	.PARAMETER UnitName
+		The unit name of the unit.
+	
+	.PARAMETER UUID
+		The UUID of the unit.
+	
+	.PARAMETER ProfileName
+		The name of the MDM profile.
+	
+	.PARAMETER ChangelogComment
+		The comment that will be added to the changelog.
+	
+	.EXAMPLE
+		PS C:\> Remove-CapaProfileFromDevice -CapaSDK $CapaSDK -UnitName 'Testdev01' -ProfileName 'Wi-Fi settings'
+
+	.EXAMPLE
+		PS C:\> Remove-CapaProfileFromDevice -CapaSDK $CapaSDK -Uuid '4eea2959-fb4c-4afe-b61f-810cb3019cd6' -ProfileName 'Wi-Fi settings'
+
+	.EXAMPLE
+		PS C:\> Remove-CapaProfileFromDevice -CapaSDK $CapaSDK -UnitName 'Testdev01' -ProfileName 'Wi-Fi settings' -ChangelogComment 'Removing profile from device'
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246487/Remove+profile+from+device
+#>
+function Remove-CapaProfileFromDevice {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(ParameterSetName = 'NameType',
+			Mandatory = $true)]
+		[String]$UnitName,
+		[Parameter(ParameterSetName = 'Uuid',
+			Mandatory = $true)]
+		[String]$UUID,
+		[Parameter(Mandatory = $true)]
+		[String]$ProfileName,
+		[Parameter(Mandatory = $true)]
+		[String]$ChangelogComment
+	)
+	
+	switch ($PsCmdlet.ParameterSetName) {
+		'NameType' {
+			$value = $CapaSDK.RemoveUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
+			break
+		}
+		'Uuid' {
+			$value = $CapaSDK.RemoveUnitFromProfile($UUID, $ProfileName, $ChangelogComment)
+			break
+		}
+	}
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		Unlink profile from a device.
+	
+	.DESCRIPTION
+		This will unlink a profile from a device and not remove the profile from the physical device.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER UnitName
+		The unit name of the unit.
+	
+	.PARAMETER ProfileName
+		The name of the MDM profile.
+	
+	.PARAMETER ChangelogComment
+		A comment that will be added to the changelog.
+	
+	.PARAMETER Uuid
+		The UUID of the unit.
+	
+	.EXAMPLE
+		PS C:\> Unlink-CapaUnitFromProfile -CapaSDK $CapaSDK -UnitName 'Testdev01' -ProfileName 'Wi-Fi settings'
+
+	.EXAMPLE
+		PS C:\> Unlink-CapaUnitFromProfile -CapaSDK $CapaSDK -Uuid '4eea2959-fb4c-4afe-b61f-810cb3019cd6' -ProfileName 'Wi-Fi settings'
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246474/Unlink+profile+from+device
+#>
+function Unlink-CapaUnitFromProfile {
+	[CmdletBinding(DefaultParameterSetName = 'Uuid')]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(ParameterSetName = 'NameType',
+			Mandatory = $true)]
+		[String]$UnitName,
+		[Parameter(Mandatory = $true)]
+		[String]$ProfileName,
+		[Parameter(Mandatory = $true)]
+		[String]$ChangelogComment,
+		[Parameter(ParameterSetName = 'Uuid',
+			Mandatory = $true)]
+		[String]$Uuid
+	)
+	
+	switch ($PsCmdlet.ParameterSetName) {
+		'NameType' {
+			$value = $CapaSDK.UnlinkUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
+			break
+		}
+		'Uuid' {
+			$value = $CapaSDK.UnlinkUnitFromProfile($Uuid, $ProfileName, $ChangelogComment)
+			break
+		}
+	}
+	return $value
+}
+
+

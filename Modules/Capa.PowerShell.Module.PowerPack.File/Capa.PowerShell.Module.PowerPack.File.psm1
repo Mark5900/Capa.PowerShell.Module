@@ -1,4 +1,5 @@
-﻿<#
+
+<#
     .SYNOPSIS
         Append text to a file.
 
@@ -24,6 +25,7 @@ function File_AppendToFile {
 
     $Global:Cs.File_AppendToFile($File, $Text)
 }
+
 
 <#
     .SYNOPSIS
@@ -55,6 +57,8 @@ function File_CopyFile {
 
     $Global:Cs.File_CopyFile($Source, $Destination, $Overwrite)
 }
+
+
 
 <#
     .SYNOPSIS
@@ -91,6 +95,7 @@ Function File_CopyTree {
     $Global:Cs.File_CopyTree($Source, $Destination, $CopySubDirs, $Overwrite)
 }
 
+
 <#
     .SYNOPSIS
         Create a directory.
@@ -113,6 +118,7 @@ function File_CreateDir {
     $Global:Cs.File_CreateDir($Path)
 } 
 
+
 <#
     .SYNOPSIS
         Delete path if it is empty.
@@ -134,6 +140,7 @@ function File_DelEmptyFolder {
 
     $Global:Cs.File_DelEmptyFolder($Path)
 }
+
 
 <#
     .SYNOPSIS
@@ -170,6 +177,7 @@ function File_DeleteLineInFile {
     $Global:Cs.File_DeleteLineInFile($File, $Text, $OnlyFirstMatch, $IgnoreCase)
 }
 
+
 <#
     .SYNOPSIS
         Delete a file.
@@ -196,6 +204,7 @@ function File_DelFile {
     $Global:Cs.File_DelFile($FilePath, $Recursive)
 }
 
+
 <#
     .SYNOPSIS
         Delete a folder.
@@ -217,6 +226,32 @@ function File_DelTree {
 
     $Global:Cs.File_DelTree($Path)
 }
+
+
+<#
+    .SYNOPSIS
+        Check if a folder exists.
+
+    .Parameter Path
+        The folder to check.
+
+    .EXAMPLE
+        File_ExistDir -Path "C:\Temp\test"
+
+    .NOTES
+        For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455530/cs.File+ExistDir
+#>
+function File_ExistDir {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    $Value = $Global:Cs.File_ExistDir($Path)
+
+    return $Value
+}
+
 
 <#
     .SYNOPSIS
@@ -242,29 +277,6 @@ function File_ExistFile {
     return $Value
 }
 
-<#
-    .SYNOPSIS
-        Check if a folder exists.
-
-    .Parameter Path
-        The folder to check.
-
-    .EXAMPLE
-        File_ExistDir -Path "C:\Temp\test"
-
-    .NOTES
-        For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455530/cs.File+ExistDir
-#>
-function File_ExistDir {
-    param (
-        [Parameter(Mandatory = $true)]
-        [string]$Path
-    )
-
-    $Value = $Global:Cs.File_ExistDir($Path)
-
-    return $Value
-}
 
 <#
     .SYNOPSIS
@@ -299,6 +311,7 @@ function File_FindFile {
     return $Value
 }
 
+
 <#
     .SYNOPSIS
         Get the file version of a file.
@@ -323,6 +336,7 @@ function File_GetFileVersion {
     return $Value
 }
 
+
 <#
     .SYNOPSIS
         Get the product version of a file.
@@ -346,6 +360,7 @@ function File_GetProductVersion {
 
     return $Value
 }
+
 
 <#
     .SYNOPSIS
@@ -378,6 +393,7 @@ function File_RenameDir {
     $Global:Cs.File_RenameDir($Source, $Destination, $Overwrite)
 }
 
+
 <#
     .SYNOPSIS
         Rename a file.
@@ -408,3 +424,5 @@ function File_RenameFile {
 
     $Global:Cs.File_RenameFile($Source, $Destination, $Overwrite)
 }
+
+

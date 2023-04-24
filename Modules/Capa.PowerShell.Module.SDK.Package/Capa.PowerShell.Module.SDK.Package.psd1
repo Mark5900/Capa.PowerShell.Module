@@ -19,7 +19,8 @@
 	Copyright              = '(c) 2023. All rights reserved.'
 	
 	# Description of the functionality provided by this module
-	Description            = 'Module description'
+	Description            = 'PowerShell module for CapaInstaller SDK containing functions for Package functions.
+	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19382173123/SDK+-+CapaInstaller+Software+Development+Kit+functions'
 	
 	# Minimum version of the Windows PowerShell engine required by this module
 	PowerShellVersion      = '7.0'

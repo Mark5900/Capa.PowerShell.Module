@@ -1,4 +1,5 @@
-﻿<#
+
+<#
 	.SYNOPSIS
 		Gets the product code of an MSI file.
 
@@ -22,34 +23,6 @@ function MSI_GetProductCodeFromMSI {
 	return $Value
 }
 
-<#
-	.SYNOPSIS
-		Gets the value of a property from an MSI file.
-
-	.PARAMETER MsiFile
-		The path to the MSI file.
-
-	.PARAMETER Property
-		The property to get the value from.
-
-	.EXAMPLE
-		PS C:\> MSI_GetPropertyFromMSI -MsiFile "C:\Temp\test.msi" -Property "ProductVersion"
-
-	.NOTES
-		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455734/cs.MSI+GetPropertyFromMSI
-#>
-function MSI_GetPropertyFromMSI {
-	param (
-		[Parameter(Mandatory = $true)]
-		[string]$MsiFile,
-		[Parameter(Mandatory = $true)]
-		[string]$Property
-	)
-	
-	$Value = $Global:Cs.MSI_GetPropertyFromMSI($MsiFile, $Property)
-
-	return $Value
-}
 
 <#
 	.SYNOPSIS
@@ -80,6 +53,37 @@ function MSI_GetPropertiesFromMSI {
 	return $Value
 }
 
+
+<#
+	.SYNOPSIS
+		Gets the value of a property from an MSI file.
+
+	.PARAMETER MsiFile
+		The path to the MSI file.
+
+	.PARAMETER Property
+		The property to get the value from.
+
+	.EXAMPLE
+		PS C:\> MSI_GetPropertyFromMSI -MsiFile "C:\Temp\test.msi" -Property "ProductVersion"
+
+	.NOTES
+		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455734/cs.MSI+GetPropertyFromMSI
+#>
+function MSI_GetPropertyFromMSI {
+	param (
+		[Parameter(Mandatory = $true)]
+		[string]$MsiFile,
+		[Parameter(Mandatory = $true)]
+		[string]$Property
+	)
+	
+	$Value = $Global:Cs.MSI_GetPropertyFromMSI($MsiFile, $Property)
+
+	return $Value
+}
+
+
 <#
 	.SYNOPSIS
 		Checks if an MSI file is installed.
@@ -104,6 +108,7 @@ function MSI_IsMSIFileInstalled {
 	return $Value
 }
 
+
 <#
 	.SYNOPSIS
 		Checks if an GUID is installed.
@@ -127,3 +132,5 @@ function MSI_IsMSIGuidInstalled {
 
 	return $Value
 }
+
+

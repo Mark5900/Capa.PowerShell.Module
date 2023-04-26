@@ -1,4 +1,5 @@
-﻿<#
+
+<#
 	.SYNOPSIS
 		Adds a package to a business unit.
 	
@@ -55,6 +56,7 @@ function Add-CapaPackageToBusinessUnit {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Adds a package to a group.
@@ -108,6 +110,7 @@ function Add-CapaPackageToGroup {
 	$bool = $CapaSDK.AddPackageToGroup($PackageName, $PackageVersion, $PackageType, $GroupName, $GroupType)
 	Return $bool
 }
+
 
 <#
 	.SYNOPSIS
@@ -165,6 +168,7 @@ function Add-CapaPackageToManagementServer {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Clone a package in Root Point.
@@ -213,6 +217,8 @@ function Clone-CapaPackage {
 	$value = $CapaSDK.ClonePackage($PackageName, $PackageVersion, $PackageType, $NewVersion)
 	return $value
 }
+
+
 
 <#
 	.SYNOPSIS
@@ -274,6 +280,7 @@ function Copy-CapaPackage {
 	$value = $CapaSDK.CopyPackage($PackageName, $PackageVersion, $PackageType, $NewName, $NewVersion)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -478,6 +485,7 @@ function Copy-CapaPackageRelation {
 	Return $FuctionSuccessful
 }
 
+
 <#
 	.SYNOPSIS
 		Create a package in the CapaInstaller.
@@ -527,6 +535,7 @@ function Create-CapaPackage {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Disable a packages schedule. 
@@ -569,6 +578,7 @@ function Disable-CapaPackageSchedule {
 	$bool = $CapaSDK.DisablePackageSchedule($PackageName, $PackageVersion, $PackageType)
 	Return $bool
 }
+
 
 <#
 	.SYNOPSIS
@@ -621,6 +631,7 @@ function Enable-CapaPackageSchedule {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Verifies if a package exists.
@@ -672,6 +683,7 @@ function Exist-CapaPackage {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Export a package.
@@ -719,6 +731,64 @@ function Export-CapaPackage {
 	$bool = $CapaSDK.ExportPackage($PackageName, $PackageVersion, $PackageType, $ToFolder)
 	Return $bool
 }
+
+
+<#
+	.SYNOPSIS
+		Gets all inventory packages.
+	
+	.DESCRIPTION
+		Gets all inventory packages.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER PackageType
+		The type of the package, either Computer or User.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaAllInventoryPackages -CapaSDK $CapaSDK -PackageType 'Computer'
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246890/Get+all+inventory+packages
+#>
+function Get-CapaAllInventoryPackages {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[string]$PackageType = ''
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetAllInventoryPackages($PackageType)
+	
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			Name               = $aItem[0];
+			Version            = $aItem[1];
+			Type               = $aItem[2];
+			DisplayName        = $aItem[3];
+			IsMandatory        = $aItem[4];
+			ScheduleId         = $aItem[5];
+			Description        = $aItem[6];
+			GUID               = $aItem[7];
+			ID                 = $aItem[8];
+			IsInteractive      = $aItem[9];
+			DependendPackageID = $aItem[10];
+			IsInventoryPackage = $aItem[11];
+			CollectMode        = $aItem[12];
+			Priority           = $aItem[13];
+			ServerDeploy       = $aItem[14]
+		}
+	}
+	
+	Return $oaUnits
+}
+
 
 <#
 	.SYNOPSIS
@@ -771,6 +841,7 @@ function Get-CapaPackageDescription {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Get the folder structure of a package.
@@ -813,6 +884,7 @@ function Get-CapaPackageFolder {
 	$aUnits = $CapaSDK.GetPackageFolder($PackageName, $PackageVersion, $PackageType)
 	Return $aUnits
 }
+
 
 <#
 	.SYNOPSIS
@@ -870,6 +942,7 @@ function Get-CapaPackageGroups {
 	
 	Return $oaUnits
 }
+
 
 <#
 	.SYNOPSIS
@@ -940,6 +1013,7 @@ function Get-CapaPackages {
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		Get a list of packages on a management server.
@@ -1003,6 +1077,7 @@ function Get-CapaPackagesOnManagementServer {
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		Gets a list of packages and their status on a unit.
@@ -1055,6 +1130,7 @@ function Get-CapaPackageStatus {
 	
 	Return $oaUnits
 }
+
 
 <#
 	.SYNOPSIS
@@ -1115,6 +1191,64 @@ function Get-CapaPackageUnits {
 	Return $oaUnits
 }
 
+
+<#
+	.SYNOPSIS
+		Returns all none inventory packages.
+	
+	.DESCRIPTION
+		Returns all none inventory packages.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER PackageType
+		The type of the package, either Computer or User.
+	
+	.EXAMPLE
+				PS C:\> Get-CapatAllNoneInventoryPackages -CapaSDK $CapaSDK -PackageType 'Computer'
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246900/Get+all+none+inventory+packages
+#>
+function Get-CapatAllNoneInventoryPackages {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[string]$PackageType = ''
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetAllNoneInventoryPackages($PackageType)
+	
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			Name               = $aItem[0];
+			Version            = $aItem[1];
+			Type               = $aItem[2];
+			DisplayName        = $aItem[3];
+			IsMandatory        = $aItem[4];
+			ScheduleId         = $aItem[5];
+			Description        = $aItem[6];
+			GUID               = $aItem[7];
+			ID                 = $aItem[8];
+			IsInteractive      = $aItem[9];
+			DependendPackageID = $aItem[10];
+			IsInventoryPackage = $aItem[11];
+			CollectMode        = $aItem[12];
+			Priority           = $aItem[13];
+			ServerDeploy       = $aItem[14]
+		}
+	}
+	
+	Return $oaUnits
+}
+
+
 <#
 	.SYNOPSIS
 		Imports a package into CapaInstaller.
@@ -1168,6 +1302,7 @@ function Import-CapaPackage {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Initializes a package promotion.
@@ -1210,6 +1345,294 @@ function Initialize-CapaPackagePromote {
 	$bool = $CapaSDK.PackagePromote($PackageName, $PackageVersion, $PackageType)
 	Return $bool
 }
+
+
+<#
+    .SYNOPSIS
+        Create a new Capa package with Git
+    
+    .DESCRIPTION
+        Creates a local folder structure you can use with Git to manage your deployment of Capa packages.
+        The folder structure is based on the Capa package structure.
+
+    .PARAMETER PackageName
+        The name of the package
+
+    .PARAMETER PackageVersion
+        The version of the package
+
+    .PARAMETER PackageType
+        The type of the package. Valid values are VBScript and PowerPack
+
+    .PARAMETER BasePath
+        The base path where the package folder will be created
+
+    .PARAMETER CapaServer
+        The name of the Capa server
+
+    .PARAMETER Database
+        The name of the Capa database
+
+    .PARAMETER DefaultManagementPoint
+        The default management point in Capa it should be set to the id of the development management point.
+
+    .EXAMPLE
+        New-CapaPackageWithGit -PackageName 'Test' -PackageVersion 'v1.0' -PackageType 'VBScript' -BasePath 'D:\PowerShell'
+
+    .EXAMPLE
+        New-CapaPackageWithGit -PackageName 'Test2' -PackageVersion 'v1.0' -PackageType 'PowerPack' -BasePath 'D:\PowerShell' -CapaServer $CapaServer -Database $Database -DefaultManagementPoint $DefaultManagementPointDev
+
+    .NOTES
+        This is a custom function for Capa. It is not part of the Capa SDK.
+#>
+function New-CapaPackageWithGit {
+	param (
+		[Parameter(Mandatory = $true)]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('VBScript', 'PowerPack')]
+		[string]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[string]$BasePath,
+		$CapaServer,
+		$SQLServer,
+		$Database,
+		$DefaultManagementPoint,
+		$PackageBasePath
+	)
+	try {
+		# Parameters
+		$GitIgnoreFile = Join-Path $PSScriptRoot 'Dependencies\.gitignore'
+		$UpdatePackageScript = Join-Path $PSScriptRoot 'Dependencies\UpdatePackage.ps1'
+
+		if ($PackageType -eq 'VBScript') {
+			$Prefix = 'VB'
+			$TempInstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.cis'
+			$TempUninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.cis'
+		} ElseIf ($PackageType -eq 'PowerPack') {
+			$Prefix = 'PP'
+			$TempInstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.ps1'
+			$TempUninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.ps1'
+		}
+
+		$PackagePath = Join-Path $BasePath "Capa_$($Prefix)_$PackageName"
+		$VersionPath = Join-Path $PackagePath $PackageVersion
+		$ScriptPath = Join-Path $VersionPath 'Scripts'
+
+		# Create folder
+		New-Item -Path $ScriptPath -ItemType Directory -Force | Out-Null
+
+		# Copy files
+		Copy-Item -Path $GitIgnoreFile -Destination $PackagePath -Force | Out-Null
+
+		# Copy UpdatePackage.ps1
+		if ((Test-Path "$PackagePath\UpdatePackage.ps1") -eq $false) {
+			$UpdatePackageScriptPath = Join-Path $PackagePath 'UpdatePackage.ps1'
+
+			Copy-Item -Path $UpdatePackageScript -Destination $PackagePath -Force | Out-Null
+
+			# Replace in UpdatePackage.ps1
+			if ($null -ne $CapaServer) {
+				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$CapaServer = ' + "''", '$CapaServer = ' + "'$CapaServer'")
+				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+			}
+			if ($null -ne $SQLServer) {
+				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$SQLServer = ' + "''", '$SQLServer = ' + "'$SQLServer'")
+				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+			}
+			if ($null -ne $Database) {
+				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$Database = ' + "''", '$Database = ' + "'$Database'")
+				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+			}
+			if ($null -ne $DefaultManagementPoint) {
+				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$DefaultManagementPointDev = ' + "''", '$DefaultManagementPointDev = ' + "'$DefaultManagementPoint'")
+				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+			}
+			if ($null -ne $PackageBasePath) {
+				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$PackageBasePath = ' + "''", '$PackageBasePath = ' + "'$PackageBasePath'")
+				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+			}
+		}
+
+		# Create scripts
+		if ($PackageType -eq 'VBScript') {
+			$InstallScriptDestination = Join-Path $ScriptPath "$PackageName.cis"
+			$UninstallScriptDestination = Join-Path $ScriptPath "$($PackageName)_Uninstall.cis"
+
+			$InstallContent = Get-Content $TempInstallScript
+			$InstallContent = $InstallContent.Replace('PACKAGENAME', $PackageName)
+			$InstallContent = $InstallContent.Replace('PACKAGEVERSION', $PackageVersion)
+			$InstallContent = $InstallContent.Replace('CREATEDBY', $env:username)
+			$InstallContent = $InstallContent.Replace('TIME', (Get-Date -Format 'dd-MM-yyyy HH:mm:ss'))
+			New-Item -Path $InstallScriptDestination -ItemType File -Force | Out-Null
+			$InstallContent | Out-File -FilePath $InstallScriptDestination -Force
+
+			$UninstallContent = Get-Content $TempUninstallScript
+			$UninstallContent = $UninstallContent.Replace('PACKAGENAME', $PackageName)
+			$UninstallContent = $UninstallContent.Replace('PACKAGEVERSION', $PackageVersion)
+			$UninstallContent = $UninstallContent.Replace('CREATEDBY', $env:username)
+			$UninstallContent = $UninstallContent.Replace('TIME', (Get-Date -Format 'dd-MM-yyyy HH:mm:ss'))
+			New-Item -Path $UninstallScriptDestination -ItemType File -Force | Out-Null
+			$UninstallContent | Out-File -FilePath $UninstallScriptDestination -Force
+		} else {
+			Copy-Item -Path $TempInstallScript -Destination $ScriptPath -Force | Out-Null
+			Copy-Item -Path $TempUninstallScript -Destination $ScriptPath -Force | Out-Null
+		}
+	} catch {
+
+		$PSCmdlet.ThrowTerminatingError($PSitem)
+		return -1
+	}
+}
+
+
+<#
+    .SYNOPSIS
+        Creates a new PowerPack in CapaInstaller
+
+    .DESCRIPTION
+        Creates a new PowerPack in CapaInstaller using the CapaSDK and the SqlServer module
+
+    .PARAMETER CapaSDK
+        The CapaSDK object
+
+    .PARAMETER PackageName
+        The name of the package
+
+    .PARAMETER PackageVersion
+        The version of the package
+
+    .PARAMETER DisplayName
+        The display name of the package, if not specified then the package name and version will be used
+
+    .PARAMETER InstallScriptContent
+        The install script content of the package, if not specified then the default install script will be used
+
+    .PARAMETER UninstallScriptContent
+        The uninstall script content of the package, if not specified then the default uninstall script will be used
+
+    .PARAMETER KitFolderPath
+        The path to the kit folder, if not specified then a dummy kit folder will be created
+
+    .PARAMETER ChangelogComment
+        The changelog comment of the package
+
+    .PARAMETER SqlServerInstance
+        The SQL Server instance
+
+    .PARAMETER Database
+        The Capa database name
+
+    .PARAMETER Credential
+        The SQL Server credential
+
+    .EXAMPLE
+        New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -SqlServerInstance $CapaServer -Database $Database
+
+    .Example
+        New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -InstallScriptContent 'Write-Host "Hello World"' -SqlServerInstance $CapaServer -Database $Database
+
+    .Example
+        New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -KitFolderPath 'C:\Temp\Kit' -SqlServerInstance $CapaServer -Database $Database
+
+    .Notes
+        This is a custom function that is not part of the CapaSDK
+#>
+function New-CapaPowerPack {
+	param (
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[string]$DisplayName = "$PackageName $PackageVersion",
+		[String]$InstallScriptContent = '',
+		[String]$UninstallScriptContent = '',
+		[String]$KitFolderPath = '',
+		[string]$ChangelogComment = '',
+		[Parameter(Mandatory = $true)]
+		[string]$SqlServerInstance,
+		[Parameter(Mandatory = $true)]
+		[string]$Database,
+		[pscredential]$Credential = $null
+	)
+	$XMLFile = "$PSScriptRoot\Dependencies\ciPackage.xml"
+	$KitFile = "$PSScriptRoot\Dependencies\CapaInstaller.kit"
+	$TempFolder = "C:\Users\$env:UserName\AppData\Local\CapaInstaller\CMS\TempScripts"
+	$TempTempFolder = "$TempFolder\Temp"
+	$PackageTempFolder = "$TempTempFolder\$($PackageName)_$($PackageVersion)"
+	$PackageZipFile = "$TempTempFolder\$($PackageName)_$($PackageVersion).zip"
+
+	Try {
+		# Create Temp Folder
+		If (!(Test-Path $TempFolder)) {
+			New-Item -ItemType Directory -Path $TempTempFolder -Force | Out-Null
+		}
+		New-Item -ItemType Directory -Path "$PackageTempFolder\Zip" -Force | Out-Null
+		Copy-Item -Path $KitFile -Destination "$PackageTempFolder\Zip\CapaInstaller.kit" -Force | Out-Null
+		New-Item -ItemType Directory -Path "$PackageTempFolder\Scripts" -Force | Out-Null
+
+		# Create XML File
+		$XML = [xml](Get-Content $XMLFile)
+		$XML.Info.Package.Name = $PackageName
+		$XML.Info.Package.Version = $PackageVersion
+		$XML.Info.Package.DisplayName = $DisplayName
+
+		If ($InstallScriptContent -ne '') {
+			$InstallScriptContentBytes = [System.Text.Encoding]::UTF8.GetBytes("$InstallScriptContent")
+			$XML.Info.Package.InstallScriptContent = [System.Convert]::ToBase64String($InstallScriptContentBytes)
+		}
+
+		If ($UninstallScriptContent -ne '') {
+			$UninstallScriptContentBytes = [System.Text.Encoding]::UTF8.GetBytes("$UninstallScriptContent")
+			$XML.Info.Package.UnInstallScriptContent = [System.Convert]::ToBase64String($UninstallScriptContentBytes)
+		}
+
+		Set-Content -Path "$PackageTempFolder\ciPackage.xml" -Value $XML.OuterXml
+
+		# Create kit folder
+		If ($KitFolderPath -ne '') {
+			Copy-Item -Path $KitFolderPath -Destination "$PackageTempFolder\Kit" -Recurse -Force | Out-Null
+		} else {
+			New-Item -ItemType Directory -Path "$PackageTempFolder\Kit" -Force | Out-Null
+			New-Item -ItemType File -Path "$PackageTempFolder\Kit\Dummy.txt" -Force | Out-Null
+			Add-Content -Value 'Placeholder for the build of CapaInstaller.kit' -Path "$PackageTempFolder\Kit\Dummy.txt"
+		}
+
+		# Create zip file
+		Compress-Archive -Path "$PackageTempFolder\*" -DestinationPath $PackageZipFile -Force | Out-Null
+
+		# Add to CI
+		$Status = Import-CapaPackage -CapaSDK $CapaSDK -FilePath $PackageZipFile -OverrideCIPCdata $true -ImportFolderStructure $true -ImportSchedule $true -ChangelogComment $ChangelogComment | Out-Null
+
+		# The SDK is missing support for PowerPack, so we need to use SqlServer module to edit in job table
+		$Query = "UPDATE JOB
+    Set POWERPACK = 'True', INSTALLSCRIPTCONTENT = '$($XML.Info.Package.InstallScriptContent)', UNINSTALLSCRIPTCONTENT =' $($XML.Info.Package.UnInstallScriptContent)'
+    Where NAME = '$PackageName'
+    AND VERSION = '$PackageVersion'"
+
+		if ($Null -eq $Credential) {
+			Invoke-Sqlcmd -ServerInstance $SqlServerInstance -Database $Database -Query $Query
+		} else {
+			Invoke-Sqlcmd -ServerInstance $SqlServerInstance -Database $Database -Query $Query -Credential $Credential
+		}
+    
+		# Remove Temp Folder
+		Remove-Item -Path $TempTempFolder -Recurse -Force | Out-Null
+	} Catch {
+		$PSCmdlet.ThrowTerminatingError($PSitem)
+		return -1
+	}
+}
+
 
 <#
 	.SYNOPSIS
@@ -1269,6 +1692,7 @@ function Remove-CapaPackage {
 	Return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Removes a package from a group.
@@ -1322,6 +1746,7 @@ function Remove-CapaPackageFromGroup {
 	$bool = $CapaSDK.RemovePackageFromGroup($PackageName, $PackageVersion, $PackageType, $GroupName, $GroupType)
 	Return $bool
 }
+
 
 <#
 	.SYNOPSIS
@@ -1379,6 +1804,7 @@ function Remove-CapaPackageFromManagementServer {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Set the description of a package.
@@ -1435,6 +1861,7 @@ function Set-CapaPackageDescription {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Set the folder structure of a package.
@@ -1488,6 +1915,7 @@ function Set-CapaPackageFolder {
 	Return $bool
 }
 
+
 <#
 	.SYNOPSIS
 		Sets an package property.
@@ -1529,7 +1957,7 @@ function Set-CapaPackagePriority {
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]$PackageType,
-		[Integer]$Priority = 500
+		[Int]$Priority = 500
 	)
 	
 	if ($PackageType -eq 'Computer') {
@@ -1542,6 +1970,7 @@ function Set-CapaPackagePriority {
 	$value = $CapaSDK.SetPackagePriority($PackageName, $PackageVersion, $PackageType, $Priority)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -1643,6 +2072,7 @@ function Set-CapaPackageSchedule {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Performs a update now on a package.
@@ -1691,114 +2121,174 @@ function Update-CapaPackageNow {
 	return $value
 }
 
-<#
-	.SYNOPSIS
-		Gets all inventory packages.
-	
-	.DESCRIPTION
-		Gets all inventory packages.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER PackageType
-		The type of the package, either Computer or User.
-	
-	.EXAMPLE
-				PS C:\> Get-CapaAllInventoryPackages -CapaSDK $CapaSDK -PackageType 'Computer'
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246890/Get+all+inventory+packages
-#>
-function Get-CapaAllInventoryPackages {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[string]$PackageType = ''
-	)
-	
-	$oaUnits = @()
-	
-	$aUnits = $CapaSDK.GetAllInventoryPackages($PackageType)
-	
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
-			Name               = $aItem[0];
-			Version            = $aItem[1];
-			Type               = $aItem[2];
-			DisplayName        = $aItem[3];
-			IsMandatory        = $aItem[4];
-			ScheduleId         = $aItem[5];
-			Description        = $aItem[6];
-			GUID               = $aItem[7];
-			ID                 = $aItem[8];
-			IsInteractive      = $aItem[9];
-			DependendPackageID = $aItem[10];
-			IsInventoryPackage = $aItem[11];
-			CollectMode        = $aItem[12];
-			Priority           = $aItem[13];
-			ServerDeploy       = $aItem[14]
-		}
-	}
-	
-	Return $oaUnits
-}
 
 <#
-	.SYNOPSIS
-		Returns all none inventory packages.
-	
-	.DESCRIPTION
-		Returns all none inventory packages.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER PackageType
-		The type of the package, either Computer or User.
-	
+    .SYNOPSIS
+        Use this function to update a package script and kit in Capa.
+
+    .DESCRIPTION
+        Use this function to update a package script and kit in Capa.
+        You will need SqlServer module installed if you want to update a PowerPack script.
+
+    .PARAMETER PackageName
+        The name of the package.
+
+    .PARAMETER PackageVersion
+        The version of the package.
+
+    .PARAMETER ScriptContent
+        The content of the script.
+
+    .PARAMETER ScriptType
+        The type of the script. Valid values are: Install, Uninstall, UserConfiguration.
+
+    .PARAMETER PackageType
+        The type of the package. Valid values are: PowerPack, VBScript.
+
+    .PARAMETER PackageBasePath
+        The path to the package folder. Example: \\CISRVKURSUS.CIKURSUS.local\CMPProduction\ComputerJobs
+
+    .PARAMETER SqlServerInstance
+        The name of the SQL Server instance.
+
+    .PARAMETER Database
+        The name of the database.
+
+    .PARAMETER Credential
+        The credentials to use when connecting to the SQL Server instance.
+        Default is to use the current user's credentials.
+
+    .PARAMETER KitFolderPath
+        The path to the folder containing files to set as kit.
+
 	.EXAMPLE
-				PS C:\> Get-CapatAllNoneInventoryPackages -CapaSDK $CapaSDK -PackageType 'Computer'
+		$ScriptContent = Get-Content -Path 'C:\Users\CIKursus\Downloads\InstallScript.ps1' | Out-String
+		Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent $ScriptContent -ScriptType 'Install' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database
+
+    .EXAMPLE
+        Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Install' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database
+
+    .EXAMPLE
+        Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Uninstall' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database
 	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246900/Get+all+none+inventory+packages
+    .EXAMPLE
+        Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Install' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs' -KitFolderPath 'C:\Users\CIKursus\Downloads\Kit'
+
+    .EXAMPLE    
+        Update-CapaPackageScriptAndKit -PackageName 'Opgave 1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Install' -PackageType 'VBScript' -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs'
+    
+    .EXAMPLE
+        Update-CapaPackageScriptAndKit -PackageName 'Opgave 1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Uninstall' -PackageType 'VBScript' -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs'
+    
+    .EXAMPLE
+        Update-CapaPackageScriptAndKit -PackageName 'Opgave 1' -PackageVersion 'v1.0' -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs' -KitFolderPath 'C:\Users\CIKursus\Downloads\Kit\'
+
+    .NOTES
+        This is a custom function that is not part of the CapaSDK
 #>
-function Get-CapatAllNoneInventoryPackages {
-	[CmdletBinding()]
-	param
-	(
+function Update-CapaPackageScriptAndKit {
+	param (
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[string]$PackageType = ''
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'VBScript')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
+		[Parameter(Mandatory = $false, ParameterSetName = 'Kit')]
+		[String]$ScriptContent,
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'VBScript')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
+		[Parameter(Mandatory = $false, ParameterSetName = 'Kit')]
+		[ValidateSet('Install', 'Uninstall', 'UserConfiguration')]
+		[String]$ScriptType,
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'VBScript')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
+		[Parameter(Mandatory = $false, ParameterSetName = 'Kit')]
+		[ValidateSet('PowerPack', 'VBScript')]
+		[String]$PackageType,
+		[Parameter(Mandatory = $true, ParameterSetName = 'VBScript')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'Kit')]
+		[String]$PackageBasePath = '',
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
+		[string]$SqlServerInstance,
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
+		[string]$Database,
+		[pscredential]$Credential,
+		[Parameter(Mandatory = $false, ParameterSetName = 'VBScript')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'Kit')]
+		[String]$KitFolderPath
 	)
-	
-	$oaUnits = @()
-	
-	$aUnits = $CapaSDK.GetAllNoneInventoryPackages($PackageType)
-	
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
-			Name               = $aItem[0];
-			Version            = $aItem[1];
-			Type               = $aItem[2];
-			DisplayName        = $aItem[3];
-			IsMandatory        = $aItem[4];
-			ScheduleId         = $aItem[5];
-			Description        = $aItem[6];
-			GUID               = $aItem[7];
-			ID                 = $aItem[8];
-			IsInteractive      = $aItem[9];
-			DependendPackageID = $aItem[10];
-			IsInventoryPackage = $aItem[11];
-			CollectMode        = $aItem[12];
-			Priority           = $aItem[13];
-			ServerDeploy       = $aItem[14]
+	# Parameters
+	if ($null -ne $PackageBasePath -and $PackageBasePath -ne '') {
+		if ($PackageBasePath -like "*\$PackageVersion" -or $PackageBasePath -like "*\$PackageVersion\") {
+			$PackagePath = $PackageBasePath
+		} elseif ($PackageBasePath -like "*\$PackageName" -or $PackageBasePath -like "*\$PackageName\") {
+			$PackagePath = Join-Path $PackageBasePath $PackageVersion
+		} else {
+			$PackagePath = Join-Path $PackageBasePath $PackageName $PackageVersion
 		}
 	}
-	
-	Return $oaUnits
+    
+	if ($ScriptType -eq 'Install') {
+		$ScriptName = "$PackageName.cis"
+		$DBColumnName = 'INSTALLSCRIPTCONTENT'
+	} elseif ($ScriptType -eq 'Uninstall') {
+		$ScriptName = "$($PackageName)_Uninstall.cis"
+		$DBColumnName = 'UNINSTALLSCRIPTCONTENT'
+	} elseif ($ScriptType -eq 'UserConfiguration') {
+		$ScriptName = "$($PackageName)_Us.cis"
+		$DBColumnName = 'USERCONFIGSCRIPTCONTENT'
+	}
+    
+	if ($null -ne $PackageBasePath -and $PackageBasePath -ne '') {
+		$ScriptPath = Join-Path $PackagePath 'Scripts' $ScriptName
+		$KitPath = Join-Path $PackagePath 'Kit'
+	}
+
+	# Script
+	try {
+		# Update script
+		if ($PSCmdlet.ParameterSetName -like 'PowerPack*') {
+			$ScriptContentBytes = [System.Text.Encoding]::UTF8.GetBytes("$ScriptContent")
+			$ScriptContentBase64 = [System.Convert]::ToBase64String($ScriptContentBytes)
+
+			$SqlQuery = "UPDATE JOB
+            Set $DBColumnName = '$ScriptContentBase64'
+            Where NAME = '$PackageName'
+            AND VERSION = '$PackageVersion'"
+
+			If ($Credential) {
+				Invoke-Sqlcmd -ServerInstance $SqlServerInstance -Database $Database -Query $SqlQuery -Credential $Credential
+			} else {
+				Invoke-Sqlcmd -ServerInstance $SqlServerInstance -Database $Database -Query $SqlQuery
+			}
+		}
+		If ($PSCmdlet.ParameterSetName -like 'VBScript*') {
+			Set-Content -Path $ScriptPath -Value $ScriptContent -Force
+		}
+
+		# Update Kit
+		If ($PSCmdlet.ParameterSetName -like '*Kit') {
+			Get-ChildItem -Path $KitPath -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force | Out-Null
+			Copy-Item -Path "$KitFolderPath\*" -Destination $KitPath -Recurse -Force | Out-Null
+		}
+	} catch {
+		$PSCmdlet.ThrowTerminatingError($PSitem)
+		return -1
+	}
+    
 }
+
+

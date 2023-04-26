@@ -1,4 +1,5 @@
-﻿<#
+
+<#
 	.SYNOPSIS
 		Get the version of the CapaSDK dll.
 	
@@ -12,15 +13,16 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246124/Get+dll+version
 #>
 function Get-CapaDllVersion {
-	[CmdletBinding()]
-	param (
-		[Parameter(Mandatory = $true)]
-		$CapaSDK
-	)
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        $CapaSDK
+    )
 	
-	$value = $CapaSDK.GetDLLVersion()
-	return $value
+    $value = $CapaSDK.GetDLLVersion()
+    return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -42,37 +44,39 @@ function Get-CapaDllVersion {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246132/Get+schedule
 #>
 function Get-CapaSchedule {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[string]$Id
-	)
+    [CmdletBinding()]
+    param
+    (
+        [Parameter(Mandatory = $true)]
+        $CapaSDK,
+        [Parameter(Mandatory = $true)]
+        [string]$Id
+    )
 	
-	$oaUnits = @()
+    $oaUnits = @()
 	
-	$aUnits = $CapaSDK.GetSchedule($Id)
+    $aUnits = $CapaSDK.GetSchedule($Id)
 	
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
-			Id                = $aItem[0];
-			ScheduleStart     = $aItem[1];
-			ScheduleEnd       = $aItem[2];
-			Occurrences       = $aItem[3];
-			IntervalStart     = $aItem[4];
-			IntervalEnd       = $aItem[5];
-			Recurrence        = $aItem[6];
-			RecurrencePattern = $aItem[7];
-			Run               = $aItem[8];
-			LastRun           = $aItem[9];
-			Active            = $aItem[10];
-			WOL               = $aItem[11];
-			Guid              = $aItem[12]
-		}
-	}
+    foreach ($sItem in $aUnits) {
+        $aItem = $sItem.Split(';')
+        $oaUnits += [pscustomobject]@{
+            Id                = $aItem[0];
+            ScheduleStart     = $aItem[1];
+            ScheduleEnd       = $aItem[2];
+            Occurrences       = $aItem[3];
+            IntervalStart     = $aItem[4];
+            IntervalEnd       = $aItem[5];
+            Recurrence        = $aItem[6];
+            RecurrencePattern = $aItem[7];
+            Run               = $aItem[8];
+            LastRun           = $aItem[9];
+            Active            = $aItem[10];
+            WOL               = $aItem[11];
+            Guid              = $aItem[12]
+        }
+    }
 	
-	Return $oaUnits
+    Return $oaUnits
 }
+
+

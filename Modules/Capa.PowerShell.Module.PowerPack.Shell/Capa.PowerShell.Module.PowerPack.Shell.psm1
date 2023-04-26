@@ -1,4 +1,5 @@
-﻿<#
+
+<#
 	.SYNOPSIS
 		Executes a command line application.
 
@@ -23,33 +24,35 @@
 		The working directory for the command, default is empty.
 #>
 function Shell_Execute {
-	param(
-		[Parameter(Mandatory = $true)]
-		[string]$Command,
-		[String]$Arguments = '',
-		[Bool]$Wait = $true,
-		[ValidateSet('Hidden', 'Normal', 'Minimized', 'Maximized')]
-		$WindowStyle = 'Hidden',
-		[Bool]$MustExist = $false,
-		[string]$WorkingDirectory = ''
-	)
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Command,
+        [String]$Arguments = '',
+        [Bool]$Wait = $true,
+        [ValidateSet('Hidden', 'Normal', 'Minimized', 'Maximized')]
+        $WindowStyle = 'Hidden',
+        [Bool]$MustExist = $false,
+        [string]$WorkingDirectory = ''
+    )
 
-	switch ($WindowStyle) {
-		'Hidden' {
-			$WindowStyleInt = 0
-		}
-		'Normal' {
-			$WindowStyleInt = 1
-		}
-		'Minimized' {
-			$WindowStyleInt = 2
-		}
-		'Maximized' {
-			$WindowStyleInt = 3
-		}
-	}
+    switch ($WindowStyle) {
+        'Hidden' {
+            $WindowStyleInt = 0
+        }
+        'Normal' {
+            $WindowStyleInt = 1
+        }
+        'Minimized' {
+            $WindowStyleInt = 2
+        }
+        'Maximized' {
+            $WindowStyleInt = 3
+        }
+    }
 
-	$Value = $Global:cs.Shell_Execute($Command, $Arguments, $Wait, $WindowStyleInt, $MustExist, $WorkingDirectory)
+    $Value = $Global:cs.Shell_Execute($Command, $Arguments, $Wait, $WindowStyleInt, $MustExist, $WorkingDirectory)
 
-	return $Value
+    return $Value
 }
+
+

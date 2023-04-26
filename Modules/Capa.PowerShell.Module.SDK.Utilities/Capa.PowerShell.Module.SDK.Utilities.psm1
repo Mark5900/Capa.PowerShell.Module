@@ -1,4 +1,5 @@
-﻿<#
+
+<#
 	.SYNOPSIS
 		Create an CapaInstaller AD group.
 
@@ -46,6 +47,7 @@ function Create-CapaADGroup {
 	$value = $CapaSDK.CreateADGroup($GroupName, $UnitType, $LDAPPath, $recursive)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -108,6 +110,7 @@ function Get-CapaLog {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Gets the reinstall status for a unit.
@@ -146,6 +149,7 @@ function Get-CapaReinstallStatus {
 	$value = $CapaSDK.GetReinstallStatus($UnitName, $UnitType)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -191,6 +195,7 @@ function Move-CapaDeviceToPoint {
 	$value = $CapaSDK.MoveDeviceToPoint($DeviceUUID, $PointName, $ManagementServerFQDN)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -239,6 +244,7 @@ function Restart-CapaAgent {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Set a action to perform a Wake On LAN Request for the unit.	
@@ -271,3 +277,5 @@ function Set-CapaWakeOnLAN {
 	$value = $CapaSDK.SetWakeOnLAN($UnitName, '1')
 	return $value
 }
+
+

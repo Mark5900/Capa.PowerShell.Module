@@ -1,4 +1,5 @@
-﻿<#
+
+<#
 	.SYNOPSIS
 		Reads an entry from an INI file.
 
@@ -31,6 +32,7 @@ function Ini_ReadEntry {
 
 	return $Value
 }
+
 
 <#
 	.SYNOPSIS
@@ -68,3 +70,5 @@ function Ini_WriteEntry {
 
 	$Global:Cs.Ini_WriteEntry($FilePath, $Section, $Variable, $Value)
 }
+
+

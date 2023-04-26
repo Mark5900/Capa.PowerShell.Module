@@ -1,0 +1,72 @@
+' Basic Template v4.0
+' Name    PACKAGENAME 
+' Version    PACKAGEVERSION
+' Modification history
+' v1.0	TIME    CREATEDBY
+
+Dim bStatus
+
+Private Function IncludeScript(sScriptFile)
+Dim oLocalFso
+Dim sCmd
+Dim sClientDir
+Dim oLocalShell
+'Begin
+  bStatus=True
+  On Error Resume Next
+  Set oLocalShell=CreateObject("WScript.Shell")
+  sClientDir=oLocalShell.RegRead("HKLM\Software\CapaSystems\CapaInstaller\Client Directory")
+  If bStatus and (sClientDir<>"") Then
+    Set oLocalFso = CreateObject("Scripting.FileSystemObject")
+    sCmd = oLocalFso.OpenTextFile(sClientDir & "\Lib\" & sScriptFile,1).ReadAll
+  Else
+    bStatus=False
+  End If
+  ExecuteGlobal sCmd
+  IncludeScript=bStatus
+End Function
+
+Function Install()
+Dim bStatus
+'Begin
+  bStatus=True
+  Install=bStatus
+End Function
+
+Function CustomPreInstall()
+Dim bStatus
+'Begin
+  bStatus=True
+  CustomPreInstall=bStatus
+End Function
+
+Function CustomPostInstall()
+Dim bStatus
+'Begin
+  bStatus=True
+  CustomPostInstall=bStatus
+End Function
+
+'Begin main
+  bStatus=True
+  If bStatus Then bStatus=IncludeScript("Includes.cis")
+  If bStatus Then bStatus=IncludeScript("customlib.cis")
+  If bStatus Then bStatus=IncludeScriptingLibrary("CapaInstaller Scripting Library.cin")
+
+  If bStatus Then bStatus=Job_SetPlatform("CDM")
+  If bStatus Then bStatus=Job_Start("WS","PACKAGENAME","PACKAGEVERSION","PACKAGENAME.Log","INSTALL")
+  If bStatus Then bStatus=Job_Silentinstallation()
+  If bStatus Then bStatus=Job_SetLanguage("OS")
+  If bStatus Then bStatus=Sys_GetFreeDiskSpace("C:",505)
+  If bStatus Then bStatus=CDM_DefineEndUserCancellation(9999,21210101,"NEVER")
+  If bStatus Then bStatus=Job_SetStartTime()
+  If bStatus Then bStatus=CustomInit("PACKAGENAME")
+  If bStatus Then bStatus=CDM_DownloadPackageBeforeInstall(100,gsTempDir)
+  If bStatus Then bStatus=CustomPreInstall()
+  If bStatus Then bStatus=Job_InstallationStart("PACKAGENAME","5",10,2)
+  If bStatus Then bStatus=Install()
+  If bStatus Then bStatus=CustomPostInstall()
+  If bStatus Then bStatus=CDM_RemoveLocalPackage(gsTempDir)
+  bStatus=Job_InstallationCompleted("PACKAGENAME",bStatus)
+  Job_End(bStatus)
+'End Main

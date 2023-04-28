@@ -4,7 +4,7 @@
 	RootModule             = './Capa.PowerShell.Module.SDK.Inventory.psm1'
 	
 	# Version number of this module.
-	ModuleVersion          = '1.0.19.1'
+	ModuleVersion          = '1.0.20.0'
 	
 	# ID used to uniquely identify this module
 	GUID                   = 'd248ab64-e61c-4022-8768-d68edb78a540'
@@ -19,7 +19,8 @@
 	Copyright              = '(c) 2023. All rights reserved.'
 	
 	# Description of the functionality provided by this module
-	Description            = 'Module description'
+	Description            = 'PowerShell module for CapaInstaller SDK containing functions for Inventory functions.
+	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19382173123/SDK+-+CapaInstaller+Software+Development+Kit+functions'
 	
 	# Minimum version of the Windows PowerShell engine required by this module
 	PowerShellVersion      = '7.0'
@@ -31,7 +32,7 @@
 	PowerShellHostVersion  = ''
 	
 	# Minimum version of the .NET Framework required by this module
-	DotNetFrameworkVersion = '2.0'
+	DotNetFrameworkVersion = '3.5'
 	
 	# Minimum version of the common language runtime (CLR) required by this module
 	CLRVersion             = '2.0.50727'

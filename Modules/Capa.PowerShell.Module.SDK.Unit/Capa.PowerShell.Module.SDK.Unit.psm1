@@ -1,4 +1,51 @@
-﻿<#
+
+<#
+	.SYNOPSIS
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247286/Add+printer+to+unit
+	
+	.DESCRIPTION
+		A detailed description of the Add-CapaPrinterToUnit function.
+	
+	.PARAMETER CapaSDK
+		A description of the CapaSDK parameter.
+	
+	.PARAMETER UnitName
+		A description of the UnitName  parameter.
+	
+	.PARAMETER UnitType
+		A description of the UnitType parameter.
+	
+	.PARAMETER PrinterShareName
+		A description of the PrinterShareName  parameter.
+	
+	.EXAMPLE
+				PS C:\> Add-CapaPrinterToUnit -CapaSDK $value1 -UnitName  'Value2' -UnitType Computer -PrinterShareName  'Value4'
+	
+	.NOTES
+		Additional information about the function.
+#>
+function Add-CapaPrinterToUnit
+{
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$UnitName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[String]$UnitType,
+		[Parameter(Mandatory = $true)]
+		[String]$PrinterShareName
+	)
+	
+	$value = $CapaSDK.AddPrinterToUnit($UnitName, $UnitType, $PrinterShareName)
+	return $value
+}
+
+
+<#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247294/Add+unit+to+business+unit
 	
@@ -44,6 +91,7 @@ function Add-CapaUnitToBusinessUnit
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247302/Add+unit+to+calendar+group
@@ -87,6 +135,7 @@ function Add-CapaUnitToCalendarGroup
 	$value = $CapaSDK.AddUnitToCalendarGroup($UnitName, $UnitType, $CalendarGroupName)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -137,6 +186,7 @@ function Add-CapaUnitToFolder
 	
 	Return $aUnits
 }
+
 
 <#
 	.SYNOPSIS
@@ -210,6 +260,7 @@ function Add-CapaUnitToGroup
 	}
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247340/Add+unit+to+package
@@ -265,6 +316,7 @@ function Add-CapaUnitToPackage
 	
 	Return $bool
 }
+
 
 <#
 	.SYNOPSIS
@@ -367,6 +419,7 @@ function Add-CapaUnitToReinstall
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247364/Create+unit
@@ -439,6 +492,7 @@ function Create-CapaUnit
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247372/Delete+unit
@@ -478,6 +532,7 @@ function Delete-CapaUnit
 	$value = $CapaSDK.DeleteUnit($UnitName, $UnitType)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -536,6 +591,7 @@ function Exist-CapaUnit
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247402/Exist+unit+location
@@ -580,6 +636,7 @@ function Exist-CapaUnitLocation
 	$value = $CapaSDK.ExistUnitLocation($UnitName, $UnitType, $Location)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -626,6 +683,7 @@ function Exist-CapaUnitOnManagementPoint
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247474/Get+unit+description
@@ -655,6 +713,7 @@ function Get-CapaUnitDescription
 	$value = $CapaSDK.GetUnitDescription($UnitName, $UnitType)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -695,6 +754,7 @@ function Get-CapaUnitFolder
 	
 	Return $bool
 }
+
 
 <#
 	.SYNOPSIS
@@ -751,6 +811,7 @@ function Get-CapaUnitGroups
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247492/Get+unit+last+runtime
@@ -800,6 +861,7 @@ function Get-CapaUnitLastRuntime
 	Return $aUnits
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247500/Get+unit+linked+units
@@ -847,6 +909,7 @@ function Get-CapaUnitLinkedUnits
 	
 	Return $oaUnits
 }
+
 
 <#
 	.SYNOPSIS
@@ -900,6 +963,7 @@ function Get-CapaUnitLinkedUser
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247520/Get+Unit+Management+Point
@@ -940,6 +1004,7 @@ function Get-CapaUnitManagementPoint
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247528/Get+unit+management+server+relation
@@ -978,6 +1043,7 @@ function Get-CapaUnitManagementServerRelation
 	$value = $CapaSDK.GetUnitManagementServerRelation($UnitName, $UnitType)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -1044,6 +1110,7 @@ function Get-CapaUnitPackages
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247536/Get+unit+package+status
@@ -1102,6 +1169,7 @@ function Get-CapaUnitPackageStatus
 	$value = $CapaSDK.GetUnitPackageStatus($UnitName, $UnitType, $PackageName, $PackageVersion, $PackageType)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -1166,6 +1234,7 @@ function Get-CapaUnitRelations
 	
 	Return $oaUnit
 }
+
 
 <#
 	.SYNOPSIS
@@ -1237,6 +1306,7 @@ function Get-CapaUnits
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247582/Get+Units+in+Folder
@@ -1303,6 +1373,7 @@ function Get-CapaUnitsInFolder
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247564/Get+unit+WSUS+Group
@@ -1343,6 +1414,7 @@ function Get-CapaUnitWSUSGroup
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246240/Delete+group
@@ -1376,6 +1448,7 @@ function Remove-CapaUnitByUUID
 	
 	Return $bool
 }
+
 
 <#
 	.SYNOPSIS
@@ -1417,6 +1490,7 @@ function Remove-CapaUnitFromBusinessUnit
 	
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -1462,6 +1536,7 @@ function Remove-CapaUnitFromCalendarGroup
 	$value = $CapaSDK.RemoveUnitFromCalendarGroup($UnitName, $UnitType, $CalendarGroupName)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -1513,6 +1588,7 @@ function Remove-CapaUnitFromGroup
 	
 	Return $bool
 }
+
 
 <#
 	.SYNOPSIS
@@ -1578,6 +1654,7 @@ function Remove-CapaUnitFromPackage
 	Return $bool
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247680/Remove+unit+from+reinstall
@@ -1611,6 +1688,7 @@ function Remove-CapaUnitFromReinstall
 	$value = $CapaSDK.RemoveUnitFromReinstall($ComputerName)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -1657,6 +1735,7 @@ function Rename-CapaUnit
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247704/Send+Unit+Command
@@ -1702,6 +1781,7 @@ function Send-CapaUnitCommand
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247724/Set+unit+description
@@ -1745,6 +1825,7 @@ function Set-CapaUnitDescription
 	$value = $CapaSDK.SetUnitDescription($UnitName, $UnitType, $Description)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -1792,6 +1873,7 @@ function Set-CapaUnitLabel
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247740/Set+unit+name
@@ -1836,6 +1918,7 @@ function Set-CapaUnitName
 	$value = $CapaSDK.SetUnitName($UnitName, $UnitType, $Name)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -1906,6 +1989,7 @@ function Set-CapaUnitPackageStatus
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247758/Set+unit+status
@@ -1946,48 +2030,5 @@ function Set-CapaUnitStatus
 	Return $aUnits
 }
 
-<#
-	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247286/Add+printer+to+unit
-	
-	.DESCRIPTION
-		A detailed description of the Add-CapaPrinterToUnit function.
-	
-	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
-	
-	.PARAMETER UnitName
-		A description of the UnitName  parameter.
-	
-	.PARAMETER UnitType
-		A description of the UnitType parameter.
-	
-	.PARAMETER PrinterShareName
-		A description of the PrinterShareName  parameter.
-	
-	.EXAMPLE
-				PS C:\> Add-CapaPrinterToUnit -CapaSDK $value1 -UnitName  'Value2' -UnitType Computer -PrinterShareName  'Value4'
-	
-	.NOTES
-		Additional information about the function.
-#>
-function Add-CapaPrinterToUnit
-{
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[String]$UnitName,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
-		[String]$UnitType,
-		[Parameter(Mandatory = $true)]
-		[String]$PrinterShareName
-	)
-	
-	$value = $CapaSDK.AddPrinterToUnit($UnitName, $UnitType, $PrinterShareName)
-	return $value
-}
+
 

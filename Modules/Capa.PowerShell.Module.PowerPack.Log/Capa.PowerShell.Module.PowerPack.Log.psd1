@@ -4,7 +4,7 @@
 	RootModule             = '.\Capa.PowerShell.Module.PowerPack.Log.psm1'
 	
 	# Version number of this module.
-	ModuleVersion          = '1.0.19.1'
+	ModuleVersion          = '1.0.20.0'
 	
 	# ID used to uniquely identify this module
 	GUID                   = 'd17f59c5-63b7-410b-bee6-3ebc78231a80'
@@ -19,7 +19,8 @@
 	Copyright              = '(c) 2023. All rights reserved.'
 	
 	# Description of the functionality provided by this module
-	Description            = 'Module description'
+	Description            = 'PowerShell module for CapaInstaller PowerPacks containing functions for Log commands.
+	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455297/PowerShell+Scripting+Library'
 	
 	# Minimum version of the Windows PowerShell engine required by this module
 	PowerShellVersion      = '3.0'
@@ -31,7 +32,7 @@
 	PowerShellHostVersion  = ''
 	
 	# Minimum version of the .NET Framework required by this module
-	DotNetFrameworkVersion = '2.0'
+	DotNetFrameworkVersion = '4.6.2'
 	
 	# Minimum version of the common language runtime (CLR) required by this module
 	CLRVersion             = '2.0.50727'

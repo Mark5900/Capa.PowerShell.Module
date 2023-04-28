@@ -1,4 +1,5 @@
-﻿<#
+
+<#
 	.SYNOPSIS
 		Gets a list of OS Disk Configurations.
 	
@@ -46,6 +47,7 @@ function Get-CapaOSDiskConfigration {
 	
 	Return $oaUnits
 }
+
 
 <#
 	.SYNOPSIS
@@ -97,6 +99,7 @@ function Get-CapaOSImages {
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		Get a list of OS Installation Types.
@@ -141,6 +144,7 @@ function Get-CapaOSInstallationTypes {
 	
 	Return $oaUnits
 }
+
 
 <#
 	.SYNOPSIS
@@ -197,6 +201,7 @@ function Get-CapaOSPoints {
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		Gets a list of OS Servers including sub servers.
@@ -244,3 +249,5 @@ function Get-CapaOSServers {
 	
 	Return $oaUnits
 }
+
+

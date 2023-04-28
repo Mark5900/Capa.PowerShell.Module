@@ -1,19 +1,3 @@
-﻿<#
-	.SYNOPSIS
-		Set package retry later.
-
-	.DESCRIPTION
-		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package retry later.
-
-	.EXAMPLE
-		Exit_RetryLater
-
-	.NOTES
-		Custom command.
-#>
-function Exit_RetryLater {
-	Exit-PSScript 3326
-}
 
 <#
 	.SYNOPSIS
@@ -29,129 +13,9 @@ function Exit_RetryLater {
 		Custom command.
 #>
 function Exit_ApplicationAlreadyInstalled {
-	Exit-PSScript 3330
+    Exit-PSScript 3330
 }
 
-<#
-	.SYNOPSIS
-		Set error code that a reboot is requested.
-
-	.DESCRIPTION
-		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
-
-	.EXAMPLE
-		Exit_RebootRequested
-
-	.NOTES
-		Custom command.
-#>
-function Exit_RebootRequested {
-	Exit-PSScript 3010
-}
-
-<#
-	.SYNOPSIS
-		Set error code that there is missing disk space.
-
-	.DESCRIPTION
-		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
-
-	.EXAMPLE
-		Exit_MissingDiskSpace
-
-	.NOTES
-		Custom command.
-#>
-function Exit_MissingDiskSpace {
-	Exit-PSScript 3333
-}
-
-<#
-	.SYNOPSIS
-		Set error code that the command succeded.
-
-	.DESCRIPTION
-		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
-
-	.EXAMPLE
-		Exit_CommandSucceded
-
-	.NOTES
-		Custom command.
-
-#>
-function Exit_CommandSucceded {
-	Exit-PSScript 3300
-}
-
-<#
-	.SYNOPSIS
-		Set error code that the module was not found.
-
-	.DESCRIPTION
-		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
-
-	.EXAMPLE
-		Exit_ModuleNotFound
-
-	.NOTES
-		Custom command.
-#>
-function Exit_ModuleNotFound {
-	Exit-PSScript 3301
-}
-
-<#
-	.SYNOPSIS
-		Set error code that the command was not delivered.
-
-	.DESCRIPTION
-		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
-
-	.EXAMPLE
-		Exit_CommandNotDelivered
-
-	.NOTES
-		Custom command.
-#>
-function Exit_CommandNotDelivered {
-	Exit-PSScript 3302
-}
-
-<#
-	.SYNOPSIS
-		Set error code that the command is obsolete.
-
-	.DESCRIPTION
-		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
-
-	.EXAMPLE
-		Exit_CommandObsolete
-
-	.NOTES
-		Custom command.
-
-#>
-function Exit_CommandObsolete {
-	Exit-PSScript 3303
-}
-
-<#
-	.SYNOPSIS
-		Set error code that the command timed out.
-
-	.DESCRIPTION
-		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
-
-	.EXAMPLE
-		Exit_CommandTimedOut
-
-	.NOTES
-		Custom command.
-#>
-function Exit_CommandTimedOut {
-	Exit-PSScript 3304
-}
 
 <#
 	.SYNOPSIS
@@ -168,8 +32,9 @@ function Exit_CommandTimedOut {
 
 #>
 function Exit_CommandFailed {
-	Exit-PSScript 3305
+    Exit-PSScript 3305
 }
+
 
 <#
 	.SYNOPSIS
@@ -185,8 +50,27 @@ function Exit_CommandFailed {
 		Custom command.
 #>
 function Exit_CommandHandlingFailed {
-	Exit-PSScript 3306
+    Exit-PSScript 3306
 }
+
+
+<#
+	.SYNOPSIS
+		Set error code that the command was not delivered.
+
+	.DESCRIPTION
+		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+
+	.EXAMPLE
+		Exit_CommandNotDelivered
+
+	.NOTES
+		Custom command.
+#>
+function Exit_CommandNotDelivered {
+    Exit-PSScript 3302
+}
+
 
 <#
 	.SYNOPSIS
@@ -202,42 +86,101 @@ function Exit_CommandHandlingFailed {
 		Custom command.
 #>
 function Exit_CommandNotRecognized {
-	Exit-PSScript 3307
+    Exit-PSScript 3307
 }
+
 
 <#
 	.SYNOPSIS
-		Set error code that the PowerShell execution failed.
+		Set error code that the command is obsolete.
 
 	.DESCRIPTION
 		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_PowerShellExecutionFailed
+		Exit_CommandObsolete
 
 	.NOTES
 		Custom command.
+
 #>
-function Exit_PowerShellExecutionFailed {
-	Exit-PSScript 3311
+function Exit_CommandObsolete {
+    Exit-PSScript 3303
 }
+
 
 <#
 	.SYNOPSIS
-		Set error code that the package is not compliant.
+		Set error code that the command succeded.
 
 	.DESCRIPTION
 		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_PackageNotCompliant
+		Exit_CommandSucceded
+
+	.NOTES
+		Custom command.
+
+#>
+function Exit_CommandSucceded {
+    Exit-PSScript 3300
+}
+
+
+<#
+	.SYNOPSIS
+		Set error code that the command timed out.
+
+	.DESCRIPTION
+		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+
+	.EXAMPLE
+		Exit_CommandTimedOut
 
 	.NOTES
 		Custom command.
 #>
-function Exit_PackageNotCompliant {
-	Exit-PSScript 3327
+function Exit_CommandTimedOut {
+    Exit-PSScript 3304
 }
+
+
+<#
+	.SYNOPSIS
+		Set error code that there is missing disk space.
+
+	.DESCRIPTION
+		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+
+	.EXAMPLE
+		Exit_MissingDiskSpace
+
+	.NOTES
+		Custom command.
+#>
+function Exit_MissingDiskSpace {
+    Exit-PSScript 3333
+}
+
+
+<#
+	.SYNOPSIS
+		Set error code that the module was not found.
+
+	.DESCRIPTION
+		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+
+	.EXAMPLE
+		Exit_ModuleNotFound
+
+	.NOTES
+		Custom command.
+#>
+function Exit_ModuleNotFound {
+    Exit-PSScript 3301
+}
+
 
 <#
 	.SYNOPSIS
@@ -253,8 +196,9 @@ function Exit_PackageNotCompliant {
 		Custom command.
 #>
 function Exit_PackageCancelled {
-	Exit-PSScript 3328
+    Exit-PSScript 3328
 }
+
 
 <#
 	.SYNOPSIS
@@ -270,8 +214,9 @@ function Exit_PackageCancelled {
 		Custom command.
 #>
 function Exit_PackageFailedInstall {
-	Exit-PSScript 3329
+    Exit-PSScript 3329
 }
+
 
 <#
 	.SYNOPSIS
@@ -287,5 +232,79 @@ function Exit_PackageFailedInstall {
 		Custom command.
 #>
 function Exit_PackageFailedUninstall {
-	Exit-PSScript 3332
+    Exit-PSScript 3332
 }
+
+
+<#
+	.SYNOPSIS
+		Set error code that the package is not compliant.
+
+	.DESCRIPTION
+		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+
+	.EXAMPLE
+		Exit_PackageNotCompliant
+
+	.NOTES
+		Custom command.
+#>
+function Exit_PackageNotCompliant {
+    Exit-PSScript 3327
+}
+
+
+<#
+	.SYNOPSIS
+		Set error code that the PowerShell execution failed.
+
+	.DESCRIPTION
+		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+
+	.EXAMPLE
+		Exit_PowerShellExecutionFailed
+
+	.NOTES
+		Custom command.
+#>
+function Exit_PowerShellExecutionFailed {
+    Exit-PSScript 3311
+}
+
+
+<#
+	.SYNOPSIS
+		Set error code that a reboot is requested.
+
+	.DESCRIPTION
+		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+
+	.EXAMPLE
+		Exit_RebootRequested
+
+	.NOTES
+		Custom command.
+#>
+function Exit_RebootRequested {
+    Exit-PSScript 3010
+}
+
+
+<#
+	.SYNOPSIS
+		Set package retry later.
+
+	.DESCRIPTION
+		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package retry later.
+
+	.EXAMPLE
+		Exit_RetryLater
+
+	.NOTES
+		Custom command.
+#>
+function Exit_RetryLater {
+    Exit-PSScript 3326
+}
+
+

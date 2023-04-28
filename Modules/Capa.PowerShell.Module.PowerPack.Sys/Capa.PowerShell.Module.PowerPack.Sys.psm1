@@ -1,28 +1,3 @@
-﻿<#
-	.SYNOPSIS
-		Gets the free disk space of a drive.
-
-	.PARAMETER Drive
-		The drive to get the free disk space from, default is 'C:'.
-
-	.EXAMPLE
-		PS C:\> Sys_GetFreeDiskSpace
-
-	.EXAMPLE
-		PS C:\> Sys_GetFreeDiskSpace -Drive "D:"
-
-	.NOTES
-		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456057/cs.Sys+GetFreeDiskSpace
-#>
-function Sys_GetFreeDiskSpace {
-	param (
-		[string]$Drive = 'C:'
-	)
-
-	$Value = $Global:cs.Sys_GetFreeDiskSpace($Drive)
-
-	return $Value
-}
 
 <#
 	.SYNOPSIS
@@ -48,27 +23,33 @@ function Sys_ExistProcess {
 	return $Value
 }
 
+
 <#
 	.SYNOPSIS
-		Kills a process.
+		Gets the free disk space of a drive.
 
-	.PARAMETER ProcessName
-		The name of the process to kill.
+	.PARAMETER Drive
+		The drive to get the free disk space from, default is 'C:'.
 
 	.EXAMPLE
-		PS C:\> Sys_KillProcess -ProcessName "notepad.exe"
+		PS C:\> Sys_GetFreeDiskSpace
+
+	.EXAMPLE
+		PS C:\> Sys_GetFreeDiskSpace -Drive "D:"
 
 	.NOTES
-		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456091/cs.Sys+KillProcess
+		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456057/cs.Sys+GetFreeDiskSpace
 #>
-function Sys_KillProcess {
+function Sys_GetFreeDiskSpace {
 	param (
-		[Parameter(Mandatory = $true)]
-		[string]$ProcessName
+		[string]$Drive = 'C:'
 	)
 
-	$Global:cs.Sys_KillProcess($ProcessName)
+	$Value = $Global:cs.Sys_GetFreeDiskSpace($Drive)
+
+	return $Value
 }
+
 
 <#
 	.SYNOPSIS
@@ -100,6 +81,30 @@ function Sys_IsMinimumRequiredDiskspaceAvailable {
 
 	return $Value
 }
+
+
+<#
+	.SYNOPSIS
+		Kills a process.
+
+	.PARAMETER ProcessName
+		The name of the process to kill.
+
+	.EXAMPLE
+		PS C:\> Sys_KillProcess -ProcessName "notepad.exe"
+
+	.NOTES
+		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456091/cs.Sys+KillProcess
+#>
+function Sys_KillProcess {
+	param (
+		[Parameter(Mandatory = $true)]
+		[string]$ProcessName
+	)
+
+	$Global:cs.Sys_KillProcess($ProcessName)
+}
+
 
 <#
 	.SYNOPSIS
@@ -133,6 +138,7 @@ function Sys_WaitForProcess {
 	$Global:cs.Sys_WaitForProcess($ProcessName, $MaxWaitSec, $IntervalSec)
 }
 
+
 <#
 	.SYNOPSIS
 		Waits for a process to exist.
@@ -164,3 +170,5 @@ function Sys_WaitForProcessToExist {
 
 	$Global:cs.Sys_WaitForProcessToExist($ProcessName, $MaxWaitSec, $IntervalSec)
 }
+
+

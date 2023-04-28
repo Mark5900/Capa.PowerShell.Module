@@ -1,4 +1,86 @@
-﻿<#
+
+<#
+	.SYNOPSIS
+		A function to convert Capa data types.
+	
+	.DESCRIPTION
+		A function to convert Capa data types to a more readable format.
+	
+	.PARAMETER Datatype
+		The data type to convert.
+	
+	.EXAMPLE
+		PS C:\> Convert-CapaDataType -Datatype 1
+	
+	.NOTES
+		A custom function to convert Capa data types to a more readable format.
+#>
+function Convert-CapaDataType {
+	param
+	(
+		$Datatype
+	)
+	
+	switch ($DataType) {
+		1 { $Datatype = 'String' }
+		2 { $Datatype = 'Time' }
+		3 { $Datatype = 'Integer' }
+		'I' { $Datatype = 'Integer' }
+		'T' { $Datatype = 'Time' }
+		'S' { $Datatype = 'String' }
+		'N' { $Datatype = 'Text' }
+		Default { $Datatype = $Datatype }
+	}
+	
+	return $Datatype
+}
+
+
+<#
+	.SYNOPSIS
+		Get custom inventory categories and entries.
+	
+	.DESCRIPTION
+		Get custom inventory categories and entries.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaCustomInventoryCategoriesAndEntries -CapaSDK $CapaSDK
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246428/GetCustomInventoryCategoriesAndEntries
+#>
+function Get-CapaCustomInventoryCategoriesAndEntries {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetCustomInventoryCategoriesAndEntrie($UserName)
+	
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split(';')
+		
+		$Datatype = Convert-CapaDataType -Datatype $aItem [2]
+		
+		$oaUnits += [pscustomobject]@{
+			Category = $aItem[0];
+			Entry    = $aItem[1];
+			Datatype = $Datatype
+		}
+	}
+	
+	Return $oaUnits
+}
+
+
+<#
 	.SYNOPSIS
 		Get the custom inventory for a unit.
 	
@@ -67,6 +149,7 @@ function Get-CapaCustomInventoryForUnit {
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		Get the hardware inventory for a unit.
@@ -130,6 +213,7 @@ function Get-CapaHardwareInventoryForUnit {
 	
 	Return $oaUnits
 }
+
 
 <#
 	.SYNOPSIS
@@ -195,6 +279,7 @@ function Get-CapaLogonHistoryForUnit {
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		Get metering groups.
@@ -239,6 +324,7 @@ function Get-CapaMeteringGroups {
 	
 	Return $oaUnits
 }
+
 
 <#
 	.SYNOPSIS
@@ -319,6 +405,7 @@ function Get-CapaSoftwareInventoryForUnit {
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		Get update inventory for a unit.
@@ -374,6 +461,7 @@ function Get-CapaUpdateInventoryForUnit {
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		Get software inventory for a user.
@@ -422,48 +510,6 @@ function Get-CapaUserInventory {
 	Return $oaUnits
 }
 
-<#
-	.SYNOPSIS
-		Get custom inventory categories and entries.
-	
-	.DESCRIPTION
-		Get custom inventory categories and entries.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.EXAMPLE
-				PS C:\> Get-CapaCustomInventoryCategoriesAndEntries -CapaSDK $CapaSDK
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246428/GetCustomInventoryCategoriesAndEntries
-#>
-function Get-CapaCustomInventoryCategoriesAndEntries {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK
-	)
-	
-	$oaUnits = @()
-	
-	$aUnits = $CapaSDK.GetCustomInventoryCategoriesAndEntrie($UserName)
-	
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		
-		$Datatype = Convert-CapaDataType -Datatype $aItem [2]
-		
-		$oaUnits += [pscustomobject]@{
-			Category = $aItem[0];
-			Entry    = $aItem[1];
-			Datatype = $Datatype
-		}
-	}
-	
-	Return $oaUnits
-}
 
 <#
 	.SYNOPSIS
@@ -563,6 +609,7 @@ function Set-CapaCustomInventory {
 	
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -664,38 +711,4 @@ function Set-CapaHardwareInventory {
 	return $value
 }
 
-<#
-	.SYNOPSIS
-		A function to convert Capa data types.
-	
-	.DESCRIPTION
-		A function to convert Capa data types to a more readable format.
-	
-	.PARAMETER Datatype
-		The data type to convert.
-	
-	.EXAMPLE
-		PS C:\> Convert-CapaDataType -Datatype 1
-	
-	.NOTES
-		A custom function to convert Capa data types to a more readable format.
-#>
-function Convert-CapaDataType {
-	param
-	(
-		$Datatype
-	)
-	
-	switch ($DataType) {
-		1 { $Datatype = 'String' }
-		2 { $Datatype = 'Time' }
-		3 { $Datatype = 'Integer' }
-		'I' { $Datatype = 'Integer' }
-		'T' { $Datatype = 'Time' }
-		'S' { $Datatype = 'String' }
-		'N' { $Datatype = 'Text' }
-		Default { $Datatype = $Datatype }
-	}
-	
-	return $Datatype
-}
+

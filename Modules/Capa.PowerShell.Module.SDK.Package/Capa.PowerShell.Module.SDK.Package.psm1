@@ -1,4 +1,5 @@
-﻿<#
+
+<#
 	.SYNOPSIS
 		Adds a package to a business unit.
 	
@@ -55,6 +56,7 @@ function Add-CapaPackageToBusinessUnit {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Adds a package to a group.
@@ -108,6 +110,7 @@ function Add-CapaPackageToGroup {
 	$bool = $CapaSDK.AddPackageToGroup($PackageName, $PackageVersion, $PackageType, $GroupName, $GroupType)
 	Return $bool
 }
+
 
 <#
 	.SYNOPSIS
@@ -165,6 +168,7 @@ function Add-CapaPackageToManagementServer {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Clone a package in Root Point.
@@ -213,6 +217,8 @@ function Clone-CapaPackage {
 	$value = $CapaSDK.ClonePackage($PackageName, $PackageVersion, $PackageType, $NewVersion)
 	return $value
 }
+
+
 
 <#
 	.SYNOPSIS
@@ -274,6 +280,7 @@ function Copy-CapaPackage {
 	$value = $CapaSDK.CopyPackage($PackageName, $PackageVersion, $PackageType, $NewName, $NewVersion)
 	return $value
 }
+
 
 <#
 	.SYNOPSIS
@@ -478,6 +485,7 @@ function Copy-CapaPackageRelation {
 	Return $FuctionSuccessful
 }
 
+
 <#
 	.SYNOPSIS
 		Create a package in the CapaInstaller.
@@ -527,6 +535,7 @@ function Create-CapaPackage {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Disable a packages schedule. 
@@ -569,6 +578,7 @@ function Disable-CapaPackageSchedule {
 	$bool = $CapaSDK.DisablePackageSchedule($PackageName, $PackageVersion, $PackageType)
 	Return $bool
 }
+
 
 <#
 	.SYNOPSIS
@@ -621,6 +631,7 @@ function Enable-CapaPackageSchedule {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Verifies if a package exists.
@@ -672,6 +683,7 @@ function Exist-CapaPackage {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Export a package.
@@ -719,6 +731,64 @@ function Export-CapaPackage {
 	$bool = $CapaSDK.ExportPackage($PackageName, $PackageVersion, $PackageType, $ToFolder)
 	Return $bool
 }
+
+
+<#
+	.SYNOPSIS
+		Gets all inventory packages.
+	
+	.DESCRIPTION
+		Gets all inventory packages.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER PackageType
+		The type of the package, either Computer or User.
+	
+	.EXAMPLE
+				PS C:\> Get-CapaAllInventoryPackages -CapaSDK $CapaSDK -PackageType 'Computer'
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246890/Get+all+inventory+packages
+#>
+function Get-CapaAllInventoryPackages {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[string]$PackageType = ''
+	)
+	
+	$oaUnits = @()
+	
+	$aUnits = $CapaSDK.GetAllInventoryPackages($PackageType)
+	
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			Name               = $aItem[0];
+			Version            = $aItem[1];
+			Type               = $aItem[2];
+			DisplayName        = $aItem[3];
+			IsMandatory        = $aItem[4];
+			ScheduleId         = $aItem[5];
+			Description        = $aItem[6];
+			GUID               = $aItem[7];
+			ID                 = $aItem[8];
+			IsInteractive      = $aItem[9];
+			DependendPackageID = $aItem[10];
+			IsInventoryPackage = $aItem[11];
+			CollectMode        = $aItem[12];
+			Priority           = $aItem[13];
+			ServerDeploy       = $aItem[14]
+		}
+	}
+	
+	Return $oaUnits
+}
+
 
 <#
 	.SYNOPSIS
@@ -771,6 +841,7 @@ function Get-CapaPackageDescription {
 	return $value
 }
 
+
 <#
 	.SYNOPSIS
 		Get the folder structure of a package.
@@ -813,6 +884,7 @@ function Get-CapaPackageFolder {
 	$aUnits = $CapaSDK.GetPackageFolder($PackageName, $PackageVersion, $PackageType)
 	Return $aUnits
 }
+
 
 <#
 	.SYNOPSIS
@@ -870,6 +942,7 @@ function Get-CapaPackageGroups {
 	
 	Return $oaUnits
 }
+
 
 <#
 	.SYNOPSIS
@@ -940,6 +1013,7 @@ function Get-CapaPackages {
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		Get a list of packages on a management server.
@@ -1003,6 +1077,7 @@ function Get-CapaPackagesOnManagementServer {
 	Return $oaUnits
 }
 
+
 <#
 	.SYNOPSIS
 		Gets a list of packages and their status on a unit.
@@ -1055,6 +1130,7 @@ function Get-CapaPackageStatus {
 	
 	Return $oaUnits
 }
+
 
 <#
 	.SYNOPSIS
@@ -1115,637 +1191,6 @@ function Get-CapaPackageUnits {
 	Return $oaUnits
 }
 
-<#
-	.SYNOPSIS
-		Imports a package into CapaInstaller.
-	
-	.DESCRIPTION
-		Imports a package into CapaInstaller.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER FilePath
-		Specifies the path to the zip file containing the package.
-	
-	.PARAMETER OverrideCIPCdata
-		If the zip file contains metadata used by the Package Creator, setting this to true will override these metadata if any already exists in the CMS database.
-	
-	.PARAMETER ImportFolderStructure
-		Determines wether or not the folder structure will be imported from the exported package.
-		If this is true, the package will be placed in the folder it was located in, when it was exported. Any folders in that structure that doesn't already exist, will be created in CMS.
-	
-	.PARAMETER ImportSchedule
-		Determines wether or not the schedule will be imported from the package.
-	
-	.PARAMETER ChangelogComment
-		An optional comment to add to the changelog.
-	
-	.EXAMPLE
-				PS C:\> Import-CapaPackage -CapaSDK $value1 -FilePath 'C:\Temp\Package.zip' -OverrideCIPCdata $true -ImportFolderStructure $true -ImportSchedule $true
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246984/Import+package
-#>
-function Import-CapaPackage {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[String]$FilePath,
-		[Parameter(Mandatory = $true)]
-		[bool]$OverrideCIPCdata,
-		[Parameter(Mandatory = $true)]
-		[bool]$ImportFolderStructure,
-		[Parameter(Mandatory = $true)]
-		[bool]$ImportSchedule,
-		[String]$ChangelogComment = ''
-	)
-	
-	$value = $CapaSDK.ImportPackage($FilePath, $OverrideCIPCdata, $ImportFolderStructure, $ImportSchedule, $ChangelogComment)
-	return $value
-}
-
-<#
-	.SYNOPSIS
-		Initializes a package promotion.
-	
-	.DESCRIPTION
-		Initialize a package promotion.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER PackageType
-		The type of package, can be either Computer or User.
-	
-	.PARAMETER PackageName
-		The name of the package.
-	
-	.PARAMETER PackageVersion
-		The version of the package.
-	
-	.EXAMPLE
-				PS C:\> Initialize-CapaPackagePromote -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50'
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246992/Promote+Package
-#>
-function Initialize-CapaPackagePromote {
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
-		[string]$PackageType,
-		[Parameter(Mandatory = $true)]
-		[string]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[string]$PackageVersion
-	)
-	
-	$bool = $CapaSDK.PackagePromote($PackageName, $PackageVersion, $PackageType)
-	Return $bool
-}
-
-<#
-	.SYNOPSIS
-		Removes a package.
-	
-	.DESCRIPTION
-		Delete a package, if business units are specified, the package will only be removed from that business unit.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER PackageType
-		The type of package, can be either Computer or User.
-	
-	.PARAMETER PackageName
-		The name of the package.
-	
-	.PARAMETER PackageVersion
-		The version of the package.
-	
-	.PARAMETER Force
-		Force deletion of the package regardless of any linked units, groups, or business units.
-	
-	.EXAMPLE
-				PS C:\> Remove-CapaPackage -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50' -Force $true
-
-	.EXAMPLE
-				PS C:\> Remove-CapaPackage -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50' -Force $true -BusinessUnitName 'MyBusinessUnit'
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246831/Delete+Package
-		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247000/Remove+Package+From+BusinessUnit
-#>
-function Remove-CapaPackage {
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageVersion,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
-		[String]$PackageType,
-		[String]$BusinessUnitName = '',
-		[ValidateSet('True', 'False')]
-		[string]$Force = 'True'
-		
-	)
-	if ($BusinessUnitName -eq '') {
-		$value = $CapaSDK.DeletePackage($PackageName, $PackageVersion, $PackageType, $Force)
-	} else {
-		$value = $CapaSDK.RemovePackageFromBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
-	}
-	
-	Return $value
-}
-
-<#
-	.SYNOPSIS
-		Removes a package from a group.
-	
-	.DESCRIPTION
-		Removes a package from a group.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER PackageName
-		The name of the package to remove from the group.
-	
-	.PARAMETER PackageVersion
-		The version of the package to remove from the group.
-	
-	.PARAMETER PackageType
-		The type of package to remove from the group.
-	
-	.PARAMETER GroupName
-		The name of the group to remove the package from.
-	
-	.PARAMETER GroupType
-		The type of group to remove the package from.
-	
-	.EXAMPLE
-				PS C:\> Remove-CapaPackageFromGroup -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -GroupName 'MyGroup' -GroupType 'Static'
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247008/Remove+package+from+group
-#>
-function Remove-CapaPackageFromGroup {
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[string]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[string]$PackageVersion,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
-		[string]$PackageType,
-		[Parameter(Mandatory = $true)]
-		[string]$GroupName,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
-		[string]$GroupType
-	)
-	
-	$bool = $CapaSDK.RemovePackageFromGroup($PackageName, $PackageVersion, $PackageType, $GroupName, $GroupType)
-	Return $bool
-}
-
-<#
-	.SYNOPSIS
-		Removes a package from a management server.
-	
-	.DESCRIPTION
-		Removes a package from a management server.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER PackageName
-		The name of the package to remove from the management server.
-	
-	.PARAMETER PackageVersion
-		The version of the package to remove from the management server.
-	
-	.PARAMETER PackageType
-		The type of package to remove from the management server.
-	
-	.PARAMETER ServerName
-		The name of the management server to remove the package from.
-	
-	.EXAMPLE
-				PS C:\> Remove-CapaPackageFromManagementServer -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -ServerName 'MyServer'
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247016/Remove+package+from+management+server
-#>
-function Remove-CapaPackageFromManagementServer {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageVersion,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('1', '2', 'Computer', 'User')]
-		[String]$PackageType,
-		[Parameter(Mandatory = $true)]
-		[String]$ServerName
-	)
-	
-	if ($PackageType -eq 'Computer') {
-		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
-		$PackageType = '2'
-	}
-	
-	$value = $CapaSDK.RemovePackageFromManagementServer($PackageName, $PackageVersion, $PackageType, $ServerName)
-	return $value
-}
-
-<#
-	.SYNOPSIS
-		Set the description of a package.
-	
-	.DESCRIPTION
-		Set the description of a package.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER PackageName
-		The name of the package to set the description of.
-	
-	.PARAMETER PackageVersion
-		The version of the package to set the description of.
-	
-	.PARAMETER PackageType
-		The type of package to set the description of.
-	
-	.PARAMETER Description
-		The description to set.
-	
-	.EXAMPLE
-				PS C:\> Set-CapaPackageDescription -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -Description 'This is a description'
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247024/Set+Package+Description
-#>
-function Set-CapaPackageDescription {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageVersion,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('1', '2', 'Computer', 'User')]
-		[String]$PackageType,
-		[Parameter(Mandatory = $true)]
-		[String]$Description = ''
-	)
-	
-	if ($PackageType -eq 'Computer') {
-		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
-		$PackageType = '2'
-	}
-	
-	$value = $CapaSDK.SetPackageDescription($PackageName, $PackageVersion, $PackageType, $Description)
-	return $value
-}
-
-<#
-	.SYNOPSIS
-		Set the folder structure of a package.
-	
-	.DESCRIPTION
-		Set the folder structure of a package.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER PackageType
-		The type of package to set the folder structure of, either Computer or User.
-	
-	.PARAMETER PackageName
-		The name of the package to set the folder structure of.
-	
-	.PARAMETER PackageVersion
-		The version of the package to set the folder structure of.
-	
-	.PARAMETER FolderStructure
-		The folder structure to set, for example 'Folder1\Folder2'.
-	
-	.PARAMETER ChangelogText
-		An optional changelog text to set.
-	
-	.EXAMPLE
-				PS C:\> Set-CapaPackageFolder -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50' -FolderStructure 'Folder1\Folder2' -ChangelogText 'This is a changelog'
-
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247032/Set+Package+Folder
-#>
-function Set-CapaPackageFolder {
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
-		[string]$PackageType,
-		[Parameter(Mandatory = $true)]
-		[string]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[string]$PackageVersion,
-		[Parameter(Mandatory = $true)]
-		[string]$FolderStructure,
-		[string]$ChangelogText
-	)
-	
-	$bool = $CapaSDK.SetPackageFolder($PackageName, $PackageVersion, $PackageType, $FolderStructure, $ChangelogText)
-	
-	Return $bool
-}
-
-<#
-	.SYNOPSIS
-		Sets an package property.
-	
-	.DESCRIPTION
-		Sets an package property.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER PackageName
-		The name of the package.
-	
-	.PARAMETER PackageVersion
-		The version of the package.
-	
-	.PARAMETER PackageType
-		The type of the package.
-	
-	.PARAMETER Priority
-		The priority of the package, default is 500.
-	
-	.EXAMPLE
-				PS C:\> Set-CapaPackagePriority -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -Priority 500
-
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247040/Set+Package+Property
-#>
-function Set-CapaPackagePriority {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageVersion,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('1', '2', 'Computer', 'User')]
-		[String]$PackageType,
-		[Integer]$Priority = 500
-	)
-	
-	if ($PackageType -eq 'Computer') {
-		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
-		$PackageType = '2'
-	}
-	
-	$value = $CapaSDK.SetPackagePriority($PackageName, $PackageVersion, $PackageType, $Priority)
-	return $value
-}
-
-<#
-	.SYNOPSIS
-		Sets the schedule of a package.
-	
-	.DESCRIPTION
-		Sets the schedule of a package.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER PackageName
-		The name of the package.
-	
-	.PARAMETER PackageVersion
-		The version of the package.
-	
-	.PARAMETER PackageType
-		The type of the package, either Computer or User.
-	
-	.PARAMETER ScheduleStart
-		The start date of the schedule, for example '2015-05-15 12:00'.
-	
-	.PARAMETER ScheduleEnd
-		The Schedule start date in the format  "yyyy-MM-dd HH:mm" eg. "2015-04-15 12:05". If no end date is wanted, leave empty.
-	
-	.PARAMETER ScheduleIntervalBegin
-		The Schedule Interval begins time in the format  HH:mm" eg. "06:00". If left empty it is set to 00:00.
-	
-	.PARAMETER ScheduleIntervalEnd
-		The Schedule Interval end time in the format  HH:mm" eg. "12:00". If left empty it is set to 00:00.
-	
-	.PARAMETER ScheduleRecurrence
-		The Schedule Recurrence for the schedule, either Once, PeriodicalDaily, PeriodicalWeekly or Always.
-	
-	.PARAMETER ScheduleRecurrencePattern
-		Is used to further detail the Schedule Recurrence when set to PeriodicalDaily or PeriodicalWeekly
-			Possible values:
-			ScheduleRecurrence = "PeriodicalDaily"
-				ScheduleRecurrencePattern  = "RecurEveryWeekDay" sets the recurrence pattern to run every weekday
-				ScheduleRecurrencePattern  = "" Sets the recurrence pattern to recur every day including weekend days.
-			
-			ScheduleRecurrence = "PeriodicalWeekly"
-				ScheduleRecurrencePattern   = "1,3,5" Will set the schedule pattern to run Monday, Wednesday and Friday. All weekdays can be combined with a comma (,) (1,2,3,4,5,6,7)
-					Monday = 1
-					Tuesday = 2
-					Wednesday = 3
-					Thursday = 4
-					Friday = 5
-					Saturday = 6
-					Sunday = 7
-				ScheduleRecurrencePattern   = "" Will set the schedule recurrence pattern to run every weekday 
-	
-	.EXAMPLE
-				PS C:\> Set-CapaPackageSchedule @(
-					CapaSDK = $CapaSDK
-					PackageName = 'Winrar'
-					PackageVersion = '5.50'
-					PackageType = 'Computer'
-					ScheduleStart = '2015-05-15 12:00'
-					ScheduleEnd = '2015-05-15 12:00'
-					ScheduleIntervalBegin = '06:00'
-					ScheduleIntervalEnd = '12:00'
-					ScheduleRecurrence = 'PeriodicalDaily'
-					ScheduleRecurrencePattern = 'RecurEveryWeekDay'
-				)
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247048/Set+Package+Schedule
-#>
-function Set-CapaPackageSchedule {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageVersion,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
-		[String]$PackageType,
-		[Parameter(Mandatory = $true)]
-		[String]$ScheduleStart,
-		[Parameter(Mandatory = $true)]
-		[String]$ScheduleEnd,
-		[Parameter(Mandatory = $true)]
-		[String]$ScheduleIntervalBegin,
-		[Parameter(Mandatory = $true)]
-		[String]$ScheduleIntervalEnd,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Once', 'PeriodicalDaily', 'PeriodicalWeekly', 'Always')]
-		[String]$ScheduleRecurrence,
-		[String]$ScheduleRecurrencePattern = ''
-	)
-	
-	$value = $CapaSDK.SetPackageSchedule($PackageName, $PackageVersion, $PackageType, $ScheduleStart, $ScheduleEnd, $ScheduleIntervalBegin, $ScheduleIntervalEnd, $ScheduleRecurrence, $ScheduleRecurrencePattern)
-	return $value
-}
-
-<#
-	.SYNOPSIS
-		Performs a update now on a package.
-	
-	.DESCRIPTION
-		Performs the Update now procedure on a package. This will create a SyncJob to the CiSync service residing on the Point-server with the 'AutoJob' bit set which 
-		will (after completion) in turn create 'auto-syncjobs' to child servers as well as BaseAgent-DistributionServers when/if the package is assigned or the child 
-		servers are 'replica' servers.
-
-		This function is equivalent to the CM-plugin right-click action on a package.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER PackageName
-		The name of the package.
-	
-	.PARAMETER PackageVersion
-		The version of the package.
-	
-	.PARAMETER PackageType
-		The type of the package, either Computer or User.
-	
-	.EXAMPLE
-				PS C:\> Update-CapaPackageNow -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer'
-
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247056/Update+Now+on+Package
-#>
-function Update-CapaPackageNow {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[String]$PackageVersion,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
-		[String]$PackageType
-	)
-	
-	$value = $CapaSDK.PackageUpdateNow($PackageName, $PackageVersion, $PackageType)
-	return $value
-}
-
-<#
-	.SYNOPSIS
-		Gets all inventory packages.
-	
-	.DESCRIPTION
-		Gets all inventory packages.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER PackageType
-		The type of the package, either Computer or User.
-	
-	.EXAMPLE
-				PS C:\> Get-CapaAllInventoryPackages -CapaSDK $CapaSDK -PackageType 'Computer'
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246890/Get+all+inventory+packages
-#>
-function Get-CapaAllInventoryPackages {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[string]$PackageType = ''
-	)
-	
-	$oaUnits = @()
-	
-	$aUnits = $CapaSDK.GetAllInventoryPackages($PackageType)
-	
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
-			Name               = $aItem[0];
-			Version            = $aItem[1];
-			Type               = $aItem[2];
-			DisplayName        = $aItem[3];
-			IsMandatory        = $aItem[4];
-			ScheduleId         = $aItem[5];
-			Description        = $aItem[6];
-			GUID               = $aItem[7];
-			ID                 = $aItem[8];
-			IsInteractive      = $aItem[9];
-			DependendPackageID = $aItem[10];
-			IsInventoryPackage = $aItem[11];
-			CollectMode        = $aItem[12];
-			Priority           = $aItem[13];
-			ServerDeploy       = $aItem[14]
-		}
-	}
-	
-	Return $oaUnits
-}
 
 <#
 	.SYNOPSIS
@@ -1802,6 +1247,251 @@ function Get-CapatAllNoneInventoryPackages {
 	
 	Return $oaUnits
 }
+
+
+<#
+	.SYNOPSIS
+		Imports a package into CapaInstaller.
+	
+	.DESCRIPTION
+		Imports a package into CapaInstaller.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER FilePath
+		Specifies the path to the zip file containing the package.
+	
+	.PARAMETER OverrideCIPCdata
+		If the zip file contains metadata used by the Package Creator, setting this to true will override these metadata if any already exists in the CMS database.
+	
+	.PARAMETER ImportFolderStructure
+		Determines wether or not the folder structure will be imported from the exported package.
+		If this is true, the package will be placed in the folder it was located in, when it was exported. Any folders in that structure that doesn't already exist, will be created in CMS.
+	
+	.PARAMETER ImportSchedule
+		Determines wether or not the schedule will be imported from the package.
+	
+	.PARAMETER ChangelogComment
+		An optional comment to add to the changelog.
+	
+	.EXAMPLE
+				PS C:\> Import-CapaPackage -CapaSDK $value1 -FilePath 'C:\Temp\Package.zip' -OverrideCIPCdata $true -ImportFolderStructure $true -ImportSchedule $true
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246984/Import+package
+#>
+function Import-CapaPackage {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$FilePath,
+		[Parameter(Mandatory = $true)]
+		[bool]$OverrideCIPCdata,
+		[Parameter(Mandatory = $true)]
+		[bool]$ImportFolderStructure,
+		[Parameter(Mandatory = $true)]
+		[bool]$ImportSchedule,
+		[String]$ChangelogComment = ''
+	)
+	
+	$value = $CapaSDK.ImportPackage($FilePath, $OverrideCIPCdata, $ImportFolderStructure, $ImportSchedule, $ChangelogComment)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		Initializes a package promotion.
+	
+	.DESCRIPTION
+		Initialize a package promotion.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER PackageType
+		The type of package, can be either Computer or User.
+	
+	.PARAMETER PackageName
+		The name of the package.
+	
+	.PARAMETER PackageVersion
+		The version of the package.
+	
+	.EXAMPLE
+				PS C:\> Initialize-CapaPackagePromote -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50'
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246992/Promote+Package
+#>
+function Initialize-CapaPackagePromote {
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageVersion
+	)
+	
+	$bool = $CapaSDK.PackagePromote($PackageName, $PackageVersion, $PackageType)
+	Return $bool
+}
+
+
+<#
+    .SYNOPSIS
+        Create a new Capa package with Git
+    
+    .DESCRIPTION
+        Creates a local folder structure you can use with Git to manage your deployment of Capa packages.
+        The folder structure is based on the Capa package structure.
+
+    .PARAMETER PackageName
+        The name of the package
+
+    .PARAMETER PackageVersion
+        The version of the package
+
+    .PARAMETER PackageType
+        The type of the package. Valid values are VBScript and PowerPack
+
+    .PARAMETER BasePath
+        The base path where the package folder will be created
+
+    .PARAMETER CapaServer
+        The name of the Capa server
+
+    .PARAMETER Database
+        The name of the Capa database
+
+    .PARAMETER DefaultManagementPoint
+        The default management point in Capa it should be set to the id of the development management point.
+
+    .EXAMPLE
+        New-CapaPackageWithGit -PackageName 'Test' -PackageVersion 'v1.0' -PackageType 'VBScript' -BasePath 'D:\PowerShell'
+
+    .EXAMPLE
+        New-CapaPackageWithGit -PackageName 'Test2' -PackageVersion 'v1.0' -PackageType 'PowerPack' -BasePath 'D:\PowerShell' -CapaServer $CapaServer -Database $Database -DefaultManagementPoint $DefaultManagementPointDev
+
+    .NOTES
+        This is a custom function for Capa. It is not part of the Capa SDK.
+#>
+function New-CapaPackageWithGit {
+	param (
+		[Parameter(Mandatory = $true)]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('VBScript', 'PowerPack')]
+		[string]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[string]$BasePath,
+		$CapaServer,
+		$SQLServer,
+		$Database,
+		$DefaultManagementPoint,
+		$PackageBasePath
+	)
+	try {
+		# Parameters
+		$GitIgnoreFile = Join-Path $PSScriptRoot 'Dependencies\.gitignore'
+		$UpdatePackageScript = Join-Path $PSScriptRoot 'Dependencies\UpdatePackage.ps1'
+
+		if ($PackageType -eq 'VBScript') {
+			$Prefix = 'VB'
+			$TempInstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.cis'
+			$TempUninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.cis'
+		} ElseIf ($PackageType -eq 'PowerPack') {
+			$Prefix = 'PP'
+			$TempInstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.ps1'
+			$TempUninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.ps1'
+		}
+
+		$PackagePath = Join-Path $BasePath "Capa_$($Prefix)_$PackageName"
+		$VersionPath = Join-Path $PackagePath $PackageVersion
+		$ScriptPath = Join-Path $VersionPath 'Scripts'
+
+		# Create folder
+		New-Item -Path $ScriptPath -ItemType Directory -Force | Out-Null
+
+		# Copy files
+		Copy-Item -Path $GitIgnoreFile -Destination $PackagePath -Force | Out-Null
+
+		# Copy UpdatePackage.ps1
+		if ((Test-Path "$PackagePath\UpdatePackage.ps1") -eq $false) {
+			$UpdatePackageScriptPath = Join-Path $PackagePath 'UpdatePackage.ps1'
+
+			Copy-Item -Path $UpdatePackageScript -Destination $PackagePath -Force | Out-Null
+
+			# Replace in UpdatePackage.ps1
+			if ($null -ne $CapaServer) {
+				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$CapaServer = ' + "''", '$CapaServer = ' + "'$CapaServer'")
+				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+			}
+			if ($null -ne $SQLServer) {
+				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$SQLServer = ' + "''", '$SQLServer = ' + "'$SQLServer'")
+				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+			}
+			if ($null -ne $Database) {
+				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$Database = ' + "''", '$Database = ' + "'$Database'")
+				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+			}
+			if ($null -ne $DefaultManagementPoint) {
+				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$DefaultManagementPointDev = ' + "''", '$DefaultManagementPointDev = ' + "'$DefaultManagementPoint'")
+				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+			}
+			if ($null -ne $PackageBasePath) {
+				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$PackageBasePath = ' + "''", '$PackageBasePath = ' + "'$PackageBasePath'")
+				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+			}
+		}
+
+		# Create scripts
+		if ($PackageType -eq 'VBScript') {
+			$InstallScriptDestination = Join-Path $ScriptPath "$PackageName.cis"
+			$UninstallScriptDestination = Join-Path $ScriptPath "$($PackageName)_Uninstall.cis"
+
+			$InstallContent = Get-Content $TempInstallScript
+			$InstallContent = $InstallContent.Replace('PACKAGENAME', $PackageName)
+			$InstallContent = $InstallContent.Replace('PACKAGEVERSION', $PackageVersion)
+			$InstallContent = $InstallContent.Replace('CREATEDBY', $env:username)
+			$InstallContent = $InstallContent.Replace('TIME', (Get-Date -Format 'dd-MM-yyyy HH:mm:ss'))
+			New-Item -Path $InstallScriptDestination -ItemType File -Force | Out-Null
+			$InstallContent | Out-File -FilePath $InstallScriptDestination -Force
+
+			$UninstallContent = Get-Content $TempUninstallScript
+			$UninstallContent = $UninstallContent.Replace('PACKAGENAME', $PackageName)
+			$UninstallContent = $UninstallContent.Replace('PACKAGEVERSION', $PackageVersion)
+			$UninstallContent = $UninstallContent.Replace('CREATEDBY', $env:username)
+			$UninstallContent = $UninstallContent.Replace('TIME', (Get-Date -Format 'dd-MM-yyyy HH:mm:ss'))
+			New-Item -Path $UninstallScriptDestination -ItemType File -Force | Out-Null
+			$UninstallContent | Out-File -FilePath $UninstallScriptDestination -Force
+		} else {
+			Copy-Item -Path $TempInstallScript -Destination $ScriptPath -Force | Out-Null
+			Copy-Item -Path $TempUninstallScript -Destination $ScriptPath -Force | Out-Null
+		}
+	} catch {
+
+		$PSCmdlet.ThrowTerminatingError($PSitem)
+		return -1
+	}
+}
+
 
 <#
     .SYNOPSIS
@@ -1942,6 +1632,495 @@ function New-CapaPowerPack {
 		return -1
 	}
 }
+
+
+<#
+	.SYNOPSIS
+		Removes a package.
+	
+	.DESCRIPTION
+		Delete a package, if business units are specified, the package will only be removed from that business unit.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER PackageType
+		The type of package, can be either Computer or User.
+	
+	.PARAMETER PackageName
+		The name of the package.
+	
+	.PARAMETER PackageVersion
+		The version of the package.
+	
+	.PARAMETER Force
+		Force deletion of the package regardless of any linked units, groups, or business units.
+	
+	.EXAMPLE
+				PS C:\> Remove-CapaPackage -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50' -Force $true
+
+	.EXAMPLE
+				PS C:\> Remove-CapaPackage -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50' -Force $true -BusinessUnitName 'MyBusinessUnit'
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246831/Delete+Package
+		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247000/Remove+Package+From+BusinessUnit
+#>
+function Remove-CapaPackage {
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[String]$PackageType,
+		[String]$BusinessUnitName = '',
+		[ValidateSet('True', 'False')]
+		[string]$Force = 'True'
+		
+	)
+	if ($BusinessUnitName -eq '') {
+		$value = $CapaSDK.DeletePackage($PackageName, $PackageVersion, $PackageType, $Force)
+	} else {
+		$value = $CapaSDK.RemovePackageFromBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
+	}
+	
+	Return $value
+}
+
+
+<#
+	.SYNOPSIS
+		Removes a package from a group.
+	
+	.DESCRIPTION
+		Removes a package from a group.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER PackageName
+		The name of the package to remove from the group.
+	
+	.PARAMETER PackageVersion
+		The version of the package to remove from the group.
+	
+	.PARAMETER PackageType
+		The type of package to remove from the group.
+	
+	.PARAMETER GroupName
+		The name of the group to remove the package from.
+	
+	.PARAMETER GroupType
+		The type of group to remove the package from.
+	
+	.EXAMPLE
+				PS C:\> Remove-CapaPackageFromGroup -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -GroupName 'MyGroup' -GroupType 'Static'
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247008/Remove+package+from+group
+#>
+function Remove-CapaPackageFromGroup {
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[string]$GroupName,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
+		[string]$GroupType
+	)
+	
+	$bool = $CapaSDK.RemovePackageFromGroup($PackageName, $PackageVersion, $PackageType, $GroupName, $GroupType)
+	Return $bool
+}
+
+
+<#
+	.SYNOPSIS
+		Removes a package from a management server.
+	
+	.DESCRIPTION
+		Removes a package from a management server.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER PackageName
+		The name of the package to remove from the management server.
+	
+	.PARAMETER PackageVersion
+		The version of the package to remove from the management server.
+	
+	.PARAMETER PackageType
+		The type of package to remove from the management server.
+	
+	.PARAMETER ServerName
+		The name of the management server to remove the package from.
+	
+	.EXAMPLE
+				PS C:\> Remove-CapaPackageFromManagementServer -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -ServerName 'MyServer'
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247016/Remove+package+from+management+server
+#>
+function Remove-CapaPackageFromManagementServer {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[String]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[String]$ServerName
+	)
+	
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
+	}
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
+	}
+	
+	$value = $CapaSDK.RemovePackageFromManagementServer($PackageName, $PackageVersion, $PackageType, $ServerName)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		Set the description of a package.
+	
+	.DESCRIPTION
+		Set the description of a package.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER PackageName
+		The name of the package to set the description of.
+	
+	.PARAMETER PackageVersion
+		The version of the package to set the description of.
+	
+	.PARAMETER PackageType
+		The type of package to set the description of.
+	
+	.PARAMETER Description
+		The description to set.
+	
+	.EXAMPLE
+				PS C:\> Set-CapaPackageDescription -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -Description 'This is a description'
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247024/Set+Package+Description
+#>
+function Set-CapaPackageDescription {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[String]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[String]$Description = ''
+	)
+	
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
+	}
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
+	}
+	
+	$value = $CapaSDK.SetPackageDescription($PackageName, $PackageVersion, $PackageType, $Description)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		Set the folder structure of a package.
+	
+	.DESCRIPTION
+		Set the folder structure of a package.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER PackageType
+		The type of package to set the folder structure of, either Computer or User.
+	
+	.PARAMETER PackageName
+		The name of the package to set the folder structure of.
+	
+	.PARAMETER PackageVersion
+		The version of the package to set the folder structure of.
+	
+	.PARAMETER FolderStructure
+		The folder structure to set, for example 'Folder1\Folder2'.
+	
+	.PARAMETER ChangelogText
+		An optional changelog text to set.
+	
+	.EXAMPLE
+				PS C:\> Set-CapaPackageFolder -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50' -FolderStructure 'Folder1\Folder2' -ChangelogText 'This is a changelog'
+
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247032/Set+Package+Folder
+#>
+function Set-CapaPackageFolder {
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[string]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[string]$FolderStructure,
+		[string]$ChangelogText
+	)
+	
+	$bool = $CapaSDK.SetPackageFolder($PackageName, $PackageVersion, $PackageType, $FolderStructure, $ChangelogText)
+	
+	Return $bool
+}
+
+
+<#
+	.SYNOPSIS
+		Sets an package property.
+	
+	.DESCRIPTION
+		Sets an package property.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER PackageName
+		The name of the package.
+	
+	.PARAMETER PackageVersion
+		The version of the package.
+	
+	.PARAMETER PackageType
+		The type of the package.
+	
+	.PARAMETER Priority
+		The priority of the package, default is 500.
+	
+	.EXAMPLE
+				PS C:\> Set-CapaPackagePriority -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -Priority 500
+
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247040/Set+Package+Property
+#>
+function Set-CapaPackagePriority {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('1', '2', 'Computer', 'User')]
+		[String]$PackageType,
+		[Int]$Priority = 500
+	)
+	
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
+	}
+	if ($PackageType -eq 'User') {
+		$PackageType = '2'
+	}
+	
+	$value = $CapaSDK.SetPackagePriority($PackageName, $PackageVersion, $PackageType, $Priority)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		Sets the schedule of a package.
+	
+	.DESCRIPTION
+		Sets the schedule of a package.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER PackageName
+		The name of the package.
+	
+	.PARAMETER PackageVersion
+		The version of the package.
+	
+	.PARAMETER PackageType
+		The type of the package, either Computer or User.
+	
+	.PARAMETER ScheduleStart
+		The start date of the schedule, for example '2015-05-15 12:00'.
+	
+	.PARAMETER ScheduleEnd
+		The Schedule start date in the format  "yyyy-MM-dd HH:mm" eg. "2015-04-15 12:05". If no end date is wanted, leave empty.
+	
+	.PARAMETER ScheduleIntervalBegin
+		The Schedule Interval begins time in the format  HH:mm" eg. "06:00". If left empty it is set to 00:00.
+	
+	.PARAMETER ScheduleIntervalEnd
+		The Schedule Interval end time in the format  HH:mm" eg. "12:00". If left empty it is set to 00:00.
+	
+	.PARAMETER ScheduleRecurrence
+		The Schedule Recurrence for the schedule, either Once, PeriodicalDaily, PeriodicalWeekly or Always.
+	
+	.PARAMETER ScheduleRecurrencePattern
+		Is used to further detail the Schedule Recurrence when set to PeriodicalDaily or PeriodicalWeekly
+			Possible values:
+			ScheduleRecurrence = "PeriodicalDaily"
+				ScheduleRecurrencePattern  = "RecurEveryWeekDay" sets the recurrence pattern to run every weekday
+				ScheduleRecurrencePattern  = "" Sets the recurrence pattern to recur every day including weekend days.
+			
+			ScheduleRecurrence = "PeriodicalWeekly"
+				ScheduleRecurrencePattern   = "1,3,5" Will set the schedule pattern to run Monday, Wednesday and Friday. All weekdays can be combined with a comma (,) (1,2,3,4,5,6,7)
+					Monday = 1
+					Tuesday = 2
+					Wednesday = 3
+					Thursday = 4
+					Friday = 5
+					Saturday = 6
+					Sunday = 7
+				ScheduleRecurrencePattern   = "" Will set the schedule recurrence pattern to run every weekday 
+	
+	.EXAMPLE
+				PS C:\> Set-CapaPackageSchedule @(
+					CapaSDK = $CapaSDK
+					PackageName = 'Winrar'
+					PackageVersion = '5.50'
+					PackageType = 'Computer'
+					ScheduleStart = '2015-05-15 12:00'
+					ScheduleEnd = '2015-05-15 12:00'
+					ScheduleIntervalBegin = '06:00'
+					ScheduleIntervalEnd = '12:00'
+					ScheduleRecurrence = 'PeriodicalDaily'
+					ScheduleRecurrencePattern = 'RecurEveryWeekDay'
+				)
+	
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247048/Set+Package+Schedule
+#>
+function Set-CapaPackageSchedule {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[String]$PackageType,
+		[Parameter(Mandatory = $true)]
+		[String]$ScheduleStart,
+		[Parameter(Mandatory = $true)]
+		[String]$ScheduleEnd,
+		[Parameter(Mandatory = $true)]
+		[String]$ScheduleIntervalBegin,
+		[Parameter(Mandatory = $true)]
+		[String]$ScheduleIntervalEnd,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Once', 'PeriodicalDaily', 'PeriodicalWeekly', 'Always')]
+		[String]$ScheduleRecurrence,
+		[String]$ScheduleRecurrencePattern = ''
+	)
+	
+	$value = $CapaSDK.SetPackageSchedule($PackageName, $PackageVersion, $PackageType, $ScheduleStart, $ScheduleEnd, $ScheduleIntervalBegin, $ScheduleIntervalEnd, $ScheduleRecurrence, $ScheduleRecurrencePattern)
+	return $value
+}
+
+
+<#
+	.SYNOPSIS
+		Performs a update now on a package.
+	
+	.DESCRIPTION
+		Performs the Update now procedure on a package. This will create a SyncJob to the CiSync service residing on the Point-server with the 'AutoJob' bit set which 
+		will (after completion) in turn create 'auto-syncjobs' to child servers as well as BaseAgent-DistributionServers when/if the package is assigned or the child 
+		servers are 'replica' servers.
+
+		This function is equivalent to the CM-plugin right-click action on a package.
+	
+	.PARAMETER CapaSDK
+		The CapaSDK object.
+	
+	.PARAMETER PackageName
+		The name of the package.
+	
+	.PARAMETER PackageVersion
+		The version of the package.
+	
+	.PARAMETER PackageType
+		The type of the package, either Computer or User.
+	
+	.EXAMPLE
+				PS C:\> Update-CapaPackageNow -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer'
+
+	.NOTES
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247056/Update+Now+on+Package
+#>
+function Update-CapaPackageNow {
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[String]$PackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[String]$PackageType
+	)
+	
+	$value = $CapaSDK.PackageUpdateNow($PackageName, $PackageVersion, $PackageType)
+	return $value
+}
+
 
 <#
     .SYNOPSIS
@@ -2112,147 +2291,4 @@ function Update-CapaPackageScriptAndKit {
     
 }
 
-<#
-    .SYNOPSIS
-        Create a new Capa package with Git
-    
-    .DESCRIPTION
-        Creates a local folder structure you can use with Git to manage your deployment of Capa packages.
-        The folder structure is based on the Capa package structure.
 
-    .PARAMETER PackageName
-        The name of the package
-
-    .PARAMETER PackageVersion
-        The version of the package
-
-    .PARAMETER PackageType
-        The type of the package. Valid values are VBScript and PowerPack
-
-    .PARAMETER BasePath
-        The base path where the package folder will be created
-
-    .PARAMETER CapaServer
-        The name of the Capa server
-
-    .PARAMETER Database
-        The name of the Capa database
-
-    .PARAMETER DefaultManagementPoint
-        The default management point in Capa it should be set to the id of the development management point.
-
-    .EXAMPLE
-        New-CapaPackageWithGit -PackageName 'Test' -PackageVersion 'v1.0' -PackageType 'VBScript' -BasePath 'D:\PowerShell'
-
-    .EXAMPLE
-        New-CapaPackageWithGit -PackageName 'Test2' -PackageVersion 'v1.0' -PackageType 'PowerPack' -BasePath 'D:\PowerShell' -CapaServer $CapaServer -Database $Database -DefaultManagementPoint $DefaultManagementPointDev
-
-    .NOTES
-        This is a custom function for Capa. It is not part of the Capa SDK.
-#>
-function New-CapaPackageWithGit {
-	param (
-		[Parameter(Mandatory = $true)]
-		[string]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[string]$PackageVersion,
-		[Parameter(Mandatory = $true)]
-		[ValidateSet('VBScript', 'PowerPack')]
-		[string]$PackageType,
-		[Parameter(Mandatory = $true)]
-		[string]$BasePath,
-		$CapaServer,
-		$SQLServer,
-		$Database,
-		$DefaultManagementPoint,
-		$PackageBasePath
-	)
-	try {
-		# Parameters
-		$GitIgnoreFile = Join-Path $PSScriptRoot 'Dependencies\.gitignore'
-		$UpdatePackageScript = Join-Path $PSScriptRoot 'Dependencies\UpdatePackage.ps1'
-
-		if ($PackageType -eq 'VBScript') {
-			$Prefix = 'VB'
-			$TempInstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.cis'
-			$TempUninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.cis'
-		} ElseIf ($PackageType -eq 'PowerPack') {
-			$Prefix = 'PP'
-			$TempInstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.ps1'
-			$TempUninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.ps1'
-		}
-
-		$PackagePath = Join-Path $BasePath "Capa_$($Prefix)_$PackageName"
-		$VersionPath = Join-Path $PackagePath $PackageVersion
-		$ScriptPath = Join-Path $VersionPath 'Scripts'
-
-		# Create folder
-		New-Item -Path $ScriptPath -ItemType Directory -Force | Out-Null
-
-		# Copy files
-		Copy-Item -Path $GitIgnoreFile -Destination $PackagePath -Force | Out-Null
-
-		# Copy UpdatePackage.ps1
-		if ((Test-Path "$PackagePath\UpdatePackage.ps1") -eq $false) {
-			$UpdatePackageScriptPath = Join-Path $PackagePath 'UpdatePackage.ps1'
-
-			Copy-Item -Path $UpdatePackageScript -Destination $PackagePath -Force | Out-Null
-
-			# Replace in UpdatePackage.ps1
-			if ($null -ne $CapaServer) {
-				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
-				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$CapaServer = ' + "''", '$CapaServer = ' + "'$CapaServer'")
-				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
-			}
-			if ($null -ne $SQLServer) {
-				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
-				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$SQLServer = ' + "''", '$SQLServer = ' + "'$SQLServer'")
-				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
-			}
-			if ($null -ne $Database) {
-				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
-				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$Database = ' + "''", '$Database = ' + "'$Database'")
-				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
-			}
-			if ($null -ne $DefaultManagementPoint) {
-				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
-				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$DefaultManagementPointDev = ' + "''", '$DefaultManagementPointDev = ' + "'$DefaultManagementPoint'")
-				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
-			}
-			if ($null -ne $PackageBasePath) {
-				$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
-				$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$PackageBasePath = ' + "''", '$PackageBasePath = ' + "'$PackageBasePath'")
-				$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
-			}
-		}
-
-		# Create scripts
-		if ($PackageType -eq 'VBScript') {
-			$InstallScriptDestination = Join-Path $ScriptPath "$PackageName.cis"
-			$UninstallScriptDestination = Join-Path $ScriptPath "$($PackageName)_Uninstall.cis"
-
-			$InstallContent = Get-Content $TempInstallScript
-			$InstallContent = $InstallContent.Replace('PACKAGENAME', $PackageName)
-			$InstallContent = $InstallContent.Replace('PACKAGEVERSION', $PackageVersion)
-			$InstallContent = $InstallContent.Replace('CREATEDBY', $env:username)
-			$InstallContent = $InstallContent.Replace('TIME', (Get-Date -Format 'dd-MM-yyyy HH:mm:ss'))
-			New-Item -Path $InstallScriptDestination -ItemType File -Force | Out-Null
-			$InstallContent | Out-File -FilePath $InstallScriptDestination -Force
-
-			$UninstallContent = Get-Content $TempUninstallScript
-			$UninstallContent = $UninstallContent.Replace('PACKAGENAME', $PackageName)
-			$UninstallContent = $UninstallContent.Replace('PACKAGEVERSION', $PackageVersion)
-			$UninstallContent = $UninstallContent.Replace('CREATEDBY', $env:username)
-			$UninstallContent = $UninstallContent.Replace('TIME', (Get-Date -Format 'dd-MM-yyyy HH:mm:ss'))
-			New-Item -Path $UninstallScriptDestination -ItemType File -Force | Out-Null
-			$UninstallContent | Out-File -FilePath $UninstallScriptDestination -Force
-		} else {
-			Copy-Item -Path $TempInstallScript -Destination $ScriptPath -Force | Out-Null
-			Copy-Item -Path $TempUninstallScript -Destination $ScriptPath -Force | Out-Null
-		}
-	} catch {
-
-		$PSCmdlet.ThrowTerminatingError($PSitem)
-		return -1
-	}
-}

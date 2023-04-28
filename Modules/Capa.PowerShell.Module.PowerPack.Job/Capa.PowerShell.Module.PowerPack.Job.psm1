@@ -1,4 +1,5 @@
-﻿<#
+
+<#
     .SYNOPSIS
         This function will initialize the Powershell Scripting Library and set logpath and other variables.
 
@@ -40,6 +41,8 @@ function Job_Start {
     $Global:Cs.Job_Start($JobType, $PackageName, $PackageVersion, $LogPath, $Action)
 }
 
+
+
 <#
     .SYNOPSIS
         This function will write a log entry.
@@ -73,3 +76,5 @@ function Job_WriteLog {
         $Global:Cs.Job_WriteLog($Text)
     }
 }
+
+

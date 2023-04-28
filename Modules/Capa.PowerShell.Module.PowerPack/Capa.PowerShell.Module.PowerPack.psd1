@@ -66,7 +66,13 @@
     NestedModules          = @()
 	
     # Functions to export from this module
-    FunctionsToExport      = '*' #For performance, list functions explicitly
+    FunctionsToExport      = 'Add-PSDll',
+    'Start-PSDownloadPackage',
+    'Invoke-RunAsLoggedOnUser',
+    'Initialize-Variables',
+    'Register-Powerpack',
+    'Unregister-Powerpack'
+    #For performance, list functions explicitly
 	
     # Cmdlets to export from this module
     CmdletsToExport        = '*' 

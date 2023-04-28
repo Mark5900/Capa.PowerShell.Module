@@ -63,7 +63,10 @@
 	
 	# Functions to export from this module
 	FunctionsToExport      = 'Job_Start',
-	'Job_WriteLog'
+	'Job_WriteLog',
+	'Job_RebootWS',
+	'Job_DisableLog',
+	'Job_EnableLog'
 	#For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

@@ -1,5 +1,14 @@
 # Overview of all functions in modules
 
+## Capa.PowerShell.Module.PowerPack
+
+* [Add-PSDll](Functions/Add-PSDll.md)
+* [Initialize-Variables](Functions/Initialize-Variables.md)
+* [Invoke-RunAsLoggedOnUser](Functions/Invoke-RunAsLoggedOnUser.md)
+* [Register-Powerpack](Functions/Register-Powerpack.md)
+* [Start-PSDownloadPackage](Functions/Start-PSDownloadPackage.md)
+* [Unregister-Powerpack](Functions/Unregister-Powerpack.md)
+
 ## Capa.PowerShell.Module.PowerPack.Exit
 
 * [Exit_ApplicationAlreadyInstalled](Functions/Exit_ApplicationAlreadyInstalled.md)
@@ -19,6 +28,7 @@
 * [Exit_PowerShellExecutionFailed](Functions/Exit_PowerShellExecutionFailed.md)
 * [Exit_RebootRequested](Functions/Exit_RebootRequested.md)
 * [Exit_RetryLater](Functions/Exit_RetryLater.md)
+* [Exit-PSScript](Functions/Exit-PSScript.md)
 
 ## Capa.PowerShell.Module.PowerPack.File
 
@@ -45,6 +55,9 @@
 
 ## Capa.PowerShell.Module.PowerPack.Job
 
+* [Job_DisableLog](Functions/Job_DisableLog.md)
+* [Job_EnableLog](Functions/Job_EnableLog.md)
+* [Job_EnableLog](Functions/Job_EnableLog.md)
 * [Job_Start](Functions/Job_Start.md)
 * [Job_WriteLog](Functions/Job_WriteLog.md)
 

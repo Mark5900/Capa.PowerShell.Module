@@ -1,4 +1,8 @@
 @{
+	
+    # Script module or binary module file associated with this manifest
+    RootModule             = '.\Capa.PowerShell.Module.PowerPack.psm1'
+	
     # Version number of this module.
     ModuleVersion          = '1.0.20.0'
 	
@@ -66,7 +70,13 @@
     NestedModules          = @()
 	
     # Functions to export from this module
-    FunctionsToExport      = '*' #For performance, list functions explicitly
+    FunctionsToExport      = 'Add-PSDll',
+    'Start-PSDownloadPackage',
+    'Invoke-RunAsLoggedOnUser',
+    'Initialize-Variables',
+    'Register-Powerpack',
+    'Unregister-Powerpack'
+    #For performance, list functions explicitly
 	
     # Cmdlets to export from this module
     CmdletsToExport        = '*' 

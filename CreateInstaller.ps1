@@ -18,7 +18,7 @@ Import-Module PSMSI
 $ProductName = 'Capa.PowerShell.Module'
 $UpgradeCode = '84859CA1-0F7D-47BF-8D36-AE22F5E171AD'
 # Change as needed
-$Version = '1.0.20.0'
+$Version = '1.0.21.0'
 
 #################
 ### FUNCTIONS ###
@@ -139,6 +139,7 @@ function New-ModuleInstaller {
                     }
                     New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack' -Content {
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Capa.PowerShell.Module.PowerPack.psd1
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Capa.PowerShell.Module.PowerPack.psm1
                     }
                     New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Exit' -Content {
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Exit\Capa.PowerShell.Module.PowerPack.Exit.psd1

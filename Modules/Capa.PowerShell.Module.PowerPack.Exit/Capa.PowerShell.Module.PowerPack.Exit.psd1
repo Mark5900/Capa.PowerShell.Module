@@ -78,7 +78,8 @@
 	'Exit_PackageNotCompliant',
 	'Exit_PackageCancelled',
 	'Exit_PackageFailedInstall',
-	'Exit_PackageFailedUninstall'
+	'Exit_PackageFailedUninstall',
+	'Exit-PSScript'
 	#For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

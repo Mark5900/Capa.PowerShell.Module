@@ -6,11 +6,15 @@
 		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_ApplicationAlreadyInstalled
+		Exit-PpApplicationAlreadyInstalled
 
 	.NOTES
 		Custom command.
 #>
-function Exit_ApplicationAlreadyInstalled {
-    Exit-PSScript 3330
+function Exit-PpApplicationAlreadyInstalled {
+	[CmdletBinding()]
+	[Alias('Exit_ApplicationAlreadyInstalled')]
+	param ()
+	
+	Exit-PSScript 3330
 }

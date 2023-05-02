@@ -28,7 +28,7 @@ function Exit-PSScript() {
         [Parameter(Mandatory = $false)]
         [string]$ExitMessage
     )
-    $cs.AutoSectionHeader = $false
+    $Global:Cs.AutoSectionHeader = $false
     if ($ExitMessage) { 
         Job_WriteLog -Text $ExitMessage
     }

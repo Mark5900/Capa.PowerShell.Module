@@ -13,7 +13,7 @@
 		Custom command.
 #>
 function Exit_ApplicationAlreadyInstalled {
-    Exit-PSScript 3330
+	Exit-PSScript 3330
 }
 
 
@@ -25,14 +25,14 @@ function Exit_ApplicationAlreadyInstalled {
 		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_CommandFailed
+		Exit-PpCommandFailed
 
 	.NOTES
 		Custom command.
 
 #>
-function Exit_CommandFailed {
-    Exit-PSScript 3305
+function Exit-PpCommandFailed {
+	Exit-PSScript 3305
 }
 
 
@@ -50,7 +50,7 @@ function Exit_CommandFailed {
 		Custom command.
 #>
 function Exit_CommandHandlingFailed {
-    Exit-PSScript 3306
+	Exit-PSScript 3306
 }
 
 
@@ -68,7 +68,7 @@ function Exit_CommandHandlingFailed {
 		Custom command.
 #>
 function Exit_CommandNotDelivered {
-    Exit-PSScript 3302
+	Exit-PSScript 3302
 }
 
 
@@ -86,7 +86,7 @@ function Exit_CommandNotDelivered {
 		Custom command.
 #>
 function Exit_CommandNotRecognized {
-    Exit-PSScript 3307
+	Exit-PSScript 3307
 }
 
 
@@ -105,7 +105,7 @@ function Exit_CommandNotRecognized {
 
 #>
 function Exit_CommandObsolete {
-    Exit-PSScript 3303
+	Exit-PSScript 3303
 }
 
 
@@ -124,7 +124,7 @@ function Exit_CommandObsolete {
 
 #>
 function Exit_CommandSucceded {
-    Exit-PSScript 3300
+	Exit-PSScript 3300
 }
 
 
@@ -142,7 +142,7 @@ function Exit_CommandSucceded {
 		Custom command.
 #>
 function Exit_CommandTimedOut {
-    Exit-PSScript 3304
+	Exit-PSScript 3304
 }
 
 
@@ -160,7 +160,7 @@ function Exit_CommandTimedOut {
 		Custom command.
 #>
 function Exit_MissingDiskSpace {
-    Exit-PSScript 3333
+	Exit-PSScript 3333
 }
 
 
@@ -178,7 +178,7 @@ function Exit_MissingDiskSpace {
 		Custom command.
 #>
 function Exit_ModuleNotFound {
-    Exit-PSScript 3301
+	Exit-PSScript 3301
 }
 
 
@@ -196,7 +196,7 @@ function Exit_ModuleNotFound {
 		Custom command.
 #>
 function Exit_PackageCancelled {
-    Exit-PSScript 3328
+	Exit-PSScript 3328
 }
 
 
@@ -214,7 +214,7 @@ function Exit_PackageCancelled {
 		Custom command.
 #>
 function Exit_PackageFailedInstall {
-    Exit-PSScript 3329
+	Exit-PSScript 3329
 }
 
 
@@ -232,7 +232,7 @@ function Exit_PackageFailedInstall {
 		Custom command.
 #>
 function Exit_PackageFailedUninstall {
-    Exit-PSScript 3332
+	Exit-PSScript 3332
 }
 
 
@@ -250,7 +250,7 @@ function Exit_PackageFailedUninstall {
 		Custom command.
 #>
 function Exit_PackageNotCompliant {
-    Exit-PSScript 3327
+	Exit-PSScript 3327
 }
 
 
@@ -268,7 +268,7 @@ function Exit_PackageNotCompliant {
 		Custom command.
 #>
 function Exit_PowerShellExecutionFailed {
-    Exit-PSScript 3311
+	Exit-PSScript 3311
 }
 
 
@@ -286,7 +286,7 @@ function Exit_PowerShellExecutionFailed {
 		Custom command.
 #>
 function Exit_RebootRequested {
-    Exit-PSScript 3010
+	Exit-PSScript 3010
 }
 
 
@@ -304,7 +304,7 @@ function Exit_RebootRequested {
 		Custom command.
 #>
 function Exit_RetryLater {
-    Exit-PSScript 3326
+	Exit-PSScript 3326
 }
 
 
@@ -331,50 +331,50 @@ function Exit_RetryLater {
         Command from PSlib.psm1
 #>
 function Exit-PSScript() {
-    [CmdletBinding()]
-    Param(
-        [Parameter(Mandatory = $true)]
-        $ExitCode,
-        [Parameter(Mandatory = $false)]
-        [string]$ExitMessage
-    )
-    $cs.AutoSectionHeader = $false
-    if ($ExitMessage) { 
-        Job_WriteLog -Text $ExitMessage
-    }
+	[CmdletBinding()]
+	Param(
+		[Parameter(Mandatory = $true)]
+		$ExitCode,
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+	$cs.AutoSectionHeader = $false
+	if ($ExitMessage) { 
+		Job_WriteLog -Text $ExitMessage
+	}
     
-    $IgnoreAndContinueErrors = @(3010)
+	$IgnoreAndContinueErrors = @(3010)
 
-    if ($ExitCode.count -eq 0) { 
-        $ExitNumber = 0
-        [string]$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber)" 
-    } elseif ($ExitCode -is [System.Collections.ArrayList]) {
-        $ExitNumber = $ExitCode[0].Exception.HResult
-        if (!$IgnoreAndContinueErrors.Contains($ExitNumber)) { 
-            Job_WriteLog -Text "$($ExitCode[0].Exception.Message)"
-        }
-        $ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber) - in line: $($ExitCode[0].InvocationInfo.ScriptLineNumber)"
-    } else {
-        # Must be integer - handle as such
-        if ([string]::IsNullOrWhiteSpace($ExitCode)) { 
-            $ExitCode = 0 
-        }
-        if ($IgnoreAndContinueErrors.Contains($ExitCode)) {
-            $Ex = New-Object System.ApplicationException
-            $Ex.hresult = $ExitCode
-            Write-Error -Exception $Ex -ErrorAction SilentlyContinue
-            return
-        } else {
-            $ExitNumber = $ExitCode
-            [string]$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber)"
-        }
-    }
+	if ($ExitCode.count -eq 0) { 
+		$ExitNumber = 0
+		[string]$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber)" 
+	} elseif ($ExitCode -is [System.Collections.ArrayList]) {
+		$ExitNumber = $ExitCode[0].Exception.HResult
+		if (!$IgnoreAndContinueErrors.Contains($ExitNumber)) { 
+			Job_WriteLog -Text "$($ExitCode[0].Exception.Message)"
+		}
+		$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber) - in line: $($ExitCode[0].InvocationInfo.ScriptLineNumber)"
+	} else {
+		# Must be integer - handle as such
+		if ([string]::IsNullOrWhiteSpace($ExitCode)) { 
+			$ExitCode = 0 
+		}
+		if ($IgnoreAndContinueErrors.Contains($ExitCode)) {
+			$Ex = New-Object System.ApplicationException
+			$Ex.hresult = $ExitCode
+			Write-Error -Exception $Ex -ErrorAction SilentlyContinue
+			return
+		} else {
+			$ExitNumber = $ExitCode
+			[string]$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber)"
+		}
+	}
     
-    Job_WriteLog -Text $ErrorMessage
-    if ($InputObject) {
-        $InputObject.ExitCode = $ExitNumber 
-    }
-    exit $ExitNumber
+	Job_WriteLog -Text $ErrorMessage
+	if ($InputObject) {
+		$InputObject.ExitCode = $ExitNumber 
+	}
+	exit $ExitNumber
 }
 
 

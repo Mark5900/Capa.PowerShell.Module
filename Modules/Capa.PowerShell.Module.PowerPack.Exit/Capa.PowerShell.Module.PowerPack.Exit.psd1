@@ -71,7 +71,7 @@
 	'Exit_CommandNotDelivered',
 	'Exit_CommandObsolete',
 	'Exit_CommandTimedOut',
-	'Exit_CommandFailed',
+	'Exit-PpCommandFailed',
 	'Exit_CommandHandlingFailed',
 	'Exit_CommandNotRecognized',
 	'Exit_PowerShellExecutionFailed',

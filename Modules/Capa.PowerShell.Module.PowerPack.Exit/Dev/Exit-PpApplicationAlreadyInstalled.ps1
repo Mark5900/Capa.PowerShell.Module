@@ -14,7 +14,15 @@
 function Exit-PpApplicationAlreadyInstalled {
 	[CmdletBinding()]
 	[Alias('Exit_ApplicationAlreadyInstalled')]
-	param ()
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
 	
-	Exit-PSScript 3330
+	if ($ExitMessage) {
+		Exit-PSScript -ExitCode 3330 -ExitMessage $ExitMessage
+	} else {
+		Exit-PSScript -ExitCode 3330
+	}
+
 }

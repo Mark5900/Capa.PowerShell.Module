@@ -73,7 +73,7 @@
 	'Exit_CommandTimedOut',
 	'Exit_CommandFailed',
 	'Exit_CommandHandlingFailed',
-	'Exit_CommandNotRecognized',
+	'Exit-PpCommandNotRecognized',
 	'Exit_PowerShellExecutionFailed',
 	'Exit_PackageNotCompliant',
 	'Exit_PackageCancelled',

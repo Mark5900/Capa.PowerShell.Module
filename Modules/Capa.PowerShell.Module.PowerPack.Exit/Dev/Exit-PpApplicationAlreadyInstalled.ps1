@@ -5,8 +5,14 @@
 	.DESCRIPTION
 		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
 
+	.PARAMETER ExitMessage
+		Exit message to be displayed.
+
 	.EXAMPLE
 		Exit-PpApplicationAlreadyInstalled
+
+	.EXAMPLE
+		Exit-PpApplicationAlreadyInstalled -ExitMessage "The application is already installed."
 
 	.NOTES
 		Custom command.

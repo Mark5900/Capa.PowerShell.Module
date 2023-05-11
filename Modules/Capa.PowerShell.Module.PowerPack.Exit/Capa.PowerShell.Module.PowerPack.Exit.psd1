@@ -69,7 +69,7 @@
 	'Exit_CommandSucceded',
 	'Exit_ModuleNotFound',
 	'Exit_CommandNotDelivered',
-	'Exit_CommandObsolete',
+	'Exit-PpCommandObsolete',
 	'Exit_CommandTimedOut',
 	'Exit_CommandFailed',
 	'Exit_CommandHandlingFailed',

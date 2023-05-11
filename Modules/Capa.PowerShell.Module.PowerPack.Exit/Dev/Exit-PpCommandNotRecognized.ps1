@@ -25,7 +25,6 @@ function Exit-PpCommandNotRecognized {
 		[string]$ExitMessage
 	)
 
-	Exit-PSScript 3307
 	if ($ExitMessage) {
 		Exit-PSSession -ExitCode 3307 -ExitMessage $ExitMessage
 	} else {

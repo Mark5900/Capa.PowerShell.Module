@@ -5,6 +5,9 @@
 	.DESCRIPTION
 		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
 
+	.PARAMETER ExitMessage
+		Exit message to be displayed.
+
 	.EXAMPLE
 		Exit-PpCommandNotDelivered
 

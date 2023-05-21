@@ -25,13 +25,13 @@ function Exit_ApplicationAlreadyInstalled {
 		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_CommandFailed
+		Exit-PpCommandFailed
 
 	.NOTES
 		Custom command.
 
 #>
-function Exit_CommandFailed {
+function Exit-PpCommandFailed {
 	Exit-PSScript 3305
 }
 

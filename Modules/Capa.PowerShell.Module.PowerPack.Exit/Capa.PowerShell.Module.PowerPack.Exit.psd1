@@ -72,6 +72,7 @@
 	'Exit_CommandObsolete',
 	'Exit_CommandTimedOut',
 	'Exit_CommandFailed',
+	'Exit-PpApplicationAlreadyInstalled',
 	'Exit_CommandHandlingFailed',
 	'Exit-PpCommandNotRecognized',
 	'Exit_PowerShellExecutionFailed',

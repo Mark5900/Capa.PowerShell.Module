@@ -80,12 +80,12 @@ function Exit_CommandNotDelivered {
 		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_CommandNotRecognized
+		Exit-PpCommandNotRecognized
 
 	.NOTES
 		Custom command.
 #>
-function Exit_CommandNotRecognized {
+function Exit-PpCommandNotRecognized {
 	Exit-PSScript 3307
 }
 

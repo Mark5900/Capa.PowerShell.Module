@@ -68,7 +68,7 @@
 	'Exit_MissingDiskSpace',
 	'Exit_CommandSucceded',
 	'Exit_ModuleNotFound',
-	'Exit_CommandNotDelivered',
+	'Exit-PpCommandNotDelivered',
 	'Exit_CommandObsolete',
 	'Exit_CommandTimedOut',
 	'Exit-PpCommandFailed',

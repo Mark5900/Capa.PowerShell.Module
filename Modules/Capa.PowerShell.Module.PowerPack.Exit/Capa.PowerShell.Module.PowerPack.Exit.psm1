@@ -62,12 +62,12 @@ function Exit_CommandHandlingFailed {
 		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_CommandNotDelivered
+		Exit-PpCommandNotDelivered
 
 	.NOTES
 		Custom command.
 #>
-function Exit_CommandNotDelivered {
+function Exit-PpCommandNotDelivered {
 	Exit-PSScript 3302
 }
 

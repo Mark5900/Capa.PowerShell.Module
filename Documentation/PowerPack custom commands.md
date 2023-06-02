@@ -8,4 +8,4 @@ Instead of remembering the error codes for retry later, the application is alrea
     Exit_MissingDiskSpace
 ```
 
-The functions use Exit-PSScript that comes from the loaded module PSlib.psm1.
+The functions use Exit-PpScript that comes from the loaded module PSlib.psm1.

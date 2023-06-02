@@ -11,7 +11,7 @@ Exit_RetryLater
 
 ## Description
 
-Uses the Exit-PSScript that comes from PSlib.psm1, to set the package retry later.
+Uses the Exit-PpScript that comes from PSlib.psm1, to set the package retry later.
 
 ## Examples
 

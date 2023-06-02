@@ -1,4 +1,4 @@
-# Exit-PSScript
+# Exit-PpScript
 Module: Capa.PowerShell.Module.PowerPack.Exit
 
 Exit the script with a given exit code and message.
@@ -6,7 +6,7 @@ Exit the script with a given exit code and message.
 ## Syntax
 
 ```powershell
-Exit-PSScript
+Exit-PpScript
 	-ExitCode <Object>
 	-ExitMessage <String>
 ```
@@ -19,12 +19,12 @@ Exit the script with a given exit code and message.
 
 ### Example 1
 ```powershell
-Exit-PSScript -ExitCode 0 -ExitMessage "Script ended successfully"
+Exit-PpScript -ExitCode 0 -ExitMessage "Script ended successfully"
 ```
     
 ### Example 2
 ```powershell
-Exit-PSScript -ExitCode 3305
+Exit-PpScript -ExitCode 3305
 ```
     
 

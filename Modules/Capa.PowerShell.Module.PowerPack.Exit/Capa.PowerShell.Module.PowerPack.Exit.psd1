@@ -66,7 +66,7 @@
 	'Exit_ApplicationAlreadyInstalled',
 	'Exit_RebootRequested',
 	'Exit_MissingDiskSpace',
-	'Exit_CommandSucceded',
+	'Exit-PpCommandSucceded',
 	'Exit_ModuleNotFound',
 	'Exit-PpCommandObsolete',
 	'Exit-PpCommandNotDelivered',
@@ -80,7 +80,7 @@
 	'Exit_PackageCancelled',
 	'Exit_PackageFailedInstall',
 	'Exit_PackageFailedUninstall',
-	'Exit-PSScript'
+	'Exit-PpScript'
 	#For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

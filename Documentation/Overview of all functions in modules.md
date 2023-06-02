@@ -17,7 +17,7 @@
 * [Exit_CommandNotDelivered](Functions/Exit_CommandNotDelivered.md)
 * [Exit_CommandNotRecognized](Functions/Exit_CommandNotRecognized.md)
 * [Exit_CommandObsolete](Functions/Exit_CommandObsolete.md)
-* [Exit_CommandSucceded](Functions/Exit_CommandSucceded.md)
+* [Exit-PpCommandSucceded](Functions/Exit-PpCommandSucceded.md)
 * [Exit_CommandTimedOut](Functions/Exit_CommandTimedOut.md)
 * [Exit_MissingDiskSpace](Functions/Exit_MissingDiskSpace.md)
 * [Exit_ModuleNotFound](Functions/Exit_ModuleNotFound.md)
@@ -28,7 +28,7 @@
 * [Exit_PowerShellExecutionFailed](Functions/Exit_PowerShellExecutionFailed.md)
 * [Exit_RebootRequested](Functions/Exit_RebootRequested.md)
 * [Exit_RetryLater](Functions/Exit_RetryLater.md)
-* [Exit-PSScript](Functions/Exit-PSScript.md)
+* [Exit-PpScript](Functions/Exit-PpScript.md)
 
 ## Capa.PowerShell.Module.PowerPack.File
 

@@ -3,7 +3,7 @@
 		Set error code that the command is obsolete.
 
 	.DESCRIPTION
-		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 	.PARAMETER ExitMessage
 		Exit message to display.
@@ -20,15 +20,15 @@
 #>
 function Exit-PpCommandObsolete {
 	[CmdletBinding()]
-	[Alias()]
+	[Alias('Exit_CommandObsolete')]
 	param(
 		[Parameter(Mandatory = $false)]
 		[string]$ExitMessage
 	)
 
 	if ($ExitMessage) {
-		Exit-PSScript -ExitCode 3303 -ExitMessage $ExitMessage
+		Exit-PpScript -ExitCode 3303 -ExitMessage $ExitMessage
 	} else {
-		Exit-PSScript -ExitCode 3303
+		Exit-PpScript -ExitCode 3303
 	}
 }

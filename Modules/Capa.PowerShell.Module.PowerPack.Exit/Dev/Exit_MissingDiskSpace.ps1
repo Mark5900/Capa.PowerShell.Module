@@ -3,7 +3,7 @@
 		Set error code that there is missing disk space.
 
 	.DESCRIPTION
-		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
 		Exit_MissingDiskSpace
@@ -12,5 +12,5 @@
 		Custom command.
 #>
 function Exit_MissingDiskSpace {
-    Exit-PSScript 3333
+    Exit-PpScript 3333
 }

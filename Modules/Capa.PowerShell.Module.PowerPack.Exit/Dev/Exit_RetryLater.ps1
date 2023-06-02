@@ -3,7 +3,7 @@
 		Set package retry later.
 
 	.DESCRIPTION
-		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package retry later.
+		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package retry later.
 
 	.EXAMPLE
 		Exit_RetryLater
@@ -12,5 +12,5 @@
 		Custom command.
 #>
 function Exit_RetryLater {
-    Exit-PSScript 3326
+    Exit-PpScript 3326
 }

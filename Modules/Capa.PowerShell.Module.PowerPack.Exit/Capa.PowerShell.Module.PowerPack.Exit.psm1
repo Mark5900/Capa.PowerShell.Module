@@ -98,13 +98,13 @@ function Exit-PpCommandNotRecognized {
 		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_CommandObsolete
+		Exit-PpCommandObsolete
 
 	.NOTES
 		Custom command.
 
 #>
-function Exit_CommandObsolete {
+function Exit-PpCommandObsolete {
 	Exit-PSScript 3303
 }
 

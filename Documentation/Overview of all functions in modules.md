@@ -22,7 +22,7 @@
 * [Exit-PpMissingDiskSpace](Functions/Exit-PpMissingDiskSpace.md)
 * [Exit-PpModuleNotFound](Functions/Exit-PpModuleNotFound.md)
 * [Exit-PpPackageCancelled](Functions/Exit-PpPackageCancelled.md)
-* [Exit_PackageFailedInstall](Functions/Exit_PackageFailedInstall.md)
+* [Exit-PpPackageFailedInstall](Functions/Exit-PpPackageFailedInstall.md)
 * [Exit_PackageFailedUninstall](Functions/Exit_PackageFailedUninstall.md)
 * [Exit_PackageNotCompliant](Functions/Exit_PackageNotCompliant.md)
 * [Exit_PowerShellExecutionFailed](Functions/Exit_PowerShellExecutionFailed.md)

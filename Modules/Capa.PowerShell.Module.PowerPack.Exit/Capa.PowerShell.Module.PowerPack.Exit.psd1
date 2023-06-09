@@ -78,7 +78,7 @@
 	'Exit_PowerShellExecutionFailed',
 	'Exit_PackageNotCompliant',
 	'Exit-PpPackageCancelled',
-	'Exit_PackageFailedInstall',
+	'Exit-PpPackageFailedInstall',
 	'Exit_PackageFailedUninstall',
 	'Exit-PpScript'
 	#For performance, list functions explicitly

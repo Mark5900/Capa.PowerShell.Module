@@ -208,12 +208,12 @@ function Exit-PpPackageCancelled {
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_PackageFailedInstall
+		Exit-PpPackageFailedInstall
 
 	.NOTES
 		Custom command.
 #>
-function Exit_PackageFailedInstall {
+function Exit-PpPackageFailedInstall {
 	Exit-PpScript 3329
 }
 

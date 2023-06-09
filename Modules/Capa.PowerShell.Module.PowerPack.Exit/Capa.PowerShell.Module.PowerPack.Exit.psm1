@@ -136,12 +136,12 @@ function Exit-PpCommandSucceded {
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_CommandTimedOut
+		Exit-PpCommandTimedOut
 
 	.NOTES
 		Custom command.
 #>
-function Exit_CommandTimedOut {
+function Exit-PpCommandTimedOut {
 	Exit-PpScript 3304
 }
 

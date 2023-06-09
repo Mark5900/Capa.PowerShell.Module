@@ -70,7 +70,7 @@
 	'Exit_ModuleNotFound',
 	'Exit-PpCommandObsolete',
 	'Exit-PpCommandNotDelivered',
-	'Exit_CommandTimedOut',
+	'Exit-PpCommandTimedOut',
 	'Exit-PpCommandFailed',
 	'Exit-PpApplicationAlreadyInstalled',
 	'Exit_CommandHandlingFailed',

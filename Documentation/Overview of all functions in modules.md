@@ -18,7 +18,7 @@
 * [Exit_CommandNotRecognized](Functions/Exit_CommandNotRecognized.md)
 * [Exit_CommandObsolete](Functions/Exit_CommandObsolete.md)
 * [Exit-PpCommandSucceded](Functions/Exit-PpCommandSucceded.md)
-* [Exit_CommandTimedOut](Functions/Exit_CommandTimedOut.md)
+* [Exit-PpCommandTimedOut](Functions/Exit-PpCommandTimedOut.md)
 * [Exit_MissingDiskSpace](Functions/Exit_MissingDiskSpace.md)
 * [Exit_ModuleNotFound](Functions/Exit_ModuleNotFound.md)
 * [Exit_PackageCancelled](Functions/Exit_PackageCancelled.md)

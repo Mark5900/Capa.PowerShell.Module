@@ -67,7 +67,7 @@
 	'Exit_RebootRequested',
 	'Exit-PpMissingDiskSpace',
 	'Exit-PpCommandSucceded',
-	'Exit_ModuleNotFound',
+	'Exit-PpModuleNotFound',
 	'Exit-PpCommandObsolete',
 	'Exit-PpCommandNotDelivered',
 	'Exit-PpCommandTimedOut',

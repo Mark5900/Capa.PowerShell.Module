@@ -172,12 +172,12 @@ function Exit-PpMissingDiskSpace {
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_ModuleNotFound
+		Exit-PpModuleNotFound
 
 	.NOTES
 		Custom command.
 #>
-function Exit_ModuleNotFound {
+function Exit-PpModuleNotFound {
 	Exit-PpScript 3301
 }
 

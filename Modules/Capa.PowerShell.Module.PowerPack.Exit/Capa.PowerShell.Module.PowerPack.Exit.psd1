@@ -65,7 +65,7 @@
 	FunctionsToExport      = 'Exit_RetryLater',
 	'Exit_ApplicationAlreadyInstalled',
 	'Exit_RebootRequested',
-	'Exit_MissingDiskSpace',
+	'Exit-PpMissingDiskSpace',
 	'Exit-PpCommandSucceded',
 	'Exit_ModuleNotFound',
 	'Exit-PpCommandObsolete',

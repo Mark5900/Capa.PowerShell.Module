@@ -5,7 +5,7 @@ Instead of remembering the error codes for retry later, the application is alrea
     Exit_RetryLater
     Exit_ApplicationAlreadyInstalled
     Exit_RebootRequested
-    Exit_MissingDiskSpace
+    Exit-PpMissingDiskSpace
 ```
 
 The functions use Exit-PpScript that comes from the loaded module PSlib.psm1.

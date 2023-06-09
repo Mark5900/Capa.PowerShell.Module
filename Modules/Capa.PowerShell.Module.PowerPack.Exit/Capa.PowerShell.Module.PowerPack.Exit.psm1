@@ -154,12 +154,12 @@ function Exit-PpCommandTimedOut {
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_MissingDiskSpace
+		Exit-PpMissingDiskSpace
 
 	.NOTES
 		Custom command.
 #>
-function Exit_MissingDiskSpace {
+function Exit-PpMissingDiskSpace {
 	Exit-PpScript 3333
 }
 

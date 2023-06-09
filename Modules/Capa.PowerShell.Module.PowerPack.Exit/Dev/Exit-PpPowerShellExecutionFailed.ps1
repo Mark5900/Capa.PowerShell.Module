@@ -8,6 +8,9 @@
 	.EXAMPLE
 		Exit-PpPowerShellExecutionFailed
 
+	.EXAMPLE
+		Exit-PpPowerShellExecutionFailed -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>

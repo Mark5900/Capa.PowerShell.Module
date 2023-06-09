@@ -8,6 +8,9 @@
 	.EXAMPLE
 		Exit-PpRetryLater
 
+	.EXAMPLE
+		Exit-PpRetryLater -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>

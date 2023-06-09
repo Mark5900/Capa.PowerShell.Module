@@ -8,6 +8,9 @@
 	.EXAMPLE
 		Exit-PpCommandSucceded
 
+	.EXAMPLE
+		Exit-PpCommandSucceded -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 

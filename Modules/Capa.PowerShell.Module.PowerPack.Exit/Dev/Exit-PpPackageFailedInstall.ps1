@@ -8,6 +8,9 @@
 	.EXAMPLE
 		Exit-PpPackageFailedInstall
 
+	.EXAMPLE
+		Exit-PpPackageFailedInstall -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>

@@ -8,6 +8,9 @@
 	.EXAMPLE
 		Exit-PpRebootRequested
 
+	.EXAMPLE
+		Exit-PpRebootRequested -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>

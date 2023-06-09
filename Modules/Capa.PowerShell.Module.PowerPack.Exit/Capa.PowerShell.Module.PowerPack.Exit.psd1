@@ -62,7 +62,7 @@
 	NestedModules          = @()
 	
 	# Functions to export from this module
-	FunctionsToExport      = 'Exit_RetryLater',
+	FunctionsToExport      = 'Exit-PpRetryLater',
 	'Exit_ApplicationAlreadyInstalled',
 	'Exit-PpRebootRequested',
 	'Exit-PpMissingDiskSpace',

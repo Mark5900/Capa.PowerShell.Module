@@ -298,12 +298,12 @@ function Exit-PpRebootRequested {
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package retry later.
 
 	.EXAMPLE
-		Exit_RetryLater
+		Exit-PpRetryLater
 
 	.NOTES
 		Custom command.
 #>
-function Exit_RetryLater {
+function Exit-PpRetryLater {
 	Exit-PpScript 3326
 }
 

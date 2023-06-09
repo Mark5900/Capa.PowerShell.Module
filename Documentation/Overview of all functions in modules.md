@@ -27,7 +27,7 @@
 * [Exit-PpPackageNotCompliant](Functions/Exit-PpPackageNotCompliant.md)
 * [Exit-PpPowerShellExecutionFailed](Functions/Exit-PpPowerShellExecutionFailed.md)
 * [Exit-PpRebootRequested](Functions/Exit-PpRebootRequested.md)
-* [Exit_RetryLater](Functions/Exit_RetryLater.md)
+* [Exit-PpRetryLater](Functions/Exit-PpRetryLater.md)
 * [Exit-PpScript](Functions/Exit-PpScript.md)
 
 ## Capa.PowerShell.Module.PowerPack.File

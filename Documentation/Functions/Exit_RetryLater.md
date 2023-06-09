@@ -1,4 +1,4 @@
-# Exit_RetryLater
+# Exit-PpRetryLater
 Module: Capa.PowerShell.Module.PowerPack.Exit
 
 Set package retry later.
@@ -6,7 +6,7 @@ Set package retry later.
 ## Syntax
 
 ```powershell
-Exit_RetryLater
+Exit-PpRetryLater
 ```
 
 ## Description
@@ -17,7 +17,7 @@ Uses the Exit-PpScript that comes from PSlib.psm1, to set the package retry late
 
 ### Example 1
 ```powershell
-Exit_RetryLater
+Exit-PpRetryLater
 ```
     
 

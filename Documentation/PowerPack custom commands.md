@@ -2,7 +2,7 @@
 Instead of remembering the error codes for retry later, the application is already installed, reboot requested and missing disk space.
 
 ```powershell
-    Exit_RetryLater
+    Exit-PpRetryLater
     Exit_ApplicationAlreadyInstalled
     Exit-PpRebootRequested
     Exit-PpMissingDiskSpace

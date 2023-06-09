@@ -280,12 +280,12 @@ function Exit-PpPowerShellExecutionFailed {
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_RebootRequested
+		Exit-PpRebootRequested
 
 	.NOTES
 		Custom command.
 #>
-function Exit_RebootRequested {
+function Exit-PpRebootRequested {
 	Exit-PpScript 3010
 }
 

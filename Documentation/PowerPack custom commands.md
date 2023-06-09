@@ -4,7 +4,7 @@ Instead of remembering the error codes for retry later, the application is alrea
 ```powershell
     Exit_RetryLater
     Exit_ApplicationAlreadyInstalled
-    Exit_RebootRequested
+    Exit-PpRebootRequested
     Exit-PpMissingDiskSpace
 ```
 

@@ -1,4 +1,4 @@
-# Exit_RebootRequested
+# Exit-PpRebootRequested
 Module: Capa.PowerShell.Module.PowerPack.Exit
 
 Set error code that a reboot is requested.
@@ -6,7 +6,7 @@ Set error code that a reboot is requested.
 ## Syntax
 
 ```powershell
-Exit_RebootRequested
+Exit-PpRebootRequested
 ```
 
 ## Description
@@ -17,7 +17,7 @@ Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 ### Example 1
 ```powershell
-Exit_RebootRequested
+Exit-PpRebootRequested
 ```
     
 

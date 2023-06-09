@@ -64,7 +64,7 @@
 	# Functions to export from this module
 	FunctionsToExport      = 'Exit_RetryLater',
 	'Exit_ApplicationAlreadyInstalled',
-	'Exit_RebootRequested',
+	'Exit-PpRebootRequested',
 	'Exit-PpMissingDiskSpace',
 	'Exit-PpCommandSucceded',
 	'Exit-PpModuleNotFound',

@@ -262,12 +262,12 @@ function Exit-PpPackageNotCompliant {
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_PowerShellExecutionFailed
+		Exit-PpPowerShellExecutionFailed
 
 	.NOTES
 		Custom command.
 #>
-function Exit_PowerShellExecutionFailed {
+function Exit-PpPowerShellExecutionFailed {
 	Exit-PpScript 3311
 }
 

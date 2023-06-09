@@ -25,7 +25,7 @@
 * [Exit-PpPackageFailedInstall](Functions/Exit-PpPackageFailedInstall.md)
 * [Exit-PpPackageFailedUninstall](Functions/Exit-PpPackageFailedUninstall.md)
 * [Exit-PpPackageNotCompliant](Functions/Exit-PpPackageNotCompliant.md)
-* [Exit_PowerShellExecutionFailed](Functions/Exit_PowerShellExecutionFailed.md)
+* [Exit-PpPowerShellExecutionFailed](Functions/Exit-PpPowerShellExecutionFailed.md)
 * [Exit_RebootRequested](Functions/Exit_RebootRequested.md)
 * [Exit_RetryLater](Functions/Exit_RetryLater.md)
 * [Exit-PpScript](Functions/Exit-PpScript.md)

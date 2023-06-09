@@ -75,7 +75,7 @@
 	'Exit-PpApplicationAlreadyInstalled',
 	'Exit_CommandHandlingFailed',
 	'Exit-PpCommandNotRecognized',
-	'Exit_PowerShellExecutionFailed',
+	'Exit-PpPowerShellExecutionFailed',
 	'Exit-PpPackageNotCompliant',
 	'Exit-PpPackageCancelled',
 	'Exit-PpPackageFailedInstall',

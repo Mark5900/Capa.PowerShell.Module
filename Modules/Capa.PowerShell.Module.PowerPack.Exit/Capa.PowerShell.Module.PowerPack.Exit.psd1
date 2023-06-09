@@ -77,7 +77,7 @@
 	'Exit-PpCommandNotRecognized',
 	'Exit_PowerShellExecutionFailed',
 	'Exit_PackageNotCompliant',
-	'Exit_PackageCancelled',
+	'Exit-PpPackageCancelled',
 	'Exit_PackageFailedInstall',
 	'Exit_PackageFailedUninstall',
 	'Exit-PpScript'

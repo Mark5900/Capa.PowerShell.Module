@@ -21,7 +21,7 @@
 * [Exit-PpCommandTimedOut](Functions/Exit-PpCommandTimedOut.md)
 * [Exit-PpMissingDiskSpace](Functions/Exit-PpMissingDiskSpace.md)
 * [Exit-PpModuleNotFound](Functions/Exit-PpModuleNotFound.md)
-* [Exit_PackageCancelled](Functions/Exit_PackageCancelled.md)
+* [Exit-PpPackageCancelled](Functions/Exit-PpPackageCancelled.md)
 * [Exit_PackageFailedInstall](Functions/Exit_PackageFailedInstall.md)
 * [Exit_PackageFailedUninstall](Functions/Exit_PackageFailedUninstall.md)
 * [Exit_PackageNotCompliant](Functions/Exit_PackageNotCompliant.md)

@@ -190,12 +190,12 @@ function Exit-PpModuleNotFound {
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_PackageCancelled
+		Exit-PpPackageCancelled
 
 	.NOTES
 		Custom command.
 #>
-function Exit_PackageCancelled {
+function Exit-PpPackageCancelled {
 	Exit-PpScript 3328
 }
 

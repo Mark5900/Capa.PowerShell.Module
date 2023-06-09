@@ -1,4 +1,4 @@
-# Exit_PackageFailedUninstall
+# Exit-PpPackageFailedUninstall
 Module: Capa.PowerShell.Module.PowerPack.Exit
 
 Set error code that the package failed to uninstall.
@@ -6,7 +6,7 @@ Set error code that the package failed to uninstall.
 ## Syntax
 
 ```powershell
-Exit_PackageFailedUninstall
+Exit-PpPackageFailedUninstall
 ```
 
 ## Description
@@ -17,7 +17,7 @@ Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 ### Example 1
 ```powershell
-Exit_PackageFailedUninstall
+Exit-PpPackageFailedUninstall
 ```
     
 

@@ -79,7 +79,7 @@
 	'Exit_PackageNotCompliant',
 	'Exit-PpPackageCancelled',
 	'Exit-PpPackageFailedInstall',
-	'Exit_PackageFailedUninstall',
+	'Exit-PpPackageFailedUninstall',
 	'Exit-PpScript'
 	#For performance, list functions explicitly
 	

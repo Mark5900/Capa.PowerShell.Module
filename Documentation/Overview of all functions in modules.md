@@ -23,7 +23,7 @@
 * [Exit-PpModuleNotFound](Functions/Exit-PpModuleNotFound.md)
 * [Exit-PpPackageCancelled](Functions/Exit-PpPackageCancelled.md)
 * [Exit-PpPackageFailedInstall](Functions/Exit-PpPackageFailedInstall.md)
-* [Exit_PackageFailedUninstall](Functions/Exit_PackageFailedUninstall.md)
+* [Exit-PpPackageFailedUninstall](Functions/Exit-PpPackageFailedUninstall.md)
 * [Exit_PackageNotCompliant](Functions/Exit_PackageNotCompliant.md)
 * [Exit_PowerShellExecutionFailed](Functions/Exit_PowerShellExecutionFailed.md)
 * [Exit_RebootRequested](Functions/Exit_RebootRequested.md)

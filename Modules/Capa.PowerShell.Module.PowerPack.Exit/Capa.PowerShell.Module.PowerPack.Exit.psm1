@@ -226,12 +226,12 @@ function Exit-PpPackageFailedInstall {
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
-		Exit_PackageFailedUninstall
+		Exit-PpPackageFailedUninstall
 
 	.NOTES
 		Custom command.
 #>
-function Exit_PackageFailedUninstall {
+function Exit-PpPackageFailedUninstall {
 	Exit-PpScript 3332
 }
 

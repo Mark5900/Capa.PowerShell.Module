@@ -550,8 +550,9 @@ Describe '$global:gsComputerManufacturer' {
     }
 }
 Describe '$global:gsComputerModel' {
-    It 'Should be "20QV000SMX"' {
-        $global:gsComputerModel | Should -Be '20QV000SMX'
+    $Model = (Get-CimInstance -ClassName Win32_ComputerSystem).Model
+    It "Should be '$Model'" {
+        $global:gsComputerModel | Should -Be $Model
     }
     It 'Should be a string' {
         $global:gsComputerModel | Should -BeOfType [string]
@@ -561,8 +562,10 @@ Describe '$global:gsComputerModel' {
     }
 }
 Describe '$global:gsUUID' {
-    It 'Should be "F0B4E2E0-0B4E-11CB-8000-3C5C15C2C2C2"' {
-        $global:gsUUID | Should -Be 'F0B4E2E0-0B4E-11CB-8000-3C5C15C2C2C2'
+    $UUID = Get-ItemProperty -Path HKLM:\SOFTWARE\CapaSystems\CapaInstaller\Client -Name UUID
+
+    It "UUID Should be '$($UUID.UUID)'" {
+        $global:gsUUID | Should -Be $UUID.UUID
     }
     It 'Should be a string' {
         $global:gsUUID | Should -BeOfType [string]

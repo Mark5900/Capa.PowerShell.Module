@@ -73,7 +73,7 @@
     FunctionsToExport      = 'Add-PSDll',
     'Start-PSDownloadPackage',
     'Invoke-RunAsLoggedOnUser',
-    'Initialize-Variables',
+    'Initialize-PpVariables',
     'Register-Powerpack',
     'Unregister-Powerpack'
     #For performance, list functions explicitly

@@ -46,12 +46,12 @@ function Add-PSDll {
         The path to the CapaOne.ScriptingLibrary.dll.
 
     .EXAMPLE
-        Initialize-Variables -DllPath 'C:\Program Files (x86)\CapaOne\Scripting Library\CapaOne.ScriptingLibrary.dll'
+        Initialize-PpVariables -DllPath 'C:\Program Files (x86)\CapaOne\Scripting Library\CapaOne.ScriptingLibrary.dll'
 
     .NOTES
         Command from PSlib.psm1
 #>
-function Initialize-Variables {
+function Initialize-PpVariables {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
@@ -113,16 +113,16 @@ function Initialize-Variables {
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
         if ($Cs) {
-            Job_WriteLog -Text "Initialize-Variables: Error Line: $($_.InvocationInfo.Line)" 
+            Job_WriteLog -Text "Initialize-PpVariables: Error Line: $($_.InvocationInfo.Line)" 
         }
 
         Write-Error 'Error Item: '$_.Exception.ItemName       
         if ($Cs) {
-            Job_WriteLog -Text "Initialize-Variables: Error Item: $($_.Exception.ItemName)"
+            Job_WriteLog -Text "Initialize-PpVariables: Error Item: $($_.Exception.ItemName)"
         }
 
         if ($Cs) {
-            Job_WriteLog -Text "Initialize-Variables: '$($_.Exception.HResult)'"
+            Job_WriteLog -Text "Initialize-PpVariables: '$($_.Exception.HResult)'"
         }
         $_.Exception.HResult
     } finally {

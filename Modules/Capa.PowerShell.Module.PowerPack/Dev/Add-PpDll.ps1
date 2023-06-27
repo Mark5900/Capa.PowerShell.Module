@@ -16,6 +16,7 @@
 #>
 function Add-PpDll {
     [CmdletBinding()]
+    [Alias('Add-PsDll')]
     Param(
         [Parameter(Mandatory = $true)]
         [string]$DllPath
@@ -28,7 +29,7 @@ function Add-PpDll {
         $ErrorMessage = '[Line ' + $_.InvocationInfo.ScriptLineNumber + '] ' + $_.Exception.Message
         #$ErrorNumber = $_.Exception.HResult
         Write-Error "Failed to load ScriptingLibrary: $ErrorMessage"
-        Exit-PSScript $_
+        Exit-PpScript $_
     }
 
 }

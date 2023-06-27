@@ -10,12 +10,12 @@
         The path to the CapaOne.ScriptingLibrary.dll.
 
     .EXAMPLE
-        Add-PSDll -DllPath $DllPath
+        Add-PpDll -DllPath $DllPath
 
     .NOTES
         Command from PSlib.psm1
 #>
-function Add-PSDll {
+function Add-PpDll {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]

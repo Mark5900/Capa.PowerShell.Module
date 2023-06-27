@@ -2,7 +2,7 @@
 
 ## Capa.PowerShell.Module.PowerPack
 
-* [Add-PSDll](Functions/Add-PSDll.md)
+* [Add-PpDll](Functions/Add-PpDll.md)
 * [Initialize-Variables](Functions/Initialize-Variables.md)
 * [Invoke-RunAsLoggedOnUser](Functions/Invoke-RunAsLoggedOnUser.md)
 * [Register-Powerpack](Functions/Register-Powerpack.md)

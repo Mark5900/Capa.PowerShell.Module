@@ -17,6 +17,15 @@ BeforeAll {
     $Global:Cs = Add-PsDll -DllPath $DllPath
     Job_Start -JobType 'WS' -PackageName 'PesterTest' -PackageVersion 'v1.0' -LogPath $LogFilePath -Action 'INSTALL'
     Initialize-PpVariables -DllPath $DllPath
+    Job_WriteLog -Text ('$global:gsWindowsVersion is: ' + $global:gsWindowsVersion)
+
+    # Parameters to make tests work
+    $UUID = (Get-ItemProperty -Path HKLM:\SOFTWARE\CapaSystems\CapaInstaller\Client -Name UUID).UUID
+    $Model = (Get-CimInstance -ClassName Win32_ComputerSystem).Model
+    $Manufacturer = (Get-CimInstance -ClassName Win32_ComputerSystem).Manufacturer
+    $UnitName = (Get-CimInstance -ClassName Win32_ComputerSystem).Name
+    $WindowsVersion = [System.Environment]::OSVersion.Version.ToString()
+    $WindowsType = (Get-CimInstance -ClassName Win32_OperatingSystem).Caption
 }
 Describe '$global:gsProgramFiles' {
     It 'Should be "C:\Program Files"' {
@@ -495,8 +504,8 @@ Describe '$global:gsDisplayVersion' {
     }
 }
 Describe '$global:gsWindowsType' {
-    It 'Should be "Workstation"' {
-        $global:gsWindowsType | Should -Be 'Workstation'
+    It 'Should be "LanmanNT"' {
+        $global:gsWindowsType | Should -Be 'LanmanNT'
     }
     It 'Should be a string' {
         $global:gsWindowsType | Should -BeOfType [string]
@@ -506,8 +515,8 @@ Describe '$global:gsWindowsType' {
     }
 }
 Describe '$global:gsOsArchitechture' {
-    It 'Should be "64-bit"' {
-        $global:gsOsArchitechture | Should -Be '64-bit'
+    It 'Should be "X64"' {
+        $global:gsOsArchitechture | Should -Be 'X64'
     }
     It 'Should be a string' {
         $global:gsOsArchitechture | Should -BeOfType [string]
@@ -517,8 +526,8 @@ Describe '$global:gsOsArchitechture' {
     }
 }
 Describe '$global:gsWindowsVersion' {
-    It 'Should be "10.0.18363.778"' {
-        $global:gsWindowsVersion | Should -Be '10.0.18363.778'
+    It 'Should be same as $WindowsVersion' {
+        $global:gsWindowsVersion | Should -Be $WindowsVersion
     }
     It 'Should be a string' {
         $global:gsWindowsVersion | Should -BeOfType [string]
@@ -528,8 +537,8 @@ Describe '$global:gsWindowsVersion' {
     }
 }
 Describe '$global:gsUnitName' {
-    It 'Should be "DESKTOP-1"' {
-        $global:gsUnitName | Should -Be 'DESKTOP-1'
+    It 'Should be same as $UnitName or $UUID' {
+        $global:gsUnitName | Should -Match "$UnitName|$UUID"
     }
     It 'Should be a string' {
         $global:gsUnitName | Should -BeOfType [string]
@@ -539,8 +548,8 @@ Describe '$global:gsUnitName' {
     }
 }
 Describe '$global:gsComputerManufacturer' {
-    It 'Should be "LENOVO"' {
-        $global:gsComputerManufacturer | Should -Be 'LENOVO'
+    It 'Should be same as $Manufacturer' {
+        $global:gsComputerManufacturer | Should -Be $Manufacturer
     }
     It 'Should be a string' {
         $global:gsComputerManufacturer | Should -BeOfType [string]
@@ -550,8 +559,7 @@ Describe '$global:gsComputerManufacturer' {
     }
 }
 Describe '$global:gsComputerModel' {
-    $Model = (Get-CimInstance -ClassName Win32_ComputerSystem).Model
-    It "Should be '$Model'" {
+    It 'Should be same as $Model' {
         $global:gsComputerModel | Should -Be $Model
     }
     It 'Should be a string' {
@@ -562,10 +570,8 @@ Describe '$global:gsComputerModel' {
     }
 }
 Describe '$global:gsUUID' {
-    $UUID = Get-ItemProperty -Path HKLM:\SOFTWARE\CapaSystems\CapaInstaller\Client -Name UUID
-
-    It "UUID Should be '$($UUID.UUID)'" {
-        $global:gsUUID | Should -Be $UUID.UUID
+    It 'UUID Should be same as $UUID' {
+        $global:gsUUID | Should -Be $UUID
     }
     It 'Should be a string' {
         $global:gsUUID | Should -BeOfType [string]

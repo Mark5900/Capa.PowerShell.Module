@@ -70,7 +70,7 @@
     NestedModules          = @()
 	
     # Functions to export from this module
-    FunctionsToExport      = 'Add-PSDll',
+    FunctionsToExport      = 'Add-PpDll',
     'Start-PSDownloadPackage',
     'Invoke-RunAsLoggedOnUser',
     'Initialize-Variables',

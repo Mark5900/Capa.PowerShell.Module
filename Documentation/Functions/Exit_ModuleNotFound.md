@@ -1,4 +1,4 @@
-# Exit_ModuleNotFound
+# Exit-PpModuleNotFound
 Module: Capa.PowerShell.Module.PowerPack.Exit
 
 Set error code that the module was not found.
@@ -6,18 +6,18 @@ Set error code that the module was not found.
 ## Syntax
 
 ```powershell
-Exit_ModuleNotFound
+Exit-PpModuleNotFound
 ```
 
 ## Description
 
-Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 ## Examples
 
 ### Example 1
 ```powershell
-Exit_ModuleNotFound
+Exit-PpModuleNotFound
 ```
     
 

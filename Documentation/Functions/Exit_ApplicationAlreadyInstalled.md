@@ -11,7 +11,7 @@ Exit_ApplicationAlreadyInstalled
 
 ## Description
 
-Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 ## Examples
 

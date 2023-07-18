@@ -62,24 +62,25 @@
 	NestedModules          = @()
 	
 	# Functions to export from this module
-	FunctionsToExport      = 'Exit_RetryLater',
+	FunctionsToExport      = 'Exit-PpRetryLater',
 	'Exit_ApplicationAlreadyInstalled',
-	'Exit_RebootRequested',
-	'Exit_MissingDiskSpace',
-	'Exit_CommandSucceded',
-	'Exit_ModuleNotFound',
-	'Exit_CommandNotDelivered',
-	'Exit_CommandObsolete',
-	'Exit_CommandTimedOut',
-	'Exit_CommandFailed',
+	'Exit-PpRebootRequested',
+	'Exit-PpMissingDiskSpace',
+	'Exit-PpCommandSucceded',
+	'Exit-PpModuleNotFound',
+	'Exit-PpCommandObsolete',
+	'Exit-PpCommandNotDelivered',
+	'Exit-PpCommandTimedOut',
+	'Exit-PpCommandFailed',
+	'Exit-PpApplicationAlreadyInstalled',
 	'Exit_CommandHandlingFailed',
-	'Exit_CommandNotRecognized',
-	'Exit_PowerShellExecutionFailed',
-	'Exit_PackageNotCompliant',
-	'Exit_PackageCancelled',
-	'Exit_PackageFailedInstall',
-	'Exit_PackageFailedUninstall',
-	'Exit-PSScript'
+	'Exit-PpCommandNotRecognized',
+	'Exit-PpPowerShellExecutionFailed',
+	'Exit-PpPackageNotCompliant',
+	'Exit-PpPackageCancelled',
+	'Exit-PpPackageFailedInstall',
+	'Exit-PpPackageFailedUninstall',
+	'Exit-PpScript'
 	#For performance, list functions explicitly
 	
 	# Cmdlets to export from this module

@@ -12,20 +12,24 @@ BeforeAll {
     Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Job\Dev\Job_EnableLog.ps1" -Force
     Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Job\Dev\Job_Start.ps1" -Force
     Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack\Dev\Add-PsDll.ps1" -Force
+    Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Exit\Dev\Exit-PSScript.ps1" -Force
 
     # Startup Code
     $Global:Cs = Add-PsDll -DllPath $DllPath
     Job_Start -JobType 'WS' -PackageName 'PesterTest' -PackageVersion 'v1.0' -LogPath $LogFilePath -Action 'INSTALL'
     Initialize-PpVariables -DllPath $DllPath
-    Job_WriteLog -Text ('$global:gsWindowsVersion is: ' + $global:gsWindowsVersion)
 
     # Parameters to make tests work
     $UUID = (Get-ItemProperty -Path HKLM:\SOFTWARE\CapaSystems\CapaInstaller\Client -Name UUID).UUID
     $Model = (Get-CimInstance -ClassName Win32_ComputerSystem).Model
     $Manufacturer = (Get-CimInstance -ClassName Win32_ComputerSystem).Manufacturer
     $UnitName = (Get-CimInstance -ClassName Win32_ComputerSystem).Name
-    $WindowsVersion = [System.Environment]::OSVersion.Version.ToString()
     $WindowsType = (Get-CimInstance -ClassName Win32_OperatingSystem).Caption
+    $WindowsVersion = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\' -Name CurrentVersion).CurrentVersion
+    $DisplayVersion = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\' -Name DisplayVersion).DisplayVersion
+    $EditionId = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\' -Name CompositionEditionID).CompositionEditionID
+    $CurrentBuild = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\' -Name CurrentBuild).CurrentBuild
+    $OsSystem = (Get-CimInstance -ClassName Win32_OperatingSystem).Caption
 }
 Describe '$global:gsProgramFiles' {
     It 'Should be "C:\Program Files"' {
@@ -140,8 +144,8 @@ Describe '$global:gsSystemDirx86' {
     }
 }
 Describe '$global:gsLogDir' {
-    It 'Should be "C:\Program Files\CapaInstaller\Client\Log"' {
-        $global:gsLogDir | Should -Be 'C:\Program Files\CapaInstaller\Client\Log'
+    It 'Should be "C:\Program Files\CapaInstaller\Client\Logs"' {
+        $global:gsLogDir | Should -Be 'C:\Program Files\CapaInstaller\Client\Logs'
     }
     It 'Should be a string' {
         $global:gsLogDir | Should -BeOfType [string]
@@ -154,8 +158,8 @@ Describe '$global:gsLogDir' {
     }
 }
 Describe '$global:gsTempDir' {
-    It 'Should be "C:\Program Files\CapaInstaller\Client\Temp"' {
-        $global:gsTempDir | Should -Be 'C:\Program Files\CapaInstaller\Client\Temp'
+    It 'Should be "C:\Program Files\CapaInstaller\Client\Logs\Temp"' {
+        $global:gsTempDir | Should -Be 'C:\Program Files\CapaInstaller\Client\Logs\Temp'
     }
     It 'Should be a string' {
         $global:gsTempDir | Should -BeOfType [string]
@@ -168,8 +172,8 @@ Describe '$global:gsTempDir' {
     }
 }
 Describe '$global:gsOsSystem' {
-    It 'Should be "Windows 10 Pro"' {
-        $global:gsOsSystem | Should -Be 'Windows 10 Pro'
+    It "Should be $OsSystem" {
+        $global:gsOsSystem | Should -Be $OsSystem
     }
     It 'Should be a string' {
         $global:gsOsSystem | Should -BeOfType [string]
@@ -215,8 +219,8 @@ Describe '$global:gsLogName' {
     }
 }
 Describe '$global:gsTask' {
-    It 'Should be "Initialize-PpVariables"' {
-        $global:gsTask | Should -Be 'Initialize-PpVariables'
+    It 'Should be "INSTALL"' {
+        $global:gsTask | Should -Be 'INSTALL'
     }
     It 'Should be a string' {
         $global:gsTask | Should -BeOfType [string]
@@ -248,8 +252,8 @@ Describe '$global:gbSuficientDiskSpace' {
     }
 }
 Describe '$global:gsJobName' {
-    It 'Should be "Initialize-PpVariables"' {
-        $global:gsJobName | Should -Be 'Initialize-PpVariables'
+    It 'Should be "PesterTest"' {
+        $global:gsJobName | Should -Be 'PesterTest'
     }
     It 'Should be a string' {
         $global:gsJobName | Should -BeOfType [string]
@@ -259,8 +263,8 @@ Describe '$global:gsJobName' {
     }
 }
 Describe '$global:gsLibrary' {
-    It 'Should be "C:\Program Files\CapaInstaller\Client\Library"' {
-        $global:gsLibrary | Should -Be 'C:\Program Files\CapaInstaller\Client\Library'
+    It 'Should be "C:\Program Files\CapaInstaller\Client\Lib"' {
+        $global:gsLibrary | Should -Be 'C:\Program Files\CapaInstaller\Client\Lib'
     }
     It 'Should be a string' {
         $global:gsLibrary | Should -BeOfType [string]
@@ -375,7 +379,7 @@ Describe '$global:gsCommonFiles' {
         Test-Path $global:gsCommonFiles | Should -Be $true
     }
     It 'Should be the same as $Global:Cs' {
-        $global:gsCommonFiles | Should -Be $Global:Cs.gsCommonFiles
+        $global:gsCommonFiles | Should -Be $Global:Cs.gsCommonFilesDir
     }
 }
 Describe '$global:gsCommonFilesDirx86' {
@@ -403,7 +407,7 @@ Describe '$global:gsCommonFilesx86' {
         Test-Path $global:gsCommonFilesx86 | Should -Be $true
     }
     It 'Should be the same as $Global:Cs' {
-        $global:gsCommonFilesx86 | Should -Be $Global:Cs.gsCommonFilesx86
+        $global:gsCommonFilesx86 | Should -Be $Global:Cs.gsCommonFilesDirx86
     }
 }
 Describe '$global:gsCommonAppData' {
@@ -435,8 +439,8 @@ Describe '$global:gsProgramData' {
     }
 }
 Describe '$global:gsProductid' {
-    It 'Should be "00330-80000-00000-AAOEM"' {
-        $global:gsProductid | Should -Be '00330-80000-00000-AAOEM'
+    It 'Should be "PesterTest"' {
+        $global:gsProductid | Should -Be 'PesterTest'
     }
     It 'Should be a string' {
         $global:gsProductid | Should -BeOfType [string]
@@ -460,8 +464,8 @@ Describe '$global:gsAllusers' {
     }
 }
 Describe '$global:gsWorkstationName' {
-    It 'Should be "DESKTOP-1"' {
-        $global:gsWorkstationName | Should -Be 'DESKTOP-1'
+    It "Should be $env:COMPUTERNAME" {
+        $global:gsWorkstationName | Should -Be $env:COMPUTERNAME
     }
     It 'Should be a string' {
         $global:gsWorkstationName | Should -BeOfType [string]
@@ -471,8 +475,8 @@ Describe '$global:gsWorkstationName' {
     }
 }
 Describe '$global:gsOsBuild' {
-    It 'Should be "18363.778"' {
-        $global:gsOsBuild | Should -Be '18363.778'
+    It "Should be $CurrentBuild" {
+        $global:gsOsBuild | Should -Be $CurrentBuild
     }
     It 'Should be a string' {
         $global:gsOsBuild | Should -BeOfType [string]
@@ -482,8 +486,8 @@ Describe '$global:gsOsBuild' {
     }
 }
 Describe '$global:gsEditionId' {
-    It 'Should be "Professional"' {
-        $global:gsEditionId | Should -Be 'Professional'
+    It "Should be $EditionId" {
+        $global:gsEditionId | Should -Be $EditionId
     }
     It 'Should be a string' {
         $global:gsEditionId | Should -BeOfType [string]
@@ -493,8 +497,8 @@ Describe '$global:gsEditionId' {
     }
 }
 Describe '$global:gsDisplayVersion' {
-    It 'Should be "10.0.18363.778"' {
-        $global:gsDisplayVersion | Should -Be '10.0.18363.778'
+    It "Should be '$DisplayVersion'" {
+        $global:gsDisplayVersion | Should -Be $DisplayVersion
     }
     It 'Should be a string' {
         $global:gsDisplayVersion | Should -BeOfType [string]

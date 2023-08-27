@@ -1,4 +1,4 @@
-# Add-PSDll
+# Add-PpDll
 Module: Capa.PowerShell.Module.PowerPack
 
 Adds the CapaOne.ScriptingLibrary.dll to the current session.
@@ -6,7 +6,7 @@ Adds the CapaOne.ScriptingLibrary.dll to the current session.
 ## Syntax
 
 ```powershell
-Add-PSDll
+Add-PpDll
 	-DllPath <String>
 ```
 
@@ -18,7 +18,7 @@ Adds the CapaOne.ScriptingLibrary.dll to the current session.
 
 ### Example 1
 ```powershell
-Add-PSDll -DllPath $DllPath
+Add-PpDll -DllPath $DllPath
 ```
     
 
@@ -27,13 +27,13 @@ Add-PSDll -DllPath $DllPath
 -**DllPath**
 
 The path to the CapaOne.ScriptingLibrary.dll.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+| Name                        | Value  |
+| --------------------------- | ------ |
+| Type:                       | String |
+| Position:                   | 1      |
+| Default value:              | None   |
+| Accept pipeline input:      | false  |
+| Accept wildcard characters: | false  |
 
 
 ## Notes

@@ -21,9 +21,11 @@
 	
 	.PARAMETER DefaultManagementPoint
 		Id of the default management point.
+		DO NOT USE. This will set the management point for all SDK objects, use InstanceManagementPoint instead. 
 	
 	.PARAMETER InstanceManagementPoint
 		Id of the instance management point.
+		Sets the management point for the current SDK object. Use DefaultManagementPoint to set the management point for all SDK objects.
 	
 	.EXAMPLE
 		PS C:\> Initialize-CapaSDK -Server 'CAPASQL01' -Database 'CapaInstaller' -DefaultManagementPoint 1
@@ -41,36 +43,36 @@
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246174/Set+splitter
 #>
 function Initialize-CapaSDK {
-    [CmdletBinding()]
-    param
-    (
-        [Parameter(Mandatory = $true)]
-        [string]$Server,
-        [Parameter(Mandatory = $true)]
-        [string]$Database = '',
-        [string]$UserName = '',
-        [string]$Password = '',
-        [Parameter(Mandatory = $false)]
-        [string]$DefaultManagementPoint,
-        [string]$InstanceManagementPoint
-    )
-    $oCMS = New-Object -ComObject CapaInstaller.SDK
+	[CmdletBinding()]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		[string]$Server,
+		[Parameter(Mandatory = $true)]
+		[string]$Database = '',
+		[string]$UserName = '',
+		[string]$Password = '',
+		[Parameter(Mandatory = $false)]
+		[string]$DefaultManagementPoint,
+		[string]$InstanceManagementPoint
+	)
+	$oCMS = New-Object -ComObject CapaInstaller.SDK
 	
-    If ($UserName -ne '' -or $Password -ne '') {
-        $oCMS.SetDatabaseSettings($Server, $Database, $true, $UserName, $Password) | Out-Null
-    } else {
-        $oCMS.SetDatabaseSettings($Server, $Database, $false) | Out-Null
-    }
+	If ($UserName -ne '' -or $Password -ne '') {
+		$oCMS.SetDatabaseSettings($Server, $Database, $true, $UserName, $Password) | Out-Null
+	} else {
+		$oCMS.SetDatabaseSettings($Server, $Database, $false) | Out-Null
+	}
 	
-    if ($DefaultManagementPoint -ne '') {
-        $oCMS.SetDefaultManagementPoint($DefaultManagementPoint) | Out-Null
-    }
+	if ($DefaultManagementPoint -ne '') {
+		$oCMS.SetDefaultManagementPoint($DefaultManagementPoint) | Out-Null
+	}
 	
-    if ($InstanceManagementPoint -ne '') {
-        $oCMS.SetInstanceManagementPoint($InstanceManagementPoint) | Out-Null
-    }
+	if ($InstanceManagementPoint -ne '') {
+		$oCMS.SetInstanceManagementPoint($InstanceManagementPoint) | Out-Null
+	}
 	
-    $oCMS.SetSplitter(';') | Out-Null
+	$oCMS.SetSplitter(';') | Out-Null
 	
-    return $oCMS
+	return $oCMS
 }

@@ -29,7 +29,7 @@ function Add-PpDll {
         $ErrorMessage = '[Line ' + $_.InvocationInfo.ScriptLineNumber + '] ' + $_.Exception.Message
         #$ErrorNumber = $_.Exception.HResult
         Write-Error "Failed to load ScriptingLibrary: $ErrorMessage"
-        Exit-PSScript $_
+        Exit-PpScript $_
     }
 
 }
@@ -370,7 +370,7 @@ function Start-PSDownloadPackage {
                 $HResult = $InputObject.ExceptionHResult
                 Write-Error "Download failed: $HResult $Message"
                 Job_WriteLog -Text "Download failed: $HResult $Message"
-                Exit-PSScript 3322
+                Exit-PpScript 3322
             }
 
             Write-Host "Progress: $Progress"
@@ -386,7 +386,7 @@ function Start-PSDownloadPackage {
         Write-Error "Download failed: $ErrorMessage" 
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
         Write-Error 'Error Item: '$_.Exception.ItemName       
-        Exit-PSScript 3322
+        Exit-PpScript 3322
     }
 }
 

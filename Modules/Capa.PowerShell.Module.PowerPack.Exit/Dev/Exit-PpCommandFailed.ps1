@@ -3,10 +3,13 @@
 		Set error code that the command failed.
 
 	.DESCRIPTION
-		Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 	.EXAMPLE
 		Exit-PpCommandFailed
+
+	.EXAMPLE
+		Exit-PpCommandFailed -ExitMessage 'Test where I set ExitMessage'
 
 	.NOTES
 		Custom command.
@@ -21,8 +24,8 @@ function Exit-PpCommandFailed {
 	)
 
 	if ($ExitMessage) {
-		Exit-PSScript -ExitCode 3305 -ExitMessage $ExitMessage
+		Exit-PpScript -ExitCode 3305 -ExitMessage $ExitMessage
 	} else {
-		Exit-PSScript -ExitCode 3305
+		Exit-PpScript -ExitCode 3305
 	}
 }

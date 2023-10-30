@@ -12,15 +12,15 @@
         The message to write to the log before exiting the script.
 
     .EXAMPLE
-        Exit-PSScript -ExitCode 0 -ExitMessage "Script ended successfully"
+        Exit-PpScript -ExitCode 0 -ExitMessage "Script ended successfully"
 
     .EXAMPLE
-        Exit-PSScript -ExitCode 3305
+        Exit-PpScript -ExitCode 3305
 
     .NOTES
         Command from PSlib.psm1
 #>
-function Exit-PSScript() {
+function Exit-PpScript() {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]

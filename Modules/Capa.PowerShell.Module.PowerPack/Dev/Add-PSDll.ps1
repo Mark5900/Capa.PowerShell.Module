@@ -28,7 +28,7 @@ function Add-PpDll {
         $ErrorMessage = '[Line ' + $_.InvocationInfo.ScriptLineNumber + '] ' + $_.Exception.Message
         #$ErrorNumber = $_.Exception.HResult
         Write-Error "Failed to load ScriptingLibrary: $ErrorMessage"
-        Exit-PSScript $_
+        Exit-PpScript $_
     }
 
 }

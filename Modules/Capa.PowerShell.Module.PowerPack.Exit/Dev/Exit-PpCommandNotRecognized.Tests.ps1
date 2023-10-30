@@ -2,8 +2,6 @@ BeforeAll {
     # Import file 
     . $PSCommandPath.Replace('.Tests.ps1', '.ps1')
     $RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
-
-    #pwsh.exe -File "$PSScriptRoot\Tests_Helper_Scripts\Exit-PpCommandNotRecognized.Tests.Script.ps1" $RootPath
 }
 Describe 'Exit-PpCommandNotRecognized' {
     It 'Should set the error code to 3307' {

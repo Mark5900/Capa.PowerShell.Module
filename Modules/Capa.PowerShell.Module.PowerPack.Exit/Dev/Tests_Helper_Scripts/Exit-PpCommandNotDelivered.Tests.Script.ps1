@@ -3,7 +3,7 @@ $LogFilePath = 'C:\Temp\Exit-PpCommandNotDelivered.log'
 
 Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Exit\Dev\Exit-PpCommandNotDelivered.ps1"
 Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack\Dev\Add-PSDll.ps1"
-Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Exit\Dev\Exit-PSScript.ps1"
+Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Exit\Dev\Exit-PpScript.ps1"
 Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Job\Dev\Job_Start.ps1"
 Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Job\Dev\Job_WriteLog.ps1"
 

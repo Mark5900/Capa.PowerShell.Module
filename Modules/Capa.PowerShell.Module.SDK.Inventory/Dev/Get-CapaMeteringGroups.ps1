@@ -1,16 +1,18 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Get metering groups.
-	
+
 	.DESCRIPTION
 		Gets a list of metering groups.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.EXAMPLE
 				PS C:\> Get-CapaMeteringGroups -CapaSDK $CapaSDK
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246388/Get+metering+groups
 #>
@@ -21,11 +23,11 @@ function Get-CapaMeteringGroups {
 		[Parameter(Mandatory = $true)]
 		$CapaSDK
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetMeteringGroups()
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -39,6 +41,6 @@ function Get-CapaMeteringGroups {
 			ID             = $aItem[7]
 		}
 	}
-	
+
 	Return $oaUnits
 }

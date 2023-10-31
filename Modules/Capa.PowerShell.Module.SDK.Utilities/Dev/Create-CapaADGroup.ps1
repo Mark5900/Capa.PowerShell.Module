@@ -1,25 +1,27 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Create an CapaInstaller AD group.
 
 	.DESCRIPTION
 		Create an CapaInstaller AD group.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER GroupName
 		The name of the group.
-	
+
 	.PARAMETER UnitType
 		The type of the elements in the group. This can be either "Computer" or "User"
-	
+
 	.PARAMETER LDAPPath
 		The LDAP path of the elements in the group.
-	
+
 	.PARAMETER recursive
 		Indicates whether the group should be processed recursively.
-	
+
 	.EXAMPLE
 		PS C:\> Create-CapaADGroup -CapaSDK $CapaSDK -GroupName 'TestGroup' -UnitType 'Computer' -LDAPPath 'LDAP://OU=TestOU,DC=capa,DC=local' -recursive 'true'
 
@@ -42,7 +44,7 @@ function Create-CapaADGroup {
 		[Parameter(Mandatory = $true)]
 		[String]$recursive
 	)
-	
+
 	$value = $CapaSDK.CreateADGroup($GroupName, $UnitType, $LDAPPath, $recursive)
 	return $value
 }

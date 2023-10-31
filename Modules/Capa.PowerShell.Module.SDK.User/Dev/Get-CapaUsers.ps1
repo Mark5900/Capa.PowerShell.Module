@@ -1,16 +1,18 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Get a list of all users.
-	
+
 	.DESCRIPTION
 		Get a list of all users.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.EXAMPLE
 		PS C:\> Get-CapaUsers -CapaSDK $CapaSDK
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247602/Get+Users
 #>
@@ -21,11 +23,11 @@ function Get-CapaUsers {
 		[Parameter(Mandatory = $true)]
 		$CapaSDK
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetUsers()
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -45,6 +47,6 @@ function Get-CapaUsers {
 			EmailTertiary  = $aItem[14]
 		}
 	}
-	
+
 	Return $oaUnits
 }

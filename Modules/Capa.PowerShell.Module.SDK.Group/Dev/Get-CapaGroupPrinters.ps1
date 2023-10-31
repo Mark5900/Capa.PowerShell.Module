@@ -1,24 +1,26 @@
+# TODO: Update and add tests
+
 <#
-	.SYNOPSIS
-		Returns printers linked to a group.
-	
-	.DESCRIPTION
-		Returns array of printers linked to a group.
-	
-	.PARAMETER CapaSDK
-		The CapaSDK object.
-	
-	.PARAMETER GroupName
-		The name of the group.
-	
-	.PARAMETER GroupType
-		The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
-	
-	.EXAMPLE
-				PS C:\> Get-CapaGroupPrinters -CapaSDK $value1 -GroupName 'Value2' -GroupType Dynamic_ADSI
-	
-	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247436/Get+group+Printers
+.SYNOPSIS
+Returns printers linked to a group.
+
+.DESCRIPTION
+Returns array of printers linked to a group.
+
+.PARAMETER CapaSDK
+The CapaSDK object.
+
+.PARAMETER GroupName
+The name of the group.
+
+.PARAMETER GroupType
+The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
+
+.EXAMPLE
+Get-Process C:\> Get-CapaGroupPrinters -CapaSDK $value1 -GroupName 'Value2' -GroupType Dynamic_ADSI
+
+.NOTES
+For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247436/Get+group+Printers
 #>
 function Get-CapaGroupPrinters {
 	[CmdletBinding()]
@@ -32,11 +34,11 @@ function Get-CapaGroupPrinters {
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Static')]
 		[String]$GroupType
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetGroupPrinters($GroupName, $GroupType)
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -50,6 +52,6 @@ function Get-CapaGroupPrinters {
 			UUID        = $aItem[8]
 		}
 	}
-	
+
 	Return $oaUnits
 }

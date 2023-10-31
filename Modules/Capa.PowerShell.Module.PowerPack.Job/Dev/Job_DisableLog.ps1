@@ -1,3 +1,5 @@
+# TODO: Update and add tests
+
 <#
     .SYNOPSIS
         Disable logging

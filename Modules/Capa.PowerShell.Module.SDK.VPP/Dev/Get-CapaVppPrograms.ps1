@@ -1,16 +1,18 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets a list of all VPP programs.
-	
+
 	.DESCRIPTION
 		Gets a list of all VPP programs.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.EXAMPLE
 		Get-CapaVppPrograms -CapaSDK $CapaSDK
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247798/Get+vpp+programs
 #>
@@ -21,11 +23,11 @@ function Get-CapaVppPrograms {
 		[Parameter(Mandatory = $true)]
 		$CapaSDK
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetVppPrograms()
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -38,6 +40,6 @@ function Get-CapaVppPrograms {
 			Description      = $aItem[7]
 		}
 	}
-	
+
 	Return $oaUnits
 }

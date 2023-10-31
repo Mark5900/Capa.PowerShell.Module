@@ -1,3 +1,5 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Starts a service.
@@ -23,7 +25,7 @@ function Service_Start {
 		[string]$ServiceName,
 		$MaxTimeout = ''
 	)
-	
+
 	if ($MaxTimeout -eq '') {
 		$Global:cs.Service_Start($ServiceName)
 	} else {

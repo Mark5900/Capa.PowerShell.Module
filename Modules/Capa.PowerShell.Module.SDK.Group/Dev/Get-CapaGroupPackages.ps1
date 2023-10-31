@@ -1,22 +1,24 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Returns packages linked to a group.
-	
+
 	.DESCRIPTION
 		Returns array of packages linked to a group.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER GroupName
 		The name of the group.
-	
+
 	.PARAMETER GroupType
 		The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
-	
+
 	.EXAMPLE
 		PS C:\> Get-CapaGroupPackages -CapaSDK $CapaSDK -GroupName $GroupName -Type Dynamic_ADSI
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246910/Get+group+packages
 #>
@@ -31,9 +33,9 @@ function Get-CapaGroupPackages {
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
 		[string]$GroupType
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetGroupPackages($GroupName, $GroupType)
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
@@ -55,6 +57,6 @@ function Get-CapaGroupPackages {
 			ServerDeploy       = $aItem[14]
 		}
 	}
-	
+
 	Return $oaUnits
 }

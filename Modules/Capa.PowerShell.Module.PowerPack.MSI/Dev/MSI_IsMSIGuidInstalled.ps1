@@ -1,3 +1,5 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Checks if an GUID is installed.
@@ -16,7 +18,7 @@ function MSI_IsMSIGuidInstalled {
 		[Parameter(Mandatory = $true)]
 		[string]$MsiGuid
 	)
-	
+
 	$Value = $Global:Cs.MSI_IsMSIGuidInstalled($MsiGuid)
 
 	return $Value

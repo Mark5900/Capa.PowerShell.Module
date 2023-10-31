@@ -1,19 +1,21 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Returns all none inventory packages.
-	
+
 	.DESCRIPTION
 		Returns all none inventory packages.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER PackageType
 		The type of the package, either Computer or User.
-	
+
 	.EXAMPLE
 				PS C:\> Get-CapatAllNoneInventoryPackages -CapaSDK $CapaSDK -PackageType 'Computer'
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246900/Get+all+none+inventory+packages
 #>
@@ -25,11 +27,11 @@ function Get-CapatAllNoneInventoryPackages {
 		$CapaSDK,
 		[string]$PackageType = ''
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetAllNoneInventoryPackages($PackageType)
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -50,6 +52,6 @@ function Get-CapatAllNoneInventoryPackages {
 			ServerDeploy       = $aItem[14]
 		}
 	}
-	
+
 	Return $oaUnits
 }

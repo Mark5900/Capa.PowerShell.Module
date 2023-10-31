@@ -1,10 +1,12 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Set hardware inventory for a unit.
-	
+
 	.DESCRIPTION
 		Set hardware inventory for a unit, either by name and type or by UUID.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
 
@@ -28,10 +30,10 @@
 
 	.PARAMETER DataType
 		The data type of the value, can be String, Integer, Text or Time.
-	
+
 	.EXAMPLE
 				PS C:\> Set-CapaSetCustomInventory
-	
+
 	.NOTES
 		When inventory from the unit is collected by the CapaInstaller Backend, these settings will be deleted if not present in the inventory data collected.
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246446/Set+hardware+inventory
@@ -62,7 +64,7 @@ function Set-CapaHardwareInventory {
 		[ValidateSet('Integer', 'Time', 'String', 'Text', 'I', 'T', 'S', 'N')]
 		[String]$DataType
 	)
-	
+
 	switch ($UnitType) {
 		'Computer' {
 			$UnitType = '1'
@@ -72,7 +74,7 @@ function Set-CapaHardwareInventory {
 		}
 		default { }
 	}
-	
+
 	switch ($DataType) {
 		'Integer' {
 			$DataType = 'I'
@@ -88,12 +90,12 @@ function Set-CapaHardwareInventory {
 		}
 		default { }
 	}
-	
+
 	if ($PSCmdlet.ParameterSetName -eq 'NameType') {
 		$value = $CapaSDK.SetHardwareInventory($UnitName, $UnitType, $Section, $Name, $Value, $DataType)
 	} Else {
 		$value = $CapaSDK.SetHardwareInventoryUUID($Uuid, $Section, $Name, $Value, $DataType)
 	}
-	
+
 	return $value
 }

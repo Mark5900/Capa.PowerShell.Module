@@ -1,19 +1,21 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets all inventory packages.
-	
+
 	.DESCRIPTION
 		Gets all inventory packages.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER PackageType
 		The type of the package, either Computer or User.
-	
+
 	.EXAMPLE
 				PS C:\> Get-CapaAllInventoryPackages -CapaSDK $CapaSDK -PackageType 'Computer'
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246890/Get+all+inventory+packages
 #>
@@ -25,11 +27,11 @@ function Get-CapaAllInventoryPackages {
 		$CapaSDK,
 		[string]$PackageType = ''
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetAllInventoryPackages($PackageType)
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -50,6 +52,6 @@ function Get-CapaAllInventoryPackages {
 			ServerDeploy       = $aItem[14]
 		}
 	}
-	
+
 	Return $oaUnits
 }

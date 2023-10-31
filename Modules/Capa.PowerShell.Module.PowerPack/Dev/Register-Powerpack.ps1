@@ -1,3 +1,5 @@
+# TODO: Update and add tests
+
 <#
     .SYNOPSIS
         Register a Powerpack in the registry
@@ -58,8 +60,8 @@ function Register-Powerpack {
         Reg_SetString -RegRoot HKLM -RegKey "Software\Capasystems\Powerpacks\$Application" -RegValue 'Version' -RegData $Version
         Reg_SetString -RegRoot HKLM -RegKey "Software\Capasystems\Powerpacks\$Application" -RegValue 'InstallDate' -RegData $(Get-Date -UFormat '%F %T')
         Reg_SetString -RegRoot HKLM -RegKey "Software\Capasystems\Powerpacks\$Application" -RegValue 'Publisher' -RegData $Vendor
-        if ($AppCode) { 
-            Reg_SetString -RegRoot HKLM -RegKey "Software\Capasystems\Powerpacks\$Application" -RegValue 'AppCode' -RegData $AppCode 
+        if ($AppCode) {
+            Reg_SetString -RegRoot HKLM -RegKey "Software\Capasystems\Powerpacks\$Application" -RegValue 'AppCode' -RegData $AppCode
         }
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
@@ -67,13 +69,13 @@ function Register-Powerpack {
             Job_WriteLog "Register-Powerpack: Error Line: $($_.InvocationInfo.Line)"
         }
 
-        Write-Error 'Error Item: '$_.Exception.ItemName       
+        Write-Error 'Error Item: '$_.Exception.ItemName
         if ($cs) {
-            Job_WriteLog -Text "Register-Powerpack: Error Item: $_.Exception.ItemName" 
+            Job_WriteLog -Text "Register-Powerpack: Error Item: $_.Exception.ItemName"
         }
 
         if ($cs) {
-            Job_WriteLog -Text "Register-Powerpack: '$_.Exception.HResult'" 
+            Job_WriteLog -Text "Register-Powerpack: '$_.Exception.HResult'"
         }
         $_.Exception.HResult
     } Finally {

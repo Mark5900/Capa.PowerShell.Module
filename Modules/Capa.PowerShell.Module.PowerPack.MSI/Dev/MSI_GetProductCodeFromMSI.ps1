@@ -1,3 +1,5 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets the product code of an MSI file.
@@ -16,7 +18,7 @@ function MSI_GetProductCodeFromMSI {
 		[Parameter(Mandatory = $true)]
 		[string]$MsiFile
 	)
-	
+
 	$Value = $Global:Cs.MSI_GetProductCodeFromMSI($MsiFile)
 
 	return $Value

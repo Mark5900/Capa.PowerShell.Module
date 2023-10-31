@@ -1,19 +1,21 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Get management points or a specific management point.
-	
+
 	.DESCRIPTION
 		If CmpId is not specified, all management points are returned.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER CmpId
 		The ID of the management point to return. If omitted, all management points are returned.
-	
+
 	.EXAMPLE
 				PS C:\> Get-CapaManagementPoint -CapaSDK $value1 -CmpId $value2
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247106/Get+management+point
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247116/Get+management+points
@@ -26,15 +28,15 @@ function Get-CapaManagementPoint {
 		$CapaSDK,
 		[int]$CmpId = ''
 	)
-	
+
 	$oaUnits = @()
-	
+
 	if ($CmpId -eq '') {
 		$aUnits = $CapaSDK.GetManagementPoints()
 	} else {
 		$aUnits = $CapaSDK.GetManagementPoint($OSPointID)
 	}
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -49,6 +51,6 @@ function Get-CapaManagementPoint {
 			ParentGUID  = $aItem[9]
 		}
 	}
-	
+
 	Return $oaUnits
 }

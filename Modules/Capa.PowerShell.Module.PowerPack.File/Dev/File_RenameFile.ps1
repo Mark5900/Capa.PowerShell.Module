@@ -1,3 +1,5 @@
+# TODO: Update and add tests
+
 <#
     .SYNOPSIS
         Rename a file.

@@ -1,26 +1,28 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Performs a update now on a package.
-	
+
 	.DESCRIPTION
-		Performs the Update now procedure on a package. This will create a SyncJob to the CiSync service residing on the Point-server with the 'AutoJob' bit set which 
-		will (after completion) in turn create 'auto-syncjobs' to child servers as well as BaseAgent-DistributionServers when/if the package is assigned or the child 
+		Performs the Update now procedure on a package. This will create a SyncJob to the CiSync service residing on the Point-server with the 'AutoJob' bit set which
+		will (after completion) in turn create 'auto-syncjobs' to child servers as well as BaseAgent-DistributionServers when/if the package is assigned or the child
 		servers are 'replica' servers.
 
 		This function is equivalent to the CM-plugin right-click action on a package.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER PackageName
 		The name of the package.
-	
+
 	.PARAMETER PackageVersion
 		The version of the package.
-	
+
 	.PARAMETER PackageType
 		The type of the package, either Computer or User.
-	
+
 	.EXAMPLE
 				PS C:\> Update-CapaPackageNow -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer'
 
@@ -41,7 +43,7 @@ function Update-CapaPackageNow {
 		[ValidateSet('Computer', 'User')]
 		[String]$PackageType
 	)
-	
+
 	$value = $CapaSDK.PackageUpdateNow($PackageName, $PackageVersion, $PackageType)
 	return $value
 }

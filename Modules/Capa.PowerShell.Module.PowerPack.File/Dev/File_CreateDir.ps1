@@ -1,3 +1,5 @@
+# TODO: Update and add tests
+
 <#
     .SYNOPSIS
         Create a directory.
@@ -18,4 +20,4 @@ function File_CreateDir {
     )
 
     $Global:Cs.File_CreateDir($Path)
-} 
+}

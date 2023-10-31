@@ -1,3 +1,5 @@
+# TODO: Update and add tests
+
 <#
     .SYNOPSIS
         Unregister a Powerpack
@@ -25,16 +27,16 @@ function Unregister-Powerpack {
         Reg_DelTree -RegRoot HKLM -RegPath "Software\Capasystems\Powerpacks\$Application"
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
-        if ($cs) { 
-            Job_WriteLog -Text "Unregister-Powerpack: Error Line: $($_.InvocationInfo.Line)" 
+        if ($cs) {
+            Job_WriteLog -Text "Unregister-Powerpack: Error Line: $($_.InvocationInfo.Line)"
         }
-        
-        Write-Error 'Error Item: '$_.Exception.ItemName       
-        if ($cs) { 
+
+        Write-Error 'Error Item: '$_.Exception.ItemName
+        if ($cs) {
             Job_WriteLog -Text "Unregister-Powerpack: Error Item: $($_.Exception.ItemName)"
         }
 
-        if ($cs) { 
+        if ($cs) {
             Job_WriteLog -Text "Unregister-Powerpack: '$($_.Exception.HResult)'"
         }
         $_.Exception.HResult

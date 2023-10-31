@@ -1,3 +1,5 @@
+# TODO: Update and add tests
+
 <#
     .SYNOPSIS
         Creates a new PowerPack in CapaInstaller
@@ -129,7 +131,7 @@ function New-CapaPowerPack {
 		} else {
 			Invoke-Sqlcmd -ServerInstance $SqlServerInstance -Database $Database -Query $Query -Credential $Credential
 		}
-    
+
 		# Remove Temp Folder
 		Remove-Item -Path $TempTempFolder -Recurse -Force | Out-Null
 	} Catch {

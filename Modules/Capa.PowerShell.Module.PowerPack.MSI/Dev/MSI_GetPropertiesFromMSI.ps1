@@ -1,3 +1,5 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets the values of properties from an MSI file.
@@ -21,7 +23,7 @@ function MSI_GetPropertiesFromMSI {
 		[Parameter(Mandatory = $false)]
 		[array]$Property
 	)
-	
+
 	$Value = $Global:Cs.MSI_GetPropertiesFromMSI($MsiFile, $Property)
 
 	return $Value

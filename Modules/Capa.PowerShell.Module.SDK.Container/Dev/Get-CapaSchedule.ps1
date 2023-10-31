@@ -1,19 +1,21 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Returns a schedule object by id.
-	
+
 	.DESCRIPTION
 		Will return something like this: 5|06-01-2011 12:00:00||0|00:00:00|1.00:00:00|Periodical|RecurEvery[1] weeks on [Monday-Tuesday-Wednesday-Thursday-Friday-Saturday-Sunday]|Weekly||True||842b2894-cdab-4a2c-905c-17ee052179db
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER Id
 		Id of the requested unit.
-	
+
 	.EXAMPLE
 		PS C:\> Get-CapaSchedule -CapaSDK $CapaSDK -Id '5'
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246132/Get+schedule
 #>
@@ -26,11 +28,11 @@ function Get-CapaSchedule {
         [Parameter(Mandatory = $true)]
         [string]$Id
     )
-	
+
     $oaUnits = @()
-	
+
     $aUnits = $CapaSDK.GetSchedule($Id)
-	
+
     foreach ($sItem in $aUnits) {
         $aItem = $sItem.Split(';')
         $oaUnits += [pscustomobject]@{
@@ -49,6 +51,6 @@ function Get-CapaSchedule {
             Guid              = $aItem[12]
         }
     }
-	
+
     Return $oaUnits
 }

@@ -1,25 +1,27 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Link profile to a device.
-	
+
 	.DESCRIPTION
 		The Add-CapaUnitToProfile function links a profile to a device.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER UnitName
 		The unit name of the unit.
-	
+
 	.PARAMETER Uuid
 		The UUID of the unit.
-	
+
 	.PARAMETER ProfileName
 		The name of the MDM profile.
-	
+
 	.PARAMETER ChangelogComment
 		A comment that will be added to the changelog.
-	
+
 	.EXAMPLE
 		PS C:\> Add-CapaUnitToProfile -CapaSDK $CapaSDK -UnitName 'Testdev01' -ProfileName 'Wi-Fi settings'
 
@@ -50,7 +52,7 @@ function Add-CapaUnitToProfile {
 		[Parameter(Mandatory = $false)]
 		[String]$ChangelogComment
 	)
-	
+
 	switch ($PsCmdlet.ParameterSetName) {
 		'Uuid' {
 			$value = $CapaSDK.AddUnitToProfile($UnitName, $ProfileName, $ChangelogComment)
@@ -61,6 +63,6 @@ function Add-CapaUnitToProfile {
 			break
 		}
 	}
-	
+
 	return $value
 }

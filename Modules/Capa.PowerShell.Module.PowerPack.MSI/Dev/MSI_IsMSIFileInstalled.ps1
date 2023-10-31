@@ -1,3 +1,5 @@
+# TODO: Update and add tests
+
 <#
 	.SYNOPSIS
 		Checks if an MSI file is installed.
@@ -16,7 +18,7 @@ function MSI_IsMSIFileInstalled {
 		[Parameter(Mandatory = $true)]
 		[string]$MsiFile
 	)
-	
+
 	$Value = $Global:Cs.MSI_IsMSIFileInstalled($MsiFile)
 
 	return $Value

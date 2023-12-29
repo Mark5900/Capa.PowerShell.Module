@@ -1,4 +1,4 @@
-# TODO: Update and add tests
+# TODO: #64 Update and add tests
 
 <#
     .SYNOPSIS
@@ -13,7 +13,7 @@
     .NOTES
         https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455445/cs.File+DelEmptyFolder
 #>
-function File_DelEmptyFolder {
+function File_CreateDir {
     param (
         [Parameter(Mandatory = $true)]
         [string]$Path

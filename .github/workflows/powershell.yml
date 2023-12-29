@@ -13,11 +13,9 @@ on:
   push:
     branches:
       - main
-      - Rewrite-of-names-and-test
   pull_request:
     branches:
       - main
-      - Rewrite-of-names-and-test
   schedule:
     - cron: '28 8 * * 5'
 

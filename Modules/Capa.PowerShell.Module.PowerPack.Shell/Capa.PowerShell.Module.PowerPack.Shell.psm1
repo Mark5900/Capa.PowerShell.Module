@@ -1,4 +1,6 @@
 
+# TODO: #102 Update and add tests
+
 <#
 	.SYNOPSIS
 		Executes a command line application.

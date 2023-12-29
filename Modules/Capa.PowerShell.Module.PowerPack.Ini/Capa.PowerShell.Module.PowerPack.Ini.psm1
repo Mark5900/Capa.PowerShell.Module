@@ -1,4 +1,6 @@
 
+# TODO: #75 Update and add tests
+
 <#
 	.SYNOPSIS
 		Reads an entry from an INI file.
@@ -33,6 +35,8 @@ function Ini_ReadEntry {
 	return $Value
 }
 
+
+# TODO: #76 Update and add tests
 
 <#
 	.SYNOPSIS

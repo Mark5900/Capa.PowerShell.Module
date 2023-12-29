@@ -150,7 +150,7 @@ Is used to further detail the Schedule Recurrence when set to PeriodicalDaily or
 	ScheduleRecurrence = "PeriodicalDaily"
 		ScheduleRecurrencePattern  = "RecurEveryWeekDay" sets the recurrence pattern to run every weekday
 		ScheduleRecurrencePattern  = "" Sets the recurrence pattern to recur every day including weekend days.
-	
+
 	ScheduleRecurrence = "PeriodicalWeekly"
 		ScheduleRecurrencePattern   = "1,3,5" Will set the schedule pattern to run Monday, Wednesday and Friday. All weekdays can be combined with a comma (,) (1,2,3,4,5,6,7)
 			Monday = 1

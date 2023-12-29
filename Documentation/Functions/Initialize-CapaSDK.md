@@ -28,7 +28,7 @@ Initialize-CapaSDK -Server 'CAPASQL01' -Database 'CapaInstaller' -DefaultManagem
     
 ### Example 2
 ```powershell
-Initialize-CapaSDK -Server 'CAPASQL01' -Database 'CapaInstaller' -DefaultManagementPoint 1 -InstanceManagementPoint 1
+Initialize-CapaSDK -Server 'CAPASQL01' -Database 'CapaInstaller' -InstanceManagementPoint 1
 ```
     
 ### Example 3
@@ -88,6 +88,7 @@ Default is to use Windows Authentication.
 -**DefaultManagementPoint**
 
 Id of the default management point.
+DO NOT USE. This will set the management point for all SDK objects, use InstanceManagementPoint instead.
 | Name | Value |
 | ---- | ---- |
 | Type: | String |
@@ -99,6 +100,7 @@ Id of the default management point.
 -**InstanceManagementPoint**
 
 Id of the instance management point.
+Sets the management point for the current SDK object. Use DefaultManagementPoint to set the management point for all SDK objects.
 | Name | Value |
 | ---- | ---- |
 | Type: | String |

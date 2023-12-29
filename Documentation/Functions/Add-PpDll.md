@@ -27,13 +27,13 @@ Add-PpDll -DllPath $DllPath
 -**DllPath**
 
 The path to the CapaOne.ScriptingLibrary.dll.
-| Name                        | Value  |
-| --------------------------- | ------ |
-| Type:                       | String |
-| Position:                   | 1      |
-| Default value:              | None   |
-| Accept pipeline input:      | false  |
-| Accept wildcard characters: | false  |
+| Name | Value |
+| ---- | ---- |
+| Type: | String |
+| Position: | 1 | 
+| Default value: | None | 
+| Accept pipeline input: | false | 
+| Accept wildcard characters: | false | 
 
 
 ## Notes

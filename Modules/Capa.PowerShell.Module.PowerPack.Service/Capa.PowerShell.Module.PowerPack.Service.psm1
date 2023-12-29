@@ -1,4 +1,6 @@
 
+# TODO: #99 Update and add tests
+
 <#
 	.SYNOPSIS
 		Determines if a service exists.
@@ -17,13 +19,15 @@ function Service_Exist {
 		[Parameter(Mandatory = $true, Position = 0)]
 		[string]$ServiceName
 	)
-	
+
 	$Value = $Global:cs.Service_Exist($ServiceName)
 
 	return $Value
 }
 
 
+
+# TODO: #100 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -50,7 +54,7 @@ function Service_Start {
 		[string]$ServiceName,
 		$MaxTimeout = ''
 	)
-	
+
 	if ($MaxTimeout -eq '') {
 		$Global:cs.Service_Start($ServiceName)
 	} else {
@@ -58,6 +62,8 @@ function Service_Start {
 	}
 }
 
+
+# TODO: #101 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -84,7 +90,7 @@ function Service_Stop {
 		[string]$ServiceName,
 		$MaxTimeout = ''
 	)
-	
+
 	if ($MaxTimeout -eq '') {
 		$Global:cs.Service_Stop($ServiceName)
 	} else {

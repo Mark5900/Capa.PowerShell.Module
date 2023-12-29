@@ -6,7 +6,7 @@ Import-Module PSMSI
     Created on:		22-04-2023
     Created by:		Mark5900
     Organization:	IT-Center Fyn
-    Filename:		
+    Filename:
     ===========================================================================
     .DESCRIPTION
         TODO: A description of the file.
@@ -18,7 +18,7 @@ Import-Module PSMSI
 $ProductName = 'Capa.PowerShell.Module'
 $UpgradeCode = '84859CA1-0F7D-47BF-8D36-AE22F5E171AD'
 # Change as needed
-$Version = '1.0.21.0'
+$Version = '1.0.22.0'
 
 #################
 ### FUNCTIONS ###
@@ -49,7 +49,7 @@ function Import-FunctionsToPSMFiles {
                 if ((Test-Path $DestinationFolder) -eq $true) {
                     Remove-Item -Path $DestinationFolder -Recurse -Force
                 }
-                
+
                 Copy-Item -Path $FolderInDev.FullName -Destination $DestinationFolder -Recurse -Force
             }
         }
@@ -186,7 +186,7 @@ function New-ModuleInstaller {
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Capa.PowerShell.Module.PowerPack.UsrMgr.psm1
                     }
                 }
-            } 
+            }
         }
     }-OutputDirectory (Join-Path $PSScriptRoot 'Installers') -RequiresElevation -Version $Version -Manufacturer 'Mark5900' -Platform x64
 
@@ -343,7 +343,7 @@ function New-ModuleInstallerPowerPackOnly {
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Capa.PowerShell.Module.PowerPack.UsrMgr.psm1
                     }
                 }
-            } 
+            }
         }
     }-OutputDirectory (Join-Path $PSScriptRoot 'Installers') -RequiresElevation -Version $Version -Manufacturer 'Mark5900' -Platform x64
 
@@ -360,11 +360,11 @@ function GenerateSyntaxText {
     foreach ($Syntax in $GetHelp.Syntax.syntaxItem) {
         $Text += '```powershell'
         $Text += "`n"
-        
+
         $Text += "$($Syntax.Name)`n"
         foreach ($Parameter in $Syntax.Parameter) {
             $Text += "`t-"
-            
+
             if ($Parameter.Required) {
                 $Text += "$($Parameter.Name)"
             } else {
@@ -392,7 +392,7 @@ function GenerateExaplesText {
     foreach ($Example in $GetHelp.Examples.example) {
         $Text += "### Example $Number"
         $Text += "`n"
-        
+
         $Text += '```powershell'
         $Text += "`n"
 
@@ -451,7 +451,7 @@ function Get-ValidateSet {
             $Values = $null
         }
     }
-    
+
     return $ValidateSet
 }
 
@@ -529,7 +529,7 @@ function GenerateFunctionsDocumentation {
     $OverviewFile = Join-Path $PSScriptRoot 'Documentation' 'Overview of all functions in modules.md'
     Out-File -FilePath $OverviewFile -InputObject '# Overview of all functions in modules' -Force
 
-    # Delete all files in the folder 
+    # Delete all files in the folder
     Get-ChildItem -Path $DocumentationFolder -Recurse | Remove-Item -Force
 
     # Generate documentation for all functions in the modules
@@ -554,7 +554,7 @@ function GenerateFunctionsDocumentation {
 
                 # Title
                 Out-File -FilePath $DocumentationFile -InputObject "# $($GetHelp.Name)" -Append
-                
+
                 # Module
                 Out-File -FilePath $DocumentationFile -InputObject "Module: $($Folder.Name)`n" -Append
 
@@ -580,7 +580,7 @@ function GenerateFunctionsDocumentation {
 
                 # Notes
                 Out-File -FilePath $DocumentationFile -InputObject "## Notes`n" -Append
-                Out-File -FilePath $DocumentationFile -InputObject "$((GetStringBetweenTwoStrings -firstString '.NOTES' -secondString '#>' -importPath $File.FullName).trim())" -Append 
+                Out-File -FilePath $DocumentationFile -InputObject "$((GetStringBetweenTwoStrings -firstString '.NOTES' -secondString '#>' -importPath $File.FullName).trim())" -Append
 
                 #TODO: Add overview page for all functions in documentation folder
                 Out-File -FilePath $OverviewFile -InputObject "* [$($GetHelp.Name)](Functions/$($GetHelp.Name).md)" -Append

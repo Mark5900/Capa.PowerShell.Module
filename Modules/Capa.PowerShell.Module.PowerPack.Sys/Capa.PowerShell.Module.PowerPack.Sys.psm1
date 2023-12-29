@@ -1,4 +1,6 @@
 
+# TODO: #103 Update and add tests
+
 <#
 	.SYNOPSIS
 		Checks if a process exists.
@@ -23,6 +25,8 @@ function Sys_ExistProcess {
 	return $Value
 }
 
+
+# TODO: #104 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -50,6 +54,8 @@ function Sys_GetFreeDiskSpace {
 	return $Value
 }
 
+
+# TODO: #105 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -83,6 +89,8 @@ function Sys_IsMinimumRequiredDiskspaceAvailable {
 }
 
 
+# TODO: #106 Update and add tests
+
 <#
 	.SYNOPSIS
 		Kills a process.
@@ -106,6 +114,8 @@ function Sys_KillProcess {
 }
 
 
+# TODO: #107 Update and add tests
+
 <#
 	.SYNOPSIS
 		Waits for a process to finish.
@@ -125,7 +135,7 @@ function Sys_KillProcess {
 	.NOTES
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456125/cs.Sys+WaitForProcess
 #>
-function Sys_WaitForProcess {
+function Sys_KillProcess {
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$ProcessName,
@@ -138,6 +148,8 @@ function Sys_WaitForProcess {
 	$Global:cs.Sys_WaitForProcess($ProcessName, $MaxWaitSec, $IntervalSec)
 }
 
+
+# TODO: #108 Update and add tests
 
 <#
 	.SYNOPSIS

@@ -6,14 +6,32 @@
 	.DESCRIPTION
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
+	.PARAMETER ExitMessage
+		Exit message to be displayed.
+
 	.EXAMPLE
-		Exit_ApplicationAlreadyInstalled
+		Exit-PpApplicationAlreadyInstalled
+
+	.EXAMPLE
+		Exit-PpApplicationAlreadyInstalled -ExitMessage "The application is already installed."
 
 	.NOTES
 		Custom command.
 #>
-function Exit_ApplicationAlreadyInstalled {
-	Exit-PpScript 3330
+function Exit-PpApplicationAlreadyInstalled {
+	[CmdletBinding()]
+	[Alias('Exit_ApplicationAlreadyInstalled')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+	
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3330 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3330
+	}
+
 }
 
 
@@ -27,12 +45,26 @@ function Exit_ApplicationAlreadyInstalled {
 	.EXAMPLE
 		Exit-PpCommandFailed
 
+	.EXAMPLE
+		Exit-PpCommandFailed -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 
 #>
 function Exit-PpCommandFailed {
-	Exit-PpScript 3305
+	[CmdletBinding()]
+	[Alias('Exit_CommandFailed')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3305 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3305
+	}
 }
 
 
@@ -43,14 +75,31 @@ function Exit-PpCommandFailed {
 	.DESCRIPTION
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
+	.PARAMETER ExitMessage
+		Exit message to set.
+
 	.EXAMPLE
-		Exit_CommandHandlingFailed
+		Exit-PpCommandHandlingFailed
+
+	.EXAMPLE
+		Exit-PpCommandHandlingFailed -ExitMessage 'Test where I set ExitMessage'
 
 	.NOTES
 		Custom command.
 #>
-function Exit_CommandHandlingFailed {
-	Exit-PpScript 3306
+function Exit-PpCommandHandlingFailed {
+	[CmdletBinding()]
+	[Alias('Exit_CommandHandlingFailed')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3306 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript 3306
+	}
 }
 
 
@@ -61,14 +110,30 @@ function Exit_CommandHandlingFailed {
 	.DESCRIPTION
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
+	.PARAMETER ExitMessage
+		Exit message to be displayed.
+
 	.EXAMPLE
 		Exit-PpCommandNotDelivered
+
+	.EXAMPLE
+		Exit-PpCommandNotDelivered -ExitMessage 'The command was not delivered.'
 
 	.NOTES
 		Custom command.
 #>
 function Exit-PpCommandNotDelivered {
-	Exit-PpScript 3302
+	[CmdletBinding()]
+	[Alias('Exit_CommandNotDelivered')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3302 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3302
+	}
 }
 
 
@@ -79,14 +144,31 @@ function Exit-PpCommandNotDelivered {
 	.DESCRIPTION
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
+	.PARAMETER ExitMessage
+		Exit message to be displayed.
+
 	.EXAMPLE
 		Exit-PpCommandNotRecognized
+
+	.EXAMPLE
+		Exit-PpCommandNotRecognized -ExitMessage "The command was not recognized."
 
 	.NOTES
 		Custom command.
 #>
 function Exit-PpCommandNotRecognized {
-	Exit-PpScript 3307
+	[CmdletBinding()]
+	[Alias('Exit_CommandNotRecognized')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3307 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3307
+	}
 }
 
 
@@ -97,15 +179,32 @@ function Exit-PpCommandNotRecognized {
 	.DESCRIPTION
 		Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
+	.PARAMETER ExitMessage
+		Exit message to display.
+
 	.EXAMPLE
 		Exit-PpCommandObsolete
+
+	.EXAMPLE
+		Exit-PpCommandObsolete -ExitMessage "This command is obsolete."
 
 	.NOTES
 		Custom command.
 
 #>
 function Exit-PpCommandObsolete {
-	Exit-PpScript 3303
+	[CmdletBinding()]
+	[Alias('Exit_CommandObsolete')]
+	param(
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3303 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3303
+	}
 }
 
 
@@ -119,12 +218,26 @@ function Exit-PpCommandObsolete {
 	.EXAMPLE
 		Exit-PpCommandSucceded
 
+	.EXAMPLE
+		Exit-PpCommandSucceded -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 
 #>
 function Exit-PpCommandSucceded {
-	Exit-PpScript 3300
+	[CmdletBinding()]
+	[Alias('Exit_CommandSucceded')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3300 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3300
+	}
 }
 
 
@@ -138,11 +251,25 @@ function Exit-PpCommandSucceded {
 	.EXAMPLE
 		Exit-PpCommandTimedOut
 
+	.EXAMPLE
+		Exit-PpCommandTimedOut -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>
 function Exit-PpCommandTimedOut {
-	Exit-PpScript 3304
+	[CmdletBinding()]
+	[Alias('Exit_CommandTimedOut')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3304 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3304
+	}
 }
 
 
@@ -156,11 +283,25 @@ function Exit-PpCommandTimedOut {
 	.EXAMPLE
 		Exit-PpMissingDiskSpace
 
+	.EXAMPLE
+		Exit-PpMissingDiskSpace -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>
 function Exit-PpMissingDiskSpace {
-	Exit-PpScript 3333
+	[CmdletBinding()]
+	[Alias('Exit_MissingDiskSpace')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3333 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3333
+	}
 }
 
 
@@ -174,11 +315,25 @@ function Exit-PpMissingDiskSpace {
 	.EXAMPLE
 		Exit-PpModuleNotFound
 
+	.EXAMPLE
+		Exit-PpModuleNotFound -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>
 function Exit-PpModuleNotFound {
-	Exit-PpScript 3301
+	[CmdletBinding()]
+	[Alias('Exit_ModuleNotFound')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3301 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3301
+	}
 }
 
 
@@ -192,11 +347,25 @@ function Exit-PpModuleNotFound {
 	.EXAMPLE
 		Exit-PpPackageCancelled
 
+	.EXAMPLE
+		Exit-PpPackageCancelled -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>
 function Exit-PpPackageCancelled {
-	Exit-PpScript 3328
+	[CmdletBinding()]
+	[Alias('Exit_PackageCancelled')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3328 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3328
+	}
 }
 
 
@@ -210,11 +379,25 @@ function Exit-PpPackageCancelled {
 	.EXAMPLE
 		Exit-PpPackageFailedInstall
 
+	.EXAMPLE
+		Exit-PpPackageFailedInstall -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>
 function Exit-PpPackageFailedInstall {
-	Exit-PpScript 3329
+	[CmdletBinding()]
+	[Alias('Exit_PackageFailedInstall')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3329 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3329
+	}
 }
 
 
@@ -228,11 +411,25 @@ function Exit-PpPackageFailedInstall {
 	.EXAMPLE
 		Exit-PpPackageFailedUninstall
 
+	.EXAMPLE
+		Exit-PpPackageFailedUninstall -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>
 function Exit-PpPackageFailedUninstall {
-	Exit-PpScript 3332
+	[CmdletBinding()]
+	[Alias('Exit_PackageFailedUninstall')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3332 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3332
+	}
 }
 
 
@@ -246,11 +443,25 @@ function Exit-PpPackageFailedUninstall {
 	.EXAMPLE
 		Exit-PpPackageNotCompliant
 
+	.EXAMPLE
+		Exit-PpPackageNotCompliant -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>
 function Exit-PpPackageNotCompliant {
-	Exit-PpScript 3327
+	[CmdletBinding()]
+	[Alias('Exit_PackageNotCompliant')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3327 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3327
+	}
 }
 
 
@@ -264,11 +475,25 @@ function Exit-PpPackageNotCompliant {
 	.EXAMPLE
 		Exit-PpPowerShellExecutionFailed
 
+	.EXAMPLE
+		Exit-PpPowerShellExecutionFailed -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>
 function Exit-PpPowerShellExecutionFailed {
-	Exit-PpScript 3311
+	[CmdletBinding()]
+	[Alias('Exit_PowerShellExecutionFailed')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3311 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3311
+	}
 }
 
 
@@ -282,11 +507,25 @@ function Exit-PpPowerShellExecutionFailed {
 	.EXAMPLE
 		Exit-PpRebootRequested
 
+	.EXAMPLE
+		Exit-PpRebootRequested -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>
 function Exit-PpRebootRequested {
-	Exit-PpScript 3010
+	[CmdletBinding()]
+	[Alias('Exit_CommandSucceded')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3010 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3010
+	}
 }
 
 
@@ -300,11 +539,25 @@ function Exit-PpRebootRequested {
 	.EXAMPLE
 		Exit-PpRetryLater
 
+	.EXAMPLE
+		Exit-PpRetryLater -ExitMessage 'Test where I set ExitMessage'
+
 	.NOTES
 		Custom command.
 #>
 function Exit-PpRetryLater {
-	Exit-PpScript 3326
+	[CmdletBinding()]
+	[Alias('Exit_CommandSucceded')]
+	param (
+		[Parameter(Mandatory = $false)]
+		[string]$ExitMessage
+	)
+
+	if ($ExitMessage) {
+		Exit-PpScript -ExitCode 3326 -ExitMessage $ExitMessage
+	} else {
+		Exit-PpScript -ExitCode 3326
+	}
 }
 
 
@@ -331,50 +584,50 @@ function Exit-PpRetryLater {
         Command from PSlib.psm1
 #>
 function Exit-PpScript() {
-	[CmdletBinding()]
-	Param(
-		[Parameter(Mandatory = $true)]
-		$ExitCode,
-		[Parameter(Mandatory = $false)]
-		[string]$ExitMessage
-	)
-	$cs.AutoSectionHeader = $false
-	if ($ExitMessage) { 
-		Job_WriteLog -Text $ExitMessage
-	}
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory = $true)]
+        $ExitCode,
+        [Parameter(Mandatory = $false)]
+        [string]$ExitMessage
+    )
+    $Global:Cs.AutoSectionHeader = $false
+    if ($ExitMessage) { 
+        Job_WriteLog -Text $ExitMessage
+    }
     
-	$IgnoreAndContinueErrors = @(3010)
+    $IgnoreAndContinueErrors = @(3010)
 
-	if ($ExitCode.count -eq 0) { 
-		$ExitNumber = 0
-		[string]$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber)" 
-	} elseif ($ExitCode -is [System.Collections.ArrayList]) {
-		$ExitNumber = $ExitCode[0].Exception.HResult
-		if (!$IgnoreAndContinueErrors.Contains($ExitNumber)) { 
-			Job_WriteLog -Text "$($ExitCode[0].Exception.Message)"
-		}
-		$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber) - in line: $($ExitCode[0].InvocationInfo.ScriptLineNumber)"
-	} else {
-		# Must be integer - handle as such
-		if ([string]::IsNullOrWhiteSpace($ExitCode)) { 
-			$ExitCode = 0 
-		}
-		if ($IgnoreAndContinueErrors.Contains($ExitCode)) {
-			$Ex = New-Object System.ApplicationException
-			$Ex.hresult = $ExitCode
-			Write-Error -Exception $Ex -ErrorAction SilentlyContinue
-			return
-		} else {
-			$ExitNumber = $ExitCode
-			[string]$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber)"
-		}
-	}
+    if ($ExitCode.count -eq 0) { 
+        $ExitNumber = 0
+        [string]$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber)" 
+    } elseif ($ExitCode -is [System.Collections.ArrayList]) {
+        $ExitNumber = $ExitCode[0].Exception.HResult
+        if (!$IgnoreAndContinueErrors.Contains($ExitNumber)) { 
+            Job_WriteLog -Text "$($ExitCode[0].Exception.Message)"
+        }
+        $ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber) - in line: $($ExitCode[0].InvocationInfo.ScriptLineNumber)"
+    } else {
+        # Must be integer - handle as such
+        if ([string]::IsNullOrWhiteSpace($ExitCode)) { 
+            $ExitCode = 0 
+        }
+        if ($IgnoreAndContinueErrors.Contains($ExitCode)) {
+            $Ex = New-Object System.ApplicationException
+            $Ex.hresult = $ExitCode
+            Write-Error -Exception $Ex -ErrorAction SilentlyContinue
+            return
+        } else {
+            $ExitNumber = $ExitCode
+            [string]$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber)"
+        }
+    }
     
-	Job_WriteLog -Text $ErrorMessage
-	if ($InputObject) {
-		$InputObject.ExitCode = $ExitNumber 
-	}
-	exit $ExitNumber
+    Job_WriteLog -Text $ErrorMessage
+    if ($InputObject) {
+        $InputObject.ExitCode = $ExitNumber 
+    }
+    exit $ExitNumber
 }
 
 

@@ -1,3 +1,5 @@
+# TODO: #101 Update and add tests
+
 <#
 	.SYNOPSIS
 		Stops a service.
@@ -23,7 +25,7 @@ function Service_Stop {
 		[string]$ServiceName,
 		$MaxTimeout = ''
 	)
-	
+
 	if ($MaxTimeout -eq '') {
 		$Global:cs.Service_Stop($ServiceName)
 	} else {

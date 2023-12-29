@@ -10,12 +10,12 @@
         The path to the CapaOne.ScriptingLibrary.dll.
 
     .EXAMPLE
-        Add-PSDll -DllPath $DllPath
+        Add-PpDll -DllPath $DllPath
 
     .NOTES
         Command from PSlib.psm1
 #>
-function Add-PSDll {
+function Add-PpDll {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]
@@ -29,7 +29,7 @@ function Add-PSDll {
         $ErrorMessage = '[Line ' + $_.InvocationInfo.ScriptLineNumber + '] ' + $_.Exception.Message
         #$ErrorNumber = $_.Exception.HResult
         Write-Error "Failed to load ScriptingLibrary: $ErrorMessage"
-        Exit-PSScript $_
+        Exit-PpScript $_
     }
 
 }
@@ -46,12 +46,12 @@ function Add-PSDll {
         The path to the CapaOne.ScriptingLibrary.dll.
 
     .EXAMPLE
-        Initialize-Variables -DllPath 'C:\Program Files (x86)\CapaOne\Scripting Library\CapaOne.ScriptingLibrary.dll'
+        Initialize-PpVariables -DllPath 'C:\Program Files (x86)\CapaOne\Scripting Library\CapaOne.ScriptingLibrary.dll'
 
     .NOTES
         Command from PSlib.psm1
 #>
-function Initialize-Variables {
+function Initialize-PpVariables {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
@@ -113,16 +113,16 @@ function Initialize-Variables {
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
         if ($Cs) {
-            Job_WriteLog -Text "Initialize-Variables: Error Line: $($_.InvocationInfo.Line)" 
+            Job_WriteLog -Text "Initialize-PpVariables: Error Line: $($_.InvocationInfo.Line)" 
         }
 
         Write-Error 'Error Item: '$_.Exception.ItemName       
         if ($Cs) {
-            Job_WriteLog -Text "Initialize-Variables: Error Item: $($_.Exception.ItemName)"
+            Job_WriteLog -Text "Initialize-PpVariables: Error Item: $($_.Exception.ItemName)"
         }
 
         if ($Cs) {
-            Job_WriteLog -Text "Initialize-Variables: '$($_.Exception.HResult)'"
+            Job_WriteLog -Text "Initialize-PpVariables: '$($_.Exception.HResult)'"
         }
         $_.Exception.HResult
     } finally {
@@ -370,7 +370,7 @@ function Start-PSDownloadPackage {
                 $HResult = $InputObject.ExceptionHResult
                 Write-Error "Download failed: $HResult $Message"
                 Job_WriteLog -Text "Download failed: $HResult $Message"
-                Exit-PSScript 3322
+                Exit-PpScript 3322
             }
 
             Write-Host "Progress: $Progress"
@@ -386,7 +386,7 @@ function Start-PSDownloadPackage {
         Write-Error "Download failed: $ErrorMessage" 
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
         Write-Error 'Error Item: '$_.Exception.ItemName       
-        Exit-PSScript 3322
+        Exit-PpScript 3322
     }
 }
 

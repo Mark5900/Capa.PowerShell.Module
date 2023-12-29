@@ -46,14 +46,14 @@ In the installation or uninstallation script delete all and use the following sn
 			"function Begin {",
 			"  ##############################################",
 			"  #load Library dll",
-			"  $Global:Cs = Add-PSDll -DllPath $Global:DllPath",
+			"  $Global:Cs = Add-PpDll -DllPath $Global:DllPath",
 			"  ##############################################",
 			"",
 			"  #Begin",
 			"  Job_Start -JobType 'WS' -PackageName $$Global:AppName -PackageVersion $$Global:AppRelease -LogPath $$Global:LogFile -Action 'INSTALL'",
 			"  Log_SectionHeader -Name 'Begin'",
 			"  Job_WriteLog -Text (\"[Init]: Starting package: '\" + $$Global:AppName + \"' Release: '\" + $$Global:AppRelease + \"'\")",
-			"  If (!(Sys_IsMinimumRequiredDiskspaceAvailable -Drive 'c:' -MinimumRequiredDiskspace 1500)) { Exit_MissingDiskSpace }",
+			"  If (!(Sys_IsMinimumRequiredDiskspaceAvailable -Drive 'c:' -MinimumRequiredDiskspace 1500)) { Exit-PpMissingDiskSpace }",
 			"  If ($$global:DownloadPackage -and $$Global:InputObject) { Start-PSDownloadPackage }",
 			"",
 			"  Job_WriteLog -Text (\"[Init]: `$$Global:Packageroot:` '\" + $$Global:Packageroot + \"'\")",
@@ -84,11 +84,11 @@ In the installation or uninstallation script delete all and use the following sn
 			"  PreInstall",
 			"  Install",
 			"  PostInstall",
-			"  Exit-PSScript $$Error",
+			"  Exit-PpScript $$Error",
 			"} catch {",
 			"  $$line = $$_.InvocationInfo.ScriptLineNumber",
 			"  Job_WriteLog -FunctionName '*****************' -Text \"Something bad happend at line $$($$line): $$($$_.Exception.Message)\"",
-			"  Exit-PSScript $$_.Exception.HResult",
+			"  Exit-PpScript $$_.Exception.HResult",
 			"}",
 			""
 		]
@@ -105,7 +105,7 @@ In the installation or uninstallation script delete all and use the following sn
 			"$$Arguments = '/SILENT'",
 			"$RetValue = Shell_Execute -Command $$Command -Arguments $$Arguments",
 			"",
-			"if ($$RetValue -ne 0) { Exit-PSScript $RetValue }",
+			"if ($$RetValue -ne 0) { Exit-PpScript $RetValue }",
 			"Job_WriteLog -FunctionName 'Install' -Text \"$$Global:AppName completed with status: $$RetValue\""
 		]
 	}
@@ -121,7 +121,7 @@ In the installation or uninstallation script delete all and use the following sn
 			"$$Arguments = \"/i `\"$$Global:Packageroot\\kit\\GoogleChromeStandaloneEnterprise64.Msi`\" /QN REBOOT=REALLYSUPPRESS ALLUSERS=1\"",
 			"$RetValue = Shell_Execute -Command $$Command -Arguments $$Arguments",
 			"",
-			"if ($$RetValue -ne 0) { Exit-PSScript $RetValue }",
+			"if ($$RetValue -ne 0) { Exit-PpScript $RetValue }",
 			"Job_WriteLog -FunctionName 'Install' -Text \"$$Global:AppName completed with status: $$RetValue\""
 		]
 	}

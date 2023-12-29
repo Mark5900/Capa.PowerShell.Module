@@ -26,13 +26,13 @@ try {
     if ($InputObject) { $pgkit = '' }else { $pgkit = 'kit' }
     Import-Module (Join-Path $Packageroot $pgkit 'PSlib.psm1') -ErrorAction stop
     #load Library dll
-    $cs = Add-PSDll
+    $cs = Add-PpDll
     ##############################################
 
     #Begin
     $cs.Job_Start('WS', $AppName, $AppRelease, $LogFile, 'INSTALL')
     $cs.Job_WriteLog("[Init]: Starting package: '" + $AppName + "' Release: '" + $AppRelease + "'")
-    if (!$cs.Sys_IsMinimumRequiredDiskspaceAvailable('c:', 1500)) { Exit-PSScript 3333 }
+    if (!$cs.Sys_IsMinimumRequiredDiskspaceAvailable('c:', 1500)) { Exit-PpScript 3333 }
     if ($global:DownloadPackage -and $InputObject) { Start-PSDownloadPackage }
   
     $cs.Job_WriteLog("[Init]: `$PackageRoot:` '" + $Packageroot + "'")
@@ -48,12 +48,12 @@ try {
 
     #Sample of executing msi file
     #$retvalue=$cs.Shell_Execute("msiexec","/i `"$Packageroot\kit\GoogleChromeStandaloneEnterprise64.Msi`" /QN REBOOT=REALLYSUPPRESS ALLUSERS=1")
-    #if ($retvalue -ne 0){Exit-PSScript $retvalue}
+    #if ($retvalue -ne 0){Exit-PpScript $retvalue}
     #$cs.Job_WriteLog("Install:","$AppName completed with status: $retvalue")
 
     #Sample of executing installer
     #$retvalue=$cs.Shell_Execute(`"$Packageroot\kit\ProgramInstall.exe`","/SILENT")
-    #if ($retvalue -ne 0){Exit-PSScript $retvalue}
+    #if ($retvalue -ne 0){Exit-PpScript $retvalue}
     #$cs.Job_WriteLog("Install:","$AppName completed with status: $retvalue")
 
 
@@ -63,10 +63,10 @@ try {
     # 3010 = Reboot requested
     # 3333 = Missing disk space
 
-    Exit-PSScript $Error
+    Exit-PpScript $Error
 
 } catch {
     $line = $_.InvocationInfo.ScriptLineNumber
     $cs.Job_WriteLog('*****************', "Something bad happend at line $($line): $($_.Exception.Message)")
-    Exit-PSScript $_.Exception.HResult
+    Exit-PpScript $_.Exception.HResult
 }

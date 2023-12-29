@@ -1,4 +1,4 @@
-# Exit_PowerShellExecutionFailed
+# Exit-PpPowerShellExecutionFailed
 Module: Capa.PowerShell.Module.PowerPack.Exit
 
 Set error code that the PowerShell execution failed.
@@ -6,18 +6,18 @@ Set error code that the PowerShell execution failed.
 ## Syntax
 
 ```powershell
-Exit_PowerShellExecutionFailed
+Exit-PpPowerShellExecutionFailed
 ```
 
 ## Description
 
-Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 ## Examples
 
 ### Example 1
 ```powershell
-Exit_PowerShellExecutionFailed
+Exit-PpPowerShellExecutionFailed
 ```
     
 

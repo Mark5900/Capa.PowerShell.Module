@@ -1,3 +1,5 @@
+# TODO: #56 Update and add tests
+
 <#
     .SYNOPSIS
         Runs a command as the logged on user.
@@ -33,7 +35,7 @@ function Invoke-RunAsLoggedOnUser {
     )
 
     try {
-        if ($Cs) { 
+        if ($Cs) {
             Job_WriteLog -Text "Call Invoke-RunAsLoggedOnUser with Command: '$Command', Arguments: '$Arguments'"
         }
 
@@ -42,10 +44,10 @@ function Invoke-RunAsLoggedOnUser {
         $Trigger = New-ScheduledTaskTrigger -AtLogOn
         $Settings = New-ScheduledTaskSettingsSet -Hidden -Compatibility 'Win8' -ExecutionTimeLimit (New-TimeSpan -Minutes 30)
 
-        if (!$UserName) { 
-            $UserId = (Get-Process -Name explorer -IncludeUserName -ErrorAction SilentlyContinue).username 
-        } else { 
-            $UserId = $UserName 
+        if (!$UserName) {
+            $UserId = (Get-Process -Name explorer -IncludeUserName -ErrorAction SilentlyContinue).username
+        } else {
+            $UserId = $UserName
         }
 
         if (!$UserId) {
@@ -56,18 +58,18 @@ function Invoke-RunAsLoggedOnUser {
         }
 
         foreach ($User in $UserId) {
-            if ($Cs) { 
+            if ($Cs) {
                 Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: User detected using process owner: '$($User)'"
             }
 
             Register-ScheduledTask 'PowerPackUserJob' -Trigger $Trigger -Action $Action -User $User -Settings $Settings -RunLevel Highest | Out-Null
             $SchedTask = Get-ScheduledTask -TaskName 'PowerPackUserJob'
-            
+
             if ($SchedTask) {
                 Start-ScheduledTask -TaskName 'PowerPackUserJob'
 
-                if ($Cs) { 
-                    Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: Scheduled Task 'PowerPackUserJob' has been started." 
+                if ($Cs) {
+                    Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: Scheduled Task 'PowerPackUserJob' has been started."
                 }
 
                 $Count = 0
@@ -87,8 +89,8 @@ function Invoke-RunAsLoggedOnUser {
                             Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: Scheduled Task 'PowerPackUserJob' current state: $TaskState"
                         }
 
-                        if ($Count -ge 1800) { 
-                            break 
+                        if ($Count -ge 1800) {
+                            break
                         }
                     }
 
@@ -102,24 +104,24 @@ function Invoke-RunAsLoggedOnUser {
             Get-ScheduledTask | Where-Object { $_.taskname -ilike 'PowerPackUserJob' } | Unregister-ScheduledTask -Confirm:$false
             if ($Cs) {
                 Job_WriteLog -Text 'Invoke-RunAsLoggedOnUser: Completed with success.'
-            }      
+            }
         }
 
         return 0
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
         if ($Cs) {
-            Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: Error Line: $_.InvocationInfo.Line" 
+            Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: Error Line: $_.InvocationInfo.Line"
         }
 
-        Write-Error 'Error Item: '$_.Exception.ItemName       
+        Write-Error 'Error Item: '$_.Exception.ItemName
         if ($Cs) {
             Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: Error Item: $_.Exception.ItemName"
         }
 
         Unregister-ScheduledTask -TaskName 'PowerPackUserJob' -Confirm:$false -ErrorAction SilentlyContinue
         if ($Cs) {
-            Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: '$_.Exception.HResult'" 
+            Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: '$_.Exception.HResult'"
         }
 
         $_.Exception.HResult

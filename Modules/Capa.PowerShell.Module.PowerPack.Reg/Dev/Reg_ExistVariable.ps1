@@ -1,3 +1,5 @@
+# TODO: #93 Update and add tests
+
 <#
 	.SYNOPSIS
 		Exists a registry variable.

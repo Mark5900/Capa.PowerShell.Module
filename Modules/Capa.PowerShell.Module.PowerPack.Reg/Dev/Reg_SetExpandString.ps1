@@ -1,3 +1,5 @@
+# TODO: #96 Update and add tests
+
 <#
 	.SYNOPSIS
 		Sets a registry expand string.

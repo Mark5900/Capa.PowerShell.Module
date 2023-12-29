@@ -1,3 +1,5 @@
+# TODO: #95 Update and add tests
+
 <#
 	.SYNOPSIS
 		Sets a registry dword.

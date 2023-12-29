@@ -1,10 +1,12 @@
+# TODO: #159 Update and add tests
+
 <#
 	.SYNOPSIS
 		Copy a package in Root Point.
-	
+
 	.DESCRIPTION
 		Copy a package in Root Point.
-	
+
 	.PARAMETER CapaSDK
 		the CapaSDK object.
 
@@ -22,10 +24,10 @@
 
 	.PARAMETER NewVersion
 		The new version of the package.
-	
+
 	.EXAMPLE
 		PS C:\> Copy-CapaPackage -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion 'v3.0' -PackageType Computer -NewName 'Winrar' -NewVersion 'v3.1'
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246842/Copy+Package
 #>
@@ -47,14 +49,14 @@ function Copy-CapaPackage {
 		[Parameter(Mandatory = $true)]
 		[string]$NewVersion
 	)
-	
+
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
 	}
 	if ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
-	
+
 	$value = $CapaSDK.CopyPackage($PackageName, $PackageVersion, $PackageType, $NewName, $NewVersion)
 	return $value
 }

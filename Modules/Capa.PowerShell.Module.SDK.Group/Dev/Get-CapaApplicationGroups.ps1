@@ -1,16 +1,18 @@
+# TODO: #113 Update and add tests
+
 <#
 	.SYNOPSIS
 		Get a list of all application groups.
-	
+
 	.DESCRIPTION
 		Get a list of all application groups.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.EXAMPLE
 				PS C:\> Get-CapaApplicationGroups -CapaSDK $CapaSDK
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246256/Get+application+groups
 #>
@@ -21,11 +23,11 @@ function Get-CapaApplicationGroups {
 		[Parameter(Mandatory = $true)]
 		$CapaSDK
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetApplicationGroups()
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -38,6 +40,6 @@ function Get-CapaApplicationGroups {
 			GUID        = $aItem[6]
 		}
 	}
-	
+
 	Return $oaUnits
 }

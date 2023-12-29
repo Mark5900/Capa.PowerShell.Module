@@ -1,3 +1,5 @@
+# TODO: #94 Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets a registry string.

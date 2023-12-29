@@ -1,3 +1,5 @@
+# TODO: #105 Update and add tests
+
 <#
 	.SYNOPSIS
 		Checks if a minimum required disk space is available.

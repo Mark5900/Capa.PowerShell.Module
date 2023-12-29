@@ -1,16 +1,18 @@
+# TODO: #146 Update and add tests
+
 <#
 	.SYNOPSIS
 		Get all profiles.
-	
+
 	.DESCRIPTION
 		Get all profiles from the Default Management Point.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.EXAMPLE
 		PS C:\> Get-CapaProfiles -CapaSDK $CapaSDK
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246626/Get+Profiles
 #>
@@ -21,11 +23,11 @@ function Get-CapaProfiles {
 		[Parameter(Mandatory = $true)]
 		$CapaSDK
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetProfiles()
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -38,6 +40,6 @@ function Get-CapaProfiles {
 			GUID        = $aItem[6]
 		}
 	}
-	
+
 	Return $oaUnits
 }

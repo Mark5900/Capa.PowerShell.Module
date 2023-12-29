@@ -1,3 +1,5 @@
+# TODO: #107 Update and add tests
+
 <#
 	.SYNOPSIS
 		Waits for a process to finish.
@@ -17,7 +19,7 @@
 	.NOTES
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456125/cs.Sys+WaitForProcess
 #>
-function Sys_WaitForProcess {
+function Sys_KillProcess {
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$ProcessName,

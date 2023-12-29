@@ -1,3 +1,5 @@
+# TODO: #68 Update and add tests
+
 <#
     .SYNOPSIS
         Check if a folder exists.

@@ -1,27 +1,28 @@
+# TODO: #212 Update and add tests
+
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247492/Get+unit+last+runtime
-	
+
 	.DESCRIPTION
 		A detailed description of the Get-CapaUnitLastRuntime function.
-	
+
 	.PARAMETER CapaSDK
 		A description of the CapaSDK parameter.
-	
+
 	.PARAMETER UnitName
 		A description of the UnitName parameter.
-	
+
 	.PARAMETER UnitType
 		A description of the UnitType parameter.
-	
+
 	.EXAMPLE
 				PS C:\> Get-CapaUnitLastRuntime -CapaSDK $value1 -UnitName "" -UnitType ""
-	
+
 	.NOTES
 		Additional information about the function.
 #>
-function Get-CapaUnitLastRuntime
-{
+function Get-CapaUnitLastRuntime {
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -32,17 +33,14 @@ function Get-CapaUnitLastRuntime
 		[ValidateSet('Computer', 'User', '1', '2')]
 		[string]$UnitType = ''
 	)
-	
-	if ($UnitType -eq 'Computer')
-	{
+
+	if ($UnitType -eq 'Computer') {
 		$UnitType = '1'
-	}
-	else
-	{
+	} else {
 		$UnitType = '2'
 	}
-	
+
 	$aUnits = $CapaSDK.GetUnitLastRuntime($UnitName, $UnitType)
-	
+
 	Return $aUnits
 }

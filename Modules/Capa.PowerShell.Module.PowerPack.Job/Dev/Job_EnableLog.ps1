@@ -1,3 +1,5 @@
+# TODO: #78 Update and add tests
+
 <#
     .SYNOPSIS
         Enable logging

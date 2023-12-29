@@ -1,3 +1,5 @@
+# TODO: #98 Update and add tests
+
 <#
 	.SYNOPSIS
 		Sets a registry string.

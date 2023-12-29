@@ -1,3 +1,5 @@
+# TODO: #58 Update and add tests
+
 <#
     .SYNOPSIS
         Downloads a package.
@@ -13,7 +15,7 @@ function Start-PSDownloadPackage {
         $Return = $InputObject.DownloadPackage()
         Job_WriteLog -Text "Downloading package: $AppName"
         Write-Host "Downloading package: $AppName"
-        
+
         Do {
             Start-Sleep -Seconds 1
             $Progress = $InputObject.DownloadProgress
@@ -23,7 +25,7 @@ function Start-PSDownloadPackage {
                 $HResult = $InputObject.ExceptionHResult
                 Write-Error "Download failed: $HResult $Message"
                 Job_WriteLog -Text "Download failed: $HResult $Message"
-                Exit-PSScript 3322
+                Exit-PpScript 3322
             }
 
             Write-Host "Progress: $Progress"
@@ -36,9 +38,9 @@ function Start-PSDownloadPackage {
 
     } catch {
         $ErrorMessage = '[Line ' + $_.InvocationInfo.ScriptLineNumber + '] ' + $_.Exception.Message
-        Write-Error "Download failed: $ErrorMessage" 
+        Write-Error "Download failed: $ErrorMessage"
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
-        Write-Error 'Error Item: '$_.Exception.ItemName       
-        Exit-PSScript 3322
+        Write-Error 'Error Item: '$_.Exception.ItemName
+        Exit-PpScript 3322
     }
 }

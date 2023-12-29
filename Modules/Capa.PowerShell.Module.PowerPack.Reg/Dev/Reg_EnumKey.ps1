@@ -1,3 +1,5 @@
+# TODO: #91 Update and add tests
+
 <#
 	.SYNOPSIS
 		Enumerates all registry keys.

@@ -1,4 +1,4 @@
-# Exit_PackageFailedInstall
+# Exit-PpPackageFailedInstall
 Module: Capa.PowerShell.Module.PowerPack.Exit
 
 Set error code that the package failed to install.
@@ -6,18 +6,18 @@ Set error code that the package failed to install.
 ## Syntax
 
 ```powershell
-Exit_PackageFailedInstall
+Exit-PpPackageFailedInstall
 ```
 
 ## Description
 
-Uses the Exit-PSScript that comes from PSlib.psm1, to set the package error.
+Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
 ## Examples
 
 ### Example 1
 ```powershell
-Exit_PackageFailedInstall
+Exit-PpPackageFailedInstall
 ```
     
 

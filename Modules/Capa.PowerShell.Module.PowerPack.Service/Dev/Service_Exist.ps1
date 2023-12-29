@@ -1,3 +1,5 @@
+# TODO: #99 Update and add tests
+
 <#
 	.SYNOPSIS
 		Determines if a service exists.
@@ -16,7 +18,7 @@ function Service_Exist {
 		[Parameter(Mandatory = $true, Position = 0)]
 		[string]$ServiceName
 	)
-	
+
 	$Value = $Global:cs.Service_Exist($ServiceName)
 
 	return $Value

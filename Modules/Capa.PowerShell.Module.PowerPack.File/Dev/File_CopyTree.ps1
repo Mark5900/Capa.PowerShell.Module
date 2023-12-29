@@ -1,3 +1,5 @@
+# TODO: #62 Update and add tests
+
 <#
     .SYNOPSIS
         Copy a folder.

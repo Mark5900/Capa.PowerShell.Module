@@ -1,3 +1,5 @@
+# TODO: #97 Update and add tests
+
 <#
 	.SYNOPSIS
 		Sets a registry integer.

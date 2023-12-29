@@ -1,3 +1,5 @@
+# TODO: #88 Update and add tests
+
 <#
 	.SYNOPSIS
 		Creates a registry key.

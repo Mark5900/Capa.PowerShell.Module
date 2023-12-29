@@ -1,19 +1,21 @@
+# TODO: #151 Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets a list of OS Images.
-	
+
 	.DESCRIPTION
 		Gets a list of OS Images.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER OSPointID
 		The ID of the OS Point.
-	
+
 	.EXAMPLE
 		PS C:\> Get-CapaOSImages -CapaSDK $CapaSDK -OSPointID 1
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246676/Get+OS+images
 #>
@@ -26,11 +28,11 @@ function Get-CapaOSImages {
 		[Parameter(Mandatory = $true)]
 		[int]$OSPointID
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetOSImages($OSPointID)
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -44,6 +46,6 @@ function Get-CapaOSImages {
 			OSName      = $aItem[7]
 		}
 	}
-	
+
 	Return $oaUnits
 }

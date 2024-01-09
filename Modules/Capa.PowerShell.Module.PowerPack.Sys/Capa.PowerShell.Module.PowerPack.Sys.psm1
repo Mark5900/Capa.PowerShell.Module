@@ -135,7 +135,7 @@ function Sys_KillProcess {
 	.NOTES
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456125/cs.Sys+WaitForProcess
 #>
-function Sys_KillProcess {
+function Sys_WaitForProcess {
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$ProcessName,

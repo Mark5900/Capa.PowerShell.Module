@@ -142,7 +142,7 @@ function File_CreateDir {
     .NOTES
         https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455445/cs.File+DelEmptyFolder
 #>
-function File_CreateDir {
+function File_DelEmptyFolder {
     param (
         [Parameter(Mandatory = $true)]
         [string]$Path

@@ -1,4 +1,6 @@
 
+# TODO: #103 Update and add tests
+
 <#
 	.SYNOPSIS
 		Checks if a process exists.
@@ -23,6 +25,8 @@ function Sys_ExistProcess {
 	return $Value
 }
 
+
+# TODO: #104 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -50,6 +54,8 @@ function Sys_GetFreeDiskSpace {
 	return $Value
 }
 
+
+# TODO: #105 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -83,6 +89,8 @@ function Sys_IsMinimumRequiredDiskspaceAvailable {
 }
 
 
+# TODO: #106 Update and add tests
+
 <#
 	.SYNOPSIS
 		Kills a process.
@@ -105,6 +113,8 @@ function Sys_KillProcess {
 	$Global:cs.Sys_KillProcess($ProcessName)
 }
 
+
+# TODO: #107 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -138,6 +148,8 @@ function Sys_WaitForProcess {
 	$Global:cs.Sys_WaitForProcess($ProcessName, $MaxWaitSec, $IntervalSec)
 }
 
+
+# TODO: #108 Update and add tests
 
 <#
 	.SYNOPSIS

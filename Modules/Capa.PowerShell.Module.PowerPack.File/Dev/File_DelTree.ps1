@@ -1,3 +1,5 @@
+# TODO: #66 Update and add tests
+
 <#
     .SYNOPSIS
         Delete a folder.

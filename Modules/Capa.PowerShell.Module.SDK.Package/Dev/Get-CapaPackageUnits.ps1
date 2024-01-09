@@ -1,13 +1,15 @@
+# TODO: #172 Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets a list of units linked to a package.
-	
+
 	.DESCRIPTION
 		Gets a list of units linked to a package.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER PackageName
 		The name of the package.
 
@@ -16,10 +18,10 @@
 
 	.PARAMETER PackageType
 		The type of package, can be either Computer or User.
-	
+
 	.EXAMPLE
 				PS C:\> Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer'
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247456/Get+package+units
 #>
@@ -36,9 +38,9 @@ function Get-CapaPackageUnits {
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetPackageUnits($PackageName, $PackageVersion, $PackageType)
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
@@ -53,6 +55,6 @@ function Get-CapaPackageUnits {
 			TypeName     = $aItem[7]
 		}
 	}
-	
+
 	Return $oaUnits
 }

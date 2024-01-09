@@ -26,7 +26,7 @@ try {
     if ($InputObject) { $pgkit = '' }else { $pgkit = 'kit' }
     Import-Module (Join-Path $Packageroot $pgkit 'PSlib.psm1') -ErrorAction stop
     #load Library dll
-    $cs = Add-PSDll
+    $cs = Add-PpDll
     ##############################################
 
     #Begin

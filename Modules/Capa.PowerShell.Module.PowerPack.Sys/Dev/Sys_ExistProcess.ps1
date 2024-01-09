@@ -1,3 +1,5 @@
+# TODO: #103 Update and add tests
+
 <#
 	.SYNOPSIS
 		Checks if a process exists.

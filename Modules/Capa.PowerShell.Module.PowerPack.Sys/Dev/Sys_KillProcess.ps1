@@ -1,3 +1,5 @@
+# TODO: #106 Update and add tests
+
 <#
 	.SYNOPSIS
 		Kills a process.

@@ -1,55 +1,57 @@
+# TODO: #144 Update and add tests
+
 <#
 	.SYNOPSIS
 		Edit an existing WiFi payload.
-	
+
 	.DESCRIPTION
 		Edit an existing WiFi payload in the specified profile.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER ProfileID
 		The ID of the profile you wish to edit.
 
 	.PARAMETER CurrentNetworkName
 		The network name (SSID) of the wifi payload you wish to edit.
-	
+
 	.PARAMETER NetworkName
 		The name of the WiFi network the devices should join. This is a mandatory parameter.
-	
+
 	.PARAMETER HiddenNetwork
 		Enable if target network is not open or broadcasting.
-	
+
 	.PARAMETER AutoJoin
 		Automatically join this wireless network.
-	
+
 	.PARAMETER SecurityType
 		The type of WiFi security used on the WiFi network. Options are: None, WEP, WPA and Any.
-	
+
 	.PARAMETER Password
 		The password used to authenticate against the WiFi network. This setting is mandatory if securityType is WEP, WPA or Any.
-	
+
 	.PARAMETER ProxyType
 		Configures proxy settings to be used with this network. Options are: Automatic, Manual, None.
-	
+
 	.PARAMETER ProxyServer
 		The proxy server's network address. Mandatory if proxyType is Manual.
-	
+
 	.PARAMETER ProxyPort
 		The proxy server's port. Mandatory if proxyType is Manual.
-	
+
 	.PARAMETER ProxyAuthentication
 		The username used to authenticate to the proxy server. Mandatory if proxyType is Manual.
-	
+
 	.PARAMETER ProxyPassword
 		The password used to authenticate to the proxy server. Mandatory if proxyType is Manual.
-	
+
 	.PARAMETER ProxyServerConfigURL
 		AThe URL of the PAC file that defines the proxy configuration. Mandatory if proxyType is Automatic.
-	
+
 	.PARAMETER ChangelogComment
 		Comment you wish to be added to the changelog.
-	
+
 	.EXAMPLE
 				PS C:\> Edit-CapaWifiPayload @(
 					CapaSDK = $CapaSDK
@@ -68,7 +70,7 @@
 					ProxyServerConfigURL = ""
 					ChangelogComment = "Editing WiFi Payload"
 				)
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246604/Edit+WiFi+Payload
 #>
@@ -102,7 +104,7 @@ function Edit-CapaWifiPayload {
 		[string]$ProxyServerConfigURL = '',
 		[string]$ChangelogComment = ''
 	)
-	
+
 	if ($Password -eq '' -and $SecurityType -ne 'None') {
 		Write-Error "Password cannot be NULL when choosing SecurityType: $SecurityType"
 	} elseif ($ProxyType -eq 'Manual' -and $ProxyServer -eq '') {

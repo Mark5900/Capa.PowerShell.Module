@@ -1,3 +1,5 @@
+# TODO: #60 Update and add tests
+
 <#
     .SYNOPSIS
         Append text to a file.

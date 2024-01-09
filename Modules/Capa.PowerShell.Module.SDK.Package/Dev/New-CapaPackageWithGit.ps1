@@ -1,7 +1,9 @@
+# TODO: #178 Update and add tests
+
 <#
     .SYNOPSIS
         Create a new Capa package with Git
-    
+
     .DESCRIPTION
         Creates a local folder structure you can use with Git to manage your deployment of Capa packages.
         The folder structure is based on the Capa package structure.

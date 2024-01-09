@@ -1,3 +1,5 @@
+# TODO: #80 Update and add tests
+
 <#
     .SYNOPSIS
         This function will initialize the Powershell Scripting Library and set logpath and other variables.

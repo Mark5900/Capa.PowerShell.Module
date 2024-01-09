@@ -1,4 +1,6 @@
 
+# TODO: #88 Update and add tests
+
 <#
 	.SYNOPSIS
 		Creates a registry key.
@@ -27,6 +29,8 @@ function Reg_CreateKey {
 	$Global:cs.Reg_CreateKey($RegRoot, $RegPath)
 }
 
+
+# TODO: #90 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -62,6 +66,8 @@ function Reg_DeleteVariable {
 }
 
 
+# TODO: #89 Update and add tests
+
 <#
 	.SYNOPSIS
 		Deletes a registry tree.
@@ -95,6 +101,8 @@ function Reg_DelTree {
 	$Global:cs.Reg_DelTree($RegRoot, $RegPath, $RegKey)
 }
 
+
+# TODO: #91 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -132,6 +140,8 @@ function Reg_EnumKey {
 }
 
 
+# TODO: #92 Update and add tests
+
 <#
 	.SYNOPSIS
 		Exists a registry key.
@@ -162,6 +172,8 @@ function Reg_ExistKey {
 	return $Value
 }
 
+
+# TODO: #93 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -199,6 +211,8 @@ function Reg_ExistVariable {
 }
 
 
+# TODO: #94 Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets a registry string.
@@ -234,6 +248,8 @@ function Reg_GetString {
 	return $Value
 }
 
+
+# TODO: #95 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -274,6 +290,8 @@ function Reg_SetDword {
 }
 
 
+# TODO: #96 Update and add tests
+
 <#
 	.SYNOPSIS
 		Sets a registry expand string.
@@ -313,6 +331,8 @@ function Reg_SetExpandString {
 }
 
 
+# TODO: #97 Update and add tests
+
 <#
 	.SYNOPSIS
 		Sets a registry integer.
@@ -351,6 +371,8 @@ function Reg_SetInteger {
 	$Global:cs.Reg_SetInteger($RegRoot, $RegKey, $RegValue, $RegData)
 }
 
+
+# TODO: #98 Update and add tests
 
 <#
 	.SYNOPSIS

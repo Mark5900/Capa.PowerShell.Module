@@ -1,3 +1,5 @@
+# TODO: #92 Update and add tests
+
 <#
 	.SYNOPSIS
 		Exists a registry key.

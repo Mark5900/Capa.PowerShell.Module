@@ -1,37 +1,39 @@
+# TODO: #132 Update and add tests
+
 <#
 	.SYNOPSIS
 		Set custom inventory for a unit.
-	
+
 	.DESCRIPTION
 		Set custom inventory for a unit, either by name and type or by UUID.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER UnitName
 		The name of the unit.
-	
+
 	.PARAMETER UnitType
 		The type of the unit, can be Computer or User.
-	
+
 	.PARAMETER Uuid
 		The UUID of the unit.
-	
+
 	.PARAMETER Section
 		The inventory section.
-	
+
 	.PARAMETER Name
 		The name of the value.
-	
+
 	.PARAMETER Value
 		The value.
-	
+
 	.PARAMETER DataType
 		The data type of the value, can be String, Integer, Text or Time.
-	
+
 	.EXAMPLE
 				PS C:\> Set-CapaCustomInventory -CapaSDK $CapaSDK -UnitName 'Klient' -UnitType Computer -Section 'Antivirus' -Name 'Version' -Value '4' -DataType Integer
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246438/Set+custom+inventory
 #>
@@ -61,7 +63,7 @@ function Set-CapaCustomInventory {
 		[ValidateSet('Integer', 'Time', 'String', 'Text', 'I', 'T', 'S', 'N')]
 		[String]$DataType
 	)
-	
+
 	switch ($UnitType) {
 		'Computer' {
 			$UnitType = '1'
@@ -71,7 +73,7 @@ function Set-CapaCustomInventory {
 		}
 		default { }
 	}
-	
+
 	switch ($DataType) {
 		'Integer' {
 			$DataType = 'I'
@@ -87,12 +89,12 @@ function Set-CapaCustomInventory {
 		}
 		default { }
 	}
-	
+
 	if ($PSCmdlet.ParameterSetName -eq 'NameType') {
 		$value = $CapaSDK.SetCustomInventory($UnitName, $UnitType, $Section, $Name, $Value, $DataType)
 	} Else {
 		$value = $CapaSDK.SetCustomInventoryUUID($Uuid, $Section, $Name, $Value, $DataType)
 	}
-	
+
 	return $value
 }

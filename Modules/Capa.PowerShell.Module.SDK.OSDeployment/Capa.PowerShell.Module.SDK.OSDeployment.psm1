@@ -1,20 +1,22 @@
 
+# TODO: #150 Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets a list of OS Disk Configurations.
-	
+
 	.DESCRIPTION
 		Gets a list of OS Disk Configurations.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER OSPointID
 		The ID of the OS Point.
-	
+
 	.EXAMPLE
 		PS C:\> Get-CapaOSDiskConfigration -CapaSDK $CapaSDK -OSPointID 1
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246664/Get+OS+disk+configurations
 #>
@@ -27,11 +29,11 @@ function Get-CapaOSDiskConfigration {
 		[Parameter(Mandatory = $true)]
 		[int]$OSPointID
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetOSDiskConfiguration($OSPointID)
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -44,27 +46,29 @@ function Get-CapaOSDiskConfigration {
 			WorkStation = $aItem[6]
 		}
 	}
-	
+
 	Return $oaUnits
 }
 
 
+# TODO: #151 Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets a list of OS Images.
-	
+
 	.DESCRIPTION
 		Gets a list of OS Images.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER OSPointID
 		The ID of the OS Point.
-	
+
 	.EXAMPLE
 		PS C:\> Get-CapaOSImages -CapaSDK $CapaSDK -OSPointID 1
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246676/Get+OS+images
 #>
@@ -77,11 +81,11 @@ function Get-CapaOSImages {
 		[Parameter(Mandatory = $true)]
 		[int]$OSPointID
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetOSImages($OSPointID)
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -95,27 +99,29 @@ function Get-CapaOSImages {
 			OSName      = $aItem[7]
 		}
 	}
-	
+
 	Return $oaUnits
 }
 
 
+# TODO: #152 Update and add tests
+
 <#
 	.SYNOPSIS
 		Get a list of OS Installation Types.
-	
+
 	.DESCRIPTION
 		Get a list of OS Installation Types.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER OSPointID
 		The ID of the OS Point.
-	
+
 	.EXAMPLE
 		PS C:\> Get-CapaOSInstallationTypes -CapaSDK $CapaSDK -OSPointID 1
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246688/Get+OS+installation+types
 #>
@@ -128,11 +134,11 @@ function Get-CapaOSInstallationTypes {
 		[Parameter(Mandatory = $true)]
 		[int]$OSPointID
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetOSInstallationTypes($OSPointID)
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -141,24 +147,26 @@ function Get-CapaOSInstallationTypes {
 			Type = $aItem[2]
 		}
 	}
-	
+
 	Return $oaUnits
 }
 
 
+# TODO: #153 Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets a list of OS Points.
-	
+
 	.DESCRIPTION
 		Gets a list of OS Points.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.EXAMPLE
 		PS C:\> Get-CapaOSPoints -CapaSDK $CapaSDK
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246700/Get+OS+points
 #>
@@ -169,11 +177,11 @@ function Get-CapaOSPoints {
 		[Parameter(Mandatory = $true)]
 		$CapaSDK
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetOSPoints($OSPointID)
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -197,27 +205,29 @@ function Get-CapaOSPoints {
 			UncPath           = $aItem[17]
 		}
 	}
-	
+
 	Return $oaUnits
 }
 
 
+# TODO: #154 Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets a list of OS Servers including sub servers.
-	
+
 	.DESCRIPTION
 		Gets a list of OS Servers including sub servers.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER OSPointID
 		The ID of the OS Point.
-	
+
 	.EXAMPLE
 		PS C:\> Get-CapaOSServers -CapaSDK $CapaSDK -OSPointID 1
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246710/Get+OS+servers
 #>
@@ -230,11 +240,11 @@ function Get-CapaOSServers {
 		[Parameter(Mandatory = $true)]
 		[int]$OSPointID
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetOSServers($OSPointID)
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -246,7 +256,7 @@ function Get-CapaOSServers {
 			UncPath    = $aItem[5]
 		}
 	}
-	
+
 	Return $oaUnits
 }
 

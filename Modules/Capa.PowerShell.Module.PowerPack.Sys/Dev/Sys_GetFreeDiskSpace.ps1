@@ -1,3 +1,5 @@
+# TODO: #104 Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets the free disk space of a drive.

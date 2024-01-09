@@ -1,3 +1,5 @@
+# TODO: #90 Update and add tests
+
 <#
 	.SYNOPSIS
 		Deletes a registry value.

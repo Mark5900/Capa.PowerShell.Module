@@ -1,4 +1,6 @@
 
+# TODO: #83 Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets the product code of an MSI file.
@@ -17,12 +19,14 @@ function MSI_GetProductCodeFromMSI {
 		[Parameter(Mandatory = $true)]
 		[string]$MsiFile
 	)
-	
+
 	$Value = $Global:Cs.MSI_GetProductCodeFromMSI($MsiFile)
 
 	return $Value
 }
 
+
+# TODO: #84 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -47,12 +51,14 @@ function MSI_GetPropertiesFromMSI {
 		[Parameter(Mandatory = $false)]
 		[array]$Property
 	)
-	
+
 	$Value = $Global:Cs.MSI_GetPropertiesFromMSI($MsiFile, $Property)
 
 	return $Value
 }
 
+
+# TODO: #85 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -77,12 +83,14 @@ function MSI_GetPropertyFromMSI {
 		[Parameter(Mandatory = $true)]
 		[string]$Property
 	)
-	
+
 	$Value = $Global:Cs.MSI_GetPropertyFromMSI($MsiFile, $Property)
 
 	return $Value
 }
 
+
+# TODO: #86 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -102,12 +110,14 @@ function MSI_IsMSIFileInstalled {
 		[Parameter(Mandatory = $true)]
 		[string]$MsiFile
 	)
-	
+
 	$Value = $Global:Cs.MSI_IsMSIFileInstalled($MsiFile)
 
 	return $Value
 }
 
+
+# TODO: #87 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -127,7 +137,7 @@ function MSI_IsMSIGuidInstalled {
 		[Parameter(Mandatory = $true)]
 		[string]$MsiGuid
 	)
-	
+
 	$Value = $Global:Cs.MSI_IsMSIGuidInstalled($MsiGuid)
 
 	return $Value

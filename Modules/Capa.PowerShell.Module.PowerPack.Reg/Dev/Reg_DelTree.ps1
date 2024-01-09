@@ -1,3 +1,5 @@
+# TODO: #89 Update and add tests
+
 <#
 	.SYNOPSIS
 		Deletes a registry tree.

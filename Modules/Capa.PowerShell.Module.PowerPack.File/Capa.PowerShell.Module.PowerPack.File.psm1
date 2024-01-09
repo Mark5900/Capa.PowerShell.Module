@@ -1,4 +1,6 @@
 
+# TODO: #60 Update and add tests
+
 <#
     .SYNOPSIS
         Append text to a file.
@@ -26,6 +28,8 @@ function File_AppendToFile {
     $Global:Cs.File_AppendToFile($File, $Text)
 }
 
+
+# TODO: #61 Update and add tests
 
 <#
     .SYNOPSIS
@@ -59,6 +63,8 @@ function File_CopyFile {
 }
 
 
+
+# TODO: #62 Update and add tests
 
 <#
     .SYNOPSIS
@@ -96,6 +102,8 @@ Function File_CopyTree {
 }
 
 
+# TODO: #63 Update and add tests
+
 <#
     .SYNOPSIS
         Create a directory.
@@ -116,8 +124,10 @@ function File_CreateDir {
     )
 
     $Global:Cs.File_CreateDir($Path)
-} 
+}
 
+
+# TODO: #64 Update and add tests
 
 <#
     .SYNOPSIS
@@ -141,6 +151,8 @@ function File_DelEmptyFolder {
     $Global:Cs.File_DelEmptyFolder($Path)
 }
 
+
+# TODO: #67 Update and add tests
 
 <#
     .SYNOPSIS
@@ -178,6 +190,8 @@ function File_DeleteLineInFile {
 }
 
 
+# TODO: #65 Update and add tests
+
 <#
     .SYNOPSIS
         Delete a file.
@@ -205,6 +219,8 @@ function File_DelFile {
 }
 
 
+# TODO: #66 Update and add tests
+
 <#
     .SYNOPSIS
         Delete a folder.
@@ -227,6 +243,8 @@ function File_DelTree {
     $Global:Cs.File_DelTree($Path)
 }
 
+
+# TODO: #68 Update and add tests
 
 <#
     .SYNOPSIS
@@ -253,6 +271,8 @@ function File_ExistDir {
 }
 
 
+# TODO: #69 Update and add tests
+
 <#
     .SYNOPSIS
         Check if a file exists.
@@ -277,6 +297,8 @@ function File_ExistFile {
     return $Value
 }
 
+
+# TODO: #70 Update and add tests
 
 <#
     .SYNOPSIS
@@ -312,6 +334,8 @@ function File_FindFile {
 }
 
 
+# TODO: #71 Update and add tests
+
 <#
     .SYNOPSIS
         Get the file version of a file.
@@ -337,6 +361,8 @@ function File_GetFileVersion {
 }
 
 
+# TODO: #72 Update and add tests
+
 <#
     .SYNOPSIS
         Get the product version of a file.
@@ -361,6 +387,8 @@ function File_GetProductVersion {
     return $Value
 }
 
+
+# TODO: #73 Update and add tests
 
 <#
     .SYNOPSIS
@@ -393,6 +421,8 @@ function File_RenameDir {
     $Global:Cs.File_RenameDir($Source, $Destination, $Overwrite)
 }
 
+
+# TODO: #74 Update and add tests
 
 <#
     .SYNOPSIS

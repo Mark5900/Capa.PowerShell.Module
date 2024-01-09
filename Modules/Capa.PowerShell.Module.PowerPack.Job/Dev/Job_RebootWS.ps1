@@ -1,3 +1,5 @@
+# TODO: #79 Update and add tests
+
 <#
     .SYNOPSIS
         Job request reboot of the workstation
@@ -23,22 +25,22 @@ function Job_RebootWS {
     )
     try {
         Write-Host $Text
-        if ($cs) { 
+        if ($cs) {
             Job_WriteLog -Text "Call Invoke-Job_RebootWS with text: '$Text'"
         }
         if ($InputObject) { $InputObject.RebootRequested = $true }
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
-        if ($cs) { 
+        if ($cs) {
             Job_WriteLog -Text "Invoke-Job_RebootWS: Error Line: $($_.InvocationInfo.Line)"
         }
 
-        Write-Error 'Error Item: '$_.Exception.ItemName       
-        if ($cs) { 
+        Write-Error 'Error Item: '$_.Exception.ItemName
+        if ($cs) {
             Job_WriteLog -Text "Invoke-Job_RebootWS: Error Item: $($_.Exception.ItemName)"
         }
 
-        if ($cs) { 
+        if ($cs) {
             Job_WriteLog -Text "Invoke-Job_RebootWS: '$($_.Exception.HResult)'"
         }
         $_.Exception.HResult

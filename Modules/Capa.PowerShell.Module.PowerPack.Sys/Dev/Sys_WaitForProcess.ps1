@@ -1,3 +1,5 @@
+# TODO: #107 Update and add tests
+
 <#
 	.SYNOPSIS
 		Waits for a process to finish.

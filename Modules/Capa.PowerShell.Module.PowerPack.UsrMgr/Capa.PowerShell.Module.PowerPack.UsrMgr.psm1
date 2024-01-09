@@ -1,4 +1,6 @@
-﻿<#
+﻿# TODO: #54 Update when UsrMgr is added to the file
+
+<#
 	.SYNOPSIS
 		Adds a user to a local group.
 
@@ -28,7 +30,7 @@ function UsrMgr_AddUserToLocalGroup {
 		[Alias('SID')]
 		[string]$GroupName
 	)
-	
+
 	$Global:cs.UsrMgr_AddUserToLocalGroup($UserName, $GroupName)
 }
 
@@ -50,9 +52,9 @@ function UsrMgr_EnumMembersOfLocalGroup {
 		[Parameter(Mandatory = $true)]
 		[string]$GroupName
 	)
-	
+
 	$Value = $Global:cs.UsrMgr_EnumMembersOfLocalGroup($GroupName)
-	
+
 	return $Value
 }
 
@@ -98,7 +100,7 @@ function UsrMgr_CreateLocalUser {
 		[string]$Description,
 		[bool]$PasswordNeverExpire = $true
 	)
-	
+
 	$Global:cs.UsrMgr_CreateLocalUser($UserName, $FullName, $Password, $Description, $PasswordNeverExpire)
 }
 
@@ -125,7 +127,7 @@ function UsrMgr_ChangePassword {
 		[Parameter(Mandatory = $true)]
 		[string]$Password
 	)
-	
+
 	$Global:cs.UsrMgr_ChangePassword($UserName, $Password)
 }
 
@@ -147,9 +149,9 @@ function UsrMgr_ExistLocalUserAccount {
 		[Parameter(Mandatory = $true)]
 		[string]$UserName
 	)
-	
+
 	$Value = $Global:cs.UsrMgr_ExistLocalUserAccount($UserName)
-	
+
 	return $Value
 }
 
@@ -177,7 +179,7 @@ function UsrMgr_RemoveUserFromLocalGroup {
 		[Parameter(Mandatory = $true)]
 		[string]$GroupName
 	)
-	
+
 	$Global:cs.UsrMgr_RemoveUserFromLocalGroup($Domain, $UserName, $GroupName)
 }
 
@@ -199,6 +201,6 @@ function UsrMgr_DeleteLocalUserAccount {
 		[Parameter(Mandatory = $true)]
 		[string]$UserName
 	)
-	
+
 	$Global:cs.UsrMgr_DeleteLocalUserAccount($UserName)
 }

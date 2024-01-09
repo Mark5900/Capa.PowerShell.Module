@@ -1,19 +1,21 @@
+# TODO: #154 Update and add tests
+
 <#
 	.SYNOPSIS
 		Gets a list of OS Servers including sub servers.
-	
+
 	.DESCRIPTION
 		Gets a list of OS Servers including sub servers.
-	
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
-	
+
 	.PARAMETER OSPointID
 		The ID of the OS Point.
-	
+
 	.EXAMPLE
 		PS C:\> Get-CapaOSServers -CapaSDK $CapaSDK -OSPointID 1
-	
+
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246710/Get+OS+servers
 #>
@@ -26,11 +28,11 @@ function Get-CapaOSServers {
 		[Parameter(Mandatory = $true)]
 		[int]$OSPointID
 	)
-	
+
 	$oaUnits = @()
-	
+
 	$aUnits = $CapaSDK.GetOSServers($OSPointID)
-	
+
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
@@ -42,6 +44,6 @@ function Get-CapaOSServers {
 			UncPath    = $aItem[5]
 		}
 	}
-	
+
 	Return $oaUnits
 }

@@ -1,3 +1,5 @@
+# TODO: #64 Update and add tests
+
 <#
     .SYNOPSIS
         Delete path if it is empty.

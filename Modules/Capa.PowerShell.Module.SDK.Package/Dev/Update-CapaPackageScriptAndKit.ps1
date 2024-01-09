@@ -1,3 +1,5 @@
+# TODO: #188 Update and add tests
+
 <#
     .SYNOPSIS
         Use this function to update a package script and kit in Capa.
@@ -46,16 +48,16 @@
 
     .EXAMPLE
         Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Uninstall' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database
-	
+
     .EXAMPLE
         Update-CapaPackageScriptAndKit -PackageName 'Test1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Install' -PackageType 'PowerPack' -SqlServerInstance $CapaServer -Database $Database -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs' -KitFolderPath 'C:\Users\CIKursus\Downloads\Kit'
 
-    .EXAMPLE    
+    .EXAMPLE
         Update-CapaPackageScriptAndKit -PackageName 'Opgave 1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Install' -PackageType 'VBScript' -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs'
-    
+
     .EXAMPLE
         Update-CapaPackageScriptAndKit -PackageName 'Opgave 1' -PackageVersion 'v1.0' -ScriptContent "Write-Host 'Hello World'" -ScriptType 'Uninstall' -PackageType 'VBScript' -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs'
-    
+
     .EXAMPLE
         Update-CapaPackageScriptAndKit -PackageName 'Opgave 1' -PackageVersion 'v1.0' -PackageBasePath 'D:\CapaInstaller\CMPProduction\ComputerJobs' -KitFolderPath 'C:\Users\CIKursus\Downloads\Kit\'
 
@@ -116,7 +118,7 @@ function Update-CapaPackageScriptAndKit {
 			$PackagePath = Join-Path $PackageBasePath $PackageName $PackageVersion
 		}
 	}
-    
+
 	if ($ScriptType -eq 'Install') {
 		$ScriptName = "$PackageName.cis"
 		$DBColumnName = 'INSTALLSCRIPTCONTENT'
@@ -127,7 +129,7 @@ function Update-CapaPackageScriptAndKit {
 		$ScriptName = "$($PackageName)_Us.cis"
 		$DBColumnName = 'USERCONFIGSCRIPTCONTENT'
 	}
-    
+
 	if ($null -ne $PackageBasePath -and $PackageBasePath -ne '') {
 		$ScriptPath = Join-Path $PackagePath 'Scripts' $ScriptName
 		$KitPath = Join-Path $PackagePath 'Kit'
@@ -164,5 +166,5 @@ function Update-CapaPackageScriptAndKit {
 		$PSCmdlet.ThrowTerminatingError($PSitem)
 		return -1
 	}
-    
+
 }

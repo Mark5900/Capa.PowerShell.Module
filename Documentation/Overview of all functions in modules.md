@@ -2,8 +2,8 @@
 
 ## Capa.PowerShell.Module.PowerPack
 
-* [Add-PSDll](Functions/Add-PSDll.md)
-* [Initialize-Variables](Functions/Initialize-Variables.md)
+* [Add-PpDll](Functions/Add-PpDll.md)
+* [Initialize-PpVariables](Functions/Initialize-PpVariables.md)
 * [Invoke-RunAsLoggedOnUser](Functions/Invoke-RunAsLoggedOnUser.md)
 * [Register-Powerpack](Functions/Register-Powerpack.md)
 * [Start-PSDownloadPackage](Functions/Start-PSDownloadPackage.md)
@@ -11,12 +11,12 @@
 
 ## Capa.PowerShell.Module.PowerPack.Exit
 
-* [Exit_ApplicationAlreadyInstalled](Functions/Exit_ApplicationAlreadyInstalled.md)
-* [Exit_CommandFailed](Functions/Exit_CommandFailed.md)
-* [Exit_CommandHandlingFailed](Functions/Exit_CommandHandlingFailed.md)
-* [Exit_CommandNotDelivered](Functions/Exit_CommandNotDelivered.md)
-* [Exit_CommandNotRecognized](Functions/Exit_CommandNotRecognized.md)
-* [Exit_CommandObsolete](Functions/Exit_CommandObsolete.md)
+* [Exit-PpApplicationAlreadyInstalled](Functions/Exit-PpApplicationAlreadyInstalled.md)
+* [Exit-PpCommandFailed](Functions/Exit-PpCommandFailed.md)
+* [Exit-PpCommandHandlingFailed](Functions/Exit-PpCommandHandlingFailed.md)
+* [Exit-PpCommandNotDelivered](Functions/Exit-PpCommandNotDelivered.md)
+* [Exit-PpCommandNotRecognized](Functions/Exit-PpCommandNotRecognized.md)
+* [Exit-PpCommandObsolete](Functions/Exit-PpCommandObsolete.md)
 * [Exit-PpCommandSucceded](Functions/Exit-PpCommandSucceded.md)
 * [Exit-PpCommandTimedOut](Functions/Exit-PpCommandTimedOut.md)
 * [Exit-PpMissingDiskSpace](Functions/Exit-PpMissingDiskSpace.md)

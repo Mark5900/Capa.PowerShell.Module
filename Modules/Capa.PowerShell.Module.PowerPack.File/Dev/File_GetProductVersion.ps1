@@ -1,3 +1,5 @@
+# TODO: #72 Update and add tests
+
 <#
     .SYNOPSIS
         Get the product version of a file.

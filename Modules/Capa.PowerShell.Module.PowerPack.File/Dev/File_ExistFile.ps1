@@ -1,3 +1,5 @@
+# TODO: #69 Update and add tests
+
 <#
     .SYNOPSIS
         Check if a file exists.

@@ -1,3 +1,5 @@
+# TODO: #65 Update and add tests
+
 <#
     .SYNOPSIS
         Delete a file.

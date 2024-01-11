@@ -68,7 +68,7 @@ function New-CapaPackageWithGit {
 		#region Copy files
 		Copy-Item -Path $GitIgnoreFile -Destination $PackagePath -Force | Out-Null
 
-		# TODO: Copy Settings.json
+		#region Copy Settings.json
 		if ($Advanced) {
 			Copy-Item -Path $SettingsFile -Destination $PackagePath -Force | Out-Null
 
@@ -82,9 +82,46 @@ function New-CapaPackageWithGit {
 			$Setting.PackageBasePath = $PackageBasePath
 			$Setting.PackageVersion = $PackageVersion
 			$Setting | Out-File -FilePath $SettingsPath -Force
-
 		}
-		# TODO: Copy UpdatePackage.ps1
+		#endregion
+
+		#region Copy UpdatePackage.ps1
+		if ((Test-Path "$PackagePath\UpdatePackage.ps1") ) {
+			$UpdatePackageScriptPath = Join-Path $PackagePath 'UpdatePackage.ps1'
+
+			Copy-Item -Path $UpdatePackageScript -Destination $PackagePath -Force | Out-Null
+
+			# Replace in UpdatePackage.ps1
+			if ($Advanced -eq $false) {
+				if ($null -ne $CapaServer) {
+					$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+					$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$CapaServer = ' + "''", '$CapaServer = ' + "'$CapaServer'")
+					$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+				}
+				if ($null -ne $SQLServer) {
+					$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+					$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$SQLServer = ' + "''", '$SQLServer = ' + "'$SQLServer'")
+					$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+				}
+				if ($null -ne $Database) {
+					$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+					$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$Database = ' + "''", '$Database = ' + "'$Database'")
+					$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+				}
+				if ($null -ne $DefaultManagementPoint) {
+					$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+					$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$DefaultManagementPointDev = ' + "''", '$DefaultManagementPointDev = ' + "'$DefaultManagementPoint'")
+					$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+				}
+				if ($null -ne $PackageBasePath) {
+					$UpdatePackageScriptContent = Get-Content $UpdatePackageScriptPath
+					$UpdatePackageScriptContent = $UpdatePackageScriptContent.Replace('$PackageBasePath = ' + "''", '$PackageBasePath = ' + "'$PackageBasePath'")
+					$UpdatePackageScriptContent | Out-File -FilePath $UpdatePackageScriptPath -Force
+				}
+			}
+		}
+		#endregion
+
 		# TODO: Copy main.yml
 		# TODO: Copy Install/Uninstall script
 		#endregion

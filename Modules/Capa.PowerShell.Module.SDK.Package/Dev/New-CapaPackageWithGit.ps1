@@ -32,14 +32,6 @@ function New-CapaPackageWithGit {
 		$GitIgnoreFile = Join-Path $PSScriptRoot 'Dependencies\.gitignore'
 		$UpdatePackageScript = Join-Path $PSScriptRoot 'Dependencies\UpdatePackage.ps1'
 
-		if ($PackageType -eq 'VBScript') {
-			$InstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.cis'
-			$UninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.cis'
-		} ElseIf ($PackageType -eq 'PowerPack') {
-			$InstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.ps1'
-			$UninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.ps1'
-		}
-
 		if ($Advanced) {
 			$PackagePath = Join-Path $BasePath "Capa_$SoftwareName"
 			$ScriptPath = Join-Path $PackagePath 'Scripts'
@@ -54,6 +46,17 @@ function New-CapaPackageWithGit {
 			$ScriptPath = Join-Path $VersionPath 'Scripts'
 			$KitPath = Join-Path $VersionPath 'Kit'
 		}
+
+		if ($PackageType -eq 'VBScript') {
+			$InstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.cis'
+			$UninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.cis'
+
+			$InstallScriptDestination = Join-Path $ScriptPath "$PackageName.cis"
+			$UninstallScriptDestination = Join-Path $ScriptPath "$($PackageName)_Uninstall.cis"
+		} ElseIf ($PackageType -eq 'PowerPack') {
+			$InstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.ps1'
+			$UninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.ps1'
+		}
 		#endregion
 
 		#region Create folder
@@ -67,6 +70,9 @@ function New-CapaPackageWithGit {
 
 		#region Copy files
 		Copy-Item -Path $GitIgnoreFile -Destination $PackagePath -Force | Out-Null
+		if ($Advanced) {
+			Copy-Item -Path $GitHubActionsFile -Destination $GitHubActionsPath -Force | Out-Null
+		}
 
 		#region Copy Settings.json
 		if ($Advanced) {
@@ -122,8 +128,30 @@ function New-CapaPackageWithGit {
 		}
 		#endregion
 
-		# TODO: Copy main.yml
-		# TODO: Copy Install/Uninstall script
+		#region Copy Install/Uninstall script
+		If ($PackageType -eq 'VBScript') {
+			$InstallContent = Get-Content $InstallScript
+			$InstallContent = $InstallContent.Replace('PACKAGENAME', $PackageName)
+			$InstallContent = $InstallContent.Replace('PACKAGEVERSION', $PackageVersion)
+			$InstallContent = $InstallContent.Replace('CREATEDBY', $env:username)
+			$InstallContent = $InstallContent.Replace('TIME', (Get-Date -Format 'dd-MM-yyyy HH:mm:ss'))
+			New-Item -Path $InstallScriptDestination -ItemType File -Force | Out-Null
+			$InstallContent | Out-File -FilePath $InstallScriptDestination -Force
+
+			$UninstallContent = Get-Content $UninstallScript
+			$UninstallContent = $UninstallContent.Replace('PACKAGENAME', $PackageName)
+			$UninstallContent = $UninstallContent.Replace('PACKAGEVERSION', $PackageVersion)
+			$UninstallContent = $UninstallContent.Replace('CREATEDBY', $env:username)
+			$UninstallContent = $UninstallContent.Replace('TIME', (Get-Date -Format 'dd-MM-yyyy HH:mm:ss'))
+			New-Item -Path $UninstallScriptDestination -ItemType File -Force | Out-Null
+			$UninstallContent | Out-File -FilePath $UninstallScriptDestination -Force
+		} else {
+			Copy-Item -Path $InstallScript -Destination $ScriptPath -Force | Out-Null
+			Copy-Item -Path $UninstallScript -Destination $ScriptPath -Force | Out-Null
+
+		}
+		#endregion
+
 		#endregion
 
 		return 0

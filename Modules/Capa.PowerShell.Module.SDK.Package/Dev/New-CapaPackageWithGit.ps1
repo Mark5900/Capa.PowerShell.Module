@@ -51,8 +51,8 @@ function New-CapaPackageWithGit {
 			$InstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.cis'
 			$UninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.cis'
 
-			$InstallScriptDestination = Join-Path $ScriptPath "$PackageName.cis"
-			$UninstallScriptDestination = Join-Path $ScriptPath "$($PackageName)_Uninstall.cis"
+			$InstallScriptDestination = Join-Path $ScriptPath "$PackageName$SoftwareName.cis"
+			$UninstallScriptDestination = Join-Path $ScriptPath "$($PackageName)$($SoftwareName)_Uninstall.cis"
 		} ElseIf ($PackageType -eq 'PowerPack') {
 			$InstallScript = Join-Path $PSScriptRoot 'Dependencies\Install.ps1'
 			$UninstallScript = Join-Path $PSScriptRoot 'Dependencies\Uninstall.ps1'
@@ -86,8 +86,7 @@ function New-CapaPackageWithGit {
 			$Setting.Database = $Database
 			$Setting.DefaultManagementPoint = $DefaultManagementPoint
 			$Setting.PackageBasePath = $PackageBasePath
-			$Setting.PackageVersion = $PackageVersion
-			$Setting | Out-File -FilePath $SettingsPath -Force
+			$Setting | ConvertTo-Json | Out-File -FilePath $SettingsPath -Force
 		}
 		#endregion
 
@@ -131,16 +130,16 @@ function New-CapaPackageWithGit {
 		#region Copy Install/Uninstall script
 		If ($PackageType -eq 'VBScript') {
 			$InstallContent = Get-Content $InstallScript
-			$InstallContent = $InstallContent.Replace('PACKAGENAME', $PackageName)
-			$InstallContent = $InstallContent.Replace('PACKAGEVERSION', $PackageVersion)
+			$InstallContent = $InstallContent.Replace('PACKAGENAME', "$PackageName$SoftwareName")
+			$InstallContent = $InstallContent.Replace('PACKAGEVERSION', "$PackageVersion$SoftwareVersion")
 			$InstallContent = $InstallContent.Replace('CREATEDBY', $env:username)
 			$InstallContent = $InstallContent.Replace('TIME', (Get-Date -Format 'dd-MM-yyyy HH:mm:ss'))
 			New-Item -Path $InstallScriptDestination -ItemType File -Force | Out-Null
 			$InstallContent | Out-File -FilePath $InstallScriptDestination -Force
 
 			$UninstallContent = Get-Content $UninstallScript
-			$UninstallContent = $UninstallContent.Replace('PACKAGENAME', $PackageName)
-			$UninstallContent = $UninstallContent.Replace('PACKAGEVERSION', $PackageVersion)
+			$UninstallContent = $UninstallContent.Replace('PACKAGENAME', "$PackageName$SoftwareName")
+			$UninstallContent = $UninstallContent.Replace('PACKAGEVERSION', "$PackageVersion$SoftwareVersion")
 			$UninstallContent = $UninstallContent.Replace('CREATEDBY', $env:username)
 			$UninstallContent = $UninstallContent.Replace('TIME', (Get-Date -Format 'dd-MM-yyyy HH:mm:ss'))
 			New-Item -Path $UninstallScriptDestination -ItemType File -Force | Out-Null

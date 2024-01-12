@@ -130,3 +130,74 @@ Describe 'PowerPack package not advanced' {
 		Remove-Item -Path $PackagePath -Recurse -Force
 	}
 }
+Describe 'VB package advanced' {
+	BeforeAll {
+		$PackageSpllatting = @{
+			SoftwareName           = 'Test3'
+			SoftwareVersion        = '1.0'
+			PackageType            = 'VBScript'
+			BasePath               = 'C:\Temp'
+			CapaServer             = 'CISERVER'
+			SQLServer              = 'CISERVER'
+			Database               = 'CapaInstaller'
+			DefaultManagementPoint = '1'
+			PackageBasePath        = 'E:\CapaInstaller\CMPProduction\ComputerJobs'
+		}
+		New-CapaPackageWithGit @PackageSpllatting -Advanced
+
+		$PackagePath = Join-Path 'C:\Temp' "Capa_$($PackageSpllatting.SoftwareName)"
+		$KitPath = Join-Path $PackagePath 'Kit'
+		$ScriptPath = Join-Path $PackagePath 'Scripts'
+		$GitHubActionsPath = Join-Path $PackagePath '.github\workflows'
+		$GitIgnoreFile = Join-Path $PackagePath '.gitignore'
+		$UpdateScript = Join-Path $PackagePath 'UpdatePackage.ps1'
+		$InstallScript = Join-Path $ScriptPath "$($PackageSpllatting.SoftwareName).cis"
+		$UninstallScript = Join-Path $ScriptPath "$($PackageSpllatting.SoftwareName)_Uninstall.cis"
+		$GitHubActionsFile = Join-Path $GitHubActionsPath 'main.yml'
+		$SettingsFile = Join-Path $PackagePath 'Settings.json'
+	}
+	It 'Does the created folders exsist' {
+		$PackagePath | Should -Exist
+		$KitPath | Should -Exist
+		$ScriptPath | Should -Exist
+		$GitHubActionsPath | Should -Exist
+	}
+	It 'Does the created files exsist' {
+		$GitIgnoreFile | Should -Exist
+		$UpdateScript | Should -Exist
+		$InstallScript | Should -Exist
+		$UninstallScript | Should -Exist
+		$GitHubActionsFile | Should -Exist
+		$SettingsFile | Should -Exist
+	}
+	It 'Does the installfile contains the correct content' {
+		$InstallScript | Should -FileContentMatch $PackageSpllatting.SoftwareName
+		$InstallScript | Should -FileContentMatch $PackageSpllatting.SoftwareVersion
+		$InstallScript | Should -FileContentMatch $env:USERNAME
+		$InstallScript | Should -FileContentMatch (Get-Date -Format 'dd-MM-yyyy')
+	}
+	It 'Does the uninstallfile contains the correct content' {
+		$UninstallScript | Should -FileContentMatch $PackageSpllatting.SoftwareName
+		$UninstallScript | Should -FileContentMatch $PackageSpllatting.SoftwareVersion
+		$UninstallScript | Should -FileContentMatch $env:USERNAME
+		$UninstallScript | Should -FileContentMatch (Get-Date -Format 'dd-MM-yyyy')
+	}
+	It 'Does the update package script contains the correct content' {
+		$UpdateScript | Should -FileContentMatch 'CapaServer = ..'
+		$UpdateScript | Should -FileContentMatch 'SQLServer = ..'
+		$UpdateScript | Should -FileContentMatch 'Database = ..'
+		$UpdateScript | Should -FileContentMatch 'DefaultManagementPointDev = ..'
+		$UpdateScript | Should -FileContentMatch 'PackageBasePath = ..'
+	}
+	It 'Does the setting file contains the correct content' {
+		$Content = Get-Content $SettingsFile | ConvertFrom-Json
+
+		$Content.SoftwareName | Should -Be $PackageSpllatting.SoftwareName
+		$Content.SoftwareVersion | Should -Be $PackageSpllatting.SoftwareVersion
+		$Content.CapaServer | Should -Be $PackageSpllatting.CapaServer
+		$Content.SQLServer | Should -Be $PackageSpllatting.SQLServer
+		$Content.Database | Should -Be $PackageSpllatting.Database
+		$Content.DefaultManagementPoint | Should -Be $PackageSpllatting.DefaultManagementPoint
+		$Content.PackageBasePath | Should -Be $PackageSpllatting.PackageBasePath
+	}
+}

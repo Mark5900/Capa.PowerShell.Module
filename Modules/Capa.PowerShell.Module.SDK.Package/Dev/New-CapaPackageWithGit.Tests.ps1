@@ -200,4 +200,7 @@ Describe 'VB package advanced' {
 		$Content.DefaultManagementPoint | Should -Be $PackageSpllatting.DefaultManagementPoint
 		$Content.PackageBasePath | Should -Be $PackageSpllatting.PackageBasePath
 	}
+	AfterAll {
+		Remove-Item -Path $PackagePath -Recurse -Force
+	}
 }

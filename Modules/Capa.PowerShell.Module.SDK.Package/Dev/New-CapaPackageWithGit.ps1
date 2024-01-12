@@ -92,7 +92,7 @@ function New-CapaPackageWithGit {
 		#endregion
 
 		#region Copy UpdatePackage.ps1
-		if ((Test-Path "$PackagePath\UpdatePackage.ps1") ) {
+		if (!(Test-Path "$PackagePath\UpdatePackage.ps1") ) {
 			$UpdatePackageScriptPath = Join-Path $PackagePath 'UpdatePackage.ps1'
 
 			Copy-Item -Path $UpdatePackageScript -Destination $PackagePath -Force | Out-Null

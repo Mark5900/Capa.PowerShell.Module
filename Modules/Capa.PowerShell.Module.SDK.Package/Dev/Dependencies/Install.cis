@@ -28,22 +28,34 @@ End Function
 
 Function Install()
 Dim bStatus
+Dim sFunction
 'Begin
   bStatus=True
+  sFunction="Install"
+  If bDebug Then bStatus=Job_WriteLog(sFunction,"Now Running in " & sFunction,bStatus,True)
+  If bDebug Then bStatus=Job_WriteLog(sFunction,"Finish  Running in " & sFunction,bStatus,True)
   Install=bStatus
 End Function
 
 Function CustomPreInstall()
 Dim bStatus
+Dim sFunction
 'Begin
   bStatus=True
+  sFunction="CustomPreInstall"
+  If bDebug Then bStatus=Job_WriteLog(sFunction,"Now Running in " & sFunction,bStatus,True)
+  If bDebug Then bStatus=Job_WriteLog(sFunction,"Finish  Running in " & sFunction,bStatus,True)
   CustomPreInstall=bStatus
 End Function
 
 Function CustomPostInstall()
 Dim bStatus
+Dim sFunction
 'Begin
   bStatus=True
+  sFunction="CustomPostInstall"
+  If bDebug Then bStatus=Job_WriteLog(sFunction,"Now Running in " & sFunction,bStatus,True)
+  If bDebug Then bStatus=Job_WriteLog(sFunction,"Finish  Running in " & sFunction,bStatus,True)
   CustomPostInstall=bStatus
 End Function
 

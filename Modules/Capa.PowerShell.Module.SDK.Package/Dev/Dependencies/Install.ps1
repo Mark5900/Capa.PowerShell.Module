@@ -1,4 +1,3 @@
-
 [CmdletBinding()]
 Param(
     [Parameter(Mandatory = $true)]
@@ -17,56 +16,68 @@ Param(
     [Object]$InputObject = $null
 )
 
-try {
-    ### Download package kit
-    [bool]$global:DownloadPackage = $true
+Import-Module Capa.PowerShell.Module.PowerPack
+##################
+### PARAMETERS ###
+##################
+# DO NOT CHANGE
+[bool]$global:DownloadPackage = $true
+$Global:Packageroot = $Packageroot
+$Global:AppName = $AppName
+$Global:AppRelease = $AppRelease
+$Global:LogFile = $LogFile
+$Global:TempFolder = $TempFolder
+$Global:DllPath = $DllPath
+$Global:InputObject = $InputObject
+# Change as needed
 
+#################
+### FUNCTIONS ###
+#################
+function Begin {
     ##############################################
-    #load core PS lib - don't mess with this!
-    if ($InputObject) { $pgkit = '' }else { $pgkit = 'kit' }
-    Import-Module (Join-Path $Packageroot $pgkit 'PSlib.psm1') -ErrorAction stop
     #load Library dll
-    $cs = Add-PpDll
+    Global:Cs = Add-PpDll -DllPath Global:DllPath
     ##############################################
 
     #Begin
-    $cs.Job_Start('WS', $AppName, $AppRelease, $LogFile, 'INSTALL')
-    $cs.Job_WriteLog("[Init]: Starting package: '" + $AppName + "' Release: '" + $AppRelease + "'")
-    if (!$cs.Sys_IsMinimumRequiredDiskspaceAvailable('c:', 1500)) { Exit-PpScript 3333 }
-    if ($global:DownloadPackage -and $InputObject) { Start-PSDownloadPackage }
-  
-    $cs.Job_WriteLog("[Init]: `$PackageRoot:` '" + $Packageroot + "'")
-    $cs.Job_WriteLog("[Init]: `$AppName:` '" + $AppName + "'")
-    $cs.Job_WriteLog("[Init]: `$AppRelease:` '" + $AppRelease + "'")
-    $cs.Job_WriteLog("[Init]: `$LogFile:` '" + $LogFile + "'")
-    $cs.Job_WriteLog("[Init]: `$TempFolder:` '" + $TempFolder + "'")
-    $cs.Job_WriteLog("[Init]: `$DllPath:` '" + $DllPath + "'")
-    $cs.Job_WriteLog("[Init]: `$global:DownloadPackage`: '" + $global:DownloadPackage + "'")
-  
-    #Sample of copying file from Package Kit folder
-    #$cs.File_CopyFile("$Packageroot\kit\test.exe","C:\Temp\Test.exe")
+    Job_Start -JobType 'WS' -PackageName $Global:AppName -PackageVersion $Global:AppRelease -LogPath $Global:LogFile -Action 'INSTALL'
+    Log_SectionHeader -Name 'Begin'
+    Job_WriteLog -Text ("[Init]: Starting package: '" + $Global:AppName + "' Release: '" + $Global:AppRelease + "'")
+    If (!(Sys_IsMinimumRequiredDiskspaceAvailable -Drive 'c:' -MinimumRequiredDiskspace 1500)) { Exit-PpMissingDiskSpace }
+    If ($global:DownloadPackage -and $Global:InputObject) { Start-PSDownloadPackage }
 
-    #Sample of executing msi file
-    #$retvalue=$cs.Shell_Execute("msiexec","/i `"$Packageroot\kit\GoogleChromeStandaloneEnterprise64.Msi`" /QN REBOOT=REALLYSUPPRESS ALLUSERS=1")
-    #if ($retvalue -ne 0){Exit-PpScript $retvalue}
-    #$cs.Job_WriteLog("Install:","$AppName completed with status: $retvalue")
+    Job_WriteLog -Text ("[Init]: `$Global:Packageroot:` '" + $Global:Packageroot + "'")
+    Job_WriteLog -Text ("[Init]: `$Global:AppName:` '" + $Global:AppName + "'")
+    Job_WriteLog -Text ("[Init]: `$Global:AppRelease:` '" + $Global:AppRelease + "'")
+    Job_WriteLog -Text ("[Init]: `$Global:LogFile:` '" + $Global:LogFile + "'")
+    Job_WriteLog -Text ("[Init]: `$Global:TempFolder:` '" + $Global:TempFolder + "'")
+    Job_WriteLog -Text ("[Init]: `$Global:DllPath:` '" + $Global:DllPath + "'")
+    Job_WriteLog -Text ("[Init]: `$global:DownloadPackage`: '" + $global:DownloadPackage + "'")
+}
 
-    #Sample of executing installer
-    #$retvalue=$cs.Shell_Execute(`"$Packageroot\kit\ProgramInstall.exe`","/SILENT")
-    #if ($retvalue -ne 0){Exit-PpScript $retvalue}
-    #$cs.Job_WriteLog("Install:","$AppName completed with status: $retvalue")
+function PreInstall {
+    Log_SectionHeader -Name 'PreInstall'
+}
 
+function Install {
+    Log_SectionHeader -Name 'Install'
+}
 
-    # examples of return codes that are handled by agent caller
-    # 3326 = Retry Later
-    # 3330 = Application already installed
-    # 3010 = Reboot requested
-    # 3333 = Missing disk space
-
+function PostInstall {
+    Log_SectionHeader -Name 'PostInstall'
+}
+############
+### Main ###
+############
+try {
+    Begin -InputObject $Global:InputObject -Packageroot $Global:Packageroot -AppName $Global:AppName -AppRelease $Global:AppRelease -LogFile $Global:LogFile -TempFolder $Global:TempFolder -DllPath $Global:DllPath
+    PreInstall
+    Install
+    PostInstall
     Exit-PpScript $Error
-
 } catch {
     $line = $_.InvocationInfo.ScriptLineNumber
-    $cs.Job_WriteLog('*****************', "Something bad happend at line $($line): $($_.Exception.Message)")
+    Job_WriteLog -FunctionName '*****************' -Text "Something bad happend at line $$($line): $$($_.Exception.Message)"
     Exit-PpScript $_.Exception.HResult
 }

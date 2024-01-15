@@ -46,7 +46,7 @@ In the installation or uninstallation script delete all and use the following sn
 			"function Begin {",
 			"  ##############################################",
 			"  #load Library dll",
-			"  $Global:Cs = Add-PpDll -DllPath $Global:DllPath",
+			"  $$Global:Cs = Add-PpDll -DllPath $$Global:DllPath",
 			"  ##############################################",
 			"",
 			"  #Begin",

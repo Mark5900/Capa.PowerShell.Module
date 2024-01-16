@@ -1,3 +1,58 @@
+<#
+	.SYNOPSIS
+		Creates a new capa package with Git support
+
+	.DESCRIPTION
+		Creates a local folder structure you can use with Git to manage your deployment of Capa packages.
+		There is both a simple and advanced mode.
+
+		It is recommended to read the documentation before using this function. https://github.com/Mark5900/Capa.PowerShell.Module/tree/main/Documentation
+
+		.PARAMETER PackageName
+			The name of the package
+
+		.PARAMETER PackageVersion
+			The version of the package
+
+		.PARAMETER SoftwareName
+			The name of the software
+
+		.PARAMETER SoftwareVersion
+			The version of the software
+
+		.PARAMETER PackageType
+			The type of the package, either VBScript or PowerPack
+
+		.PARAMETER BasePath
+			The base path where the package folder will be created
+
+		.PARAMETER CapaServer
+			The Capa server name
+
+		.PARAMETER SQLServer
+			The SQL server name
+
+		.PARAMETER Database
+			The Capa database name
+
+		.PARAMETER DefaultManagementPoint
+			The default management point
+
+		.PARAMETER PackageBasePath
+			The path of where CapaInstaller is saving the packages, example E:\CapaInstaller\CMPProduction\ComputerJobs
+
+		.PARAMETER Advanced
+			When specified the advanced setup will be used
+
+	.EXAMPLE
+		New-CapaPackageWithGit -PackageName 'Test1' -PackageVersion 'v1.0' -PackageType 'VBScript' -BasePath 'C:\Temp' -CapaServer 'CISERVER' -SQLServer 'CISERVER' -Database 'CapaInstaller' -DefaultManagementPoint '1' -PackageBasePath 'E:\CapaInstaller\CMPProduction\ComputerJobs'
+
+	.EXAMPLE
+		New-CapaPackageWithGit -SoftwareName 'Test1' -SoftwareVersion 'v1.0' -PackageType 'PowerPack' -BasePath 'C:\Temp' -CapaServer 'CISERVER' -SQLServer 'CISERVER' -Database 'CapaInstaller' -DefaultManagementPoint '1' -PackageBasePath 'E:\CapaInstaller\CMPProduction\ComputerJobs' -Advanced
+
+	.NOTES
+		This is a custom function that is not part of the CapaSDK
+#>
 function New-CapaPackageWithGit {
 	param (
 		[Parameter(ParameterSetName = 'NotAdvanced', Mandatory = $true)]

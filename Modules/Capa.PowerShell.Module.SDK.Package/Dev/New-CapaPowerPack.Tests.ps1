@@ -107,4 +107,13 @@ Describe 'New PowerPack with it all' {
 		$Package.UNINSTALLSCRIPTCONTENT | Should -Not -BeNullOrEmpty
 		$Package.DISPLAYNAME | Should -Be $PowerPackSplatting.DisplayName
 	}
+	AfterAll {
+		$PackageSplatting = @{
+			CapaSDK        = $CapaSDK
+			PackageName    = $PowerPackSplatting.PackageName
+			PackageVersion = $PowerPackSplatting.PackageVersion
+			PackageType    = 'Computer'
+		}
+		Remove-CapaPackage @PackageSplatting
+	}
 }

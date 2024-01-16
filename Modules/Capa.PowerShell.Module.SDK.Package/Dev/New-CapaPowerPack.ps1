@@ -1,5 +1,3 @@
-# TODO: #179 Update and add tests
-
 <#
     .SYNOPSIS
         Creates a new PowerPack in CapaInstaller

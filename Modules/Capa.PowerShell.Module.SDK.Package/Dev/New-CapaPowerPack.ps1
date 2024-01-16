@@ -40,6 +40,10 @@
     .PARAMETER Credential
         The SQL Server credential
 
+		.PARAMETER PointID
+				The ID of the point to rebuild the kit file on, if not specified then the kit file will not be rebuilt.
+				Requires that KitFolderPath is specified.
+
     .EXAMPLE
         New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -SqlServerInstance $CapaServer -Database $Database
 
@@ -69,7 +73,8 @@ function New-CapaPowerPack {
 		[string]$SqlServerInstance,
 		[Parameter(Mandatory = $true)]
 		[string]$Database,
-		[pscredential]$Credential = $null
+		[pscredential]$Credential = $null,
+		[int]$PointID
 	)
 	$XMLFile = Join-Path $PSScriptRoot 'Dependencies' 'ciPackage.xml'
 	$KitFile = Join-Path $PSScriptRoot 'Dependencies' 'CapaInstaller.kit'
@@ -109,6 +114,9 @@ function New-CapaPowerPack {
 		# Create kit folder
 		If ([string]::IsNullOrEmpty($KitFolderPath) -eq $false) {
 			Copy-Item -Path $KitFolderPath -Destination "$PackageTempFolder\Kit" -Recurse -Force | Out-Null
+			if ($null -eq $PointID) {
+				Rebuild-CapaKitFileOnPoint -CapaSDK $CapaSDK -PackageName $PackageName -PackageVersion $PackageVersion -PointID $PointID -PackageType Computer
+			}
 		} else {
 			New-Item -ItemType Directory -Path "$PackageTempFolder\Kit" -Force | Out-Null
 			New-Item -ItemType File -Path "$PackageTempFolder\Kit\Dummy.txt" -Force | Out-Null

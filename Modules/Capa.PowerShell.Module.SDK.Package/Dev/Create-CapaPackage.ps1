@@ -1,5 +1,3 @@
-# TODO: #161 Update and add tests
-
 <#
 	.SYNOPSIS
 		Create a package in the CapaInstaller.
@@ -26,7 +24,7 @@
 				PS C:\> New-CapaPackage -CapaSDK $CapaSDK -PackageName 'TestPackage' -PackageVersion 'v1.0.0' -UnitType 'Computer' -DisplayName 'Test Package'
 
 	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246850/Create+package
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19306246850/Create+package
 #>
 function New-CapaPackage {
 	[CmdletBinding()]

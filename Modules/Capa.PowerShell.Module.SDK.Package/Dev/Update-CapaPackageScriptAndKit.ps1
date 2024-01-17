@@ -1,5 +1,3 @@
-# TODO: #188 Update and add tests
-
 <#
     .SYNOPSIS
         Use this function to update a package script and kit in Capa.
@@ -74,23 +72,19 @@ function Update-CapaPackageScriptAndKit {
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScript')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
-		[Parameter(Mandatory = $false, ParameterSetName = 'Kit')]
 		[String]$ScriptContent,
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScript')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
-		[Parameter(Mandatory = $false, ParameterSetName = 'Kit')]
 		[ValidateSet('Install', 'Uninstall', 'UserConfiguration')]
 		[String]$ScriptType,
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScript')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
-		[Parameter(Mandatory = $false, ParameterSetName = 'Kit')]
 		[ValidateSet('PowerPack', 'VBScript')]
 		[String]$PackageType,
-		[Parameter(Mandatory = $false, ParameterSetName = 'PowerPack')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScript')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
@@ -102,8 +96,9 @@ function Update-CapaPackageScriptAndKit {
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[string]$Database,
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
+		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[pscredential]$Credential,
-		[Parameter(Mandatory = $false, ParameterSetName = 'VBScript')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'Kit')]

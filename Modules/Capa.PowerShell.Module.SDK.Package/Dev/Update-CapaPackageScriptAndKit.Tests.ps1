@@ -78,76 +78,75 @@ Describe 'PowerPack type' {
 			SqlServerInstance = $PowerPackSplat.SqlServerInstance
 			Database = $PowerPackSplat.Database
 		}
-
-		$Query = "UPDATE JOB SET INSTALLSCRIPTCONTENT = NULL, UNINSTALLSCRIPTCONTENT = NULL WHERE Name = '$($PowerPackSplat.PackageName)' AND Version = '$($PowerPackSplat.PackageVersion)'"
-		Invoke-Sqlcmd -ServerInstance $PowerPackSplat.SqlServerInstance -Database $PowerPackSplat.Database -Query $Query -TrustServerCertificate
 		}
 		It "Does the function work" {
-			$Status = Update-CapaPackageScriptAndKit @CommandSplatting
-			$Status | Should -Be $true
-
-			$CommandSplatting.ScriptType = 'Uninstall'
-			$Status = Update-CapaPackageScriptAndKit @CommandSplatting
-			$Status | Should -Be $true
-		}
-		It 'Has it set the INSTALLSCRIPTCONTENT in DB' {
-			$Query = "SELECT * FROM JOB WHERE Name = '$($PowerPackSplat.PackageName)' AND Version = '$($PowerPackSplat.PackageVersion)'"
-			$Package = Invoke-Sqlcmd -ServerInstance $PowerPackSplat.SqlServerInstance -Database $PowerPackSplat.Database -Query $Query -TrustServerCertificate
-
-			$Package | Should -Not -BeNullOrEmpty
-			$Package.POWERPACK | Should -Be 'True'
-			$Package.INSTALLSCRIPTCONTENT | Should -Not -BeNullOrEmpty
-			$Package.UNINSTALLSCRIPTCONTENT | Should -Not -BeNullOrEmpty
-		}
-	}
-	Describe 'VBScript type' {
-		BeforeAll {
-			$CommandSplatting = @{
-				PackageName    = $VBPackageSplat.PackageName
-				PackageVersion = $VBPackageSplat.PackageVersion
-				ScriptContent = "Test"
-				ScriptType 	= 'Install'
-				PackageType = 'VBScript'
-				PackageBasePath = $ComputerJobsPath
-			}
-		}
-		It "Does the function work" {
-			$Status = Update-CapaPackageScriptAndKit @CommandSplatting
-			$Status | Should -Be $true
-
-			$CommandSplatting.ScriptType = 'Uninstall'
-			$Status = Update-CapaPackageScriptAndKit @CommandSplatting
-			$Status | Should -Be $true
-		}
-		It "Does install script contain the content" {
-			$VBInstallScriptFile | Should -Exist
-			$InstallFileContent = Get-Content $VBInstallScriptFile
-			$InstallFileContent | Should -Contain $CommandSplatting.ScriptContent
-
-			$VBUninstallScriptFile | Should -Exist
-			$UninstallFileContent = Get-Content $VBUninstallScriptFile
-			$UninstallFileContent | Should -Contain $CommandSplatting.ScriptContent
-		}
-	}
-	Describe 'PowerPack with kit' {
-		BeforeAll {
-			$CommandSplatting = @{
-				PackageName    = $PowerPackSplat.PackageName
-				PackageVersion = $PowerPackSplat.PackageVersion
-				ScriptContent = "Write-Host 'Hello World'"
-				ScriptType 	= 'Install'
-				PackageType = 'PowerPack'
-				PackageBasePath = $ComputerJobsPath
-				SqlServerInstance = $PowerPackSplat.SqlServerInstance
-				Database = $PowerPackSplat.Database
-				KitFolderPath = $TestKitFolder
-			}
-
 			$Query = "UPDATE JOB SET INSTALLSCRIPTCONTENT = NULL, UNINSTALLSCRIPTCONTENT = NULL WHERE Name = '$($PowerPackSplat.PackageName)' AND Version = '$($PowerPackSplat.PackageVersion)'"
 			Invoke-Sqlcmd -ServerInstance $PowerPackSplat.SqlServerInstance -Database $PowerPackSplat.Database -Query $Query -TrustServerCertificate
 
+		$Status = Update-CapaPackageScriptAndKit @CommandSplatting
+		$Status | Should -Be $true
+
+		$CommandSplatting.ScriptType = 'Uninstall'
+		$Status = Update-CapaPackageScriptAndKit @CommandSplatting
+		$Status | Should -Be $true
+	}
+	It 'Has it set the INSTALLSCRIPTCONTENT in DB' {
+		$Query = "SELECT * FROM JOB WHERE Name = '$($PowerPackSplat.PackageName)' AND Version = '$($PowerPackSplat.PackageVersion)'"
+		$Package = Invoke-Sqlcmd -ServerInstance $PowerPackSplat.SqlServerInstance -Database $PowerPackSplat.Database -Query $Query -TrustServerCertificate
+
+		$Package | Should -Not -BeNullOrEmpty
+		$Package.POWERPACK | Should -Be 'True'
+		$Package.INSTALLSCRIPTCONTENT | Should -Not -BeNullOrEmpty
+		$Package.UNINSTALLSCRIPTCONTENT | Should -Not -BeNullOrEmpty
+	}
+}
+Describe 'VBScript type' {
+	BeforeAll {
+		$CommandSplatting = @{
+			PackageName     = $VBPackageSplat.PackageName
+			PackageVersion  = $VBPackageSplat.PackageVersion
+			ScriptContent   = 'Test'
+			ScriptType      = 'Install'
+			PackageType     = 'VBScript'
+			PackageBasePath = $ComputerJobsPath
 		}
-		It "Does the function work" {
+	}
+	It 'Does the function work' {
+		$Status = Update-CapaPackageScriptAndKit @CommandSplatting
+		$Status | Should -Be $true
+
+		$CommandSplatting.ScriptType = 'Uninstall'
+		$Status = Update-CapaPackageScriptAndKit @CommandSplatting
+		$Status | Should -Be $true
+	}
+	It 'Does install script contain the content' {
+		$VBInstallScriptFile | Should -Exist
+		$InstallFileContent = Get-Content $VBInstallScriptFile
+		$InstallFileContent | Should -Contain $CommandSplatting.ScriptContent
+
+		$VBUninstallScriptFile | Should -Exist
+		$UninstallFileContent = Get-Content $VBUninstallScriptFile
+		$UninstallFileContent | Should -Contain $CommandSplatting.ScriptContent
+	}
+}
+Describe 'PowerPack with kit' {
+	BeforeAll {
+		$CommandSplatting = @{
+			PackageName       = $PowerPackSplat.PackageName
+			PackageVersion    = $PowerPackSplat.PackageVersion
+			ScriptContent     = "Write-Host 'Hello World'"
+			ScriptType        = 'Install'
+			PackageType       = 'PowerPack'
+			PackageBasePath   = $ComputerJobsPath
+			SqlServerInstance = $PowerPackSplat.SqlServerInstance
+			Database          = $PowerPackSplat.Database
+			KitFolderPath     = $TestKitFolder
+		}
+	}
+	It 'Does the function work' {
+		$Query = "UPDATE JOB SET INSTALLSCRIPTCONTENT = NULL, UNINSTALLSCRIPTCONTENT = NULL WHERE Name = '$($PowerPackSplat.PackageName)' AND Version = '$($PowerPackSplat.PackageVersion)'"
+		Invoke-Sqlcmd -ServerInstance $PowerPackSplat.SqlServerInstance -Database $PowerPackSplat.Database -Query $Query -TrustServerCertificate
+
 			$Status = Update-CapaPackageScriptAndKit @CommandSplatting
 			$Status | Should -Be $true
 

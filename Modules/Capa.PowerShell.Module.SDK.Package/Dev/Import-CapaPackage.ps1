@@ -1,5 +1,3 @@
-# TODO: #176 Update and add tests
-
 <#
 	.SYNOPSIS
 		Imports a package into CapaInstaller.

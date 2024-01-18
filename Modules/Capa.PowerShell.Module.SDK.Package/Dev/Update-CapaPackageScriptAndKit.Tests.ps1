@@ -236,3 +236,8 @@ Describe 'PowerPack with kit' {
 			$KitPath | Should -Not -BeNullOrEmpty
 		}
 	}
+	AfterAll {
+		Remove-CapaPackage -CapaSDK $CapaSDK -PackageName $VBPackageSplat.PackageName -PackageVersion $VBPackageSplat.PackageVersion -PackageType Computer
+		Remove-CapaPackage -CapaSDK $CapaSDK -PackageName $PowerPackSplat.PackageName -PackageVersion $PowerPackSplat.PackageVersion -PackageType Computer
+		Remove-Item -Path $TestKitFolder -Recurse -Force
+	}

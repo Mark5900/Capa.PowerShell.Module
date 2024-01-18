@@ -96,8 +96,8 @@ function Update-CapaPackageScriptAndKit {
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[string]$Database,
-		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
-		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
+		[Parameter(Mandatory = $false, ParameterSetName = 'PowerPack')]
+		[Parameter(Mandatory = $false, ParameterSetName = 'PowerPackWithKit')]
 		[pscredential]$Credential,
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]

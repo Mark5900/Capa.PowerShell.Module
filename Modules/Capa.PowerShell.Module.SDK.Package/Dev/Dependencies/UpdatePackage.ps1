@@ -7,13 +7,17 @@ Import-Module SqlServer
     Created with:	Visual Studio Code
     Created on:     2023-04-18
     Created by:		MARA
-    Organization:
     Filename:       UpdatePackage.ps1
     ===========================================================================
     .DESCRIPTION
         Updates/create a package in your CapaInstaller environment.
+
         Remember to change the variables at the top of the script, to match your environment.
+
+        Or use Settings.json created when using -Advanced on New-CapaPackageWithGit
 #>
+##################
+### PARAMETERS ###
 ##################
 # Change as needed
 $CapaServer = ''
@@ -22,102 +26,151 @@ $Database = ''
 $DefaultManagementPointDev = ''
 $PackageBasePath = ''
 
+# Do not change
+$SettingsFile = Join-Path $PSScriptRoot 'Settings.json'
+$Settings = @{
+    CapaServer             = $CapaServer
+    SQLServer              = $SQLServer
+    Database               = $Database
+    DefaultManagementPoint = $DefaultManagementPointDev
+    PackageBasePath        = $PackageBasePath
+}
+
+
 #################
 ### FUNCTIONS ###
 #################
 function Get-PackageType {
     param (
-        $String
+        [Parameter(Mandatory = $true)]
+        [string]$PackagePath
     )
+    $ScriptsPath = Join-Path $PackagePath 'Scripts'
 
-    If ($String -like 'Capa_PP_*') {
-        $PackageType = 'PowerPack'
-    } else {
-        $PackageType = 'VBScript'
+    if (Test-Path -Path $ScriptsPath) {
+        $Files = Get-ChildItem -Path $ScriptsPath -File
+
+        if ($File[0].Extension -eq '.ps1') {
+            return 'PowerPack'
+        } Else {
+            return 'VBScript'
+        }
+    } Else {
+        throw "PackagePath '$PackagePath' does not contain a 'Scripts' folder"
     }
-
-    return $PackageType
 }
+
 function Get-PackageInfo {
     param (
-
+        [string]$Type = 'Normal',
+        [string]$Settings
     )
-    # Get PackageVersion
-    $Folders = Get-ChildItem -Path $PSScriptRoot -Directory
-    if (($Folders | Where-Object { $_.Name -eq 'Scripts' }).Count -eq 1) {
-        $Path = $PSScriptRoot -split '\\'
+    if ($Type -eq 'Normal') {
+        $Folders = Get-ChildItem -Path $PSScriptRoot -Directory
 
-        if (($Folders | Where-Object { $_.Name -eq 'Kit' }).Count -eq 1) {
-            $KitPath = Join-Path $PSScriptRoot 'Kit'
-        } else {
-            $KitPath = $null
-        }
+        if ($Folders.Count -eq 0) {
+            throw "No folders found in '$PSScriptRoot'"
+        } elseif (($Folders | Where-Object { $_.Name -eq 'Scripts' }).Count -eq 1) {
+            <#
+            Handels the example case:
+            ..\Capa_PP_Test1\v1.0
+        #>
+            $Path = $PSScriptRoot -split '\\'
 
-        $PackageInfo = [psobject]@{
-            PackageVersion = $Path[$Path.Count - 1]
-            PackageName    = $Path[$Path.Count - 2].Replace('Capa_PP_', '').Replace('Capa_VB_', '')
-            PackageType    = Get-PackageType $Path[$Path.Count - 2]
-            PackagePath    = $PSScriptRoot
-            ScriptsPath    = Join-Path $PSScriptRoot 'Scripts'
-            KitPath        = $KitPath
-        }
-    } elseif (($Folders.Count -eq 1) -and (Test-Path "$PSScriptRoot\$($Folders.Name)\Scripts") -eq $true) {
-        $Path = $PSScriptRoot -split '\\'
-
-        if ((Test-Path "$PSScriptRoot\$($Folders.Name)\Kit") -eq $true) {
-            $KitPath = Join-Path $PSScriptRoot "$($Folders.Name)\Kit"
-        } else {
-            $KitPath = $null
-        }
-
-        $PSScriptRoot
-        $Folders.Name
-        "$PSScriptRoot\$($Folders.Name)\Scripts"
-
-
-        $PackageInfo = [psobject]@{
-            PackageVersion = $Folders.Name
-            PackageName    = $Path[$Path.Count - 1].Replace('Capa_PP_', '').Replace('Capa_VB_', '')
-            PackageType    = Get-PackageType $Path[$Path.Count - 1]
-            PackagePath    = Join-Path $PSScriptRoot $Folders.Name
-            ScriptsPath    = Join-Path $PSScriptRoot "$($Folders.Name)" 'Scripts'
-            KitPath        = $KitPath
-        }
-    } elseif ($Folders.Count -eq 0) {
-        Write-Error 'No folders found'
-    } else {
-        $Text = $null
-        $Path = $PSScriptRoot -split '\\'
-
-        foreach ($Folder in $Folders) {
-            if ((Test-Path "$PSScriptRoot\$($Folder.Name)\Scripts") -eq $true) {
-                if ($null -eq $Text) {
-                    $Text = $Folder.Name
-                } else {
-                    $Text += ", $($Folder.Name)"
-                }
-            }
-        }
-
-        $Version = Read-Host "Which version do you want to use? ($Text)"
-
-        if ((Test-Path "$PSScriptRoot\$Version\Scripts") -eq $true) {
-            if ((Test-Path "$PSScriptRoot\$Version\Kit") -eq $true) {
-                $KitPath = Join-Path $PSScriptRoot "$Version\Kit"
+            if (($Folders | Where-Object { $_.Name -eq 'Kit' }).Count -eq 1) {
+                $KitPath = Join-Path $PSScriptRoot 'Kit'
             } else {
                 $KitPath = $null
             }
 
             $PackageInfo = [psobject]@{
-                PackageVersion = $Version
-                PackageName    = $Path[$Path.Count - 1].Replace('Capa_PP_', '').Replace('Capa_VB_', '')
-                PackageType    = Get-PackageType $Path[$Path.Count - 1]
-                PackagePath    = Join-Path $PSScriptRoot "$Version"
-                ScriptsPath    = Join-Path $PSScriptRoot "$Version\Scripts"
+                PackageVersion = $Path[$Path.Count - 1]
+                PackageName    = $Path[$Path.Count - 2].Replace('Capa_PP_', '').Replace('Capa_VB_', '').Replace('Capa_', '')
+                PackageType    = Get-PackageType -PackagePath $PSScriptRoot
+                PackagePath    = $PSScriptRoot
+                ScriptsPath    = Join-Path $PSScriptRoot 'Scripts'
                 KitPath        = $KitPath
             }
-        } else {
-            Write-Error 'No folders found'
+        } elseif (($Folders.Count -eq 1) -and (Test-Path "$PSScriptRoot\$($Folders.Name)\Scripts") -eq $true) {
+            <#
+            Handels the example case:
+            ..\Capa_PP_Test1 where there is a folder called v1.0
+        #>
+            $Path = $PSScriptRoot -split '\\'
+
+            if ((Test-Path "$PSScriptRoot\$($Folders.Name)\Kit") -eq $true) {
+                $KitPath = Join-Path $PSScriptRoot "$($Folders.Name)\Kit"
+            } else {
+                $KitPath = $null
+            }
+
+            $PackageInfo = [psobject]@{
+                PackageVersion = $Folders.Name
+                PackageName    = $Path[$Path.Count - 1].Replace('Capa_PP_', '').Replace('Capa_VB_', '').Replace('Capa_', '')
+                PackageType    = Get-PackageType -PackagePath (Join-Path $PSScriptRoot $Folders.Name)
+                PackagePath    = Join-Path $PSScriptRoot $Folders.Name
+                ScriptsPath    = Join-Path $PSScriptRoot "$($Folders.Name)" 'Scripts'
+                KitPath        = $KitPath
+            }
+        } Else {
+            <#
+            Handels the example case:
+            ..\Capa_PP_Test1\ with the example folders v1.0 and v1.1
+        #>
+            $Text = $null
+            $Path = $PSScriptRoot -split '\\'
+
+            if ($Path[$Path.Count - 1] -eq 'Scripts') {
+                $Text = "PackagePath '$PSScriptRoot' is not a valid package path"
+            } Else {
+                $Text = "PackagePath '$PSScriptRoot' does not contain a 'Scripts' folder"
+            }
+
+            foreach ($Folder in $Folders) {
+                if ((Test-Path "$PSScriptRoot\$($Folder.Name)\Scripts") -eq $true) {
+                    if ($null -eq $Text) {
+                        $Text = $Folder.Name
+                    } else {
+                        $Text += ", $($Folder.Name)"
+                    }
+                }
+            }
+
+            $Version = Read-Host "Which version do you want to use? ($Text)"
+
+            if ((Test-Path "$PSScriptRoot\$Version\Scripts") -eq $true) {
+                if ((Test-Path "$PSScriptRoot\$Version\Kit") -eq $true) {
+                    $KitPath = Join-Path $PSScriptRoot "$Version\Kit"
+                } else {
+                    $KitPath = $null
+                }
+
+                $PackageInfo = [psobject]@{
+                    PackageVersion = $Version
+                    PackageName    = $Path[$Path.Count - 1].Replace('Capa_PP_', '').Replace('Capa_VB_', '').Replace('Capa_', '')
+                    PackageType    = Get-PackageType -PackagePath (Join-Path $PSScriptRoot $Version)
+                    PackagePath    = Join-Path $PSScriptRoot "$Version"
+                    ScriptsPath    = Join-Path $PSScriptRoot "$Version\Scripts"
+                    KitPath        = $KitPath
+                }
+            } else {
+                Throw "The version '$Version' does not exist or does not contain a 'Scripts' folder"
+            }
+        }
+    } else {
+        $KitPath = Join-Path $PSScriptRoot 'Kit'
+
+        if ((Test-Path -Path $SettingsFile) -eq $false) {
+            $KitPath = $null
+        }
+
+        $PackageInfo = [psobject]@{
+            PackageVersion = "p$($Settings.PackageVersion)"
+            PackageName    = "$($Settings.SoftwareName) $($Settings.SoftwareVersion)"
+            PackageType    = Get-PackageType -PackagePath $PSScriptRoot
+            PackagePath    = $PSScriptRoot
+            ScriptsPath    = Join-Path $PSScriptRoot 'Scripts'
+            KitPath        = $KitPath
         }
     }
 
@@ -128,59 +181,58 @@ function Get-PackageInfo {
 ### SCRIPT ###
 ##############
 try {
-    $oCMSDev = Initialize-CapaSDK -Server $CapaServer -Database $Database -DefaultManagementPoint $DefaultManagementPointDev
-    $PackageInfo = Get-PackageInfo
+    #region Variables
+    if (Test-Path -Path $SettingsFile) {
+        $Settings = Get-Content -Path $SettingsFile | ConvertFrom-Json
+        $oCMS = Initialize-CapaSDK -Server $Settings.CapaServer -Database $Settings.Database -DefaultManagementPoint $Settings.DefaultManagementPoint
+        $PackageInfo = Get-PackageInfo -Type 'Advanced' -Settings $Settings
 
-    $DoesPackageExist = Get-CapaPackages -CapaSDK $oCMSDev -Type Computer | Where-Object { $_.Name -eq $PackageInfo.PackageName -and $_.Version -eq $PackageInfo.PackageVersion }
-    if ($null -eq $DoesPackageExist -or $DoesPackageExist.Count -eq 0) {
+        $DoesThePackageExist = Exist-CapaPackage -CapaSDK $oCMS -Name "$($Settings.SoftwareName) $($Settings.SoftwareVersion)" -Version $Settings.SoftwareVersion -Type Computer
+    } Else {
+        $oCMS = Initialize-CapaSDK -Server $CapaServer -Database $Database -DefaultManagementPoint $DefaultManagementPointDev
+        $PackageInfo = Get-PackageInfo
+
+        $DoesThePackageExist = Exist-CapaPackage -CapaSDK $oCMS -Name $PackageInfo.PackageName -Version $PackageInfo.PackageVersion -Type Computer
+    }
+
+    $Splatting = @{}
+    $Splatting.CapaSDK = $oCMS
+    $Splatting.PackageName
+    $Splatting.PackageVersion
+    #endregion
+
+    #region Create the package if it does not exist
+    if ($DoesThePackageExist -eq $false) {
         if ($PackageInfo.PackageType -eq 'PowerPack') {
             [string]$InstallScriptContent = Get-Content -Path "$($PackageInfo.ScriptsPath)\Install.ps1"
             [string]$UninstallScriptContent = Get-Content -Path "$($PackageInfo.ScriptsPath)\Uninstall.ps1"
 
-            if ($null -ne $PackageInfo.KitPath) {
-                $Splatting = @{
-                    CapaSDK                = $oCMSDev
-                    PackageName            = $PackageInfo.PackageName
-                    PackageVersion         = $PackageInfo.PackageVersion
-                    SqlServerInstance      = $SQLServer
-                    Database               = $Database
-                    KitFolderPath          = $PackageInfo.KitPath
-                    InstallScriptContent   = $InstallScriptContent
-                    UninstallScriptContent = $UninstallScriptContent
-                }
-            } else {
-                $Splatting = @{
-                    CapaSDK                = $oCMSDev
-                    PackageName            = $PackageInfo.PackageName
-                    PackageVersion         = $PackageInfo.PackageVersion
-                    SqlServerInstance      = $SQLServer
-                    Database               = $Database
-                    InstallScriptContent   = $InstallScriptContent
-                    UninstallScriptContent = $UninstallScriptContent
-                }
+            if ([string]::IsNullOrEmpty($PackageInfo) -eq $false) {
+                $Splatting.KitFolderPath = $PackageInfo.KitPath
             }
 
-            $Package = New-CapaPowerPack @Splatting
+            $Splatting.SqlServerInstance = $Settings.SQLServer
+            $Splatting.SqlDatabase = $Settings.Database
+
+            New-CapaPowerPack @Splatting -InstallScriptContent $InstallScriptContent -UninstallScriptContent $UninstallScriptContent
         } else {
-            $Splatting = @{
-                CapaSDK        = $oCMSDev
-                PackageName    = $PackageInfo.PackageName
-                PackageVersion = $PackageInfo.PackageVersion
-                UnitType       = 'Computer'
-                DisplayName    = "$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)"
-            }
+            $Splatting.UnitType = 'Computer'
+            $Splatting.DisplayName = "$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)"
 
-            $Package = New-CapaPackage @Splatting
+            $bStatus = New-CapaPackage @Splatting
+            If ($bStatus -eq $false) {
+                Throw "Failed to create VB package '$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)'"
+            }
 
             <#
-                Bug hot fix
+                TODO: #256 Bug hot fix
                 The package is created in CI, but the folder containing the scripts and kit is not created.
                 This is a workaround to create the folder and can be removed when the bug is fixed.
             #>
             $VBPackageBaseFolder = "$PackageBasePath\$($PackageInfo.PackageName)\$($PackageInfo.PackageVersion)"
             $VBScriptsFolder = "$VBPackageBaseFolder\Scripts"
-            $VBInstallScript = "$ScriptsFolder\$($PackageInfo.PackageName).cis"
-            $VBUninstallScript = "$ScriptsFolder\$($PackageInfo.PackageName)_Uninstall.cis"
+            $VBInstallScript = "$VBScriptsFolder\$($PackageInfo.PackageName).cis"
+            $VBUninstallScript = "$VBScriptsFolder\$($PackageInfo.PackageName)_Uninstall.cis"
             $VBKitFolder = "$VBPackageBaseFolder\Kit"
             $VBKitDummyFile = "$VBKitFolder\Dummy.txt"
             if ((Test-Path $VBScriptsFolder) -eq $false) {
@@ -204,11 +256,12 @@ try {
             Set UNINSTALLSCRIPT = 1
             Where NAME = '$($PackageInfo.PackageName)'
             AND VERSION = '$($PackageInfo.PackageVersion)'"
-            Invoke-Sqlcmd -ServerInstance $SQLServer -Database $Database -Query $SqlQuery
+            Invoke-Sqlcmd -ServerInstance $SQLServer -Database $Database -Query $SqlQuery -TrustServerCertificate
         }
     }
+    #endregion
 
-    # Update package
+    #region Update the package
     if ($PackageInfo.PackageType -eq 'PowerPack') {
         $InstallScriptContent = Get-Content -Path "$($PackageInfo.ScriptsPath)\Install.ps1" | Out-String
         $UninstallScriptContent = Get-Content -Path "$($PackageInfo.ScriptsPath)\Uninstall.ps1" | Out-String
@@ -250,11 +303,13 @@ try {
             PackageName    = $PackageInfo.PackageName
             PackageVersion = $PackageInfo.PackageVersion
             PackageType    = 'Computer'
-            ServerName     = $CapaServer
+            PointID        = $Settings.DefaultManagementPoint
         }
-        Rebuild-CapaKitFileOnManagementServer @RebuildSplat
-        Write-Host "Remember to rebuild CapaInstaller.kit for $($PackageInfo.PackageName) $($PackageInfo.PackageVersion)"
+        Rebuild-CapaKitFileOnPoint @RebuildSplat
     }
-} catch {
+    #endregion
+
+} Catch {
     Write-Error $_.Exception.Message
+    Exit 1
 }

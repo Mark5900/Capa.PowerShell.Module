@@ -10,14 +10,17 @@
 	.PARAMETER CapaSDK
 		The CapaSDK object.
 
-	.PARAMETER PackageType
-		The type of package, can be either Computer or User.
-
 	.PARAMETER PackageName
 		The name of the package.
 
 	.PARAMETER PackageVersion
 		The version of the package.
+
+	.PARAMETER PackageType
+		The type of package, can be either Computer or User.
+
+	.PARAMETER BusinessUnitName
+		The name of the business unit to remove the package from.
 
 	.PARAMETER Force
 		Force deletion of the package regardless of any linked units, groups, or business units.

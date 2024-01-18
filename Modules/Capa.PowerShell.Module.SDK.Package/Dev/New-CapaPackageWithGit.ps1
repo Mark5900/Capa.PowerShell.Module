@@ -208,9 +208,9 @@ function New-CapaPackageWithGit {
 
 		#endregion
 
-		return 0
+		return $true
 	} Catch {
 		$PSCmdlet.ThrowTerminatingError($PSitem)
-		return -1
+		return $false
 	}
 }

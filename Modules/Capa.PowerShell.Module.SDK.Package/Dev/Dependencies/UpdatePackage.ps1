@@ -50,7 +50,7 @@ function Get-PackageType {
     if (Test-Path -Path $ScriptsPath) {
         $Files = Get-ChildItem -Path $ScriptsPath -File
 
-        if ($File[0].Extension -eq '.ps1') {
+        if ($Files[0].Extension -eq '.ps1') {
             return 'PowerPack'
         } Else {
             return 'VBScript'
@@ -63,7 +63,7 @@ function Get-PackageType {
 function Get-PackageInfo {
     param (
         [string]$Type = 'Normal',
-        [string]$Settings
+        [pscustomobject]$Settings
     )
     if ($Type -eq 'Normal') {
         $Folders = Get-ChildItem -Path $PSScriptRoot -Directory
@@ -160,7 +160,7 @@ function Get-PackageInfo {
     } else {
         $KitPath = Join-Path $PSScriptRoot 'Kit'
 
-        if ((Test-Path -Path $SettingsFile) -eq $false) {
+        if ((Test-Path -Path $KitPath) -eq $false) {
             $KitPath = $null
         }
 
@@ -186,19 +186,17 @@ try {
         $Settings = Get-Content -Path $SettingsFile | ConvertFrom-Json
         $oCMS = Initialize-CapaSDK -Server $Settings.CapaServer -Database $Settings.Database -DefaultManagementPoint $Settings.DefaultManagementPoint
         $PackageInfo = Get-PackageInfo -Type 'Advanced' -Settings $Settings
-
-        $DoesThePackageExist = Exist-CapaPackage -CapaSDK $oCMS -Name "$($Settings.SoftwareName) $($Settings.SoftwareVersion)" -Version $Settings.SoftwareVersion -Type Computer
     } Else {
         $oCMS = Initialize-CapaSDK -Server $CapaServer -Database $Database -DefaultManagementPoint $DefaultManagementPointDev
         $PackageInfo = Get-PackageInfo
-
-        $DoesThePackageExist = Exist-CapaPackage -CapaSDK $oCMS -Name $PackageInfo.PackageName -Version $PackageInfo.PackageVersion -Type Computer
     }
+
+    $DoesThePackageExist = Exist-CapaPackage -CapaSDK $oCMS -Name $PackageInfo.PackageName -Version $PackageInfo.PackageVersion -Type Computer
 
     $Splatting = @{}
     $Splatting.CapaSDK = $oCMS
-    $Splatting.PackageName
-    $Splatting.PackageVersion
+    $Splatting.PackageName = $PackageInfo.PackageName
+    $Splatting.PackageVersion = $PackageInfo.PackageVersion
     #endregion
 
     #region Create the package if it does not exist
@@ -212,9 +210,12 @@ try {
             }
 
             $Splatting.SqlServerInstance = $Settings.SQLServer
-            $Splatting.SqlDatabase = $Settings.Database
+            $Splatting.Database = $Settings.Database
 
-            New-CapaPowerPack @Splatting -InstallScriptContent $InstallScriptContent -UninstallScriptContent $UninstallScriptContent
+            $bStatus = New-CapaPowerPack @Splatting -InstallScriptContent $InstallScriptContent -UninstallScriptContent $UninstallScriptContent
+            If ($bStatus -eq $false) {
+                Throw "Failed to create PowerPack package '$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)'"
+            }
         } else {
             $Splatting.UnitType = 'Computer'
             $Splatting.DisplayName = "$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)"
@@ -274,8 +275,31 @@ try {
             Database          = $Database
         }
     } else {
-        $InstallScriptContent = Get-Content -Path "$($PackageInfo.ScriptsPath)\$($PackageInfo.PackageName).cis" | Out-String
-        $UninstallScriptContent = Get-Content -Path "$($PackageInfo.ScriptsPath)\$($PackageInfo.PackageName)_Uninstall.cis" | Out-String
+        $InstallScriptPath = "$($PackageInfo.ScriptsPath)\$($PackageInfo.PackageName).cis"
+        $UninstallScriptPath = "$($PackageInfo.ScriptsPath)\$($PackageInfo.PackageName)_Uninstall.cis"
+
+        if (Test-Path -Path $InstallScriptPath) {
+            $InstallScriptContent = Get-Content -Path $InstallScriptPath | Out-String
+        } Else {
+            $InstallScriptPath = "$($PackageInfo.ScriptsPath)\$($Settings.SoftwareName).cis"
+
+            if (Test-Path -Path $InstallScriptPath) {
+                $InstallScriptContent = Get-Content -Path $InstallScriptPath | Out-String
+            } Else {
+                $InstallScriptContent = $null
+            }
+        }
+        if (Test-Path -Path $UninstallScriptPath) {
+            $UninstallScriptContent = Get-Content -Path $UninstallScriptPath | Out-String
+        } Else {
+            $UninstallScriptPath = "$($PackageInfo.ScriptsPath)\$($Settings.SoftwareName)_Uninstall.cis"
+
+            if (Test-Path -Path $UninstallScriptPath) {
+                $UninstallScriptContent = Get-Content -Path $UninstallScriptPath | Out-String
+            } Else {
+                $UninstallScriptContent = $null
+            }
+        }
 
         $Splatting = @{
             PackageName     = $PackageInfo.PackageName
@@ -286,8 +310,19 @@ try {
         }
     }
 
-    Update-CapaPackageScriptAndKit @Splatting -ScriptType 'Install' -ScriptContent $InstallScriptContent
-    Update-CapaPackageScriptAndKit @Splatting -ScriptType 'Uninstall' -ScriptContent $UninstallScriptContent
+    if ($null -ne $InstallScriptContent) {
+        $bStatus = Update-CapaPackageScriptAndKit @Splatting -ScriptType 'Install' -ScriptContent $InstallScriptContent
+        If ($bStatus -eq $false) {
+            Throw "Failed to update install script for package '$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)'"
+        }
+    }
+
+    if ($null -ne $UninstallScriptContent) {
+        $bStatus = Update-CapaPackageScriptAndKit @Splatting -ScriptType 'Uninstall' -ScriptContent $UninstallScriptContent
+        If ($bStatus -eq $false) {
+            Throw "Failed to update uninstall script for package '$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)'"
+        }
+    }
 
     if ($PackageInfo.KitPath) {
         $KitSplatt = @{
@@ -296,16 +331,22 @@ try {
             KitFolderPath   = $PackageInfo.KitPath
             PackageBasePath = $PackageBasePath
         }
-        Update-CapaPackageScriptAndKit @KitSplatt
+        $bStatus = Update-CapaPackageScriptAndKit @KitSplatt
+        If ($bStatus -eq $false) {
+            Throw "Failed to update kit for package '$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)'"
+        }
 
         $RebuildSplat = @{
-            CapaSDK        = $oCMSDev
+            CapaSDK        = $oCMS
             PackageName    = $PackageInfo.PackageName
             PackageVersion = $PackageInfo.PackageVersion
             PackageType    = 'Computer'
             PointID        = $Settings.DefaultManagementPoint
         }
-        Rebuild-CapaKitFileOnPoint @RebuildSplat
+        $bStatus = Rebuild-CapaKitFileOnPoint @RebuildSplat
+        If ($bStatus -eq $false) {
+            Throw "Failed to rebuild kit for package '$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)'"
+        }
     }
     #endregion
 

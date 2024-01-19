@@ -88,7 +88,7 @@ function New-CapaPackageWithGit {
 		$UpdatePackageScript = Join-Path $PSScriptRoot 'Dependencies\UpdatePackage.ps1'
 
 		if ($Advanced) {
-			$PackagePath = Join-Path $BasePath "Capa_$SoftwareName"
+			$PackagePath = Join-Path $BasePath "Capa_$($SoftwareName -replace ' ', '_')"
 			$ScriptPath = Join-Path $PackagePath 'Scripts'
 			$KitPath = Join-Path $PackagePath 'Kit'
 			$GitHubActionsPath = Join-Path $PackagePath '.github\workflows'
@@ -96,7 +96,7 @@ function New-CapaPackageWithGit {
 			$SettingsPath = Join-Path $PackagePath 'Settings.json'
 			$SettingsFile = Join-Path $PSScriptRoot 'Dependencies\Settings.json'
 		} Else {
-			$PackagePath = Join-Path $BasePath "Capa_$PackageName"
+			$PackagePath = Join-Path $BasePath "Capa_$($PackageName -replace ' ', '_')"
 			$VersionPath = Join-Path $PackagePath $PackageVersion
 			$ScriptPath = Join-Path $VersionPath 'Scripts'
 			$KitPath = Join-Path $VersionPath 'Kit'

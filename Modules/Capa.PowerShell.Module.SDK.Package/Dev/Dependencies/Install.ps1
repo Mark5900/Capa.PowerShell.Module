@@ -37,7 +37,7 @@ $Global:InputObject = $InputObject
 function Begin {
     ##############################################
     #load Library dll
-    Global:Cs = Add-PpDll -DllPath Global:DllPath
+    $Global:Cs = Add-PpDll -DllPath $Global:DllPath
     ##############################################
 
     #Begin

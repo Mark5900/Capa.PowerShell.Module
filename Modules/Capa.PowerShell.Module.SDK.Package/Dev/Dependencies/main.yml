@@ -63,7 +63,7 @@ jobs:
             exit 1
           }
 
-      - name: Move package to same folder as previous version
+      - name: Move package to the same folder as previous version
         run: |
           $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $env:DefaultManagementPoint
           $PckName = "$env:SoftwareName $env:SoftwareVersion"

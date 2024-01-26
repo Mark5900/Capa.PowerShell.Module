@@ -188,18 +188,51 @@ You are welcome to change the workflow to support multiple versions of the same 
 
 ## Repo structure
 
+Here is a description of the files and folders in the repository.
+
 ### .github/workflows
 
-#### main.yml
+The folder contains the GitHub Actions workflow files.
 
 #### versioning.yml
 
+When a Pull Request is being opened from a branch to the `main` branch:
+
+- Will increase the package version by 0.1. If the branch name is like **Major** then the package version will be increased by 1.0.
+- Update OldPackageVersion in Settings.json
+- Commit the changes to GitHub
+
+#### main.yml
+
+When a Pull Request is being closed from a branch to the `main` branch:
+
+- Import kit from current version
+- Run UpdatePackage.ps1
+- Move the new package to the same folder as the current package in CapaInstaller
+- Set package description, the description will contain the following:
+  - The text specified in the Description property in Settings.json
+  - Write then the package was last updated
+  - If the kit folder contains any exe or msi files, then there wil also be wrtitten the newest LastWriteTime of the files
+- Export the package to the location specified in the ExportPath property in Settings.json. If not specified, then the package will be exported to the folder **Exportet Packages** at the qualifer of the PackageBasePath.
+
+> **_NOTE:_**  The workflow will run when you merge or close the Pull Request, because both scenarios is a closed Pull Request. So if you wish to close a Pull Request without running the workflow, the you need to delete the branch.
+
 ### Kit
+
+The folder contains the files that you want to include in the package.
 
 ### Scripts
 
+The folder contains the scripts that you want to include in the package.
+
 ### .gitingore
+
+Used to exclude stuff from being commited to GitHub.
 
 ### Settings.json
 
+The file contains the settings for the package.
+
 ### UpdatePackage.ps1
+
+The script is used to create or update the package.

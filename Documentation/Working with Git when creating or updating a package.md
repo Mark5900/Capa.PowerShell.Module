@@ -5,6 +5,8 @@ You are encouraged to read this document before you start working with Git.
 
 All the examples in this document are based on using GitHub as the package repository.
 
+If you want an more advanced setup, then you can read the document [Working with Git when creating or updating a package (advanced)](./Working%20with%20Git%20when%20creating%20or%20updating%20a%20package%20(advanced).md).
+
 ## Creating a new package
 
 1. Creating a local folder structure

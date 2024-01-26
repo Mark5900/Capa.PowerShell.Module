@@ -162,9 +162,29 @@ But it is not nessesary! Then the PR is merged to the `main` branch, will the Gi
 
 ## Updating an existing package
 
+1. Clone the repository from GitHub: In GitHub Desktop click **File** > **Clone repository...** and choose the repository you want to clone.
+2. Create a new branch in GitHub Desktop, if the name of the branch is like **Major** then the package version will be increased by 1.0. All other branch names will increase the package version by 0.1.
+3. Depending on package/software copy the kit files from an older version.
+4. If you are using the same repo to a newer version of the software, then you may like to change the following settings in **Settings.json**:
+	 - SoftwareName
+	 - SoftwareVersion
+	 - Description
+	 - ExportPath
+	 - PackageVersion
+
 ## CapaPackages
 
+If you are using CapaPackages, then you need to make a script and schedule it in taskscheduler.
+
+We are working on making the script and will update this guide when it is ready.
+
 ## How to have multiple versions of the same software
+
+If you want to have multiple versions of the same software, then you need to create a new repository for each version of the software.
+
+This is because we want to keep the GitHub Actions workflow as simple as possible. And if we had to support multiple versions of the same software, then the workflow would be more complex.
+
+You are welcome to change the workflow to support multiple versions of the same software. When you have done that, then you can use template repositories to create new repositories with the workflow already in place, so you don't have to copy the workflow to each repository. You can read more about template repositories [Here](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository)
 
 ## Repo structure
 

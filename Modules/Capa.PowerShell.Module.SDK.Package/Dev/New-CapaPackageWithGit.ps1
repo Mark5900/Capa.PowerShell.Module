@@ -92,7 +92,8 @@ function New-CapaPackageWithGit {
 			$ScriptPath = Join-Path $PackagePath 'Scripts'
 			$KitPath = Join-Path $PackagePath 'Kit'
 			$GitHubActionsPath = Join-Path $PackagePath '.github\workflows'
-			$GitHubActionsFile = Join-Path $PSScriptRoot 'Dependencies\main.yml'
+			$GitHubActionsFile1 = Join-Path $PSScriptRoot 'Dependencies\main.yml'
+			$GitHubActionsFile2 = Join-Path $PSScriptRoot 'Dependencies\versioning.yml'
 			$SettingsPath = Join-Path $PackagePath 'Settings.json'
 			$SettingsFile = Join-Path $PSScriptRoot 'Dependencies\Settings.json'
 		} Else {
@@ -126,7 +127,8 @@ function New-CapaPackageWithGit {
 		#region Copy files
 		Copy-Item -Path $GitIgnoreFile -Destination $PackagePath -Force | Out-Null
 		if ($Advanced) {
-			Copy-Item -Path $GitHubActionsFile -Destination $GitHubActionsPath -Force | Out-Null
+			Copy-Item -Path $GitHubActionsFile1 -Destination $GitHubActionsPath -Force | Out-Null
+			Copy-Item -Path $GitHubActionsFile2 -Destination $GitHubActionsPath -Force | Out-Null
 		}
 
 		#region Copy Settings.json

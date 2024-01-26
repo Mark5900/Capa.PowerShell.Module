@@ -6,5 +6,8 @@
 	"Database": "",
 	"DefaultManagementPoint": "",
 	"PackageBasePath": "",
-	"PackageVersion": "0.0"
+	"PackageVersion": "0.0",
+	"Description": "",
+	"ExportPath": "",
+	"OldPackageVersion": ""
 }

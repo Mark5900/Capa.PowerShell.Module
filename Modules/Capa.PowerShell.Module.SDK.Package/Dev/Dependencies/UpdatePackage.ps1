@@ -230,7 +230,7 @@ try {
                 The package is created in CI, but the folder containing the scripts and kit is not created.
                 This is a workaround to create the folder and can be removed when the bug is fixed.
             #>
-            $VBPackageBaseFolder = "$PackageBasePath\$($PackageInfo.PackageName)\$($PackageInfo.PackageVersion)"
+            $VBPackageBaseFolder = "$($Settings.PackageBasePath)\$($PackageInfo.PackageName)\$($PackageInfo.PackageVersion)"
             $VBScriptsFolder = "$VBPackageBaseFolder\Scripts"
             $VBInstallScript = "$VBScriptsFolder\$($PackageInfo.PackageName).cis"
             $VBUninstallScript = "$VBScriptsFolder\$($PackageInfo.PackageName)_Uninstall.cis"
@@ -257,7 +257,7 @@ try {
             Set UNINSTALLSCRIPT = 1
             Where NAME = '$($PackageInfo.PackageName)'
             AND VERSION = '$($PackageInfo.PackageVersion)'"
-            Invoke-Sqlcmd -ServerInstance $SQLServer -Database $Database -Query $SqlQuery -TrustServerCertificate
+            Invoke-Sqlcmd -ServerInstance $Settings.SQLServer -Database $Settings.Database -Query $SqlQuery -TrustServerCertificate
         }
     }
     #endregion
@@ -271,8 +271,8 @@ try {
             PackageName       = $PackageInfo.PackageName
             PackageVersion    = $PackageInfo.PackageVersion
             PackageType       = $PackageInfo.PackageType
-            SqlServerInstance = $SQLServer
-            Database          = $Database
+            SqlServerInstance = $Settings.SQLServer
+            Database          = $Settings.Database
         }
     } else {
         $InstallScriptPath = "$($PackageInfo.ScriptsPath)\$($PackageInfo.PackageName).cis"
@@ -305,7 +305,7 @@ try {
             PackageName     = $PackageInfo.PackageName
             PackageVersion  = $PackageInfo.PackageVersion
             PackageType     = $PackageInfo.PackageType
-            PackageBasePath = $PackageBasePath
+            PackageBasePath = $Settings.PackageBasePath
 
         }
     }
@@ -329,28 +329,29 @@ try {
             PackageName     = $PackageInfo.PackageName
             PackageVersion  = $PackageInfo.PackageVersion
             KitFolderPath   = $PackageInfo.KitPath
-            PackageBasePath = $PackageBasePath
-        }
-        $bStatus = Update-CapaPackageScriptAndKit @KitSplatt
-        If ($bStatus -eq $false) {
-            Throw "Failed to update kit for package '$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)'"
+            PackageBasePath = $Settings.PackageBasePath
         }
 
-        $RebuildSplat = @{
-            CapaSDK        = $oCMS
-            PackageName    = $PackageInfo.PackageName
-            PackageVersion = $PackageInfo.PackageVersion
-            PackageType    = 'Computer'
-            PointID        = $Settings.DefaultManagementPoint
-        }
-        $bStatus = Rebuild-CapaKitFileOnPoint @RebuildSplat
-        If ($bStatus -eq $false) {
-            Throw "Failed to rebuild kit for package '$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)'"
-        }
-    }
-    #endregion
+		$bStatus = Update-CapaPackageScriptAndKit @KitSplatt
+		If ($bStatus -eq $false) {
+			Throw "Failed to update kit for package '$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)'"
+		}
+
+		$RebuildSplat = @{
+			CapaSDK        = $oCMS
+			PackageName    = $PackageInfo.PackageName
+			PackageVersion = $PackageInfo.PackageVersion
+			PackageType    = 'Computer'
+			PointID        = $Settings.DefaultManagementPoint
+		}
+		$bStatus = Rebuild-CapaKitFileOnPoint @RebuildSplat
+		If ($bStatus -eq $false) {
+			Throw "Failed to rebuild kit for package '$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)'"
+		}
+	}
+	#endregion
 
 } Catch {
-    Write-Error $_.Exception.Message
-    Exit 1
+	Write-Error $_.Exception.Message
+	Exit 1
 }

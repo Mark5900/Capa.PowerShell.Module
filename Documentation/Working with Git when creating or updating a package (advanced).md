@@ -30,17 +30,61 @@ To use the GitHub Actions Runner locally and acrross multiple repositories (pack
 
 #### Cloud
 
+Each time you create a Pull Request from your branch to the `main` branch, will it trigger a GitHub Action to generate an new package version. This action will use around 1 minute of the included 2000 minutes of free GitHub Actions per month.
+
+This action only works on an `ubuntu-latest` runner.
+
+For more information see [About billing for GitHub Actions](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions)
+
 ### CapaInstaller
 
-#### Development and production environment
+We recommend that you have a development and production environment. This is to ensure that you don't break anything in the production environment.
+
+If you don't wish to have a development environment, then you need to change the GitHub Action workflow `main.yml` file in the `.github/workflows` folder in the package/repository folder.
 
 ## Recommendations
 
+This is a list of recommendations that we will recommend you to follow.
+
 ### Security setup in CapaInstaller
+
+If you chose to make packages with this advanced flow, then we recommend that you change the securtiy settings in CapaInstaller to only allow the service account to have full access. But you should have 2 acounts:
+
+- Admin: Can everything but only see development in Configuration Management.
+- Normal: Can everything but only in your production environment.
+
+This it to make CapaInstaller more secure in the way that you can only promote packages from the development environment to the production environment. If you have a colleague that has code revied your packages, then you can promote the package to the production environment.
+
+This is also to ensure that you are up to date with the newest changes to packages. But also to ensure that your team follows the same standards, when creating packages.
+
+If something goes wrong and you need it, the you can upgrade your admin account to have full access to everything for an time, just remember to downgrade it again.
+
+### Branch protection rules
+
+We recommend that you create a branch protection rule for the `main` branch, so that you can't push directly to the `main` branch. This is to ensure that you have a code review process in place.
+
+To setup a branch protection rule, follow this guide: [Creating a branch protection rule](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule#creating-a-branch-protection-rule)
+
+The settings we normally use are:
+
+- Require pull request reviews before merging
+  - Require aprovals
+    - 1
+  - Dismiss stale pull request approvals when new commits are pushed
+- Requre status checks to pass before merging
+  - Require branches to be up to date before merging
+- Require conversation resolution before merging
+- Do not allow bypassing branch protection
+
+### Code review
+
+We recommend that you have a code review process in place. This is to ensure that you and your team follows the same standards, when creating packages.
 
 ### Git Large File Storage (LFS)
 
-### Branch protection rules
+If you have the resources, then we recommend that you use Git LFS to store all the files from the kit folder in the repository. So you have full control over the changes the package goes through.
+
+But it is not nessesary! Then the PR is merged to the `main` branch, will the GitHub Action take the files from the kit folder of the old version and put them in the kit folder of the new version. And export the package to the location you have specified so you can restore the package if needed.
 
 ## Creating a new package
 

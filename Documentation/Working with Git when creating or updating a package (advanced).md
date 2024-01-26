@@ -88,6 +88,78 @@ But it is not nessesary! Then the PR is merged to the `main` branch, will the Gi
 
 ## Creating a new package
 
+1. Create a local folder structure
+
+		To create a new package you need to create a local folder structure that matches the structure of the package repository. You can use the following command to create the folder structure:
+
+   ```powershell
+   New-CapaPackageWithGit
+    ```
+
+		You need to specify the following parameters:
+    * **SoftwareName** - The name of the package.
+    * **SoftwareVersion** - The version of the package.
+    * **PackageType** - The type of the package. Can be either **VBScript** or **PowerPack**.
+    * **BasePath** - The path to the folder where the Git repository will be created. Use a personal folder like Documents.
+    * **Advanced** - Is a switch to telle the command to create the folder structure for the advanced flow.
+
+    You can also specify the following optional parameters so you don't have to specify them in UpdatePackage.ps1:
+    * **CapaServer** - The name of the server you want to connect to.
+    * **SQLServer** - The name of the SQL Server that hosts the CapaInstaller database.
+    * **Database** - The name of the CapaInstaller database.
+    * **DefaultManagementPoint** - The ID of the default management point.
+    * **PackageBasePath** - The path to the ComputerJobs folder.
+
+2. Create the repository and publish it GitHub
+   1. Open GitHub Desktop > File > Add local repository...
+
+   ![GitHub Desktop - Add local repository](../Images/GitHub_Desktop_-_Add_local_repository.png)
+
+   2. Choose the folder **C:\Temp\MyPackage\Capa_MyPackage** and click **create a repository**. If you get the message **Unable to create new repository because there are too many new files in this directory**, try and run GitHub Desktop as administrator.
+
+    ![GitHub Desktop - Create a repository](../Images/GitHub_Desktop_-_Create_a_repository.png)
+
+    3. Click **Create repository**.
+
+    ![GitHub Desktop - Create repository](../Images/GitHub_Desktop_-_Create_repository.png)
+
+    4. Write a commit message and click **Commit to main**.
+
+    ![GitHub Desktop - First Commit](../Images/GitHub_Desktop_-_First_Commit.png)
+
+    5. Click **Publish repository** > **Publish repository**. I would recommend that you publish the repository to a private repository in a GitHub organization, but for this example, we will publish it to a personal repository.
+
+    ![GitHub Desktop - Publish repository](../Images/GitHub_Desktop_-_Publish_repository.png)
+
+3. In GitHub setup branch protection rules, if you want to use them.
+4. Create a new branch in GitHub Desktop the name of the branch is not important.
+   1. In GitHub Desktop click **Current branch** > **New branch**.
+
+		![GitHub Desktop - New branch](../Images/GitHub_Desktop_-_New_branch.png)
+
+5. Open **Settings.json** and change the following settings to your needs:
+	 - SoftwareName
+	 - SoftwareVersion
+	 - CapaServer
+	 - SqlServer
+	 - Database
+	 - DefaultManagementPoint
+	 - PackageBasePath
+	 - Description
+	 - ExportPath
+
+	The settings are explained in the [Settings.json](#settings.json) section.
+
+6. Make changes to the package
+    In the scripts folder change the scripts to fit your needs.
+
+    You can also create a folder named "kit" that contains the files that you want to include in the package. Important to note is that if a kit folder is present, that files over 100 MB will be a good idea to exclude from the commit to GitHub. If you want to include the big files in the commit to GitHub, then you need to use Git LFS (Large File Storage). You can read more about Git LFS [Here](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage).
+
+    If you want to test the package run the script UpdatePackage.ps1 as an administrator. The script will create the package if it doesn't exist or update the package if it already exists.
+
+7. Remember to make regular commits to GitHub so you can track the changes you make to the package.
+8. When you are done with the package, then create a Pull Request from your branch to the `main` branch. And then merge the Pull Request.
+
 ## Updating an existing package
 
 ## CapaPackages

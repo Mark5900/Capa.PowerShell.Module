@@ -1,5 +1,3 @@
-# TODO: #218 Update and add tests
-
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247536/Get+unit+package+status
@@ -33,7 +31,7 @@ function Get-CapaUnitPackageStatus {
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		[String]$CapaSDK,
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]

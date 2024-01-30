@@ -96,6 +96,7 @@ function New-CapaPackageWithGit {
 			$GitHubActionsFile2 = Join-Path $PSScriptRoot 'Dependencies\versioning.yml'
 			$SettingsPath = Join-Path $PackagePath 'Settings.json'
 			$SettingsFile = Join-Path $PSScriptRoot 'Dependencies\Settings.json'
+			$SetStatusScript = Join-Path $PSScriptRoot 'Dependencies\MinorVersionSetSameStatus.ps1'
 		} Else {
 			$PackagePath = Join-Path $BasePath "Capa_$($PackageName -replace ' ', '_')"
 			$VersionPath = Join-Path $PackagePath $PackageVersion
@@ -129,6 +130,7 @@ function New-CapaPackageWithGit {
 		if ($Advanced) {
 			Copy-Item -Path $GitHubActionsFile1 -Destination $GitHubActionsPath -Force | Out-Null
 			Copy-Item -Path $GitHubActionsFile2 -Destination $GitHubActionsPath -Force | Out-Null
+			Copy-Item -Path $SetStatusScript -Destination $PackagePath -Force | Out-Null
 		}
 
 		#region Copy Settings.json

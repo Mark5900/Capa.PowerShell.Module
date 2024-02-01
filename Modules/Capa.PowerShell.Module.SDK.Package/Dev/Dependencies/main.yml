@@ -114,8 +114,7 @@ jobs:
           $PckDescription = $PckDescription + "Package created: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 
           If (Test-Path $env:DestinationKitPath){
-            $Files = Get-ChildItem -Path $env:DestinationKitPath -Filter '*.exe' -Recurse | Sort-Object LastWriteTime -Descending
-            $Files += Get-ChildItem -Path $env:DestinationKitPath -Filter '*.msi' -Recurse | Sort-Object LastWriteTime -Descending
+            $Files = Get-ChildItem -Path $env:DestinationKitPath -Include ('*.exe','*.msi') -Recurse | Sort-Object LastWriteTime -Descending
 
             if ($Files.Count -gt 0) {
               $Date = $Files[0].LastWriteTime.ToString('yyyy-MM-dd HH:mm:ss')
@@ -180,9 +179,22 @@ jobs:
               exit 1
           }
 
+      - name: If minor version the set units from old version to be installed on the new version
+        run: |
+          $MinorScript = Join-Path (Get-Location).Path "MinorVersionSetSameStatus.ps1"
+
+          if ($env:GITHUB_HEAD_REF -notlike "*Major"){
+            if (Test-Path $MinorScript) {
+              .\MinorVersionSetSameStatus.ps1
+            } else {
+              Write-Host "MinorVersionSetSameStatus.ps1 does not exist"
+            }
+          }
+
+
       # TODO: #257 Add a step to Copy relation from old package version to new package version
       # If $env:GITHUB_HEAD_REF -like "*Major: Copy relation for each management point, where the package exist
       # Else Copy the relations and set the same status as the old package version, on for each management point, where the package exist
       # if something goes wrong, then delete the new package version
 
-      # TODO: #257 Add a step to delete the old package version, both in dev and prod1
+      # TODO: #257 Add a step to delete the old package version, both in dev and prod

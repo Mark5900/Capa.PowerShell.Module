@@ -26,11 +26,11 @@ In CapaInstaller the service account needs to be able to:
 To use the GitHub Actions Runner locally and acrross multiple repositories (packages) you need to create a self-hosted runner in a GitHub Organization. So do the following:
 
 1. [Create a GitHub Organization](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/creating-a-new-organization-from-scratch)
-2. Add a self-hosted runner to your organization and when asked for a labe us `CapaServer`, if you don't use this label you need to change the `runs-on` property in the `main.yml` file in the `.github/workflows` folder in the repository. Follow this guide to setup the runner: [Adding self-hosted runners](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners#adding-a-self-hosted-runner-to-an-organization)
+2. Add a self-hosted runner to your organization and when asked for a label use `CapaServer`, if you don't use this label you need to change the `runs-on` property in the `main.yml` file in the `.github/workflows` folder in the repository. Follow this guide to setup the runner: [Adding self-hosted runners](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners#adding-a-self-hosted-runner-to-an-organization)
 
 #### Cloud
 
-Each time you create a Pull Request from your branch to the `main` branch, will it trigger a GitHub Action to generate an new package version. This action will use around 1 minute of the included 2000 minutes of free GitHub Actions per month.
+Each time you create a Pull Request from your branch to the `main` branch, it will trigger a GitHub Action to generate an new package version. This action will use around 1 minute of the included 2000 minutes of free GitHub Actions per month.
 
 This action only works on an `ubuntu-latest` runner.
 

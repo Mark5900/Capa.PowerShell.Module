@@ -51,7 +51,7 @@ If you want an more advanced setup, then you can read the document [Working with
 
     Important do not change the name of the folder **Capa_MyPackage**. The name of the folder is used by the script UpdatePackage.ps1 to determine the package name and type (VBscript or PowerPack, only computer packages are supported at the moment).
 
-2. Create the repository and publish it GitHub
+2. Create the repository and publish to GitHub
    1. Open GitHub Desktop > File > Add local repository...
 
    ![GitHub Desktop - Add local repository](../Images/GitHub_Desktop_-_Add_local_repository.png)

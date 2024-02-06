@@ -68,7 +68,7 @@
 	'Clone-CapaPackage',
 	'Copy-CapaPackage',
 	'Copy-CapaPackageRelation',
-	'Create-CapaPackage',
+	'New-CapaPackage',
 	'Disable-CapaPackageSchedule',
 	'Enable-CapaPackageSchedule',
 	'Exist-CapaPackage',

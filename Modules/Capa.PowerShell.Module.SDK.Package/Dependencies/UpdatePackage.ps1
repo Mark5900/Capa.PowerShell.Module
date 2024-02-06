@@ -7,7 +7,7 @@ Import-Module SqlServer
     Created with:	Visual Studio Code
     Created on:     2023-04-18
     Created by:		MARA
-    Organization:	
+    Organization:
     Filename:       UpdatePackage.ps1
     ===========================================================================
     .DESCRIPTION
@@ -29,7 +29,7 @@ function Get-PackageType {
     param (
         $String
     )
-    
+
     If ($String -like 'Capa_PP_*') {
         $PackageType = 'PowerPack'
     } else {
@@ -40,7 +40,7 @@ function Get-PackageType {
 }
 function Get-PackageInfo {
     param (
-        
+
     )
     # Get PackageVersion
     $Folders = Get-ChildItem -Path $PSScriptRoot -Directory
@@ -52,7 +52,7 @@ function Get-PackageInfo {
         } else {
             $KitPath = $null
         }
-        
+
         $PackageInfo = [psobject]@{
             PackageVersion = $Path[$Path.Count - 1]
             PackageName    = $Path[$Path.Count - 2].Replace('Capa_PP_', '').Replace('Capa_VB_', '')
@@ -74,7 +74,7 @@ function Get-PackageInfo {
         $Folders.Name
         "$PSScriptRoot\$($Folders.Name)\Scripts"
 
-        
+
         $PackageInfo = [psobject]@{
             PackageVersion = $Folders.Name
             PackageName    = $Path[$Path.Count - 1].Replace('Capa_PP_', '').Replace('Capa_VB_', '')
@@ -170,7 +170,7 @@ try {
                 DisplayName    = "$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)"
             }
 
-            $Package = Create-CapaPackage @Splatting
+            $Package = New-CapaPackage @Splatting
 
             <#
                 Bug hot fix
@@ -223,7 +223,7 @@ try {
     } else {
         $InstallScriptContent = Get-Content -Path "$($PackageInfo.ScriptsPath)\$($PackageInfo.PackageName).cis" | Out-String
         $UninstallScriptContent = Get-Content -Path "$($PackageInfo.ScriptsPath)\$($PackageInfo.PackageName)_Uninstall.cis" | Out-String
-    
+
         $Splatting = @{
             PackageName     = $PackageInfo.PackageName
             PackageVersion  = $PackageInfo.PackageVersion
@@ -235,7 +235,7 @@ try {
 
     Update-CapaPackageScriptAndKit @Splatting -ScriptType 'Install' -ScriptContent $InstallScriptContent
     Update-CapaPackageScriptAndKit @Splatting -ScriptType 'Uninstall' -ScriptContent $UninstallScriptContent
-    
+
     if ($PackageInfo.KitPath) {
         $KitSplatt = @{
             PackageName     = $PackageInfo.PackageName

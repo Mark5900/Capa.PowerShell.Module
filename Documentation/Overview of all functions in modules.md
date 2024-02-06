@@ -178,7 +178,7 @@
 * [Clone-CapaPackage](Functions/Clone-CapaPackage.md)
 * [Copy-CapaPackage](Functions/Copy-CapaPackage.md)
 * [Copy-CapaPackageRelation](Functions/Copy-CapaPackageRelation.md)
-* [Create-CapaPackage](Functions/Create-CapaPackage.md)
+* [New-CapaPackage](Functions/New-CapaPackage.md)
 * [Disable-CapaPackageSchedule](Functions/Disable-CapaPackageSchedule.md)
 * [Enable-CapaPackageSchedule](Functions/Enable-CapaPackageSchedule.md)
 * [Exist-CapaPackage](Functions/Exist-CapaPackage.md)

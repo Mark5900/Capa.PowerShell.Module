@@ -5,9 +5,11 @@ You are encouraged to read this document before you start working with Git.
 
 All the examples in this document are based on using GitHub as the package repository.
 
+If you want an more advanced setup, then you can read the document [Working with Git when creating or updating a package (advanced)](./Working%20with%20Git%20when%20creating%20or%20updating%20a%20package%20(advanced).md).
+
 ## Creating a new package
 
-1. Creating local folder structure
+1. Creating a local folder structure
 
    To create a new package you need to create a local folder structure that matches the structure of the package repository. You can use the following command to create the folder structure:
 
@@ -38,7 +40,7 @@ All the examples in this document are based on using GitHub as the package repos
 
     ```text
     C:\Temp\MyPackage
-    ├───Capa_PP_MyPackage
+    ├───Capa_MyPackage
     │   ├───.gitignore
     │   ├───UpdatePackage.ps1
     │   ├───v1.0
@@ -47,14 +49,14 @@ All the examples in this document are based on using GitHub as the package repos
     |   |   |   └───Uninstall.ps1
     ```
 
-    Important do not change the name of the folder **Capa_PP_MyPackage**. The name of the folder is used by the script UpdatePackage.ps1 to determine the package name and type (VBscript or PowerPack, only computer packages are supported at the momment).
+    Important do not change the name of the folder **Capa_MyPackage**. The name of the folder is used by the script UpdatePackage.ps1 to determine the package name and type (VBscript or PowerPack, only computer packages are supported at the moment).
 
 2. Create the repository and publish to GitHub
    1. Open GitHub Desktop > File > Add local repository...
 
    ![GitHub Desktop - Add local repository](../Images/GitHub_Desktop_-_Add_local_repository.png)
 
-   2. Choose the folder **C:\Temp\MyPackage\Capa_PP_MyPackage** and click **create a repository**. If you get the message **Unable to create new repository because there are too many new files in this directory**, try and run GitHub Desktop as administrator.
+   2. Choose the folder **C:\Temp\MyPackage\Capa_MyPackage** and click **create a repository**. If you get the message **Unable to create new repository because there are too many new files in this directory**, try and run GitHub Desktop as administrator.
 
     ![GitHub Desktop - Create a repository](../Images/GitHub_Desktop_-_Create_a_repository.png)
 
@@ -66,11 +68,11 @@ All the examples in this document are based on using GitHub as the package repos
 
     ![GitHub Desktop - First Commit](../Images/GitHub_Desktop_-_First_Commit.png)
 
-    5. Click **Publish repository** > **Publish repository**. I would recommend that you publish the repository to a private repository in a GitHub organization, but for this example we will publish it to a personal repository.
+    5. Click **Publish repository** > **Publish repository**. I would recommend that you publish the repository to a private repository in a GitHub organization, but for this example, we will publish it to a personal repository.
 
     ![GitHub Desktop - Publish repository](../Images/GitHub_Desktop_-_Publish_repository.png)
 
-3. Open the file **C:\Temp\MyPackage\Capa_PP_MyPackage\UpdatePackage.ps1** in a text editor and change the following parameters:
+3. Open the file **C:\Temp\MyPackage\Capa_MyPackage\UpdatePackage.ps1** in a text editor and change the following parameters:
       * **CapaServer** - The name of the server you want to connect to.
       * **SQLServer** - The name of the SQL Server that hosts the CapaInstaller database.
       * **Database** - The name of the CapaInstaller database.
@@ -78,36 +80,34 @@ All the examples in this document are based on using GitHub as the package repos
       * **PackageBasePath** - The path to the ComputerJobs folder.
 
 4. Make changes to the package
-    In the scripts folder changes the scripts to fit your needs.
+    In the scripts folder change the scripts to fit your needs.
 
-    You can also create a folder named "kit" that contains the files that you want to include in the package. Important to note is that if a kit folder is present, the files in the kit folder will overwrite the kit folder i CapaInstaller.
-    The kit folder will not be included in the commit to GitHub, the folder is ignored by the .gitignore file. If you wish to include the files in the kit folder in the commit to GitHub, you need to remove the following line from the .gitignore file:
+    You can also create a folder named "kit" that contains the files that you want to include in the package. Important to note is that if a kit folder is present, that files over 100 MB will be a good idea to exclude from the commit to GitHub. If you want to include the big files in the commit to GitHub, then you need to use Git LFS (Large File Storage). You can read more about Git LFS [Here](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage).
 
-    ```text
-    *\Kit*
-    ```
+    If you want to test the package run the script UpdatePackage.ps1 as an administrator. The script will create the package if it doesn't exist or update the package if it already exists.
 
-    If you whant to test the package run the script UpdatePackage.ps1 as an administrator. The script will createthe package if it doesn't exist or update the package if it already exists.
-
-5. Remember to make regalur commits to GitHub so you can track the changes you make to the package.
+5. Remember to make regular commits to GitHub so you can track the changes you make to the package.
 
 ## Updating an existing package
-Run the script UpdatePackage.ps1 as an administrator. The script needs to be in the package folder or in one of the version folders.
-E.g. either in **C:\Temp\MyPackage\Capa_PP_MyPackage** or in **C:\Temp\MyPackage\Capa_PP_MyPackage\v1.0**.
+
+Run the script UpdatePackage.ps1 as an administrator. The script needs to be in the  Remember package folder or oneto make regular of the version folders.
+E.g. either in **C:\Temp\MyPackage\Capa_MyPackage** or in **C:\Temp\MyPackage\Capa_MyPackage\v1.0**.
 
 ## Contributing to the package repository
+
 1. Open GitHub Desktop > File > Clone repository...
 2. Select the repository you want to clone > Check the Local Path > Click **Clone**.
-3. Do as described in the sections [Creating local folder structure](#creating-a-new-package) & [Updating an existing package](#updating-an-existing-package).
+3. Do as described in the sections [Creating a local folder structure](#creating-a-new-package) & [Updating an existing package](#updating-an-existing-package).
 
 ## Creating a new package version
+
 You can create a new version of a package by creating a new folder in the package folder and copying the files from the previous version to the new version folder. Or you can use the script New-CapaPackageVersion.ps1.
 The script will create a new version folder and create new scripts.
 
-When multiple versions of a package exists, the script UpdatePackage.ps1 will aske you which version you want to update.
+When multiple versions of a package exist, the script UpdatePackage.ps1 will ask you which version you want to update.
 To get around this you can copy the script UpdatePackage.ps1 to the version folder and run the script from there.
 
-## Other useful things too look into
+## Other useful things to look into
 
-We will recommend that you use branches when working on a package and use code reviews when merging the changes to the main branch.
-This will make it easier to track changes and encourage to have another person to test the package before it is merged to the main branch in GitHub and promoting the package to production in CapaInstaller.
+We recommend that you use branches when working on a package and use code reviews when merging the changes to the main branch.
+This will make it easier to track changes and encourage to have another person to test the package before it is merged to the main branch in GitHub and promote the package to production in CapaInstaller.

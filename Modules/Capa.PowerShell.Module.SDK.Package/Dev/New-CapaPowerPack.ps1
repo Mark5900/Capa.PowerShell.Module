@@ -1,5 +1,3 @@
-# TODO: #179 Update and add tests
-
 <#
     .SYNOPSIS
         Creates a new PowerPack in CapaInstaller
@@ -40,6 +38,10 @@
     .PARAMETER Credential
         The SQL Server credential
 
+		.PARAMETER PointID
+				The ID of the point to rebuild the kit file on, if not specified then the kit file will not be rebuilt.
+				Requires that KitFolderPath is specified.
+
     .EXAMPLE
         New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -SqlServerInstance $CapaServer -Database $Database
 
@@ -49,34 +51,39 @@
     .Example
         New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -KitFolderPath 'C:\Temp\Kit' -SqlServerInstance $CapaServer -Database $Database
 
+		.EXAMPLE
+				New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -KitFolderPath 'C:\Temp\Kit' -SqlServerInstance $CapaServer -Database $Database -PointID 1
+
     .Notes
         This is a custom function that is not part of the CapaSDK
 #>
 function New-CapaPowerPack {
 	param (
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
 		[String]$PackageVersion,
 		[string]$DisplayName = "$PackageName $PackageVersion",
-		[String]$InstallScriptContent = '',
-		[String]$UninstallScriptContent = '',
-		[String]$KitFolderPath = '',
+		[String]$InstallScriptContent,
+		[String]$UninstallScriptContent,
+		[String]$KitFolderPath,
 		[string]$ChangelogComment = '',
 		[Parameter(Mandatory = $true)]
 		[string]$SqlServerInstance,
 		[Parameter(Mandatory = $true)]
 		[string]$Database,
-		[pscredential]$Credential = $null
+		[pscredential]$Credential = $null,
+		[int]$PointID
 	)
-	$XMLFile = "$PSScriptRoot\Dependencies\ciPackage.xml"
-	$KitFile = "$PSScriptRoot\Dependencies\CapaInstaller.kit"
+	$XMLFile = Join-Path $PSScriptRoot 'Dependencies' 'ciPackage.xml'
+	$KitFile = Join-Path $PSScriptRoot 'Dependencies' 'CapaInstaller.kit'
 	$TempFolder = "C:\Users\$env:UserName\AppData\Local\CapaInstaller\CMS\TempScripts"
-	$TempTempFolder = "$TempFolder\Temp"
-	$PackageTempFolder = "$TempTempFolder\$($PackageName)_$($PackageVersion)"
-	$PackageZipFile = "$TempTempFolder\$($PackageName)_$($PackageVersion).zip"
+	$TempTempFolder = Join-Path $TempFolder 'Temp'
+	$PackageTempFolder = Join-Path $TempTempFolder "$($PackageName)_$($PackageVersion)"
+	$PackageZipFile = Join-Path $TempTempFolder "$($PackageName)_$($PackageVersion).zip"
+
 
 	Try {
 		# Create Temp Folder
@@ -93,12 +100,12 @@ function New-CapaPowerPack {
 		$XML.Info.Package.Version = $PackageVersion
 		$XML.Info.Package.DisplayName = $DisplayName
 
-		If ($InstallScriptContent -ne '') {
+		If ([string]::IsNullOrEmpty($InstallScriptContent) -eq $false) {
 			$InstallScriptContentBytes = [System.Text.Encoding]::UTF8.GetBytes("$InstallScriptContent")
 			$XML.Info.Package.InstallScriptContent = [System.Convert]::ToBase64String($InstallScriptContentBytes)
 		}
 
-		If ($UninstallScriptContent -ne '') {
+		If ([string]::IsNullOrEmpty($UninstallScriptContent) -eq $false) {
 			$UninstallScriptContentBytes = [System.Text.Encoding]::UTF8.GetBytes("$UninstallScriptContent")
 			$XML.Info.Package.UnInstallScriptContent = [System.Convert]::ToBase64String($UninstallScriptContentBytes)
 		}
@@ -106,8 +113,11 @@ function New-CapaPowerPack {
 		Set-Content -Path "$PackageTempFolder\ciPackage.xml" -Value $XML.OuterXml
 
 		# Create kit folder
-		If ($KitFolderPath -ne '') {
+		If ([string]::IsNullOrEmpty($KitFolderPath) -eq $false) {
 			Copy-Item -Path $KitFolderPath -Destination "$PackageTempFolder\Kit" -Recurse -Force | Out-Null
+			if ($null -eq $PointID) {
+				Rebuild-CapaKitFileOnPoint -CapaSDK $CapaSDK -PackageName $PackageName -PackageVersion $PackageVersion -PointID $PointID -PackageType Computer
+			}
 		} else {
 			New-Item -ItemType Directory -Path "$PackageTempFolder\Kit" -Force | Out-Null
 			New-Item -ItemType File -Path "$PackageTempFolder\Kit\Dummy.txt" -Force | Out-Null
@@ -118,7 +128,7 @@ function New-CapaPowerPack {
 		Compress-Archive -Path "$PackageTempFolder\*" -DestinationPath $PackageZipFile -Force | Out-Null
 
 		# Add to CI
-		$Status = Import-CapaPackage -CapaSDK $CapaSDK -FilePath $PackageZipFile -OverrideCIPCdata $true -ImportFolderStructure $true -ImportSchedule $true -ChangelogComment $ChangelogComment | Out-Null
+		$Status = Import-CapaPackage -CapaSDK $CapaSDK -FilePath $PackageZipFile -OverrideCIPCdata $true -ImportFolderStructure $true -ImportSchedule $true -ChangelogComment $ChangelogComment
 
 		# The SDK is missing support for PowerPack, so we need to use SqlServer module to edit in job table
 		$Query = "UPDATE JOB
@@ -127,13 +137,15 @@ function New-CapaPowerPack {
     AND VERSION = '$PackageVersion'"
 
 		if ($Null -eq $Credential) {
-			Invoke-Sqlcmd -ServerInstance $SqlServerInstance -Database $Database -Query $Query
+			Invoke-Sqlcmd -ServerInstance $SqlServerInstance -Database $Database -Query $Query -TrustServerCertificate
 		} else {
 			Invoke-Sqlcmd -ServerInstance $SqlServerInstance -Database $Database -Query $Query -Credential $Credential
 		}
 
 		# Remove Temp Folder
 		Remove-Item -Path $TempTempFolder -Recurse -Force | Out-Null
+
+		return $Status
 	} Catch {
 		$PSCmdlet.ThrowTerminatingError($PSitem)
 		return -1

@@ -1,5 +1,3 @@
-# TODO: #188 Update and add tests
-
 <#
     .SYNOPSIS
         Use this function to update a package script and kit in Capa.
@@ -74,42 +72,40 @@ function Update-CapaPackageScriptAndKit {
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScript')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
-		[Parameter(Mandatory = $false, ParameterSetName = 'Kit')]
 		[String]$ScriptContent,
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScript')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
-		[Parameter(Mandatory = $false, ParameterSetName = 'Kit')]
 		[ValidateSet('Install', 'Uninstall', 'UserConfiguration')]
 		[String]$ScriptType,
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScript')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
-		[Parameter(Mandatory = $false, ParameterSetName = 'Kit')]
 		[ValidateSet('PowerPack', 'VBScript')]
 		[String]$PackageType,
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScript')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'Kit')]
-		[String]$PackageBasePath = '',
+		[String]$PackageBasePath,
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[string]$SqlServerInstance,
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPack')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[string]$Database,
+		[Parameter(Mandatory = $false, ParameterSetName = 'PowerPack')]
+		[Parameter(Mandatory = $false, ParameterSetName = 'PowerPackWithKit')]
 		[pscredential]$Credential,
-		[Parameter(Mandatory = $false, ParameterSetName = 'VBScript')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'PowerPackWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'VBScriptWithKit')]
 		[Parameter(Mandatory = $true, ParameterSetName = 'Kit')]
 		[String]$KitFolderPath
 	)
 	# Parameters
-	if ($null -ne $PackageBasePath -and $PackageBasePath -ne '') {
+	if ([string]::IsNullOrEmpty($PackageBasePath) -eq $false) {
 		if ($PackageBasePath -like "*\$PackageVersion" -or $PackageBasePath -like "*\$PackageVersion\") {
 			$PackagePath = $PackageBasePath
 		} elseif ($PackageBasePath -like "*\$PackageName" -or $PackageBasePath -like "*\$PackageName\") {
@@ -117,6 +113,14 @@ function Update-CapaPackageScriptAndKit {
 		} else {
 			$PackagePath = Join-Path $PackageBasePath $PackageName $PackageVersion
 		}
+
+		if ((Test-Path $PackagePath) -eq $false) {
+			Write-Error "PackagePath: $PackagePath does not exist"
+			throw 'Cannot find the package. Check PackageBasePath'
+		}
+
+		$ScriptPath = Join-Path $PackagePath 'Scripts' $ScriptName
+		$KitPath = Join-Path $PackagePath 'Kit'
 	}
 
 	if ($ScriptType -eq 'Install') {
@@ -130,9 +134,8 @@ function Update-CapaPackageScriptAndKit {
 		$DBColumnName = 'USERCONFIGSCRIPTCONTENT'
 	}
 
-	if ($null -ne $PackageBasePath -and $PackageBasePath -ne '') {
-		$ScriptPath = Join-Path $PackagePath 'Scripts' $ScriptName
-		$KitPath = Join-Path $PackagePath 'Kit'
+	if ([string]::IsNullOrEmpty($ScriptPath) -eq $false) {
+		$ScriptFile = Join-Path $ScriptPath $ScriptName
 	}
 
 	# Script
@@ -148,13 +151,13 @@ function Update-CapaPackageScriptAndKit {
             AND VERSION = '$PackageVersion'"
 
 			If ($Credential) {
-				Invoke-Sqlcmd -ServerInstance $SqlServerInstance -Database $Database -Query $SqlQuery -Credential $Credential
+				Invoke-Sqlcmd -ServerInstance $SqlServerInstance -Database $Database -Query $SqlQuery -Credential $Credential -TrustServerCertificate
 			} else {
-				Invoke-Sqlcmd -ServerInstance $SqlServerInstance -Database $Database -Query $SqlQuery
+				Invoke-Sqlcmd -ServerInstance $SqlServerInstance -Database $Database -Query $SqlQuery -TrustServerCertificate
 			}
 		}
 		If ($PSCmdlet.ParameterSetName -like 'VBScript*') {
-			Set-Content -Path $ScriptPath -Value $ScriptContent -Force
+			Set-Content -Path $ScriptFile -Value $ScriptContent -Force
 		}
 
 		# Update Kit
@@ -162,9 +165,10 @@ function Update-CapaPackageScriptAndKit {
 			Get-ChildItem -Path $KitPath -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force | Out-Null
 			Copy-Item -Path "$KitFolderPath\*" -Destination $KitPath -Recurse -Force | Out-Null
 		}
+
+		return $true
 	} catch {
-		$PSCmdlet.ThrowTerminatingError($PSitem)
-		return -1
+		throw $PSitem
 	}
 
 }

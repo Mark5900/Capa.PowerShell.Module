@@ -110,6 +110,10 @@ But it is not nessesary! Then the PR is merged to the `main` branch, will the Gi
     * **DefaultManagementPoint** - The ID of the default management point.
     * **PackageBasePath** - The path to the ComputerJobs folder.
 
+		```powershell
+		New-CapaPackageWithGit -SoftwareName "Adobe" -SoftwareVersion "101.18" -PackageType PowerPack -BasePath "C:\Users\Admin\Desktop\Code" -Advanced
+		```
+
 2. Create the repository and publish it GitHub
    1. Open GitHub Desktop > File > Add local repository...
 

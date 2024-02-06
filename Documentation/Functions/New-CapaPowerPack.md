@@ -7,7 +7,7 @@ Creates a new PowerPack in CapaInstaller
 
 ```powershell
 New-CapaPowerPack
-	-CapaSDK <Object>
+	-CapaSDK <PSObject>
 	-PackageName <String>
 	-PackageVersion <String>
 	-DisplayName <String>
@@ -18,6 +18,7 @@ New-CapaPowerPack
 	-SqlServerInstance <String>
 	-Database <String>
 	-Credential <PSCredential>
+	-PointID <Int32>
 ```
 
 ## Description
@@ -41,6 +42,11 @@ New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' 
 New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -KitFolderPath 'C:\Temp\Kit' -SqlServerInstance $CapaServer -Database $Database
 ```
     
+### Example 4
+```powershell
+New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -KitFolderPath 'C:\Temp\Kit' -SqlServerInstance $CapaServer -Database $Database -PointID 1
+```
+    
 
 ## Parameters
 
@@ -49,7 +55,7 @@ New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' 
 The CapaSDK object
 | Name | Value |
 | ---- | ---- |
-| Type: | Object |
+| Type: | PSObject |
 | Position: | 1 | 
 | Default value: | None | 
 | Accept pipeline input: | false | 
@@ -162,6 +168,18 @@ The SQL Server credential
 | Type: | PSCredential |
 | Position: | 11 | 
 | Default value: | None | 
+| Accept pipeline input: | false | 
+| Accept wildcard characters: | false | 
+
+-**PointID**
+
+The ID of the point to rebuild the kit file on, if not specified then the kit file will not be rebuilt.
+Requires that KitFolderPath is specified.
+| Name | Value |
+| ---- | ---- |
+| Type: | Int32 |
+| Position: | 12 | 
+| Default value: | 0 | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
 

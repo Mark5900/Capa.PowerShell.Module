@@ -7,7 +7,7 @@ https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247536/Get+unit
 
 ```powershell
 Get-CapaUnitPackageStatus
-	-CapaSDK <String>
+	-CapaSDK <PSObject>
 	-UnitName <String>
 	-UnitType <String>
 	-PackageName <String>
@@ -33,7 +33,7 @@ Get-CapaUnitPackageStatus -CapaSDK 'Value1' -UnitName  'Value2' -UnitType  'Valu
 A description of the CapaSDK parameter.
 | Name | Value |
 | ---- | ---- |
-| Type: | String |
+| Type: | PSObject |
 | Position: | 1 | 
 | Default value: | None | 
 | Accept pipeline input: | false | 

@@ -13,18 +13,6 @@ Update-CapaPackageScriptAndKit
 	-ScriptType <String>
 	-PackageType <String>
 	-PackageBasePath <String>
-	-Credential <PSCredential>
-	-KitFolderPath <String>
-```
-```powershell
-Update-CapaPackageScriptAndKit
-	-PackageName <String>
-	-PackageVersion <String>
-	-ScriptContent <String>
-	-ScriptType <String>
-	-PackageType <String>
-	-PackageBasePath <String>
-	-Credential <PSCredential>
 	-KitFolderPath <String>
 ```
 ```powershell
@@ -48,8 +36,6 @@ Update-CapaPackageScriptAndKit
 	-ScriptType <String>
 	-PackageType <String>
 	-PackageBasePath <String>
-	-Credential <PSCredential>
-	-KitFolderPath <String>
 ```
 ```powershell
 Update-CapaPackageScriptAndKit
@@ -61,6 +47,13 @@ Update-CapaPackageScriptAndKit
 	-SqlServerInstance <String>
 	-Database <String>
 	-Credential <PSCredential>
+```
+```powershell
+Update-CapaPackageScriptAndKit
+	-PackageName <String>
+	-PackageVersion <String>
+	-PackageBasePath <String>
+	-KitFolderPath <String>
 ```
 
 ## Description

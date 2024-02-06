@@ -18,7 +18,7 @@ Import-Module PSMSI
 $ProductName = 'Capa.PowerShell.Module'
 $UpgradeCode = '84859CA1-0F7D-47BF-8D36-AE22F5E171AD'
 # Change as needed
-$Version = '1.0.22.1'
+$Version = '1.0.23.0'
 
 #################
 ### FUNCTIONS ###

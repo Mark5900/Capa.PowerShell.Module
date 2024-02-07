@@ -42,7 +42,7 @@ function Set-CapaPackageDescription {
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]$PackageType,
 		[Parameter(Mandatory = $true)]
-		[String]$Description = ''
+		[String]$Description
 	)
 
 	if ($PackageType -eq 'Computer') {

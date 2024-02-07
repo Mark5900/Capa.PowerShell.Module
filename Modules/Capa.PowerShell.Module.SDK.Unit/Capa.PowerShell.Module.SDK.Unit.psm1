@@ -299,7 +299,7 @@ function Add-CapaUnitToPackage {
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
+		[ValidateSet('Computer', 'User', '1', '2')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
 		[string]$PackageName,
@@ -311,6 +311,11 @@ function Add-CapaUnitToPackage {
 		[ValidateSet('Computer', 'User')]
 		[string]$UnitType
 	)
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
+	} elseif ($PackageType -eq 'User') {
+		$PackageType = '2'
+	}
 
 	$bool = $CapaSDK.AddUnitToPackage($UnitName, $UnitType, $PackageName, $PackageVersion, $PackageType)
 
@@ -1113,8 +1118,6 @@ function Get-CapaUnitPackages {
 }
 
 
-# TODO: #218 Update and add tests
-
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247536/Get+unit+package+status
@@ -1148,7 +1151,7 @@ function Get-CapaUnitPackageStatus {
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		[String]$CapaSDK,
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
@@ -1982,11 +1985,11 @@ function Set-CapaUnitPackageStatus {
 
 	if ($UnitType -eq 'Computer') {
 		$PackageType = '1'
-	} else {
+	} elseif ($UnitType -eq 'User') {
 		$PackageType = '2'
 	}
 
-	$value = $CapaSDK.SetUnitPackageStatus($UnitName, $UnitType, $PackageName, $PackageVersion, $Status, $ChangelogComment)
+	$value = $CapaSDK.SetUnitPackageStatus($UnitName, $UnitType, $PackageName, $PackageVersion, $PackageType, $Status, $ChangelogComment)
 	return $value
 }
 

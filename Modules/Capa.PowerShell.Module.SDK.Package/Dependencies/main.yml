@@ -1,0 +1,200 @@
+name: Deploy new version of Capa package
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: CapaServer
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Does Settings.json exist?
+        run: |
+          if (!(Test-Path "Settings.json")) {
+            Write-Host "Settings.json does not exist"
+            exit 1
+          }
+          else {
+            Write-Host "Settings.json exists"
+          }
+
+      - name: Set PowerShell variables
+        run: |
+          $Settings = Get-Content -Path "Settings.json" | ConvertFrom-Json
+          echo "SoftwareName=$($Settings.SoftwareName)" >> $env:GITHUB_ENV
+          echo "SoftwareVersion=$($Settings.SoftwareVersion)" >> $env:GITHUB_ENV
+          echo "CapaServer=$($Settings.CapaServer)" >> $env:GITHUB_ENV
+          echo "SQLServer=$($Settings.SQLServer)" >> $env:GITHUB_ENV
+          echo "Database=$($Settings.Database)" >> $env:GITHUB_ENV
+          echo "DefaultManagementPoint=$($Settings.DefaultManagementPoint)" >> $env:GITHUB_ENV
+          echo "PackageBasePath=$($Settings.PackageBasePath)" >> $env:GITHUB_ENV
+          echo "CurrentPackageVersion=$($Settings.OldPackageVersion)" >> $env:GITHUB_ENV
+          echo "Description=$($Settings.Description)" >> $env:GITHUB_ENV
+          echo "ExportPath=$($Settings.ExportPath)" >> $env:GITHUB_ENV
+          echo "NewPackageVersion=$($Settings.PackageVersion)" >> $env:GITHUB_ENV
+
+          $SourceKitPath = Join-Path $Settings.PackageBasePath "$env:SoftwareName $env:SoftwareVersion" "p$env:CurrentPackageVersion" "Kit"
+          echo "SourceKitPath=$SourceKitPath" >> $env:GITHUB_ENV
+
+          $DestinationKitPath = Join-Path (Get-Location).Path "Kit"
+          echo "DestinationKitPath=$DestinationKitPath" >> $env:GITHUB_ENV
+
+      - name: Import kit from current version
+        run: |
+          if (Test-Path $env:SourceKitPath) {
+            Copy-Item -Path $env:SourceKitPath -Destination $env:DestinationKitPath -Recurse -Force
+            Write-Host "Kit imported"
+          } else {
+            Write-Host "Kit does not exist"
+          }
+
+      - name: Run UpdatePackage.ps1
+        run: |
+          $UpdatePackage = Join-Path (Get-Location).Path "UpdatePackage.ps1"
+          if (Test-Path $UpdatePackage) {
+            .\UpdatePackage.ps1
+          } else {
+            Write-Host "UpdatePackage.ps1 does not exist"
+            exit 1
+          }
+
+      - name: Move package to the same folder as previous version
+        run: |
+          $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $env:DefaultManagementPoint
+          $PckName = "$env:SoftwareName $env:SoftwareVersion"
+          $PckCurVersion = "p$env:CurrentPackageVersion"
+          $PckNewVersion = "p$env:NewPackageVersion"
+
+          $ExistPackage = Exist-CapaPackage -CapaSDK $oCMS -Name $PckName -Version $PckCurVersion -Type Computer
+
+          if ($ExistPackage -eq $true){
+            $Folder = Get-CapaPackageFolder -CapaSDK $oCMS -PackageName $PckName -PackageVersion $PckCurVersion -PackageType Computer
+
+            if (!([string]::IsNullOrEmpty($Folder))) {
+              $Splatting = @{
+                CapaSDK 				= $oCMS
+                PackageName     = $PckName
+                PackageVersion  = $PckNewVersion
+                PackageType 		= "Computer"
+                FolderStructure = $Folder
+                ChangelogText		= "Moved to folder by GitHub Action"
+              }
+              $bStatus = Set-CapaPackageFolder @Splatting
+            } else {
+              $bStatus = $true
+              Write-Host "No previous folder found, so the package will be created in the default place"
+            }
+          } else {
+            $bStatus = $true
+            Write-Host "No previous package found, so the package will be created in the default place"
+          }
+
+          if ($bStatus -eq $true){
+            Write-Host "Package moved to folder"
+          } else {
+            Write-Host "Error could not move package to folder"
+            exit 1
+          }
+
+      - name: Set package Description
+        run: |
+          $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $env:DefaultManagementPoint
+          $PckName = "$env:SoftwareName $env:SoftwareVersion"
+          $PckNewVersion = "p$env:NewPackageVersion"
+
+          if ([string]::IsNullOrEmpty($env:Description) -eq $false) {
+            $PckDescription = "$env:Description`n`n"
+          }
+
+          $PckDescription = $PckDescription + "Package created: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+
+          If (Test-Path $env:DestinationKitPath){
+            $Files = Get-ChildItem -Path $env:DestinationKitPath -Include ('*.exe','*.msi') -Recurse | Sort-Object LastWriteTime -Descending
+
+            if ($Files.Count -gt 0) {
+              $Date = $Files[0].LastWriteTime.ToString('yyyy-MM-dd HH:mm:ss')
+
+              $PckDescription = $PckDescription + "`nInstallation file created: $Date"
+            }
+          }
+
+          $bStatus = Set-CapaPackageDescription -CapaSDK $oCMS -PackageName $PckName -PackageVersion $PckNewVersion -Description $PckDescription -PackageType 'Computer'
+
+          if ($bStatus -eq $true) {
+            Write-Host "Package description updated"
+          } else {
+            Write-Host "Package description not updated"
+            exit 1
+          }
+
+      - name: Export package
+        run: |
+          $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $env:DefaultManagementPoint
+          $PckName = "$env:SoftwareName $env:SoftwareVersion"
+          $PckNewVersion = "p$env:NewPackageVersion"
+
+          if ([string]::IsNullOrEmpty($env:ExportPath)) {
+              $ExportPath = Split-Path $env:PackageBasePath -Qualifier
+              $ExportPath = Join-Path $ExportPath "Exportet Packages"
+          } else {
+              $ExportPath = $env:ExportPath
+          }
+
+          if (!(Test-Path $ExportPath)) {
+            New-Item -Path $ExportPath -ItemType Directory
+          }
+
+          $ExportedFilePath = Join-Path $ExportPath "$($PckName)_$($PckNewVersion).zip"
+          Write-Host "Exported package full path: $ExportedFilePath"
+          if (Test-Path $ExportedFilePath) {
+            Write-Host "Remove file from previous action run"
+            Remove-Item -Path $ExportedFilePath -Force
+          }
+
+          $bStatus = Export-CapaPackage -CapaSDK $oCMS -PackageName $PckName -PackageVersion $PckNewVersion -PackageType Computer -ToFolder $ExportPath
+          if ($bStatus) {
+            Write-Host "Package exported successfully to $ExportPath"
+          } else {
+            Write-Host "Package export failed"
+            exit 1
+          }
+
+      - name: Promote package
+        run: |
+          $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $env:DefaultManagementPoint
+          $PckName = "$env:SoftwareName $env:SoftwareVersion"
+          $PckNewVersion = "p$env:NewPackageVersion"
+
+          $bStatus =  Initialize-CapaPackagePromote -CapaSDK $oCMS -PackageName $PckName -PackageVersion $PckNewVersion -PackageType Computer
+          if ($bStatus) {
+              Write-Host "Package $PckName $PckNewVersion promoted successfully"
+          }
+          else {
+              Write-Host "Package $PckName $PckNewVersion promotion failed"
+              exit 1
+          }
+
+      - name: If minor version the set units from old version to be installed on the new version
+        run: |
+          $MinorScript = Join-Path (Get-Location).Path "MinorVersionSetSameStatus.ps1"
+
+          if ($env:GITHUB_HEAD_REF -notlike "*Major"){
+            if (Test-Path $MinorScript) {
+              .\MinorVersionSetSameStatus.ps1
+            } else {
+              Write-Host "MinorVersionSetSameStatus.ps1 does not exist"
+            }
+          }
+
+
+      # TODO: #257 Add a step to Copy relation from old package version to new package version
+      # If $env:GITHUB_HEAD_REF -like "*Major: Copy relation for each management point, where the package exist
+      # Else Copy the relations and set the same status as the old package version, on for each management point, where the package exist
+      # if something goes wrong, then delete the new package version
+
+      # TODO: #257 Add a step to delete the old package version, both in dev and prod

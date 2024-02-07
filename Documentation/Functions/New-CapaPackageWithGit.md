@@ -1,7 +1,7 @@
 # New-CapaPackageWithGit
 Module: Capa.PowerShell.Module.SDK.Package
 
-Create a new Capa package with Git
+Creates a new capa package with Git support
 
 ## Syntax
 
@@ -11,28 +11,43 @@ New-CapaPackageWithGit
 	-PackageVersion <String>
 	-PackageType <String>
 	-BasePath <String>
-	-CapaServer <Object>
-	-SQLServer <Object>
-	-Database <Object>
-	-DefaultManagementPoint <Object>
-	-PackageBasePath <Object>
+	-CapaServer <String>
+	-SQLServer <String>
+	-Database <String>
+	-DefaultManagementPoint <String>
+	-PackageBasePath <String>
+```
+```powershell
+New-CapaPackageWithGit
+	-SoftwareName <String>
+	-SoftwareVersion <String>
+	-PackageType <String>
+	-BasePath <String>
+	-CapaServer <String>
+	-SQLServer <String>
+	-Database <String>
+	-DefaultManagementPoint <String>
+	-PackageBasePath <String>
+	-Advanced <>
 ```
 
 ## Description
 
 Creates a local folder structure you can use with Git to manage your deployment of Capa packages.
-The folder structure is based on the Capa package structure.
+There is both a simple and advanced mode.
+
+It is recommended to read the documentation before using this function. https://github.com/Mark5900/Capa.PowerShell.Module/tree/main/Documentation
 
 ## Examples
 
 ### Example 1
 ```powershell
-New-CapaPackageWithGit -PackageName 'Test' -PackageVersion 'v1.0' -PackageType 'VBScript' -BasePath 'D:\PowerShell'
+New-CapaPackageWithGit -PackageName 'Test1' -PackageVersion 'v1.0' -PackageType 'VBScript' -BasePath 'C:\Temp' -CapaServer 'CISERVER' -SQLServer 'CISERVER' -Database 'CapaInstaller' -DefaultManagementPoint '1' -PackageBasePath 'E:\CapaInstaller\CMPProduction\ComputerJobs'
 ```
     
 ### Example 2
 ```powershell
-New-CapaPackageWithGit -PackageName 'Test2' -PackageVersion 'v1.0' -PackageType 'PowerPack' -BasePath 'D:\PowerShell' -CapaServer $CapaServer -Database $Database -DefaultManagementPoint $DefaultManagementPointDev
+New-CapaPackageWithGit -SoftwareName 'Test1' -SoftwareVersion 'v1.0' -PackageType 'PowerPack' -BasePath 'C:\Temp' -CapaServer 'CISERVER' -SQLServer 'CISERVER' -Database 'CapaInstaller' -DefaultManagementPoint '1' -PackageBasePath 'E:\CapaInstaller\CMPProduction\ComputerJobs' -Advanced
 ```
     
 
@@ -44,7 +59,7 @@ The name of the package
 | Name | Value |
 | ---- | ---- |
 | Type: | String |
-| Position: | 1 | 
+| Position: | named | 
 | Default value: | None | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
@@ -55,18 +70,40 @@ The version of the package
 | Name | Value |
 | ---- | ---- |
 | Type: | String |
-| Position: | 2 | 
+| Position: | named | 
+| Default value: | None | 
+| Accept pipeline input: | false | 
+| Accept wildcard characters: | false | 
+
+-**SoftwareName**
+
+The name of the software
+| Name | Value |
+| ---- | ---- |
+| Type: | String |
+| Position: | named | 
+| Default value: | None | 
+| Accept pipeline input: | false | 
+| Accept wildcard characters: | false | 
+
+-**SoftwareVersion**
+
+The version of the software
+| Name | Value |
+| ---- | ---- |
+| Type: | String |
+| Position: | named | 
 | Default value: | None | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
 
 -**PackageType**
 
-The type of the package. Valid values are VBScript and PowerPack
+The type of the package, either VBScript or PowerPack
 | Name | Value |
 | ---- | ---- |
 | Type: | String |
-| Position: | 3 | 
+| Position: | named | 
 | Default value: | None | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
@@ -77,67 +114,78 @@ The base path where the package folder will be created
 | Name | Value |
 | ---- | ---- |
 | Type: | String |
-| Position: | 4 | 
+| Position: | named | 
 | Default value: | None | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
 
 -**CapaServer**
 
-The name of the Capa server
+The Capa server name
 | Name | Value |
 | ---- | ---- |
-| Type: | Object |
-| Position: | 5 | 
+| Type: | String |
+| Position: | named | 
 | Default value: | None | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
 
 -**SQLServer**
 
-
+The SQL server name
 | Name | Value |
 | ---- | ---- |
-| Type: | Object |
-| Position: | 6 | 
+| Type: | String |
+| Position: | named | 
 | Default value: | None | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
 
 -**Database**
 
-The name of the Capa database
+The Capa database name
 | Name | Value |
 | ---- | ---- |
-| Type: | Object |
-| Position: | 7 | 
+| Type: | String |
+| Position: | named | 
 | Default value: | None | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
 
 -**DefaultManagementPoint**
 
-The default management point in Capa it should be set to the id of the development management point.
+The default management point
 | Name | Value |
 | ---- | ---- |
-| Type: | Object |
-| Position: | 8 | 
+| Type: | String |
+| Position: | named | 
 | Default value: | None | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
 
 -**PackageBasePath**
 
-
+The path of where CapaInstaller is saving the packages, example E:\CapaInstaller\CMPProduction\ComputerJobs
 | Name | Value |
 | ---- | ---- |
-| Type: | Object |
-| Position: | 9 | 
+| Type: | String |
+| Position: | named | 
 | Default value: | None | 
+| Accept pipeline input: | false | 
+| Accept wildcard characters: | false | 
+
+-**Advanced**
+
+When specified the advanced setup will be used
+| Name | Value |
+| ---- | ---- |
+| Type: | SwitchParameter |
+| Position: | named | 
+| Default value: | False | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
 
 
 ## Notes
 
-This is a custom function for Capa. It is not part of the Capa SDK.
+This is a custom function that is not part of the CapaSDK

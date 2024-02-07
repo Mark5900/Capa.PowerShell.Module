@@ -1,4 +1,4 @@
-# Create-CapaPackage
+# New-CapaPackage
 Module: Capa.PowerShell.Module.SDK.Package
 
 Create a package in the CapaInstaller.
@@ -6,7 +6,7 @@ Create a package in the CapaInstaller.
 ## Syntax
 
 ```powershell
-Create-CapaPackage
+New-CapaPackage
 	-CapaSDK <Object>
 	-PackageName <String>
 	-PackageVersion <String>
@@ -22,7 +22,7 @@ Create a new package in the CapaInstaller.
 
 ### Example 1
 ```powershell
-Create-CapaPackage -CapaSDK $CapaSDK -PackageName 'TestPackage' -PackageVersion 'v1.0.0' -UnitType 'Computer' -DisplayName 'Test Package'
+New-CapaPackage -CapaSDK $CapaSDK -PackageName 'TestPackage' -PackageVersion 'v1.0.0' -UnitType 'Computer' -DisplayName 'Test Package'
 ```
     
 
@@ -86,4 +86,4 @@ The display name of the package.
 
 ## Notes
 
-For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246850/Create+package
+For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19306246850/Create+package

@@ -18,7 +18,7 @@ Import-Module PSMSI
 $ProductName = 'Capa.PowerShell.Module'
 $UpgradeCode = '84859CA1-0F7D-47BF-8D36-AE22F5E171AD'
 # Change as needed
-$Version = '1.0.22.0'
+$Version = '1.0.23.0'
 
 #################
 ### FUNCTIONS ###
@@ -111,6 +111,8 @@ function New-ModuleInstaller {
                             New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\Install.ps1
                             New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\Uninstall.ps1
                             New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\UpdatePackage.ps1
+                            New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\main.yml
+                            New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\Settings.json
                         }
                     }
                     New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.SystemSdk' -Content {
@@ -247,6 +249,8 @@ function New-ModuleInstallerSDKOnly {
                             New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\Install.ps1
                             New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\Uninstall.ps1
                             New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\UpdatePackage.ps1
+                            New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\main.yml
+                            New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Dependencies\Settings.json
                         }
                     }
                     New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.SystemSdk' -Content {

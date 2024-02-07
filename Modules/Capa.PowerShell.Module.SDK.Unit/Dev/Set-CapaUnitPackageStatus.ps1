@@ -57,10 +57,10 @@ function Set-CapaUnitPackageStatus {
 
 	if ($UnitType -eq 'Computer') {
 		$PackageType = '1'
-	} else {
+	} elseif ($UnitType -eq 'User') {
 		$PackageType = '2'
 	}
 
-	$value = $CapaSDK.SetUnitPackageStatus($UnitName, $UnitType, $PackageName, $PackageVersion, $Status, $ChangelogComment)
+	$value = $CapaSDK.SetUnitPackageStatus($UnitName, $UnitType, $PackageName, $PackageVersion, $PackageType, $Status, $ChangelogComment)
 	return $value
 }

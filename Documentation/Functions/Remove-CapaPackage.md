@@ -80,7 +80,7 @@ The type of package, can be either Computer or User.
 
 -**BusinessUnitName**
 
-
+The name of the business unit to remove the package from.
 | Name | Value |
 | ---- | ---- |
 | Type: | String |

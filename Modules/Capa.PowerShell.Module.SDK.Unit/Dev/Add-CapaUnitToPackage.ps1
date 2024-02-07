@@ -37,7 +37,7 @@ function Add-CapaUnitToPackage {
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
+		[ValidateSet('Computer', 'User', '1', '2')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
 		[string]$PackageName,
@@ -49,6 +49,11 @@ function Add-CapaUnitToPackage {
 		[ValidateSet('Computer', 'User')]
 		[string]$UnitType
 	)
+	if ($PackageType -eq 'Computer') {
+		$PackageType = '1'
+	} elseif ($PackageType -eq 'User') {
+		$PackageType = '2'
+	}
 
 	$bool = $CapaSDK.AddUnitToPackage($UnitName, $UnitType, $PackageName, $PackageVersion, $PackageType)
 

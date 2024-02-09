@@ -2270,6 +2270,8 @@ function Update-CapaPackageNow {
 	$value = $CapaSDK.PackageUpdateNow($PackageName, $PackageVersion, $PackageType)
 	return $value
 }
+
+
 <#
     .SYNOPSIS
         Use this function to update a package script and kit in Capa.

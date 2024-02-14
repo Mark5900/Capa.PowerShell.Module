@@ -1,0 +1,31 @@
+name: Semantic Release
+
+on:
+  push:
+    branches:
+      - main
+      - auto-release
+
+jobs:
+  release:
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Semantic Release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }} # GitHub token with repo access
+        run: npx semantic-release

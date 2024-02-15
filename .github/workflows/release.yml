@@ -1,4 +1,4 @@
-name: Semantic Release
+name: Semantic Release and publish to PowerShell Gallery
 
 on:
   push:
@@ -40,3 +40,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
+
+      - name: Publish to PowerShell Gallery
+        env:
+          : ${{ secrets.PSGALLERY }}
+        shell: pwsh
+        run: |
+          .\Publish.ps1

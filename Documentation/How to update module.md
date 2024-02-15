@@ -15,7 +15,7 @@ Handles the settings and flow of semantic release.
 
 ### release.yml
 
-Run the flow and build and releases a new version.
+Run the flow and build, releases and publishes a new version.
 
 ### CreateInstaller.ps1
 
@@ -25,3 +25,7 @@ Does the following:
 2. Import the functions to the .psm1 files
 3. Generate Documentation based on the functions Get-Help text
 4. Creates the msi installer files
+
+### Publish.ps1
+
+Publish the modules to PowerShell Gallery.

@@ -1,6 +1,6 @@
 @{
 	# Version number of this module.
-	ModuleVersion          = '1.1.2'
+	ModuleVersion          = '1.1.3'
 
 	# ID used to uniquely identify this module
 	GUID                   = '517a4a6a-a4f8-4a8b-bf99-5fe75a1e7786'
@@ -37,8 +37,8 @@
 
 	# Modules that must be imported into the global environment prior to importing
 	# this module
-	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.SDK'; RequiredVersion = '1.1.2'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.1.2'; })
+	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.SDK'; RequiredVersion = '1.1.3'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.1.3'; })
 
 	# Assemblies that must be loaded prior to importing this module
 	RequiredAssemblies     = @()
@@ -84,35 +84,15 @@
 		#Support for PowerShellGet galleries.
 		PSData = @{
 
-			# Tags applied to this module. These help with module discovery in online galleries.
-			# Tags = @()
+			ProjectUri = 'https://github.com/Mark5900/Capa.PowerShell.Module'
 
-			# A URL to the license for this module.
-			# LicenseUri = ''
+			LicenseUri = 'https://github.com/Mark5900/Capa.PowerShell.Module/blob/main/LICENSE'
 
-			# A URL to the main website for this project.
-			# ProjectUri = ''
-
-			# A URL to an icon representing this module.
-			# IconUri = ''
-
-			# ReleaseNotes of this module
-			# ReleaseNotes = ''
+			Tags       = @('CapaInstaller', 'SDK', 'PowerPack', 'CapaSystems')
 
 		} # End of PSData hashtable
 
 
 
 	} # End of PrivateData hashtable
-
-	ProjectUri             = 'https://github.com/Mark5900/Capa.PowerShell.Module'
-
-	LicenseUri             = 'https://github.com/Mark5900/Capa.PowerShell.Module/blob/main/LICENSE'
-
-	Tags                   = @('CapaInstaller', 'SDK', 'PowerPack', 'CapaSystems')
 }
-
-
-
-
-

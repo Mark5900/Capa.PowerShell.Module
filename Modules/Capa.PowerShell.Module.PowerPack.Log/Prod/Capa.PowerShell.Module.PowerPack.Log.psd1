@@ -4,7 +4,7 @@
 	RootModule             = '.\Capa.PowerShell.Module.PowerPack.Log.psm1'
 
 	# Version number of this module.
-	ModuleVersion          = '1.1.2'
+	ModuleVersion          = '1.1.3'
 
 	# ID used to uniquely identify this module
 	GUID                   = 'd17f59c5-63b7-410b-bee6-3ebc78231a80'
@@ -88,28 +88,15 @@
 		#Support for PowerShellGet galleries.
 		PSData = @{
 
-			# Tags applied to this module. These help with module discovery in online galleries.
-			# Tags = @()
-
-			# A URL to the license for this module.
-			# LicenseUri = ''
-
-			# A URL to the main website for this project.
-			# ProjectUri = ''
-
-			# A URL to an icon representing this module.
-			# IconUri = ''
-
-			# ReleaseNotes of this module
-			# ReleaseNotes = ''
-
-		} # End of PSData hashtable
-
-	} # End of PrivateData hashtable
-
 	ProjectUri             = 'https://github.com/Mark5900/Capa.PowerShell.Module'
 
 	LicenseUri             = 'https://github.com/Mark5900/Capa.PowerShell.Module/blob/main/LICENSE'
 
 	Tags                   = @('CapaInstaller', 'PowerPack', 'CapaSystems')
+
+		} # End of PSData hashtable
+
+	} # End of PrivateData hashtable
+
+
 }

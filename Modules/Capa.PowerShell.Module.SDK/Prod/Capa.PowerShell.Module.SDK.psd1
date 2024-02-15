@@ -1,6 +1,6 @@
 @{
 	# Version number of this module.
-	ModuleVersion          = '1.1.2'
+	ModuleVersion          = '1.1.3'
 
 	# ID used to uniquely identify this module
 	GUID                   = '153c22bb-4705-4a73-847c-49bb1756c4a5'
@@ -37,19 +37,19 @@
 
 	# Modules that must be imported into the global environment prior to importing
 	# this module
-	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.SDK.Authentication'; RequiredVersion = '1.1.2'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.SDK.Container'; RequiredVersion = '1.1.2'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.SDK.Group'; RequiredVersion = '1.1.2'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.SDK.Inventory'; RequiredVersion = '1.1.2'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.SDK.MDM'; RequiredVersion = '1.1.2'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.SDK.OSDeployment'; RequiredVersion = '1.1.2'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.SDK.Package'; RequiredVersion = '1.1.2'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.SDK.SystemSdk'; RequiredVersion = '1.1.2'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.SDK.Unit'; RequiredVersion = '1.1.2'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.SDK.User'; RequiredVersion = '1.1.2'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.SDK.Utilities'; RequiredVersion = '1.1.2'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.SDK.VPP'; RequiredVersion = '1.1.2'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.SDK.WSUS'; RequiredVersion = '1.1.2'; })
+	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.SDK.Authentication'; RequiredVersion = '1.1.3'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.SDK.Container'; RequiredVersion = '1.1.3'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.SDK.Group'; RequiredVersion = '1.1.3'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.SDK.Inventory'; RequiredVersion = '1.1.3'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.SDK.MDM'; RequiredVersion = '1.1.3'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.SDK.OSDeployment'; RequiredVersion = '1.1.3'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.SDK.Package'; RequiredVersion = '1.1.3'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.SDK.SystemSdk'; RequiredVersion = '1.1.3'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.SDK.Unit'; RequiredVersion = '1.1.3'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.SDK.User'; RequiredVersion = '1.1.3'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.SDK.Utilities'; RequiredVersion = '1.1.3'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.SDK.VPP'; RequiredVersion = '1.1.3'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.SDK.WSUS'; RequiredVersion = '1.1.3'; })
 
 	# Assemblies that must be loaded prior to importing this module
 	RequiredAssemblies     = @()
@@ -95,28 +95,15 @@
 		#Support for PowerShellGet galleries.
 		PSData = @{
 
-			# Tags applied to this module. These help with module discovery in online galleries.
-			# Tags = @()
+			ProjectUri = 'https://github.com/Mark5900/Capa.PowerShell.Module'
 
-			# A URL to the license for this module.
-			# LicenseUri = ''
+			LicenseUri = 'https://github.com/Mark5900/Capa.PowerShell.Module/blob/main/LICENSE'
 
-			# A URL to the main website for this project.
-			# ProjectUri = ''
-
-			# A URL to an icon representing this module.
-			# IconUri = ''
-
-			# ReleaseNotes of this module
-			# ReleaseNotes = ''
+			Tags       = @('CapaInstaller', 'SDK', 'CapaSystems')
 
 		} # End of PSData hashtable
 
 	} # End of PrivateData hashtable
 
-	ProjectUri             = 'https://github.com/Mark5900/Capa.PowerShell.Module'
 
-	LicenseUri             = 'https://github.com/Mark5900/Capa.PowerShell.Module/blob/main/LICENSE'
-
-	Tags                   = @('CapaInstaller', 'SDK', 'CapaSystems')
 }

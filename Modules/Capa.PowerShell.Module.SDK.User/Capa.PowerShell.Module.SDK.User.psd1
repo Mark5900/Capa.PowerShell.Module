@@ -1,10 +1,10 @@
-﻿@{
+@{
 
 	# Script module or binary module file associated with this manifest
 	RootModule             = './Capa.PowerShell.Module.SDK.User.psm1'
 
 	# Version number of this module.
-	ModuleVersion          = '1.0.23.1'
+	ModuleVersion          = '1.0.0'
 
 	# ID used to uniquely identify this module
 	GUID                   = 'b9863116-21ac-4669-87e7-3475aa6ee68d'

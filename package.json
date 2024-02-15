@@ -6,16 +6,56 @@
 		],
 		"plugins": [
 			"@semantic-release/commit-analyzer",
-			"@semantic-release/release-notes-generator",
-			"@semantic-release/changelog",
-			"@semantic-release/git",
-			"@semantic-release/github",
+			{
+				"preset": "angular",
+				"releaseRules": [
+					{
+						"type": "fix",
+						"release": "patch"
+					},
+					{
+						"type": "feat",
+						"release": "minor"
+					},
+					{
+						"type": "breaking",
+						"release": "major"
+					}
+				]
+			},
 			[
 				"@semantic-release/exec",
 				{
-					"prepareCmd": "echo $npm_package_version > version.txt"
+					"prepareCmd": "echo ${nextRelease.version} > version.txt && pwsh -ExecutionPolicy Bypass -File CreateInstaller.ps1"
+				}
+			],
+			"@semantic-release/release-notes-generator",
+			[
+				"@semantic-release/git",
+				{
+					"assets": [
+						"Modules",
+						"Installers",
+						"Documentation",
+						"version.txt"
+					],
+					"message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+				}
+			],
+			[
+				"@semantic-release/github",
+				{
+					"assets": [
+						{
+							"path": "Installers/*.msi"
+						}
+					]
 				}
 			]
 		]
+	},
+	"devDependencies": {
+		"@semantic-release/exec": "^6.0.3",
+		"@semantic-release/git": "^10.0.1"
 	}
 }

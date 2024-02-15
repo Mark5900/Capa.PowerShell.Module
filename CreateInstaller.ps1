@@ -21,7 +21,7 @@ $VersionFile = Join-Path $PSScriptRoot 'version.txt'
 try {
 $Version = (Get-Content -Path $VersionFile).Trim()
 } catch {
-    ls
+    Get-ChildItem $PSScriptRoot
     exit
 }
 
@@ -46,8 +46,8 @@ function Import-FunctionsToPSMFiles {
                 Add-Content -Path $ModuleFile -Value "`n"
             }
 
-            # Copy folders from dev to module folder
-            $FoldersInDev = Get-ChildItem -Path $DevFolder -Directory
+            # Copy folders from dev to module folder, exclude Tests_Helper_Scripts
+            $FoldersInDev = Get-ChildItem -Path $DevFolder -Directory -Exclude 'Tests_Helper_Scripts'
             foreach ($FolderInDev in $FoldersInDev) {
                 $DestinationFolder = Join-Path $Folder.FullName $FolderInDev.Name
 
@@ -672,7 +672,7 @@ function Update-PSDVersions {
 Update-PSDVersions -Version $Version
 Import-FunctionsToPSMFiles
 GenerateFunctionsDocumentation
-try  {
+try {
     Remove-Item -Path (Join-Path $PSScriptRoot 'Installers') -Recurse -Force
 
     New-ModuleInstaller -Version $Version -ProductName $ProductName -UpgradeCode $UpgradeCode
@@ -680,6 +680,5 @@ try  {
     New-ModuleInstallerPowerPackOnly -Version $Version -ProductName $ProductName -UpgradeCode $UpgradeCode
 } catch {
     Write-Host "Error: $_"
-    Get-ChildItem -Path '/home/runner/.local/share/powershell/Modules/PSMSI' -Recurse
     exit
 }

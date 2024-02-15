@@ -2,7 +2,8 @@
 	"release": {
 		"branches": [
 			"main",
-			"auto-release"
+			"auto-release",
+			"Auto-release"
 		],
 		"plugins": [
 			"@semantic-release/commit-analyzer",

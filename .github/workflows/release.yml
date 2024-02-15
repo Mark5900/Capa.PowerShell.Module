@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - auto-release
+      - Auto-release
 
 jobs:
   release:

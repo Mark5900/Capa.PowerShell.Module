@@ -43,7 +43,7 @@ jobs:
 
       - name: Publish to PowerShell Gallery
         env:
-          : ${{ secrets.PSGALLERY }}
+          APIKEY : ${{ secrets.PSGALLERY }}
         shell: pwsh
         run: |
           .\Publish.ps1

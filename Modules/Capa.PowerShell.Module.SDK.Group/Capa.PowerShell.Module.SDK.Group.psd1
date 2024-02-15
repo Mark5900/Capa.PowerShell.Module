@@ -121,4 +121,6 @@
 	ProjectUri             = 'https://github.com/Mark5900/Capa.PowerShell.Module'
 
 	LicenseUri             = 'https://github.com/Mark5900/Capa.PowerShell.Module/blob/main/LICENSE'
+
+	Tags                   = @('CapaInstaller', 'SDK', 'CapaSystems')
 }

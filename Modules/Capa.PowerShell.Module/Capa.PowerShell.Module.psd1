@@ -101,11 +101,15 @@
 
 		} # End of PSData hashtable
 
-		ProjectUri = 'https://github.com/Mark5900/Capa.PowerShell.Module'
 
-		LicenseUri = 'https://github.com/Mark5900/Capa.PowerShell.Module/blob/main/LICENSE'
 
 	} # End of PrivateData hashtable
+
+	ProjectUri             = 'https://github.com/Mark5900/Capa.PowerShell.Module'
+
+	LicenseUri             = 'https://github.com/Mark5900/Capa.PowerShell.Module/blob/main/LICENSE'
+
+	Tags                   = @('CapaInstaller', 'SDK', 'PowerPack', 'CapaSystems')
 }
 
 

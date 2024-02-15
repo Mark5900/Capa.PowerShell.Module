@@ -109,13 +109,9 @@
 		} # End of PSData hashtable
 
 	} # End of PrivateData hashtable
+
+	ProjectUri             = 'https://github.com/Mark5900/Capa.PowerShell.Module'
+
+	LicenseUri             = 'https://github.com/Mark5900/Capa.PowerShell.Module/blob/main/LICENSE'
+
 }
-
-
-
-
-
-
-
-
-

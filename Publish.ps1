@@ -5,6 +5,6 @@ foreach ($Module in $Modules) {
 	try {
 		Publish-Module -Path $ModulePath -NuGetApiKey $env:APIKEY
 	} catch {
-		Publish-PSResource -Path $ModulePath -NuGetApiKey $env:APIKEY -Repository PSGallery
+		Publish-PSResource -Path $ModulePath -ApiKey $env:APIKEY -Repository PSGallery
 	}
 }

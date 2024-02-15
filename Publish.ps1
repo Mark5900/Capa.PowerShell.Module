@@ -1,5 +1,5 @@
 $ModulesPath = Join-Path $PSScriptRoot 'Modules'
-$Modules = Get-ChildItem -Path $ModulesPath -Directory
+$Modules = Get-ChildItem -Path $ModulesPath -Directory | Sort-Object { $_.Name.Length } -Descending
 foreach ($Module in $Modules) {
 	$ModulePath = Join-Path $ModulesPath $Module.Name 'Prod'
 	try {

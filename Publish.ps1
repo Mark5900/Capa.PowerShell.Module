@@ -3,14 +3,21 @@ $Modules = Get-ChildItem -Path $ModulesPath -Directory | Sort-Object { $_.Name.L
 
 $VersionPath = Join-Path $PSScriptRoot 'version.txt'
 $Version = (Get-Content -Path $VersionPath).Trim()
+Write-Host "Publishing version $Version"
 
 foreach ($Module in $Modules) {
+	Write-Host "Publishing module $($Module.Name)"
 	$ModulePath = Join-Path $ModulesPath $Module.Name 'Prod'
+	$PsdPath = Join-Path $ModulePath "$($Module.Name).psd1"
 
 	try {
 		Publish-Module -Path $ModulePath -NuGetApiKey $env:APIKEY
 	} catch {
-		Publish-PSResource -Path $ModulePath -ApiKey $env:APIKEY
+		try {
+			Publish-PSResource -Path $ModulePath -ApiKey $env:APIKEY
+		} catch {
+			Test-ModuleManifest -Path $PsdPath
+		}
 	}
 
 	$Run = $true

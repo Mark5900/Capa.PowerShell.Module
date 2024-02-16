@@ -10,7 +10,9 @@ foreach ($Module in $Modules) {
 	$ModulePath = Join-Path $ModulesPath $Module.Name 'Prod'
 	$PsdPath = Join-Path $ModulePath "$($Module.Name).psd1"
 
-	<#
+	Get-ChildItem $ModulePath | Import-Module
+
+	<# Maybe it has something to do with that you need the required modules to be imported before publishing the module?
 		Something fails with the manifest when publishing Capa.PowerShell.Module.PowerPack.
 
 		The Error is:
@@ -23,8 +25,9 @@ foreach ($Module in $Modules) {
 				|              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				| The specified RequiredModules entry 'Capa.PowerShell.Module.PowerPack.File' in the module manifest
 				| 'D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack\Prod\Capa.PowerShell.Module.PowerPack.psd1' is invalid. Try again after updating this entry with valid values.
-	#>
-	switch ($Module.Name) {
+
+
+	switch ($Modules[-8].Name) {
 		'Capa.PowerShell.Module' {
 			Start-Sleep -Seconds 10
 		}
@@ -36,6 +39,7 @@ foreach ($Module in $Modules) {
 		}
 		Default {}
 	}
+	#>
 
 	try {
 		Publish-Module -Path $ModulePath -NuGetApiKey $env:APIKEY

@@ -47,19 +47,16 @@ foreach ($Module in $Modules) {
 	#>
 
 	try {
-		Publish-Module -Path $ModulePath -NuGetApiKey $env:APIKEY
+		Publish-PSResource -Path $ModulePath -ApiKey $env:APIKEY -SkipDependenciesCheck
 	} catch {
-		try {
-			Publish-PSResource -Path $ModulePath -ApiKey $env:APIKEY
-		} catch {
-			Write-Host "Failed to publish module $($Module.Name)" -ForegroundColor Red
-			Write-Host $_.Exception.Message
-			Write-Host "Psd path: $PsdPath"
+		Write-Host "Failed to publish module $($Module.Name)" -ForegroundColor Red
+		Write-Host $_.Exception.Message
+		Write-Host "Psd path: $PsdPath"
 
-			Test-ModuleManifest -Path $PsdPath
-			Write-Host $Error[0].Exception.Message
-		}
+		Test-ModuleManifest -Path $PsdPath
+		Write-Host $Error[0].Exception.Message
 	}
+
 
 	$Run = $true
 

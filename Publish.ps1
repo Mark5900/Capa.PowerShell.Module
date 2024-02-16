@@ -16,7 +16,12 @@ foreach ($Module in $Modules) {
 		try {
 			Publish-PSResource -Path $ModulePath -ApiKey $env:APIKEY
 		} catch {
+			Write-Host "Failed to publish module $($Module.Name)" -ForegroundColor Red
+			Write-Host $_.Exception.Message
+			Write-Host "Psd path: $PsdPath"
+
 			Test-ModuleManifest -Path $PsdPath
+			Write-Host $Error[0].Exception.Message
 		}
 	}
 

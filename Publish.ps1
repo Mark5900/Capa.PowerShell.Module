@@ -10,41 +10,10 @@ foreach ($Module in $Modules) {
 	$ModulePath = Join-Path $ModulesPath $Module.Name 'Prod'
 	$PsdPath = Join-Path $ModulePath "$($Module.Name).psd1"
 
-	#Get-ChildItem $ModulePath -File | Import-Module
-
 	if (Find-Module -Name $Module.Name -RequiredVersion $Version -ErrorAction SilentlyContinue) {
 		Write-Host "Module $($Module.Name) version $Version already published. Skipping" -ForegroundColor Green
 		continue
 	}
-
-	<# Maybe it has something to do with that you need the required modules to be imported before publishing the module?
-		Something fails with the manifest when publishing Capa.PowerShell.Module.PowerPack.
-
-		The Error is:
-		Failed to publish module Capa.PowerShell.Module.PowerPack
-		Module manifest file validation failed with error: The specified RequiredModules entry 'Capa.PowerShell.Module.PowerPack.File' in the module manifest 'D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack\Prod\Capa.PowerShell.Module.PowerPack.psd1' is invalid. Try again after updating this entry with valid values.. Run 'Test-ModuleManifest' to validate the module manifest.
-		Psd path: D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack\Prod\Capa.PowerShell.Module.PowerPack.psd1
-		Test-ModuleManifest: D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Publish.ps1:23
-		Line |
-			23 |              Test-ModuleManifest -Path $PsdPath
-				|              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				| The specified RequiredModules entry 'Capa.PowerShell.Module.PowerPack.File' in the module manifest
-				| 'D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack\Prod\Capa.PowerShell.Module.PowerPack.psd1' is invalid. Try again after updating this entry with valid values.
-
-
-	switch ($Modules[-8].Name) {
-		'Capa.PowerShell.Module' {
-			Start-Sleep -Seconds 10
-		}
-		'Capa.PowerShell.Module.PowerPack' {
-			Start-Sleep -Seconds 10
-		}
-		'Capa.PowerShell.Module.SDK' {
-			Start-Sleep -Seconds 10
-		}
-		Default {}
-	}
-	#>
 
 	try {
 		Publish-PSResource -Path $ModulePath -ApiKey $env:APIKEY -SkipDependenciesCheck -SkipModuleManifestValidate

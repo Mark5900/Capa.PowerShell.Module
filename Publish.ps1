@@ -12,6 +12,11 @@ foreach ($Module in $Modules) {
 
 	Get-ChildItem $ModulePath -File | Import-Module
 
+	if (Find-Module -Name $Module.Name -RequiredVersion $Version -ErrorAction SilentlyContinue) {
+		Write-Host "Module $($Module.Name) version $Version already published. Skipping" -ForegroundColor Green
+		continue
+	}
+
 	<# Maybe it has something to do with that you need the required modules to be imported before publishing the module?
 		Something fails with the manifest when publishing Capa.PowerShell.Module.PowerPack.
 

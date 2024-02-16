@@ -10,7 +10,7 @@ foreach ($Module in $Modules) {
 	$ModulePath = Join-Path $ModulesPath $Module.Name 'Prod'
 	$PsdPath = Join-Path $ModulePath "$($Module.Name).psd1"
 
-	Get-ChildItem $ModulePath -File | Import-Module
+	#Get-ChildItem $ModulePath -File | Import-Module
 
 	if (Find-Module -Name $Module.Name -RequiredVersion $Version -ErrorAction SilentlyContinue) {
 		Write-Host "Module $($Module.Name) version $Version already published. Skipping" -ForegroundColor Green
@@ -47,7 +47,7 @@ foreach ($Module in $Modules) {
 	#>
 
 	try {
-		Publish-PSResource -Path $ModulePath -ApiKey $env:APIKEY -SkipDependenciesCheck
+		Publish-PSResource -Path $ModulePath -ApiKey $env:APIKEY -SkipDependenciesCheck -SkipModuleManifestValidate
 	} catch {
 		Write-Host "Failed to publish module $($Module.Name)" -ForegroundColor Red
 		Write-Host $_.Exception.Message

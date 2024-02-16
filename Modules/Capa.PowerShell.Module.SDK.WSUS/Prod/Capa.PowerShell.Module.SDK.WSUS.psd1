@@ -4,7 +4,7 @@
 	RootModule             = './Capa.PowerShell.Module.SDK.WSUS.psm1'
 
 	# Version number of this module.
-	ModuleVersion          = '1.2.5'
+	ModuleVersion          = '1.2.6'
 
 	# ID used to uniquely identify this module
 	GUID                   = '83ef7627-d2fe-443b-bd1b-c5878f8ac762'

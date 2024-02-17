@@ -1,4 +1,5 @@
 name: Semantic Release and publish to PowerShell Gallery
+run-name: ${{ github.actor }} is automatically releasing 🚀
 
 on:
   push:

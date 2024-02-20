@@ -20,7 +20,7 @@
 	.NOTES
 		Custom function not from CapaSystems.
 #>
-function Find-WinGet {
+function Find-PpWinGet {
 	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $false)]

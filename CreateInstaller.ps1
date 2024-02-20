@@ -313,7 +313,8 @@ function New-ModuleInstallerPowerPackOnly {
             New-InstallerDirectory -DirectoryName 'PowerShell' -Content {
                 New-InstallerDirectory -DirectoryName 'Modules' -Content {
                     New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack' -Content {
-                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Prod\Capa.PowerShell.Module.PowerPack.psd1
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Capa.PowerShell.Module.PowerPack.psd1
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Capa.PowerShell.Module.PowerPack.psm1
                     }
                     New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Exit' -Content {
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Exit\Prod\Capa.PowerShell.Module.PowerPack.Exit.psd1

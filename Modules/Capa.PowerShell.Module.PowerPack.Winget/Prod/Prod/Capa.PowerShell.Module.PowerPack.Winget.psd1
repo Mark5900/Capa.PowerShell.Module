@@ -41,7 +41,8 @@
 
 	# Modules that must be imported into the global environment prior to importing
 	# this module
-	RequiredModules        = @()
+	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; RequiredVersion = '1.4.1'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.4.1'; })
 
 	# Assemblies that must be loaded prior to importing this module
 	RequiredAssemblies     = @()
@@ -61,7 +62,9 @@
 	NestedModules          = @()
 
 	# Functions to export from this module
-	FunctionsToExport      =
+	FunctionsToExport      = "Find-PpWinGet",
+		"Install-PpWingetApp",
+		"Get-PpWingetErrorCode"
 	#For performance, list functions explicitly
 
 	# Cmdlets to export from this module

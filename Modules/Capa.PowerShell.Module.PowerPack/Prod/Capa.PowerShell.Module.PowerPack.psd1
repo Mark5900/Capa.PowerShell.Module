@@ -50,7 +50,8 @@
         @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Service'; RequiredVersion = '1.4.1'; },
         @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Shell'; RequiredVersion = '1.4.1'; },
         @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Sys'; RequiredVersion = '1.4.1'; },
-        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.UsrMgr'; RequiredVersion = '1.4.1'; })
+        @{ ModuleName = 'Capa.PowerShell.Module.PowerPack.UsrMgr'; RequiredVersion = '1.4.1'; },
+				@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Winget'; RequiredVersion = '1.4.1'; })
 
     # Assemblies that must be loaded prior to importing this module
     RequiredAssemblies     = @()

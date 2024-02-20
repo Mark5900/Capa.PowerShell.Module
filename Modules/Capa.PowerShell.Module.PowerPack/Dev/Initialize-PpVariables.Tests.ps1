@@ -1,21 +1,21 @@
 BeforeAll {
     # Import file and parameters
     . $PSCommandPath.Replace('.Tests.ps1', '.ps1')
-    
-    $RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
-    $DllPath = 'C:\Temp\CapaOne.ScriptingLibrary.dll'
-    $LogFilePath = 'C:\Temp\Initialize-PpVariables.log'
-    
+
+	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
+	$DllPath = 'C:\Temp\CapaOne.ScriptingLibrary.dll'
+	$LogFilePath = 'C:\Temp\Initialize-PpVariables.log'
+
     # Import modules
     Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Job\Dev\Job_DisableLog.ps1" -Force
     Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Job\Dev\Job_WriteLog.ps1" -Force
     Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Job\Dev\Job_EnableLog.ps1" -Force
     Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Job\Dev\Job_Start.ps1" -Force
-    Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack\Dev\Add-PsDll.ps1" -Force
+    Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack\Dev\Add-PpDll.ps1" -Force
     Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Exit\Dev\Exit-PSScript.ps1" -Force
 
     # Startup Code
-    $Global:Cs = Add-PsDll -DllPath $DllPath
+    $Global:Cs = Add-PpDll -DllPath $DllPath
     Job_Start -JobType 'WS' -PackageName 'PesterTest' -PackageVersion 'v1.0' -LogPath $LogFilePath -Action 'INSTALL'
     Initialize-PpVariables -DllPath $DllPath
 

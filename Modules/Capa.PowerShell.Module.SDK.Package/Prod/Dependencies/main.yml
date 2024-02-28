@@ -38,11 +38,19 @@ jobs:
           echo "ExportPath=$($Settings.ExportPath)" >> $env:GITHUB_ENV
           echo "NewPackageVersion=$($Settings.PackageVersion)" >> $env:GITHUB_ENV
 
-          $SourceKitPath = Join-Path $Settings.PackageBasePath "$env:SoftwareName $env:SoftwareVersion" "p$env:CurrentPackageVersion" "Kit"
-          echo "SourceKitPath=$SourceKitPath" >> $env:GITHUB_ENV
-
           $DestinationKitPath = Join-Path (Get-Location).Path "Kit"
           echo "DestinationKitPath=$DestinationKitPath" >> $env:GITHUB_ENV
+
+      - name: Set more variables
+        run: |
+          $SourceKitPath = Join-Path $env:PackageBasePath "$env:SoftwareName $env:SoftwareVersion" "p$env:CurrentPackageVersion" "Kit"
+          echo "SourceKitPath=$SourceKitPath" >> $env:GITHUB_ENV
+
+          $DestinationZipPath = Join-Path $env:PackageBasePath "$env:SoftwareName $env:SoftwareVersion" "p$env:NewPackageVersion" "Zip"
+          echo "DestinationZipPath=$DestinationZipPath" >> $env:GITHUB_ENV
+
+          $DestinationSyncLockPath = Join-Path $env:PackageBasePath "$env:SoftwareName $env:SoftwareVersion" "p$env:NewPackageVersion" "sync.lock"
+          echo "DestinationSyncLockPath=$DestinationSyncLockPath" >> $env:GITHUB_ENV
 
       - name: Import kit from current version
         run: |
@@ -77,12 +85,12 @@ jobs:
 
             if (!([string]::IsNullOrEmpty($Folder))) {
               $Splatting = @{
-                CapaSDK 				= $oCMS
+                CapaSDK             = $oCMS
                 PackageName     = $PckName
                 PackageVersion  = $PckNewVersion
-                PackageType 		= "Computer"
+                PackageType       = "Computer"
                 FolderStructure = $Folder
-                ChangelogText		= "Moved to folder by GitHub Action"
+                ChangelogText      = "Moved to folder by GitHub Action"
               }
               $bStatus = Set-CapaPackageFolder @Splatting
             } else {
@@ -154,6 +162,23 @@ jobs:
           if (Test-Path $ExportedFilePath) {
             Write-Host "Remove file from previous action run"
             Remove-Item -Path $ExportedFilePath -Force
+          }
+
+          $KitTemp = Join-Path $env:DestinationZipPath "CapaCapaInstaller_Temp.kit"
+          Write-Host "KitTemp: $KitTemp"
+          Start-Sleep -Seconds 5
+          $Run = $true
+          while ($Run) {
+            if (Test-Path $KitTemp) {
+              Write-Host "KitTemp exists"
+              Start-Sleep -Seconds 5
+            } elseif (Test-Path $env:DestinationSyncLockPath) {
+              Write-Host "Sync.lock exists"
+              Start-Sleep -Seconds 5
+            } else {
+              Write-Host "No lock files found"
+              $Run = $false
+            }
           }
 
           $bStatus = Export-CapaPackage -CapaSDK $oCMS -PackageName $PckName -PackageVersion $PckNewVersion -PackageType Computer -ToFolder $ExportPath

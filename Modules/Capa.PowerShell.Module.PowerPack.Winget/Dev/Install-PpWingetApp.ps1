@@ -31,7 +31,7 @@ function Install-PpWingetApp {
 	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
-		[string]$Id,
+		[string]$AppId,
 		[Parameter(Mandatory = $false)]
 		[string]$Locale,
 		[Parameter(Mandatory = $false)]
@@ -41,7 +41,7 @@ function Install-PpWingetApp {
 
 	$WingetPath = Find-PpWinGetCmd
 
-	$InstallCommand = "install -e --id $Id -h --accept-package-agreements --accept-source-agreements --force"
+	$InstallCommand = "install -e --id $AppId -h --accept-package-agreements --accept-source-agreements --force"
 
 	if ($Locale) {
 		$InstallCommand += " --locale $Locale"
@@ -61,7 +61,7 @@ function Install-PpWingetApp {
 
 	$ExecuteSplatting = @{
 		Command     = $WingetPath
-		Arguments   = "$InstallCommande"
+		Arguments   = $InstallCommand
 		Wait        = $true
 		WindowStyle = 'Hidden'
 		MustExist   = $true
@@ -70,6 +70,14 @@ function Install-PpWingetApp {
 	$Result = Shell_Execute @ExecuteSplatting
 	Get-PpWingetErrorCode -Decimal $Result
 	Job_WriteLog -Text "Command completed with status: $Result"
+
+	$AppInstalled = Confirm-PpWingetAppInstall -AppId 'Mozilla.Firefox'
+	if ($AppInstalled) {
+		Job_WriteLog -Text 'Mozilla.Firefox was installed'
+	} else {
+		Job_WriteLog -Text 'Mozilla.Firefox was not installed'
+		Exit-PpCommandFailed
+	}
 
 	return $Result
 }

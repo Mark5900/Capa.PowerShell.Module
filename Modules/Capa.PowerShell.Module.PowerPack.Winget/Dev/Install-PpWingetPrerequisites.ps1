@@ -16,6 +16,12 @@ function Install-PpWingetPrerequisites {
 	)
 	$Function = 'Install-PpWingetPrerequisites'
 
+	try {
+		Import-Module Appx
+	} catch {
+		Import-Module Appx -UseWindowsPowerShell
+	}
+
 	if ([string]::IsNullOrEmpty($WingetPath)) {
 		$Winget = Find-PpWinGetCmd
 	} else {
@@ -48,6 +54,9 @@ function Install-PpWingetPrerequisites {
 			Job_WriteLog -Text 'MS Visual C++ 2015-2022 installation failed.' -FunctionName $Function
 			Job_WriteLog -Text $_.Exception.Message -FunctionName $Function
 		}
+	} else {
+		Job_WriteLog -Text 'MS Visual C++ 2015-2022 is installed.' -FunctionName $Function
+
 	}
 	#endregion
 	#endregion
@@ -67,6 +76,8 @@ function Install-PpWingetPrerequisites {
 			Job_WriteLog -Text $_.Exception.Message -FunctionName $Function
 		}
 		Remove-Item -Path $VCLibsFile -Force -ErrorAction Ignore
+	} else {
+		Job_WriteLog -Text 'Microsoft.VCLibs.140.00.UWPDesktop is installed.' -FunctionName $Function
 	}
 	#endregion
 	#region Check available WinGet version, if fail set version to the latest version as of 2024-03-01

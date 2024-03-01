@@ -1,3 +1,32 @@
+<#
+	.SYNOPSIS
+		Install an application using winget
+
+	.DESCRIPTION
+		Install an application using winget
+
+	.PARAMETER Id
+		The id of the application to install
+
+	.PARAMETER Locale
+		The locale to use for the installation
+
+	.PARAMETER AllowInstallOfWinGet
+		Allow the installation of winget if it is not installed
+
+	.EXAMPLE
+		Install-PpWingetApp -Id 'Mozilla.Firefox'
+
+	.EXAMPLE
+		Install-PpWingetApp -Id 'Mozilla.Firefox' -Locale 'fr-FR'
+
+	.EXAMPLE
+		Install-PpWingetApp -Id 'Mozilla.Firefox' -AllowInstallOfWinGet $true
+
+	.NOTES
+		Custom function not from CapaSystems.
+		Idea from: https://github.com/Romanitho/Winget-Install/blob/main/winget-install.ps1
+#>
 function Install-PpWingetApp {
 	[CmdletBinding()]
 	param (
@@ -41,4 +70,6 @@ function Install-PpWingetApp {
 	$Result = Shell_Execute @ExecuteSplatting
 	Get-PpWingetErrorCode -Decimal $Result
 	Job_WriteLog -Text "Command completed with status: $Result"
+
+	return $Result
 }

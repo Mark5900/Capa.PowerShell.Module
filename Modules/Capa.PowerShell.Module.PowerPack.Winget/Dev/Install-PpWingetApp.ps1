@@ -6,19 +6,20 @@
 		Install an application using winget
 
 	.PARAMETER Id
-		The id of the application to install
+		The id of the application to install.
+		You can find all the available applications on https://winget.run
 
 	.PARAMETER Locale
-		The locale to use for the installation
+		The locale to use for the installation, for example 'da-DK'
 
 	.PARAMETER AllowInstallOfWinGet
-		Allow the installation of winget if it is not installed
+		Allow the installation of winget if it is not installed.
 
 	.EXAMPLE
 		Install-PpWingetApp -Id 'Mozilla.Firefox'
 
 	.EXAMPLE
-		Install-PpWingetApp -Id 'Mozilla.Firefox' -Locale 'fr-FR'
+		Install-PpWingetApp -Id 'Mozilla.Firefox' -Locale 'da-DK'
 
 	.EXAMPLE
 		Install-PpWingetApp -Id 'Mozilla.Firefox' -AllowInstallOfWinGet $true
@@ -68,7 +69,7 @@ function Install-PpWingetApp {
 	}
 
 	$Result = Shell_Execute @ExecuteSplatting
-	Get-PpWingetErrorCode -Decimal $Result
+	$Text = Get-PpWingetReturnCodeDescription -Decimal $Result
 	Job_WriteLog -Text "Command completed with status: $Result"
 
 	$AppInstalled = Confirm-PpWingetAppInstall -AppId 'Mozilla.Firefox'

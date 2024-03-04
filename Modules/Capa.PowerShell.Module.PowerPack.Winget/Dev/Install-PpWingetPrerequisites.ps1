@@ -16,6 +16,11 @@ function Install-PpWingetPrerequisites {
 	)
 	$Function = 'Install-PpWingetPrerequisites'
 
+	<#
+		Sometimes does the modules is not import the functions correctly, so we try to import it again.
+		If it fails, then we try to import it with the Windows PowerShell.
+		If that also fails, then keep going.
+	#>
 	try {
 		Import-Module Appx
 	} catch {

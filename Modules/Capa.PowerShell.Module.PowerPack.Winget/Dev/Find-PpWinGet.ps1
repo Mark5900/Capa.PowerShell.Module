@@ -3,13 +3,16 @@
 		Find the path to the WinGet executable.
 
 	.DESCRIPTION
-		Find the path to the WinGet executable.
+		Find the path to the WinGet executable. If the WinGet executable is not found, the function will return $false.
 
 	.PARAMETER AllowInstallOfWinGet
-		Allow the installation of WinGet if it is not found.
+		If set to $true, the function will try to install or update WinGet if it is not found or if the version is outdated.
 
 	.EXAMPLE
 		$WingetPath = Find-PpWinGetCmd
+
+	.EXAMPLE
+		$WingetPath = Find-PpWinGetCmd -AllowInstallOfWinGet $true
 
 	.NOTES
 		Custom function not from CapaSystems.

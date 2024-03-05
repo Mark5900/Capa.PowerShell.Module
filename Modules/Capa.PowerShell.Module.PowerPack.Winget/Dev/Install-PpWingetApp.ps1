@@ -70,14 +70,14 @@ function Install-PpWingetApp {
 
 	$Result = Shell_Execute @ExecuteSplatting
 	$Text = Get-PpWingetReturnCodeDescription -Decimal $Result
-	Job_WriteLog -Text "Command completed with status: $Result"
+	Job_WriteLog -Text "Command completed with status: $Result" -FunctionName $FunctionName
 
 	$AppInstalled = Confirm-PpWingetAppInstall -AppId 'Mozilla.Firefox'
 	if ($AppInstalled) {
-		Job_WriteLog -Text 'Mozilla.Firefox was installed'
+		Job_WriteLog -Text "$AppId was installed" -FunctionName $FunctionName
 	} else {
-		Job_WriteLog -Text 'Mozilla.Firefox was not installed'
-		Exit-PpCommandFailed
+		Job_WriteLog -Text "$AppId was not installed" -FunctionName $FunctionName
+		Exit-PpCommandFailed -ExitMessage "$AppId was not installed"
 	}
 
 	return $Result

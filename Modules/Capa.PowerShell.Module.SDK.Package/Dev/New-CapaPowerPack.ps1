@@ -125,7 +125,8 @@ function New-CapaPowerPack {
 		}
 
 		# Create zip file
-		Compress-Archive -Path "$PackageTempFolder\*" -DestinationPath $PackageZipFile -Force | Out-Null
+		Add-Type -AssemblyName System.IO.Compression.FileSystem
+		[System.IO.Compression.ZipFile]::CreateFromDirectory($PackageTempFolder, $PackageZipFile)
 
 		# Add to CI
 		$Status = Import-CapaPackage -CapaSDK $CapaSDK -FilePath $PackageZipFile -OverrideCIPCdata $true -ImportFolderStructure $true -ImportSchedule $true -ChangelogComment $ChangelogComment

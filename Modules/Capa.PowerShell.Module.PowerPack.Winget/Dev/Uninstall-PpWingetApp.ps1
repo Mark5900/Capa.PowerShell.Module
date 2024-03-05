@@ -1,3 +1,26 @@
+<#
+	.SYNOPSIS
+		Uninstalls an application using winget.
+
+	.DESCRIPTION
+		Uninstalls an application using winget.
+
+	.PARAMETER AppId
+		The id of the application to uninstall.
+		You can find all the available applications on https://winget.run
+
+	.PARAMETER AllowInstallOfWinGet
+		Allow the installation of winget if it is not installed. Or update winget if it is installed.
+
+	.EXAMPLE
+		Uninstall-PpWingetApp -AppId 'Mozilla.Firefox'
+
+	.EXAMPLE
+		Uninstall-PpWingetApp -AppId 'Mozilla.Firefox' -AllowInstallOfWinGet $true
+
+	.NOTES
+		Custom function not from CapaSystems.
+#>
 function Uninstall-PpWingetApp {
 	[CmdletBinding()]
 	param (

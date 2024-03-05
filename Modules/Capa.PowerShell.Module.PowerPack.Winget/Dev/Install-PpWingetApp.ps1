@@ -13,7 +13,7 @@
 		The locale to use for the installation, for example 'da-DK'
 
 	.PARAMETER AllowInstallOfWinGet
-		Allow the installation of winget if it is not installed.
+		Allow the installation of winget if it is not installed. Or update winget if it is installed.
 
 	.EXAMPLE
 		Install-PpWingetApp -Id 'Mozilla.Firefox'

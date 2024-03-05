@@ -62,13 +62,18 @@
 	NestedModules          = @()
 
 	# Functions to export from this module
-	FunctionsToExport      = "Find-PpWinGet",
-		"Install-PpWingetApp",
-		"Get-PpWingetErrorCode"
+	FunctionsToExport      = 'Add-PpWingetScopeMachine',
+	'Confirm-PpWingetAppInstall',
+	'Find-PpWinGet',
+	'Get-PpWingetReturnCodeDescription',
+	'Install-PpWingetApp',
+	'Install-PpWingetPrerequisites',
+	'Uninstall-PpWingetApp',
+	'Update-PpWingetApp'
 	#For performance, list functions explicitly
 
 	# Cmdlets to export from this module
-	CmdletsToExport = '*'
+	CmdletsToExport        = '*'
 
 	# Variables to export from this module
 	VariablesToExport      = '*'

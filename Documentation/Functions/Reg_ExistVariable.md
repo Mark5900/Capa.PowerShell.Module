@@ -23,6 +23,15 @@ Reg_ExistVariable
 Reg_ExistVariable -RegRoot "HKLM" -RegKey "SOFTWARE\CapaSystems" -RegVariable "Test"
 ```
     
+### Example 2
+```powershell
+if (Reg_ExistVariable -RegRoot "HKLM" -RegKey "SOFTWARE\CapaSystems" -RegVariable "Test") {
+	Write-Host "The registry variable exists"
+} else {
+	Write-Host "The registry variable does not exist"
+}
+```
+    
 
 ## Parameters
 

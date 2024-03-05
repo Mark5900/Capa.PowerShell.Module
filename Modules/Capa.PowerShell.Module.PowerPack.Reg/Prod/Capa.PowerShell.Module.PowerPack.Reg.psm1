@@ -191,6 +191,13 @@ function Reg_ExistKey {
 	.EXAMPLE
 		PS C:\> Reg_ExistVariable -RegRoot "HKLM" -RegKey "SOFTWARE\CapaSystems" -RegVariable "Test"
 
+	.EXAMPLE
+		PS C:\> if (Reg_ExistVariable -RegRoot "HKLM" -RegKey "SOFTWARE\CapaSystems" -RegVariable "Test") {
+			Write-Host "The registry variable exists"
+		} else {
+			Write-Host "The registry variable does not exist"
+		}
+
 	.NOTES
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455887/cs.Reg+ExistVariable
 #>

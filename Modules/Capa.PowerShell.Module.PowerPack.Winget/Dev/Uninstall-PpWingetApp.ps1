@@ -57,7 +57,7 @@ function Uninstall-PpWingetApp {
 	$Text = Get-PpWingetReturnCodeDescription -Decimal $Result
 	Job_WriteLog -Text "Command completed with status: $Result" -FunctionName $FunctionName
 
-	$AppInstalled = Confirm-PpWingetAppInstall -AppId 'Mozilla.Firefox'
+	$AppInstalled = Confirm-PpWingetAppInstall -AppId $AppId
 	if ($AppInstalled) {
 		Job_WriteLog -Text "$AppId was not uninstalled" -FunctionName $FunctionName
 		Exit-PpCommandFailed -ExitMessage "$AppId was not uninstalled"

@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Language="1033" Name="Capa.PowerShell.Module.PowerPack" Version="1.4.4" Manufacturer="Mark5900" UpgradeCode="84859ca1-0f7d-47bf-8d36-ae22f5e171ad">
+    <Package InstallScope="perMachine" InstallPrivileges="elevated" Comments="Capa.PowerShell.Module.PowerPack" InstallerVersion="200" Platform="x64" />
+    <Property Id="POWERSHELL">
+      <RegistrySearch Id="POWERSHELL" Type="raw" Root="HKLM" Key="SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" Name="Path" />
+    </Property>
+    <Media Id="1" Cabinet="cab1.cab" EmbedCab="yes" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder" Name="ProgramFiles64Folder">
+        <Directory Id="dir72201b3787f74e8ab316766840ff4539" Name="PowerShell">
+          <Directory Id="dir76498d51dd1649968a78f25263dedfd9" Name="Modules">
+            <Directory Id="dird6e76ae8b0e34426bca2758d823021f5" Name="Capa.PowerShell.Module.PowerPack">
+              <Component Id="cmpe1b20d8876594415bd3d5ad4f6c9e027" Guid="*">
+                <File Id="fil481ed029e24c4e66b4b7278ea4386742" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack\Capa.PowerShell.Module.PowerPack.psd1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+              <Component Id="cmp6acd11cfddbf459ea23858967b2d5f39" Guid="*">
+                <File Id="fila83375129718438b85c838195d8770b1" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack\Capa.PowerShell.Module.PowerPack.psm1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+            </Directory>
+            <Directory Id="dir77f1e1f20be3472a9c68fc4fbeec05ab" Name="Capa.PowerShell.Module.PowerPack.Exit">
+              <Component Id="cmp4ae7dcf215b6498fa28432215c2eebb9" Guid="*">
+                <File Id="filb732d54ade7a43b09eb6d32b363b754d" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Exit\Prod\Capa.PowerShell.Module.PowerPack.Exit.psd1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+              <Component Id="cmp408fc29629224642b43d7177e7c90e62" Guid="*">
+                <File Id="fil7b6f3fd83c214b39a042d9f658b31b61" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Exit\Prod\Capa.PowerShell.Module.PowerPack.Exit.psm1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+            </Directory>
+            <Directory Id="dir45c6e88ecf48445b854019d4dfa3b3a6" Name="Capa.PowerShell.Module.PowerPack.File">
+              <Component Id="cmpa155570504754ab081823672ca1d12b3" Guid="*">
+                <File Id="fildca7b53d2775482f9776e6ad47565ae9" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.File\Prod\Capa.PowerShell.Module.PowerPack.File.psd1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+              <Component Id="cmp13f0addb1ced4b62a4bf4ceb6880abf4" Guid="*">
+                <File Id="fild356f63d6b31422aa49c57a88a70b268" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.File\Prod\Capa.PowerShell.Module.PowerPack.File.psm1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+            </Directory>
+            <Directory Id="dir5badd4b162ab40d7b9f31145c64f7fc5" Name="Capa.PowerShell.Module.PowerPack.Ini">
+              <Component Id="cmp8a52a5199f474b47b074ecfcf2cb7038" Guid="*">
+                <File Id="fil964dad347c394853b5d88e7a0725a73e" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Ini\Prod\Capa.PowerShell.Module.PowerPack.Ini.psd1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+              <Component Id="cmpee565747affd408bbffaa534a2643742" Guid="*">
+                <File Id="fil6669df69781f4d98bfe130ca1644bc07" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Ini\Prod\Capa.PowerShell.Module.PowerPack.Ini.psm1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+            </Directory>
+            <Directory Id="dir5c355977586f4e038025fd4d8e634275" Name="Capa.PowerShell.Module.PowerPack.Job">
+              <Component Id="cmpa33a665365124eff82fc7784dc355857" Guid="*">
+                <File Id="fil4886e77e15ff4bfd9a346c74648204dc" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Job\Prod\Capa.PowerShell.Module.PowerPack.Job.psd1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+              <Component Id="cmp9aa9927ac0794f66874fec05866f529c" Guid="*">
+                <File Id="fil54324365206a48bfacdef620f80e55f9" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Job\Prod\Capa.PowerShell.Module.PowerPack.Job.psm1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+            </Directory>
+            <Directory Id="dir5a073089a6bd4107bea3a6b662cba14f" Name="Capa.PowerShell.Module.PowerPack.Log">
+              <Component Id="cmp72386f5d88584bbcb4313c50e7a450d7" Guid="*">
+                <File Id="fildbb7ff1b38f0400d956a7fd264b8869a" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Log\Prod\Capa.PowerShell.Module.PowerPack.Log.psd1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+              <Component Id="cmp7362cd9016d049239ae9dc2af6cdbaad" Guid="*">
+                <File Id="filb2dde9dd4b0f41f09bec68660f48e57d" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Log\Prod\Capa.PowerShell.Module.PowerPack.Log.psm1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+            </Directory>
+            <Directory Id="dire4be029232c04d22b2bed832f6cc23f5" Name="Capa.PowerShell.Module.PowerPack.MSI">
+              <Component Id="cmp5d52d4c4efb44e80885f5b987f672526" Guid="*">
+                <File Id="fil5374f633d6ce4a5580995d8fdb5e450e" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.MSI\Prod\Capa.PowerShell.Module.PowerPack.MSI.psd1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+              <Component Id="cmp8e8bb4c3568846959338c99a21afa639" Guid="*">
+                <File Id="filb127102f382e48978bc8b4b46c62d9a2" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.MSI\Prod\Capa.PowerShell.Module.PowerPack.MSI.psm1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+            </Directory>
+            <Directory Id="dir2312b8088cb0469a82cd017ff531fa84" Name="Capa.PowerShell.Module.PowerPack.Reg">
+              <Component Id="cmp45245a233b3e468facf980dfe1c3f41a" Guid="*">
+                <File Id="fil03540411cc7c412f8446f4d5307a6a1f" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Reg\Prod\Capa.PowerShell.Module.PowerPack.Reg.psd1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+              <Component Id="cmp5f7db2c4ab3b45019cbc5e06de990829" Guid="*">
+                <File Id="fil15c5d391a76d4878ad88529cc056e4b6" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Reg\Prod\Capa.PowerShell.Module.PowerPack.Reg.psm1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+            </Directory>
+            <Directory Id="dir84d0d92df6b8421ca651ac413d74310c" Name="Capa.PowerShell.Module.PowerPack.Service">
+              <Component Id="cmpa05c5cbd6fee4368be1e1f994dbe5df1" Guid="*">
+                <File Id="filaab0eec0c0d842b6919f0ff30d84d4d4" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Service\Prod\Capa.PowerShell.Module.PowerPack.Service.psd1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+              <Component Id="cmpb649d9a7cf004b4db04c67c37a3bbb51" Guid="*">
+                <File Id="fil30ca2a051dd148b585b3370e0cb678b5" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Service\Prod\Capa.PowerShell.Module.PowerPack.Service.psm1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+            </Directory>
+            <Directory Id="dira9eb6d139b904d99a67a8f21dceb540e" Name="Capa.PowerShell.Module.PowerPack.Shell">
+              <Component Id="cmp9cdd710160034e469be9ad3bcb273f87" Guid="*">
+                <File Id="fildbfa94328183436ea32993113fac27f7" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Shell\Prod\Capa.PowerShell.Module.PowerPack.Shell.psd1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+              <Component Id="cmp6af039f74379408fa48b99d037946871" Guid="*">
+                <File Id="fil66ce7c5b076a471880412b0bc01fe98d" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Shell\Prod\Capa.PowerShell.Module.PowerPack.Shell.psm1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+            </Directory>
+            <Directory Id="diree3fe2c53ea44b2a9debb687ae6fbee9" Name="Capa.PowerShell.Module.PowerPack.Sys">
+              <Component Id="cmpa76b6bf1bd2946eab0472cca53e3ae26" Guid="*">
+                <File Id="filba5f4d38d3e9475284281f7a03ec958d" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psd1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+              <Component Id="cmp8fc7ec2ca73c440ca8cb7e7396f00be4" Guid="*">
+                <File Id="filf42498445b004e4eadd6cb485878c9d6" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psm1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+            </Directory>
+            <Directory Id="dir1ff0c948de9d4a7daacf1ae4569ae30e" Name="Capa.PowerShell.Module.PowerPack.UsrMgr">
+              <Component Id="cmpfd2a992dbeb64fb6813b38f3526b764f" Guid="*">
+                <File Id="fil1c6351639548438ba62f270bc8b6fcec" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psd1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+              <Component Id="cmpf297569117594188b52fb6b156759878" Guid="*">
+                <File Id="fil114c8f471a214e008a67fbc12684cf90" Source="D:\a\Capa.PowerShell.Module\Capa.PowerShell.Module\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psm1" KeyPath="yes" Compressed="yes" Checksum="yes" />
+              </Component>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <Feature Id="CAPA.POWERSHELL.MODULE.POWERPACK" Title="Capa.PowerShell.Module.PowerPack" Level="1">
+      <ComponentRef Id="cmpe1b20d8876594415bd3d5ad4f6c9e027" />
+      <ComponentRef Id="cmp6acd11cfddbf459ea23858967b2d5f39" />
+      <ComponentRef Id="cmp4ae7dcf215b6498fa28432215c2eebb9" />
+      <ComponentRef Id="cmp408fc29629224642b43d7177e7c90e62" />
+      <ComponentRef Id="cmpa155570504754ab081823672ca1d12b3" />
+      <ComponentRef Id="cmp13f0addb1ced4b62a4bf4ceb6880abf4" />
+      <ComponentRef Id="cmp8a52a5199f474b47b074ecfcf2cb7038" />
+      <ComponentRef Id="cmpee565747affd408bbffaa534a2643742" />
+      <ComponentRef Id="cmpa33a665365124eff82fc7784dc355857" />
+      <ComponentRef Id="cmp9aa9927ac0794f66874fec05866f529c" />
+      <ComponentRef Id="cmp72386f5d88584bbcb4313c50e7a450d7" />
+      <ComponentRef Id="cmp7362cd9016d049239ae9dc2af6cdbaad" />
+      <ComponentRef Id="cmp5d52d4c4efb44e80885f5b987f672526" />
+      <ComponentRef Id="cmp8e8bb4c3568846959338c99a21afa639" />
+      <ComponentRef Id="cmp45245a233b3e468facf980dfe1c3f41a" />
+      <ComponentRef Id="cmp5f7db2c4ab3b45019cbc5e06de990829" />
+      <ComponentRef Id="cmpa05c5cbd6fee4368be1e1f994dbe5df1" />
+      <ComponentRef Id="cmpb649d9a7cf004b4db04c67c37a3bbb51" />
+      <ComponentRef Id="cmp9cdd710160034e469be9ad3bcb273f87" />
+      <ComponentRef Id="cmp6af039f74379408fa48b99d037946871" />
+      <ComponentRef Id="cmpa76b6bf1bd2946eab0472cca53e3ae26" />
+      <ComponentRef Id="cmp8fc7ec2ca73c440ca8cb7e7396f00be4" />
+      <ComponentRef Id="cmpfd2a992dbeb64fb6813b38f3526b764f" />
+      <ComponentRef Id="cmpf297569117594188b52fb6b156759878" />
+    </Feature>
+  </Product>
+</Wix>

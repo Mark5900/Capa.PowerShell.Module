@@ -46,6 +46,7 @@ function Begin {
 	Job_WriteLog -Text ("[Init]: Starting package: '" + $Global:AppName + "' Release: '" + $Global:AppRelease + "'")
 	If (!(Sys_IsMinimumRequiredDiskspaceAvailable -Drive 'c:' -MinimumRequiredDiskspace 1500)) { Exit-PpMissingDiskSpace }
 	If ($global:DownloadPackage -and $Global:InputObject) { Start-PSDownloadPackage }
+	Initialize-PpVariables -DllPath $Global:DllPath
 
 	Job_WriteLog -Text ("[Init]: `$Global:Packageroot:` '" + $Global:Packageroot + "'")
 	Job_WriteLog -Text ("[Init]: `$Global:AppName:` '" + $Global:AppName + "'")

@@ -23,7 +23,7 @@ function Initialize-PpVariables {
     )
     try {
         Job_DisableLog
-        
+
         if ($Global:Cs.file_getfileversion($DllPath) -ge '0.2.0.0') {
             [string]$global:gsProgramFiles = $Global:Cs.gsProgramFiles
             [string]$global:gsProgramFilesx86 = $Global:Cs.gsProgramFilesx86
@@ -68,6 +68,7 @@ function Initialize-PpVariables {
             [string]$global:gsUnitName = $Global:Cs.gsUnitName
             [string]$global:gsComputerManufacturer = $Global:Cs.gsComputerManufacturer
             [string]$global:gsComputerModel = $Global:Cs.gsComputerModel
+						[string]$global:gsComputerName = $Global:Cs.gsComputerName
             [string]$global:gsUUID = $Global:Cs.gsUUID
             $true
         } else {
@@ -77,10 +78,10 @@ function Initialize-PpVariables {
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
         if ($Global:Cs) {
-            Job_WriteLog -Text "Initialize-PpVariables: Error Line: $($_.InvocationInfo.Line)" 
+            Job_WriteLog -Text "Initialize-PpVariables: Error Line: $($_.InvocationInfo.Line)"
         }
 
-        Write-Error 'Error Item: '$_.Exception.ItemName       
+        Write-Error 'Error Item: '$_.Exception.ItemName
         if ($Global:Cs) {
             Job_WriteLog -Text "Initialize-PpVariables: Error Item: $($_.Exception.ItemName)"
         }

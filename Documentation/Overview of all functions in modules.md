@@ -106,6 +106,17 @@
 * [Sys_WaitForProcess](Functions/Sys_WaitForProcess.md)
 * [Sys_WaitForProcessToExist](Functions/Sys_WaitForProcessToExist.md)
 
+## Capa.PowerShell.Module.PowerPack.Winget
+
+* [Add-PpWingetScopeMachine](Functions/Add-PpWingetScopeMachine.md)
+* [Confirm-PpWingetAppInstall](Functions/Confirm-PpWingetAppInstall.md)
+* [Find-PpWinGetCmd](Functions/Find-PpWinGetCmd.md)
+* [Get-PpWingetReturnCodeDescription](Functions/Get-PpWingetReturnCodeDescription.md)
+* [Install-PpWingetApp](Functions/Install-PpWingetApp.md)
+* [Install-PpWingetPrerequisites](Functions/Install-PpWingetPrerequisites.md)
+* [Uninstall-PpWingetApp](Functions/Uninstall-PpWingetApp.md)
+* [Update-PpWingetApp](Functions/Update-PpWingetApp.md)
+
 ## Capa.PowerShell.Module.SDK.Authentication
 
 * [Initialize-CapaSDK](Functions/Initialize-CapaSDK.md)

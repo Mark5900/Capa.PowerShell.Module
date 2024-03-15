@@ -58,7 +58,7 @@ jobs:
       - name: Import kit from current version
         run: |
           if (Test-Path $env:SourceKitPath) {
-            Copy-Item -Path $env:SourceKitPath -Destination $env:DestinationKitPath -Recurse -Force
+            Copy-Item -Path "$env:SourceKitPath\*" -Destination $env:DestinationKitPath -Recurse -Force
             Write-Host "Kit imported"
           } else {
             Write-Host "Kit does not exist"

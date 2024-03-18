@@ -166,7 +166,7 @@ function Get-PackageInfo {
 
 		$PackageInfo = [psobject]@{
 			PackageVersion = "p$($Settings.PackageVersion)"
-			PackageName    = "$($Settings.SoftwareName) $($Settings.SoftwareVersion)"
+			PackageName    = ("$($Settings.SoftwareName) $($Settings.SoftwareVersion)").Trim()
 			PackageType    = Get-PackageType -PackagePath $PSScriptRoot
 			PackagePath    = $PSScriptRoot
 			ScriptsPath    = Join-Path $PSScriptRoot 'Scripts'

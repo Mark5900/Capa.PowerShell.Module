@@ -11,7 +11,7 @@ jobs:
   deploy:
     runs-on: CapaServer
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Does Settings.json exist?
         run: |
@@ -43,19 +43,22 @@ jobs:
 
       - name: Set more variables
         run: |
-          $SourceKitPath = Join-Path $env:PackageBasePath "$env:SoftwareName $env:SoftwareVersion" "p$env:CurrentPackageVersion" "Kit"
+          $SourceKitPath = Join-Path $env:PackageBasePath ("$env:SoftwareName $env:SoftwareVersion").Trim() "p$env:CurrentPackageVersion" "Kit"
           echo "SourceKitPath=$SourceKitPath" >> $env:GITHUB_ENV
 
-          $DestinationZipPath = Join-Path $env:PackageBasePath "$env:SoftwareName $env:SoftwareVersion" "p$env:NewPackageVersion" "Zip"
+          $DestinationZipPath = Join-Path $env:PackageBasePath ("$env:SoftwareName $env:SoftwareVersion").Trim() "p$env:NewPackageVersion" "Zip"
           echo "DestinationZipPath=$DestinationZipPath" >> $env:GITHUB_ENV
 
-          $DestinationSyncLockPath = Join-Path $env:PackageBasePath "$env:SoftwareName $env:SoftwareVersion" "p$env:NewPackageVersion" "sync.lock"
+          $DestinationSyncLockPath = Join-Path $env:PackageBasePath ("$env:SoftwareName $env:SoftwareVersion").Trim() "p$env:NewPackageVersion" "sync.lock"
           echo "DestinationSyncLockPath=$DestinationSyncLockPath" >> $env:GITHUB_ENV
+
+          $PackageName = ("$env:SoftwareName $env:SoftwareVersion").Trim()
+          echo "PackageName=$PackageName" >> $env:GITHUB_ENV
 
       - name: Import kit from current version
         run: |
           if (Test-Path $env:SourceKitPath) {
-            Copy-Item -Path $env:SourceKitPath -Destination $env:DestinationKitPath -Recurse -Force
+            Copy-Item -Path "$env:SourceKitPath\*" -Destination $env:DestinationKitPath -Recurse -Force
             Write-Host "Kit imported"
           } else {
             Write-Host "Kit does not exist"
@@ -74,7 +77,7 @@ jobs:
       - name: Move package to the same folder as previous version
         run: |
           $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $env:DefaultManagementPoint
-          $PckName = "$env:SoftwareName $env:SoftwareVersion"
+          $PckName = $env:PackageName
           $PckCurVersion = "p$env:CurrentPackageVersion"
           $PckNewVersion = "p$env:NewPackageVersion"
 
@@ -112,7 +115,7 @@ jobs:
       - name: Set package Description
         run: |
           $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $env:DefaultManagementPoint
-          $PckName = "$env:SoftwareName $env:SoftwareVersion"
+          $PckName = $env:PackageName
           $PckNewVersion = "p$env:NewPackageVersion"
 
           if ([string]::IsNullOrEmpty($env:Description) -eq $false) {
@@ -143,7 +146,7 @@ jobs:
       - name: Export package
         run: |
           $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $env:DefaultManagementPoint
-          $PckName = "$env:SoftwareName $env:SoftwareVersion"
+          $PckName = $env:PackageName
           $PckNewVersion = "p$env:NewPackageVersion"
 
           if ([string]::IsNullOrEmpty($env:ExportPath)) {
@@ -192,7 +195,7 @@ jobs:
       - name: Promote package
         run: |
           $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $env:DefaultManagementPoint
-          $PckName = "$env:SoftwareName $env:SoftwareVersion"
+          $PckName = $env:PackageName
           $PckNewVersion = "p$env:NewPackageVersion"
 
           $bStatus =  Initialize-CapaPackagePromote -CapaSDK $oCMS -PackageName $PckName -PackageVersion $PckNewVersion -PackageType Computer

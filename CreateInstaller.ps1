@@ -190,14 +190,18 @@ function New-ModuleInstaller {
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psd1
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psm1
                     }
+                    New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.CMS' -Content {
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.CMS\Prod\Capa.PowerShell.Module.PowerPack.CMS.psd1
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.CMS\Prod\Capa.PowerShell.Module.PowerPack.CMS.psm1
+                    }
                     New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.UsrMgr' -Content {
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psd1
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psm1
                     }
-										New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Winget' -Content {
-												New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psd1
-												New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psm1
-										}
+                    New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Winget' -Content {
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psd1
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psm1
+                    }
                 }
             }
         }
@@ -359,6 +363,10 @@ function New-ModuleInstallerPowerPackOnly {
                     New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Sys' -Content {
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psd1
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psm1
+                    }
+                    New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.CMS' -Content {
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.CMS\Prod\Capa.PowerShell.Module.PowerPack.CMS.psd1
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.CMS\Prod\Capa.PowerShell.Module.PowerPack.CMS.psm1
                     }
                     New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.UsrMgr' -Content {
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psd1

@@ -62,7 +62,7 @@
 	NestedModules          = @()
 
 	# Functions to export from this module
-	FunctionsToExport      = '*'
+	FunctionsToExport      = 'Invoke-PpJobRetryLater'
 	#For performance, list functions explicitly
 
 	# Cmdlets to export from this module

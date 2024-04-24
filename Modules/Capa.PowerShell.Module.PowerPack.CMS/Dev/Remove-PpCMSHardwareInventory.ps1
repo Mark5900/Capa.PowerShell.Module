@@ -21,6 +21,7 @@
 	}
 #>
 function Remove-PpCMSHardwareInventory {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Category,

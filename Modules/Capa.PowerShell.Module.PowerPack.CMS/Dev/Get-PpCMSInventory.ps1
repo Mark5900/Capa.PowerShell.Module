@@ -24,6 +24,7 @@
 		Calling this function repeatedly from a package could result in overall slower performance. This function should be used with care.
 #>
 function Get-PpCMSInventory {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidationSet('Hardware Inventory', 'Logon Inventory', 'Custom Inventory')]

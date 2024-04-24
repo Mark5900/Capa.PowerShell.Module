@@ -32,6 +32,7 @@
 		}
 #>
 function Uninstall-PpCMSPackageFromUnit {
+	[CmdletBinding()]
 	param (
 		[Parameter(ParameterSetName = 'ID', Mandatory = $true)]
 		[string]$PackageID,

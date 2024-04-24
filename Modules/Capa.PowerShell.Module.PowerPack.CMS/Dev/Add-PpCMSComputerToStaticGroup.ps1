@@ -18,6 +18,7 @@
 		}
 #>
 function Add-PpCMSComputerToStaticGroup {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Group

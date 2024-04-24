@@ -21,6 +21,7 @@
 		}
 #>
 function Set-PpCMSPackageStatusToNotCompliant {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$PackageName,

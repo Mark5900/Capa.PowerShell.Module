@@ -18,6 +18,7 @@
 		}
 #>
 function Add-PpCMSComputerToDepartmentGroup {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Group

@@ -18,6 +18,7 @@
 		}
 #>
 function Remove-PpCMSComputerFromReinstallGroup {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Group

@@ -21,6 +21,7 @@
 	}
 #>
 function Install-PpCMSAdvertisedPackage {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$PackageName,

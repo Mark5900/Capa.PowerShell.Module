@@ -31,6 +31,7 @@
 		}
 #>
 function Get-PpCMSPackageStatus {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$PackageName,

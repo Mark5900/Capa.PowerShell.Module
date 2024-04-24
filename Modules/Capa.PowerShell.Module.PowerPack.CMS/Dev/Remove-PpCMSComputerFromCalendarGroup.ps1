@@ -18,6 +18,7 @@
 		}
 #>
 function Remove-PpCMSComputerFromCalendarGroup {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Group

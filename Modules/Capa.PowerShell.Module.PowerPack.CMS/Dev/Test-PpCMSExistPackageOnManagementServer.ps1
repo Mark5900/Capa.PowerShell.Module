@@ -24,6 +24,7 @@
 		}
 #>
 function Test-PpCMSExistPackageOnManagementServer {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$PackageName,

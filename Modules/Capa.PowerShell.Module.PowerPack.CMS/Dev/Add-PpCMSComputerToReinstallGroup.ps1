@@ -18,6 +18,7 @@
 		}
 #>
 function Add-PpCMSComputerToReinstallGroup {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Group

@@ -18,6 +18,7 @@
 		}
 #>
 function Remove-PpCMSComputerFromDepartmentGroup {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Group

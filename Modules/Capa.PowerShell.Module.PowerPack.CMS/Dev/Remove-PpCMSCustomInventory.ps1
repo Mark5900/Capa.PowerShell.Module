@@ -16,6 +16,7 @@
 		$bStatus = Remove-PpCMSCustomInventory -Category "Bitlocker" -Entry "BitlockerStatus"
 #>
 function Remove-PpCMSCustomInventory {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Category,

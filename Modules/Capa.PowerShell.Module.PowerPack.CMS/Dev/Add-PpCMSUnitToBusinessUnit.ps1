@@ -18,6 +18,7 @@
 		}
 #>
 function Add-PpCMSUnitToBusinessUnit {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$BusinessUnitName

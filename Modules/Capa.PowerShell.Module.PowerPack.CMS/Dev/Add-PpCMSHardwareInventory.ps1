@@ -33,6 +33,7 @@
 		}
 #>
 function Add-PpCMSHardwareInventory {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Category,

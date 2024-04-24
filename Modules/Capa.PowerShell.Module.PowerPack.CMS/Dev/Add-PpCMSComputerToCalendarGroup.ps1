@@ -18,6 +18,7 @@
 		}
 #>
 function Add-PpCMSComputerToCalendarGroup {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Group

@@ -19,6 +19,7 @@
 		}
 #>
 function Invoke-PpCMSRunSystemAgent {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $false)]
 		[string]$Delay

@@ -18,6 +18,7 @@
 		}
 #>
 function Add-PpCMSComputerToPowerSchemeGroup {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Group

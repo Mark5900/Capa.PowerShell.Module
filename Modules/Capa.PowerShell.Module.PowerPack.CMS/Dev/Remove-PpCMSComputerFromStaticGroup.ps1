@@ -18,6 +18,7 @@
 		}
 #>
 function Remove-PpCMSComputerFromStaticGroup {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Group

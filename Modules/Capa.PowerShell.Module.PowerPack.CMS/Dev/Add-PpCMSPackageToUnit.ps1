@@ -21,6 +21,7 @@
 		}
 #>
 function Add-PpCMSPackageToUnit {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$PackageName,

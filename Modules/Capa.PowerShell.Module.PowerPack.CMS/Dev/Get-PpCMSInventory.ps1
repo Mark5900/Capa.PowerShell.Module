@@ -18,6 +18,10 @@
 	.EXAMPLE
 		$value = Get-PpCMSInventory -Table 'Hardware Inventory' -Category 'System' -Entry 'Name'
 		Job_WriteLog -Text "Name: $value"
+
+	.NOTES
+		Please note, that this is an expensive call, seen from the Frontend/database perspective.
+		Calling this function repeatedly from a package could result in overall slower performance. This function should be used with care.
 #>
 function Get-PpCMSInventory {
 	param (

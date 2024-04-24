@@ -12,9 +12,9 @@
 	.EXAMPLE
 		$bStatus = Add-PpCMSComputerToStaticGroup -Group "CapaInstaller"
 		if ($bStatus) {
-			Write-Host "Computer added to group."
+			Job_WriteLog -Text "Computer added to group."
 		} else {
-			Write-Host "Failed to add computer to group."
+			Job_WriteLog -Text "Failed to add computer to group."
 		}
 #>
 function Add-PpCMSComputerToStaticGroup {

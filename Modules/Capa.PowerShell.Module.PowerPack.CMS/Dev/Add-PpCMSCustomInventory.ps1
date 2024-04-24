@@ -27,9 +27,9 @@
 	.EXAMPLE
 		$bStatus = Add-PpCMSCustomInventory -Category "MyCategory" -Entry "MyEntry" -Value "MyValue" -ValueType "String"
 		if ($bStatus) {
-			Write-Host "Custom inventory added successfully."
+			Job_WriteLog -Text "Custom inventory added successfully."
 		} else {
-			Write-Host "Failed to add custom inventory."
+			Job_WriteLog -Text "Failed to add custom inventory."
 		}
 
 	.NOTES

@@ -15,9 +15,9 @@
 	.EXAMPLE
 		$bStatus = Remove-PpCMSHardwareInventory -Category "MyCategory" -Entry "MyEntry"
 		if ($bStatus) {
-			Write-Host "Hardware inventory removed successfully."
+			Job_WriteLog -Text "Hardware inventory removed successfully."
 		} else {
-			Write-Host "Failed to remove hardware inventory."
+			Job_WriteLog -Text "Failed to remove hardware inventory."
 	}
 #>
 function Remove-PpCMSHardwareInventory {

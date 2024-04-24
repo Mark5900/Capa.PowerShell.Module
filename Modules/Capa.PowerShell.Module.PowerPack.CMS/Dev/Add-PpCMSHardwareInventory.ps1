@@ -27,9 +27,9 @@
 	.EXAMPLE
 		$bStatus = Add-PpCMSHardwareInventory -Category "MyCategory" -Entry "MyEntry" -Value "MyValue" -ValueType "String"
 		if ($bStatus) {
-			Write-Host "Hardware inventory added successfully."
+			Job_WriteLog -Text "Hardware inventory added successfully."
 		} else {
-			Write-Host "Failed to add hardware inventory."
+			Job_WriteLog -Text "Failed to add hardware inventory."
 		}
 #>
 function Add-PpCMSHardwareInventory {

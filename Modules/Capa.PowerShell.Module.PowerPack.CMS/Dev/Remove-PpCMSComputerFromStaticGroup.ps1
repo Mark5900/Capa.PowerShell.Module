@@ -12,9 +12,9 @@
 	.EXAMPLE
 		$bStatus = Remove-PpCMSComputerFromStaticGroup -Group "CapaInstaller"
 		if ($bStatus) {
-			Write-Host "Computer removed from group."
+			Job_WriteLog -Text "Computer removed from group."
 		} else {
-			Write-Host "Failed to remove computer from group."
+			Job_WriteLog -Text "Failed to remove computer from group."
 		}
 #>
 function Remove-PpCMSComputerFromStaticGroup {

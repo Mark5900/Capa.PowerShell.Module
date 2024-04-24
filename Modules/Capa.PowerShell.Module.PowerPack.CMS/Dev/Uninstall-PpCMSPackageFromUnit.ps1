@@ -18,17 +18,17 @@
 	.EXAMPLE
 		$bStatus = Uninstall-PpCMSPackageFromUnit -PackageID 1234
 		if ($bStatus) {
-			Write-Host "Package uninstalled"
+			Job_WriteLog -Text "Package uninstalled"
 		} else {
-			Write-Host "Failed to uninstall package"
+			Job_WriteLog -Text "Failed to uninstall package"
 		}
 
 	.EXAMPLE
 		$bStatus = Uninstall-PpCMSPackageFromUnit -PackageName 'MyPackage' -PackageVersion 'v1.0'
 		if ($bStatus) {
-			Write-Host "Package uninstalled"
+			Job_WriteLog -Text "Package uninstalled"
 		} else {
-			Write-Host "Failed to uninstall package"
+			Job_WriteLog -Text "Failed to uninstall package"
 		}
 #>
 function Uninstall-PpCMSPackageFromUnit {

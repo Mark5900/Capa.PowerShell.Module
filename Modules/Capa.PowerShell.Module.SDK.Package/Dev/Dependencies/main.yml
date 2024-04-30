@@ -37,6 +37,7 @@ jobs:
           echo "Description=$($Settings.Description)" >> $env:GITHUB_ENV
           echo "ExportPath=$($Settings.ExportPath)" >> $env:GITHUB_ENV
           echo "NewPackageVersion=$($Settings.PackageVersion)" >> $env:GITHUB_ENV
+          echo "PackagePriority=$($Settings.PackagePriority)" >> $env:GITHUB_ENV
 
           $DestinationKitPath = Join-Path (Get-Location).Path "Kit"
           echo "DestinationKitPath=$DestinationKitPath" >> $env:GITHUB_ENV
@@ -139,6 +140,18 @@ jobs:
             Write-Host "Package description updated"
           } else {
             Write-Host "Package description not updated"
+            exit 1
+          }
+
+      - name: Set package priority
+        run: |
+          $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $env:DefaultManagementPoint
+          $bStatus = Set-CapaPackagePriority -CapaSDK $oCMS -PackageName $env:PackageName -PackageVersion "p$env:NewPackageVersion" -PackageType Computer -Priority $env:PackagePriority
+
+          if ($bStatus -eq $true) {
+            Write-Host "Package priority set to $env:PackagePriority"
+          } else {
+            Write-Host "Failed to set package priority"
             exit 1
           }
 

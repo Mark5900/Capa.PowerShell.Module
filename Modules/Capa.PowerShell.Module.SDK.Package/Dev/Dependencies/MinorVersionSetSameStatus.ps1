@@ -17,7 +17,7 @@
 $SettingsPath = Join-Path $PSScriptRoot 'Settings.json'
 $Settings = Get-Content $SettingsPath | ConvertFrom-Json
 
-$PackageName = "$($Settings.SoftwareName) $($Settings.SoftwareVersion)"
+$PackageName = ("$($Settings.SoftwareName) $($Settings.SoftwareVersion)").Trim()
 $NewPackageVersion = "p$($Settings.PackageVersion)"
 $OldPackageVersion = "p$($Settings.OldPackageVersion)"
 # Change as needed
@@ -49,47 +49,54 @@ try {
 			Write-Host "The new package exists on $($Point.Name)."
 		}
 
+		$AllUnits = Get-CapaUnits -CapaSDK $oCMSCurrent -Type Computer
 		$LinkedUnits = Get-CapaPackageUnits -CapaSDK $oCMSCurrent -PackageName $PackageName -PackageVersion $OldPackageVersion -PackageType Computer
-		foreach ($Unit in $LinkedUnits) {
-			$PackageStatusSplatting = @{
-				CapaSDK        = $oCMSCurrent
-				UnitName       = $Unit.Name
-				UnitType       = 'Computer'
-				PackageName    = $PackageName
-				PackageVersion = $OldPackageVersion
-			}
-			$UnitPackageStatus = Get-CapaUnitPackageStatus @PackageStatusSplatting
 
-			if ($UnitPackageStatus -eq 'Installed') {
-				Write-Host "Adding $($Unit.Name) to the new package and sets the status to Installed."
+		foreach ($LinkUnit in $LinkedUnits) {
+			$Unit = $AllUnits | Where-Object { $_.GUID -eq $LinkUnit.GUID }
+				try {
+					$PackageStatusSplatting = @{
+						CapaSDK        = $oCMSCurrent
+						UnitName       = $Unit.UUID
+						UnitType       = 'Computer'
+						PackageName    = $PackageName
+						PackageVersion = $OldPackageVersion
+					}
+					$UnitPackageStatus = Get-CapaUnitPackageStatus @PackageStatusSplatting
 
-				$PackageAddSplatting = @{
-					CapaSDK        = $oCMSCurrent
-					UnitName       = $Unit.Name
-					UnitType       = 'Computer'
-					PackageName    = $PackageName
-					PackageVersion = $NewPackageVersion
-					PackageType    = 'Computer'
-				}
-				$bStatus = Add-CapaUnitToPackage @PackageAddSplatting
+					if ($UnitPackageStatus -eq 'Installed') {
+						Write-Host "Adding $($Unit.Name) (UUID: $($Unit.UUID)) to the new package and sets the status to Installed."
 
-				if ($bStatus -eq $false) {
-					Write-Host "Failed to add $($Unit.Name) to the new package."
-				}
+						$PackageAddSplatting = @{
+							CapaSDK        = $oCMSCurrent
+							UnitName       = $Unit.UUID
+							UnitType       = 'Computer'
+							PackageName    = $PackageName
+							PackageVersion = $NewPackageVersion
+							PackageType    = 'Computer'
+						}
+						$bStatus = Add-CapaUnitToPackage @PackageAddSplatting
 
-				$PackageStatusSplatting = @{
-					CapaSDK        = $oCMSCurrent
-					UnitName       = $Unit.Name
-					UnitType       = 'Computer'
-					PackageName    = $PackageName
-					PackageVersion = $NewPackageVersion
-					Status         = 'Installed'
-				}
-				$bStatus = Set-CapaUnitPackageStatus @PackageStatusSplatting
+						if ($bStatus -eq $false) {
+							Write-Error "Failed to add $($Unit.Name) (UUID: $($Unit.UUID)) to the new package."
+						}
 
-				if ($bStatus -eq $false) {
-					Write-Host "Failed to set the status to Installed for $($Unit.Name) on the new package."
-				}
+						$PackageStatusSplatting = @{
+							CapaSDK        = $oCMSCurrent
+							UnitName       = $Unit.UUID
+							UnitType       = 'Computer'
+							PackageName    = $PackageName
+							PackageVersion = $NewPackageVersion
+							Status         = 'Installed'
+						}
+						$bStatus = Set-CapaUnitPackageStatus @PackageStatusSplatting
+
+						if ($bStatus -eq $false) {
+							Write-Error "Failed to set the status to Installed for $($Unit.Name) (UUID: $($Unit.UUID)) on the new package."
+						}
+					}
+				} catch {
+					Write-Error "Failed to set the status for $($Unit.Name) (UUID: $($Unit.UUID)) on the new package. Error: $($Error[0])"
 			}
 		}
 	}

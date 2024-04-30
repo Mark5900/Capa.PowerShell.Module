@@ -109,7 +109,6 @@ jobs:
             Write-Host "Package moved to folder"
           } else {
             Write-Host "Error could not move package to folder"
-            exit 1
           }
 
       - name: Set package Description

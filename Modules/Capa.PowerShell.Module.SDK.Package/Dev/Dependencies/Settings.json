@@ -11,7 +11,7 @@
 	"Description": "",
 	"ExportPath": "",
 	"OldPackageVersion": "",
-	"NewSoftwareVersion": {
+	"OldSoftwareVersion": {
 		"SoftwareName": "",
 		"SoftwareVersion": "",
 		"PackageVersion": "0.0"

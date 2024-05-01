@@ -10,5 +10,10 @@
 	"PackagePriority": "500",
 	"Description": "",
 	"ExportPath": "",
-	"OldPackageVersion": ""
+	"OldPackageVersion": "",
+	"NewSoftwareVersion": {
+		"SoftwareName": "",
+		"SoftwareVersion": "",
+		"PackageVersion": "0.0"
+	}
 }

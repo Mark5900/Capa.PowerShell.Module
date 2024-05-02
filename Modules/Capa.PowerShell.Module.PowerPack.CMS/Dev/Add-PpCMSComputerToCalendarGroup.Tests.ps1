@@ -1,5 +1,4 @@
 BeforeAll {
-	# Import file
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -63,7 +62,7 @@ Describe 'Add-PpCMSComputerToCalendarGroup' {
 		$Status = Get-CapaUnitPackageStatus -CapaSDK $oCMS -Unitname 'CISERVER' -UnitType 'Computer' -PackageName 'Test1' -PackageVersion 'v1.0'
 		$Status | Should -Be 'Installed'
 	}
-	It "The log should contain 'Add-PpCMSComputerToCalendarGroup: Package added to unit'" {
+	It 'The log should contain the right text' {
 		$LogPath = 'C:\Program Files\CapaInstaller\Client\Logs\Test1.log'
 		$LogContent = Get-Content -Path $LogPath -Raw
 

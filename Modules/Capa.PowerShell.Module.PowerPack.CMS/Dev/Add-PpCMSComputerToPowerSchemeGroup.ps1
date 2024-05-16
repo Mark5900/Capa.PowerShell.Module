@@ -16,6 +16,9 @@
 		} else {
 			Job_WriteLog -Text "Failed to add computer unit to power scheme group."
 		}
+
+	.NOTES
+		https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/19610726200/CMS+AddComputerToPowerSchemeGroup
 #>
 function Add-PpCMSComputerToPowerSchemeGroup {
 	[CmdletBinding()]

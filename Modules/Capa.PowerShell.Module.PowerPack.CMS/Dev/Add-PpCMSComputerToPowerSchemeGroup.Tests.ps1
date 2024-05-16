@@ -1,4 +1,3 @@
-# TODO: #322 Create tests for Add-PpCMSComputerToPowerSchemeGroup
 # Requires: A Power Scheme Groups called Test, that you create manually
 BeforeAll {
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')

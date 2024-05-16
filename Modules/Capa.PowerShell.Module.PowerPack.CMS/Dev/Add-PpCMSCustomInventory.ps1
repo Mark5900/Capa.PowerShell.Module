@@ -34,6 +34,8 @@
 
 	.NOTES
 		Please note, that this is an expensive call, seen from the Frontend/database perspective. Calling this function repeatedly from a package could result in overall slower performance. This function should be used with care.
+
+		https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/19610726255/CMS+AddCustomInventory
 #>
 function Add-PpCMSCustomInventory {
 	[CmdletBinding()]

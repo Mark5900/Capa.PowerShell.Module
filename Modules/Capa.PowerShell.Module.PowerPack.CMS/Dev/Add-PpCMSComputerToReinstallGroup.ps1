@@ -16,6 +16,9 @@
 		} else {
 			Job_WriteLog -Text "Failed to add computer to Reinstall Group."
 		}
+
+	.NOTES
+		https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/19610726217/CMS+AddComputerToReinstallGroup
 #>
 function Add-PpCMSComputerToReinstallGroup {
 	[CmdletBinding()]

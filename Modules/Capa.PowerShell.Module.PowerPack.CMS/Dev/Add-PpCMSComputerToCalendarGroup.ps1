@@ -16,6 +16,9 @@
 		} else {
 			Job_WriteLog -Text "Failed to add computer to group."
 		}
+
+	.NOTES
+		https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/19610726162/CMS+AddComputerToCalendarGroup
 #>
 function Add-PpCMSComputerToCalendarGroup {
 	[CmdletBinding()]

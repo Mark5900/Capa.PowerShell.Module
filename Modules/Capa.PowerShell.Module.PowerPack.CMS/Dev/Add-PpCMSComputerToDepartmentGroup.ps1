@@ -16,6 +16,9 @@
 		} else {
 			Job_WriteLog -Text "Failed to add computer unit to department group."
 		}
+
+	.NOTES
+		https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/19610726181/CMS+AddComputerToDepartmentGroup
 #>
 function Add-PpCMSComputerToDepartmentGroup {
 	[CmdletBinding()]

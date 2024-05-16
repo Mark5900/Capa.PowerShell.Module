@@ -31,6 +31,9 @@
 		} else {
 			Job_WriteLog -Text "Failed to add hardware inventory."
 		}
+
+	.NOTES
+		https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/19610726295/CMS+AddHardwareInventory
 #>
 function Add-PpCMSHardwareInventory {
 	[CmdletBinding()]

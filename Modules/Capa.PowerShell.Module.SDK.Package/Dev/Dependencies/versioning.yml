@@ -4,7 +4,7 @@ on:
     branches:
       - main
     types: [opened]
-    path:
+    paths:
       - 'Scripts/**'
       - 'Settings.json'
       - 'kit/**'

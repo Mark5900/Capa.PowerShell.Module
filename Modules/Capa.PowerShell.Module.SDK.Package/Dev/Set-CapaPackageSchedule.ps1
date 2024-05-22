@@ -84,11 +84,11 @@ function Set-CapaPackageSchedule {
 		[String]$PackageType,
 		[Parameter(Mandatory = $true)]
 		[String]$ScheduleStart,
-		[Parameter(Mandatory = $true)]
+		[Parameter(Mandatory = $false)]
 		[String]$ScheduleEnd,
-		[Parameter(Mandatory = $true)]
+		[Parameter(Mandatory = $false)]
 		[String]$ScheduleIntervalBegin,
-		[Parameter(Mandatory = $true)]
+		[Parameter(Mandatory = $false)]
 		[String]$ScheduleIntervalEnd,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Once', 'PeriodicalDaily', 'PeriodicalWeekly', 'Always')]

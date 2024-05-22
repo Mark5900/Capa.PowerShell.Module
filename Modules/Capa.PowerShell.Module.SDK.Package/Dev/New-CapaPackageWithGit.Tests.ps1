@@ -47,6 +47,7 @@ Describe 'VB package not advanced' {
 		$UpdateScript = Join-Path $PackagePath 'UpdatePackage.ps1'
 		$InstallScript = Join-Path $ScriptPath "$($PackageSpllatting.PackageName).cis"
 		$UninstallScript = Join-Path $ScriptPath "$($PackageSpllatting.PackageName)_Uninstall.cis"
+		$DummyFile = Join-Path $KitPath 'CapaInstaller.txt'
 	}
 	It 'Does the created folders exsist' {
 		$PackagePath | Should -Exist
@@ -59,6 +60,7 @@ Describe 'VB package not advanced' {
 		$UpdateScript | Should -Exist
 		$InstallScript | Should -Exist
 		$UninstallScript | Should -Exist
+		$DummyFile | Should -Exist
 	}
 	It 'Does the installfile contains the correct content' {
 		$InstallScript | Should -FileContentMatch $PackageSpllatting.PackageName
@@ -106,6 +108,7 @@ Describe 'PowerPack package not advanced' {
 		$UpdateScript = Join-Path $PackagePath 'UpdatePackage.ps1'
 		$InstallScript = Join-Path $ScriptPath 'Install.ps1'
 		$UninstallScript = Join-Path $ScriptPath 'Uninstall.ps1'
+		$DummyFile = Join-Path $KitPath 'CapaInstaller.txt'
 	}
 	It 'Does the created folders exsist' {
 		$PackagePath | Should -Exist
@@ -118,6 +121,7 @@ Describe 'PowerPack package not advanced' {
 		$UpdateScript | Should -Exist
 		$InstallScript | Should -Exist
 		$UninstallScript | Should -Exist
+		$DummyFile | Should -Exist
 	}
 	It 'Does the update package script contains the correct content' {
 		$UpdateScript | Should -FileContentMatch "CapaServer = '$($PackageSpllatting.CapaServer)'"
@@ -155,6 +159,7 @@ Describe 'VB package advanced' {
 		$UninstallScript = Join-Path $ScriptPath "$($PackageSpllatting.SoftwareName)_Uninstall.cis"
 		$GitHubActionsFile = Join-Path $GitHubActionsPath 'main.yml'
 		$SettingsFile = Join-Path $PackagePath 'Settings.json'
+		$DummyFile = Join-Path $KitPath 'CapaInstaller.txt'
 	}
 	It 'Does the created folders exsist' {
 		$PackagePath | Should -Exist
@@ -169,6 +174,7 @@ Describe 'VB package advanced' {
 		$UninstallScript | Should -Exist
 		$GitHubActionsFile | Should -Exist
 		$SettingsFile | Should -Exist
+		$DummyFile | Should -Exist
 	}
 	It 'Does the installfile contains the correct content' {
 		$InstallScript | Should -FileContentMatch $PackageSpllatting.SoftwareName
@@ -203,4 +209,7 @@ Describe 'VB package advanced' {
 	AfterAll {
 		Remove-Item -Path $PackagePath -Recurse -Force
 	}
+}
+AfterAll {
+	Get-Module | Remove-Module
 }

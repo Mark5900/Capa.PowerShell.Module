@@ -1,13 +1,13 @@
 @{
 
 	# Script module or binary module file associated with this manifest
-	RootModule             = '.\Capa.PowerShell.Module.PowerPack.Sys.psm1'
+	RootModule             = '.\Capa.PowerShell.Module.PowerPack.CMS.psm1'
 
 	# Version number of this module.
-	ModuleVersion          = '1.6.0'
+	ModuleVersion          = '1.5.1'
 
 	# ID used to uniquely identify this module
-	GUID                   = '20b3c8d3-49bb-41e8-a14f-6d107aaa95e4'
+	GUID                   = 'ee5f81a6-b062-4484-8f64-86ed506c3a9e'
 
 	# Author of this module
 	Author                 = 'Mark5900'
@@ -42,7 +42,7 @@
 
 	# Modules that must be imported into the global environment prior to importing
 	# this module
-	RequiredModules        = @()
+	RequiredModules        = @( 'CiScripting' )
 
 	# Assemblies that must be loaded prior to importing this module
 	RequiredAssemblies     = @()
@@ -62,13 +62,7 @@
 	NestedModules          = @()
 
 	# Functions to export from this module
-	FunctionsToExport      = 'Sys_GetFreeDiskSpace',
-	'Sys_ExistProcess',
-	'Sys_KillProcess',
-	'Sys_IsMinimumRequiredDiskspaceAvailable',
-	'Sys_WaitForProcess',
-	'Sys_WaitForProcessToExist',
-	'Show-PpMessageBox'
+	FunctionsToExport      = 'Invoke-PpJobRetryLater'
 	#For performance, list functions explicitly
 
 	# Cmdlets to export from this module

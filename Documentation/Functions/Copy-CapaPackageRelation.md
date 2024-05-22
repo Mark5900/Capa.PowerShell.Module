@@ -8,16 +8,17 @@ Custom funktion to copy a package relations.
 ```powershell
 Copy-CapaPackageRelation
 	-CapaSDK <Object>
-	-FromPackageType <String>
 	-FromPackageName <String>
 	-FromPackageVersion <String>
-	-ToPackageType <String>
+	-FromPackageType <String>
 	-ToPackageName <String>
 	-ToPackageVersion <String>
-	-CopyGroups <String>
-	-CopyUnits <String>
+	-ToPackageType <String>
+	-CopyGroups <Boolean>
+	-CopyUnits <Boolean>
 	-UnlinkGroupsAndUnitsFromExistingPackage <Boolean>
 	-DisableScheduleOnExistingPackage <Boolean>
+	-CopySchedule <Boolean>
 ```
 
 ## Description
@@ -40,6 +41,7 @@ Copy-CapaPackageRelation @(
 	CopyUnits = "None"
 	UnlinkGroupsAndUnitsFromExistingPackage = $true
 	DisableScheduleOnExistingPackage = $true
+	CopySchedule = $true
 )
 ```
     
@@ -57,24 +59,13 @@ The CapaSDK object.
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
 
--**FromPackageType**
-
-The type of the package to copy relations from, either Computer or User.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
 -**FromPackageName**
 
 The name of the package to copy relations from.
 | Name | Value |
 | ---- | ---- |
 | Type: | String |
-| Position: | 3 | 
+| Position: | 2 | 
 | Default value: | None | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
@@ -85,18 +76,18 @@ The version of the package to copy relations from.
 | Name | Value |
 | ---- | ---- |
 | Type: | String |
-| Position: | 4 | 
+| Position: | 3 | 
 | Default value: | None | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
 
--**ToPackageType**
+-**FromPackageType**
 
-The type of the package to copy relations to, either Computer or User.
+The type of the package to copy relations from, either Computer or User.
 | Name | Value |
 | ---- | ---- |
 | Type: | String |
-| Position: | 5 | 
+| Position: | 4 | 
 | Default value: | None | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
@@ -107,7 +98,7 @@ The name of the package to copy relationsto.
 | Name | Value |
 | ---- | ---- |
 | Type: | String |
-| Position: | 6 | 
+| Position: | 5 | 
 | Default value: | None | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
@@ -115,6 +106,17 @@ The name of the package to copy relationsto.
 -**ToPackageVersion**
 
 The version of the package to copy relations to.
+| Name | Value |
+| ---- | ---- |
+| Type: | String |
+| Position: | 6 | 
+| Default value: | None | 
+| Accept pipeline input: | false | 
+| Accept wildcard characters: | false | 
+
+-**ToPackageType**
+
+The type of the package to copy relations to, either Computer or User.
 | Name | Value |
 | ---- | ---- |
 | Type: | String |
@@ -128,9 +130,9 @@ The version of the package to copy relations to.
 If set to All, all groups will be copied. If set to None, no groups will be copied.
 | Name | Value |
 | ---- | ---- |
-| Type: | String |
+| Type: | Boolean |
 | Position: | 8 | 
-| Default value: | None | 
+| Default value: | False | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
 
@@ -139,9 +141,9 @@ If set to All, all groups will be copied. If set to None, no groups will be copi
 If set to All, all units will be copied. If set to None, no units will be copied.
 | Name | Value |
 | ---- | ---- |
-| Type: | String |
+| Type: | Boolean |
 | Position: | 9 | 
-| Default value: | None | 
+| Default value: | False | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
 
@@ -163,6 +165,17 @@ If set to true, the schedule will be disabled on the existing package.
 | ---- | ---- |
 | Type: | Boolean |
 | Position: | 11 | 
+| Default value: | False | 
+| Accept pipeline input: | false | 
+| Accept wildcard characters: | false | 
+
+-**CopySchedule**
+
+If set to true, the schedule will be copied from the existing package.
+| Name | Value |
+| ---- | ---- |
+| Type: | Boolean |
+| Position: | 12 | 
 | Default value: | False | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 

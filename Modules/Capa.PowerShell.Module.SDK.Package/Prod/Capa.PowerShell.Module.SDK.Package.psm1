@@ -292,8 +292,6 @@ function Copy-CapaPackage {
 }
 
 
-# TODO: #160 Update and add tests
-
 <#
 	.SYNOPSIS
 		Custom funktion to copy a package relations.
@@ -304,23 +302,23 @@ function Copy-CapaPackage {
 	.PARAMETER CapaSDK
 		The CapaSDK object.
 
-	.PARAMETER FromPackageType
-		The type of the package to copy relations from, either Computer or User.
-
 	.PARAMETER FromPackageName
 		The name of the package to copy relations from.
 
 	.PARAMETER FromPackageVersion
 		The version of the package to copy relations from.
 
-	.PARAMETER ToPackageType
-		The type of the package to copy relations to, either Computer or User.
+	.PARAMETER FromPackageType
+	The type of the package to copy relations from, either Computer or User.
 
 	.PARAMETER ToPackageName
 		The name of the package to copy relationsto.
 
 	.PARAMETER ToPackageVersion
 		The version of the package to copy relations to.
+
+	.PARAMETER ToPackageType
+		The type of the package to copy relations to, either Computer or User.
 
 	.PARAMETER CopyGroups
 		If set to All, all groups will be copied. If set to None, no groups will be copied.
@@ -333,6 +331,9 @@ function Copy-CapaPackage {
 
 	.PARAMETER DisableScheduleOnExistingPackage
 		If set to true, the schedule will be disabled on the existing package.
+
+	.PARAMETER CopySchedule
+		If set to true, the schedule will be copied from the existing package.
 
 	.EXAMPLE
 		PS C:\> Copy-CapaPackageRelation @(
@@ -347,6 +348,7 @@ function Copy-CapaPackage {
 			CopyUnits = "None"
 			UnlinkGroupsAndUnitsFromExistingPackage = $true
 			DisableScheduleOnExistingPackage = $true
+			CopySchedule = $true
 		)
 
 	.NOTES
@@ -358,27 +360,26 @@ function Copy-CapaPackageRelation {
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User')]
-		[string]$FromPackageType,
-		[Parameter(Mandatory = $true)]
 		[string]$FromPackageName,
 		[Parameter(Mandatory = $true)]
 		[string]$FromPackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[string]$ToPackageType,
+		[string]$FromPackageType,
 		[Parameter(Mandatory = $true)]
 		[string]$ToPackageName,
 		[Parameter(Mandatory = $true)]
 		[string]$ToPackageVersion,
+		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
+		[string]$ToPackageType,
 		[Parameter(Mandatory = $false)]
-		[ValidateSet('All', 'None')]
-		[string]$CopyGroups = 'None',
+		[bool]$CopyGroups = $false,
 		[Parameter(Mandatory = $false)]
-		[ValidateSet('All', 'None')]
-		[string]$CopyUnits = 'None',
+		[bool]$CopyUnits = $false,
 		[bool]$UnlinkGroupsAndUnitsFromExistingPackage = $false,
-		[bool]$DisableScheduleOnExistingPackage = $false
+		[bool]$DisableScheduleOnExistingPackage = $false,
+		[bool]$CopySchedule = $false
 	)
 
 	$AGroupCopyHasFailed = $false
@@ -387,111 +388,173 @@ function Copy-CapaPackageRelation {
 	$AUnitUnlinkHasFailed = $false
 	$FuctionSuccessful = $true
 
-	# Get data if needed
-	if ($CopyGroups -eq 'All' -or $UnlinkGroupsAndUnitsFromExistingPackage -eq $true) {
-		$AllFromGroups = Get-CapaPackageGroups -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageType $FromPackageType -PackageVersion $FromPackageVersion
-		$AllToGroups = Get-CapaPackageGroups -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageType $ToPackageType -PackageVersion $ToPackageVersion
-		Write-Host "$($AllFromGroups.Count) linked groups"
+	#region Get data if needed
+	if ($CopyGroups -or $UnlinkGroupsAndUnitsFromExistingPackage) {
+		$AllFromGroups = Get-CapaPackageGroups -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType
+		$AllToGroups = Get-CapaPackageGroups -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType
 	}
-	if ($CopyUnits -eq 'All' -or $UnlinkGroupsAndUnitsFromExistingPackage -eq $true) {
+	if ($CopyUnits -or $UnlinkGroupsAndUnitsFromExistingPackage) {
 		$AllFromUnits = Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType
 		$AllToUnits = Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType
-		Write-Host "$($AllFromUnits.Count) linked units"
 	}
+	if ($CopySchedule) {
+		$FromPackage = Get-CapaPackages -CapaSDK $CapaSDK -Type $FromPackageType | Where-Object { $_.Name -eq $FromPackageName -and $_.Version -eq $FromPackageVersion }
+	}
+	#endregion
 
-	# Copy Groups
-	if ($CopyGroups -eq 'All') {
+	##region Copy Groups and unlik groups
+	if ($CopyGroups -or $UnlinkGroupsAndUnitsFromExistingPackage) {
+		$Count = 1
 		foreach ($Group in $AllFromGroups) {
-			Write-Host "Adding package to group: $($Group.Name)"
-			$bool = Add-CapaPackageToGroup -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -GroupName $Group.Name -GroupType $Group.Type
-			if ($bool -eq $false) {
-				# Is it already added to the group
-				$Check = $AllToGroups | Where-Object { $_.Name -eq $Group.Name -and $_.Type -eq $Group.Type }
+			if ($CopyGroups) {
+				Write-Progress -Activity "Copying group $($Group.Name)" -Status 'Progress' -PercentComplete (($Count / $AllFromGroups.Count) * 100)
 
-				if ($Check.Count -eq 1) {
-					Write-Host 'Group is already linked'
-				} else {
-					Write-Host "$bool" -ForegroundColor Red
-					$AGroupCopyHasFailed = $true
+				$AllreadyLinked = $AllToGroups | Where-Object { $_.Name -eq $Group.Name -and $_.Type -eq $Group.Type }
+				if ($AllreadyLinked.Count -eq 0) {
+					try {
+						$bool = Add-CapaPackageToGroup -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -GroupName $Group.Name -GroupType $Group.Type
+						if ($bool -eq $false) {
+							Write-Error "Error: Failed to link group $($Group.Name)"
+							$AGroupCopyHasFailed = $true
+						}
+					} catch {
+						Write-Error "Error while copying group: $($_.Exception.Message)"
+						$AGroupCopyHasFailed = $true
+					}
 				}
-			} else {
-				Write-Host "$bool"
 			}
-		}
-	}
 
-	# Copy Units
-	if ($CopyUnits -eq 'All') {
-		foreach ($Unit in $AllFromUnits) {
+			if ($UnlinkGroupsAndUnitsFromExistingPackage) {
+				Write-Progress -Activity "Unlinking group $($Group.Name)" -Status 'Progress' -PercentComplete (($Count / $AllFromGroups.Count) * 100)
 
-			$bool = Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageType $ToPackageType -PackageName $ToPackageName -PackageVersion $ToPackageVersion -UnitName $Unit.Name -UnitType $Unit.TypeName
-			if ($bool -eq $false) {
-				# Is it already added to the unit
-				$Check = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.TypeName -eq $Unit.TypeName }
-
-				if ($Check.Count -eq 1) {
-					Write-Host 'Unit is already linked'
-				} else {
-					Write-Host "$bool" -ForegroundColor Red
-					$AUnitCopyHasFailed = $true
-				}
-			} else {
-				Write-Host "$bool"
-			}
-		}
-	}
-
-	If ($AGroupCopyHasFailed -eq $true -or $AUnitCopyHasFailed -eq $true) {
-		Write-Host 'Skipping:' -ForegroundColor Red
-		Write-Host '    Unlink Groups And Units From Existing Package' -ForegroundColor Red
-		Write-Host '    Disable Schedule On Existing Package' -ForegroundColor Red
-		Write-Host ''
-		Write-Host 'Because copying a group- or unit link failed' -ForegroundColor Red
-		$FuctionSuccessful = $false
-	} else {
-		# Unlink Groups And Units From Existing Package
-		if ($UnlinkGroupsAndUnitsFromExistingPackage -eq $true) {
-			foreach ($Group in $AllFromGroups) {
-				Write-Host "Unlinking group $($Group.Name)"
-				$bool = Remove-CapaPackageFromGroup -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType -GroupName $Group.Name -GroupType $Group.Type
-				if ($bool -eq $false) {
-					Write-Host "$bool" -ForegroundColor Red
+				try {
+					$bool = Remove-CapaPackageFromGroup -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType -GroupName $Group.Name -GroupType $Group.Type
+					if ($bool -eq $false) {
+						Write-Error "Error: Failed to unlink group $($Group.Name)"
+						$AGroupUnlinkHasFailed = $true
+					}
+				} catch {
+					Write-Error "Error while unlinking group: $($_.Exception.Message)"
 					$AGroupUnlinkHasFailed = $true
-				} else {
-					Write-Host "$bool"
 				}
 			}
-			foreach ($Unit in $AllFromUnits) {
-				Write-Host "Unlinking unit $($Group.Name)"
 
-				if ($Unit.TypeName -eq 'Computers') {
-					$Unit.TypeName = 'Computer'
+			$Count++
+		}
+
+		Write-Progress -Activity 'Copying groups' -Status 'Completed' -PercentComplete 100 -Completed
+	}
+	#endregion
+
+	#region Copy Units and unlink units
+	if ($CopyUnits -or $UnlinkGroupsAndUnitsFromExistingPackage) {
+		$Count = 1
+		foreach ($Unit in $AllFromUnits) {
+			if ($CopyUnits) {
+				Write-Progress -Activity "Copying unit $($Unit.Name)" -Status 'Progress' -PercentComplete (($Count / $AllFromUnits.Count) * 100)
+
+				$AllreadyLinked = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.Type -eq $Unit.Type }
+				if ($AllreadyLinked.Count -eq 0) {
+					try {
+						$bool = Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -UnitName $Unit.UUID -UnitType $Unit.Type
+						if ($bool -eq $false) {
+							Write-Error "Error: Failed to link unit $($Unit.Name)"
+							$AUnitCopyHasFailed = $true
+						}
+					} catch {
+						Write-Error "Error while copying unit: $($_.Exception.Message)"
+						$AUnitCopyHasFailed = $true
+					}
 				}
+			}
 
-				$bool = Remove-CapaUnitFromPackage -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType -UnitName $Unit.Name -UnitType $Unit.TypeName
-				if ($bool -eq $false) {
-					Write-Host "$bool" -ForegroundColor Red
+			if ($UnlinkGroupsAndUnitsFromExistingPackage) {
+				Write-Progress -Activity "Unlinking unit $($Unit.Name)" -Status 'Progress' -PercentComplete (($Count / $AllFromUnits.Count) * 100)
+
+				try {
+					$bool = Remove-CapaUnitFromPackage -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType -UnitName $Unit.Name -UnitType $Unit.Type
+					if ($bool -eq $false) {
+						Write-Error "Error: Failed to unlink unit $($Unit.Name)"
+						$AUnitUnlinkHasFailed = $true
+					}
+				} catch {
+					Write-Error "Error while unlinking unit: $($_.Exception.Message)"
 					$AUnitUnlinkHasFailed = $true
-				} else {
-					Write-Host "$bool"
 				}
+			}
+
+			$Count++
+		}
+
+		Write-Progress -Activity 'Copying units' -Status 'Completed' -PercentComplete 100 -Completed
+	}
+	#endregion
+
+
+	# Disable Schedule On Existing Package
+	if ($AGroupCopyHasFailed -eq $false -and $AUnitCopyHasFailed -eq $false -and $AGroupUnlinkHasFailed -eq $false -and $AUnitUnlinkHasFailed -eq $false) {
+		if ($DisableScheduleOnExistingPackage -eq $true) {
+			try {
+				$bool = Disable-CapaPackageSchedule -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType
+				if ($bool -eq $false) {
+					Write-Error "Error: Failed to disable schedule on package $($FromPackageName)"
+					$FuctionSuccessful = $false
+				}
+			} catch {
+				Write-Error "Error while disabling schedule: $($_.Exception.Message)"
+				$FuctionSuccessful = $false
 			}
 		}
 
-		# Disable Schedule On Existing Package
-		if ($DisableScheduleOnExistingPackage -eq $true) {
-			Disable-CapaPackageSchedule -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType
-		}
+		if ($CopySchedule) {
+			$ScheduleSettings = Get-CapaSchedule -CapaSDK $CapaSDK -Id $FromPackage.ScheduleId
 
-		#TODOLATER: #2 CopyPackageSchedule der findes ikke en funktion i SDK'en
-		<#
-            Currently not avalible in the SDK, there is set fuction but not get
-            https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247048/Set+Package+Schedule
-        #>
+			try {
+				$Splatting = @{
+					CapaSDK        = $CapaSDK
+					PackageName    = $ToPackageName
+					PackageVersion = $ToPackageVersion
+					PackageType    = $ToPackageType
+				}
+				if ($ScheduleSettings.ScheduleStart) {
+					$Time = Get-Date $ScheduleSettings.ScheduleStart -Format 'yyyy-MM-dd HH:mm'
+					$Splatting['ScheduleStart'] = $Time
+				}
+				if ($ScheduleSettings.ScheduleEnd) {
+					$Time = Get-Date $ScheduleSettings.ScheduleEnd -Format 'yyyy-MM-dd HH:mm'
+					$Splatting['ScheduleEnd'] = $Time
+				}
+				if ($ScheduleSettings.IntervalStart) {
+					$Splatting['ScheduleIntervalBegin'] = $ScheduleSettings.IntervalStart
+				}
+				if ($ScheduleSettings.IntervalEnd) {
+					$Splatting['ScheduleIntervalEnd'] = $ScheduleSettings.IntervalEnd
+				}
+				if ($ScheduleSettings.Recurrence) {
+					$Splatting['ScheduleRecurrence'] = $ScheduleSettings.Recurrence
+				}
+				if ($ScheduleSettings.RecurrencePattern) {
+					$Splatting['ScheduleRecurrencePattern'] = $ScheduleSettings.RecurrencePattern
+				}
+
+				$bool = Set-CapaPackageSchedule @Splatting
+				if ($bool -eq $false) {
+					Write-Error "Error: Failed to set schedule on package $($ToPackageName)"
+					$FuctionSuccessful = $false
+				}
+			} catch {
+				Write-Error "Error while setting schedule: $($_.Exception.Message)"
+				$FuctionSuccessful = $false
+			}
+		}
 	}
 
-	if ($AGroupUnlinkHasFailed -eq $true -or $AUnitUnlinkHasFailed -eq $true) {
+	if ($AGroupCopyHasFailed -or $AUnitCopyHasFailed -or $AGroupUnlinkHasFailed -or $AUnitUnlinkHasFailed) {
 		$FuctionSuccessful = $false
+	}
+
+	if ($FuctionSuccessful -eq $false) {
+		Write-Error 'Error: Copying package relations has errors'
 	}
 
 	Return $FuctionSuccessful
@@ -1506,9 +1569,13 @@ function New-CapaPackageWithGit {
 		}
 		#endregion
 
-		#region Create folder
+		#region Create folder and dummy files
 		New-Item -Path $ScriptPath -ItemType Directory -Force | Out-Null
 		New-Item -Path $KitPath -ItemType Directory -Force | Out-Null
+
+		$DummyFile = Join-Path $KitPath 'CapaInstaller.txt'
+		New-Item -Path $DummyFile -ItemType File -Force | Out-Null
+		Set-Content -Path $DummyFile -Value 'This is a dummy file'
 
 		if ($Advanced) {
 			New-Item -Path $GitHubActionsPath -ItemType Directory -Force | Out-Null
@@ -2005,14 +2072,13 @@ function Set-CapaPackageDescription {
 }
 
 
-# TODO: #184 Update and add tests
-
 <#
 	.SYNOPSIS
 		Set the folder structure of a package.
 
 	.DESCRIPTION
 		Set the folder structure of a package.
+		Returns True if the folder structure was set, otherwise False.
 
 	.PARAMETER CapaSDK
 		The CapaSDK object.
@@ -2205,11 +2271,11 @@ function Set-CapaPackageSchedule {
 		[String]$PackageType,
 		[Parameter(Mandatory = $true)]
 		[String]$ScheduleStart,
-		[Parameter(Mandatory = $true)]
+		[Parameter(Mandatory = $false)]
 		[String]$ScheduleEnd,
-		[Parameter(Mandatory = $true)]
+		[Parameter(Mandatory = $false)]
 		[String]$ScheduleIntervalBegin,
-		[Parameter(Mandatory = $true)]
+		[Parameter(Mandatory = $false)]
 		[String]$ScheduleIntervalEnd,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Once', 'PeriodicalDaily', 'PeriodicalWeekly', 'Always')]

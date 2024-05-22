@@ -18,6 +18,7 @@ Set-CapaPackageFolder
 ## Description
 
 Set the folder structure of a package.
+Returns True if the folder structure was set, otherwise False.
 
 ## Examples
 

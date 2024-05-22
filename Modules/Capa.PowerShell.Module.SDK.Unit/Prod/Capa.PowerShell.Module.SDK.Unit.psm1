@@ -242,17 +242,17 @@ function Add-CapaUnitToGroup {
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Calendar', 'Department', 'Reinstall', 'Security', 'Static', 'Dynamic_SQL', 'Dynamic_ADSI')]
 		[string]$GroupType,
-		[String]$BusinessUnitName = ''
+		[String]$BusinessUnitName
 	)
 
 	if (($GroupType -eq 'Dynamic_SQL' -or $GroupType -eq 'Dynamic_ADSI') -and $UnitType -ne 'Printer') {
 		Write-Error "GroupType $GroupType only works for UnitType Printer"
 		return 'False'
 	} else {
-		if ($BusinessUnitName -eq '') {
-			$value = $CapaSDK.AddUnitToGroup($UnitName, $UnitType, $GroupName, $GroupType, $BusinessUnitName)
+		if ([string]::IsNullOrEmpty($BusinessUnitName) -eq $false) {
+			$value = $CapaSDK.AddUnitToGroupBU($UnitName, $UnitType, $GroupName, $GroupType, $BusinessUnitName)
 		} else {
-			$value = $CapaSDK.AddUnitToGroupBU($UnitName, $UnitType, $GroupName, $GroupType)
+			$value = $CapaSDK.AddUnitToGroup($UnitName, $UnitType, $GroupName, $GroupType)
 		}
 
 		return $value

@@ -35,7 +35,7 @@ function Get-CapaManagementPoint {
 		$aUnits = $CapaSDK.GetManagementPoints()
 	} else {
 		$aUnits = $CapaSDK.GetManagementPoint($OSPointID)
-	}
+	}1
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
@@ -46,9 +46,9 @@ function Get-CapaManagementPoint {
 			Drive       = $aItem[3];
 			GUID        = $aItem[4];
 			LocalFolder = $aItem[5];
-			Server      = $aItem[7];
-			Share       = $aItem[8];
-			ParentGUID  = $aItem[9]
+			Server      = $aItem[6];
+			Share       = $aItem[7];
+			ParentGUID  = $aItem[8]
 		}
 	}
 

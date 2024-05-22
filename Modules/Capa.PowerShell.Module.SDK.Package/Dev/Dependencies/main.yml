@@ -5,6 +5,10 @@ on:
     branches:
       - main
     types: [closed]
+    path:
+      - 'Scripts/**'
+      - 'Settings.json'
+      - 'kit/**'
   workflow_dispatch:
 
 jobs:
@@ -37,6 +41,13 @@ jobs:
           echo "Description=$($Settings.Description)" >> $env:GITHUB_ENV
           echo "ExportPath=$($Settings.ExportPath)" >> $env:GITHUB_ENV
           echo "NewPackageVersion=$($Settings.PackageVersion)" >> $env:GITHUB_ENV
+          echo "PackagePriority=$($Settings.PackagePriority)" >> $env:GITHUB_ENV
+
+          if (([string]::IsNullOrEmpty($Settings.OldSoftwareVersion.SoftwareName)) -eq $false) {
+            echo "OldSoftwareName=$($Settings.OldSoftwareVersion.SoftwareName)" >> $env:GITHUB_ENV
+            echo "OldSoftwareVersion=$($Settings.OldSoftwareVersion.SoftwareVersion)" >> $env:GITHUB_ENV
+            echo "OldPackageVersion=$($Settings.OldSoftwareVersion.PackageVersion)" >> $env:GITHUB_ENV
+          }
 
           $DestinationKitPath = Join-Path (Get-Location).Path "Kit"
           echo "DestinationKitPath=$DestinationKitPath" >> $env:GITHUB_ENV
@@ -54,6 +65,11 @@ jobs:
 
           $PackageName = ("$env:SoftwareName $env:SoftwareVersion").Trim()
           echo "PackageName=$PackageName" >> $env:GITHUB_ENV
+
+          if ([string]::IsNullOrEmpty($env:OldSoftwareName) -eq $false) {
+            $OldPackageName = ("$env:OldSoftwareName $env:OldSoftwareVersion").Trim()
+            echo "OldPackageName=$OldPackageName" >> $env:GITHUB_ENV
+          }
 
       - name: Import kit from current version
         run: |
@@ -109,7 +125,6 @@ jobs:
             Write-Host "Package moved to folder"
           } else {
             Write-Host "Error could not move package to folder"
-            exit 1
           }
 
       - name: Set package Description
@@ -140,6 +155,18 @@ jobs:
             Write-Host "Package description updated"
           } else {
             Write-Host "Package description not updated"
+            exit 1
+          }
+
+      - name: Set package priority
+        run: |
+          $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $env:DefaultManagementPoint
+          $bStatus = Set-CapaPackagePriority -CapaSDK $oCMS -PackageName $env:PackageName -PackageVersion "p$env:NewPackageVersion" -PackageType Computer -Priority $env:PackagePriority
+
+          if ($bStatus -eq $true) {
+            Write-Host "Package priority set to $env:PackagePriority"
+          } else {
+            Write-Host "Failed to set package priority"
             exit 1
           }
 
@@ -220,9 +247,129 @@ jobs:
           }
 
 
-      # TODO: #257 Add a step to Copy relation from old package version to new package version
-      # If $env:GITHUB_HEAD_REF -like "*Major: Copy relation for each management point, where the package exist
-      # Else Copy the relations and set the same status as the old package version, on for each management point, where the package exist
-      # if something goes wrong, then delete the new package version
+      - name: Copy relations
+        run: |
+          $CopyRelationFailed = $false
+          $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database
+          $ManagementPoints = Get-CapaManagementPoint -CapaSDK $oCMS
 
-      # TODO: #257 Add a step to delete the old package version, both in dev and prod
+          foreach ($ManagementPoint in $ManagementPoints) {
+            Write-Host "Running for Managemnet Point: $($ManagementPoint.Name)"
+            $CurrenCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $ManagementPoint.Id
+
+            $ExistNewPck = Exist-CapaPackage -CapaSDK $oCMS -Name $env:PackageName -Version "p$env:NewPackageVersion" -Type Computer
+            if ($ExistNewPck -eq $false) {
+              Write-Host "Package does not exist on Management Point: $($ManagementPoint.Name)"
+              continue
+            }
+
+            $ExistOldPck = Exist-CapaPackage -CapaSDK $oCMS -Name $env:PackageName -Version "p$($env:CurrentPackageVersion)" -Type Computer
+            if ($ExistOldPck) {
+              Write-Host 'Copy relations from old package version to new package version'
+
+              $Splatting = @{
+                CapaSDK                                 = $CurrenCMS
+                FromPackageName                         = $env:PackageName
+                FromPackageVersion                      = "p$env:CurrentPackageVersion"
+                FromPackageType                         = 'Computer'
+                ToPackageName                           = $env:PackageName
+                ToPackageVersion                        = "p$env:CurrentPackageVersion"
+                ToPackageType                           = 'Computer'
+                CopyGroups                              = $true
+                CopyUnits                               = $true
+                UnlinkGroupsAndUnitsFromExistingPackage = $true
+                DisableScheduleOnExistingPackage        = $true
+                CopySchedule                            = $true
+              }
+              $bStatus = Copy-CapaPackageRelations @Splatting
+              if ($bStatus -eq $false) {
+                $CopyRelationFailed = $true
+                Write-Host "Failed to copy relations for Management Point: $($ManagementPoint.Name)"
+              }
+            } else {
+              Write-Host "Old package version does not exist on Management Point: $($ManagementPoint.Name)"
+            }
+
+            if ([string]::IsNullOrEmpty($env:OldPackageName)) {
+              continue
+            }
+
+            $ExistOldSoftVer = Exist-CapaSoftwareVersion -CapaSDK $oCMS -Name $env:OldPackageName -Version "p$(env:OldPackageVersion)" -Type Computer
+            if ($ExistOldSoftVer) {
+              Write-Host 'Copy relations from old software version to new software version'
+
+              $Splatting = @{
+                CapaSDK                                 = $CurrenCMS
+                FromSoftwareName                        = $env:OldPackageName
+                FromSoftwareVersion                     = "p$($env:OldPackageVersion)"
+                FromSoftwareType                        = 'Computer'
+                ToSoftwareName                          = $env:PackageName
+                ToSoftwareVersion                       = "p$env:NewPackageVersion"
+                ToSoftwareType                          = 'Computer'
+                CopyGroups                              = $true
+                CopyUnits                               = $true
+                UnlinkGroupsAndUnitsFromExistingPackage = $true
+                DisableScheduleOnExistingPackage        = $true
+                CopySchedule                            = $true
+              }
+              $bStatus = Copy-CapaSoftwareVersionRelations @Splatting
+              if ($bStatus -eq $false) {
+                $CopyRelationFailed = $true
+                Write-Host "Failed to copy relations for Management Point: $($ManagementPoint.Name)"
+              }
+            } else {
+              Write-Host "Old software version does not exist on Management Point: $($ManagementPoint.Name)"
+            }
+          }
+
+          if ($CopyRelationFailed) {
+            Write-Host 'Failed to copy relations, try doing it manually or try again'
+            exit 1
+          }
+
+      - name: Delete old package version
+        run: |
+          $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database
+          $ManagementPoints = Get-CapaManagementPoint -CapaSDK $oCMS
+
+          $firstElement = $ManagementPoints | Where-Object { $_.ParentGUID -ne $null -and ($_.GUID -notin $ManagementPoints.ParentGUID) }
+          $lastElements = $ManagementPoints | Where-Object { $_.ParentGUID -eq $null }
+          $middleElements = $ManagementPoints | Where-Object { $_ -ne $firstElement -and $_ -ne $lastElements }
+          $sortedManagementPoints = $firstElement + $middleElements + $lastElements
+
+          foreach ($ManagementPoint in $sortedManagementPoints) {
+            Write-Host "Running for Managemnet Point: $($ManagementPoint.Name)"
+            $CurrenCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $ManagementPoint.Id
+
+            $ExistNewPck = Exist-CapaPackage -CapaSDK $oCMS -Name $env:PackageName -Version "p$env:NewPackageVersion" -Type Computer
+            if ($ExistNewPck -eq $false) {
+              Write-Host "Package does not exist on Management Point: $($ManagementPoint.Name)"
+              continue
+            }
+
+            $ExistOldPck = Exist-CapaPackage -CapaSDK $oCMS -Name $env:PackageName -Version "p$($env:CurrentPackageVersion)" -Type Computer
+            if ($ExistOldPck) {
+              $bStatus = Remove-CapaPackage -CapaSDK $CurrenCMS -PackageName $env:PackageName -PackageVersion "p$($env:CurrentPackageVersion)" -PackageType Computer -Force
+              if ($bStatus) {
+                Write-Host "Package $($env:PackageName) version $($env:CurrentPackageVersion) removed successfully"
+              } else {
+                Write-Error "Error: Failed to remove package $($env:PackageName) version $($env:CurrentPackageVersion)"
+                exit 1
+              }
+            }
+
+            if ([string]::IsNullOrEmpty($env:OldPackageName)){
+              continue
+            }
+
+            $ExistOldSoftVer = Exist-CapaSoftwareVersion -CapaSDK $oCMS -Name $env:OldPackageName -Version "p$(env:OldPackageVersion)" -Type Computer
+            if ($ExistOldSoftVer) {
+              $bStatus = Remove-CapaSoftwareVersion -CapaSDK $CurrenCMS -Name $env:OldPackageName -Version "p$(env:OldPackageVersion)" -Type Computer -Force
+              if ($bStatus) {
+                Write-Host "Software Version $($env:OldPackageName) version $($env:OldPackageVersion) removed successfully"
+              } else {
+                Write-Error "Error: Failed to remove software version $($env:OldPackageName) version $($env:OldPackageVersion)"
+                exit 1
+              }
+            }
+          }

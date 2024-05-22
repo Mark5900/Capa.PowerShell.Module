@@ -1,11 +1,10 @@
-# TODO: #184 Update and add tests
-
 <#
 	.SYNOPSIS
 		Set the folder structure of a package.
 
 	.DESCRIPTION
 		Set the folder structure of a package.
+		Returns True if the folder structure was set, otherwise False.
 
 	.PARAMETER CapaSDK
 		The CapaSDK object.

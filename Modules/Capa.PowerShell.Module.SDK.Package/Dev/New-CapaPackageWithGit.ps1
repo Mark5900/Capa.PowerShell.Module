@@ -116,9 +116,13 @@ function New-CapaPackageWithGit {
 		}
 		#endregion
 
-		#region Create folder
+		#region Create folder and dummy files
 		New-Item -Path $ScriptPath -ItemType Directory -Force | Out-Null
 		New-Item -Path $KitPath -ItemType Directory -Force | Out-Null
+
+		$DummyFile = Join-Path $KitPath 'CapaInstaller.txt'
+		New-Item -Path $DummyFile -ItemType File -Force | Out-Null
+		Set-Content -Path $DummyFile -Value 'This is a dummy file'
 
 		if ($Advanced) {
 			New-Item -Path $GitHubActionsPath -ItemType Directory -Force | Out-Null

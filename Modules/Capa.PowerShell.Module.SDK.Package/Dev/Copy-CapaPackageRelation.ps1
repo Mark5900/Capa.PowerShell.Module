@@ -176,7 +176,6 @@ function Copy-CapaPackageRelation {
 
 			if ($CopyUnits) {
 				Write-Progress -Activity "Copying unit $($Unit.Name)" -Status 'Progress' -PercentComplete (($Count / $AllFromUnits.Count) * 100)
-				Write-Host "Unit.Name: $($Unit.Name) | UnitType: $UnitType | Unit.UUID: $UnitUUID"
 
 				$AllreadyLinked = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.Type -eq $UnitType }
 				if ($AllreadyLinked.Count -eq 0) {
@@ -230,8 +229,9 @@ function Copy-CapaPackageRelation {
 				$FuctionSuccessful = $false
 			}
 		}
+	}
 
-		if ($CopySchedule) {
+			if ($CopySchedule) {
 			$ScheduleSettings = Get-CapaSchedule -CapaSDK $CapaSDK -Id $FromPackage.ScheduleId
 			try {
 				$Splatting = @{
@@ -255,7 +255,6 @@ function Copy-CapaPackageRelation {
 					$Splatting['ScheduleIntervalEnd'] = $ScheduleSettings.IntervalEnd
 				}
 				if ($ScheduleSettings.Recurrence) {
-					Get-Error while copying unit
 					if ($ScheduleSettings.Recurrence -eq 'Periodical') {
 						if ($ScheduleSettings.Run -eq 'Daily') {
 							$Splatting['ScheduleRecurrence'] = 'PeriodicalDaily'
@@ -280,7 +279,6 @@ function Copy-CapaPackageRelation {
 				$FuctionSuccessful = $false
 			}
 		}
-	}
 
 	if ($AGroupCopyHasFailed -or $AUnitCopyHasFailed -or $AGroupUnlinkHasFailed -or $AUnitUnlinkHasFailed) {
 		$FuctionSuccessful = $false

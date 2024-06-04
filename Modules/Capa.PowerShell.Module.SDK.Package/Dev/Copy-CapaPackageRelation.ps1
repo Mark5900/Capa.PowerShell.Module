@@ -104,6 +104,7 @@ function Copy-CapaPackageRelation {
 	if ($CopyUnits -or $UnlinkGroupsAndUnitsFromExistingPackage) {
 		$AllFromUnits = Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType
 		$AllToUnits = Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType
+		$AllUnits = Get-CapaUnits -CapaSDK $CapaSDK -Type $FromPackageType
 	}
 	if ($CopySchedule) {
 		$FromPackage = Get-CapaPackages -CapaSDK $CapaSDK -Type $FromPackageType | Where-Object { $_.Name -eq $FromPackageName -and $_.Version -eq $FromPackageVersion }
@@ -158,25 +159,29 @@ function Copy-CapaPackageRelation {
 	if ($CopyUnits -or $UnlinkGroupsAndUnitsFromExistingPackage) {
 		$Count = 1
 		foreach ($Unit in $AllFromUnits) {
+
+			switch ($Unit.TypeName) {
+				'Computers' {
+					$UnitType = 'Computer'
+				}
+				'Users' {
+					$UnitType = 'User'
+				}
+				Default {
+					$UnitType = $Unit.TypeName
+				}
+			}
+
+			$UnitUUID = $AllUnits | Where-Object { $_.GUID -eq $Unit.GUID } | Select-Object -ExpandProperty UUID
+
 			if ($CopyUnits) {
 				Write-Progress -Activity "Copying unit $($Unit.Name)" -Status 'Progress' -PercentComplete (($Count / $AllFromUnits.Count) * 100)
-
-				switch ($Unit.Type) {
-					'Computers' {
-						$UnitType = 'Computer'
-					}
-					'Users' {
-						$UnitType = 'User'
-					}
-					Default {
-						$UnitType = $Unit.Type
-					}
-				}
+				Write-Host "Unit.Name: $($Unit.Name) | UnitType: $UnitType | Unit.UUID: $UnitUUID"
 
 				$AllreadyLinked = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.Type -eq $UnitType }
 				if ($AllreadyLinked.Count -eq 0) {
 					try {
-						$bool = Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -UnitName $Unit.UUID -UnitType $UnitType
+						$bool = Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -UnitName $UnitUUID -UnitType $UnitType
 						if ($bool -eq $false) {
 							Write-Error "Error: Failed to link unit $($Unit.Name)"
 							$AUnitCopyHasFailed = $true
@@ -228,7 +233,6 @@ function Copy-CapaPackageRelation {
 
 		if ($CopySchedule) {
 			$ScheduleSettings = Get-CapaSchedule -CapaSDK $CapaSDK -Id $FromPackage.ScheduleId
-
 			try {
 				$Splatting = @{
 					CapaSDK        = $CapaSDK
@@ -251,7 +255,16 @@ function Copy-CapaPackageRelation {
 					$Splatting['ScheduleIntervalEnd'] = $ScheduleSettings.IntervalEnd
 				}
 				if ($ScheduleSettings.Recurrence) {
-					$Splatting['ScheduleRecurrence'] = $ScheduleSettings.Recurrence
+					Get-Error while copying unit
+					if ($ScheduleSettings.Recurrence -eq 'Periodical') {
+						if ($ScheduleSettings.Run -eq 'Daily') {
+							$Splatting['ScheduleRecurrence'] = 'PeriodicalDaily'
+						} else {
+							$Splatting['ScheduleRecurrence'] = 'PeriodicalWeekly'
+						}
+					} else {
+						$Splatting['ScheduleRecurrence'] = $ScheduleSettings.Recurrence
+					}
 				}
 				if ($ScheduleSettings.RecurrencePattern) {
 					$Splatting['ScheduleRecurrencePattern'] = $ScheduleSettings.RecurrencePattern

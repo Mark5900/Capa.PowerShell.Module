@@ -161,10 +161,22 @@ function Copy-CapaPackageRelation {
 			if ($CopyUnits) {
 				Write-Progress -Activity "Copying unit $($Unit.Name)" -Status 'Progress' -PercentComplete (($Count / $AllFromUnits.Count) * 100)
 
-				$AllreadyLinked = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.Type -eq $Unit.Type }
+				switch ($Unit.Type) {
+					'Computers' {
+						$UnitType = 'Computer'
+					}
+					'Users' {
+						$UnitType = 'User'
+					}
+					Default {
+						$UnitType = $Unit.Type
+					}
+				}
+
+				$AllreadyLinked = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.Type -eq $UnitType }
 				if ($AllreadyLinked.Count -eq 0) {
 					try {
-						$bool = Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -UnitName $Unit.UUID -UnitType $Unit.Type
+						$bool = Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -UnitName $Unit.UUID -UnitType $UnitType
 						if ($bool -eq $false) {
 							Write-Error "Error: Failed to link unit $($Unit.Name)"
 							$AUnitCopyHasFailed = $true
@@ -180,7 +192,7 @@ function Copy-CapaPackageRelation {
 				Write-Progress -Activity "Unlinking unit $($Unit.Name)" -Status 'Progress' -PercentComplete (($Count / $AllFromUnits.Count) * 100)
 
 				try {
-					$bool = Remove-CapaUnitFromPackage -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType -UnitName $Unit.Name -UnitType $Unit.Type
+					$bool = Remove-CapaUnitFromPackage -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType -UnitName $Unit.Name -UnitType $UnitType
 					if ($bool -eq $false) {
 						Write-Error "Error: Failed to unlink unit $($Unit.Name)"
 						$AUnitUnlinkHasFailed = $true

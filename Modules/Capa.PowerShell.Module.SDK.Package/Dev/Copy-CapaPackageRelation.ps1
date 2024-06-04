@@ -61,6 +61,8 @@
 		Custom command.
 #>
 function Copy-CapaPackageRelation {
+	[CmdletBinding()]
+	[Alias('Copy-CapaPackageRelations')]
 	param
 	(
 		[Parameter(Mandatory = $true)]

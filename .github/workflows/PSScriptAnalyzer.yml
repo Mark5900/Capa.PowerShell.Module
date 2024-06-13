@@ -13,9 +13,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "Modules/**"
   pull_request:
     branches:
       - main
+    paths:
+      - "Modules/**"
   schedule:
     - cron: '28 8 * * 5'
 

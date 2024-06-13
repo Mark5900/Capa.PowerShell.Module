@@ -1721,6 +1721,9 @@ function New-CapaPackageWithGit {
 				The ID of the point to rebuild the kit file on, if not specified then the kit file will not be rebuilt.
 				Requires that KitFolderPath is specified.
 
+		.PARAMETER AllowInstallOnServer
+				Allow the package to be installed on the server
+
     .EXAMPLE
         New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -SqlServerInstance $CapaServer -Database $Database
 
@@ -1754,7 +1757,8 @@ function New-CapaPowerPack {
 		[Parameter(Mandatory = $true)]
 		[string]$Database,
 		[pscredential]$Credential = $null,
-		[int]$PointID
+		[int]$PointID,
+		[bool]$AllowInstallOnServer = $false
 	)
 	$XMLFile = Join-Path $PSScriptRoot 'Dependencies' 'ciPackage.xml'
 	$KitFile = Join-Path $PSScriptRoot 'Dependencies' 'CapaInstaller.kit'
@@ -1778,6 +1782,9 @@ function New-CapaPowerPack {
 		$XML.Info.Package.Name = $PackageName
 		$XML.Info.Package.Version = $PackageVersion
 		$XML.Info.Package.DisplayName = $DisplayName
+		if ($AllowInstallOnServer) {
+			$XML.Info.Package.ServerDeploy = 'True'
+		}
 
 		If ([string]::IsNullOrEmpty($InstallScriptContent) -eq $false) {
 			$InstallScriptContentBytes = [System.Text.Encoding]::UTF8.GetBytes("$InstallScriptContent")
@@ -1789,7 +1796,14 @@ function New-CapaPowerPack {
 			$XML.Info.Package.UnInstallScriptContent = [System.Convert]::ToBase64String($UninstallScriptContentBytes)
 		}
 
-		Set-Content -Path "$PackageTempFolder\ciPackage.xml" -Value $XML.OuterXml
+		# Format XML content
+		$settings = New-Object System.Xml.XmlWriterSettings
+		$settings.Indent = $true
+
+		$writer = [System.Xml.XmlWriter]::Create("$PackageTempFolder\ciPackage.xml", $settings)
+		$XML.WriteTo($writer)
+		$writer.Flush()
+		$writer.Close()
 
 		# Create kit folder
 		If ([string]::IsNullOrEmpty($KitFolderPath) -eq $false) {
@@ -1811,8 +1825,13 @@ function New-CapaPowerPack {
 		$Status = Import-CapaPackage -CapaSDK $CapaSDK -FilePath $PackageZipFile -OverrideCIPCdata $true -ImportFolderStructure $true -ImportSchedule $true -ChangelogComment $ChangelogComment
 
 		# The SDK is missing support for PowerPack, so we need to use SqlServer module to edit in job table
+		$SqlServerDeploy = ''
+		if ($AllowInstallOnServer) {
+			$SqlServerDeploy = ', [SERVERDEPLOY] = 1'
+		}
+
 		$Query = "UPDATE JOB
-    Set POWERPACK = 'True', INSTALLSCRIPTCONTENT = '$($XML.Info.Package.InstallScriptContent)', UNINSTALLSCRIPTCONTENT =' $($XML.Info.Package.UnInstallScriptContent)'
+    Set POWERPACK = 'True', INSTALLSCRIPTCONTENT = '$($XML.Info.Package.InstallScriptContent)', UNINSTALLSCRIPTCONTENT =' $($XML.Info.Package.UnInstallScriptContent)'$SqlServerDeploy
     Where NAME = '$PackageName'
     AND VERSION = '$PackageVersion'"
 

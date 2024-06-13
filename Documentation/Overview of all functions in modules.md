@@ -9,6 +9,46 @@
 * [Start-PSDownloadPackage](Functions/Start-PSDownloadPackage.md)
 * [Unregister-Powerpack](Functions/Unregister-Powerpack.md)
 
+## Capa.PowerShell.Module.PowerPack.CMS
+
+* [Add-PpCMSComputerToCalendarGroup](Functions/Add-PpCMSComputerToCalendarGroup.md)
+* [Add-PpCMSComputerToDepartmentGroup](Functions/Add-PpCMSComputerToDepartmentGroup.md)
+* [Add-PpCMSComputerToPowerSchemeGroup](Functions/Add-PpCMSComputerToPowerSchemeGroup.md)
+* [Add-PpCMSComputerToReinstallGroup](Functions/Add-PpCMSComputerToReinstallGroup.md)
+* [Add-PpCMSComputerToStaticGroup](Functions/Add-PpCMSComputerToStaticGroup.md)
+* [Add-PpCMSCustomInventory](Functions/Add-PpCMSCustomInventory.md)
+* [Add-PpCMSHardwareInventory](Functions/Add-PpCMSHardwareInventory.md)
+* [Add-PpCMSPackageToUnit](Functions/Add-PpCMSPackageToUnit.md)
+* [Add-PpCMSUnitToBusinessUnit](Functions/Add-PpCMSUnitToBusinessUnit.md)
+* [Get-PpCMSAdvertisedPackages](Functions/Get-PpCMSAdvertisedPackages.md)
+* [Get-PpCMSDeploymentTemplateVariable](Functions/Get-PpCMSDeploymentTemplateVariable.md)
+* [Get-PpCMSGroupMembership](Functions/Get-PpCMSGroupMembership.md)
+* [Get-PpCMSGroupMembership](Functions/Get-PpCMSGroupMembership.md)
+* [Get-PpCMSIsPackageLinked](Functions/Get-PpCMSIsPackageLinked.md)
+* [Get-PpCMSIsPackageScheduleEnabled](Functions/Get-PpCMSIsPackageScheduleEnabled.md)
+* [Get-PpCMSPackage](Functions/Get-PpCMSPackage.md)
+* [Get-PpCMSPackageStatus](Functions/Get-PpCMSPackageStatus.md)
+* [Get-PpCMSProperty](Functions/Get-PpCMSProperty.md)
+* [Initialize-PpCMSRerunPackage](Functions/Initialize-PpCMSRerunPackage.md)
+* [Install-PpCMSAdvertisedPackage](Functions/Install-PpCMSAdvertisedPackage.md)
+* [Invoke-PpCMSRunSystemAgent](Functions/Invoke-PpCMSRunSystemAgent.md)
+* [Invoke-PpCMSRunUserAgent](Functions/Invoke-PpCMSRunUserAgent.md)
+* [Invoke-PpJobRetryLater](Functions/Invoke-PpJobRetryLater.md)
+* [Remove-PpCMSComputerFromCalendarGroup](Functions/Remove-PpCMSComputerFromCalendarGroup.md)
+* [Remove-PpCMSComputerFromDepartmentGroup](Functions/Remove-PpCMSComputerFromDepartmentGroup.md)
+* [Remove-PpCMSComputerFromPowerSchemeGroup](Functions/Remove-PpCMSComputerFromPowerSchemeGroup.md)
+* [Remove-PpCMSComputerFromReinstallGroup](Functions/Remove-PpCMSComputerFromReinstallGroup.md)
+* [Remove-PpCMSComputerFromStaticGroup](Functions/Remove-PpCMSComputerFromStaticGroup.md)
+* [Remove-PpCMSCustomInventory](Functions/Remove-PpCMSCustomInventory.md)
+* [Remove-PpCMSHardwareInventory](Functions/Remove-PpCMSHardwareInventory.md)
+* [Remove-PpCMSPackageFromUnit](Functions/Remove-PpCMSPackageFromUnit.md)
+* [Reset-PpCMSCustomInventory](Functions/Reset-PpCMSCustomInventory.md)
+* [Set-PpCMSCurrentUser](Functions/Set-PpCMSCurrentUser.md)
+* [Set-PpCMSPackageStatusToInstalled](Functions/Set-PpCMSPackageStatusToInstalled.md)
+* [Set-PpCMSPackageStatusToNotCompliant](Functions/Set-PpCMSPackageStatusToNotCompliant.md)
+* [Test-PpCMSExistPackageOnManagementServer](Functions/Test-PpCMSExistPackageOnManagementServer.md)
+* [Uninstall-PpCMSPackageFromUnit](Functions/Uninstall-PpCMSPackageFromUnit.md)
+
 ## Capa.PowerShell.Module.PowerPack.Exit
 
 * [Exit-PpApplicationAlreadyInstalled](Functions/Exit-PpApplicationAlreadyInstalled.md)
@@ -99,6 +139,7 @@
 
 ## Capa.PowerShell.Module.PowerPack.Sys
 
+* [Show-PpMessageBox](Functions/Show-PpMessageBox.md)
 * [Sys_ExistProcess](Functions/Sys_ExistProcess.md)
 * [Sys_GetFreeDiskSpace](Functions/Sys_GetFreeDiskSpace.md)
 * [Sys_IsMinimumRequiredDiskspaceAvailable](Functions/Sys_IsMinimumRequiredDiskspaceAvailable.md)

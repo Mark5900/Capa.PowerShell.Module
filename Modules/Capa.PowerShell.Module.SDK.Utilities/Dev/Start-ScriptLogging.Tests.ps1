@@ -111,7 +111,7 @@ Describe 'Does $AppendToLog work' {
 		Stop-ScriptLogging
 
 		$TestLogFolder
-		$PathNoDate = $Global:SDKScriptLogfile.Split('.')[0].Split('\')[-1].Split('_')[0]
+		$PathNoDate = $Global:SDKScriptLogfile.Split('.')[-2].Split('\')[-1].Split('_')[0]
 		$PathNoDate = "$TestLogFolder\$($PathNoDate)_1.log"
 
 		Test-Path $Global:SDKScriptLogfile | Should -Be $true
@@ -122,7 +122,7 @@ Describe 'Does $AppendToLog work' {
 		Stop-ScriptLogging
 		Start-ScriptLogging -Path $TempFolderPath -LogName $TestFolderName -UseTimeInFileName $false -AppendToLog $false
 
-		$PathNoTime = $Global:SDKScriptLogfile.Split('.')[0].Split('\')[-1].Split('_')[0]
+		$PathNoTime = $Global:SDKScriptLogfile.Split('.')[-2].Split('\')[-1].Split('_')[0]
 		$PathNoTime = "$TestLogFolder\$($PathNoTime)_1.log"
 
 		Test-Path $Global:SDKScriptLogfile | Should -Be $true

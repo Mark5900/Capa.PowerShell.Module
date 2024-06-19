@@ -11,10 +11,10 @@
 	.NOTES
 		This is a custom function created to have a standard way of starting logging in SDK scripts.
 #>
-function Stop-ScriptLoggingg {
+function Stop-ScriptLogging {
 	[CmdletBinding()]
 	param ()
-	$FunctionName = 'ITCE-StopScriptLogging'
+	$FunctionName = 'Stop-ScriptLogging'
 
 	if ($Global:SDKScriptStopwatch) {
 		# Display elapsed time from stopwatch.

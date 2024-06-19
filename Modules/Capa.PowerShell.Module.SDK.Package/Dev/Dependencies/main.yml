@@ -281,7 +281,7 @@ jobs:
                 DisableScheduleOnExistingPackage        = $true
                 CopySchedule                            = $true
               }
-              $bStatus = Copy-CapaPackageRelations @Splatting
+              $bStatus = Copy-CapaPackageRelation @Splatting
               if ($bStatus -eq $false) {
                 $CopyRelationFailed = $true
                 Write-Host "Failed to copy relations for Management Point: $($ManagementPoint.Name)"
@@ -312,7 +312,7 @@ jobs:
                 DisableScheduleOnExistingPackage        = $true
                 CopySchedule                            = $true
               }
-              $bStatus = Copy-CapaSoftwareVersionRelations @Splatting
+              $bStatus = Copy-CapaPackageRelation @Splatting
               if ($bStatus -eq $false) {
                 $CopyRelationFailed = $true
                 Write-Host "Failed to copy relations for Management Point: $($ManagementPoint.Name)"

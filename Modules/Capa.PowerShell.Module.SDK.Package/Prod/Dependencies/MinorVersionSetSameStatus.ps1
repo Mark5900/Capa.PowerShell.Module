@@ -54,53 +54,53 @@ try {
 
 		foreach ($LinkUnit in $LinkedUnits) {
 			$Unit = $AllUnits | Where-Object { $_.GUID -eq $LinkUnit.GUID }
-				try {
+			try {
+				$PackageStatusSplatting = @{
+					CapaSDK        = $oCMSCurrent
+					UnitName       = $Unit.UUID
+					UnitType       = 'Computer'
+					PackageName    = $PackageName
+					PackageVersion = $OldPackageVersion
+				}
+				$UnitPackageStatus = Get-CapaUnitPackageStatus @PackageStatusSplatting
+
+				if ($UnitPackageStatus -eq 'Installed') {
+					Write-Host "Adding $($Unit.Name) (UUID: $($Unit.UUID)) to the new package and sets the status to Installed."
+
+					$PackageAddSplatting = @{
+						CapaSDK        = $oCMSCurrent
+						UnitName       = $Unit.UUID
+						UnitType       = 'Computer'
+						PackageName    = $PackageName
+						PackageVersion = $NewPackageVersion
+						PackageType    = 'Computer'
+					}
+					$bStatus = Add-CapaUnitToPackage @PackageAddSplatting
+
+					if ($bStatus -eq $false) {
+						Write-Host "Failed to add $($Unit.Name) (UUID: $($Unit.UUID)) to the new package."
+					}
+
 					$PackageStatusSplatting = @{
 						CapaSDK        = $oCMSCurrent
 						UnitName       = $Unit.UUID
 						UnitType       = 'Computer'
 						PackageName    = $PackageName
-						PackageVersion = $OldPackageVersion
+						PackageVersion = $NewPackageVersion
+						Status         = 'Installed'
 					}
-					$UnitPackageStatus = Get-CapaUnitPackageStatus @PackageStatusSplatting
+					$bStatus = Set-CapaUnitPackageStatus @PackageStatusSplatting
 
-					if ($UnitPackageStatus -eq 'Installed') {
-						Write-Host "Adding $($Unit.Name) (UUID: $($Unit.UUID)) to the new package and sets the status to Installed."
-
-						$PackageAddSplatting = @{
-							CapaSDK        = $oCMSCurrent
-							UnitName       = $Unit.UUID
-							UnitType       = 'Computer'
-							PackageName    = $PackageName
-							PackageVersion = $NewPackageVersion
-							PackageType    = 'Computer'
-						}
-						$bStatus = Add-CapaUnitToPackage @PackageAddSplatting
-
-						if ($bStatus -eq $false) {
-							Write-Error "Failed to add $($Unit.Name) (UUID: $($Unit.UUID)) to the new package."
-						}
-
-						$PackageStatusSplatting = @{
-							CapaSDK        = $oCMSCurrent
-							UnitName       = $Unit.UUID
-							UnitType       = 'Computer'
-							PackageName    = $PackageName
-							PackageVersion = $NewPackageVersion
-							Status         = 'Installed'
-						}
-						$bStatus = Set-CapaUnitPackageStatus @PackageStatusSplatting
-
-						if ($bStatus -eq $false) {
-							Write-Error "Failed to set the status to Installed for $($Unit.Name) (UUID: $($Unit.UUID)) on the new package."
-						}
+					if ($bStatus -eq $false) {
+						Write-Host "Failed to set the status to Installed for $($Unit.Name) (UUID: $($Unit.UUID)) on the new package."
 					}
-				} catch {
-					Write-Error "Failed to set the status for $($Unit.Name) (UUID: $($Unit.UUID)) on the new package. Error: $($Error[0])"
+				}
+			} catch {
+				Write-Host "Failed to set the status for $($Unit.Name) (UUID: $($Unit.UUID)) on the new package. Error: $($Error[0])"
 			}
 		}
 	}
 
 } catch {
-	Write-Error $Error[0]
+	Write-Host $Error[0]
 }

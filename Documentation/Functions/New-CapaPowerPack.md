@@ -19,6 +19,7 @@ New-CapaPowerPack
 	-Database <String>
 	-Credential <PSCredential>
 	-PointID <Int32>
+	-AllowInstallOnServer <Boolean>
 ```
 
 ## Description
@@ -180,6 +181,17 @@ Requires that KitFolderPath is specified.
 | Type: | Int32 |
 | Position: | 12 | 
 | Default value: | 0 | 
+| Accept pipeline input: | false | 
+| Accept wildcard characters: | false | 
+
+-**AllowInstallOnServer**
+
+Allow the package to be installed on the server
+| Name | Value |
+| ---- | ---- |
+| Type: | Boolean |
+| Position: | 13 | 
+| Default value: | False | 
 | Accept pipeline input: | false | 
 | Accept wildcard characters: | false | 
 

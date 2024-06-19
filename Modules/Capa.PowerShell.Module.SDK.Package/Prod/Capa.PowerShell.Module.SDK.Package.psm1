@@ -355,6 +355,8 @@ function Copy-CapaPackage {
 		Custom command.
 #>
 function Copy-CapaPackageRelation {
+	[CmdletBinding()]
+	[Alias('Copy-CapaPackageRelations')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
@@ -396,6 +398,7 @@ function Copy-CapaPackageRelation {
 	if ($CopyUnits -or $UnlinkGroupsAndUnitsFromExistingPackage) {
 		$AllFromUnits = Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType
 		$AllToUnits = Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType
+		$AllUnits = Get-CapaUnits -CapaSDK $CapaSDK -Type $FromPackageType
 	}
 	if ($CopySchedule) {
 		$FromPackage = Get-CapaPackages -CapaSDK $CapaSDK -Type $FromPackageType | Where-Object { $_.Name -eq $FromPackageName -and $_.Version -eq $FromPackageVersion }
@@ -450,13 +453,28 @@ function Copy-CapaPackageRelation {
 	if ($CopyUnits -or $UnlinkGroupsAndUnitsFromExistingPackage) {
 		$Count = 1
 		foreach ($Unit in $AllFromUnits) {
+
+			switch ($Unit.TypeName) {
+				'Computers' {
+					$UnitType = 'Computer'
+				}
+				'Users' {
+					$UnitType = 'User'
+				}
+				Default {
+					$UnitType = $Unit.TypeName
+				}
+			}
+
+			$UnitUUID = $AllUnits | Where-Object { $_.GUID -eq $Unit.GUID } | Select-Object -ExpandProperty UUID
+
 			if ($CopyUnits) {
 				Write-Progress -Activity "Copying unit $($Unit.Name)" -Status 'Progress' -PercentComplete (($Count / $AllFromUnits.Count) * 100)
 
-				$AllreadyLinked = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.Type -eq $Unit.Type }
+				$AllreadyLinked = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.Type -eq $UnitType }
 				if ($AllreadyLinked.Count -eq 0) {
 					try {
-						$bool = Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -UnitName $Unit.UUID -UnitType $Unit.Type
+						$bool = Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -UnitName $UnitUUID -UnitType $UnitType
 						if ($bool -eq $false) {
 							Write-Error "Error: Failed to link unit $($Unit.Name)"
 							$AUnitCopyHasFailed = $true
@@ -472,7 +490,7 @@ function Copy-CapaPackageRelation {
 				Write-Progress -Activity "Unlinking unit $($Unit.Name)" -Status 'Progress' -PercentComplete (($Count / $AllFromUnits.Count) * 100)
 
 				try {
-					$bool = Remove-CapaUnitFromPackage -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType -UnitName $Unit.Name -UnitType $Unit.Type
+					$bool = Remove-CapaUnitFromPackage -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType -UnitName $Unit.Name -UnitType $UnitType
 					if ($bool -eq $false) {
 						Write-Error "Error: Failed to unlink unit $($Unit.Name)"
 						$AUnitUnlinkHasFailed = $true
@@ -505,10 +523,10 @@ function Copy-CapaPackageRelation {
 				$FuctionSuccessful = $false
 			}
 		}
+	}
 
-		if ($CopySchedule) {
+			if ($CopySchedule) {
 			$ScheduleSettings = Get-CapaSchedule -CapaSDK $CapaSDK -Id $FromPackage.ScheduleId
-
 			try {
 				$Splatting = @{
 					CapaSDK        = $CapaSDK
@@ -531,7 +549,15 @@ function Copy-CapaPackageRelation {
 					$Splatting['ScheduleIntervalEnd'] = $ScheduleSettings.IntervalEnd
 				}
 				if ($ScheduleSettings.Recurrence) {
-					$Splatting['ScheduleRecurrence'] = $ScheduleSettings.Recurrence
+					if ($ScheduleSettings.Recurrence -eq 'Periodical') {
+						if ($ScheduleSettings.Run -eq 'Daily') {
+							$Splatting['ScheduleRecurrence'] = 'PeriodicalDaily'
+						} else {
+							$Splatting['ScheduleRecurrence'] = 'PeriodicalWeekly'
+						}
+					} else {
+						$Splatting['ScheduleRecurrence'] = $ScheduleSettings.Recurrence
+					}
 				}
 				if ($ScheduleSettings.RecurrencePattern) {
 					$Splatting['ScheduleRecurrencePattern'] = $ScheduleSettings.RecurrencePattern
@@ -547,7 +573,6 @@ function Copy-CapaPackageRelation {
 				$FuctionSuccessful = $false
 			}
 		}
-	}
 
 	if ($AGroupCopyHasFailed -or $AUnitCopyHasFailed -or $AGroupUnlinkHasFailed -or $AUnitUnlinkHasFailed) {
 		$FuctionSuccessful = $false
@@ -1721,6 +1746,9 @@ function New-CapaPackageWithGit {
 				The ID of the point to rebuild the kit file on, if not specified then the kit file will not be rebuilt.
 				Requires that KitFolderPath is specified.
 
+		.PARAMETER AllowInstallOnServer
+				Allow the package to be installed on the server
+
     .EXAMPLE
         New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -SqlServerInstance $CapaServer -Database $Database
 
@@ -1754,7 +1782,8 @@ function New-CapaPowerPack {
 		[Parameter(Mandatory = $true)]
 		[string]$Database,
 		[pscredential]$Credential = $null,
-		[int]$PointID
+		[int]$PointID,
+		[bool]$AllowInstallOnServer = $false
 	)
 	$XMLFile = Join-Path $PSScriptRoot 'Dependencies' 'ciPackage.xml'
 	$KitFile = Join-Path $PSScriptRoot 'Dependencies' 'CapaInstaller.kit'
@@ -1778,6 +1807,9 @@ function New-CapaPowerPack {
 		$XML.Info.Package.Name = $PackageName
 		$XML.Info.Package.Version = $PackageVersion
 		$XML.Info.Package.DisplayName = $DisplayName
+		if ($AllowInstallOnServer) {
+			$XML.Info.Package.ServerDeploy = 'True'
+		}
 
 		If ([string]::IsNullOrEmpty($InstallScriptContent) -eq $false) {
 			$InstallScriptContentBytes = [System.Text.Encoding]::UTF8.GetBytes("$InstallScriptContent")
@@ -1789,7 +1821,14 @@ function New-CapaPowerPack {
 			$XML.Info.Package.UnInstallScriptContent = [System.Convert]::ToBase64String($UninstallScriptContentBytes)
 		}
 
-		Set-Content -Path "$PackageTempFolder\ciPackage.xml" -Value $XML.OuterXml
+		# Format XML content
+		$settings = New-Object System.Xml.XmlWriterSettings
+		$settings.Indent = $true
+
+		$writer = [System.Xml.XmlWriter]::Create("$PackageTempFolder\ciPackage.xml", $settings)
+		$XML.WriteTo($writer)
+		$writer.Flush()
+		$writer.Close()
 
 		# Create kit folder
 		If ([string]::IsNullOrEmpty($KitFolderPath) -eq $false) {
@@ -1811,8 +1850,13 @@ function New-CapaPowerPack {
 		$Status = Import-CapaPackage -CapaSDK $CapaSDK -FilePath $PackageZipFile -OverrideCIPCdata $true -ImportFolderStructure $true -ImportSchedule $true -ChangelogComment $ChangelogComment
 
 		# The SDK is missing support for PowerPack, so we need to use SqlServer module to edit in job table
+		$SqlServerDeploy = ''
+		if ($AllowInstallOnServer) {
+			$SqlServerDeploy = ', [SERVERDEPLOY] = 1'
+		}
+
 		$Query = "UPDATE JOB
-    Set POWERPACK = 'True', INSTALLSCRIPTCONTENT = '$($XML.Info.Package.InstallScriptContent)', UNINSTALLSCRIPTCONTENT =' $($XML.Info.Package.UnInstallScriptContent)'
+    Set POWERPACK = 'True', INSTALLSCRIPTCONTENT = '$($XML.Info.Package.InstallScriptContent)', UNINSTALLSCRIPTCONTENT =' $($XML.Info.Package.UnInstallScriptContent)'$SqlServerDeploy
     Where NAME = '$PackageName'
     AND VERSION = '$PackageVersion'"
 

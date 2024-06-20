@@ -35,7 +35,7 @@ function Get-CapaManagementPoint {
 		$aUnits = $CapaSDK.GetManagementPoints()
 	} else {
 		$aUnits = $CapaSDK.GetManagementPoint($OSPointID)
-	}1
+	}
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')

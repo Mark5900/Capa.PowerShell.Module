@@ -67,7 +67,10 @@
 	'Get-CapaReinstallStatus',
 	'Move-CapaDeviceToPoint',
 	'Restart-CapaAgent',
-	'Set-CapaWakeOnLAN'
+	'Set-CapaWakeOnLAN',
+	'Start-ScriptLogging',
+	'Stop-ScriptLogging',
+	'Write-LogLine'
 	#For performance, list functions explicitly
 
 	# Cmdlets to export from this module

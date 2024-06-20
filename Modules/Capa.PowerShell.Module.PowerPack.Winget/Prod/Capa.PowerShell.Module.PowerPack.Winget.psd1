@@ -4,7 +4,7 @@
 	RootModule             = '.\Capa.PowerShell.Module.PowerPack.Winget.psm1'
 
 	# Version number of this module.
-	ModuleVersion          = '1.7.1'
+	ModuleVersion          = '1.8.0'
 
 	# ID used to uniquely identify this module
 	GUID                   = '9913f3ee-da59-426f-ab2a-4a4097faf017'
@@ -41,8 +41,8 @@
 
 	# Modules that must be imported into the global environment prior to importing
 	# this module
-	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; RequiredVersion = '1.7.1'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.7.1'; })
+	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; RequiredVersion = '1.8.0'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.8.0'; })
 
 	# Assemblies that must be loaded prior to importing this module
 	RequiredAssemblies     = @()

@@ -325,6 +325,9 @@
 * [Move-CapaDeviceToPoint](Functions/Move-CapaDeviceToPoint.md)
 * [Restart-CapaAgent](Functions/Restart-CapaAgent.md)
 * [Set-CapaWakeOnLAN](Functions/Set-CapaWakeOnLAN.md)
+* [Start-ScriptLogging](Functions/Start-ScriptLogging.md)
+* [Stop-ScriptLogging](Functions/Stop-ScriptLogging.md)
+* [Write-LogLine](Functions/Write-LogLine.md)
 
 ## Capa.PowerShell.Module.SDK.VPP
 

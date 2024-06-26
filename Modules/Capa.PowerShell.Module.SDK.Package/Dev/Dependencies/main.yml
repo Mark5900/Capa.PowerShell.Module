@@ -257,13 +257,13 @@ jobs:
             Write-Host "Running for Managemnet Point: $($ManagementPoint.Name)"
             $CurrenCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $ManagementPoint.Id
 
-            $ExistNewPck = Exist-CapaPackage -CapaSDK $oCMS -Name $env:PackageName -Version "p$env:NewPackageVersion" -Type Computer
+            $ExistNewPck = Exist-CapaPackage -CapaSDK $CurrenCMS -Name $env:PackageName -Version "p$env:NewPackageVersion" -Type Computer
             if ($ExistNewPck -eq $false) {
               Write-Host "Package does not exist on Management Point: $($ManagementPoint.Name)"
               continue
             }
 
-            $ExistOldPck = Exist-CapaPackage -CapaSDK $oCMS -Name $env:PackageName -Version "p$($env:CurrentPackageVersion)" -Type Computer
+            $ExistOldPck = Exist-CapaPackage -CapaSDK $CurrenCMS -Name $env:PackageName -Version "p$($env:CurrentPackageVersion)" -Type Computer
             if ($ExistOldPck) {
               Write-Host 'Copy relations from old package version to new package version'
 
@@ -294,7 +294,7 @@ jobs:
               continue
             }
 
-            $ExistOldSoftVer = Exist-CapaSoftwareVersion -CapaSDK $oCMS -Name $env:OldPackageName -Version "p$(env:OldPackageVersion)" -Type Computer
+            $ExistOldSoftVer = Exist-CapaSoftwareVersion -CapaSDK $CurrenCMS -Name $env:OldPackageName -Version "p$(env:OldPackageVersion)" -Type Computer
             if ($ExistOldSoftVer) {
               Write-Host 'Copy relations from old software version to new software version'
 
@@ -341,13 +341,13 @@ jobs:
             Write-Host "Running for Managemnet Point: $($ManagementPoint.Name)"
             $CurrenCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database -InstanceManagementPoint $ManagementPoint.Id
 
-            $ExistNewPck = Exist-CapaPackage -CapaSDK $oCMS -Name $env:PackageName -Version "p$env:NewPackageVersion" -Type Computer
+            $ExistNewPck = Exist-CapaPackage -CapaSDK $CurrenCMS -Name $env:PackageName -Version "p$env:NewPackageVersion" -Type Computer
             if ($ExistNewPck -eq $false) {
               Write-Host "Package does not exist on Management Point: $($ManagementPoint.Name)"
               continue
             }
 
-            $ExistOldPck = Exist-CapaPackage -CapaSDK $oCMS -Name $env:PackageName -Version "p$($env:CurrentPackageVersion)" -Type Computer
+            $ExistOldPck = Exist-CapaPackage -CapaSDK $CurrenCMS -Name $env:PackageName -Version "p$($env:CurrentPackageVersion)" -Type Computer
             if ($ExistOldPck) {
               $bStatus = Remove-CapaPackage -CapaSDK $CurrenCMS -PackageName $env:PackageName -PackageVersion "p$($env:CurrentPackageVersion)" -PackageType Computer -Force
               if ($bStatus) {
@@ -362,7 +362,7 @@ jobs:
               continue
             }
 
-            $ExistOldSoftVer = Exist-CapaSoftwareVersion -CapaSDK $oCMS -Name $env:OldPackageName -Version "p$(env:OldPackageVersion)" -Type Computer
+            $ExistOldSoftVer = Exist-CapaSoftwareVersion -CapaSDK $CurrenCMS -Name $env:OldPackageName -Version "p$(env:OldPackageVersion)" -Type Computer
             if ($ExistOldSoftVer) {
               $bStatus = Remove-CapaSoftwareVersion -CapaSDK $CurrenCMS -Name $env:OldPackageName -Version "p$(env:OldPackageVersion)" -Type Computer -Force
               if ($bStatus) {

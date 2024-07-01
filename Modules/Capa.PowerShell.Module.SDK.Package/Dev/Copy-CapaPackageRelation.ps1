@@ -97,22 +97,14 @@ function Copy-CapaPackageRelation {
 	$FuctionSuccessful = $true
 
 	#region Get data if needed
-	if ($CopyGroups -or $UnlinkGroupsAndUnitsFromExistingPackage) {
-		$AllFromGroups = Get-CapaPackageGroups -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType
-		$AllToGroups = Get-CapaPackageGroups -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType
-	}
-	if ($CopyUnits -or $UnlinkGroupsAndUnitsFromExistingPackage) {
-		$AllFromUnits = Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType
-		$AllToUnits = Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType
-		$AllUnits = Get-CapaUnits -CapaSDK $CapaSDK -Type $FromPackageType
-	}
-	if ($CopySchedule) {
-		$FromPackage = Get-CapaPackages -CapaSDK $CapaSDK -Type $FromPackageType | Where-Object { $_.Name -eq $FromPackageName -and $_.Version -eq $FromPackageVersion }
-	}
+	$FromPackage = Get-CapaPackages -CapaSDK $CapaSDK -Type $FromPackageType | Where-Object { $_.Name -eq $FromPackageName -and $_.Version -eq $FromPackageVersion }
 	#endregion
 
 	##region Copy Groups and unlik groups
 	if ($CopyGroups -or $UnlinkGroupsAndUnitsFromExistingPackage) {
+		$AllFromGroups = Get-CapaPackageGroups -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType
+		$AllToGroups = Get-CapaPackageGroups -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType
+
 		$Count = 1
 		foreach ($Group in $AllFromGroups) {
 			if ($CopyGroups) {
@@ -157,6 +149,10 @@ function Copy-CapaPackageRelation {
 
 	#region Copy Units and unlink units
 	if ($CopyUnits -or $UnlinkGroupsAndUnitsFromExistingPackage) {
+		$AllFromUnits = Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName $FromPackageName -PackageVersion $FromPackageVersion -PackageType $FromPackageType
+		$AllToUnits = Get-CapaPackageUnits -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType
+		$AllUnits = Get-CapaUnits -CapaSDK $CapaSDK -Type $FromPackageType
+
 		$Count = 1
 		foreach ($Unit in $AllFromUnits) {
 
@@ -180,6 +176,19 @@ function Copy-CapaPackageRelation {
 				$AllreadyLinked = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.Type -eq $UnitType }
 				if ($AllreadyLinked.Count -eq 0) {
 					try {
+						try {
+							$UnitPackageStatus = Copy-CapaUnitPackageStatus -CapaSDK $CapaSDK -UnitName $Unit.Name -UnitType $UnitType -PackageName $ToPackageName -PackageVersion $ToPackageVersion
+						} catch {
+							if ($Error[0].Exception.Message -eq 'No Package Returned') {
+								$UnitPackageStatus = $null
+							}
+						}
+
+						if ($null -ne $UnitPackageStatus) {
+							# The unit is already linked to the package, so we skip it
+							continue
+						}
+
 						$bool = Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -UnitName $UnitUUID -UnitType $UnitType
 						if ($bool -eq $false) {
 							Write-Error "Error: Failed to link unit $($Unit.Name)"
@@ -231,54 +240,54 @@ function Copy-CapaPackageRelation {
 		}
 	}
 
-			if ($CopySchedule) {
-			$ScheduleSettings = Get-CapaSchedule -CapaSDK $CapaSDK -Id $FromPackage.ScheduleId
-			try {
-				$Splatting = @{
-					CapaSDK        = $CapaSDK
-					PackageName    = $ToPackageName
-					PackageVersion = $ToPackageVersion
-					PackageType    = $ToPackageType
-				}
-				if ($ScheduleSettings.ScheduleStart) {
-					$Time = Get-Date $ScheduleSettings.ScheduleStart -Format 'yyyy-MM-dd HH:mm'
-					$Splatting['ScheduleStart'] = $Time
-				}
-				if ($ScheduleSettings.ScheduleEnd) {
-					$Time = Get-Date $ScheduleSettings.ScheduleEnd -Format 'yyyy-MM-dd HH:mm'
-					$Splatting['ScheduleEnd'] = $Time
-				}
-				if ($ScheduleSettings.IntervalStart) {
-					$Splatting['ScheduleIntervalBegin'] = $ScheduleSettings.IntervalStart
-				}
-				if ($ScheduleSettings.IntervalEnd) {
-					$Splatting['ScheduleIntervalEnd'] = $ScheduleSettings.IntervalEnd
-				}
-				if ($ScheduleSettings.Recurrence) {
-					if ($ScheduleSettings.Recurrence -eq 'Periodical') {
-						if ($ScheduleSettings.Run -eq 'Daily') {
-							$Splatting['ScheduleRecurrence'] = 'PeriodicalDaily'
-						} else {
-							$Splatting['ScheduleRecurrence'] = 'PeriodicalWeekly'
-						}
+	if ($CopySchedule) {
+		$ScheduleSettings = Get-CapaSchedule -CapaSDK $CapaSDK -Id $FromPackage.ScheduleId
+		try {
+			$Splatting = @{
+				CapaSDK        = $CapaSDK
+				PackageName    = $ToPackageName
+				PackageVersion = $ToPackageVersion
+				PackageType    = $ToPackageType
+			}
+			if ($ScheduleSettings.ScheduleStart) {
+				$Time = Get-Date $ScheduleSettings.ScheduleStart -Format 'yyyy-MM-dd HH:mm'
+				$Splatting['ScheduleStart'] = $Time
+			}
+			if ($ScheduleSettings.ScheduleEnd) {
+				$Time = Get-Date $ScheduleSettings.ScheduleEnd -Format 'yyyy-MM-dd HH:mm'
+				$Splatting['ScheduleEnd'] = $Time
+			}
+			if ($ScheduleSettings.IntervalStart) {
+				$Splatting['ScheduleIntervalBegin'] = $ScheduleSettings.IntervalStart
+			}
+			if ($ScheduleSettings.IntervalEnd) {
+				$Splatting['ScheduleIntervalEnd'] = $ScheduleSettings.IntervalEnd
+			}
+			if ($ScheduleSettings.Recurrence) {
+				if ($ScheduleSettings.Recurrence -eq 'Periodical') {
+					if ($ScheduleSettings.Run -eq 'Daily') {
+						$Splatting['ScheduleRecurrence'] = 'PeriodicalDaily'
 					} else {
-						$Splatting['ScheduleRecurrence'] = $ScheduleSettings.Recurrence
+						$Splatting['ScheduleRecurrence'] = 'PeriodicalWeekly'
 					}
+				} else {
+					$Splatting['ScheduleRecurrence'] = $ScheduleSettings.Recurrence
 				}
-				if ($ScheduleSettings.RecurrencePattern) {
-					$Splatting['ScheduleRecurrencePattern'] = $ScheduleSettings.RecurrencePattern
-				}
+			}
+			if ($ScheduleSettings.RecurrencePattern) {
+				$Splatting['ScheduleRecurrencePattern'] = $ScheduleSettings.RecurrencePattern
+			}
 
-				$bool = Set-CapaPackageSchedule @Splatting
-				if ($bool -eq $false) {
-					Write-Error "Error: Failed to set schedule on package $($ToPackageName)"
-					$FuctionSuccessful = $false
-				}
-			} catch {
-				Write-Error "Error while setting schedule: $($_.Exception.Message)"
+			$bool = Set-CapaPackageSchedule @Splatting
+			if ($bool -eq $false) {
+				Write-Error "Error: Failed to set schedule on package $($ToPackageName)"
 				$FuctionSuccessful = $false
 			}
+		} catch {
+			Write-Error "Error while setting schedule: $($_.Exception.Message)"
+			$FuctionSuccessful = $false
 		}
+	}
 
 	if ($AGroupCopyHasFailed -or $AUnitCopyHasFailed -or $AGroupUnlinkHasFailed -or $AUnitUnlinkHasFailed) {
 		$FuctionSuccessful = $false

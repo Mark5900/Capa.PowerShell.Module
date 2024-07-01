@@ -56,6 +56,7 @@ Describe 'Copy groups' {
 	It 'Does the group have the correct package' {
 		$Group = Get-CapaPackageGroups -CapaSDK $oCMS -PackageName 'TestTo' -PackageVersion 'v1.0' -PackageType Computer | Where-Object { $_.Name -eq 'TestGroup' }
 		$Group | Should -Not -BeNullOrEmpty
+		$Group.Count | Should -Be 1
 	}
 }
 Describe 'Copy units' {

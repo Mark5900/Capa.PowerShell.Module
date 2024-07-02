@@ -62,7 +62,42 @@
 	NestedModules          = @()
 
 	# Functions to export from this module
-	FunctionsToExport      = 'Invoke-PpJobRetryLater'
+	FunctionsToExport      = 'Invoke-PpJobRetryLater',
+    'Add-PpCMSComputerToCalendarGroup',
+    'Add-PpCMSComputerToDepartmentGroup',
+    'Add-PpCMSComputerToPowerSchemeGroup',
+    'Add-PpCMSComputerToReinstallGroup',
+    'Add-PpCMSComputerToStaticGroup',
+    'Add-PpCMSCustomInventory',
+    'Add-PpCMSHardwareInventory',
+    'Add-PpCMSPackageToUnit',
+    'Add-PpCMSUnitToBusinessUnit',
+    'Get-PpCMSAdvertisedPackages',
+    'Get-PpCMSDeploymentTemplateVariable',
+    'Get-PpCMSGroupMembership',
+    'Get-PpCMSIsPackageLinked',
+    'Get-PpCMSIsPackageScheduleEnabled',
+    'Get-PpCMSPackage',
+    'Get-PpCMSPackageStatus',
+    'Get-PpCMSProperty',
+    'Initialize-PpCMSRerunPackage',
+    'Install-PpCMSAdvertisedPackage',
+    'Invoke-PpCMSRunSystemAgent',
+    'Invoke-PpCMSRunUserAgent',
+    'Remove-PpCMSComputerFromCalendarGroup',
+    'Remove-PpCMSComputerFromDepartmentGroup',
+    'Remove-PpCMSComputerFromPowerSchemeGroup',
+    'Remove-PpCMSComputerFromReinstallGroup',
+    'Remove-PpCMSComputerFromStaticGroup',
+    'Remove-PpCMSCustomInventory',
+    'Remove-PpCMSHardwareInventory',
+    'Remove-PpCMSPackageFromUnit',
+    'Reset-PpCMSCustomInventory',
+    'Set-PpCMSCurrentUser',
+    'Set-PpCMSPackageStatusToInstalled',
+    'Set-PpCMSPackageStatusToNotCompliant',
+    'Test-PpCMSExistPackageOnManagementServer',
+    'Uninstall-PpCMSPackageFromUnit'
 	#For performance, list functions explicitly
 
 	# Cmdlets to export from this module

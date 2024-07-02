@@ -62,8 +62,7 @@
 	NestedModules          = @()
 
 	# Functions to export from this module
-	FunctionsToExport      = 'Invoke-PpJobRetryLater',
-    'Add-PpCMSComputerToCalendarGroup',
+	FunctionsToExport      = 'Add-PpCMSComputerToCalendarGroup',
     'Add-PpCMSComputerToDepartmentGroup',
     'Add-PpCMSComputerToPowerSchemeGroup',
     'Add-PpCMSComputerToReinstallGroup',
@@ -84,6 +83,7 @@
     'Install-PpCMSAdvertisedPackage',
     'Invoke-PpCMSRunSystemAgent',
     'Invoke-PpCMSRunUserAgent',
+		'Invoke-PpJobRetryLater',
     'Remove-PpCMSComputerFromCalendarGroup',
     'Remove-PpCMSComputerFromDepartmentGroup',
     'Remove-PpCMSComputerFromPowerSchemeGroup',

@@ -362,9 +362,9 @@ jobs:
               continue
             }
 
-            $ExistOldSoftVer = Exist-CapaSoftwareVersion -CapaSDK $CurrenCMS -Name $env:OldPackageName -Version "p$(env:OldPackageVersion)" -Type Computer
+            $ExistOldSoftVer = Exist-CapaSoftwareVersion -CapaSDK $CurrenCMS -Name $env:OldPackageName -Version "p$($env:OldPackageVersion)" -Type Computer
             if ($ExistOldSoftVer) {
-              $bStatus = Remove-CapaSoftwareVersion -CapaSDK $CurrenCMS -Name $env:OldPackageName -Version "p$(env:OldPackageVersion)" -Type Computer -Force
+              $bStatus = Remove-CapaSoftwareVersion -CapaSDK $CurrenCMS -Name $env:OldPackageName -Version "p$($env:OldPackageVersion)" -Type Computer -Force
               if ($bStatus) {
                 Write-Host "Software Version $($env:OldPackageName) version $($env:OldPackageVersion) removed successfully"
               } else {

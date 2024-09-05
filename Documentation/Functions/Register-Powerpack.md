@@ -1,5 +1,7 @@
 # Register-Powerpack
 
+Module: Capa.PowerShell.Module.PowerPack
+
 ## SYNOPSIS
 Register a Powerpack in the registry
 

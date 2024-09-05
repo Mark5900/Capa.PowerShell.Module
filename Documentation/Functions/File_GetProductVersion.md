@@ -1,5 +1,7 @@
 # File_GetProductVersion
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Get the product version of a file.
 

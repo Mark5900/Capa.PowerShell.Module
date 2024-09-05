@@ -1,5 +1,7 @@
 # Set-CapaPackagePriority
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Sets an package property.
 

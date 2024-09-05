@@ -1,5 +1,7 @@
 # Add-CapaWifiPayloadToProfile
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 Add a new WiFi payload to a profile.
 

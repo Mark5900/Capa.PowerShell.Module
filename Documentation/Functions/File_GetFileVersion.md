@@ -1,5 +1,7 @@
 # File_GetFileVersion
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Get the file version of a file.
 

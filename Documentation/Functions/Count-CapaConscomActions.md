@@ -1,5 +1,7 @@
 # Count-CapaConscomActions
 
+Module: Capa.PowerShell.Module.SDK.SystemSdk
+
 ## SYNOPSIS
 Counts the number of conscom actions.
 

@@ -1,5 +1,7 @@
 # Copy-CapaPackageRelation
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Custom funktion to copy a package relations.
 

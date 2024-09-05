@@ -1,5 +1,7 @@
 # File_DelFile
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Delete a file.
 

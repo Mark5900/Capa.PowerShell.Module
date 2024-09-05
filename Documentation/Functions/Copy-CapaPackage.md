@@ -1,5 +1,7 @@
 # Copy-CapaPackage
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Copy a package in Root Point.
 

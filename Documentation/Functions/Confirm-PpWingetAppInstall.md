@@ -1,5 +1,7 @@
 # Confirm-PpWingetAppInstall
 
+Module: Capa.PowerShell.Module.PowerPack.Winget
+
 ## SYNOPSIS
 Confirm if an app is installed.
 

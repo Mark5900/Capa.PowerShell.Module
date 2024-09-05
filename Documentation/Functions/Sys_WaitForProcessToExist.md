@@ -1,5 +1,7 @@
 # Sys_WaitForProcessToExist
 
+Module: Capa.PowerShell.Module.PowerPack.Sys
+
 ## SYNOPSIS
 Waits for a process to exist.
 

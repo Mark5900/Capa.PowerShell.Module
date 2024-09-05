@@ -1,5 +1,7 @@
 # Install-PpWingetApp
 
+Module: Capa.PowerShell.Module.PowerPack.Winget
+
 ## SYNOPSIS
 Install an application using winget
 

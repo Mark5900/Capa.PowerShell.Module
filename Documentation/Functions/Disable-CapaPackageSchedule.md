@@ -1,5 +1,7 @@
 # Disable-CapaPackageSchedule
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Disable a packages schedule.
 

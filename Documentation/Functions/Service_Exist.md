@@ -1,5 +1,7 @@
 # Service_Exist
 
+Module: Capa.PowerShell.Module.PowerPack.Service
+
 ## SYNOPSIS
 Determines if a service exists.
 

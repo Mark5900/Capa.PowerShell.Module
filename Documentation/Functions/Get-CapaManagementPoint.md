@@ -1,5 +1,7 @@
 # Get-CapaManagementPoint
 
+Module: Capa.PowerShell.Module.SDK.SystemSdk
+
 ## SYNOPSIS
 Get management points or a specific management point.
 

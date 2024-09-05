@@ -1,5 +1,7 @@
 # Remove-CapaPackageFromGroup
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Removes a package from a group.
 

@@ -1,5 +1,7 @@
 # Link-CapaProfileToGroup
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 Link an existing profile to a group.
 

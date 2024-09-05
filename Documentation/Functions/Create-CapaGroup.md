@@ -1,5 +1,7 @@
 # Create-CapaGroup
 
+Module: Capa.PowerShell.Module.SDK.Group
+
 ## SYNOPSIS
 Create a group.
 

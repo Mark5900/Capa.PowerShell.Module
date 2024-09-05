@@ -1,5 +1,7 @@
 # Initialize-CapaPackagePromote
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Initializes a package promotion.
 

@@ -1,5 +1,7 @@
 # Get-CapaManagementServers
 
+Module: Capa.PowerShell.Module.SDK.SystemSdk
+
 ## SYNOPSIS
 Get a list of all management servers.
 

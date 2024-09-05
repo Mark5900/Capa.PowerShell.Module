@@ -1,5 +1,7 @@
 # Uninstall-PpWingetApp
 
+Module: Capa.PowerShell.Module.PowerPack.Winget
+
 ## SYNOPSIS
 Uninstalls an application using winget.
 

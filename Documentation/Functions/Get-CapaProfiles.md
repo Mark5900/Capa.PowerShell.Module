@@ -1,5 +1,7 @@
 # Get-CapaProfiles
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 Get all profiles.
 

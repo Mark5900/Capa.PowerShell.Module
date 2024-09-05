@@ -1,5 +1,7 @@
 # Get-CapaPackages
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Get a list of packages.
 

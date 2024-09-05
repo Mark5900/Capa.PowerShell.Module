@@ -1,5 +1,7 @@
 # Reg_SetExpandString
 
+Module: Capa.PowerShell.Module.PowerPack.Reg
+
 ## SYNOPSIS
 Sets a registry expand string.
 

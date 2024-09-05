@@ -1,5 +1,7 @@
 # UsrMgr_AddUserToLocalGroup
 
+Module: Capa.PowerShell.Module.PowerPack.UsrMgr
+
 ## SYNOPSIS
 Adds a user to a local group.
 

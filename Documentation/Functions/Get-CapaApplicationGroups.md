@@ -1,5 +1,7 @@
 # Get-CapaApplicationGroups
 
+Module: Capa.PowerShell.Module.SDK.Group
+
 ## SYNOPSIS
 Get a list of all application groups.
 

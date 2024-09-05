@@ -1,5 +1,7 @@
 # Get-CapaOSInstallationTypes
 
+Module: Capa.PowerShell.Module.SDK.OSDeployment
+
 ## SYNOPSIS
 Get a list of OS Installation Types.
 

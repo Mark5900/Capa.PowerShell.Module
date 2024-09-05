@@ -1,5 +1,7 @@
 # Set-CapaCustomInventory
 
+Module: Capa.PowerShell.Module.SDK.Inventory
+
 ## SYNOPSIS
 Set custom inventory for a unit.
 

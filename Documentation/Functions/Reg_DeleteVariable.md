@@ -1,5 +1,7 @@
 # Reg_DeleteVariable
 
+Module: Capa.PowerShell.Module.PowerPack.Reg
+
 ## SYNOPSIS
 Deletes a registry value.
 

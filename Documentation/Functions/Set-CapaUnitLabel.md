@@ -1,5 +1,7 @@
 # Set-CapaUnitLabel
 
+Module: Capa.PowerShell.Module.SDK.Unit
+
 ## SYNOPSIS
 https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247732/Set+unit+label
 

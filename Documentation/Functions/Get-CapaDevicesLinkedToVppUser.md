@@ -1,5 +1,7 @@
 # Get-CapaDevicesLinkedToVppUser
 
+Module: Capa.PowerShell.Module.SDK.VPP
+
 ## SYNOPSIS
 Gets a list of devices linked to a VPP user.
 

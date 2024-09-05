@@ -1,5 +1,7 @@
 # Reg_GetString
 
+Module: Capa.PowerShell.Module.PowerPack.Reg
+
 ## SYNOPSIS
 Gets a registry string.
 

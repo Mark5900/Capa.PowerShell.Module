@@ -1,5 +1,7 @@
 # File_CopyFile
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Copy a file.
 

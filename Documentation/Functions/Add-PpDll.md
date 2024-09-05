@@ -1,5 +1,7 @@
 # Add-PpDll
 
+Module: Capa.PowerShell.Module.PowerPack
+
 ## SYNOPSIS
 Adds the CapaOne.ScriptingLibrary.dll to the current session.
 

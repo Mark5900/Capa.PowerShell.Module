@@ -1,5 +1,7 @@
 # Reg_ExistVariable
 
+Module: Capa.PowerShell.Module.PowerPack.Reg
+
 ## SYNOPSIS
 Exists a registry variable.
 

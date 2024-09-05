@@ -1,5 +1,7 @@
 # Update-CapaPackageScriptAndKit
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Use this function to update a package script and kit in Capa.
 

@@ -1,5 +1,7 @@
 # Get-CapaVppPrograms
 
+Module: Capa.PowerShell.Module.SDK.VPP
+
 ## SYNOPSIS
 Gets a list of all VPP programs.
 

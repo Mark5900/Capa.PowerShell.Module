@@ -1,5 +1,7 @@
 # File_ExistFile
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Check if a file exists.
 

@@ -1,5 +1,7 @@
 # Import-CapaPackage
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Imports a package into CapaInstaller.
 

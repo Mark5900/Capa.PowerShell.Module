@@ -1,5 +1,7 @@
 # Set-CapaPackageFolder
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Set the folder structure of a package.
 

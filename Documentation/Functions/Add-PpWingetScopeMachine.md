@@ -1,5 +1,7 @@
 # Add-PpWingetScopeMachine
 
+Module: Capa.PowerShell.Module.PowerPack.Winget
+
 ## SYNOPSIS
 Set the winget scope to machine
 

@@ -1,5 +1,7 @@
 # Get-CapaUserInventory
 
+Module: Capa.PowerShell.Module.SDK.Inventory
+
 ## SYNOPSIS
 Get software inventory for a user.
 

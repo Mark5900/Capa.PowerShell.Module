@@ -1,5 +1,7 @@
 # Convert-CapaDataType
 
+Module: Capa.PowerShell.Module.SDK.Inventory
+
 ## SYNOPSIS
 A function to convert Capa data types.
 

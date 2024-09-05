@@ -1,5 +1,7 @@
 # Get-CapaHardwareInventoryForUnit
 
+Module: Capa.PowerShell.Module.SDK.Inventory
+
 ## SYNOPSIS
 Get the hardware inventory for a unit.
 

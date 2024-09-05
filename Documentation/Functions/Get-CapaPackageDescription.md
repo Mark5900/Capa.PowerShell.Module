@@ -1,5 +1,7 @@
 # Get-CapaPackageDescription
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Get a description of a package.
 

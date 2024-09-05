@@ -1,5 +1,7 @@
 # Reg_SetString
 
+Module: Capa.PowerShell.Module.PowerPack.Reg
+
 ## SYNOPSIS
 Sets a registry string.
 

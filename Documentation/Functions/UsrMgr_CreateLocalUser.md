@@ -1,5 +1,7 @@
 # UsrMgr_CreateLocalUser
 
+Module: Capa.PowerShell.Module.PowerPack.UsrMgr
+
 ## SYNOPSIS
 Create a local user account.
 

@@ -1,5 +1,7 @@
 # Get-CapatAllNoneInventoryPackages
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Returns all none inventory packages.
 

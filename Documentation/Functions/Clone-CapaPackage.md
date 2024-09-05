@@ -1,5 +1,7 @@
 # Clone-CapaPackage
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Clone a package in Root Point.
 

@@ -1,5 +1,7 @@
 # Sys_KillProcess
 
+Module: Capa.PowerShell.Module.PowerPack.Sys
+
 ## SYNOPSIS
 Kills a process.
 

@@ -1,5 +1,7 @@
 # Reg_EnumKey
 
+Module: Capa.PowerShell.Module.PowerPack.Reg
+
 ## SYNOPSIS
 Enumerates all registry keys.
 

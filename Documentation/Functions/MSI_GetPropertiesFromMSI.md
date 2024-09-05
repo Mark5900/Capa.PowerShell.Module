@@ -1,5 +1,7 @@
 # MSI_GetPropertiesFromMSI
 
+Module: Capa.PowerShell.Module.PowerPack.MSI
+
 ## SYNOPSIS
 Gets the values of properties from an MSI file.
 

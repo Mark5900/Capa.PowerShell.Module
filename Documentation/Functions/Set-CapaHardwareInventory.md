@@ -1,5 +1,7 @@
 # Set-CapaHardwareInventory
 
+Module: Capa.PowerShell.Module.SDK.Inventory
+
 ## SYNOPSIS
 Set hardware inventory for a unit.
 

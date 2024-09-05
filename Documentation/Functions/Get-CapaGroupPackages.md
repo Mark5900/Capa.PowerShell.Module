@@ -1,5 +1,7 @@
 # Get-CapaGroupPackages
 
+Module: Capa.PowerShell.Module.SDK.Group
+
 ## SYNOPSIS
 Returns packages linked to a group.
 

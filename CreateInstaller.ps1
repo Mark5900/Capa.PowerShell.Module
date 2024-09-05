@@ -477,6 +477,18 @@ function GenerateFunctionsDocumentation {
 
         foreach ($File in $Files) {
             Add-Content -Path $OverviewPath -Value "- [$($File.BaseName)](Functions/$($File.BaseName).md)"
+
+            # Add what module the function is in to the function documentation
+            $FunctionPath = Join-Path $PSScriptRoot 'Documentation' 'Functions' "$($File.BaseName).md"
+
+            if ((Test-Path $FunctionPath) -eq $false) {
+                continue
+            }
+
+            $Content = Get-Content -Path $FunctionPath
+
+            $Content = $Content -replace '## SYNOPSIS', "Module: $($Folder.Name)`n`n## SYNOPSIS"
+            Set-Content -Path $FunctionPath -Value $Content
         }
     }
 

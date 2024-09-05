@@ -1,5 +1,7 @@
 # File_DelEmptyFolder
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Delete path if it is empty.
 

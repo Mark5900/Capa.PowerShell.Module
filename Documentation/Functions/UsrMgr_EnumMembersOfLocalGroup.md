@@ -1,5 +1,7 @@
 # UsrMgr_EnumMembersOfLocalGroup
 
+Module: Capa.PowerShell.Module.PowerPack.UsrMgr
+
 ## SYNOPSIS
 Get group members of a local group.
 

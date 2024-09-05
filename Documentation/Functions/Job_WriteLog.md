@@ -1,5 +1,7 @@
 # Job_WriteLog
 
+Module: Capa.PowerShell.Module.PowerPack.Job
+
 ## SYNOPSIS
 This function will write a log entry.
 

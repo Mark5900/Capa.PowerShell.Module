@@ -1,5 +1,7 @@
 # New-CapaPackage
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Create a package in the CapaInstaller.
 

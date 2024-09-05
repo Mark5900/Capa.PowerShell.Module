@@ -1,5 +1,7 @@
 # Get-CapaPackageFolder
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Get the folder structure of a package.
 

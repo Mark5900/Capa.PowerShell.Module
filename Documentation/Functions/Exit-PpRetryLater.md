@@ -1,5 +1,7 @@
 # Exit-PpRetryLater
 
+Module: Capa.PowerShell.Module.PowerPack.Exit
+
 ## SYNOPSIS
 Set package retry later.
 

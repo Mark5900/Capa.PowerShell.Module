@@ -1,5 +1,7 @@
 # Shell_Execute
 
+Module: Capa.PowerShell.Module.PowerPack.Shell
+
 ## SYNOPSIS
 Executes a command line application.
 

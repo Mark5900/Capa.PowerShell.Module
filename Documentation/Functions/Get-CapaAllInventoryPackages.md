@@ -1,5 +1,7 @@
 # Get-CapaAllInventoryPackages
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Gets all inventory packages.
 

@@ -1,5 +1,7 @@
 # Reg_ExistKey
 
+Module: Capa.PowerShell.Module.PowerPack.Reg
+
 ## SYNOPSIS
 Exists a registry key.
 

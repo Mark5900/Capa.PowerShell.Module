@@ -1,5 +1,7 @@
 # Get-CapaWSUSPoints
 
+Module: Capa.PowerShell.Module.SDK.WSUS
+
 ## SYNOPSIS
 Get a list of WSUS points.
 

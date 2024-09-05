@@ -1,5 +1,7 @@
 # Get-CapaLog
 
+Module: Capa.PowerShell.Module.SDK.Utilities
+
 ## SYNOPSIS
 Returns the log for a unit package relation.
 

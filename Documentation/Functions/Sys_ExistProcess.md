@@ -1,5 +1,7 @@
 # Sys_ExistProcess
 
+Module: Capa.PowerShell.Module.PowerPack.Sys
+
 ## SYNOPSIS
 Checks if a process exists.
 

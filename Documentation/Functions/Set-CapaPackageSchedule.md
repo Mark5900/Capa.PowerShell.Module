@@ -1,5 +1,7 @@
 # Set-CapaPackageSchedule
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Sets the schedule of a package.
 

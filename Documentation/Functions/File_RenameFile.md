@@ -1,5 +1,7 @@
 # File_RenameFile
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Rename a file.
 

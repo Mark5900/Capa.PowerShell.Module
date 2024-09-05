@@ -1,5 +1,7 @@
 # Create-CapaADGroup
 
+Module: Capa.PowerShell.Module.SDK.Utilities
+
 ## SYNOPSIS
 Create an CapaInstaller AD group.
 

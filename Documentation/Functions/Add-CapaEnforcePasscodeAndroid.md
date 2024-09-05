@@ -1,5 +1,7 @@
 # Add-CapaEnforcePasscodeAndroid
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 Add a new Enforce Passcode payload or edit an existing one.
 

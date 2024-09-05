@@ -1,5 +1,7 @@
 # Clone-CapaDeviceApplication
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 Clone an existing Device Application and its payloads.
 

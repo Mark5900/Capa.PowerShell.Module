@@ -1,5 +1,7 @@
 # Get-CapaOSServers
 
+Module: Capa.PowerShell.Module.SDK.OSDeployment
+
 ## SYNOPSIS
 Gets a list of OS Servers including sub servers.
 

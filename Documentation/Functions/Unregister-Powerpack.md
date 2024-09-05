@@ -1,5 +1,7 @@
 # Unregister-Powerpack
 
+Module: Capa.PowerShell.Module.PowerPack
+
 ## SYNOPSIS
 Unregister a Powerpack
 

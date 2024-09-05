@@ -1,5 +1,7 @@
 # Create-CapaProfile
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 Create a new profile in the Default Management Point.
 

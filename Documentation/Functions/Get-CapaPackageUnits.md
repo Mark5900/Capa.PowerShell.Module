@@ -1,5 +1,7 @@
 # Get-CapaPackageUnits
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Gets a list of units linked to a package.
 

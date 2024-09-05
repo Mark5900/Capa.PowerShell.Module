@@ -1,5 +1,7 @@
 # File_FindFile
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Find a file.
 

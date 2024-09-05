@@ -1,5 +1,7 @@
 # UsrMgr_ExistLocalUserAccount
 
+Module: Capa.PowerShell.Module.PowerPack.UsrMgr
+
 ## SYNOPSIS
 Check if a local user account exists.
 

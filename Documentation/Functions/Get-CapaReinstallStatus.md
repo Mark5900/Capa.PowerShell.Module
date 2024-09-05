@@ -1,5 +1,7 @@
 # Get-CapaReinstallStatus
 
+Module: Capa.PowerShell.Module.SDK.Utilities
+
 ## SYNOPSIS
 Gets the reinstall status for a unit.
 

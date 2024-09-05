@@ -1,5 +1,7 @@
 # Exit-PpCommandHandlingFailed
 
+Module: Capa.PowerShell.Module.PowerPack.Exit
+
 ## SYNOPSIS
 Set error code that the command handling failed.
 

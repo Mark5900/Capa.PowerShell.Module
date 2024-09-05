@@ -1,5 +1,7 @@
 # Log_SectionHeader
 
+Module: Capa.PowerShell.Module.PowerPack.Log
+
 ## SYNOPSIS
 Creates a section header in the logfile.
 

@@ -1,5 +1,7 @@
 # Get-CapaGroupDescription
 
+Module: Capa.PowerShell.Module.SDK.Group
+
 ## SYNOPSIS
 Get a groups description.
 

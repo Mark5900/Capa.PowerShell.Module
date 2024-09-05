@@ -1,5 +1,7 @@
 # Exit-PpPackageNotCompliant
 
+Module: Capa.PowerShell.Module.PowerPack.Exit
+
 ## SYNOPSIS
 Set error code that the package is not compliant.
 

@@ -1,5 +1,7 @@
 # Add-CapaPackageToGroup
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Adds a package to a group.
 

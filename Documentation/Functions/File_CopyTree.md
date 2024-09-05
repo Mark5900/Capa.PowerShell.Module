@@ -1,5 +1,7 @@
 # File_CopyTree
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Copy a folder.
 

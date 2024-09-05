@@ -1,5 +1,7 @@
 # Reg_SetInteger
 
+Module: Capa.PowerShell.Module.PowerPack.Reg
+
 ## SYNOPSIS
 Sets a registry integer.
 

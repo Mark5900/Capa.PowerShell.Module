@@ -1,5 +1,7 @@
 # Get-CapaPackageGroups
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Get grops linked to a package.
 

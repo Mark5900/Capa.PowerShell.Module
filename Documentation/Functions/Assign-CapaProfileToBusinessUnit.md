@@ -1,5 +1,7 @@
 # Assign-CapaProfileToBusinessUnit
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 Assign a profile to a business unit.
 

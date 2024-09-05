@@ -1,5 +1,7 @@
 # Add-CapaUnitToProfile
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 Link profile to a device.
 

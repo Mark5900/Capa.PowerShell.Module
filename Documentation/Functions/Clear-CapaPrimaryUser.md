@@ -1,5 +1,7 @@
 # Clear-CapaPrimaryUser
 
+Module: Capa.PowerShell.Module.SDK.User
+
 ## SYNOPSIS
 Clear the primary user on a unit.
 

@@ -1,5 +1,7 @@
 # Get-CapaDeviceApplications
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 Get all the Device Applications.
 

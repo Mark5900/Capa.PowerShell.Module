@@ -1,5 +1,7 @@
 # Get-CapaDllVersion
 
+Module: Capa.PowerShell.Module.SDK.Container
+
 ## SYNOPSIS
 Get the version of the CapaSDK dll.
 

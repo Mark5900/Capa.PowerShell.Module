@@ -1,5 +1,7 @@
 # Get-CapaGroupPrinters
 
+Module: Capa.PowerShell.Module.SDK.Group
+
 ## SYNOPSIS
 Returns printers linked to a group.
 

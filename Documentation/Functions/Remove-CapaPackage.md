@@ -1,5 +1,7 @@
 # Remove-CapaPackage
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Removes a package.
 

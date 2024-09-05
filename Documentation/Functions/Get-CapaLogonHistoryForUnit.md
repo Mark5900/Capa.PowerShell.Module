@@ -1,5 +1,7 @@
 # Get-CapaLogonHistoryForUnit
 
+Module: Capa.PowerShell.Module.SDK.Inventory
+
 ## SYNOPSIS
 Get logon history for a unit.
 

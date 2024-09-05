@@ -1,5 +1,7 @@
 # Add-CapaPackageToBusinessUnit
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Adds a package to a business unit.
 

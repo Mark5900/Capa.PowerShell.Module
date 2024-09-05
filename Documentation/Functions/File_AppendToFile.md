@@ -1,5 +1,7 @@
 # File_AppendToFile
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Append text to a file.
 

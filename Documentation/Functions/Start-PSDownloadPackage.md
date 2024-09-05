@@ -1,5 +1,7 @@
 # Start-PSDownloadPackage
 
+Module: Capa.PowerShell.Module.PowerPack
+
 ## SYNOPSIS
 Downloads a package.
 

@@ -1,5 +1,7 @@
 # Sys_IsMinimumRequiredDiskspaceAvailable
 
+Module: Capa.PowerShell.Module.PowerPack.Sys
+
 ## SYNOPSIS
 Checks if a minimum required disk space is available.
 

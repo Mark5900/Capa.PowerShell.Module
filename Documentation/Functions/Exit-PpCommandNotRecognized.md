@@ -1,5 +1,7 @@
 # Exit-PpCommandNotRecognized
 
+Module: Capa.PowerShell.Module.PowerPack.Exit
+
 ## SYNOPSIS
 Set error code that the command is not recognized.
 

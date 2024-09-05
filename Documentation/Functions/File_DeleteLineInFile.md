@@ -1,5 +1,7 @@
 # File_DeleteLineInFile
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Delete a line in a file.
 

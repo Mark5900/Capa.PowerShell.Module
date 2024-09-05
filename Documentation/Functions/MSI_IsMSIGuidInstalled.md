@@ -1,5 +1,7 @@
 # MSI_IsMSIGuidInstalled
 
+Module: Capa.PowerShell.Module.PowerPack.MSI
+
 ## SYNOPSIS
 Checks if an GUID is installed.
 

@@ -1,5 +1,7 @@
 # Get-CapaUpdateInventoryForUnit
 
+Module: Capa.PowerShell.Module.SDK.Inventory
+
 ## SYNOPSIS
 Get update inventory for a unit.
 

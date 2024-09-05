@@ -1,5 +1,7 @@
 # Exit-PpModuleNotFound
 
+Module: Capa.PowerShell.Module.PowerPack.Exit
+
 ## SYNOPSIS
 Set error code that the module was not found.
 

@@ -1,5 +1,7 @@
 # Add-CapaExchangePayloadToProfile
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 This will add a new Exchange payload to a profile.
 

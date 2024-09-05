@@ -1,5 +1,7 @@
 # Enable-CapaPackageSchedule
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Enable a packages schedule.
 

@@ -1,5 +1,7 @@
 # Invite-CapaUnitToVppProgram
 
+Module: Capa.PowerShell.Module.SDK.VPP
+
 ## SYNOPSIS
 Creates a VPP user at Apple where an invitation URL is generated.
 This invitation is then sent to the device where the user will have the option to accept or decline.

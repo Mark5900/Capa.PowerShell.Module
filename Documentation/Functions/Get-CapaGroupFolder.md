@@ -1,5 +1,7 @@
 # Get-CapaGroupFolder
 
+Module: Capa.PowerShell.Module.SDK.Group
+
 ## SYNOPSIS
 Gets the folder structure of a group.
 

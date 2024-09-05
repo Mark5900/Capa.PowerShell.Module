@@ -1,5 +1,7 @@
 # Update-CapaPackageNow
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Performs a update now on a package.
 

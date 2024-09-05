@@ -1,5 +1,7 @@
 # Set-CapaPrimaryUser
 
+Module: Capa.PowerShell.Module.SDK.User
+
 ## SYNOPSIS
 Set the primary user on a unit.
 

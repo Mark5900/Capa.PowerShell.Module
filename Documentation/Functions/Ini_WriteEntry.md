@@ -1,5 +1,7 @@
 # Ini_WriteEntry
 
+Module: Capa.PowerShell.Module.PowerPack.Ini
+
 ## SYNOPSIS
 Writes an entry to an INI file.
 

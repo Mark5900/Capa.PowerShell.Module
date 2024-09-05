@@ -1,5 +1,7 @@
 # Update-PpWingetApp
 
+Module: Capa.PowerShell.Module.PowerPack.Winget
+
 ## SYNOPSIS
 Updates an application using winget.
 

@@ -1,5 +1,7 @@
 # Get-CapaSchedule
 
+Module: Capa.PowerShell.Module.SDK.Container
+
 ## SYNOPSIS
 Returns a schedule object by id.
 

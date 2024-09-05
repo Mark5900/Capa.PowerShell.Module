@@ -1,5 +1,7 @@
 # New-CapaPackageWithGit
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Creates a new capa package with Git support
 

@@ -1,5 +1,7 @@
 # Get-CapaOSPoints
 
+Module: Capa.PowerShell.Module.SDK.OSDeployment
+
 ## SYNOPSIS
 Gets a list of OS Points.
 

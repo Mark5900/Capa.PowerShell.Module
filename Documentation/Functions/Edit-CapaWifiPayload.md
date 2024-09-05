@@ -1,5 +1,7 @@
 # Edit-CapaWifiPayload
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 Edit an existing WiFi payload.
 

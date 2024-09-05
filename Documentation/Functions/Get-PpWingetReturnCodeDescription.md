@@ -1,5 +1,7 @@
 # Get-PpWingetReturnCodeDescription
 
+Module: Capa.PowerShell.Module.PowerPack.Winget
+
 ## SYNOPSIS
 Get the error message for a WinGet error code.
 

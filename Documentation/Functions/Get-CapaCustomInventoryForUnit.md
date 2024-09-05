@@ -1,5 +1,7 @@
 # Get-CapaCustomInventoryForUnit
 
+Module: Capa.PowerShell.Module.SDK.Inventory
+
 ## SYNOPSIS
 Get the custom inventory for a unit.
 

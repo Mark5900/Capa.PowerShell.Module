@@ -1,5 +1,7 @@
 # Reset-PpCMSCustomInventory
 
+Module: Capa.PowerShell.Module.PowerPack.CMS
+
 ## SYNOPSIS
 {{ Fill in the Synopsis }}
 

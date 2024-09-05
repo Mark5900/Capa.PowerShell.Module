@@ -1,5 +1,7 @@
 # MSI_GetProductCodeFromMSI
 
+Module: Capa.PowerShell.Module.PowerPack.MSI
+
 ## SYNOPSIS
 Gets the product code of an MSI file.
 

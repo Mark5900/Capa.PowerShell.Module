@@ -1,5 +1,7 @@
 # New-CapaPowerPack
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Creates a new PowerPack in CapaInstaller
 

@@ -1,5 +1,7 @@
 # Initialize-PpVariables
 
+Module: Capa.PowerShell.Module.PowerPack
+
 ## SYNOPSIS
 Initialize global variables
 

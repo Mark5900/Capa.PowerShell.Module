@@ -1,5 +1,7 @@
 # Get-CapaExternalTools
 
+Module: Capa.PowerShell.Module.SDK.SystemSdk
+
 ## SYNOPSIS
 Get a list of all external tools.
 

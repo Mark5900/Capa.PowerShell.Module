@@ -1,5 +1,7 @@
 # File_DelTree
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Delete a folder.
 

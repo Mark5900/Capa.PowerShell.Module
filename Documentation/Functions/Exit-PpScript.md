@@ -1,5 +1,7 @@
 # Exit-PpScript
 
+Module: Capa.PowerShell.Module.PowerPack.Exit
+
 ## SYNOPSIS
 Exit the script with a given exit code and message.
 

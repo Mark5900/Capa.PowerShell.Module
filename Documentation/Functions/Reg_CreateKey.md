@@ -1,5 +1,7 @@
 # Reg_CreateKey
 
+Module: Capa.PowerShell.Module.PowerPack.Reg
+
 ## SYNOPSIS
 Creates a registry key.
 

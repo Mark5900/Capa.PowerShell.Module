@@ -1,5 +1,7 @@
 # Set-CapaGroupFolder
 
+Module: Capa.PowerShell.Module.SDK.Group
+
 ## SYNOPSIS
 Sets the folder structure of a group.
 

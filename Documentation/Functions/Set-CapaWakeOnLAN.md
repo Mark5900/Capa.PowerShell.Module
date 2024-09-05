@@ -1,5 +1,7 @@
 # Set-CapaWakeOnLAN
 
+Module: Capa.PowerShell.Module.SDK.Utilities
+
 ## SYNOPSIS
 Set a action to perform a Wake On LAN Request for the unit.
 

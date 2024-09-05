@@ -1,5 +1,7 @@
 # Invoke-RunAsLoggedOnUser
 
+Module: Capa.PowerShell.Module.PowerPack
+
 ## SYNOPSIS
 Runs a command as the logged on user.
 

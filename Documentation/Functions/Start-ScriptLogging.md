@@ -1,5 +1,7 @@
 # Start-ScriptLogging
 
+Module: Capa.PowerShell.Module.SDK.Utilities
+
 ## SYNOPSIS
 This fuction is used to start logging of a SDK script.
 

@@ -1,5 +1,7 @@
 # Write-LogLine
 
+Module: Capa.PowerShell.Module.SDK.Utilities
+
 ## SYNOPSIS
 Use to write a line to the log file.
 

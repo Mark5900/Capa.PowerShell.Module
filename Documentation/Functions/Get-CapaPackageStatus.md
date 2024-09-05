@@ -1,5 +1,7 @@
 # Get-CapaPackageStatus
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Gets a list of packages and their status on a unit.
 

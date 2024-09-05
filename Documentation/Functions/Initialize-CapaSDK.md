@@ -1,5 +1,7 @@
 # Initialize-CapaSDK
 
+Module: Capa.PowerShell.Module.SDK.Authentication
+
 ## SYNOPSIS
 Create a new CapaSDK object that is needed for all other functions.
 

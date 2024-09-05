@@ -1,5 +1,7 @@
 # Exit-PpPowerShellExecutionFailed
 
+Module: Capa.PowerShell.Module.PowerPack.Exit
+
 ## SYNOPSIS
 Set error code that the PowerShell execution failed.
 

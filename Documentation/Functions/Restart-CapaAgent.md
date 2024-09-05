@@ -1,5 +1,7 @@
 # Restart-CapaAgent
 
+Module: Capa.PowerShell.Module.SDK.Utilities
+
 ## SYNOPSIS
 Sets an action to restart an agent.
 

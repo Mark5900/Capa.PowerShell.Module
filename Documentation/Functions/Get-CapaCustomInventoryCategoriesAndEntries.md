@@ -1,5 +1,7 @@
 # Get-CapaCustomInventoryCategoriesAndEntries
 
+Module: Capa.PowerShell.Module.SDK.Inventory
+
 ## SYNOPSIS
 Get custom inventory categories and entries.
 

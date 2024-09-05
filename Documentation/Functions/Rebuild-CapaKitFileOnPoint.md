@@ -1,5 +1,7 @@
 # Rebuild-CapaKitFileOnPoint
 
+Module: Capa.PowerShell.Module.SDK.SystemSdk
+
 ## SYNOPSIS
 Rebuilds CapaInstaller.kit file on all Management Servers in the given Management Point.
 

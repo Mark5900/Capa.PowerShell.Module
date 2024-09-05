@@ -1,5 +1,7 @@
 # Get-CapaUsers
 
+Module: Capa.PowerShell.Module.SDK.User
+
 ## SYNOPSIS
 Get a list of all users.
 

@@ -1,5 +1,7 @@
 # Get-CapaUsersLinkedToVppUser
 
+Module: Capa.PowerShell.Module.SDK.VPP
+
 ## SYNOPSIS
 Gets a list of users linked to a VPP user.
 

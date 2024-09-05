@@ -1,5 +1,7 @@
 # Get-CapaSoftwareInventoryForUnit
 
+Module: Capa.PowerShell.Module.SDK.Inventory
+
 ## SYNOPSIS
 Get software inventory for a unit.
 

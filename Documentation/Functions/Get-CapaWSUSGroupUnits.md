@@ -1,5 +1,7 @@
 # Get-CapaWSUSGroupUnits
 
+Module: Capa.PowerShell.Module.SDK.WSUS
+
 ## SYNOPSIS
 Gets a list of units linked to a WSUS group.
 

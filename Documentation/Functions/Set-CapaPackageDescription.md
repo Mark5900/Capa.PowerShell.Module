@@ -1,5 +1,7 @@
 # Set-CapaPackageDescription
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Set the description of a package.
 

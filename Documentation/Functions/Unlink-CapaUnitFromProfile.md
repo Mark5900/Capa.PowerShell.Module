@@ -1,5 +1,7 @@
 # Unlink-CapaUnitFromProfile
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 Unlink profile from a device.
 

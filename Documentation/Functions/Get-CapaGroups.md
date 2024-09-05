@@ -1,5 +1,7 @@
 # Get-CapaGroups
 
+Module: Capa.PowerShell.Module.SDK.Group
+
 ## SYNOPSIS
 Get groups.
 

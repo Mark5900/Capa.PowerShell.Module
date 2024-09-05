@@ -1,5 +1,7 @@
 # Exist-CapaPackage
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Verifies if a package exists.
 

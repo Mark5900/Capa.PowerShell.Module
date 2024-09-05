@@ -1,5 +1,7 @@
 # Get-CapaUnitManagementServerRelation
 
+Module: Capa.PowerShell.Module.SDK.Unit
+
 ## SYNOPSIS
 https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247528/Get+unit+management+server+relation
 

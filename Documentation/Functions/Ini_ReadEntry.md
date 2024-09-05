@@ -1,5 +1,7 @@
 # Ini_ReadEntry
 
+Module: Capa.PowerShell.Module.PowerPack.Ini
+
 ## SYNOPSIS
 Reads an entry from an INI file.
 

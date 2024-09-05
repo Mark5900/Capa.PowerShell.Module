@@ -1,5 +1,7 @@
 # Set-CapaGroupDescription
 
+Module: Capa.PowerShell.Module.SDK.Group
+
 ## SYNOPSIS
 Set a group description.
 

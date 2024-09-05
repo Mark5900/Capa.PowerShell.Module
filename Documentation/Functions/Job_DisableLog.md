@@ -1,5 +1,7 @@
 # Job_DisableLog
 
+Module: Capa.PowerShell.Module.PowerPack.Job
+
 ## SYNOPSIS
 Disable logging
 

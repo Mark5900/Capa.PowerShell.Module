@@ -1,5 +1,7 @@
 # Move-CapaDeviceToPoint
 
+Module: Capa.PowerShell.Module.SDK.Utilities
+
 ## SYNOPSIS
 Moves a device from its current Management Point to the specified Management Point.
 

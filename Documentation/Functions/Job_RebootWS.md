@@ -1,5 +1,7 @@
 # Job_RebootWS
 
+Module: Capa.PowerShell.Module.PowerPack.Job
+
 ## SYNOPSIS
 Enable logging
 

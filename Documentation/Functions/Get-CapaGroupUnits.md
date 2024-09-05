@@ -1,5 +1,7 @@
 # Get-CapaGroupUnits
 
+Module: Capa.PowerShell.Module.SDK.Group
+
 ## SYNOPSIS
 Get units linked to a group.
 

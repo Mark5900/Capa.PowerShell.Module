@@ -1,5 +1,7 @@
 # Add-CapaPackageToManagementServer
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Adds a package to a management server.
 

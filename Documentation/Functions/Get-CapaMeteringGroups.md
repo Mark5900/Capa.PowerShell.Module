@@ -1,5 +1,7 @@
 # Get-CapaMeteringGroups
 
+Module: Capa.PowerShell.Module.SDK.Inventory
+
 ## SYNOPSIS
 Get metering groups.
 

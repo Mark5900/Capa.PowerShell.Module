@@ -1,5 +1,7 @@
 # UsrMgr_ChangePassword
 
+Module: Capa.PowerShell.Module.PowerPack.UsrMgr
+
 ## SYNOPSIS
 Change the password of a local user account.
 

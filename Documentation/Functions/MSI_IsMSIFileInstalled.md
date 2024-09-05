@@ -1,5 +1,7 @@
 # MSI_IsMSIFileInstalled
 
+Module: Capa.PowerShell.Module.PowerPack.MSI
+
 ## SYNOPSIS
 Checks if an MSI file is installed.
 

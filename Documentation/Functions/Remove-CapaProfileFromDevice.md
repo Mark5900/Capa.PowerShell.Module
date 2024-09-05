@@ -1,5 +1,7 @@
 # Remove-CapaProfileFromDevice
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 This function will remove a profile from a device.
 

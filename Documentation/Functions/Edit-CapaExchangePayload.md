@@ -1,5 +1,7 @@
 # Edit-CapaExchangePayload
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 Editing an existing Exchange Payload.
 

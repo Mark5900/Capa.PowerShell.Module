@@ -1,5 +1,7 @@
 # UsrMgr_RemoveUserFromLocalGroup
 
+Module: Capa.PowerShell.Module.PowerPack.UsrMgr
+
 ## SYNOPSIS
 Remove a user from a local group.
 

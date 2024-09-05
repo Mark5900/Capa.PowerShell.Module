@@ -1,5 +1,7 @@
 # Get-CapaVppUsers
 
+Module: Capa.PowerShell.Module.SDK.VPP
+
 ## SYNOPSIS
 Gets a list of all VPP users.
 

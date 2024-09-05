@@ -1,5 +1,7 @@
 # Service_Stop
 
+Module: Capa.PowerShell.Module.PowerPack.Service
+
 ## SYNOPSIS
 Stops a service.
 

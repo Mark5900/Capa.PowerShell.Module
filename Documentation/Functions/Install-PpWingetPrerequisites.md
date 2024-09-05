@@ -1,5 +1,7 @@
 # Install-PpWingetPrerequisites
 
+Module: Capa.PowerShell.Module.PowerPack.Winget
+
 ## SYNOPSIS
 Install prerequisites for winget
 

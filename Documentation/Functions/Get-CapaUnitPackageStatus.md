@@ -1,5 +1,7 @@
 # Get-CapaUnitPackageStatus
 
+Module: Capa.PowerShell.Module.SDK.Unit
+
 ## SYNOPSIS
 https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247536/Get+unit+package+status
 

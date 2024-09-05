@@ -1,5 +1,7 @@
 # Remove-CapaPackageFromManagementServer
 
+Module: Capa.PowerShell.Module.SDK.Package
+
 ## SYNOPSIS
 Removes a package from a management server.
 

@@ -1,5 +1,7 @@
 # File_ExistDir
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Check if a folder exists.
 

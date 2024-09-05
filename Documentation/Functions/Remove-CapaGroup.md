@@ -1,5 +1,7 @@
 # Remove-CapaGroup
 
+Module: Capa.PowerShell.Module.SDK.Group
+
 ## SYNOPSIS
 Removes a group.
 

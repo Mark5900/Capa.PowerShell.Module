@@ -1,5 +1,7 @@
 # Exit-PpMissingDiskSpace
 
+Module: Capa.PowerShell.Module.PowerPack.Exit
+
 ## SYNOPSIS
 Set error code that there is missing disk space.
 

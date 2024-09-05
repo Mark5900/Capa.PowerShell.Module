@@ -1,5 +1,7 @@
 # Get-CapaOSDiskConfigration
 
+Module: Capa.PowerShell.Module.SDK.OSDeployment
+
 ## SYNOPSIS
 Gets a list of OS Disk Configurations.
 

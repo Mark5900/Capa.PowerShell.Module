@@ -1,5 +1,7 @@
 # UsrMgr_DeleteLocalUserAccount
 
+Module: Capa.PowerShell.Module.PowerPack.UsrMgr
+
 ## SYNOPSIS
 Delete a local user account.
 

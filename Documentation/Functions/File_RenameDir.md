@@ -1,5 +1,7 @@
 # File_RenameDir
 
+Module: Capa.PowerShell.Module.PowerPack.File
+
 ## SYNOPSIS
 Rename a folder.
 

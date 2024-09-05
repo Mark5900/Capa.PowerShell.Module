@@ -1,5 +1,7 @@
 # Add-CapaKeyValueToAppConfigAndroid
 
+Module: Capa.PowerShell.Module.SDK.MDM
+
 ## SYNOPSIS
 Add a new key/value setting to an existing AppConfig payload in the specified profile.
 

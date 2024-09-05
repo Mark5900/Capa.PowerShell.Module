@@ -1,6 +1,4 @@
-﻿# TODO: #54 Update when UsrMgr is added to the file
-
-<#
+﻿<#
 	.SYNOPSIS
 		Adds a user to a local group.
 

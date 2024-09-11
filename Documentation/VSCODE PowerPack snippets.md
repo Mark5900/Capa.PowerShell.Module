@@ -111,18 +111,153 @@ In the installation or uninstallation script delete all and use the following sn
 	}
 ```
 
-## MSI template
+## PowerPackInstallMSI
 ```json
-"PowerPackMsiExcution": {
-		"prefix": "PowerPackMsiExcution",
-		"description": "Template for a PowerShell msi excution in CapaInstaller PowerPacks",
-		"body": [
-			"$$Command = 'msiexec.exe'",
-			"$$Arguments = \"/i `\"$$Global:Packageroot\\kit\\GoogleChromeStandaloneEnterprise64.Msi`\" /QN REBOOT=REALLYSUPPRESS ALLUSERS=1\"",
-			"$RetValue = Shell_Execute -Command $$Command -Arguments $$Arguments",
-			"",
-			"if ($$RetValue -ne 0) { Exit-PpScript $RetValue }",
-			"Job_WriteLog -FunctionName 'Install' -Text \"$$Global:AppName completed with status: $$RetValue\""
-		]
-	}
+"PowerPackInstallMSI": {
+			"prefix": "PowerPackInstallMSI",
+			"body": [
+				"$$MSIInstallLog = Join-Path $$Global:MSILogDir \"Appl_Install_$$($$Global:AppName).log\"",
+				"",
+    "	$$Splatting = @{",
+    "		Command     = 'msiexec.exe'",
+    "		Arguments   = \"/i `\"$$Global:MSIFile`\" /QN REBOOT=REALLYSUPPRESS ALLUSERS=1 /L* `\"$$MSIInstallLog`\"\"",
+    "		Wait        = $$true",
+    "		WindowStyle = 'Hidden'",
+    "		MustExist   = $$false",
+    "	}",
+    "	$$RetValue = Shell_Execute @Splatting",
+				"",
+    "	if ($$RetValue -ne 0) {",
+    "		Exit-PpScript $$RetValue",
+    "	}",
+    "	Job_WriteLog -Text \"$$Global:AppName completed with status: $$RetValue\""
+			],
+			"description": "Used in PowerPack scripts to install MSI packages. To be used together with PowerPackUninstallProgramFunctions and PowerPackUninstallProgram. Requmented to be used in Install part og the installation script."
+		}
+```
+
+## PowerPackUninstallProgram
+```json
+"PowerPackUninstallProgram": {
+			"prefix": "PowerPackUninstallProgram",
+			"body": [
+    "	$$Global:MSILogDir = Join-Path $$Global:gsLogDir 'Msilogs'",
+    "	$$Global:MSIUninstallLog = Join-Path $$Global:MSILogDir \"Appl_Uninstall_$$($$Global:AppName).log\"",
+				"",
+    "	# TODO: Change this to the MSI file you want to install",
+    "	$$Global:MSIFile = Join-Path $$Global:Packageroot 'kit' 'script.msi'",
+    "	$$Guid = MSI_GetProductCodeFromMSI -MsiFile $$Global:MSIFile",
+				"",
+    "	if ($$Guid -eq $$null) {",
+    "		Exit-PpCommandFailed -ExitMessage 'Failed to get ProductCode from MSI'",
+    "	}",
+				"",
+    "	if (!(File_ExistDir -Path $$Global:MSILogDir)) {",
+    "		File_CreateDir -Path $$Global:MSILogDir",
+    "	}",
+				"",
+    "	Uninstall-Guid -Guid $$Guid",
+				"",
+    "	##region Uninstall based on registry",
+    "	$$RegPath = 'Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall'",
+    "	Uninstall-WhatIsFoundInRegistry -RegPath $$RegPath",
+				"",
+    "	$$RegPath = 'Software\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall'",
+    "	Uninstall-WhatIsFoundInRegistry -RegPath $$RegPath",
+    "	#endregion"
+			],
+			"description": "Used in PowerPack together with PowerPackUninstallProgramFunctions to uninstall a program. Recommended to be inserted in PreInstall in the intallation script or in Uninstall in the uninstallation script."
+		}
+```
+
+## PowerPackUninstallProgramFunctions
+```json
+"PowerPackUninstallProgramFunctions": {
+			"prefix": "PowerPackUninstallProgramFunctions",
+			"body": [
+				"function Uninstall-Guid {",
+				"	param (",
+				"		[Parameter(Mandatory = $$true)]",
+				"		[string]$$Guid",
+				"	)",
+				"",
+				"	$$Installed = MSI_IsMSIGuidInstalled -MsiGuid $$Guid",
+				"	if ($$Installed) {",
+				"		$$Splatting = @{",
+				"			Command     = 'msiexec.exe'",
+				"			Arguments   = \"/x $$Guid /qn REBOOT=REALLYSUPPRESS ALLUSERS=2 /L* `\"$$Global:MSIUninstallLog`\"\"",
+				"			Wait        = $$true",
+				"			WindowStyle = 'Hidden'",
+				"			MustExist   = $$false",
+				"		}",
+				"		$$RetValue = Shell_Execute @Splatting",
+				"",
+				"		if ($$RetValue -ne 0) {",
+				"			Exit-PpCommandFailed -ExitMessage 'Failed to uninstall MSI'",
+				"		}",
+				"		Job_WriteLog -Text \"Uninstall completed with status: $$RetValue\"",
+				"	}",
+				"}",
+				"",
+				"function Uninstall-UsingUninstallString {",
+				"	param (",
+				"		[Parameter(Mandatory = $$true)]",
+				"		[string]$$Uninstallstring",
+				"	)",
+				"	$$RetValue = Shell_Execute -Command $$Uninstallstring -Arguments '/S' -Wait $$true -WindowStyle Hidden -MustExist $$false",
+				"	if ($$RetValue -ne 0) { Exit-PpScript $$RetValue }",
+				"	Job_WriteLog -Text \"Command completed with status: $$RetValue\"",
+				"}",
+				"",
+				"function Uninstall-WhatIsFoundInRegistry {",
+				"	param (",
+				"		[Parameter(Mandatory = $$true)]",
+				"		[string]$$RegPath",
+				"	)",
+				"	$$Keys = Reg_EnumKey -RegRoot HKLM -RegPath $$RegPath -MustExist $$true",
+				"",
+				"	# TODO: Update this to match the application you are packaging. You can see 3 different examples below.",
+				"	<#",
+				"	$$Keys = $$Keys | Where-Object { $$_ -like '*Firefox*' }",
+				"	foreach ($$Item in $$Keys) {",
+				"		Job_WriteLog -Text \"Key: $$Item\"",
+				"		$$UninstallString = Reg_GetString -RegRoot HKLM -RegKey \"$$RegPath\\$$Item\" -RegValue 'UninstallString'",
+				"		Custom-Uninstall -Uninstallstring $$UninstallString",
+				"	}",
+				"	#>",
+				"",
+				"	<#",
+				"	foreach ($$Item in $$Keys) {",
+				"		Job_WriteLog -Text \"Running for key: $$Item\"",
+				"		$$Publisher = Reg_GetString -RegRoot HKLM -RegKey \"$$RegPath\\$$Item\" -RegValue 'Publisher'",
+				"		$$DisplayName = Reg_GetString -RegRoot HKLM -RegKey \"$$RegPath\\$$Item\" -RegValue 'DisplayName'",
+				"",
+				"		if ($$Publisher -eq 'ACD/Labs' -and $$DisplayName -like '*Freeware*' -and $$DisplayName -like '*ACD64FREE*') {",
+				"			$$UninstallString = Reg_GetString -RegRoot HKLM -RegKey \"$$RegPath\\$$Item\" -RegValue 'UninstallString'",
+				"			Uninstall-UsingUninstallString -Uninstallstring $$UninstallString",
+				"		} else {",
+				"			Job_WriteLog -Text \"Skipping uninstall for key: $$Item\"",
+				"		}",
+				"	}",
+				"	#>",
+				"",
+				"	<#",
+				"	foreach ($$Item in $$Keys) {",
+				"		Job_WriteLog -Text \"Running for key: $$Item\"",
+				"		$$Publisher = Reg_GetString -RegRoot HKLM -RegKey \"$$RegPath\\$$Item\" -RegValue 'Publisher'",
+				"		$$DisplayName = Reg_GetString -RegRoot HKLM -RegKey \"$$RegPath\\$$Item\" -RegValue 'DisplayName'",
+				"",
+				"		if ($$Publisher -eq 'ACD/Labs' -and $$DisplayName -like '*Freeware*' -and $$DisplayName -like '*ACD64FREE*') {",
+				"			$$UninstallString = Reg_GetString -RegRoot HKLM -RegKey \"$$RegPath\\$$Item\" -RegValue 'UninstallString'",
+				"			$$UninstallString = $$UninstallString -replace 'msiexec.exe /I', ''",
+				"			Uninstall-Guid -Guid $$UninstallString",
+				"		} else {",
+				"			Job_WriteLog -Text \"Skipping uninstall for key: $$Item\"",
+				"		}",
+				"	}",
+				"	#>",
+				"}"
+			],
+			"description": "Can be used in PowerPack to uninstall a program using GUID, UninstallString or Registry."
+		}
 ```

@@ -27,7 +27,7 @@
 - [Get-PpCMSIsPackageScheduleEnabled](Functions/Get-PpCMSIsPackageScheduleEnabled.md)
 - [Get-PpCMSPackage](Functions/Get-PpCMSPackage.md)
 - [Get-PpCMSPackageStatus](Functions/Get-PpCMSPackageStatus.md)
-- [Get-PpCMSProperty](Functions/Get-PpCMSProperty.md)
+- [Get-PpCmsProperty](Functions/Get-PpCmsProperty.md)
 - [Initialize-PpCMSRerunPackage](Functions/Initialize-PpCMSRerunPackage.md)
 - [Install-PpCMSAdvertisedPackage](Functions/Install-PpCMSAdvertisedPackage.md)
 - [Invoke-PpCMSRunSystemAgent](Functions/Invoke-PpCMSRunSystemAgent.md)

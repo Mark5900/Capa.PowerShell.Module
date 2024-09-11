@@ -1,41 +1,48 @@
 # Convert-CapaDataType
+
 Module: Capa.PowerShell.Module.SDK.Inventory
 
+## SYNOPSIS
 A function to convert Capa data types.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Convert-CapaDataType
-	-Datatype <Object>
+```
+Convert-CapaDataType [[-Datatype] <Object>]
 ```
 
-## Description
-
+## DESCRIPTION
 A function to convert Capa data types to a more readable format.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Convert-CapaDataType -Datatype 1
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**Datatype**
-
+### -Datatype
 The data type to convert.
-| Name | Value |
-| ---- | ---- |
-| Type: | Object |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 A custom function to convert Capa data types to a more readable format.
+
+## RELATED LINKS

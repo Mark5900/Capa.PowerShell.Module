@@ -1,58 +1,87 @@
 # Log_SectionHeader
+
 Module: Capa.PowerShell.Module.PowerPack.Log
 
+## SYNOPSIS
 Creates a section header in the logfile.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Log_SectionHeader
-	-Name <String>
-	-FrameCharacter <String>
+```
+Log_SectionHeader [-Name] <String> [[-FrameCharacter] <String>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
-## Description
+## DESCRIPTION
+{{ Fill in the Description }}
 
+## EXAMPLES
 
-
-## Examples
-
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Log_SectionHeader -Name "Install"
 ```
-    
-### Example 2
-```powershell
+
+### EXAMPLE 2
+```
 Log_SectionHeader -Name "Install" -FrameCharacter "="
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**Name**
-
-The name of the section.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**FrameCharacter**
-
+### -FrameCharacter
 The character to use for the frame, default is 'o'.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | o | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: False
+Position: 2
+Default value: O
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -Name
+The name of the section.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455700/cs.Log+SectionHeader
+
+## RELATED LINKS

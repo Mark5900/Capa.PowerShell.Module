@@ -1,54 +1,85 @@
 # Confirm-PpWingetAppInstall
+
 Module: Capa.PowerShell.Module.PowerPack.Winget
 
+## SYNOPSIS
 Confirm if an app is installed.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Confirm-PpWingetAppInstall
-	-AppId <String>
-	-WingetPath <String>
+```
+Confirm-PpWingetAppInstall [-AppId] <String> [[-WingetPath] <String>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 Confirm if an app is installed.
 Returns $true if the app is installed, otherwise $false.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Confirm-PpWingetAppInstall -AppId 'Microsoft.VisualStudioCode'
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**AppId**
-
+### -AppId
 The AppId of the app to confirm.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**WingetPath**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-The path to the winget executable. If not provided, the function will try to find the winget executable.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
 
-## Notes
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
-Custom function not from CapaSystems. 		Idea from: https://github.com/Romanitho/Winget-Install/blob/main/winget-install.ps1
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WingetPath
+The path to the winget executable.
+If not provided, the function will try to find the winget executable.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+Custom function not from CapaSystems.
+Idea from: https://github.com/Romanitho/Winget-Install/blob/main/winget-install.ps1
+
+## RELATED LINKS

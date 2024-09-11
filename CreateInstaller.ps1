@@ -1,4 +1,5 @@
 Import-Module PSMSI
+Import-Module platyPS
 <#
     .NOTES
     ===========================================================================
@@ -19,7 +20,7 @@ $UpgradeCode = '84859CA1-0F7D-47BF-8D36-AE22F5E171AD'
 $VersionFile = Join-Path $PSScriptRoot 'version.txt'
 
 try {
-$Version = (Get-Content -Path $VersionFile).Trim()
+    $Version = (Get-Content -Path $VersionFile).Trim()
 } catch {
     Get-ChildItem $PSScriptRoot
     exit
@@ -61,6 +62,63 @@ function Import-FunctionsToPSMFiles {
     }
 }
 
+function Update-APSDFile {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$Version,
+        [Parameter(Mandatory = $true)]
+        [string]$path
+    )
+    $Content = Get-Content -Path $Path
+
+    # Update ModuleVersion
+    foreach ($line in $Content) {
+        if ($line -match 'ModuleVersion') {
+            $split = $line -split '= '
+            $split[1] = "'$version'"
+            $Newline = $split -join '= '
+            $Content = $Content.Replace($line, $Newline)
+            break
+        }
+    }
+
+    # Update lines where Capa.PowerShell.Module.PowerPack. and RequiredVersion exists
+    foreach ($line in $Content) {
+        if ($line -match "Capa\.PowerShell\.Module\..*'; RequiredVersion = '.+'") {
+
+            $moduleName = $line -replace ".*ModuleName = '([^']+)'.*", '$1'
+            $requiredVersion = $line -replace ".*RequiredVersion = '([^']+)'.*", '$1'
+
+            $newLine = $line -replace "RequiredVersion = '([^']+)'", "RequiredVersion = '$version'"
+
+            $Content = $Content -replace [regex]::Escape($line), $newLine
+        }
+    }
+
+    # If last line is empty, remove it
+    if ($Content[-1] -eq '') {
+        $Content = $Content[0..($Content.Length - 2)]
+    }
+
+    Set-Content -Path $Path -Value $Content | Out-Null
+}
+
+function Update-PSDVersions {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$Version
+    )
+    $ModulePath = Join-Path $PSScriptRoot 'Modules'
+
+    $Folders = Get-ChildItem -Path $ModulePath -Directory
+    foreach ($Folder in $Folders) {
+        $PsdPath = Join-Path $Folder.FullName 'Prod' "$($Folder.Name).psd1"
+        if (Test-Path $PsdPath) {
+            Update-APSDFile -Version $Version -Path $PsdPath
+        }
+    }
+
+}
 function New-ModuleInstaller {
     param (
         [Parameter(Mandatory = $true)]
@@ -372,10 +430,10 @@ function New-ModuleInstallerPowerPackOnly {
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psd1
                         New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psm1
                     }
-										New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Winget' -Content {
-												New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psd1
-												New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psm1
-										}
+                    New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Winget' -Content {
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psd1
+                        New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psm1
+                    }
                 }
             }
         }
@@ -387,300 +445,54 @@ function New-ModuleInstallerPowerPackOnly {
     Write-Host "Installer created at: $PSScriptRoot\Installers\$ProductName.$Version.x64.msi"
 }
 
-function GenerateSyntaxText {
-    param (
-        $GetHelp
-    )
-    $Text = ''
-
-    foreach ($Syntax in $GetHelp.Syntax.syntaxItem) {
-        $Text += '```powershell'
-        $Text += "`n"
-
-        $Text += "$($Syntax.Name)`n"
-        foreach ($Parameter in $Syntax.Parameter) {
-            $Text += "`t-"
-
-            if ($Parameter.Required) {
-                $Text += "$($Parameter.Name)"
-            } else {
-                $Text += "[$($Parameter.Name)]"
-            }
-
-            $Text += " <$($Parameter.parameterValue)>`n"
-        }
-
-
-        $Text += '```'
-        $Text += "`n"
-    }
-
-    return $Text
-}
-
-function GenerateExaplesText {
-    param (
-        $GetHelp
-    )
-    $Text = ''
-    $Number = 1
-
-    foreach ($Example in $GetHelp.Examples.example) {
-        $Text += "### Example $Number"
-        $Text += "`n"
-
-        $Text += '```powershell'
-        $Text += "`n"
-
-        $Text += "$($Example.code)`n"
-
-        $Text += '```'
-        $Text += "`n"
-
-        if ($null -ne $Example.remarks -and $Example.remarks -ne '') {
-            $Text += "$($Example.remarks)`n"
-        }
-
-        $Number++
-    }
-
-    return $Text
-}
-
-function Get-ValidateSet {
-    param(
-        $FunctionPath
-    )
-    $ValidateSet = @()
-    $Values = $null
-    $FileContent = Get-Content $FunctionPath
-
-    foreach ($Line in $FileContent) {
-        if ($Line -like '*ValidateSet*') {
-            $Values += $Line
-            $ParameterName = $null
-        }
-
-        if ($Line -like '*$*' -and $Line -notlike '*Mandatory*') {
-            $ParameterName = $Line
-        }
-
-        if ($null -ne $Values -and $null -ne $ParameterName) {
-            $ValidateSetValue = $null
-
-            $Values = $Values.Split(',')
-            foreach ($Value in $Values) {
-                $text = GetStringBetweenTwoStrings -Content $Value -firstString "'" -secondString "'"
-
-                if ($null -ne $ValidateSetValue) {
-                    $ValidateSetValue += ", $text"
-                } else {
-                    $ValidateSetValue = $text
-                }
-            }
-
-            $ParameterName = $ParameterName.Split('=')[0].Trim()
-            $ParameterName = $ParameterName.Split('$')[1].Trim()
-
-            $ValidateSet += @{ Name = $ParameterName; Values = $ValidateSetValue }
-
-            $Values = $null
-        }
-    }
-
-    return $ValidateSet
-}
-
-function GenerateParametersText {
-    param (
-        $GetHelp,
-        $FunctionPath
-    )
-    $Text = ''
-    $ValidateSet = Get-ValidateSet -FunctionPath $FunctionPath
-
-    foreach ($Parameter in $GetHelp.Parameters.parameter) {
-        $Text += "-**$($Parameter.name)**`n`n"
-        $Text += "$($Parameter.description.Text)`n"
-        $Text += "| Name | Value |`n"
-        $Text += "| ---- | ---- |`n"
-        $Text += "| Type: | $($Parameter.type.name) |`n"
-
-        # Accepted values: for parameters
-        # FIXME - this is not working for all parameters but some of them
-        if ($Validate.Name -contains $Parameter.name) {
-            Write-Host "Found validate set for $($Parameter.name)"
-            $Value = $ValidateSet | Where-Object { $_.Name -eq $Parameter.name }
-            Write-Host "Values: $($Value.Values)"
-            $Text += "| Accepted values: | $($Value.Values) | `n"
-        }
-
-        $Text += "| Position: | $($Parameter.position) | `n"
-
-        if ($null -eq $Parameter.defaultValue -or $Parameter.defaultValue -eq '') {
-            $Value = 'None'
-        } else {
-            $Value = $Parameter.defaultValue
-        }
-        $Text += "| Default value: | $Value | `n"
-
-        $Text += "| Accept pipeline input: | $($Parameter.pipelineInput) | `n"
-        $Text += "| Accept wildcard characters: | $($Parameter.globbing) | `n`n"
-    }
-
-    return $Text
-}
-
-function GetStringBetweenTwoStrings {
-    param (
-        $importPath,
-        $firstString,
-        $secondString,
-        $Content = $null
-    )
-
-    #Get content from file
-    if ($null -eq $Content) {
-        $file = Get-Content $importPath
-    } else {
-        $file = $Content
-    }
-
-    #Regex pattern to compare two strings
-    $pattern = "$firstString(.*?)$secondString"
-
-    #Perform the opperation
-    $result = [regex]::Match($file, $pattern).Groups[1].Value
-
-    #Return result
-    return $result
-
-}
-
 function GenerateFunctionsDocumentation {
-    $DocumentationFolder = Join-Path $PSScriptRoot 'Documentation' 'Functions'
     $ModulePath = Join-Path $PSScriptRoot 'Modules'
 
-    # Add overview page for all functions in documentation folder
-    $OverviewFile = Join-Path $PSScriptRoot 'Documentation' 'Overview of all functions in modules.md'
-    Out-File -FilePath $OverviewFile -InputObject '# Overview of all functions in modules' -Force
+    $OverviewPath = Join-Path $PSScriptRoot 'Documentation' 'Overview of all functions in modules.md'
+    Remove-Item -Path $OverviewPath -Force -ErrorAction SilentlyContinue
+    New-Item -Path $OverviewPath -ItemType File
+    Add-Content -Path $OverviewPath -Value '# Overview of all functions in modules'
+    Add-Content -Path $OverviewPath -Value ''
 
-    # Delete all files in the folder
-    Get-ChildItem -Path $DocumentationFolder -Recurse | Remove-Item -Force
-
-    # Generate documentation for all functions in the modules
     $Folders = Get-ChildItem -Path $ModulePath -Directory
     foreach ($Folder in $Folders) {
-        $DevFolder = Join-Path $Folder.FullName 'Dev'
+        Write-Host "Generating documentation for $($Folder.Name)"
 
-        if (Test-Path $DevFolder) {
-            $Files = Get-ChildItem -Path $DevFolder -File | Where-Object { $_.Name -notlike '*Tests.ps1' }
+        # Functions documentation
+        $PSMPath = Join-Path $Folder.FullName 'Prod' "$($Folder.Name).psm1"
+        if ((Test-Path $PSMPath) -eq $false) {
+            continue
+        }
 
-            # Add overview page for all functions in module
-            Out-File -FilePath $OverviewFile -InputObject "`n## $($Folder.Name)`n" -Append
+        Import-Module $PSMPath -Force
 
-            foreach ($File in $Files) {
-                Write-Host "Generating documentation for $($File.Name)"
+        New-MarkdownHelp -Module $Folder.Name -OutputFolder .\Documentation\Functions -Force -AlphabeticParamsOrder -NoMetadata
 
-                $FunctionName = $File.Name -replace '.ps1'
-                $DocumentationFile = Join-Path $DocumentationFolder "$FunctionName.md"
+        # Add to Overview of all functions in modules.md
+        Add-Content -Path $OverviewPath -Value "## $($Folder.Name)"
+        Add-Content -Path $OverviewPath -Value ''
 
-                Import-Module $File.FullName -Force
-                $GetHelp = Get-Help $FunctionName -Full
+        $DevPath = Join-Path $Folder.FullName 'Dev'
+        $Files = Get-ChildItem -Path $DevPath -File | Where-Object { $_.Name -notlike '*Tests.ps1' }
 
-                # Title
-                Out-File -FilePath $DocumentationFile -InputObject "# $($GetHelp.Name)" -Append
+        foreach ($File in $Files) {
+            Add-Content -Path $OverviewPath -Value "- [$($File.BaseName)](Functions/$($File.BaseName).md)"
 
-                # Module
-                Out-File -FilePath $DocumentationFile -InputObject "Module: $($Folder.Name)`n" -Append
+            # Add what module the function is in to the function documentation
+            $FunctionPath = Join-Path $PSScriptRoot 'Documentation' 'Functions' "$($File.BaseName).md"
 
-                # Synopsis
-                Out-File -FilePath $DocumentationFile -InputObject "$($GetHelp.Synopsis)`n" -Append
-
-                # Syntax
-                Out-File -FilePath $DocumentationFile -InputObject "## Syntax`n" -Append
-                Out-File -FilePath $DocumentationFile -InputObject (GenerateSyntaxText -GetHelp $GetHelp) -Append
-
-                # Description
-                Out-File -FilePath $DocumentationFile -InputObject "## Description`n" -Append
-                Out-File -FilePath $DocumentationFile -InputObject "$($GetHelp.Description.Text)`n" -Append
-
-                # Examples
-                Out-File -FilePath $DocumentationFile -InputObject "## Examples`n" -Append
-                Out-File -FilePath $DocumentationFile -InputObject (GenerateExaplesText -GetHelp $GetHelp) -Append
-
-                # Parameters
-                Out-File -FilePath $DocumentationFile -InputObject "## Parameters`n" -Append
-                $Text = GenerateParametersText -GetHelp $GetHelp -FunctionPath $File.FullName
-                Out-File -FilePath $DocumentationFile -InputObject ($Text) -Append
-
-                # Notes
-                Out-File -FilePath $DocumentationFile -InputObject "## Notes`n" -Append
-                Out-File -FilePath $DocumentationFile -InputObject "$((GetStringBetweenTwoStrings -firstString '.NOTES' -secondString '#>' -importPath $File.FullName).trim())" -Append
-
-                #TODO: Add overview page for all functions in documentation folder
-                Out-File -FilePath $OverviewFile -InputObject "* [$($GetHelp.Name)](Functions/$($GetHelp.Name).md)" -Append
+            if ((Test-Path $FunctionPath) -eq $false) {
+                continue
             }
-        }
-    }
-}
 
-function Update-APSDFile {
-    param (
-        [Parameter(Mandatory = $true)]
-        [string]$Version,
-        [Parameter(Mandatory = $true)]
-        [string]$path
-    )
-    $Content = Get-Content -Path $Path
+            $Content = Get-Content -Path $FunctionPath
 
-    # Update ModuleVersion
-    foreach ($line in $Content) {
-        if ($line -match 'ModuleVersion') {
-            $split = $line -split '= '
-            $split[1] = "'$version'"
-            $Newline = $split -join '= '
-            $Content = $Content.Replace($line, $Newline)
-            break
+            $Content = $Content -replace '## SYNOPSIS', "Module: $($Folder.Name)`n`n## SYNOPSIS"
+            Set-Content -Path $FunctionPath -Value $Content
         }
     }
 
-    # Update lines where Capa.PowerShell.Module.PowerPack. and RequiredVersion exists
-    foreach ($line in $Content) {
-        if ($line -match "Capa\.PowerShell\.Module\..*'; RequiredVersion = '.+'") {
-
-            $moduleName = $line -replace ".*ModuleName = '([^']+)'.*", '$1'
-            $requiredVersion = $line -replace ".*RequiredVersion = '([^']+)'.*", '$1'
-
-            $newLine = $line -replace "RequiredVersion = '([^']+)'", "RequiredVersion = '$version'"
-
-            $Content = $Content -replace [regex]::Escape($line), $newLine
-        }
-    }
-
-    # If last line is empty, remove it
-    if ($Content[-1] -eq '') {
-        $Content = $Content[0..($Content.Length - 2)]
-    }
-
-    Set-Content -Path $Path -Value $Content | Out-Null
-}
-
-function Update-PSDVersions {
-    param (
-        [Parameter(Mandatory = $true)]
-        [string]$Version
-    )
-    $ModulePath = Join-Path $PSScriptRoot 'Modules'
-
-    $Folders = Get-ChildItem -Path $ModulePath -Directory
-    foreach ($Folder in $Folders) {
-        $PsdPath = Join-Path $Folder.FullName 'Prod' "$($Folder.Name).psd1"
-        if (Test-Path $PsdPath) {
-            Update-APSDFile -Version $Version -Path $PsdPath
-        }
-    }
-
+    Add-Content -Path $OverviewPath -Value ''
 }
 
 ##############

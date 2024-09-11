@@ -1,77 +1,112 @@
 # Add-CapaEnforcePasscodeAndroid
+
 Module: Capa.PowerShell.Module.SDK.MDM
 
+## SYNOPSIS
 Add a new Enforce Passcode payload or edit an existing one.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Add-CapaEnforcePasscodeAndroid
-	-CapaSDK <Object>
-	-ProfileId <Int32>
-	-Passcode <String>
-	-ChangelogComment <Object>
+```
+Add-CapaEnforcePasscodeAndroid [-CapaSDK] <Object> [-ProfileId] <Int32> [-Passcode] <String>
+ [[-ChangelogComment] <Object>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 Add a new Enforce Passcode payload or edit an existing payload in the specified profile.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Add-CapaEnforcePasscodeAndroid -CapaSDK $CapaSDK -ProfileId 1 -Passcode '12345678' -ChangelogComment 'Adding Enforce Passcode payload to profile'
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**CapaSDK**
-
+### -CapaSDK
 The CapaSDK object.
-| Name | Value |
-| ---- | ---- |
-| Type: | Object |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**ProfileId**
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
 
-The ID of the profile to add the payload to.
-| Name | Value |
-| ---- | ---- |
-| Type: | Int32 |
-| Position: | 2 | 
-| Default value: | 0 | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
--**Passcode**
-
-The passcode to enforce.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 3 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**ChangelogComment**
-
+### -ChangelogComment
 The comment you wish to be added to the changelog.
-| Name | Value |
-| ---- | ---- |
-| Type: | Object |
-| Position: | 4 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -Passcode
+The passcode to enforce.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProfileId
+The ID of the profile to add the payload to.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 2
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246520/Add+edit+Enforce+Passcode+Android
+
+## RELATED LINKS

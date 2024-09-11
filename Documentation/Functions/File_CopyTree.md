@@ -1,77 +1,112 @@
 # File_CopyTree
+
 Module: Capa.PowerShell.Module.PowerPack.File
 
+## SYNOPSIS
 Copy a folder.
 
-## Syntax
+## SYNTAX
 
-```powershell
-File_CopyTree
-	-Source <String>
-	-Destination <String>
-	-CopySubDirs <Boolean>
-	-Overwrite <Boolean>
+```
+File_CopyTree [-Source] <String> [-Destination] <String> [[-CopySubDirs] <Boolean>] [[-Overwrite] <Boolean>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
+## DESCRIPTION
+{{ Fill in the Description }}
 
+## EXAMPLES
 
-
-## Examples
-
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 File_CopyTree -Source "C:\Temp\test" -Destination "C:\Temp\test2"
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**Source**
-
-The source folder.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**Destination**
-
-The destination folder and creates destination folder if it does not exist.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**CopySubDirs**
-
+### -CopySubDirs
 Copy sub directories, default is true.
-| Name | Value |
-| ---- | ---- |
-| Type: | Boolean |
-| Position: | 3 | 
-| Default value: | True | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**Overwrite**
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
 
+Required: False
+Position: 3
+Default value: True
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Destination
+The destination folder and creates destination folder if it does not exist.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Overwrite
 Overwrite the destination files if they already exists, default is true.
-| Name | Value |
-| ---- | ---- |
-| Type: | Boolean |
-| Position: | 4 | 
-| Default value: | True | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: False
+Position: 4
+Default value: True
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Source
+The source folder.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455411/cs.File+CopyTree
+
+## RELATED LINKS

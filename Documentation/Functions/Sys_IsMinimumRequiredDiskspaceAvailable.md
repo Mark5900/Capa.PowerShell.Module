@@ -1,58 +1,87 @@
 # Sys_IsMinimumRequiredDiskspaceAvailable
+
 Module: Capa.PowerShell.Module.PowerPack.Sys
 
+## SYNOPSIS
 Checks if a minimum required disk space is available.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Sys_IsMinimumRequiredDiskspaceAvailable
-	-Drive <String>
-	-MinimumRequiredDiskspaceInMb <Int32>
+```
+Sys_IsMinimumRequiredDiskspaceAvailable [[-Drive] <String>] [-MinimumRequiredDiskspaceInMb] <Int32>
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
+## DESCRIPTION
+{{ Fill in the Description }}
 
+## EXAMPLES
 
-
-## Examples
-
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Sys_IsMinimumRequiredDiskspaceInMbAvailable -MinimumRequiredDiskspaceInMb 1000
 ```
-    
-### Example 2
-```powershell
+
+### EXAMPLE 2
+```
 Sys_IsMinimumRequiredDiskspaceInMbAvailable -Drive "D:" -MinimumRequiredDiskspaceInMb 1000
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**Drive**
-
+### -Drive
 The drive to check, default is 'C:'.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | C: | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**MinimumRequiredDiskspaceInMb**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: False
+Position: 1
+Default value: C:
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -MinimumRequiredDiskspaceInMb
 The minimum required disk space in bytes.
-| Name | Value |
-| ---- | ---- |
-| Type: | Int32 |
-| Position: | 2 | 
-| Default value: | 0 | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: True
+Position: 2
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456108/cs.Sys+IsMinimumRequiredDiskspaceAvailable
+
+## RELATED LINKS

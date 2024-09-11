@@ -1,29 +1,32 @@
-# Job_EnableLog
+# Job_RebootWS
+
 Module: Capa.PowerShell.Module.PowerPack.Job
 
+## SYNOPSIS
 Enable logging
 
-## Syntax
+## SYNTAX
 
-```powershell
+## DESCRIPTION
+Enable logging
+
+## EXAMPLES
+
+### EXAMPLE 1
+```
 Job_EnableLog
 ```
 
-## Description
+## PARAMETERS
 
-Enable logging
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-## Examples
+## INPUTS
 
-### Example 1
-```powershell
-Job_EnableLog
-```
-    
+## OUTPUTS
 
-## Parameters
+## NOTES
+Custom command
 
-
-## Notes
-
-Command from PSlib.psm1
+## RELATED LINKS

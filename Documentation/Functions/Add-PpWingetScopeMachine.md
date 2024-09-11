@@ -1,29 +1,34 @@
 # Add-PpWingetScopeMachine
+
 Module: Capa.PowerShell.Module.PowerPack.Winget
 
+## SYNOPSIS
 Set the winget scope to machine
 
-## Syntax
+## SYNTAX
 
-```powershell
+```
 Add-PpWingetScopeMachine
 ```
 
-## Description
-
+## DESCRIPTION
 Set the winget scope to machine
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Add-PpWingetScopeMachine
 ```
-    
 
-## Parameters
+## PARAMETERS
 
+## INPUTS
 
-## Notes
+## OUTPUTS
 
-Custom function not from CapaSystems. 		Idea from: https://github.com/Romanitho/Winget-Install/blob/main/winget-install.ps1
+## NOTES
+Custom function not from CapaSystems.
+Idea from: https://github.com/Romanitho/Winget-Install/blob/main/winget-install.ps1
+
+## RELATED LINKS

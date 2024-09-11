@@ -1,98 +1,146 @@
 # Shell_Execute
+
 Module: Capa.PowerShell.Module.PowerPack.Shell
 
+## SYNOPSIS
 Executes a command line application.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Shell_Execute
-	-Command <String>
-	-Arguments <String>
-	-Wait <Boolean>
-	-WindowStyle <Object>
-	-MustExist <Boolean>
-	-WorkingDirectory <String>
+```
+Shell_Execute [-Command] <String> [[-Arguments] <String>] [[-Wait] <Boolean>] [[-WindowStyle] <Object>]
+ [[-MustExist] <Boolean>] [[-WorkingDirectory] <String>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
-## Description
+## DESCRIPTION
+{{ Fill in the Description }}
 
+## EXAMPLES
 
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
+```
 
-## Examples
+{{ Add example description here }}
 
+## PARAMETERS
 
-## Parameters
-
--**Command**
-
-The command to execute.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**Arguments**
-
+### -Arguments
 The arguments to pass to the command.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**Wait**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-Wait for the command to finish before returning.
-| Name | Value |
-| ---- | ---- |
-| Type: | Boolean |
-| Position: | 3 | 
-| Default value: | True | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
--**WindowStyle**
+### -Command
+The command to execute.
 
-The window style to use when executing the command, default is 'Hidden'.
-Optional values are 'Hidden', 'Normal', 'Minimized', 'Maximized'.
-| Name | Value |
-| ---- | ---- |
-| Type: | Object |
-| Position: | 4 | 
-| Default value: | Hidden | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
--**MustExist**
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -MustExist
 Indicates if the command must exist, default is $false.
 If set to $true you need to specify the full path to the command.
-| Name | Value |
-| ---- | ---- |
-| Type: | Boolean |
-| Position: | 5 | 
-| Default value: | False | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**WorkingDirectory**
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
 
+Required: False
+Position: 5
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Wait
+Wait for the command to finish before returning.
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 3
+Default value: True
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WindowStyle
+The window style to use when executing the command, default is 'Hidden'.
+Optional values are 'Hidden', 'Normal', 'Minimized', 'Maximized'.
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 4
+Default value: Hidden
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WorkingDirectory
 The working directory for the command, default is empty.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 6 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: False
+Position: 6
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+## RELATED LINKS

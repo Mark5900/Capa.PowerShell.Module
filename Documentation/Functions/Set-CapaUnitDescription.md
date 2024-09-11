@@ -1,77 +1,112 @@
 # Set-CapaUnitDescription
+
 Module: Capa.PowerShell.Module.SDK.Unit
 
+## SYNOPSIS
 https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247724/Set+unit+description
 
-## Syntax
+## SYNTAX
 
-```powershell
-Set-CapaUnitDescription
-	-CapaSDK <Object>
-	-UnitName <String>
-	-UnitType <String>
-	-Description <String>
+```
+Set-CapaUnitDescription [-CapaSDK] <Object> [-UnitName] <String> [-UnitType] <String> [[-Description] <String>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 A detailed description of the Set-CapaUnitDescription function.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Set-CapaUnitDescription -CapaSDK $value1 -UnitName  'Value2' -UnitType Computer
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**CapaSDK**
-
+### -CapaSDK
 A description of the CapaSDK parameter.
-| Name | Value |
-| ---- | ---- |
-| Type: | Object |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**UnitName**
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
 
-A description of the UnitName  parameter.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
--**UnitType**
-
-A description of the UnitType parameter.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 3 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**Description**
-
+### -Description
 A description of the Description parameter.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 4 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UnitName
+A description of the UnitName  parameter.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UnitType
+A description of the UnitType parameter.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 Additional information about the function.
+
+## RELATED LINKS

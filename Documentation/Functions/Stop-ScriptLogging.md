@@ -1,29 +1,51 @@
 # Stop-ScriptLogging
+
 Module: Capa.PowerShell.Module.SDK.Utilities
 
+## SYNOPSIS
 Stops logging of a script.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Stop-ScriptLogging
+```
+Stop-ScriptLogging [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 Stops all started logging sesion started by running ITCE-StartScriptLoggin.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Stop-ScriptLogging
 ```
-    
 
-## Parameters
+## PARAMETERS
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
 
-## Notes
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 This is a custom function created to have a standard way of starting logging in SDK scripts.
+
+## RELATED LINKS

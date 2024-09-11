@@ -1,29 +1,33 @@
 # Job_EnableLog
+
 Module: Capa.PowerShell.Module.PowerPack.Job
 
+## SYNOPSIS
 Enable logging
 
-## Syntax
+## SYNTAX
 
-```powershell
+```
 Job_EnableLog
 ```
 
-## Description
-
+## DESCRIPTION
 Enable logging
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Job_EnableLog
 ```
-    
 
-## Parameters
+## PARAMETERS
 
+## INPUTS
 
-## Notes
+## OUTPUTS
 
+## NOTES
 Custom command
+
+## RELATED LINKS

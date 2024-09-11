@@ -1,58 +1,87 @@
 # Service_Start
+
 Module: Capa.PowerShell.Module.PowerPack.Service
 
+## SYNOPSIS
 Starts a service.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Service_Start
-	-ServiceName <String>
-	-MaxTimeout <Object>
+```
+Service_Start [-ServiceName] <String> [-MaxTimeout <Object>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
-## Description
+## DESCRIPTION
+{{ Fill in the Description }}
 
+## EXAMPLES
 
-
-## Examples
-
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Service_Start -ServiceName "gupdate"
 ```
-    
-### Example 2
-```powershell
+
+### EXAMPLE 2
+```
 Service_Start -ServiceName "gupdate" -MaxTimeout 120
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**ServiceName**
-
-The name of the service.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**MaxTimeout**
-
+### -MaxTimeout
 The maximum timeout in seconds to wait for the service to start, default is 60 seconds.
-| Name | Value |
-| ---- | ---- |
-| Type: | Object |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ServiceName
+The name of the service.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456006/cs.Service+Start
+
+## RELATED LINKS

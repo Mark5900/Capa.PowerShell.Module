@@ -1,110 +1,164 @@
 # Show-PpMessageBox
+
 Module: Capa.PowerShell.Module.PowerPack.Sys
 
+## SYNOPSIS
+{{ Fill in the Synopsis }}
 
-Show-PpMessageBox [-Title] <string> [-Message] <string> [[-Buttons] <string>] [-DefaultButton] <string> [[-Icon] <string>] [[-TimeoutSeconds] <int>] [[-Async] <bool>] [<CommonParameters>]
+## SYNTAX
 
-
-## Syntax
-
-```powershell
-Show-PpMessageBox
-	-Title <string>
-	-Message <string>
-	-Buttons <string>
-	-DefaultButton <string>
-	-Icon <string>
-	-TimeoutSeconds <int>
-	-Async <bool>
+```
+Show-PpMessageBox [-Title] <String> [-Message] <String> [[-Buttons] <String>] [-DefaultButton] <String>
+ [[-Icon] <String>] [[-TimeoutSeconds] <Int32>] [[-Async] <Boolean>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
-## Description
+## DESCRIPTION
+{{ Fill in the Description }}
 
+## EXAMPLES
 
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
+```
 
-## Examples
+{{ Add example description here }}
 
+## PARAMETERS
 
-## Parameters
+### -Async
+{{ Fill Async Description }}
 
--**Async**
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
 
+Required: False
+Position: 6
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | bool |
-| Position: | 6 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -Buttons
+{{ Fill Buttons Description }}
 
--**Buttons**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: OK, OKCancel, YesNo, YesNoCancel
 
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -DefaultButton
+{{ Fill DefaultButton Description }}
 
--**DefaultButton**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 3 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -Icon
+{{ Fill Icon Description }}
 
--**Icon**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: Information, Warning, Error, Question
 
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 4 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -Message
+{{ Fill Message Description }}
 
--**Message**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
 
--**TimeoutSeconds**
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | int |
-| Position: | 5 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -TimeoutSeconds
+{{ Fill TimeoutSeconds Description }}
 
--**Title**
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
 
+Required: False
+Position: 5
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 0 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -Title
+{{ Fill Title Description }}
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
+## INPUTS
+
+### None
+
+## OUTPUTS
+
+### System.Object
+## NOTES
+
+## RELATED LINKS

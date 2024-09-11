@@ -1,46 +1,71 @@
 # Exit-PpCommandObsolete
+
 Module: Capa.PowerShell.Module.PowerPack.Exit
 
+## SYNOPSIS
 Set error code that the command is obsolete.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Exit-PpCommandObsolete
-	-ExitMessage <String>
+```
+Exit-PpCommandObsolete [[-ExitMessage] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Exit-PpCommandObsolete
 ```
-    
-### Example 2
-```powershell
+
+### EXAMPLE 2
+```
 Exit-PpCommandObsolete -ExitMessage "This command is obsolete."
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**ExitMessage**
-
+### -ExitMessage
 Exit message to display.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 Custom command.
+
+## RELATED LINKS

@@ -1,65 +1,97 @@
 # Ini_ReadEntry
+
 Module: Capa.PowerShell.Module.PowerPack.Ini
 
+## SYNOPSIS
 Reads an entry from an INI file.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Ini_ReadEntry
-	-FilePath <String>
-	-Section <String>
-	-Variable <String>
+```
+Ini_ReadEntry [-FilePath] <String> [-Section] <String> [-Variable] <String>
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
+## DESCRIPTION
+{{ Fill in the Description }}
 
+## EXAMPLES
 
-
-## Examples
-
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Ini_ReadEntry -FilePath "C:\Temp\test.ini" -Section "Section1" -Variable "Variable1"
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**FilePath**
-
+### -FilePath
 The path to the INI file.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**Section**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Section
 The section of the INI file to read from.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**Variable**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Variable
 The variable to read from the INI file.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 3 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455649/cs.Ini+ReadEntry
+
+## RELATED LINKS

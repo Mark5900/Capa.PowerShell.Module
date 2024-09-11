@@ -1,62 +1,101 @@
 # Get-PpCMSDeploymentTemplateVariable
+
 Module: Capa.PowerShell.Module.PowerPack.CMS
 
+## SYNOPSIS
+{{ Fill in the Synopsis }}
 
-Get-PpCMSDeploymentTemplateVariable [[-Section] <string>] [-Variable] <string> [[-MustExist] <bool>] [<CommonParameters>]
+## SYNTAX
 
-
-## Syntax
-
-```powershell
-Get-PpCMSDeploymentTemplateVariable
-	-Section <string>
-	-Variable <string>
-	-MustExist <bool>
+```
+Get-PpCMSDeploymentTemplateVariable [[-Section] <String>] [-Variable] <String> [[-MustExist] <Boolean>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
+## DESCRIPTION
+{{ Fill in the Description }}
 
+## EXAMPLES
 
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
+```
 
-## Examples
+{{ Add example description here }}
 
+## PARAMETERS
 
-## Parameters
+### -MustExist
+{{ Fill MustExist Description }}
 
--**MustExist**
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
 
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | bool |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
 
--**Section**
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 0 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -Section
+{{ Fill Section Description }}
 
--**Variable**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: False
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -Variable
+{{ Fill Variable Description }}
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-Example configutation: 		{ 			"operatingSystem": { 				"ImageId": 13, 				"diskConfigId": 1, 				"localAdmin": "true", 				"password": "15aarest" 			}, 			"domain": { 				"joinDomain": "CAPADEMO.LOCAL", 				"domainName": "CAPADEMO.LOCAL", 				"domainUserName": "ciinst", 				"domainUserPassword": "dftgyhuj", 				"computerObjectOU": "OU=Computers,OU=Lazise,OU=Dev2,DC=CAPADEMO,DC=local"}, 			"title": "Default", 			"customValues": [{ 				"key": "a", 				"value": "1" 			}] 		}
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+### None
+
+## OUTPUTS
+
+### System.Object
+## NOTES
+
+## RELATED LINKS

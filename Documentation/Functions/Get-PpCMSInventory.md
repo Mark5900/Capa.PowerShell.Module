@@ -1,26 +1,36 @@
-# Get-PpCMSGroupMembership
+# Get-PpCMSInventory
+
 Module: Capa.PowerShell.Module.PowerPack.CMS
 
+## SYNOPSIS
+{{ Fill in the Synopsis }}
 
-Get-PpCMSGroupMembership [<CommonParameters>]
+## SYNTAX
 
+## DESCRIPTION
+{{ Fill in the Description }}
 
-## Syntax
+## EXAMPLES
 
+### Example 1
 ```powershell
-Get-PpCMSGroupMembership
+PS C:\> {{ Add example code here }}
 ```
 
-## Description
+{{ Add example description here }}
 
+## PARAMETERS
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-## Examples
+## INPUTS
 
+### None
 
-## Parameters
+## OUTPUTS
 
+### System.Object
+## NOTES
 
-## Notes
-
-Please note, that this is an expensive call, seen from the Frontend/database perspective. 		Calling this function repeatedly from a package could result in overall slower performance. This function should be used with care.
+## RELATED LINKS

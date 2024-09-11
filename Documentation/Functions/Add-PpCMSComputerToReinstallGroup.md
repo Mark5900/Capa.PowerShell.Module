@@ -1,38 +1,70 @@
 # Add-PpCMSComputerToReinstallGroup
+
 Module: Capa.PowerShell.Module.PowerPack.CMS
 
+## SYNOPSIS
+{{ Fill in the Synopsis }}
 
-Add-PpCMSComputerToReinstallGroup [-Group] <string> [<CommonParameters>]
+## SYNTAX
 
-
-## Syntax
-
-```powershell
-Add-PpCMSComputerToReinstallGroup
-	-Group <string>
+```
+Add-PpCMSComputerToReinstallGroup [-Group] <String> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
+## DESCRIPTION
+{{ Fill in the Description }}
 
+## EXAMPLES
 
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
+```
 
-## Examples
+{{ Add example description here }}
 
+## PARAMETERS
 
-## Parameters
+### -Group
+{{ Fill Group Description }}
 
--**Group**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 0 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
 
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
-## Notes
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/19610726217/CMS+AddComputerToReinstallGroup
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+### None
+
+## OUTPUTS
+
+### System.Object
+## NOTES
+
+## RELATED LINKS

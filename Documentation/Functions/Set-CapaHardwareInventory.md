@@ -1,133 +1,180 @@
 # Set-CapaHardwareInventory
+
 Module: Capa.PowerShell.Module.SDK.Inventory
 
+## SYNOPSIS
 Set hardware inventory for a unit.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Set-CapaHardwareInventory
-	-CapaSDK <Object>
-	-UnitName <String>
-	-UnitType <String>
-	-Section <String>
-	-Name <String>
-	-Value <String>
-	-DataType <String>
+### NameType (Default)
 ```
-```powershell
-Set-CapaHardwareInventory
-	-CapaSDK <Object>
-	-Uuid <String>
-	-Section <String>
-	-Name <String>
-	-Value <String>
-	-DataType <String>
+Set-CapaHardwareInventory -CapaSDK <Object> -UnitName <String> -UnitType <String> -Section <String>
+ -Name <String> -Value <String> -DataType <String> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
+### Uuid
+```
+Set-CapaHardwareInventory -CapaSDK <Object> -Uuid <String> -Section <String> -Name <String> -Value <String>
+ -DataType <String> [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```
 
+## DESCRIPTION
 Set hardware inventory for a unit, either by name and type or by UUID.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Set-CapaSetCustomInventory
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**CapaSDK**
-
+### -CapaSDK
 The CapaSDK object.
-| Name | Value |
-| ---- | ---- |
-| Type: | Object |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**UnitName**
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
 
-The name of the unit.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
--**UnitType**
-
-The type of the unit, can be Computer or User.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**Uuid**
-
-The UUID of the unit.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**Section**
-
-The inventory section.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**Name**
-
-The name of the value.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**Value**
-
-The value.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**DataType**
-
+### -DataType
 The data type of the value, can be String, Integer, Text or Time.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-When inventory from the unit is collected by the CapaInstaller Backend, these settings will be deleted if not present in the inventory data collected. 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246446/Set+hardware+inventory
+### -Name
+The name of the value.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Section
+The inventory section.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UnitName
+The name of the unit.
+
+```yaml
+Type: String
+Parameter Sets: NameType
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UnitType
+The type of the unit, can be Computer or User.
+
+```yaml
+Type: String
+Parameter Sets: NameType
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Uuid
+The UUID of the unit.
+
+```yaml
+Type: String
+Parameter Sets: Uuid
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Value
+The value.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+When inventory from the unit is collected by the CapaInstaller Backend, these settings will be deleted if not present in the inventory data collected.
+For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246446/Set+hardware+inventory
+
+## RELATED LINKS

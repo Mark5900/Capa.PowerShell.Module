@@ -1,41 +1,66 @@
 # Get-CapaUsers
+
 Module: Capa.PowerShell.Module.SDK.User
 
+## SYNOPSIS
 Get a list of all users.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Get-CapaUsers
-	-CapaSDK <Object>
+```
+Get-CapaUsers [-CapaSDK] <Object> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 Get a list of all users.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Get-CapaUsers -CapaSDK $CapaSDK
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**CapaSDK**
-
+### -CapaSDK
 The CapaSDK object.
-| Name | Value |
-| ---- | ---- |
-| Type: | Object |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247602/Get+Users
+
+## RELATED LINKS

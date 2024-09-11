@@ -1,4 +1,5 @@
-﻿# TODO: #54 Update when UsrMgr is added to the file
+
+# TODO: #386 Update Get-Help for UsrMgr_AddUserToLocalGroup
 
 <#
 	.SYNOPSIS
@@ -34,29 +35,38 @@ function UsrMgr_AddUserToLocalGroup {
 	$Global:cs.UsrMgr_AddUserToLocalGroup($UserName, $GroupName)
 }
 
+
+# TODO: #387 Update Get-Help for UsrMgr_ChangePassword
+
 <#
 	.SYNOPSIS
-		Get group members of a local group.
+		Change the password of a local user account.
 
-	.PARAMETER GroupName
-		The name of the group to get the members of.
+	.PARAMETER UserName
+		The name of the user to change the password of.
+
+	.PARAMETER Password
+		The new password of the user.
 
 	.EXAMPLE
-		PS C:\> UsrMgr_EnumMembersOfLocalGroup -GroupName "Administrators"
+		PS C:\> UsrMgr_ChangePassword -UserName "JohnDoe" -Password "P@ssw0rd"
 
 	.NOTES
-		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456176/cs.UsrMgr+EnumMembersOfLocalGroup
+		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456210/cs.UsrMgr+ChangePassword
 #>
-function UsrMgr_EnumMembersOfLocalGroup {
+function UsrMgr_ChangePassword {
 	param (
 		[Parameter(Mandatory = $true)]
-		[string]$GroupName
+		[string]$UserName,
+		[Parameter(Mandatory = $true)]
+		[string]$Password
 	)
 
-	$Value = $Global:cs.UsrMgr_EnumMembersOfLocalGroup($GroupName)
-
-	return $Value
+	$Global:cs.UsrMgr_ChangePassword($UserName, $Password)
 }
+
+
+# TODO: #388 Update Get-Help for UsrMgr_CreateLocalUser
 
 <#
 	.SYNOPSIS
@@ -104,32 +114,60 @@ function UsrMgr_CreateLocalUser {
 	$Global:cs.UsrMgr_CreateLocalUser($UserName, $FullName, $Password, $Description, $PasswordNeverExpire)
 }
 
+
+# TODO: #389 Update Get-Help for UsrMgr_DeleteLocalUserAccount
+
 <#
 	.SYNOPSIS
-		Change the password of a local user account.
+		Delete a local user account.
 
 	.PARAMETER UserName
-		The name of the user to change the password of.
-
-	.PARAMETER Password
-		The new password of the user.
+		The name of the user to delete.
 
 	.EXAMPLE
-		PS C:\> UsrMgr_ChangePassword -UserName "JohnDoe" -Password "P@ssw0rd"
+		PS C:\> UsrMgr_DeleteLocalUserAccount -UserName "JohnDoe"
 
 	.NOTES
-		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456210/cs.UsrMgr+ChangePassword
+		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456261/cs.UsrMgr+DeleteLocalUserAccount
 #>
-function UsrMgr_ChangePassword {
+function UsrMgr_DeleteLocalUserAccount {
 	param (
 		[Parameter(Mandatory = $true)]
-		[string]$UserName,
-		[Parameter(Mandatory = $true)]
-		[string]$Password
+		[string]$UserName
 	)
 
-	$Global:cs.UsrMgr_ChangePassword($UserName, $Password)
+	$Global:cs.UsrMgr_DeleteLocalUserAccount($UserName)
 }
+
+
+# TODO: #390 Update Get-Help for UsrMgr_EnumMembersOfLocalGroup
+
+<#
+	.SYNOPSIS
+		Get group members of a local group.
+
+	.PARAMETER GroupName
+		The name of the group to get the members of.
+
+	.EXAMPLE
+		PS C:\> UsrMgr_EnumMembersOfLocalGroup -GroupName "Administrators"
+
+	.NOTES
+		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456176/cs.UsrMgr+EnumMembersOfLocalGroup
+#>
+function UsrMgr_EnumMembersOfLocalGroup {
+	param (
+		[Parameter(Mandatory = $true)]
+		[string]$GroupName
+	)
+
+	$Value = $Global:cs.UsrMgr_EnumMembersOfLocalGroup($GroupName)
+
+	return $Value
+}
+
+
+# TODO: #391 Update Get-Help for UsrMGr_ExistLocalUserAccount
 
 <#
 	.SYNOPSIS
@@ -154,6 +192,9 @@ function UsrMgr_ExistLocalUserAccount {
 
 	return $Value
 }
+
+
+# TODO: #392 Update Get-Help for USRMgr_RemoveUserFromLocalGroup
 
 <#
 	.SYNOPSIS
@@ -183,24 +224,4 @@ function UsrMgr_RemoveUserFromLocalGroup {
 	$Global:cs.UsrMgr_RemoveUserFromLocalGroup($Domain, $UserName, $GroupName)
 }
 
-<#
-	.SYNOPSIS
-		Delete a local user account.
 
-	.PARAMETER UserName
-		The name of the user to delete.
-
-	.EXAMPLE
-		PS C:\> UsrMgr_DeleteLocalUserAccount -UserName "JohnDoe"
-
-	.NOTES
-		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456261/cs.UsrMgr+DeleteLocalUserAccount
-#>
-function UsrMgr_DeleteLocalUserAccount {
-	param (
-		[Parameter(Mandatory = $true)]
-		[string]$UserName
-	)
-
-	$Global:cs.UsrMgr_DeleteLocalUserAccount($UserName)
-}

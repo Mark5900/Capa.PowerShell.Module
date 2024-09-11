@@ -1,201 +1,266 @@
 # New-CapaPowerPack
+
 Module: Capa.PowerShell.Module.SDK.Package
 
+## SYNOPSIS
 Creates a new PowerPack in CapaInstaller
 
-## Syntax
+## SYNTAX
 
-```powershell
-New-CapaPowerPack
-	-CapaSDK <PSObject>
-	-PackageName <String>
-	-PackageVersion <String>
-	-DisplayName <String>
-	-InstallScriptContent <String>
-	-UninstallScriptContent <String>
-	-KitFolderPath <String>
-	-ChangelogComment <String>
-	-SqlServerInstance <String>
-	-Database <String>
-	-Credential <PSCredential>
-	-PointID <Int32>
-	-AllowInstallOnServer <Boolean>
+```
+New-CapaPowerPack [-CapaSDK] <PSObject> [-PackageName] <String> [-PackageVersion] <String>
+ [[-DisplayName] <String>] [[-InstallScriptContent] <String>] [[-UninstallScriptContent] <String>]
+ [[-KitFolderPath] <String>] [[-ChangelogComment] <String>] [-SqlServerInstance] <String> [-Database] <String>
+ [[-Credential] <PSCredential>] [[-PointID] <Int32>] [[-AllowInstallOnServer] <Boolean>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 Creates a new PowerPack in CapaInstaller using the CapaSDK and the SqlServer module
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -SqlServerInstance $CapaServer -Database $Database
 ```
-    
-### Example 2
-```powershell
+
+### EXAMPLE 2
+```
 New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -InstallScriptContent 'Write-Host "Hello World"' -SqlServerInstance $CapaServer -Database $Database
 ```
-    
-### Example 3
-```powershell
+
+### EXAMPLE 3
+```
 New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -KitFolderPath 'C:\Temp\Kit' -SqlServerInstance $CapaServer -Database $Database
 ```
-    
-### Example 4
-```powershell
+
+### EXAMPLE 4
+```
 New-CapaPowerPack -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -DisplayName 'Test1' -KitFolderPath 'C:\Temp\Kit' -SqlServerInstance $CapaServer -Database $Database -PointID 1
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**CapaSDK**
+### -AllowInstallOnServer
+Allow the package to be installed on the server
 
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 13
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CapaSDK
 The CapaSDK object
-| Name | Value |
-| ---- | ---- |
-| Type: | PSObject |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**PackageName**
+```yaml
+Type: PSObject
+Parameter Sets: (All)
+Aliases:
 
-The name of the package
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
--**PackageVersion**
-
-The version of the package
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 3 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**DisplayName**
-
-The display name of the package, if not specified then the package name and version will be used
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 4 | 
-| Default value: | "$PackageName $PackageVersion" | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**InstallScriptContent**
-
-The install script content of the package, if not specified then the default install script will be used
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 5 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**UninstallScriptContent**
-
-The uninstall script content of the package, if not specified then the default uninstall script will be used
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 6 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**KitFolderPath**
-
-The path to the kit folder, if not specified then a dummy kit folder will be created
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 7 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**ChangelogComment**
-
+### -ChangelogComment
 The changelog comment of the package
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 8 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**SqlServerInstance**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-The SQL Server instance
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 9 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: False
+Position: 8
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
--**Database**
-
-The Capa database name
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 10 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**Credential**
-
+### -Credential
 The SQL Server credential
-| Name | Value |
-| ---- | ---- |
-| Type: | PSCredential |
-| Position: | 11 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**PointID**
+```yaml
+Type: PSCredential
+Parameter Sets: (All)
+Aliases:
 
+Required: False
+Position: 11
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Database
+The Capa database name
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 10
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DisplayName
+The display name of the package, if not specified then the package name and version will be used
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 4
+Default value: "$PackageName $PackageVersion"
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -InstallScriptContent
+The install script content of the package, if not specified then the default install script will be used
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 5
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -KitFolderPath
+The path to the kit folder, if not specified then a dummy kit folder will be created
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 7
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PackageName
+The name of the package
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PackageVersion
+The version of the package
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PointID
 The ID of the point to rebuild the kit file on, if not specified then the kit file will not be rebuilt.
 Requires that KitFolderPath is specified.
-| Name | Value |
-| ---- | ---- |
-| Type: | Int32 |
-| Position: | 12 | 
-| Default value: | 0 | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**AllowInstallOnServer**
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
 
-Allow the package to be installed on the server
-| Name | Value |
-| ---- | ---- |
-| Type: | Boolean |
-| Position: | 13 | 
-| Default value: | False | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: False
+Position: 12
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
 
-## Notes
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -SqlServerInstance
+The SQL Server instance
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 9
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UninstallScriptContent
+The uninstall script content of the package, if not specified then the default uninstall script will be used
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 6
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+This is a custom function that is not part of the CapaSDK
+
+## RELATED LINKS

@@ -1,41 +1,67 @@
 # Get-PpWingetReturnCodeDescription
+
 Module: Capa.PowerShell.Module.PowerPack.Winget
 
+## SYNOPSIS
 Get the error message for a WinGet error code.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Get-PpWingetReturnCodeDescription
-	-Decimal <Int32>
+```
+Get-PpWingetReturnCodeDescription [-Decimal] <Int32> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 Get the error message for a WinGet error code.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Get-PpWingetReturnCodeDescription -Decimal -1978335231
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**Decimal**
-
+### -Decimal
 The error code in decimal.
-| Name | Value |
-| ---- | ---- |
-| Type: | Int32 |
-| Position: | 1 | 
-| Default value: | 0 | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: True
+Position: 1
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-Custom function not from CapaSystems. 		Source: https://github.com/microsoft/winget-cli/blob/master/doc/windows/package-manager/winget/returnCodes.md
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+Custom function not from CapaSystems.
+Source: https://github.com/microsoft/winget-cli/blob/master/doc/windows/package-manager/winget/returnCodes.md
+
+## RELATED LINKS

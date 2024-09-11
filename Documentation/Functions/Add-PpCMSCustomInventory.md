@@ -1,74 +1,117 @@
 # Add-PpCMSCustomInventory
+
 Module: Capa.PowerShell.Module.PowerPack.CMS
 
+## SYNOPSIS
+{{ Fill in the Synopsis }}
 
-Add-PpCMSCustomInventory [-Category] <string> [-Entry] <string> [-Value] <string> [-ValueType] <string> [<CommonParameters>]
+## SYNTAX
 
-
-## Syntax
-
-```powershell
-Add-PpCMSCustomInventory
-	-Category <string>
-	-Entry <string>
-	-Value <string>
-	-ValueType <string>
+```
+Add-PpCMSCustomInventory [-Category] <String> [-Entry] <String> [-Value] <String> [-ValueType] <String>
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
+## DESCRIPTION
+{{ Fill in the Description }}
 
+## EXAMPLES
 
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
+```
 
-## Examples
+{{ Add example description here }}
 
+## PARAMETERS
 
-## Parameters
+### -Category
+{{ Fill Category Description }}
 
--**Category**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 0 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -Entry
+{{ Fill Entry Description }}
 
--**Entry**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
 
--**Value**
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -Value
+{{ Fill Value Description }}
 
--**ValueType**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 3 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -ValueType
+{{ Fill ValueType Description }}
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: String, Integer, Time
 
-## Notes
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-Please note, that this is an expensive call, seen from the Frontend/database perspective. Calling this function repeatedly from a package could result in overall slower performance. This function should be used with care.  		https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/19610726255/CMS+AddCustomInventory
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+### None
+
+## OUTPUTS
+
+### System.Object
+## NOTES
+
+## RELATED LINKS

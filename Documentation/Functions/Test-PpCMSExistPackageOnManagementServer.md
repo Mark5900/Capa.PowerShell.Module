@@ -1,62 +1,101 @@
 # Test-PpCMSExistPackageOnManagementServer
+
 Module: Capa.PowerShell.Module.PowerPack.CMS
 
+## SYNOPSIS
+{{ Fill in the Synopsis }}
 
-Test-PpCMSExistPackageOnManagementServer [-PackageName] <string> [-PackageVersion] <string> [[-MustExist] <bool>] [<CommonParameters>]
+## SYNTAX
 
-
-## Syntax
-
-```powershell
-Test-PpCMSExistPackageOnManagementServer
-	-PackageName <string>
-	-PackageVersion <string>
-	-MustExist <bool>
+```
+Test-PpCMSExistPackageOnManagementServer [-PackageName] <String> [-PackageVersion] <String>
+ [[-MustExist] <Boolean>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
+## DESCRIPTION
+{{ Fill in the Description }}
 
+## EXAMPLES
 
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
+```
 
-## Examples
+{{ Add example description here }}
 
+## PARAMETERS
 
-## Parameters
+### -MustExist
+{{ Fill MustExist Description }}
 
--**MustExist**
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
 
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | bool |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -PackageName
+{{ Fill PackageName Description }}
 
--**PackageName**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 0 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -PackageVersion
+{{ Fill PackageVersion Description }}
 
--**PackageVersion**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | string |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
 
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
-## Notes
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
+## INPUTS
+
+### None
+
+## OUTPUTS
+
+### System.Object
+## NOTES
+
+## RELATED LINKS

@@ -1,113 +1,158 @@
 # Register-Powerpack
+
 Module: Capa.PowerShell.Module.PowerPack
 
+## SYNOPSIS
 Register a Powerpack in the registry
 
-## Syntax
+## SYNTAX
 
-```powershell
-Register-Powerpack
-	-Application <String>
-	-AppName <String>
-	-Arch <String>
-	-Language <String>
-	-AppCode <String>
-	-Version <String>
-	-Vendor <String>
+```
+Register-Powerpack [-Application] <String> [-AppName] <String> [-Arch] <String> [[-Language] <String>]
+ [[-AppCode] <String>] [-Version] <String> [[-Vendor] <String>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 Register a Powerpack in the registry
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Register-Powerpack -Application 'CapaOne.ScriptingLibrary' -AppName 'CapaOne Scripting Library' -Arch 'x64' -Language 'en-us' -AppCode 'COSL' -Version '1.0' -Vendor 'CapaSystems'
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**Application**
-
-The application
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**AppName**
-
-The application name
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**Arch**
-
-The architecture
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 3 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**Language**
-
-The language
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 4 | 
-| Default value: | en-us | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**AppCode**
-
+### -AppCode
 The application code
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 5 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**Version**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-The version
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 6 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: False
+Position: 5
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
--**Vendor**
+### -Application
+The application
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AppName
+The application name
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Arch
+The architecture
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Language
+The language
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 4
+Default value: En-us
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Vendor
 The vendor
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 7 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: False
+Position: 7
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -Version
+The version
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 6
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 Command from PSlib.psm1
+
+## RELATED LINKS

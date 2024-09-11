@@ -1,65 +1,97 @@
 # Get-CapaUnits
+
 Module: Capa.PowerShell.Module.SDK.Unit
 
+## SYNOPSIS
 https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247572/Get+units
 
-## Syntax
+## SYNTAX
 
-```powershell
-Get-CapaUnits
-	-CapaSDK <Object>
-	-Type <String>
-	-BusinessUnit <String>
+```
+Get-CapaUnits [-CapaSDK] <Object> [[-Type] <String>] [[-BusinessUnit] <String>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 A detailed description of the Get-CapaUnits function.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Get-CapaUnits -CapaSDK $value1
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**CapaSDK**
+### -BusinessUnit
+{{ Fill BusinessUnit Description }}
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CapaSDK
 A description of the CapaSDK parameter.
-| Name | Value |
-| ---- | ---- |
-| Type: | Object |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**Type**
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Type
 A description of the Type parameter.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**BusinessUnit**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 3 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
+## INPUTS
 
-## Notes
+## OUTPUTS
 
+## NOTES
 Additional information about the function.
+
+## RELATED LINKS

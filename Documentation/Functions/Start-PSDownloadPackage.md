@@ -1,24 +1,35 @@
 # Start-PSDownloadPackage
+
 Module: Capa.PowerShell.Module.PowerPack
 
+## SYNOPSIS
 Downloads a package.
 
-## Syntax
+## SYNTAX
 
-```powershell
+```
 Start-PSDownloadPackage
 ```
 
-## Description
-
+## DESCRIPTION
 Downloads a package.
 
-## Examples
+## EXAMPLES
 
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
+```
 
-## Parameters
+{{ Add example description here }}
 
+## PARAMETERS
 
-## Notes
+## INPUTS
 
+## OUTPUTS
+
+## NOTES
 Command from PSlib.psm1
+
+## RELATED LINKS

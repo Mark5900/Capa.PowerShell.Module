@@ -1,58 +1,87 @@
 # Exit-PpScript
+
 Module: Capa.PowerShell.Module.PowerPack.Exit
 
+## SYNOPSIS
 Exit the script with a given exit code and message.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Exit-PpScript
-	-ExitCode <Object>
-	-ExitMessage <String>
+```
+Exit-PpScript [-ExitCode] <Object> [[-ExitMessage] <String>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 Exit the script with a given exit code and message.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Exit-PpScript -ExitCode 0 -ExitMessage "Script ended successfully"
 ```
-    
-### Example 2
-```powershell
+
+### EXAMPLE 2
+```
 Exit-PpScript -ExitCode 3305
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**ExitCode**
-
+### -ExitCode
 The exit code to exit the script with.
-| Name | Value |
-| ---- | ---- |
-| Type: | Object |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**ExitMessage**
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ExitMessage
 The message to write to the log before exiting the script.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 Command from PSlib.psm1
+
+## RELATED LINKS

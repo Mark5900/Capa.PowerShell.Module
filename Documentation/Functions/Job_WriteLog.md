@@ -1,59 +1,88 @@
 # Job_WriteLog
+
 Module: Capa.PowerShell.Module.PowerPack.Job
 
+## SYNOPSIS
 This function will write a log entry.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Job_WriteLog
-	-FunctionName <String>
-	-Text <String>
+```
+Job_WriteLog [[-FunctionName] <String>] [-Text] <String> [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
-## Description
+## DESCRIPTION
+{{ Fill in the Description }}
 
+## EXAMPLES
 
-
-## Examples
-
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Job_WriteLog -FunctionName "Install" -Text "Installing application"
 ```
-    
-### Example 2
-```powershell
+
+### EXAMPLE 2
+```
 Log_SectionHeader -Name "Install"
 PS C:\> Job_WriteLog -Text "Installing application"
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**FunctionName**
-
+### -FunctionName
 Name of function to associate with log entry (default blank, Log_Sectionheader will override).
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**Text**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Text
 The text to write to the log.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455683/cs.Job+WriteLog
+
+## RELATED LINKS

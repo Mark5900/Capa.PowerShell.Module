@@ -1,46 +1,71 @@
 # Exit-PpPackageNotCompliant
+
 Module: Capa.PowerShell.Module.PowerPack.Exit
 
+## SYNOPSIS
 Set error code that the package is not compliant.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Exit-PpPackageNotCompliant
-	-ExitMessage <String>
+```
+Exit-PpPackageNotCompliant [[-ExitMessage] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 Uses the Exit-PpScript that comes from PSlib.psm1, to set the package error.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Exit-PpPackageNotCompliant
 ```
-    
-### Example 2
-```powershell
+
+### EXAMPLE 2
+```
 Exit-PpPackageNotCompliant -ExitMessage 'Test where I set ExitMessage'
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**ExitMessage**
+### -ExitMessage
+{{ Fill ExitMessage Description }}
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
 
-## Notes
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 Custom command.
+
+## RELATED LINKS

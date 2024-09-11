@@ -1,75 +1,109 @@
 # Install-PpWingetApp
+
 Module: Capa.PowerShell.Module.PowerPack.Winget
 
+## SYNOPSIS
 Install an application using winget
 
-## Syntax
+## SYNTAX
 
-```powershell
-Install-PpWingetApp
-	-AppId <String>
-	-Locale <String>
-	-AllowInstallOfWinGet <Boolean>
+```
+Install-PpWingetApp [-AppId] <String> [[-Locale] <String>] [[-AllowInstallOfWinGet] <Boolean>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 Install an application using winget
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Install-PpWingetApp -Id 'Mozilla.Firefox'
 ```
-    
-### Example 2
-```powershell
+
+### EXAMPLE 2
+```
 Install-PpWingetApp -Id 'Mozilla.Firefox' -Locale 'da-DK'
 ```
-    
-### Example 3
-```powershell
+
+### EXAMPLE 3
+```
 Install-PpWingetApp -Id 'Mozilla.Firefox' -AllowInstallOfWinGet $true
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**AppId**
+### -AllowInstallOfWinGet
+Allow the installation of winget if it is not installed.
+Or update winget if it is installed.
 
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
 
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: False
+Position: 3
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
--**Locale**
+### -AppId
+{{ Fill AppId Description }}
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Locale
 The locale to use for the installation, for example 'da-DK'
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**AllowInstallOfWinGet**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-Allow the installation of winget if it is not installed. Or update winget if it is installed.
-| Name | Value |
-| ---- | ---- |
-| Type: | Boolean |
-| Position: | 3 | 
-| Default value: | False | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
 
-## Notes
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
-Custom function not from CapaSystems. 		Idea from: https://github.com/Romanitho/Winget-Install/blob/main/winget-install.ps1
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+Custom function not from CapaSystems.
+Idea from: https://github.com/Romanitho/Winget-Install/blob/main/winget-install.ps1
+
+## RELATED LINKS

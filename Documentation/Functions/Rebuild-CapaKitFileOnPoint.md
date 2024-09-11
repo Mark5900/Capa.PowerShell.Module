@@ -1,89 +1,127 @@
 # Rebuild-CapaKitFileOnPoint
+
 Module: Capa.PowerShell.Module.SDK.SystemSdk
 
+## SYNOPSIS
 Rebuilds CapaInstaller.kit file on all Management Servers in the given Management Point.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Rebuild-CapaKitFileOnPoint
-	-CapaSDK <Object>
-	-PackageName <String>
-	-PackageVersion <String>
-	-PackageType <String>
-	-PointID <Int32>
+```
+Rebuild-CapaKitFileOnPoint [-CapaSDK] <Object> [-PackageName] <String> [-PackageVersion] <String>
+ [-PackageType] <String> [-PointID] <Int32> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
-
+## DESCRIPTION
 Rebuilds CapaInstaller.kit file on all Management Servers in the given Management Point.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Rebuild-CapaKitFileOnPoint -CapaSDK $CapaSDK -PackageName 'WinRaR' -PackageVersion '5.50' -PackageType 'Computer' -PointID 1
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**CapaSDK**
-
+### -CapaSDK
 The CapaSDK object.
-| Name | Value |
-| ---- | ---- |
-| Type: | Object |
-| Position: | 1 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**PackageName**
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PackageName
 The name of the package.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 2 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**PackageVersion**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-The version of the package.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 3 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
--**PackageType**
-
+### -PackageType
 The type of the package.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 4 | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**PointID**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PackageVersion
+The version of the package.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PointID
 The ID of the management point.
-| Name | Value |
-| ---- | ---- |
-| Type: | Int32 |
-| Position: | 5 | 
-| Default value: | 0 | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: True
+Position: 5
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247136/Rebuild+kit+on+Management+Point
+
+## RELATED LINKS

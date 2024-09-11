@@ -1,100 +1,139 @@
 # Unlink-CapaUnitFromProfile
+
 Module: Capa.PowerShell.Module.SDK.MDM
 
+## SYNOPSIS
 Unlink profile from a device.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Unlink-CapaUnitFromProfile
-	-CapaSDK <Object>
-	-ProfileName <String>
-	-ChangelogComment <String>
-	-Uuid <String>
+### Uuid (Default)
 ```
-```powershell
-Unlink-CapaUnitFromProfile
-	-CapaSDK <Object>
-	-UnitName <String>
-	-ProfileName <String>
-	-ChangelogComment <String>
+Unlink-CapaUnitFromProfile -CapaSDK <Object> -ProfileName <String> -ChangelogComment <String> -Uuid <String>
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
-## Description
+### NameType
+```
+Unlink-CapaUnitFromProfile -CapaSDK <Object> -UnitName <String> -ProfileName <String>
+ -ChangelogComment <String> [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```
 
+## DESCRIPTION
 This will unlink a profile from a device and not remove the profile from the physical device.
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Unlink-CapaUnitFromProfile -CapaSDK $CapaSDK -UnitName 'Testdev01' -ProfileName 'Wi-Fi settings'
 ```
-    
-### Example 2
-```powershell
+
+### EXAMPLE 2
+```
 Unlink-CapaUnitFromProfile -CapaSDK $CapaSDK -Uuid '4eea2959-fb4c-4afe-b61f-810cb3019cd6' -ProfileName 'Wi-Fi settings'
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**CapaSDK**
-
+### -CapaSDK
 The CapaSDK object.
-| Name | Value |
-| ---- | ---- |
-| Type: | Object |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**UnitName**
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
 
-The unit name of the unit.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
--**ProfileName**
-
-The name of the MDM profile.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
-
--**ChangelogComment**
-
+### -ChangelogComment
 A comment that will be added to the changelog.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
--**Uuid**
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProfileName
+The name of the MDM profile.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UnitName
+The unit name of the unit.
+
+```yaml
+Type: String
+Parameter Sets: NameType
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Uuid
 The UUID of the unit.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | named | 
-| Default value: | None | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: String
+Parameter Sets: Uuid
+Aliases:
 
-## Notes
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246474/Unlink+profile+from+device
+
+## RELATED LINKS

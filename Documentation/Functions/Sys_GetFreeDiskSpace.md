@@ -1,46 +1,53 @@
 # Sys_GetFreeDiskSpace
+
 Module: Capa.PowerShell.Module.PowerPack.Sys
 
+## SYNOPSIS
 Gets the free disk space of a drive.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Sys_GetFreeDiskSpace
-	-Drive <String>
+```
+Sys_GetFreeDiskSpace [[-Drive] <String>]
 ```
 
-## Description
+## DESCRIPTION
+{{ Fill in the Description }}
 
+## EXAMPLES
 
-
-## Examples
-
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Sys_GetFreeDiskSpace
 ```
-    
-### Example 2
-```powershell
+
+### EXAMPLE 2
+```
 Sys_GetFreeDiskSpace -Drive "D:"
 ```
-    
 
-## Parameters
+## PARAMETERS
 
--**Drive**
-
+### -Drive
 The drive to get the free disk space from, default is 'C:'.
-| Name | Value |
-| ---- | ---- |
-| Type: | String |
-| Position: | 1 | 
-| Default value: | C: | 
-| Accept pipeline input: | false | 
-| Accept wildcard characters: | false | 
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
-## Notes
+Required: False
+Position: 1
+Default value: C:
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
 For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456057/cs.Sys+GetFreeDiskSpace
+
+## RELATED LINKS

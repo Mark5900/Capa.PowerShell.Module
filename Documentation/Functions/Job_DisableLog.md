@@ -1,29 +1,33 @@
 # Job_DisableLog
+
 Module: Capa.PowerShell.Module.PowerPack.Job
 
+## SYNOPSIS
 Disable logging
 
-## Syntax
+## SYNTAX
 
-```powershell
+```
 Job_DisableLog
 ```
 
-## Description
-
+## DESCRIPTION
 Disable logging
 
-## Examples
+## EXAMPLES
 
-### Example 1
-```powershell
+### EXAMPLE 1
+```
 Job_DisableLog
 ```
-    
 
-## Parameters
+## PARAMETERS
 
+## INPUTS
 
-## Notes
+## OUTPUTS
 
+## NOTES
 Custom command
+
+## RELATED LINKS

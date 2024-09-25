@@ -4,7 +4,7 @@
 	RootModule             = './Capa.PowerShell.Module.SDK.MDM.psm1'
 
 	# Version number of this module.
-	ModuleVersion          = '1.9.0'
+	ModuleVersion          = '1.9.1'
 
 	# ID used to uniquely identify this module
 	GUID                   = '58ac3de0-6083-431c-af78-369ccf6b1817'

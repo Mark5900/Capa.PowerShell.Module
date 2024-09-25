@@ -294,7 +294,7 @@ jobs:
               continue
             }
 
-            $ExistOldSoftVer = Exist-CapaSoftwareVersion -CapaSDK $CurrenCMS -Name $env:OldPackageName -Version "p$(env:OldPackageVersion)" -Type Computer
+            $ExistOldSoftVer = Exist-CapaSoftwareVersion -CapaSDK $CurrenCMS -Name $env:OldPackageName -Version "p$($env:OldPackageVersion)" -Type Computer
             if ($ExistOldSoftVer) {
               Write-Host 'Copy relations from old software version to new software version'
 

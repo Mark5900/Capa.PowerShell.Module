@@ -414,6 +414,7 @@ function Copy-CapaPackageRelation {
 
 				$AllreadyLinked = $AllToGroups | Where-Object { $_.Name -eq $Group.Name -and $_.Type -eq $Group.Type }
 				if ($AllreadyLinked.Count -eq 0) {
+					Write-Host "Adding group $($Group.Name) to package $($ToPackageName)"
 					try {
 						$bool = Add-CapaPackageToGroup -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -GroupName $Group.Name -GroupType $Group.Type
 						if ($bool -eq $false) {
@@ -427,7 +428,7 @@ function Copy-CapaPackageRelation {
 				}
 			}
 
-			if ($UnlinkGroupsAndUnitsFromExistingPackage) {
+			if ($UnlinkGroupsAndUnitsFromExistingPackage -and $AGroupCopyHasFailed -eq $false) {
 				Write-Progress -Activity "Unlinking group $($Group.Name)" -Status 'Progress' -PercentComplete (($Count / $AllFromGroups.Count) * 100)
 
 				try {
@@ -450,7 +451,7 @@ function Copy-CapaPackageRelation {
 	#endregion
 
 	#region Copy Units and unlink units
-	if ($CopyUnits -or $UnlinkGroupsAndUnitsFromExistingPackage) {
+	if (($CopyUnits -or $UnlinkGroupsAndUnitsFromExistingPackage) -and $AGroupCopyHasFailed -eq $false) {
 		$Count = 1
 		foreach ($Unit in $AllFromUnits) {
 

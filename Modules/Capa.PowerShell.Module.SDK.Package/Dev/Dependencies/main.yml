@@ -74,7 +74,18 @@ jobs:
       - name: Import kit from current version
         run: |
           if (Test-Path $env:SourceKitPath) {
+            $TempKitPath = Join-Path (Get-Location).Path "TempKit"
+            if (Test-Path $env:DestinationKitPath) {
+              Copy-Item -Path "$env:DestinationKitPath\*" -Destination $TempKitPath -Recurse -Force
+            }
+
             Copy-Item -Path "$env:SourceKitPath\*" -Destination $env:DestinationKitPath -Recurse -Force
+
+            if (Test-Path $TempKitPath) {
+              Copy-Item -Path "$TempKitPath\*" -Destination $env:DestinationKitPath -Recurse -Force
+              Remove-Item -Path $TempKitPath -Recurse -Force
+            }
+
             Write-Host "Kit imported"
           } else {
             Write-Host "Kit does not exist"
@@ -329,13 +340,18 @@ jobs:
 
       - name: Delete old package version
         run: |
+          $sortedManagementPoints = @()
+
           $oCMS = Initialize-CapaSDK -Server $env:CapaServer -Database $env:Database
           $ManagementPoints = Get-CapaManagementPoint -CapaSDK $oCMS
 
           $firstElement = $ManagementPoints | Where-Object { $_.ParentGUID -ne $null -and ($_.GUID -notin $ManagementPoints.ParentGUID) }
           $lastElements = $ManagementPoints | Where-Object { $_.ParentGUID -eq $null }
           $middleElements = $ManagementPoints | Where-Object { $_ -ne $firstElement -and $_ -ne $lastElements }
-          $sortedManagementPoints = $firstElement + $middleElements + $lastElements
+
+          $sortedManagementPoints += $firstElement
+          $sortedManagementPoints += $middleElements
+          $sortedManagementPoints += $lastElements
 
           foreach ($ManagementPoint in $sortedManagementPoints) {
             Write-Host "Running for Managemnet Point: $($ManagementPoint.Name)"

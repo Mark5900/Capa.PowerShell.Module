@@ -1,3 +1,5 @@
+# TODO: #398 Add tests for File_GetFolderSize
+
 <#
 	.SYNOPSIS
 		Get the size of a folder.
@@ -14,7 +16,7 @@
 	.NOTES
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/20251410491/cs.File_GetFolderSize
 #>
-function FunctionName {
+function File_GetFolderSize {
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$FilePath

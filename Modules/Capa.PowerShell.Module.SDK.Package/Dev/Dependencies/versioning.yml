@@ -47,19 +47,13 @@ jobs:
           echo "CurrentPackageVersion=$CurrentPackageVersion" >> $env:GITHUB_ENV
           echo "OldPackageVersion=$($Settings.OldPackageVersion)" >> $env:GITHUB_ENV
 
-      - name: Update Settings.Json with new version
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          include: Settings.json
-          find: '"PackageVersion": "${{ env.CurrentPackageVersion }}"'
-          replace: '"PackageVersion": "${{ env.NewPackageVersion }}"'
-
-      - name: Update Settings.Json with old version
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          include: Settings.json
-          find: '"OldPackageVersion": "${{ env.OldPackageVersion }}"'
-          replace: '"OldPackageVersion": "${{ env.CurrentPackageVersion }}"'
+      - name: Update versions
+        shell: pwsh
+        run: |
+          $Settings = Get-Content -Path "Settings.json" | ConvertFrom-Json
+          $Settings.PackageVersion = $env:NewPackageVersion
+          $Settings.OldPackageVersion = $env:CurrentPackageVersion
+          $Settings | ConvertTo-Json | Set-Content -Path "Settings.json"
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5

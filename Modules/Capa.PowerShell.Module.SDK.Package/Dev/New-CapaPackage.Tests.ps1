@@ -27,12 +27,13 @@ Describe 'Create a new package' {
 		$Package = Exist-CapaPackage -CapaSDK $CapaSDK -Name $TestSettings.PackageName -Version $TestSettings.PackageVersion -Type $TestSettings.UnitType
 		$Package | Should -Be $true
 	}
-	AfterAll {
-		$PackageSplatting = @{
-			CapaSDK        = $CapaSDK
-			PackageName    = $TestSettings.PackageName
-			PackageVersion = $TestSettings.PackageVersion
-			PackageType    = $TestSettings.UnitType
-		}
-		Remove-CapaPackage @PackageSplatting
+}
+AfterAll {
+	$PackageSplatting = @{
+		CapaSDK        = $CapaSDK
+		PackageName    = $TestSettings.PackageName
+		PackageVersion = $TestSettings.PackageVersion
+		PackageType    = $TestSettings.UnitType
 	}
+	Remove-CapaPackage @PackageSplatting
+}

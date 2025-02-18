@@ -26,7 +26,8 @@ BeforeAll {
 		Database          = 'CapaInstaller'
 	}
 
-	$ComputerJobsPath = '\\localhost\CMPProduction\ComputerJobs'
+	$PackageRoot = Get-ItemPropertyValue -Path 'registry::HKEY_LOCAL_MACHINE\SOFTWARE\CapaSystems\CapaInstaller' -Name 'Packageroot'
+	$ComputerJobsPath = Join-Path $PackageRoot 'ComputerJobs'
 	$VBPackageFolder = Join-Path $ComputerJobsPath $VBPackageSplat.PackageName $VBPackageSplat.PackageVersion
 	$VBScriptsFolder = Join-Path $VBPackageFolder 'Scripts'
 	$VBInstallScriptFile = Join-Path $VBScriptsFolder "$($VBPackageSplat.PackageName).cis"

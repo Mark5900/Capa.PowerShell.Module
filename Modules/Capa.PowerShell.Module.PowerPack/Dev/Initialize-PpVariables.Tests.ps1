@@ -183,8 +183,8 @@ Describe '$global:gsOsSystem' {
 	}
 }
 Describe '$global:gsOsVersion' {
-	It 'Should be "10.0.20348.0"' {
-		$global:gsOsVersion | Should -Be '10.0.20348.0'
+	It "Should be $([System.Environment]::OSVersion.Version.ToString())" {
+		$global:gsOsVersion | Should -Be [System.Environment]::OSVersion.Version.ToString()
 	}
 	It 'Should be a string' {
 		$global:gsOsVersion | Should -BeOfType [string]

@@ -75,6 +75,7 @@ Describe 'Copy units' {
 			CopyUnits          = $true
 		}
 		$bStatus = Copy-CapaPackageRelation @Splat
+		Start-Sleep -Seconds 5
 
 		$bStatus | Should -Be $true
 	}
@@ -97,6 +98,7 @@ Describe 'Copy groups and units' {
 			CopyUnits          = $true
 		}
 		$bStatus = Copy-CapaPackageRelation @Splat
+		Start-Sleep -Seconds 5
 
 		$bStatus | Should -Be $true
 	}

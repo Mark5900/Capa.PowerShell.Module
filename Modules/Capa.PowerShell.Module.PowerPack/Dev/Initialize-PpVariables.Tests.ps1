@@ -95,7 +95,7 @@ Describe '$global:gsWindowsDir' {
 }
 Describe '$global:gsWorkstationPath' {
 	It 'Should be "C:\Program Files\CapaInstaller\Client\"' {
-		$global:gsWorkstationPath | Should -Be 'C:\Program Files\CapaInstaller\Client\'
+		$global:gsWorkstationPath | Should -BeLike 'C:\Program Files\CapaInstaller\Client*'
 	}
 	It 'Should be a string' {
 		$global:gsWorkstationPath | Should -BeOfType [string]

@@ -138,7 +138,7 @@ function Start-ScriptLogging {
 		foreach ($LogFile in $LogFiles) {
 			If ($LogFile.CreationTime.Date -le ((Get-Date).AddDays(-$DeleteDaysOldLogs).ToString('yyyy-MM-dd'))) {
 				Remove-Item $LogFile -Force -ErrorAction SilentlyContinue
-				ITCE-WriteLogLine -ScriptPart $FunctionName -Text "Deleting $LogFile"
+				Write-LogLine -ScriptPart $FunctionName -Text "Deleting $LogFile"
 			}
 		}
 	}

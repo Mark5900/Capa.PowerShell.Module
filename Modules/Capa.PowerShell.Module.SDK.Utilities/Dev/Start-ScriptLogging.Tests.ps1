@@ -143,6 +143,8 @@ Describe 'Does $DeleteAllLogs work' {
 		Stop-ScriptLogging
 		Start-ScriptLogging -Path $TempFolderPath -LogName $TestFolderName -DeleteAllLogs $true
 
+		Start-Sleep -Seconds 2
+
 		$Files = Get-ChildItem $TestLogFolder
 		$Files.Count | Should -Be 1
 	}

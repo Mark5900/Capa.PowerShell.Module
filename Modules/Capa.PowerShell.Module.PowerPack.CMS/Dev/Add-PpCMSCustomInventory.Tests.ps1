@@ -80,4 +80,7 @@ AfterAll {
 	Remove-CapaPackage -CapaSDK $oCMS -PackageName 'Test1' -PackageVersion 'v1.0' -PackageType 'Computer' -Force $true
 
 	Get-Module | Where-Object { $_.Name -like '*-Capa*' -or $_.Name -like '*-Pp*' } | Remove-Module
+
+	# Start sleep to make sure the Package is deleted
+	Start-Sleep -Seconds 5
 }

@@ -75,4 +75,7 @@ AfterAll {
 	Remove-CapaGroup -CapaSDK $oCMS -GroupName 'Test' -GroupType 'Static' -UnitType 'Computer'
 
 	Get-Module | Where-Object { $_.Name -like '*-Capa*' -or $_.Name -like '*-Pp*' } | Remove-Module
+
+	# Start sleep to make sure the Package is deleted
+	Start-Sleep -Seconds 5
 }

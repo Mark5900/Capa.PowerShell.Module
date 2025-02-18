@@ -35,6 +35,7 @@ BeforeAll {
 	$EditionId = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\' -Name CompositionEditionID).CompositionEditionID
 	$CurrentBuild = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\' -Name CurrentBuild).CurrentBuild
 	$OsSystem = (Get-CimInstance -ClassName Win32_OperatingSystem).Caption
+	$OsVersion = [System.Environment]::OSVersion.Version.ToString()
 }
 Describe '$global:gsProgramFiles' {
 	It 'Should be "C:\Program Files"' {
@@ -188,8 +189,8 @@ Describe '$global:gsOsSystem' {
 	}
 }
 Describe '$global:gsOsVersion' {
-	It "Should be $([System.Environment]::OSVersion.Version.ToString())" {
-		$global:gsOsVersion | Should -Be [System.Environment]::OSVersion.Version.ToString()
+	It "Should be $OsVersion" {
+		$global:gsOsVersion | Should -Be $OsVersion
 	}
 	It 'Should be a string' {
 		$global:gsOsVersion | Should -BeOfType [string]

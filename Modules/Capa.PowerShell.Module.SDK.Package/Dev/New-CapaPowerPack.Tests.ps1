@@ -9,6 +9,9 @@ BeforeAll {
 	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Authentication\Dev\Initialize-CapaSDK.ps1"
 
 	$CapaSDK = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1
+
+	$PackageRoot = Get-ItemPropertyValue -Path 'registry::HKEY_LOCAL_MACHINE\SOFTWARE\CapaSystems\CapaInstaller' -Name 'Packageroot'
+	$ComputerJobPath = Join-Path $PackageRoot 'ComputerJobs'
 }
 Describe 'New plain PowerPack' {
 	BeforeAll {
@@ -32,7 +35,7 @@ Describe 'New plain PowerPack' {
 		$TempTempFolder | Should -Not -Exist
 	}
 	It 'Test package structure' {
-		$PackagePath = Join-Path '\\localhost\CMPProduction\ComputerJobs' $PowerPackSplatting.PackageName $PowerPackSplatting.PackageVersion
+		$PackagePath = Join-Path $ComputerJobPath $PowerPackSplatting.PackageName $PowerPackSplatting.PackageVersion
 		$DummyFile = Join-Path $PackagePath '\Kit\Dummy.txt'
 		$KitFile = Join-Path $PackagePath '\Zip\CapaInstaller.kit'
 
@@ -90,7 +93,7 @@ Describe 'New PowerPack with it all' {
 		$TempTempFolder | Should -Not -Exist
 	}
 	It 'Test package structure' {
-		$PackagePath = Join-Path '\\localhost\CMPProduction\ComputerJobs' $PowerPackSplatting.PackageName $PowerPackSplatting.PackageVersion
+		$PackagePath = Join-Path $ComputerJobPath $PowerPackSplatting.PackageName $PowerPackSplatting.PackageVersion
 		$DummyFile = Join-Path $PackagePath 'Kit' $KitFileName
 		$KitFile = Join-Path $PackagePath '\Zip\CapaInstaller.kit'
 
@@ -159,7 +162,7 @@ Describe 'New PowerPack with large kit folder' {
 		$TempTempFolder | Should -Not -Exist
 	}
 	It 'Test package structure' {
-		$PackagePath = Join-Path '\\localhost\CMPProduction\ComputerJobs' $PowerPackSplatting.PackageName $PowerPackSplatting.PackageVersion
+		$PackagePath = Join-Path $ComputerJobPath $PowerPackSplatting.PackageName $PowerPackSplatting.PackageVersion
 		$DummyFile1 = Join-Path $PackagePath 'Kit' $KitFileName1
 		$DummyFile2 = Join-Path $PackagePath 'Kit' $KitFileName2
 		$DummyFile3 = Join-Path $PackagePath 'Kit' $KitFileName3

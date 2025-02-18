@@ -8,7 +8,7 @@ BeforeAll {
 	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Package\Dev\Exist-CapaPackage.ps1"
 	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Authentication\Dev\Initialize-CapaSDK.ps1"
 
-	$CapaSDK = Initialize-CapaSDK -Server 'CISERVER' -Database 'CapaInstaller' -InstanceManagementPoint 1
+	$CapaSDK = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1
 }
 Describe 'New plain PowerPack' {
 	BeforeAll {
@@ -19,7 +19,7 @@ Describe 'New plain PowerPack' {
 			CapaSDK           = $CapaSDK
 			PackageName       = 'Test1'
 			PackageVersion    = 'v1.0'
-			SqlServerInstance = 'CISERVER'
+			SqlServerInstance = $env:COMPUTERNAME
 			Database          = 'CapaInstaller'
 		}
 		New-CapaPowerPack @PowerPackSplatting
@@ -73,7 +73,7 @@ Describe 'New PowerPack with it all' {
 			UninstallScriptContent = 'Write-Host "Uninstall"'
 			KitFolderPath          = 'C:\Temp\Kit'
 			ChangelogComment       = 'Test'
-			SqlServerInstance      = 'CISERVER'
+			SqlServerInstance      = $env:COMPUTERNAME
 			Database               = 'CapaInstaller'
 			PointId                = 1
 		}
@@ -135,7 +135,7 @@ Describe 'New PowerPack with large kit folder' {
 			UninstallScriptContent = 'Write-Host "Uninstall"'
 			KitFolderPath          = $KitFolderPath
 			ChangelogComment       = 'Test'
-			SqlServerInstance      = 'CISERVER'
+			SqlServerInstance      = $env:COMPUTERNAME
 			Database               = 'CapaInstaller'
 			PointId                = 1
 		}

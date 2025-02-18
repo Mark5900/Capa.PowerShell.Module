@@ -13,7 +13,7 @@ BeforeAll {
 	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Inventory\Dev\Get-CapaHardwareInventoryForUnit.ps1"
 	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Inventory\Dev\Convert-CapaDataType.ps1"
 
-	$oCMS = Initialize-CapaSDK -Server 'CISERVER' -Database 'CapaInstaller' -InstanceManagementPoint 1
+	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1
 
 	$ScriptContent = Get-Content "$PSScriptRoot\HelpFilesForTests\Default.ps1" -Raw
 	$FunctionCode = Get-Content $($PSCommandPath.Replace('.Tests.ps1', '.ps1')) -Raw
@@ -33,20 +33,20 @@ BeforeAll {
 		PackageVersion       = 'v1.0'
 		DisplayName          = 'Test1'
 		InstallScriptContent = $ScriptContent
-		SqlServerInstance    = 'CISERVER'
+		SqlServerInstance    = $env:COMPUTERNAME
 		Database             = 'CapaInstaller'
 		AllowInstallOnServer = $true
 	}
 	New-CapaPowerPack @SplattingPowerPack
-	Add-CapaUnitToPackage -CapaSDK $oCMS -PackageName 'Test1' -PackageVersion 'v1.0' -PackageType 'Computer' -UnitName 'CISERVER' -UnitType 'Computer'
+	Add-CapaUnitToPackage -CapaSDK $oCMS -PackageName 'Test1' -PackageVersion 'v1.0' -PackageType 'Computer' -UnitName $env:COMPUTERNAME -UnitType 'Computer'
 	Start-Sleep -Seconds 15
 
-	Restart-CapaAgent -CapaSDK $oCMS -UnitName 'CISERVER' -UnitType 'Computer'
+	Restart-CapaAgent -CapaSDK $oCMS -UnitName $env:COMPUTERNAME -UnitType 'Computer'
 
 	Start-Sleep -Seconds 30
 	$Run = $true
 	while ($Run) {
-		$Status = Get-CapaUnitPackageStatus -CapaSDK $oCMS -Unitname 'CISERVER' -UnitType 'Computer' -PackageName 'Test1' -PackageVersion 'v1.0'
+		$Status = Get-CapaUnitPackageStatus -CapaSDK $oCMS -UnitName $env:COMPUTERNAME -UnitType 'Computer' -PackageName 'Test1' -PackageVersion 'v1.0'
 		if ($Status -eq 'Installed' -or $Status -eq 'Failed') {
 			$Run = $false
 		} else {
@@ -60,7 +60,7 @@ Describe 'Add-PpCMSComputerToDepartmentGroup' {
 		$Exist | Should -Be $true
 	}
 	It 'Should add the package to the unit' {
-		$Status = Get-CapaUnitPackageStatus -CapaSDK $oCMS -Unitname 'CISERVER' -UnitType 'Computer' -PackageName 'Test1' -PackageVersion 'v1.0'
+		$Status = Get-CapaUnitPackageStatus -CapaSDK $oCMS -UnitName $env:COMPUTERNAME -UnitType 'Computer' -PackageName 'Test1' -PackageVersion 'v1.0'
 		$Status | Should -Be 'Installed'
 	}
 	It 'The log should contain the right text' {
@@ -71,7 +71,7 @@ Describe 'Add-PpCMSComputerToDepartmentGroup' {
 		$LogContent | Should -Match 'Add-PpCMSHardwareInventory: Hardware inventory added successfully'
 	}
 	It 'Check the hardware inventory' {
-		$HardwareInventory = Get-CapaHardwareInventoryForUnit -CapaSDK $oCMS -UnitName 'CISERVER' -UnitType 'Computer' | Where-Object { $_.Category -eq 'MyCategory' -and $_.Entry -eq 'MyEntry' }
+		$HardwareInventory = Get-CapaHardwareInventoryForUnit -CapaSDK $oCMS -UnitName $env:COMPUTERNAME -UnitType 'Computer' | Where-Object { $_.Category -eq 'MyCategory' -and $_.Entry -eq 'MyEntry' }
 		$HardwareInventory | Should -Not -BeNullOrEmpty
 		$HardwareInventory.Value | Should -Be 'MyValue'
 	}

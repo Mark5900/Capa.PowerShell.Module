@@ -81,6 +81,7 @@
 - [File_ExistFile](Functions/File_ExistFile.md)
 - [File_FindFile](Functions/File_FindFile.md)
 - [File_GetFileVersion](Functions/File_GetFileVersion.md)
+- [File_GetFolderSize](Functions/File_GetFolderSize.md)
 - [File_GetProductVersion](Functions/File_GetProductVersion.md)
 - [File_RenameDir](Functions/File_RenameDir.md)
 - [File_RenameFile](Functions/File_RenameFile.md)
@@ -113,10 +114,14 @@
 - [Reg_EnumKey](Functions/Reg_EnumKey.md)
 - [Reg_ExistKey](Functions/Reg_ExistKey.md)
 - [Reg_ExistVariable](Functions/Reg_ExistVariable.md)
+- [Reg_GetExpandString](Functions/Reg_GetExpandString.md)
+- [Reg_GetInteger](Functions/Reg_GetInteger.md)
+- [Reg_GetMultiString](Functions/Reg_GetMultiString.md)
 - [Reg_GetString](Functions/Reg_GetString.md)
 - [Reg_SetDword](Functions/Reg_SetDword.md)
 - [Reg_SetExpandString](Functions/Reg_SetExpandString.md)
 - [Reg_SetInteger](Functions/Reg_SetInteger.md)
+- [Reg_SetQword](Functions/Reg_SetQword.md)
 - [Reg_SetString](Functions/Reg_SetString.md)
 ## Capa.PowerShell.Module.PowerPack.Service
 
@@ -126,13 +131,16 @@
 ## Capa.PowerShell.Module.PowerPack.Shell
 
 - [Shell_Execute](Functions/Shell_Execute.md)
+- [Shell_ExecuteWithTimeout](Functions/Shell_ExecuteWithTimeout.md)
 ## Capa.PowerShell.Module.PowerPack.Sys
 
 - [Show-PpMessageBox](Functions/Show-PpMessageBox.md)
 - [Sys_ExistProcess](Functions/Sys_ExistProcess.md)
 - [Sys_GetFreeDiskSpace](Functions/Sys_GetFreeDiskSpace.md)
 - [Sys_IsMinimumRequiredDiskspaceAvailable](Functions/Sys_IsMinimumRequiredDiskspaceAvailable.md)
+- [Sys_isUserLoggedOn](Functions/Sys_isUserLoggedOn.md)
 - [Sys_KillProcess](Functions/Sys_KillProcess.md)
+- [Sys_Sleep](Functions/Sys_Sleep.md)
 - [Sys_WaitForProcess](Functions/Sys_WaitForProcess.md)
 - [Sys_WaitForProcessToExist](Functions/Sys_WaitForProcessToExist.md)
 ## Capa.PowerShell.Module.PowerPack.UsrMgr
@@ -143,6 +151,7 @@
 - [UsrMgr_DeleteLocalUserAccount](Functions/UsrMgr_DeleteLocalUserAccount.md)
 - [UsrMgr_EnumMembersOfLocalGroup](Functions/UsrMgr_EnumMembersOfLocalGroup.md)
 - [UsrMgr_ExistLocalUserAccount](Functions/UsrMgr_ExistLocalUserAccount.md)
+- [UsrMgr_GetNameBySid](Functions/UsrMgr_GetNameBySid.md)
 - [UsrMgr_RemoveUserFromLocalGroup](Functions/UsrMgr_RemoveUserFromLocalGroup.md)
 ## Capa.PowerShell.Module.PowerPack.Winget
 

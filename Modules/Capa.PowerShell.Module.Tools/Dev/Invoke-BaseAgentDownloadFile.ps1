@@ -1,44 +1,47 @@
 <#
 	.SYNOPSIS
-		Downloads a Capa package from CI server using the BaseAgent.
+		Downloads a file from CI server using the BaseAgent.
 
 	.DESCRIPTION
-		Downloads a Capa package from server using the BaseAgent.
+		Downloads a file from server using the BaseAgent.
 
-	.PARAMETER PackageName
-		The name of the package to download.
+	.PARAMETER RemotePath
+		The path of the file to download.
 
-	.PARAMETER PackageVersion
-		The version of the package to download.
-
-	.PARAMETER DestinationFolder
-		The folder where the package will be downloaded and extracted to.
+	.PARAMETER LocalPath
+		The folder or specific path where the file will be downloaded to.
 
 	.EXAMPLE
-		Invoke-DownloadCapaPackage -PackageName 'CP CapaDrivers Latitude 5440' -PackageVersion 'W10 Custom' -DestinationFolder 'c:\temp\Test'
+		Invoke-BaseAgentDownloadFile -RemotePath "\Resources/AgentInstaller/CapaInstaller agent.xml" -LocalPath "c:\temp"
+
+	.EXAMPLE
+		Invoke-BaseAgentDownloadFile -RemotePath "\Resources/AgentInstaller/CapaInstaller agent.xml" -LocalPath "c:\temp\CapaInstaller agent.xml"
 
 	.NOTES
 		This function requires the Capa BaseAgent to be installed on the machine.
 #>
-function Invoke-DownloadCapaPackage {
+function Invoke-BaseAgentDownloadFile {
 	param (
 		[Parameter(Mandatory = $true)]
-		[string]$PackageName,
+		[string]$RemotePath,
 		[Parameter(Mandatory = $true)]
-		[string]$PackageVersion,
-		[Parameter(Mandatory = $true)]
-		[string]$DestinationFolder
+		[string]$LocalPath
 	)
 	$LocalPort = Get-ItemProperty -Path 'HKLM:\SOFTWARE\CapaSystems\BaseAgent' -Name 'LocalPort' | Select-Object -ExpandProperty LocalPort
 	$BaseURL = "http://localhost:$LocalPort/file"
-	$RemotePath = "/ComputerJobs/$PackageName/$PackageVersion/Zip/CapaInstaller.kit"
 
-	$KitLocalPath = Join-Path $DestinationFolder 'CapaInstaller.kit'
-	$KitLocalPath = $KitLocalPath.Replace('\', '\\')
+	$FileName = Split-Path -Path $RemotePath -Leaf
+	if (Test-Path $LocalPath -PathType Container) {
+		$LocalPath = Join-Path -Path $LocalPath -ChildPath $FileName
+	}
+
+	$LocalPath = $LocalPath.Replace('/', '\')
+	$LocalPath = $LocalPath.Replace('\', '\\')
+	$RemotePath = $RemotePath.Replace('\', "/")
 
 	$Json = "{
 	`"remote-location`": `"$RemotePath`",
-	`"local-location`": `"$KitLocalPath`",
+	`"local-location`": `"$LocalPath`",
 	`"local-progress`": 0,
 	`"tag`": `"Mark5900`"
 }"
@@ -63,9 +66,4 @@ function Invoke-DownloadCapaPackage {
 		}
 		Start-Sleep -Seconds 1
 	}
-
-	$Obj = New-Object -ComObject CapaInstaller.Scripting.Extract
-	$Obj.ExtractZip($KitLocalPath, $DestinationFolder)
-
-	Remove-Item -Path $KitLocalPath -Force
 }

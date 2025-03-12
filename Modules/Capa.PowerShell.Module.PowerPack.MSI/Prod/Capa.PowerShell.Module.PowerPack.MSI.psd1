@@ -66,7 +66,8 @@
 	'MSI_GetPropertiesFromMSI',
 	'MSI_IsMSIFileInstalled',
 	'MSI_IsMSIGuidInstalled',
-	'Install-PpMSI'
+	'Install-PpMSI',
+	'Uninstall-PpMSI'
 	#For performance, list functions explicitly
 
 	# Cmdlets to export from this module

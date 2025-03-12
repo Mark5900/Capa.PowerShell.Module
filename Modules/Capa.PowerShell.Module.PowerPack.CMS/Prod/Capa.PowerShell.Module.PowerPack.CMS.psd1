@@ -16,10 +16,10 @@
 	CompanyName            = ''
 
 	# Copyright statement for this module
-	Copyright              = '(c) 2023. All rights reserved.'
+	Copyright              = ''
 
 	# Description of the functionality provided by this module
-	Description            = 'PowerShell module for CapaInstaller PowerPacks containing functions for Sys commands.
+	Description            = 'PowerShell module for CapaInstaller PowerPacks containing functions for CMS commands.
 	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455297/PowerShell+Scripting+Library'
 
 	# Minimum version of the Windows PowerShell engine required by this module

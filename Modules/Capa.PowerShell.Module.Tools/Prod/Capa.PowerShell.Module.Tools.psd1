@@ -63,7 +63,9 @@
 	# Functions to export from this module
 	FunctionsToExport      = 'Start-ScriptLogging',
 	'Stop-ScriptLogging',
-	'Write-LogLine'
+	'Write-LogLine',
+	'Invoke-BaseAgentDownloadFile',
+	'Invoke-DownloadCapaPackage'
 	#For performance, list functions explicitly
 
 	# Cmdlets to export from this module

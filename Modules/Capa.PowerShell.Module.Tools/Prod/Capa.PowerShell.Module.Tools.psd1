@@ -1,13 +1,13 @@
 @{
 
 	# Script module or binary module file associated with this manifest
-	RootModule             = './Capa.PowerShell.Module.SDK.Utilities.psm1'
+	RootModule             = '.\Capa.PowerShell.Module.Tools.psm1'
 
 	# Version number of this module.
 	ModuleVersion          = '1.10.0'
 
 	# ID used to uniquely identify this module
-	GUID                   = 'd1bf191d-935d-45a4-93ac-7f6c5e2f0044'
+	GUID                   = '3576e251-c372-42b2-b16b-e61a7cc4a569'
 
 	# Author of this module
 	Author                 = 'Mark5900'
@@ -19,8 +19,7 @@
 	Copyright              = ''
 
 	# Description of the functionality provided by this module
-	Description            = 'PowerShell module for CapaInstaller SDK containing functions for Utilities functions.
-	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19382173123/SDK+-+CapaInstaller+Software+Development+Kit+functions'
+	Description            = 'PowerShell module for CapaInstaller containing tools for CapaInstaller and PowerPacks.'
 
 	# Minimum version of the Windows PowerShell engine required by this module
 	PowerShellVersion      = '7.4'
@@ -62,13 +61,9 @@
 	NestedModules          = @()
 
 	# Functions to export from this module
-	FunctionsToExport      = 'Create-CapaADGroup',
-	'Get-CapaLog',
-	'Get-CapaReinstallStatus',
-	'Move-CapaDeviceToPoint',
-	'Restart-CapaAgent',
-	'Set-CapaWakeOnLAN'
-
+	FunctionsToExport      = 'Start-ScriptLogging',
+	'Stop-ScriptLogging',
+	'Write-LogLine'
 	#For performance, list functions explicitly
 
 	# Cmdlets to export from this module
@@ -99,11 +94,9 @@
 
 			LicenseUri = 'https://github.com/Mark5900/Capa.PowerShell.Module/blob/main/LICENSE'
 
-			Tags       = @('CapaInstaller', 'SDK', 'CapaSystems')
+			Tags       = @('CapaInstaller', 'PowerPack', 'CapaSystems')
 
 		} # End of PSData hashtable
 
 	} # End of PrivateData hashtable
-
-
 }

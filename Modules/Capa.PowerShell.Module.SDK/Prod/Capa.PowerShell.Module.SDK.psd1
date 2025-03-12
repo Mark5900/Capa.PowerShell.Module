@@ -49,7 +49,8 @@
 		@{ ModuleName = 'Capa.PowerShell.Module.SDK.User'; RequiredVersion = '1.10.0'; },
 		@{ ModuleName = 'Capa.PowerShell.Module.SDK.Utilities'; RequiredVersion = '1.10.0'; },
 		@{ ModuleName = 'Capa.PowerShell.Module.SDK.VPP'; RequiredVersion = '1.10.0'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.SDK.WSUS'; RequiredVersion = '1.10.0'; })
+		@{ ModuleName = 'Capa.PowerShell.Module.SDK.WSUS'; RequiredVersion = '1.10.0'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.Tools'; RequiredVersion = '1.10.0'; })
 
 	# Assemblies that must be loaded prior to importing this module
 	RequiredAssemblies     = @()

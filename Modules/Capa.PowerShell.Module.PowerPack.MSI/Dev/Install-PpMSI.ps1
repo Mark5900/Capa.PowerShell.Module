@@ -1,3 +1,19 @@
+<#
+	.SYNOPSIS
+		Installs an MSI file.
+
+	.DESCRIPTION
+		Installs an MSI file.
+
+	.PARAMETER FilePath
+		The path to the MSI file.
+
+	.PARAMETER Arguments
+		Additional arguments to pass to the MSI installer. By default the MSI is called with arguments to log the installation to a file.
+
+	.EXAMPLE
+		Install-Msi -FilePath 'C:\Temp\MyApp.msi' -Arguments '/qn'
+#>
 function Install-Msi {
 	[CmdletBinding()]
 	Param(

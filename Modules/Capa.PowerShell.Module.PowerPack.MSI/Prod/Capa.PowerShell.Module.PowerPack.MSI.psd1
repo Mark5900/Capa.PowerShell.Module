@@ -4,7 +4,6 @@
 	RootModule             = '.\Capa.PowerShell.Module.PowerPack.MSI.psm1'
 
 	# Version number of this module.
-	ModuleVersion          = '1.10.0'
 
 	# ID used to uniquely identify this module
 	GUID                   = 'fda2b305-e1a9-41b0-b52f-131fccf4c9dd'
@@ -23,7 +22,7 @@
 	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455297/PowerShell+Scripting+Library'
 
 	# Minimum version of the Windows PowerShell engine required by this module
-	PowerShellVersion      = '7.0'
+	PowerShellVersion      = '7.4'
 
 	# Name of the Windows PowerShell host required by this module
 	PowerShellHostName     = ''
@@ -32,7 +31,7 @@
 	PowerShellHostVersion  = ''
 
 	# Minimum version of the .NET Framework required by this module
-	DotNetFrameworkVersion = '4.6.2'
+	DotNetFrameworkVersion = ''
 
 	# Minimum version of the common language runtime (CLR) required by this module
 	CLRVersion             = '2.0.50727'

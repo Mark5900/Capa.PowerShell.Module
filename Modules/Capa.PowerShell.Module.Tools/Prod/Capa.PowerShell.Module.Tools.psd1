@@ -66,7 +66,8 @@
 	'Write-LogLine',
 	'Invoke-BaseAgentDownloadFile',
 	'Invoke-DownloadCapaPackage',
-	'Expand-KitFile'
+	'Expand-KitFile',
+	'Get-ScriptDirectory'
 	#For performance, list functions explicitly
 
 	# Cmdlets to export from this module

@@ -31,7 +31,7 @@ function Reg_DeleteTree {
 	)
 
 	$LogPreTag = 'Reg_DeleteTree:'
-	$Global:cs.Job_WriteLog("$LogPreTag Calling function with: RegRoot: $RegRoot | Registry_Key: $Registry_Key")
+	$Global:cs.Job_WriteLog("$LogPreTag Calling function with: RegRoot: $RegRoot | Registry_Key: $RegPath")
 
 	switch ($RegRoot) {
 		'HKCU' {
@@ -97,7 +97,7 @@ function Reg_DeleteTree {
 					}
 
 					# Set the registry value
-					$RegKeyPathTemp = "$RegistryCoreKey$Registry_Key"
+					$RegKeyPathTemp = "$RegistryCoreKey$RegPath"
 					$Global:cs.Reg_DeleteTree($Temp_RegRoot, $RegKeyPathTemp)
 
 					# Unload the NTUSER.DAT file if it was loaded
@@ -124,7 +124,7 @@ function Reg_DeleteTree {
 			}
 		}
 		Default {
-			$Global:cs.Reg_DeleteTree($RegRoot, $Registry_Key)
+			$Global:cs.Reg_DeleteTree($RegRoot, $RegPath)
 		}
 	}
 }

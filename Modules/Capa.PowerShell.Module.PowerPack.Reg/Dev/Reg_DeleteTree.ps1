@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Deletes a registry tree.
 
+	.DESCRIPTION
+		Deletes a registry tree in the registry, if RegRoot is HKCU, the function will delete the tree for all users that have logged on to the unit and future users.
+
 	.PARAMETER RegRoot
 		The root of the registry key, can be HKLM, HKCU or HKU.
 
@@ -15,6 +18,9 @@
 
 	.EXAMPLE
 		PS C:\> Reg_DeleteTree -RegRoot "HKLM" -RegPath "SOFTWARE\CapaSystems" -RegKey "Test"
+
+	.EXAMPLE
+		PS C:\> Reg_DeleteTree -RegRoot "HKCU" -RegPath "SOFTWARE\CapaSystems" -RegKey "Test"
 
 	.NOTES
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455836/cs.Reg+DelTree

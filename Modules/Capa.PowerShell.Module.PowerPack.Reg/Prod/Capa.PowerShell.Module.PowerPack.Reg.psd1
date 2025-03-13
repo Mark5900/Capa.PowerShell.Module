@@ -72,7 +72,8 @@
 	'Reg_SetDword',
 	'Reg_SetExpandString',
 	'Reg_SetInteger',
-	'Reg_SetString'
+	'Reg_SetString',
+	'Set-PpRegistryValue'
 	#For performance, list functions explicitly
 
 	# Cmdlets to export from this module

@@ -1,3 +1,31 @@
+<#
+	.SYNOPSIS
+		Sets a registry value.
+
+	.DESCRIPTION
+		Sets a registry value in the registry, if RegRoot is HKCU, the function will set the value for all users that have logged on to the unit and future users.
+
+	.PARAMETER RegRoot
+		The root of the registry key, can be HKLM, HKCU or HKU.
+
+	.PARAMETER Datatype
+		The datatype of the registry value, can be String, DWORD (32-bit) or Expanded String.
+
+	.PARAMETER RegKey
+		The path of the registry key.
+
+	.PARAMETER RegValue
+		The name of the registry value.
+
+	.PARAMETER RegData
+		The data of the registry value.
+
+	.EXAMPLE
+		PS C:\> Set-PpRegistryValue -RegRoot "HKLM" -Datatype "String" -RegKey "SOFTWARE\CapaSystems" -RegValue "Test" -RegData "Test1"
+
+	.EXAMPLE
+		PS C:\> Set-PpRegistryValue -RegRoot "HKCU" -Datatype "String" -RegKey "SOFTWARE\CapaSystems" -RegValue "Test" -RegData "Test1"
+#>
 Function Set-PpRegistryValue {
 	[CmdletBinding()]
 	Param(

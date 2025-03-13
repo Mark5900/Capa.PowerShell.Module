@@ -64,7 +64,7 @@
 	# Functions to export from this module
 	FunctionsToExport      = 'Reg_DeleteVariable',
 	'Reg_CreateKey',
-	'Reg_DelTree',
+	'Reg_DeleteTree',
 	'Reg_EnumKey',
 	'Reg_ExistKey',
 	'Reg_ExistVariable',

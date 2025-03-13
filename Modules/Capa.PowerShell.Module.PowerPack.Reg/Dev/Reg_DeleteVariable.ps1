@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Deletes a registry value.
 
+	.DESCRIPTION
+		Deletes a registry value in the registry, if RegRoot is HKCU, the function will delete the value for all users that have logged on to the unit and future users.
+
 	.PARAMETER RegRoot
 		The root of the registry key, can be HKLM, HKCU or HKU.
 
@@ -15,6 +18,9 @@
 
 	.EXAMPLE
 		PS C:\> Reg_DeleteVariable -RegRoot "HKLM" -RegPath "SOFTWARE\CapaSystems" -RegValue "Test"
+
+	.EXAMPLE
+		PS C:\> Reg_DeleteVariable -RegRoot "HKCU" -RegPath "SOFTWARE\CapaSystems" -RegValue "Test"
 
 	.NOTES
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455802/cs.Reg+DeleteVariable

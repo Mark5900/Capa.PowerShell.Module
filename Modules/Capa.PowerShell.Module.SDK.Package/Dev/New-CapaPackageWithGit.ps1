@@ -130,7 +130,11 @@ function New-CapaPackageWithGit {
 		#endregion
 
 		#region Copy files
-		Copy-Item -Path $GitIgnoreFile -Destination $PackagePath -Force | Out-Null
+		if (Test-Path $GitIgnoreFile) {
+			Copy-Item -Path $GitIgnoreFile -Destination $PackagePath -Force | Out-Null
+		} else {
+			New-Item -Path $PackagePath -Name '.gitignore' -ItemType File -Force | Out-Null
+		}
 		if ($Advanced) {
 			Copy-Item -Path $GitHubActionsFile1 -Destination $GitHubActionsPath -Force | Out-Null
 			Copy-Item -Path $GitHubActionsFile2 -Destination $GitHubActionsPath -Force | Out-Null

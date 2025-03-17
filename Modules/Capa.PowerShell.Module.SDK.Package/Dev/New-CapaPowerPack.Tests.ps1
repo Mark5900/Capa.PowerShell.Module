@@ -8,7 +8,10 @@ BeforeAll {
 	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Package\Dev\Exist-CapaPackage.ps1"
 	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Authentication\Dev\Initialize-CapaSDK.ps1"
 
-	$CapaSDK = Initialize-CapaSDK -Server 'CISERVER' -Database 'CapaInstaller' -InstanceManagementPoint 1
+	$CapaSDK = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1
+
+	$PackageRoot = Get-ItemPropertyValue -Path 'registry::HKEY_LOCAL_MACHINE\SOFTWARE\CapaSystems\CapaInstaller' -Name 'Packageroot'
+	$ComputerJobPath = Join-Path $PackageRoot 'ComputerJobs'
 }
 Describe 'New plain PowerPack' {
 	BeforeAll {
@@ -19,7 +22,7 @@ Describe 'New plain PowerPack' {
 			CapaSDK           = $CapaSDK
 			PackageName       = 'Test1'
 			PackageVersion    = 'v1.0'
-			SqlServerInstance = 'CISERVER'
+			SqlServerInstance = $env:COMPUTERNAME
 			Database          = 'CapaInstaller'
 		}
 		New-CapaPowerPack @PowerPackSplatting
@@ -32,7 +35,7 @@ Describe 'New plain PowerPack' {
 		$TempTempFolder | Should -Not -Exist
 	}
 	It 'Test package structure' {
-		$PackagePath = Join-Path '\\localhost\CMPProduction\ComputerJobs' $PowerPackSplatting.PackageName $PowerPackSplatting.PackageVersion
+		$PackagePath = Join-Path $ComputerJobPath $PowerPackSplatting.PackageName $PowerPackSplatting.PackageVersion
 		$DummyFile = Join-Path $PackagePath '\Kit\Dummy.txt'
 		$KitFile = Join-Path $PackagePath '\Zip\CapaInstaller.kit'
 
@@ -73,7 +76,7 @@ Describe 'New PowerPack with it all' {
 			UninstallScriptContent = 'Write-Host "Uninstall"'
 			KitFolderPath          = 'C:\Temp\Kit'
 			ChangelogComment       = 'Test'
-			SqlServerInstance      = 'CISERVER'
+			SqlServerInstance      = $env:COMPUTERNAME
 			Database               = 'CapaInstaller'
 			PointId                = 1
 		}
@@ -90,7 +93,7 @@ Describe 'New PowerPack with it all' {
 		$TempTempFolder | Should -Not -Exist
 	}
 	It 'Test package structure' {
-		$PackagePath = Join-Path '\\localhost\CMPProduction\ComputerJobs' $PowerPackSplatting.PackageName $PowerPackSplatting.PackageVersion
+		$PackagePath = Join-Path $ComputerJobPath $PowerPackSplatting.PackageName $PowerPackSplatting.PackageVersion
 		$DummyFile = Join-Path $PackagePath 'Kit' $KitFileName
 		$KitFile = Join-Path $PackagePath '\Zip\CapaInstaller.kit'
 
@@ -135,7 +138,7 @@ Describe 'New PowerPack with large kit folder' {
 			UninstallScriptContent = 'Write-Host "Uninstall"'
 			KitFolderPath          = $KitFolderPath
 			ChangelogComment       = 'Test'
-			SqlServerInstance      = 'CISERVER'
+			SqlServerInstance      = $env:COMPUTERNAME
 			Database               = 'CapaInstaller'
 			PointId                = 1
 		}
@@ -159,7 +162,7 @@ Describe 'New PowerPack with large kit folder' {
 		$TempTempFolder | Should -Not -Exist
 	}
 	It 'Test package structure' {
-		$PackagePath = Join-Path '\\localhost\CMPProduction\ComputerJobs' $PowerPackSplatting.PackageName $PowerPackSplatting.PackageVersion
+		$PackagePath = Join-Path $ComputerJobPath $PowerPackSplatting.PackageName $PowerPackSplatting.PackageVersion
 		$DummyFile1 = Join-Path $PackagePath 'Kit' $KitFileName1
 		$DummyFile2 = Join-Path $PackagePath 'Kit' $KitFileName2
 		$DummyFile3 = Join-Path $PackagePath 'Kit' $KitFileName3

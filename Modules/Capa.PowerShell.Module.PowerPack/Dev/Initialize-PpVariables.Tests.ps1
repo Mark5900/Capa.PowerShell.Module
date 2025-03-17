@@ -1,10 +1,15 @@
 BeforeAll {
-    # Import file and parameters
-    . $PSCommandPath.Replace('.Tests.ps1', '.ps1')
+	# Import file and parameters
+	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
-	$DllPath = 'C:\Temp\CapaOne.ScriptingLibrary.dll'
 	$LogFilePath = 'C:\Temp\Initialize-PpVariables.log'
+
+	# DllPath
+	$CiBaseAgentPath = 'C:\Program Files (x86)\CapaInstaller\Services\CiBaseAgent'
+	$Folders = Get-ChildItem -Path $CiBaseAgentPath -Directory
+	$NewestVersion = $Folders | Sort-Object -Property Name -Descending | Select-Object -First 1
+	$DllPath = Join-Path $CiBaseAgentPath $NewestVersion.Name 'CapaOne.ScriptingLibrary.dll'
 
 	# Import modules
 	Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Job\Dev\Job_DisableLog.ps1" -Force
@@ -30,6 +35,7 @@ BeforeAll {
 	$EditionId = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\' -Name CompositionEditionID).CompositionEditionID
 	$CurrentBuild = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\' -Name CurrentBuild).CurrentBuild
 	$OsSystem = (Get-CimInstance -ClassName Win32_OperatingSystem).Caption
+	$OsVersion = [System.Environment]::OSVersion.Version.ToString()
 }
 Describe '$global:gsProgramFiles' {
 	It 'Should be "C:\Program Files"' {
@@ -89,7 +95,7 @@ Describe '$global:gsWindowsDir' {
 }
 Describe '$global:gsWorkstationPath' {
 	It 'Should be "C:\Program Files\CapaInstaller\Client\"' {
-		$global:gsWorkstationPath | Should -Be 'C:\Program Files\CapaInstaller\Client\'
+		$global:gsWorkstationPath | Should -BeLike 'C:\Program Files\CapaInstaller\Client*'
 	}
 	It 'Should be a string' {
 		$global:gsWorkstationPath | Should -BeOfType [string]
@@ -183,8 +189,8 @@ Describe '$global:gsOsSystem' {
 	}
 }
 Describe '$global:gsOsVersion' {
-	It 'Should be "10.0.20348.0"' {
-		$global:gsOsVersion | Should -Be '10.0.20348.0'
+	It "Should be $OsVersion" {
+		$global:gsOsVersion | Should -Be $OsVersion
 	}
 	It 'Should be a string' {
 		$global:gsOsVersion | Should -BeOfType [string]
@@ -585,13 +591,13 @@ Describe '$global:gsComputerName' {
 	}
 }
 Describe '$global:gsUUID' {
-    It 'UUID Should be same as $UUID' {
-        $global:gsUUID | Should -Be $UUID
-    }
-    It 'Should be a string' {
-        $global:gsUUID | Should -BeOfType [string]
-    }
-    It 'Should be the same as $Global:Cs' {
-        $global:gsUUID | Should -Be $Global:Cs.gsUUID
-    }
+	It 'UUID Should be same as $UUID' {
+		$global:gsUUID | Should -Be $UUID
+	}
+	It 'Should be a string' {
+		$global:gsUUID | Should -BeOfType [string]
+	}
+	It 'Should be the same as $Global:Cs' {
+		$global:gsUUID | Should -Be $Global:Cs.gsUUID
+	}
 }

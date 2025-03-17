@@ -18,10 +18,21 @@ function Add-PpDll {
     [CmdletBinding()]
     [Alias('Add-PsDll')]
     Param(
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [string]$DllPath
     )
     try {
+		if ([string]::IsNullOrEmpty($DllPath)) {
+			$CiBaseAgentPath = 'C:\Program Files (x86)\CapaInstaller\Services\CiBaseAgent'
+			$Folders = Get-ChildItem -Path $CiBaseAgentPath -Directory
+
+			# Find newest version folder
+			$NewestVersion = $Folders | Sort-Object -Property Name -Descending | Select-Object -First 1
+
+			# Get path to DLL
+			$DllPath = Join-Path $CiBaseAgentPath $NewestVersion.Name 'CapaOne.ScriptingLibrary.dll'
+		}
+
         Add-Type -Path $DllPath
         $Cs = New-Object -TypeName 'CapaOne.ScriptingLibrary'
         return $Cs

@@ -1,7 +1,7 @@
 $Splat = @{
 	BasePath               = 'C:\Temp'
-	CapaServer             = 'CISERVER'
-	SQLServer              = 'CISERVER'
+	CapaServer             = $env:COMPUTERNAME
+	SQLServer              = $env:COMPUTERNAME
 	Database               = 'CapaInstaller'
 	DefaultManagementPoint = 1
 	PackageBasePath        = 'E:\CapaInstaller\CMPProduction\ComputerJobs'

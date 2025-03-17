@@ -9,14 +9,14 @@ BeforeAll {
 	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Package\Dev\Export-CapaPackage.ps1"
 	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Authentication\Dev\Initialize-CapaSDK.ps1"
 
-	$CapaSDK = Initialize-CapaSDK -Server 'CISERVER' -Database 'CapaInstaller' -InstanceManagementPoint 1
+	$CapaSDK = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1
 
 	$PackageSplatting = @{
 		CapaSDK           = $CapaSDK
 		PackageName       = 'Test1'
 		PackageVersion    = 'v1.0'
 		DisplayName       = 'Test1 v1.0'
-		SqlServerInstance = 'CISERVER'
+		SqlServerInstance = $env:COMPUTERNAME
 		Database          = 'CapaInstaller'
 	}
 	$PackageExportSplatting = @{

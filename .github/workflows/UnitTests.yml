@@ -1,0 +1,52 @@
+name: UnitTests
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - CI_6.7
+    paths:
+      - "Modules/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+jobs:
+  Run-Pester:
+    runs-on: CapaServer
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Pester
+        run: |
+          Import-Module Pester
+          $configuration = New-PesterConfiguration
+          $configuration.Run.Exit = $true
+          $configuration.TestResult.OutputPath = 'C:\Temp\PesterTests.xml'
+          $configuration.TestResult.Enabled = $true
+          $configuration.TestResult.OutputFormat = 'JUnitXml'
+
+          Invoke-Pester -Configuration $configuration
+        shell: pwsh
+
+      - name: Upload Test Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Pester Test Report
+          path: 'C:\Temp\PesterTests.xml'
+
+      - name: Test Report
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          artifact: Pester Test Report
+          name: Pester Test Report
+          path: '*PesterTests.xml'
+          reporter: java-junit

@@ -27,7 +27,7 @@ try {
 	if ($Version -like '*-*') {
 		$Version = $Version.Split('-')[0]
 		$PrereleaseVersion = ($FullVersion -split '-', 2)[1]
-		$PrereleaseVersion = $PrereleaseVersion.Replace('.', '-')
+		$PrereleaseVersion = $PrereleaseVersion.Replace('.', '')
 		$Prerelease = $true
 	}
 } catch {

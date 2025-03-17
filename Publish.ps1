@@ -7,7 +7,7 @@ if ($Version -like '*-*') {
 	$FullVersion = $Version
 	$Version = $FullVersion.Split('-')[0]
 	$PrereleaseVersion = ($FullVersion -split '-', 2)[1]
-	$PrereleaseVersion = $PrereleaseVersion.Replace('.', '-')
+	$PrereleaseVersion = $PrereleaseVersion.Replace('.', '')
 	$Version = "$Version-$PrereleaseVersion"
 }
 Write-Host "Publishing version $Version"

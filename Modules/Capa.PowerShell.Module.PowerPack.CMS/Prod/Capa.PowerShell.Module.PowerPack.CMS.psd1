@@ -20,7 +20,7 @@
 
 	# Description of the functionality provided by this module
 	Description            = 'PowerShell module for CapaInstaller PowerPacks containing functions for CMS commands.
-	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455297/PowerShell+Scripting+Library'
+	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342578761/PowerShell+Scripting+Library'
 
 	# Minimum version of the Windows PowerShell engine required by this module
 	PowerShellVersion      = '7.4'

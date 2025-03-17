@@ -4,7 +4,7 @@
 	RootModule             = '.\Capa.PowerShell.Module.PowerPack.Exit.psm1'
 
 	# Version number of this module.
-	ModuleVersion          = '1.12.1'
+	ModuleVersion          = '1.12.2'
 
 	# ID used to uniquely identify this module
 	GUID                   = 'cfec6bfc-9715-4066-8923-96b581ea3627'

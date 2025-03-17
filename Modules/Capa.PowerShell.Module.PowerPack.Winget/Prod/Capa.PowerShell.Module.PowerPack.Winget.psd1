@@ -41,8 +41,7 @@
 
 	# Modules that must be imported into the global environment prior to importing
 	# this module
-	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; RequiredVersion = '1.12.1'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.12.1'; })
+	RequiredModules        = @()
 
 	# Assemblies that must be loaded prior to importing this module
 	RequiredAssemblies     = @()

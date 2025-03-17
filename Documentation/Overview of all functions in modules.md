@@ -101,16 +101,18 @@
 - [Log_SectionHeader](Functions/Log_SectionHeader.md)
 ## Capa.PowerShell.Module.PowerPack.MSI
 
+- [Install-PpMSI](Functions/Install-PpMSI.md)
 - [MSI_GetProductCodeFromMSI](Functions/MSI_GetProductCodeFromMSI.md)
 - [MSI_GetPropertiesFromMSI](Functions/MSI_GetPropertiesFromMSI.md)
 - [MSI_GetPropertyFromMSI](Functions/MSI_GetPropertyFromMSI.md)
 - [MSI_IsMSIFileInstalled](Functions/MSI_IsMSIFileInstalled.md)
 - [MSI_IsMSIGuidInstalled](Functions/MSI_IsMSIGuidInstalled.md)
+- [Uninstall-PpMSI](Functions/Uninstall-PpMSI.md)
 ## Capa.PowerShell.Module.PowerPack.Reg
 
 - [Reg_CreateKey](Functions/Reg_CreateKey.md)
+- [Reg_DeleteTree](Functions/Reg_DeleteTree.md)
 - [Reg_DeleteVariable](Functions/Reg_DeleteVariable.md)
-- [Reg_DelTree](Functions/Reg_DelTree.md)
 - [Reg_EnumKey](Functions/Reg_EnumKey.md)
 - [Reg_ExistKey](Functions/Reg_ExistKey.md)
 - [Reg_ExistVariable](Functions/Reg_ExistVariable.md)
@@ -123,6 +125,7 @@
 - [Reg_SetInteger](Functions/Reg_SetInteger.md)
 - [Reg_SetQword](Functions/Reg_SetQword.md)
 - [Reg_SetString](Functions/Reg_SetString.md)
+- [Set-PpRegistryValue](Functions/Set-PpRegistryValue.md)
 ## Capa.PowerShell.Module.PowerPack.Service
 
 - [Service_Exist](Functions/Service_Exist.md)
@@ -320,9 +323,6 @@
 - [Move-CapaDeviceToPoint](Functions/Move-CapaDeviceToPoint.md)
 - [Restart-CapaAgent](Functions/Restart-CapaAgent.md)
 - [Set-CapaWakeOnLAN](Functions/Set-CapaWakeOnLAN.md)
-- [Start-ScriptLogging](Functions/Start-ScriptLogging.md)
-- [Stop-ScriptLogging](Functions/Stop-ScriptLogging.md)
-- [Write-LogLine](Functions/Write-LogLine.md)
 ## Capa.PowerShell.Module.SDK.VPP
 
 - [Get-CapaDevicesLinkedToVppUser](Functions/Get-CapaDevicesLinkedToVppUser.md)
@@ -335,4 +335,14 @@
 - [Get-CapaWSUSGroups](Functions/Get-CapaWSUSGroups.md)
 - [Get-CapaWSUSGroupUnits](Functions/Get-CapaWSUSGroupUnits.md)
 - [Get-CapaWSUSPoints](Functions/Get-CapaWSUSPoints.md)
+## Capa.PowerShell.Module.Tools
+This module contains custom functions that are include bothe in the SDK and PowerPack modules, so you can use them were you need them.
+
+- [Expand-KitFile](Functions/Expand-KitFile.md)
+- [Get-ScriptDirectory](Functions/Get-ScriptDirectory.md)
+- [Invoke-BaseAgentDownloadFile](Functions/Invoke-BaseAgentDownloadFile.md)
+- [Invoke-DownloadCapaPackage](Functions/Invoke-DownloadCapaPackage.md)
+- [Start-ScriptLogging](Functions/Start-ScriptLogging.md)
+- [Stop-ScriptLogging](Functions/Stop-ScriptLogging.md)
+- [Write-LogLine](Functions/Write-LogLine.md)
 

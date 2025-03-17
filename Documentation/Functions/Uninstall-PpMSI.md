@@ -1,38 +1,41 @@
-# Add-PpDll
+# Uninstall-PpMSI
 
-Module: Capa.PowerShell.Module.PowerPack
+Module: Capa.PowerShell.Module.PowerPack.MSI
 
 ## SYNOPSIS
-Adds the CapaOne.ScriptingLibrary.dll to the current session.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-Add-PpDll [[-DllPath] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Uninstall-PpMSI [-DisplayName] <String> [[-Version] <String>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Adds the CapaOne.ScriptingLibrary.dll to the current session.
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
 ```
-Add-PpDll -DllPath $DllPath
-```
+
+{{ Add example description here }}
 
 ## PARAMETERS
 
-### -DllPath
-The path to the CapaOne.ScriptingLibrary.dll.
+### -DisplayName
+{{ Fill DisplayName Description }}
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: 1
+Required: True
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -53,14 +56,31 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Version
+{{ Fill Version Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
-Command from PSlib.psm1
 
 ## RELATED LINKS

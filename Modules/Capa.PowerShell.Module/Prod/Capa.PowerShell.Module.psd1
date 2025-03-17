@@ -1,6 +1,6 @@
 @{
 	# Version number of this module.
-	ModuleVersion          = '1.11.0'
+	ModuleVersion          = '1.12.0'
 
 	# ID used to uniquely identify this module
 	GUID                   = '517a4a6a-a4f8-4a8b-bf99-5fe75a1e7786'
@@ -15,7 +15,7 @@
 	Copyright              = ''
 
 	# Description of the functionality provided by this module
-	Description            = ''
+	Description            = 'This module contains cmdlets for CapaInstaller SDK and PowerPack.'
 
 	# Minimum version of the Windows PowerShell engine required by this module
 	PowerShellVersion      = '7.4'
@@ -37,8 +37,8 @@
 
 	# Modules that must be imported into the global environment prior to importing
 	# this module
-	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.SDK'; RequiredVersion = '1.11.0'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.11.0'; })
+	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.SDK'; RequiredVersion = '1.12.0'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.12.0'; })
 
 	# Assemblies that must be loaded prior to importing this module
 	RequiredAssemblies     = @()

@@ -69,38 +69,40 @@ function Update-APSDFile {
 		[Parameter(Mandatory = $true)]
 		[string]$path
 	)
-	$Content = Get-Content -Path $Path
+	$Manifest = Import-PowerShellDataFile -Path $path
 
-	# Update ModuleVersion
-	foreach ($line in $Content) {
-		if ($line -match 'ModuleVersion') {
-			$split = $line -split '= '
-			$split[1] = "'$version'"
-			$Newline = $split -join '= '
-			$Content = $Content.Replace($line, $Newline)
-			break
+	$NewManifest = @{}
+	foreach ($key in $Manifest.GetEnumerator()) {
+		if ([string]::IsNullOrEmpty($key.Value)) {
+			continue
+		}
+
+		switch ($key.Key) {
+			'PrivateData' {
+				foreach ($privateKey in $key.Value.PSData.GetEnumerator()) {
+					$NewManifest[$privateKey.Key] = $privateKey.Value
+				}
+
+			}
+			'RequiredModules' {
+				$NewRequiredModules = @()
+				foreach ($module in $key.Value) {
+					$NewRequiredModules += @{
+						ModuleName      = $module.ModuleName
+						RequiredVersion = $Version
+					}
+				}
+				$NewManifest[$key.Key] = $NewRequiredModules
+			}
+			Default {
+				$NewManifest[$key.Key] = $key.Value
+			}
 		}
 	}
 
-	# Update lines where Capa.PowerShell.Module.PowerPack. and RequiredVersion exists
-	foreach ($line in $Content) {
-		if ($line -match "Capa\.PowerShell\.Module\..*'; RequiredVersion = '.+'") {
+	$NewManifest['ModuleVersion'] = $version
 
-			$moduleName = $line -replace ".*ModuleName = '([^']+)'.*", '$1'
-			$requiredVersion = $line -replace ".*RequiredVersion = '([^']+)'.*", '$1'
-
-			$newLine = $line -replace "RequiredVersion = '([^']+)'", "RequiredVersion = '$version'"
-
-			$Content = $Content -replace [regex]::Escape($line), $newLine
-		}
-	}
-
-	# If last line is empty, remove it
-	if ($Content[-1] -eq '') {
-		$Content = $Content[0..($Content.Length - 2)]
-	}
-
-	Set-Content -Path $Path -Value $Content | Out-Null
+	New-ModuleManifest -Path $path @NewManifest
 }
 
 function Update-PSDVersions {

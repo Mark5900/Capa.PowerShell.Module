@@ -7,6 +7,7 @@ on:
       - main
       - auto-release
       - Auto-release
+      - Pre-release
     paths:
       - "Modules/**"
 

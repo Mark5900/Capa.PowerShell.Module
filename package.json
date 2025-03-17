@@ -3,7 +3,12 @@
 		"branches": [
 			"main",
 			"auto-release",
-			"Auto-release"
+			"Auto-release",
+			{
+				"name": "Pre-release",
+				"prerelease": true,
+				"channel": "alpha"
+			}
 		],
 		"plugins": [
 			"@semantic-release/commit-analyzer",

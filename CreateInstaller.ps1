@@ -21,6 +21,13 @@ $VersionFile = Join-Path $PSScriptRoot 'version.txt'
 
 try {
 	$Version = (Get-Content -Path $VersionFile).Trim()
+	$Prerelease = $false
+
+	if ($Version -like '*alpha*') {
+		$Version = $Version.Split('-')[0]
+		$PrereleaseVersion = $Version.Split('-')[1]
+		$Prerelease = $true
+	}
 } catch {
 	Get-ChildItem $PSScriptRoot
 	exit
@@ -80,6 +87,13 @@ function Update-APSDFile {
 		switch ($key.Key) {
 			'PrivateData' {
 				foreach ($privateKey in $key.Value.PSData.GetEnumerator()) {
+					if ([string]::IsNullOrEmpty($privateKey.Value)) {
+						continue
+					}
+					if ($privateKey.Key -eq 'Prerelease') {
+						continue
+					}
+
 					$NewManifest[$privateKey.Key] = $privateKey.Value
 				}
 
@@ -101,6 +115,10 @@ function Update-APSDFile {
 	}
 
 	$NewManifest['ModuleVersion'] = $version
+
+	if ($Prerelease) {
+		$NewManifest.Add('Prerelease', $PrereleaseVersion)
+	}
 
 	New-ModuleManifest -Path $path @NewManifest
 }

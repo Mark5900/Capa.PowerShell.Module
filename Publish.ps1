@@ -10,7 +10,7 @@ foreach ($Module in $Modules) {
 	$ModulePath = Join-Path $ModulesPath $Module.Name 'Prod'
 	$PsdPath = Join-Path $ModulePath "$($Module.Name).psd1"
 
-	if (Find-Module -Name $Module.Name -RequiredVersion $Version -ErrorAction SilentlyContinue) {
+	if (Find-Module -Name $Module.Name -RequiredVersion $Version -ErrorAction SilentlyContinue -AllowPrerelease) {
 		Write-Host "Module $($Module.Name) version $Version already published. Skipping" -ForegroundColor Green
 		continue
 	}

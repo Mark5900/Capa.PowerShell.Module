@@ -3,6 +3,13 @@ $Modules = Get-ChildItem -Path $ModulesPath -Directory | Sort-Object { $_.Name.L
 
 $VersionPath = Join-Path $PSScriptRoot 'version.txt'
 $Version = (Get-Content -Path $VersionPath).Trim()
+if ($Version -like '*-*') {
+	$FullVersion = $Version
+	$Version = $FullVersion.Split('-')[0]
+	$PrereleaseVersion = $FullVersion -split '-', 2 | Select-Object -Last 1
+	$PrereleaseVersion = $PrereleaseVersion -replace '.', ''
+	$Version = "$Version-$PrereleaseVersion"
+}
 Write-Host "Publishing version $Version"
 
 foreach ($Module in $Modules) {
@@ -30,7 +37,7 @@ foreach ($Module in $Modules) {
 	$Run = $true
 
 	while ($Run) {
-		if (Find-Module -Name $Module.Name -RequiredVersion $Version -ErrorAction SilentlyContinue) {
+		if (Find-Module -Name $Module.Name -RequiredVersion $Version -ErrorAction SilentlyContinue -AllowPrerelease) {
 			$Run = $false
 		} else {
 			Start-Sleep -Seconds 1

@@ -1,14 +1,14 @@
 BeforeAll {
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 
-	$oCMS = Initialize-CapaSDK -Server 'CISERVER' -Database 'CapaInstaller' -InstanceManagementPoint '1'
+	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint '1'
 
 	$PckFrom = @{
 		CapaSDK           = $oCMS
 		PackageName       = 'TestFrom'
 		PackageVersion    = 'v1.0'
 		DisplayName       = 'TestFrom v1.0'
-		SqlServerInstance = 'CISERVER'
+		SqlServerInstance = $env:COMPUTERNAME
 		Database          = 'CapaInstaller'
 	}
 	$PckTo = @{
@@ -16,7 +16,7 @@ BeforeAll {
 		PackageName       = 'TestTo'
 		PackageVersion    = 'v1.0'
 		DisplayName       = 'TestTo v1.0'
-		SqlServerInstance = 'CISERVER'
+		SqlServerInstance = $env:COMPUTERNAME
 		Database          = 'CapaInstaller'
 	}
 	New-CapaPowerPack @PckFrom
@@ -26,7 +26,7 @@ BeforeAll {
 
 	Start-Sleep -Seconds 1
 
-	$Unit = (Get-CapaUnits -CapaSDK $oCms -Type Computer | Where-Object { $_.Name -eq 'CISERVER' })[0]
+	$Unit = (Get-CapaUnits -CapaSDK $oCms -Type Computer | Where-Object { $_.Name -eq $env:COMPUTERNAME })[0]
 
 	Add-CapaUnitToGroup -CapaSDK $oCMS -UnitName $Unit.UUID -UnitType Computer -GroupName 'TestGroup' -GroupType 'Static'
 	Add-CapaPackageToGroup -CapaSDK $oCMS -PackageName 'TestFrom' -PackageVersion 'v1.0' -PackageType Computer -GroupName 'TestGroup' -GroupType 'Static'
@@ -60,7 +60,7 @@ Describe 'Copy groups' {
 }
 Describe 'Copy units' {
 	It 'Does the unit exist in the destination package' {
-		$Unit = Get-CapaUnits -CapaSDK $oCms -Type Computer | Where-Object { $_.Name -eq 'CISERVER' }
+		$Unit = Get-CapaUnits -CapaSDK $oCms -Type Computer | Where-Object { $_.Name -eq $env:COMPUTERNAME }
 		$Unit | Should -Not -BeNullOrEmpty
 	}
 	It 'Does the command work' {
@@ -75,6 +75,7 @@ Describe 'Copy units' {
 			CopyUnits          = $true
 		}
 		$bStatus = Copy-CapaPackageRelation @Splat
+		Start-Sleep -Seconds 5
 
 		$bStatus | Should -Be $true
 	}
@@ -97,6 +98,7 @@ Describe 'Copy groups and units' {
 			CopyUnits          = $true
 		}
 		$bStatus = Copy-CapaPackageRelation @Splat
+		Start-Sleep -Seconds 5
 
 		$bStatus | Should -Be $true
 	}
@@ -105,7 +107,7 @@ Describe 'Copy groups and units' {
 		$Group | Should -Not -BeNullOrEmpty
 	}
 	It 'Does the unit have the correct package' {
-		$Unit = Get-CapaPackageUnits -CapaSDK $oCMS -PackageName 'TestTo' -PackageVersion 'v1.0' -PackageType Computer | Where-Object { $_.Name -eq 'CISERVER' }
+		$Unit = Get-CapaPackageUnits -CapaSDK $oCMS -PackageName 'TestTo' -PackageVersion 'v1.0' -PackageType Computer | Where-Object { $_.Name -eq $env:COMPUTERNAME }
 		$Unit | Should -Not -BeNullOrEmpty
 	}
 }

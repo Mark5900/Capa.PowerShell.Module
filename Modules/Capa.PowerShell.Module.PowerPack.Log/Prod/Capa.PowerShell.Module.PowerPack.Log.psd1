@@ -16,7 +16,7 @@
 	CompanyName            = ''
 
 	# Copyright statement for this module
-	Copyright              = '(c) 2023. All rights reserved.'
+	Copyright              = ''
 
 	# Description of the functionality provided by this module
 	Description            = 'PowerShell module for CapaInstaller PowerPacks containing functions for Log commands.
@@ -32,7 +32,7 @@
 	PowerShellHostVersion  = ''
 
 	# Minimum version of the .NET Framework required by this module
-	DotNetFrameworkVersion = '4.6.2'
+	DotNetFrameworkVersion = ''
 
 	# Minimum version of the common language runtime (CLR) required by this module
 	CLRVersion             = '2.0.50727'

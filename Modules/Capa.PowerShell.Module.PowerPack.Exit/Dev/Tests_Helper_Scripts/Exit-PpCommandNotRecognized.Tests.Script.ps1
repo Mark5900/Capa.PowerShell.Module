@@ -8,7 +8,7 @@ Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Job\Dev\Job_Start.ps1"
 Import-Module "$RootPath\Capa.PowerShell.Module.PowerPack.Job\Dev\Job_WriteLog.ps1"
 
 $LogFilePath = 'C:\Temp\Exit-PpCommandNotRecognized.log'
-$Global:Cs = Add-PpDll -DllPath 'C:\Temp\CapaOne.ScriptingLibrary.dll'
+$Global:Cs = Add-PpDll
 Job_Start -JobType 'WS' -PackageName 'PesterTest' -PackageVersion 'v1.0' -LogPath $LogFilePath -Action 'INSTALL'
 
 switch ($TestNumber) {

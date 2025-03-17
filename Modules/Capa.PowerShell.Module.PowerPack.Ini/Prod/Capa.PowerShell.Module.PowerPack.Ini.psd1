@@ -4,7 +4,6 @@
 	RootModule             = '.\Capa.PowerShell.Module.PowerPack.Ini.psm1'
 
 	# Version number of this module.
-	ModuleVersion          = '1.10.0'
 
 	# ID used to uniquely identify this module
 	GUID                   = '340bc94a-4f24-4fd5-b3f6-6f5802a6fbb2'
@@ -16,14 +15,14 @@
 	CompanyName            = ''
 
 	# Copyright statement for this module
-	Copyright              = '(c) 2023. All rights reserved.'
+	Copyright              = ''
 
 	# Description of the functionality provided by this module
 	Description            = 'PowerShell module for CapaInstaller PowerPacks containing functions for Ini commands.
 	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455297/PowerShell+Scripting+Library'
 
 	# Minimum version of the Windows PowerShell engine required by this module
-	PowerShellVersion      = '7.0'
+	PowerShellVersion      = '7.4'
 
 	# Name of the Windows PowerShell host required by this module
 	PowerShellHostName     = ''
@@ -32,7 +31,7 @@
 	PowerShellHostVersion  = ''
 
 	# Minimum version of the .NET Framework required by this module
-	DotNetFrameworkVersion = '4.6.2'
+	DotNetFrameworkVersion = ''
 
 	# Minimum version of the common language runtime (CLR) required by this module
 	CLRVersion             = '2.0.50727'

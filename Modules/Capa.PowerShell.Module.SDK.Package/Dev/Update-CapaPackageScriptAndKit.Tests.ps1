@@ -22,20 +22,21 @@ BeforeAll {
 		PackageName       = 'PowerPackTest'
 		PackageVersion    = 'v1.0'
 		DisplayName       = 'PowerPackTest v1.0'
-		SqlServerInstance = 'CISERVER'
+		SqlServerInstance = $env:COMPUTERNAME
 		Database          = 'CapaInstaller'
 	}
 
-	$ComputerJobsPath = '\\localhost\CMPProduction\ComputerJobs'
+	$PackageRoot = Get-ItemPropertyValue -Path 'registry::HKEY_LOCAL_MACHINE\SOFTWARE\CapaSystems\CapaInstaller' -Name 'Packageroot'
+	$ComputerJobsPath = Join-Path $PackageRoot 'ComputerJobs'
 	$VBPackageFolder = Join-Path $ComputerJobsPath $VBPackageSplat.PackageName $VBPackageSplat.PackageVersion
 	$VBScriptsFolder = Join-Path $VBPackageFolder 'Scripts'
 	$VBInstallScriptFile = Join-Path $VBScriptsFolder "$($VBPackageSplat.PackageName).cis"
 	$VBUninstallScriptFile = Join-Path $VBScriptsFolder "$($VBPackageSplat.PackageName)_uninstall.cis"
 	$VBKitFolder = Join-Path $VBPackageFolder 'Kit'
-	$TestKitFolder = "C:\Temp\Kit"
+	$TestKitFolder = 'C:\Temp\Kit'
 	#endregion
 
-	$CapaSDK = Initialize-CapaSDK -Server 'CISERVER' -Database 'CapaInstaller' -InstanceManagementPoint 1
+	$CapaSDK = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1
 
 	if (Exist-CapaPackage -CapaSDK $CapaSDK -Name $VBPackageSplat.PackageName -Version $VBPackageSplat.PackageVersion -Type Computer) {
 		Remove-CapaPackage -CapaSDK $CapaSDK -PackageName $VBPackageSplat.PackageName -PackageVersion $VBPackageSplat.PackageVersion -PackageType Computer

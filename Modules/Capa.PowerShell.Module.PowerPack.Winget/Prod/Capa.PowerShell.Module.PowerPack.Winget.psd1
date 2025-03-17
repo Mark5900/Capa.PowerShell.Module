@@ -4,7 +4,6 @@
 	RootModule             = '.\Capa.PowerShell.Module.PowerPack.Winget.psm1'
 
 	# Version number of this module.
-	ModuleVersion          = '1.10.0'
 
 	# ID used to uniquely identify this module
 	GUID                   = '9913f3ee-da59-426f-ab2a-4a4097faf017'
@@ -16,13 +15,13 @@
 	CompanyName            = ''
 
 	# Copyright statement for this module
-	Copyright              = '(c) 2023. All rights reserved.'
+	Copyright              = ''
 
 	# Description of the functionality provided by this module
 	Description            = 'PowerShell module for CapaInstaller PowerPacks containing functions for Winget commands.'
 
 	# Minimum version of the Windows PowerShell engine required by this module
-	PowerShellVersion      = '7.0'
+	PowerShellVersion      = '7.4'
 
 	# Name of the Windows PowerShell host required by this module
 	PowerShellHostName     = ''
@@ -31,7 +30,7 @@
 	PowerShellHostVersion  = ''
 
 	# Minimum version of the .NET Framework required by this module
-	DotNetFrameworkVersion = '4.6.2'
+	DotNetFrameworkVersion = ''
 
 	# Minimum version of the common language runtime (CLR) required by this module
 	CLRVersion             = '2.0.50727'
@@ -41,8 +40,8 @@
 
 	# Modules that must be imported into the global environment prior to importing
 	# this module
-	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; RequiredVersion = '1.10.0'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.10.0'; })
+	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; RequiredVersion = '1.11.0'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.11.0'; })
 
 	# Assemblies that must be loaded prior to importing this module
 	RequiredAssemblies     = @()

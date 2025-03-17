@@ -1,30 +1,30 @@
-# Reg_DeleteVariable
+# Reg_DeleteTree
 
 Module: Capa.PowerShell.Module.PowerPack.Reg
 
 ## SYNOPSIS
-Deletes a registry value.
+Deletes a registry tree.
 
 ## SYNTAX
 
 ```
-Reg_DeleteVariable [-RegRoot] <String> [-RegPath] <String> [-RegValue] <String>
- [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Reg_DeleteTree [-RegRoot] <String> [-RegPath] <String> [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Deletes a registry value in the registry, if RegRoot is HKCU, the function will delete the value for all users that have logged on to the unit and future users.
+Deletes a registry tree in the registry, if RegRoot is HKCU, the function will delete the tree for all users that have logged on to the unit and future users.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Reg_DeleteVariable -RegRoot "HKLM" -RegPath "SOFTWARE\CapaSystems" -RegValue "Test"
+Reg_DeleteTree -RegRoot "HKLM" -RegPath "SOFTWARE\CapaSystems" -RegKey "Test"
 ```
 
 ### EXAMPLE 2
 ```
-Reg_DeleteVariable -RegRoot "HKCU" -RegPath "SOFTWARE\CapaSystems" -RegValue "Test"
+Reg_DeleteTree -RegRoot "HKCU" -RegPath "SOFTWARE\CapaSystems" -RegKey "Test"
 ```
 
 ## PARAMETERS
@@ -74,21 +74,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -RegValue
-The name of the registry value.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 3
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
@@ -97,6 +82,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455802/cs.Reg+DeleteVariable
+For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455836/cs.Reg+DelTree
 
 ## RELATED LINKS

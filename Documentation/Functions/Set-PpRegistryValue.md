@@ -1,33 +1,48 @@
-# Reg_DeleteVariable
+# Set-PpRegistryValue
 
 Module: Capa.PowerShell.Module.PowerPack.Reg
 
 ## SYNOPSIS
-Deletes a registry value.
+Sets a registry value.
 
 ## SYNTAX
 
 ```
-Reg_DeleteVariable [-RegRoot] <String> [-RegPath] <String> [-RegValue] <String>
- [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Set-PpRegistryValue [-RegRoot] <String> [-Datatype] <String> [-RegKey] <String> [-RegValue] <String>
+ [[-RegData] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Deletes a registry value in the registry, if RegRoot is HKCU, the function will delete the value for all users that have logged on to the unit and future users.
+Sets a registry value in the registry, if RegRoot is HKCU, the function will set the value for all users that have logged on to the unit and future users.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Reg_DeleteVariable -RegRoot "HKLM" -RegPath "SOFTWARE\CapaSystems" -RegValue "Test"
+Set-PpRegistryValue -RegRoot "HKLM" -Datatype "String" -RegKey "SOFTWARE\CapaSystems" -RegValue "Test" -RegData "Test1"
 ```
 
 ### EXAMPLE 2
 ```
-Reg_DeleteVariable -RegRoot "HKCU" -RegPath "SOFTWARE\CapaSystems" -RegValue "Test"
+Set-PpRegistryValue -RegRoot "HKCU" -Datatype "String" -RegKey "SOFTWARE\CapaSystems" -RegValue "Test" -RegData "Test1"
 ```
 
 ## PARAMETERS
+
+### -Datatype
+The datatype of the registry value, can be String, DWORD (32-bit) or Expanded String.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -ProgressAction
 {{ Fill ProgressAction Description }}
@@ -44,7 +59,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -RegPath
+### -RegData
+The data of the registry value.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 5
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -RegKey
 The path of the registry key.
 
 ```yaml
@@ -53,7 +83,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 2
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -83,7 +113,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 3
+Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -97,6 +127,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455802/cs.Reg+DeleteVariable
 
 ## RELATED LINKS

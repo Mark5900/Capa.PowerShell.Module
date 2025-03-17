@@ -1,30 +1,30 @@
-# Add-PpDll
-
-Module: Capa.PowerShell.Module.PowerPack
+# Install-Msi
 
 ## SYNOPSIS
-Adds the CapaOne.ScriptingLibrary.dll to the current session.
+Installs an MSI file.
 
 ## SYNTAX
 
 ```
-Add-PpDll [[-DllPath] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Install-Msi [-FilePath] <String> [[-Arguments] <String>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Adds the CapaOne.ScriptingLibrary.dll to the current session.
+Installs an MSI file.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Add-PpDll -DllPath $DllPath
+Install-Msi -FilePath 'C:\Temp\MyApp.msi' -Arguments '/qn'
 ```
 
 ## PARAMETERS
 
-### -DllPath
-The path to the CapaOne.ScriptingLibrary.dll.
+### -Arguments
+Additional arguments to pass to the MSI installer.
+By default the MSI is called with arguments to log the installation to a file.
 
 ```yaml
 Type: String
@@ -32,6 +32,21 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -FilePath
+The path to the MSI file.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
 Position: 1
 Default value: None
 Accept pipeline input: False
@@ -61,6 +76,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-Command from PSlib.psm1
 
 ## RELATED LINKS

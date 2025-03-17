@@ -1,6 +1,6 @@
 # Stop-ScriptLogging
 
-Module: Capa.PowerShell.Module.SDK.Utilities
+Module: Capa.PowerShell.Module.Tools
 
 ## SYNOPSIS
 Stops logging of a script.

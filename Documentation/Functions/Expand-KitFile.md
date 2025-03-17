@@ -1,38 +1,56 @@
-# Add-PpDll
+# Expand-KitFile
 
-Module: Capa.PowerShell.Module.PowerPack
+Module: Capa.PowerShell.Module.Tools
 
 ## SYNOPSIS
-Adds the CapaOne.ScriptingLibrary.dll to the current session.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-Add-PpDll [[-DllPath] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Expand-KitFile [-KitFile] <String> [-DestinationFolder] <String> [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Adds the CapaOne.ScriptingLibrary.dll to the current session.
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
 ```
-Add-PpDll -DllPath $DllPath
-```
+
+{{ Add example description here }}
 
 ## PARAMETERS
 
-### -DllPath
-The path to the CapaOne.ScriptingLibrary.dll.
+### -DestinationFolder
+{{ Fill DestinationFolder Description }}
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -KitFile
+{{ Fill KitFile Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -58,9 +76,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
-Command from PSlib.psm1
 
 ## RELATED LINKS

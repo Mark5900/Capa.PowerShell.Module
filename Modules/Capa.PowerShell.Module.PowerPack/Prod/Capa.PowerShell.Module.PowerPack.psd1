@@ -52,7 +52,9 @@
 		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Sys'; RequiredVersion = '1.10.0'; },
 		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.UsrMgr'; RequiredVersion = '1.10.0'; },
 		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Exit'; RequiredVersion = '1.10.0'; },
-		@{ ModuleName = 'Capa.PowerShell.Module.Tools'; RequiredVersion = '1.10.0'; })
+		@{ ModuleName = 'Capa.PowerShell.Module.Tools'; RequiredVersion = '1.10.0'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.CMS'; RequiredVersion = '1.10.0'; },
+		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack.Winget'; RequiredVersion = '1.10.0'; })
 
 	# Assemblies that must be loaded prior to importing this module
 	RequiredAssemblies     = @()

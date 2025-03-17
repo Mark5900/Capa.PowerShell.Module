@@ -4,6 +4,7 @@
 	RootModule             = '.\Capa.PowerShell.Module.PowerPack.Winget.psm1'
 
 	# Version number of this module.
+	ModuleVersion          = '1.11.0'
 
 	# ID used to uniquely identify this module
 	GUID                   = '9913f3ee-da59-426f-ab2a-4a4097faf017'

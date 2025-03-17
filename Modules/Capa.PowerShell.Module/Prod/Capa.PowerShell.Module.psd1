@@ -15,7 +15,7 @@
 	Copyright              = ''
 
 	# Description of the functionality provided by this module
-	Description            = ''
+	Description            = 'This module contains cmdlets for CapaInstaller SDK and PowerPack.'
 
 	# Minimum version of the Windows PowerShell engine required by this module
 	PowerShellVersion      = '7.4'

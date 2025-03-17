@@ -43,9 +43,6 @@ jobs:
       - name: Install PSMSI module
         run: pwsh -Command "Install-Module -Name PSMSI -Force -Scope CurrentUser"
 
-      - name: Install platyPS
-        run: pwsh -Command "Install-Module -Name platyPS -Force -Scope CurrentUser"
-
       - name: Install @semantic-release/git
         run: npm install --save-dev @semantic-release/git
 

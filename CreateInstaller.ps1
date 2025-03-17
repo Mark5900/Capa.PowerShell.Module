@@ -26,7 +26,7 @@ try {
 
 	if ($Version -like '*-*') {
 		$Version = $Version.Split('-')[0]
-		$PrereleaseVersion = $Version.Split('-')[1]
+		$PrereleaseVersion = $FullVersion -split '-', 2 | Select-Object -Last 1
 		$Prerelease = $true
 	}
 } catch {

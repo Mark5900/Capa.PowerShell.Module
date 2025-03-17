@@ -37,7 +37,7 @@
 
 	# Modules that must be imported into the global environment prior to importing
 	# this module
-	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.SDK'; RequiredVersion = '1.14.0'; },
+	RequiredModules        = @(@{ ModuleName = 'Capa.PowerShell.Module.SDK'; RequiredVersion = '1.12.0'; },
 		@{ ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.12.0'; })
 
 	# Assemblies that must be loaded prior to importing this module

@@ -5,7 +5,7 @@
 			"auto-release",
 			"Auto-release",
 			{
-				"name": "Pre-release",
+				"name": "Prerelease",
 				"prerelease": true
 			}
 		],

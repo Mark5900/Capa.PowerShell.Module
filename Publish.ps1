@@ -6,8 +6,8 @@ $Version = (Get-Content -Path $VersionPath).Trim()
 if ($Version -like '*-*') {
 	$FullVersion = $Version
 	$Version = $FullVersion.Split('-')[0]
-	$PrereleaseVersion = $FullVersion -split '-', 2 | Select-Object -Last 1
-	$PrereleaseVersion = $PrereleaseVersion -replace '.', ''
+	$PrereleaseVersion = ($FullVersion -split '-', 2)[1]
+	$PrereleaseVersion = $PrereleaseVersion.Replace('.', '-')
 	$Version = "$Version-$PrereleaseVersion"
 }
 Write-Host "Publishing version $Version"

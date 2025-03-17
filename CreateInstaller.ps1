@@ -129,10 +129,13 @@ function Update-PSDVersions {
 		[Parameter(Mandatory = $true)]
 		[string]$Version
 	)
+	$LogPrefix = 'Update-PSDVersions:'
 	$ModulePath = Join-Path $PSScriptRoot 'Modules'
 
 	$Folders = Get-ChildItem -Path $ModulePath -Directory
 	foreach ($Folder in $Folders) {
+		Write-Host "$LogPrefix Updating $($Folder.Name)"
+
 		$PsdPath = Join-Path $Folder.FullName 'Prod' "$($Folder.Name).psd1"
 		if (Test-Path $PsdPath) {
 			Update-APSDFile -Version $Version -Path $PsdPath
@@ -293,7 +296,7 @@ function New-ModuleInstaller {
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxs" -Force
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxsobj" -Force
 
-	$Path = Join-Path $PSScriptRoot 'Installers' "$ProductName.$FullVersion.x64.msi"
+	$Path = Join-Path $PSScriptRoot 'Installers' "$ProductName.$Version.x64.msi"
 	If ($Prerelease) {
 		$NewName = "$ProductName.$Version.x64-$PrereleaseVersion.msi"
 		Rename-Item -Path $Path -NewName $NewName
@@ -397,7 +400,7 @@ function New-ModuleInstallerSDKOnly {
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxs" -Force
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxsobj" -Force
 
-	$Path = Join-Path $PSScriptRoot 'Installers' "$ProductName.$FullVersion.x64.msi"
+	$Path = Join-Path $PSScriptRoot 'Installers' "$ProductName.$Version.x64.msi"
 	If ($Prerelease) {
 		$NewName = "$ProductName.$Version.x64-$PrereleaseVersion.msi"
 		Rename-Item -Path $Path -NewName $NewName
@@ -489,7 +492,7 @@ function New-ModuleInstallerPowerPackOnly {
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxs" -Force
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxsobj" -Force
 
-	$Path = Join-Path $PSScriptRoot 'Installers' "$ProductName.$FullVersion.x64.msi"
+	$Path = Join-Path $PSScriptRoot 'Installers' "$ProductName.$Version.x64.msi"
 	If ($Prerelease) {
 		$NewName = "$ProductName.$Version.x64-$PrereleaseVersion.msi"
 		Rename-Item -Path $Path -NewName $NewName

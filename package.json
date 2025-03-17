@@ -6,8 +6,7 @@
 			"Auto-release",
 			{
 				"name": "Pre-release",
-				"prerelease": true,
-				"channel": "alpha"
+				"prerelease": true
 			}
 		],
 		"plugins": [

@@ -22,8 +22,9 @@ $VersionFile = Join-Path $PSScriptRoot 'version.txt'
 try {
 	$Version = (Get-Content -Path $VersionFile).Trim()
 	$Prerelease = $false
+	$FullVersion = $Version
 
-	if ($Version -like '*alpha*') {
+	if ($Version -like '*-*') {
 		$Version = $Version.Split('-')[0]
 		$PrereleaseVersion = $Version.Split('-')[1]
 		$Prerelease = $true
@@ -292,7 +293,14 @@ function New-ModuleInstaller {
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxs" -Force
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxsobj" -Force
 
-	Write-Host "Installer created at: $PSScriptRoot\Installers\$ProductName.$Version.x64.msi"
+	$Path = Join-Path $PSScriptRoot 'Installers' "$ProductName.$FullVersion.x64.msi"
+	If ($Prerelease) {
+		$NewName = "$ProductName.$Version.x64-$PrereleaseVersion.msi"
+		Rename-Item -Path $Path -NewName $NewName
+		$Path = Join-Path $PSScriptRoot 'Installers' $NewName
+	}
+
+	Write-Host "Installer created at: $Path"
 }
 
 function New-ModuleInstallerSDKOnly {
@@ -389,7 +397,14 @@ function New-ModuleInstallerSDKOnly {
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxs" -Force
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxsobj" -Force
 
-	Write-Host "Installer created at: $PSScriptRoot\Installers\$ProductName.$Version.x64.msi"
+	$Path = Join-Path $PSScriptRoot 'Installers' "$ProductName.$FullVersion.x64.msi"
+	If ($Prerelease) {
+		$NewName = "$ProductName.$Version.x64-$PrereleaseVersion.msi"
+		Rename-Item -Path $Path -NewName $NewName
+		$Path = Join-Path $PSScriptRoot 'Installers' $NewName
+	}
+
+	Write-Host "Installer created at: $Path"
 }
 
 function New-ModuleInstallerPowerPackOnly {
@@ -474,7 +489,13 @@ function New-ModuleInstallerPowerPackOnly {
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxs" -Force
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxsobj" -Force
 
-	Write-Host "Installer created at: $PSScriptRoot\Installers\$ProductName.$Version.x64.msi"
+	$Path = Join-Path $PSScriptRoot 'Installers' "$ProductName.$FullVersion.x64.msi"
+	If ($Prerelease) {
+		$NewName = "$ProductName.$Version.x64-$PrereleaseVersion.msi"
+		Rename-Item -Path $Path -NewName $NewName
+		$Path = Join-Path $PSScriptRoot 'Installers' $NewName
+	}
+	Write-Host "Installer created at: $Path"
 }
 
 function GenerateFunctionsDocumentation {

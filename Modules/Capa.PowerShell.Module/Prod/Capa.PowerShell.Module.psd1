@@ -12,46 +12,46 @@
 # RootModule = ''
 
 # Version number of this module.
-	ModuleVersion         = '1.11.0'
+ModuleVersion = '1.13.0'
 
-	# Supported PSEditions
-	# CompatiblePSEditions = @()
+# Supported PSEditions
+# CompatiblePSEditions = @()
 
-	# ID used to uniquely identify this module
-	GUID                  = '517a4a6a-a4f8-4a8b-bf99-5fe75a1e7786'
+# ID used to uniquely identify this module
+GUID = '517a4a6a-a4f8-4a8b-bf99-5fe75a1e7786'
 
-	# Author of this module
-	Author                = 'Mark5900'
+# Author of this module
+Author = 'Mark5900'
 
-	# Company or vendor of this module
-	CompanyName           = 'Unknown'
+# Company or vendor of this module
+CompanyName = 'Unknown'
 
-	# Copyright statement for this module
-	Copyright             = '(c) Mark5900. All rights reserved.'
+# Copyright statement for this module
+Copyright = '(c) Mark5900. All rights reserved.'
 
-	# Description of the functionality provided by this module
-	Description           = 'This module contains cmdlets for CapaInstaller SDK and PowerPack.'
+# Description of the functionality provided by this module
+Description = 'This module contains cmdlets for CapaInstaller SDK and PowerPack.'
 
-	# Minimum version of the PowerShell engine required by this module
-	PowerShellVersion     = '7.4'
+# Minimum version of the PowerShell engine required by this module
+PowerShellVersion = '7.4'
 
-	# Name of the PowerShell host required by this module
-	# PowerShellHostName = ''
+# Name of the PowerShell host required by this module
+# PowerShellHostName = ''
 
-	# Minimum version of the PowerShell host required by this module
-	# PowerShellHostVersion = ''
+# Minimum version of the PowerShell host required by this module
+# PowerShellHostVersion = ''
 
-	# Minimum version of Microsoft .NET Framework required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
-	# DotNetFrameworkVersion = ''
+# Minimum version of Microsoft .NET Framework required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
+# DotNetFrameworkVersion = ''
 
-	# Minimum version of the common language runtime (CLR) required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
-	ClrVersion            = '2.0.50727'
+# Minimum version of the common language runtime (CLR) required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
+ClrVersion = '2.0.50727'
 
-	# Processor architecture (None, X86, Amd64) required by this module
-	ProcessorArchitecture = 'None'
+# Processor architecture (None, X86, Amd64) required by this module
+ProcessorArchitecture = 'None'
 
-	# Modules that must be imported into the global environment prior to importing this module
-	RequiredModules       = @(@{ModuleName = 'Capa.PowerShell.Module.SDK'; RequiredVersion = '1.13.0'; },
+# Modules that must be imported into the global environment prior to importing this module
+RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.SDK'; RequiredVersion = '1.13.0'; }, 
                @{ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.13.0'; })
 
 # Assemblies that must be loaded prior to importing this module
@@ -111,7 +111,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        Prerelease = 'Prerelease.1'
+        Prerelease = 'Prerelease3'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

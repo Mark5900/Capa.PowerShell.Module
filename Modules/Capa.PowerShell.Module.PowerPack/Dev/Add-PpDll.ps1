@@ -31,6 +31,7 @@ function Add-PpDll {
 
 			# Get path to DLL
 			$DllPath = Join-Path $CiBaseAgentPath $NewestVersion.Name 'CapaOne.ScriptingLibrary.dll'
+			$Global:DllPath = $DllPath
 		}
 
         Add-Type -Path $DllPath

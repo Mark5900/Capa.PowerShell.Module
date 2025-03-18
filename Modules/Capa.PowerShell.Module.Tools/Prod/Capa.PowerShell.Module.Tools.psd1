@@ -69,9 +69,10 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Start-ScriptLogging', 'Stop-ScriptLogging', 'Write-LogLine', 
-               'Invoke-BaseAgentDownloadFile', 'Invoke-DownloadCapaPackage', 
-               'Expand-KitFile', 'Get-ScriptDirectory'
+FunctionsToExport = 'Start-ScriptLogging', 'Stop-ScriptLogging', 'Write-LogLine',
+               'Invoke-BaseAgentDownloadFile', 'Invoke-DownloadCapaPackage',
+               'Expand-KitFile', 'Get-ScriptDirectory',
+							 "New-MessageBox"
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = '*'

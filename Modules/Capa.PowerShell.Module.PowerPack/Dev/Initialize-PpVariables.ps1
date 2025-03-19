@@ -18,8 +18,8 @@ function Initialize-PpVariables {
     [CmdletBinding()]
     [Alias('Initialize-Variables')]
     param (
-        [Parameter(Mandatory = $true)]
-        [string]$DllPath
+        [Parameter(Mandatory = $false)]
+        [string]$DllPath = $Global:DllPath
     )
     try {
         Job_DisableLog

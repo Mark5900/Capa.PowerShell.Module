@@ -29,10 +29,17 @@ class InputObject {
 	}
 
 	[string] SendData ($jParams) {
-		$Json = @{
-			'Result' = $true
-		} | ConvertTo-Json
-		return $Json
+		$LocalPort = Get-ItemProperty -Path 'HKLM:\SOFTWARE\CapaSystems\BaseAgent' -Name 'LocalPort' | Select-Object -ExpandProperty LocalPort
+		$BaseURL = "http://localhost:$LocalPort/data?language=powershell"
+
+		$Response = Invoke-WebRequest -Uri $BaseURL -Method Post -Body $jParams -ContentType 'application/json'
+
+		$JResponse = $Response.Content | ConvertFrom-Json
+		if ($JResponse.result -eq $false -and $JResponse.xexception -ne 'None') {
+			$JResponse | Add-Member -MemberType NoteProperty -Name 'Exception' -Value $JResponse.body.error
+		}
+
+		return $JResponse | ConvertTo-Json
 	}
 }
 

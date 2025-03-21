@@ -113,10 +113,12 @@ function Update-APSDFile {
 					#	$UseModuleVersion = $Version
 					#}
 
-					$NewRequiredModules += @{
-						ModuleName = $module.ModuleName
-						#ModuleVersion = $UseModuleVersion
-					}
+					#$NewRequiredModules += @{
+					#	ModuleName = $module.ModuleName
+					#ModuleVersion = $UseModuleVersion
+					#}
+
+					$NewRequiredModules += $module.ModuleName
 				}
 				$NewManifest[$key.Key] = $NewRequiredModules
 			}

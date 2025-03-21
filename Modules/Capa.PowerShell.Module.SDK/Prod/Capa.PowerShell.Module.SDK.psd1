@@ -12,7 +12,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.13.0'
+	ModuleVersion        = '1.12.3'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -51,20 +51,20 @@ ClrVersion = '2.0.50727'
 ProcessorArchitecture = 'None'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.SDK.Authentication'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.SDK.Container'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.SDK.Group'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.SDK.Inventory'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.SDK.MDM'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.SDK.OSDeployment'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.SDK.Package'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.SDK.SystemSdk'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.SDK.Unit'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.SDK.User'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.SDK.Utilities'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.SDK.VPP'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.SDK.WSUS'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.Tools'; RequiredVersion = '1.13.0'; })
+RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.SDK.Authentication'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.SDK.Container'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.SDK.Group'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.SDK.Inventory'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.SDK.MDM'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.SDK.OSDeployment'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.SDK.Package'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.SDK.SystemSdk'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.SDK.Unit'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.SDK.User'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.SDK.Utilities'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.SDK.VPP'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.SDK.WSUS'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.Tools'; RequiredVersion = '1.12.3'; })
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()

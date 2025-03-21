@@ -12,7 +12,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.13.0'
+	ModuleVersion        = '1.12.3'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -51,8 +51,8 @@ ClrVersion = '2.0.50727'
 ProcessorArchitecture = 'None'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.SDK'; RequiredVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.13.0'; })
+RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.SDK'; RequiredVersion = '1.12.3'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack'; RequiredVersion = '1.12.3'; })
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()

@@ -12,7 +12,7 @@
 RootModule = './Capa.PowerShell.Module.SDK.SystemSdk.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.13.0'
+	ModuleVersion        = '1.12.3'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -70,10 +70,10 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Count-CapaConscomActions', 'Get-CapaBusinessUnits', 
-               'Get-CapaExternalTools', 'Get-CapaManagementPoint', 
-               'Get-CapaManagementServers', 'Rebuild-CapaKitFileOnPoint', 
-               'Rebuild-CapaKitFileOnManagementServer', 
+FunctionsToExport = 'Count-CapaConscomActions', 'Get-CapaBusinessUnits',
+               'Get-CapaExternalTools', 'Get-CapaManagementPoint',
+               'Get-CapaManagementServers', 'Rebuild-CapaKitFileOnPoint',
+               'Rebuild-CapaKitFileOnManagementServer',
                'Reset-CapaLastRunDateOnGlobalTask'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

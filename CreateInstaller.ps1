@@ -104,19 +104,23 @@ function Update-APSDFile {
 				$NewRequiredModules = @()
 				foreach ($module in $key.Value) {
 					if ($Prerelease) {
-						$RequiredVersion = "$Version-$PrereleaseVersion"
+						if ([string]::IsNullOrEmpty($module.ModuleVersion)) {
+							$UseModuleVersion = $module.RequiredVersion
+						} else {
+							$UseModuleVersion = $module.ModuleVersion
+						}
 					} else {
-						$RequiredVersion = $Version
+						$UseModuleVersion = $Version
 					}
 
 					$NewRequiredModules += @{
-						ModuleName      = $module.ModuleName
-						RequiredVersion = $RequiredVersion
+						ModuleName    = $module.ModuleName
+						ModuleVersion = $UseModuleVersion
 					}
 				}
 				$NewManifest[$key.Key] = $NewRequiredModules
 			}
-			Default {
+			default {
 				$NewManifest[$key.Key] = $key.Value
 			}
 		}
@@ -304,7 +308,7 @@ function New-ModuleInstaller {
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxsobj" -Force
 
 	$Path = Join-Path $PSScriptRoot 'Installers' "$ProductName.$Version.x64.msi"
-	If ($Prerelease) {
+	if ($Prerelease) {
 		$NewName = "$ProductName.$Version.x64-$PrereleaseVersion.msi"
 		Rename-Item -Path $Path -NewName $NewName
 		$Path = Join-Path $PSScriptRoot 'Installers' $NewName
@@ -408,7 +412,7 @@ function New-ModuleInstallerSDKOnly {
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxsobj" -Force
 
 	$Path = Join-Path $PSScriptRoot 'Installers' "$ProductName.$Version.x64.msi"
-	If ($Prerelease) {
+	if ($Prerelease) {
 		$NewName = "$ProductName.$Version.x64-$PrereleaseVersion.msi"
 		Rename-Item -Path $Path -NewName $NewName
 		$Path = Join-Path $PSScriptRoot 'Installers' $NewName
@@ -500,7 +504,7 @@ function New-ModuleInstallerPowerPackOnly {
 	Remove-Item "$PSScriptRoot\Installers\$ProductName.$Version.x64.wxsobj" -Force
 
 	$Path = Join-Path $PSScriptRoot 'Installers' "$ProductName.$Version.x64.msi"
-	If ($Prerelease) {
+	if ($Prerelease) {
 		$NewName = "$ProductName.$Version.x64-$PrereleaseVersion.msi"
 		Rename-Item -Path $Path -NewName $NewName
 		$Path = Join-Path $PSScriptRoot 'Installers' $NewName

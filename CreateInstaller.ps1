@@ -365,6 +365,9 @@ function New-ModuleInstaller {
 						New-InstallerDirectory -DirectoryName $Version -Content {
 							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Capa.PowerShell.Module.CCS.psd1
 							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Capa.PowerShell.Module.CCS.psm1
+							New-InstallerDirectory -DirectoryName 'Dependencies' -Content {
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Dependencies\CCSProxy.dll
+							}
 						}
 					}
 				}
@@ -627,6 +630,9 @@ function New-ModuleInstallerPowerPackOnly {
 						New-InstallerDirectory -DirectoryName $Version -Content {
 							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Capa.PowerShell.Module.CCS.psd1
 							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Capa.PowerShell.Module.CCS.psm1
+							New-InstallerDirectory -DirectoryName 'Dependencies' -Content {
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Dependencies\CCSProxy.dll
+							}
 						}
 					}
 				}

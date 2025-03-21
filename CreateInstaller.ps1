@@ -168,136 +168,196 @@ function New-ModuleInstaller {
 			New-InstallerDirectory -DirectoryName 'PowerShell' -Content {
 				New-InstallerDirectory -DirectoryName 'Modules' -Content {
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module\Prod\Capa.PowerShell.Module.psd1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module\Prod\Capa.PowerShell.Module.psd1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK\Prod\Capa.PowerShell.Module.SDK.psd1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK\Prod\Capa.PowerShell.Module.SDK.psd1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Authentication' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Authentication\Prod\Capa.PowerShell.Module.SDK.Authentication.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Authentication\Prod\Capa.PowerShell.Module.SDK.Authentication.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Authentication\Prod\Capa.PowerShell.Module.SDK.Authentication.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Authentication\Prod\Capa.PowerShell.Module.SDK.Authentication.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Container' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Container\Prod\Capa.PowerShell.Module.SDK.Container.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Container\Prod\Capa.PowerShell.Module.SDK.Container.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Container\Prod\Capa.PowerShell.Module.SDK.Container.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Container\Prod\Capa.PowerShell.Module.SDK.Container.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Group' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Group\Prod\Capa.PowerShell.Module.SDK.Group.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Group\Prod\Capa.PowerShell.Module.SDK.Group.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Group\Prod\Capa.PowerShell.Module.SDK.Group.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Group\Prod\Capa.PowerShell.Module.SDK.Group.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Inventory' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Inventory\Prod\Capa.PowerShell.Module.SDK.Inventory.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Inventory\Prod\Capa.PowerShell.Module.SDK.Inventory.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Inventory\Prod\Capa.PowerShell.Module.SDK.Inventory.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Inventory\Prod\Capa.PowerShell.Module.SDK.Inventory.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.MDM' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.MDM\Prod\Capa.PowerShell.Module.SDK.MDM.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.MDM\Prod\Capa.PowerShell.Module.SDK.MDM.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.MDM\Prod\Capa.PowerShell.Module.SDK.MDM.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.MDM\Prod\Capa.PowerShell.Module.SDK.MDM.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.OSDeployment' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.OSDeployment\Prod\Capa.PowerShell.Module.SDK.OSDeployment.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.OSDeployment\Prod\Capa.PowerShell.Module.SDK.OSDeployment.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.OSDeployment\Prod\Capa.PowerShell.Module.SDK.OSDeployment.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.OSDeployment\Prod\Capa.PowerShell.Module.SDK.OSDeployment.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Package' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Capa.PowerShell.Module.SDK.Package.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Capa.PowerShell.Module.SDK.Package.psm1
-						New-InstallerDirectory -DirectoryName 'Dependencies' -Content {
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\CapaInstaller.kit
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\.gitignore
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\ciPackage.xml
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Install.cis
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Uninstall.cis
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Install.ps1
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Uninstall.ps1
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\UpdatePackage.ps1
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\main.yml
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Settings.json
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\versioning.yml
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\MinorVersionSetSameStatus.ps1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Capa.PowerShell.Module.SDK.Package.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Capa.PowerShell.Module.SDK.Package.psm1
+							New-InstallerDirectory -DirectoryName 'Dependencies' -Content {
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\CapaInstaller.kit
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\.gitignore
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\ciPackage.xml
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Install.cis
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Uninstall.cis
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Install.ps1
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Uninstall.ps1
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\UpdatePackage.ps1
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\main.yml
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Settings.json
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\versioning.yml
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\MinorVersionSetSameStatus.ps1
+							}
 						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.SystemSdk' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.SystemSdk\Prod\Capa.PowerShell.Module.SDK.SystemSdk.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.SystemSdk\Prod\Capa.PowerShell.Module.SDK.SystemSdk.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.SystemSdk\Prod\Capa.PowerShell.Module.SDK.SystemSdk.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.SystemSdk\Prod\Capa.PowerShell.Module.SDK.SystemSdk.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Unit' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Unit\Prod\Capa.PowerShell.Module.SDK.Unit.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Unit\Prod\Capa.PowerShell.Module.SDK.Unit.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Unit\Prod\Capa.PowerShell.Module.SDK.Unit.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Unit\Prod\Capa.PowerShell.Module.SDK.Unit.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.User' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.User\Prod\Capa.PowerShell.Module.SDK.User.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.User\Prod\Capa.PowerShell.Module.SDK.User.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.User\Prod\Capa.PowerShell.Module.SDK.User.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.User\Prod\Capa.PowerShell.Module.SDK.User.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Utilities' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Utilities\Prod\Capa.PowerShell.Module.SDK.Utilities.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Utilities\Prod\Capa.PowerShell.Module.SDK.Utilities.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Utilities\Prod\Capa.PowerShell.Module.SDK.Utilities.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Utilities\Prod\Capa.PowerShell.Module.SDK.Utilities.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.VPP' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.VPP\Prod\Capa.PowerShell.Module.SDK.VPP.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.VPP\Prod\Capa.PowerShell.Module.SDK.VPP.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.VPP\Prod\Capa.PowerShell.Module.SDK.VPP.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.VPP\Prod\Capa.PowerShell.Module.SDK.VPP.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.WSUS' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.WSUS\Prod\Capa.PowerShell.Module.SDK.WSUS.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.WSUS\Prod\Capa.PowerShell.Module.SDK.WSUS.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.WSUS\Prod\Capa.PowerShell.Module.SDK.WSUS.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.WSUS\Prod\Capa.PowerShell.Module.SDK.WSUS.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Prod\Capa.PowerShell.Module.PowerPack.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Prod\Capa.PowerShell.Module.PowerPack.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Prod\Capa.PowerShell.Module.PowerPack.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Prod\Capa.PowerShell.Module.PowerPack.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Exit' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Exit\Prod\Capa.PowerShell.Module.PowerPack.Exit.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Exit\Prod\Capa.PowerShell.Module.PowerPack.Exit.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Exit\Prod\Capa.PowerShell.Module.PowerPack.Exit.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Exit\Prod\Capa.PowerShell.Module.PowerPack.Exit.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.File' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.File\Prod\Capa.PowerShell.Module.PowerPack.File.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.File\Prod\Capa.PowerShell.Module.PowerPack.File.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.File\Prod\Capa.PowerShell.Module.PowerPack.File.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.File\Prod\Capa.PowerShell.Module.PowerPack.File.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Ini' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Ini\Prod\Capa.PowerShell.Module.PowerPack.Ini.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Ini\Prod\Capa.PowerShell.Module.PowerPack.Ini.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Ini\Prod\Capa.PowerShell.Module.PowerPack.Ini.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Ini\Prod\Capa.PowerShell.Module.PowerPack.Ini.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Job' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Job\Prod\Capa.PowerShell.Module.PowerPack.Job.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Job\Prod\Capa.PowerShell.Module.PowerPack.Job.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Job\Prod\Capa.PowerShell.Module.PowerPack.Job.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Job\Prod\Capa.PowerShell.Module.PowerPack.Job.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Log' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Log\Prod\Capa.PowerShell.Module.PowerPack.Log.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Log\Prod\Capa.PowerShell.Module.PowerPack.Log.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Log\Prod\Capa.PowerShell.Module.PowerPack.Log.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Log\Prod\Capa.PowerShell.Module.PowerPack.Log.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.MSI' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.MSI\Prod\Capa.PowerShell.Module.PowerPack.MSI.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.MSI\Prod\Capa.PowerShell.Module.PowerPack.MSI.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.MSI\Prod\Capa.PowerShell.Module.PowerPack.MSI.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.MSI\Prod\Capa.PowerShell.Module.PowerPack.MSI.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Reg' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Reg\Prod\Capa.PowerShell.Module.PowerPack.Reg.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Reg\Prod\Capa.PowerShell.Module.PowerPack.Reg.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Reg\Prod\Capa.PowerShell.Module.PowerPack.Reg.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Reg\Prod\Capa.PowerShell.Module.PowerPack.Reg.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Service' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Service\Prod\Capa.PowerShell.Module.PowerPack.Service.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Service\Prod\Capa.PowerShell.Module.PowerPack.Service.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Service\Prod\Capa.PowerShell.Module.PowerPack.Service.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Service\Prod\Capa.PowerShell.Module.PowerPack.Service.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Shell' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Shell\Prod\Capa.PowerShell.Module.PowerPack.Shell.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Shell\Prod\Capa.PowerShell.Module.PowerPack.Shell.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Shell\Prod\Capa.PowerShell.Module.PowerPack.Shell.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Shell\Prod\Capa.PowerShell.Module.PowerPack.Shell.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Sys' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.CMS' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.CMS\Prod\Capa.PowerShell.Module.PowerPack.CMS.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.CMS\Prod\Capa.PowerShell.Module.PowerPack.CMS.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.CMS\Prod\Capa.PowerShell.Module.PowerPack.CMS.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.CMS\Prod\Capa.PowerShell.Module.PowerPack.CMS.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.UsrMgr' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Winget' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.Tools' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psm1
+						}
 					}
 				}
 			}
@@ -332,77 +392,107 @@ function New-ModuleInstallerSDKOnly {
 			New-InstallerDirectory -DirectoryName 'PowerShell' -Content {
 				New-InstallerDirectory -DirectoryName 'Modules' -Content {
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK\Prod\Capa.PowerShell.Module.SDK.psd1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK\Prod\Capa.PowerShell.Module.SDK.psd1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Authentication' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Authentication\Prod\Capa.PowerShell.Module.SDK.Authentication.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Authentication\Prod\Capa.PowerShell.Module.SDK.Authentication.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Authentication\Prod\Capa.PowerShell.Module.SDK.Authentication.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Authentication\Prod\Capa.PowerShell.Module.SDK.Authentication.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Container' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Container\Prod\Capa.PowerShell.Module.SDK.Container.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Container\Prod\Capa.PowerShell.Module.SDK.Container.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Container\Prod\Capa.PowerShell.Module.SDK.Container.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Container\Prod\Capa.PowerShell.Module.SDK.Container.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Group' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Group\Prod\Capa.PowerShell.Module.SDK.Group.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Group\Prod\Capa.PowerShell.Module.SDK.Group.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Group\Prod\Capa.PowerShell.Module.SDK.Group.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Group\Prod\Capa.PowerShell.Module.SDK.Group.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Inventory' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Inventory\Prod\Capa.PowerShell.Module.SDK.Inventory.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Inventory\Prod\Capa.PowerShell.Module.SDK.Inventory.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Inventory\Prod\Capa.PowerShell.Module.SDK.Inventory.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Inventory\Prod\Capa.PowerShell.Module.SDK.Inventory.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.MDM' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.MDM\Prod\Capa.PowerShell.Module.SDK.MDM.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.MDM\Prod\Capa.PowerShell.Module.SDK.MDM.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.MDM\Prod\Capa.PowerShell.Module.SDK.MDM.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.MDM\Prod\Capa.PowerShell.Module.SDK.MDM.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.OSDeployment' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.OSDeployment\Prod\Capa.PowerShell.Module.SDK.OSDeployment.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.OSDeployment\Prod\Capa.PowerShell.Module.SDK.OSDeployment.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.OSDeployment\Prod\Capa.PowerShell.Module.SDK.OSDeployment.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.OSDeployment\Prod\Capa.PowerShell.Module.SDK.OSDeployment.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Package' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Capa.PowerShell.Module.SDK.Package.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Capa.PowerShell.Module.SDK.Package.psm1
-						New-InstallerDirectory -DirectoryName 'Dependencies' -Content {
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\CapaInstaller.kit
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\.gitignore
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\ciPackage.xml
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Install.cis
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Uninstall.cis
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Install.ps1
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Uninstall.ps1
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\UpdatePackage.ps1
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\main.yml
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Settings.json
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\versioning.yml
-							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\MinorVersionSetSameStatus.ps1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Capa.PowerShell.Module.SDK.Package.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Capa.PowerShell.Module.SDK.Package.psm1
+							New-InstallerDirectory -DirectoryName 'Dependencies' -Content {
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\CapaInstaller.kit
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\.gitignore
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\ciPackage.xml
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Install.cis
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Uninstall.cis
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Install.ps1
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Uninstall.ps1
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\UpdatePackage.ps1
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\main.yml
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\Settings.json
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\versioning.yml
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Package\Prod\Dependencies\MinorVersionSetSameStatus.ps1
+							}
 						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.SystemSdk' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.SystemSdk\Prod\Capa.PowerShell.Module.SDK.SystemSdk.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.SystemSdk\Prod\Capa.PowerShell.Module.SDK.SystemSdk.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.SystemSdk\Prod\Capa.PowerShell.Module.SDK.SystemSdk.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.SystemSdk\Prod\Capa.PowerShell.Module.SDK.SystemSdk.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Unit' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Unit\Prod\Capa.PowerShell.Module.SDK.Unit.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Unit\Prod\Capa.PowerShell.Module.SDK.Unit.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Unit\Prod\Capa.PowerShell.Module.SDK.Unit.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Unit\Prod\Capa.PowerShell.Module.SDK.Unit.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.User' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.User\Prod\Capa.PowerShell.Module.SDK.User.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.User\Prod\Capa.PowerShell.Module.SDK.User.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.User\Prod\Capa.PowerShell.Module.SDK.User.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.User\Prod\Capa.PowerShell.Module.SDK.User.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.Utilities' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Utilities\Prod\Capa.PowerShell.Module.SDK.Utilities.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Utilities\Prod\Capa.PowerShell.Module.SDK.Utilities.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Utilities\Prod\Capa.PowerShell.Module.SDK.Utilities.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.Utilities\Prod\Capa.PowerShell.Module.SDK.Utilities.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.VPP' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.VPP\Prod\Capa.PowerShell.Module.SDK.VPP.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.VPP\Prod\Capa.PowerShell.Module.SDK.VPP.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.VPP\Prod\Capa.PowerShell.Module.SDK.VPP.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.VPP\Prod\Capa.PowerShell.Module.SDK.VPP.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.SDK.WSUS' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.WSUS\Prod\Capa.PowerShell.Module.SDK.WSUS.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.WSUS\Prod\Capa.PowerShell.Module.SDK.WSUS.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.WSUS\Prod\Capa.PowerShell.Module.SDK.WSUS.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.SDK.WSUS\Prod\Capa.PowerShell.Module.SDK.WSUS.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.Tools' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psm1
+						}
 					}
 				}
 			}
@@ -436,64 +526,94 @@ function New-ModuleInstallerPowerPackOnly {
 			New-InstallerDirectory -DirectoryName 'PowerShell' -Content {
 				New-InstallerDirectory -DirectoryName 'Modules' -Content {
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Prod\Capa.PowerShell.Module.PowerPack.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Prod\Capa.PowerShell.Module.PowerPack.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Prod\Capa.PowerShell.Module.PowerPack.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack\Prod\Capa.PowerShell.Module.PowerPack.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Exit' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Exit\Prod\Capa.PowerShell.Module.PowerPack.Exit.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Exit\Prod\Capa.PowerShell.Module.PowerPack.Exit.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Exit\Prod\Capa.PowerShell.Module.PowerPack.Exit.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Exit\Prod\Capa.PowerShell.Module.PowerPack.Exit.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.File' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.File\Prod\Capa.PowerShell.Module.PowerPack.File.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.File\Prod\Capa.PowerShell.Module.PowerPack.File.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.File\Prod\Capa.PowerShell.Module.PowerPack.File.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.File\Prod\Capa.PowerShell.Module.PowerPack.File.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Ini' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Ini\Prod\Capa.PowerShell.Module.PowerPack.Ini.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Ini\Prod\Capa.PowerShell.Module.PowerPack.Ini.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Ini\Prod\Capa.PowerShell.Module.PowerPack.Ini.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Ini\Prod\Capa.PowerShell.Module.PowerPack.Ini.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Job' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Job\Prod\Capa.PowerShell.Module.PowerPack.Job.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Job\Prod\Capa.PowerShell.Module.PowerPack.Job.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Job\Prod\Capa.PowerShell.Module.PowerPack.Job.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Job\Prod\Capa.PowerShell.Module.PowerPack.Job.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Log' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Log\Prod\Capa.PowerShell.Module.PowerPack.Log.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Log\Prod\Capa.PowerShell.Module.PowerPack.Log.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Log\Prod\Capa.PowerShell.Module.PowerPack.Log.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Log\Prod\Capa.PowerShell.Module.PowerPack.Log.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.MSI' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.MSI\Prod\Capa.PowerShell.Module.PowerPack.MSI.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.MSI\Prod\Capa.PowerShell.Module.PowerPack.MSI.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.MSI\Prod\Capa.PowerShell.Module.PowerPack.MSI.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.MSI\Prod\Capa.PowerShell.Module.PowerPack.MSI.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Reg' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Reg\Prod\Capa.PowerShell.Module.PowerPack.Reg.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Reg\Prod\Capa.PowerShell.Module.PowerPack.Reg.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Reg\Prod\Capa.PowerShell.Module.PowerPack.Reg.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Reg\Prod\Capa.PowerShell.Module.PowerPack.Reg.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Service' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Service\Prod\Capa.PowerShell.Module.PowerPack.Service.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Service\Prod\Capa.PowerShell.Module.PowerPack.Service.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Service\Prod\Capa.PowerShell.Module.PowerPack.Service.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Service\Prod\Capa.PowerShell.Module.PowerPack.Service.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Shell' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Shell\Prod\Capa.PowerShell.Module.PowerPack.Shell.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Shell\Prod\Capa.PowerShell.Module.PowerPack.Shell.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Shell\Prod\Capa.PowerShell.Module.PowerPack.Shell.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Shell\Prod\Capa.PowerShell.Module.PowerPack.Shell.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Sys' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Sys\Prod\Capa.PowerShell.Module.PowerPack.Sys.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.CMS' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.CMS\Prod\Capa.PowerShell.Module.PowerPack.CMS.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.CMS\Prod\Capa.PowerShell.Module.PowerPack.CMS.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.CMS\Prod\Capa.PowerShell.Module.PowerPack.CMS.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.CMS\Prod\Capa.PowerShell.Module.PowerPack.CMS.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.UsrMgr' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.UsrMgr\Prod\Capa.PowerShell.Module.PowerPack.UsrMgr.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.PowerPack.Winget' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.PowerPack.Winget\Prod\Capa.PowerShell.Module.PowerPack.Winget.psm1
+						}
 					}
 					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.Tools' -Content {
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psd1
-						New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psm1
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psm1
+						}
 					}
 				}
 			}

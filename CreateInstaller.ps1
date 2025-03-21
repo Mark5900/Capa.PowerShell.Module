@@ -113,6 +113,8 @@ function Update-APSDFile {
 						$UseModuleVersion = $Version
 					}
 
+					$UseModuleVersion = $Version
+
 					$NewRequiredModules += @{
 						ModuleName    = $module.ModuleName
 						ModuleVersion = $UseModuleVersion

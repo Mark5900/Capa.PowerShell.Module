@@ -1,3 +1,5 @@
+# TODO: #422 Create Tests for Initialize-PpInputObject
+
 $Global:InputObject =	$null
 Initialize-PpInputObject
 CMS_AddPackageToUnit -package 'findes ikke' -version 'v1.0'

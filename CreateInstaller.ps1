@@ -103,21 +103,19 @@ function Update-APSDFile {
 			'RequiredModules' {
 				$NewRequiredModules = @()
 				foreach ($module in $key.Value) {
-					if ($Prerelease) {
-						if ([string]::IsNullOrEmpty($module.ModuleVersion)) {
-							$UseModuleVersion = $module.RequiredVersion
-						} else {
-							$UseModuleVersion = $module.ModuleVersion
-						}
-					} else {
-						$UseModuleVersion = $Version
-					}
-
-					$UseModuleVersion = $Version
+					#if ($Prerelease) {
+					#	if ([string]::IsNullOrEmpty($module.ModuleVersion)) {
+					#		$UseModuleVersion = $module.RequiredVersion
+					#	} else {
+					#		$UseModuleVersion = $module.ModuleVersion
+					#	}
+					#} else {
+					#	$UseModuleVersion = $Version
+					#}
 
 					$NewRequiredModules += @{
-						ModuleName    = $module.ModuleName
-						ModuleVersion = $UseModuleVersion
+						ModuleName = $module.ModuleName
+						#ModuleVersion = $UseModuleVersion
 					}
 				}
 				$NewManifest[$key.Key] = $NewRequiredModules

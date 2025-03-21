@@ -51,8 +51,8 @@ ClrVersion = '2.0.50727'
 ProcessorArchitecture = 'None'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; ModuleVersion = '1.12.3'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack'; ModuleVersion = '1.12.3'; })
+RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; ModuleVersion = '1.13.0'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack'; ModuleVersion = '1.13.0'; })
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -114,7 +114,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        Prerelease = 'Prerelease7'
+        Prerelease = 'Prerelease8'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

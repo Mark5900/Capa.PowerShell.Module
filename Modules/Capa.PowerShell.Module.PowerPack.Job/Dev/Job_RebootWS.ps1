@@ -18,7 +18,7 @@
 #>
 function Job_RebootWS {
     [CmdletBinding()]
-    [Aliases('Invoke-Job_RebootWS')]
+    [Alias('Invoke-Job_RebootWS')]
     Param(
         [Parameter(Mandatory = $false)]
         [string]$Text

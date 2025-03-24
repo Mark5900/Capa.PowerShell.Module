@@ -65,16 +65,16 @@ function Register-Powerpack {
         }
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog "Register-Powerpack: Error Line: $($_.InvocationInfo.Line)"
         }
 
         Write-Error 'Error Item: '$_.Exception.ItemName
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Register-Powerpack: Error Item: $_.Exception.ItemName"
         }
 
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Register-Powerpack: '$_.Exception.HResult'"
         }
         $_.Exception.HResult

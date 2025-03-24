@@ -9,7 +9,7 @@
 @{
 
 	# Script module or binary module file associated with this manifest.
-	RootModule            = '.\CCapa.PowerShell.Module.CCS.psm1'
+	RootModule            = '.\Capa.PowerShell.Module.CCS.psm1'
 
 	# Version number of this module.
 	ModuleVersion         = '1.13.0'
@@ -129,5 +129,3 @@
 	# DefaultCommandPrefix = ''
 
 }
-} # End of module manifest hashtable
-# DefaultCommandPrefix = ''# DefaultCommandPrefix = ''

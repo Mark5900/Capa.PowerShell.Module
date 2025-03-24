@@ -1,3 +1,17 @@
+<#
+	.SYNOPSIS
+		This function encrypts a string using the InstallationScreen.exe utility.
+
+	.DESCRIPTION
+		This function takes a string as input and uses the InstallationScreen.exe utility to encrypt it.
+		The encrypted string is returned as output and used multiple times, when working with the CCS Webservice.
+
+	.PARAMETER String
+		The string to be encrypted.
+
+	.EXAMPLE
+		PS C:\> Get-CCSEncryptedPassword -String "Admin1234"
+#>
 function Get-CCSEncryptedPassword {
 	param (
 		[Parameter(Mandatory = $true)]

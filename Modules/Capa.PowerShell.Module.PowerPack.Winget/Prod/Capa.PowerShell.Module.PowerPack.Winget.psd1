@@ -51,8 +51,7 @@ ClrVersion = '2.0.50727'
 ProcessorArchitecture = 'None'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; ModuleVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack'; ModuleVersion = '1.13.0'; })
+	#RequiredModules = @()
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -70,9 +69,9 @@ RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; Modul
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Add-PpWingetScopeMachine', 'Confirm-PpWingetAppInstall', 
-               'Find-PpWinGet', 'Get-PpWingetReturnCodeDescription', 
-               'Install-PpWingetApp', 'Install-PpWingetPrerequisites', 
+FunctionsToExport = 'Add-PpWingetScopeMachine', 'Confirm-PpWingetAppInstall',
+               'Find-PpWinGet', 'Get-PpWingetReturnCodeDescription',
+               'Install-PpWingetApp', 'Install-PpWingetPrerequisites',
                'Uninstall-PpWingetApp', 'Update-PpWingetApp'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

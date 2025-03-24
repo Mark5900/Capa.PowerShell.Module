@@ -21,15 +21,16 @@
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455683/cs.Job+WriteLog
 #>
 function Job_WriteLog {
-    param (
-        [string]$FunctionName = '',
-        [Parameter(Mandatory = $true)]
-        [string]$Text
-    )
+	param (
+		[Parameter(Mandatory = $true)]
+		[string]$Text,
+		[Parameter(Mandatory = $false)]
+		[string]$FunctionName = ''
+	)
 
-    if ($FunctionName -ne '') {
-        $Global:Cs.Job_WriteLog($FunctionName, $Text)
-    } else {
-        $Global:Cs.Job_WriteLog($Text)
-    }
+	if ($FunctionName -ne '') {
+		$Global:Cs.Job_WriteLog($FunctionName, $Text)
+	} else {
+		$Global:Cs.Job_WriteLog($Text)
+	}
 }

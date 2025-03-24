@@ -28,7 +28,7 @@ function Job_RebootWS {
         if ($global:cs) {
             Job_WriteLog -Text "Call Invoke-Job_RebootWS with text: '$Text'"
         }
-        if ($InputObject) { $InputObject.RebootRequested = $true }
+        if ($Global:InputObject) { $Global:InputObject.RebootRequested = $true }
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
         if ($global:cs) {

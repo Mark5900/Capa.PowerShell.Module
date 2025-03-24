@@ -519,7 +519,7 @@ function Get-PpCMSInventory {
 	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
-		[ValidationSet('Hardware Inventory', 'Logon Inventory', 'Custom Inventory')]
+		[ValidateSet('Hardware Inventory', 'Logon Inventory', 'Custom Inventory')]
 		[string]$Table,
 		[Parameter(Mandatory = $true)]
 		[string]$Category,

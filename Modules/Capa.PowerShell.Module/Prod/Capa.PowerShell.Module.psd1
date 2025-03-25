@@ -51,8 +51,9 @@ ClrVersion = '2.0.50727'
 ProcessorArchitecture = 'None'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.SDK'; ModuleVersion = '1.13.0'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack'; ModuleVersion = '1.13.0'; })
+	RequiredModules      = @(@{ModuleName = 'Capa.PowerShell.Module.SDK'; ModuleVersion = '1.13.0'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack'; ModuleVersion = '1.13.0'; },
+               @{ModuleName = 'Capa.PowerShell.Module.CCS'; ModuleVersion = '1.13.0'; })
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()

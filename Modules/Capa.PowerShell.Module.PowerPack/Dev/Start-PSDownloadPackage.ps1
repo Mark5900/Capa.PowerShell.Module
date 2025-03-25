@@ -12,17 +12,17 @@
 #>
 function Start-PSDownloadPackage {
     try {
-        $Return = $InputObject.DownloadPackage()
+        $Return = $Global:InputObject.DownloadPackage()
         Job_WriteLog -Text "Downloading package: $AppName"
         Write-Host "Downloading package: $AppName"
 
         Do {
             Start-Sleep -Seconds 1
-            $Progress = $InputObject.DownloadProgress
+            $Progress = $Global:InputObject.DownloadProgress
 
             if ($Progress -eq -1) {
                 $Message = '[Line ' + $_.InvocationInfo.ScriptLineNumber + '] ' + $_.Exception.Message
-                $HResult = $InputObject.ExceptionHResult
+                $HResult = $Global:InputObject.ExceptionHResult
                 Write-Error "Download failed: $HResult $Message"
                 Job_WriteLog -Text "Download failed: $HResult $Message"
                 Exit-PpScript 3322

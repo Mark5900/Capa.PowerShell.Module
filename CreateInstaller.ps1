@@ -361,6 +361,19 @@ function New-ModuleInstaller {
 							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psm1
 						}
 					}
+					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.CCS' -Content {
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Capa.PowerShell.Module.CCS.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Capa.PowerShell.Module.CCS.psm1
+							New-InstallerDirectory -DirectoryName 'Dependencies' -Content {
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Dependencies\CapaInstaller.Custom.BusinessLayer.dll
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Dependencies\CCSProxy.dll
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Dependencies\DevComponents.DotNetBar2.dll
+								New-InstallerFile -Source '.\Modules\Capa.PowerShell.Module.CCS\Prod\Dependencies\InstallationScreen.exe'
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Dependencies\InstallationScreen.Library.dll
+							}
+						}
+					}
 				}
 			}
 		}
@@ -615,6 +628,19 @@ function New-ModuleInstallerPowerPackOnly {
 						New-InstallerDirectory -DirectoryName $Version -Content {
 							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psd1
 							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.Tools\Prod\Capa.PowerShell.Module.Tools.psm1
+						}
+					}
+					New-InstallerDirectory -DirectoryName 'Capa.PowerShell.Module.CCS' -Content {
+						New-InstallerDirectory -DirectoryName $Version -Content {
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Capa.PowerShell.Module.CCS.psd1
+							New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Capa.PowerShell.Module.CCS.psm1
+							New-InstallerDirectory -DirectoryName 'Dependencies' -Content {
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Dependencies\CapaInstaller.Custom.BusinessLayer.dll
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Dependencies\CCSProxy.dll
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Dependencies\DevComponents.DotNetBar2.dll
+								New-InstallerFile -Source '.\Modules\Capa.PowerShell.Module.CCS\Prod\Dependencies\InstallationScreen.exe'
+								New-InstallerFile -Source .\Modules\Capa.PowerShell.Module.CCS\Prod\Dependencies\InstallationScreen.Library.dll
+							}
 						}
 					}
 				}

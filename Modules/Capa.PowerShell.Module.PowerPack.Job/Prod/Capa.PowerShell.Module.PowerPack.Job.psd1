@@ -70,7 +70,7 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Job_Start', 'Job_WriteLog', 'Job_RebootWS', 'Job_DisableLog', 
+FunctionsToExport = 'Job_Start', 'Job_WriteLog', 'Job_RebootWS', 'Job_DisableLog',
                'Job_EnableLog'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

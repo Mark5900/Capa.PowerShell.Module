@@ -70,10 +70,10 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'File_AppendToFile', 'File_CopyFile', 'File_CopyTree', 'File_CreateDir', 
-               'File_DelEmptyFolder', 'File_DeleteLineInFile', 'File_DelFile', 
-               'File_DelTree', 'File_ExistFile', 'File_ExistDir', 'File_FindFile', 
-               'File_GetFileVersion', 'File_GetProductVersion', 'File_RenameDir', 
+FunctionsToExport = 'File_AppendToFile', 'File_CopyFile', 'File_CopyTree', 'File_CreateDir',
+               'File_DelEmptyFolder', 'File_DeleteLineInFile', 'File_DelFile',
+               'File_DelTree', 'File_ExistFile', 'File_ExistDir', 'File_FindFile',
+               'File_GetFileVersion', 'File_GetProductVersion', 'File_RenameDir',
                'File_RenameFile'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

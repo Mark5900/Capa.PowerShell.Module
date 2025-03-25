@@ -61,6 +61,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246256/Get+application+groups
+For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580951/Get+application+groups
 
 ## RELATED LINKS

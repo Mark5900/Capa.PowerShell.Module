@@ -26,8 +26,11 @@ Author = 'Mark5900'
 # Company or vendor of this module
 CompanyName = 'Unknown'
 
-	# Description of the functionality provided by this module
-	Description            = 'PowerShell module for CapaInstaller PowerPacks containing functions for CMS commands.
+# Copyright statement for this module
+Copyright = '(c) Mark5900. All rights reserved.'
+
+# Description of the functionality provided by this module
+Description = 'PowerShell module for CapaInstaller PowerPacks containing functions for CMS commands.
 	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342578761/PowerShell+Scripting+Library'
 
 # Minimum version of the PowerShell engine required by this module
@@ -67,28 +70,28 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Add-PpCMSComputerToCalendarGroup',
-               'Add-PpCMSComputerToDepartmentGroup',
-               'Add-PpCMSComputerToPowerSchemeGroup',
-               'Add-PpCMSComputerToReinstallGroup',
-               'Add-PpCMSComputerToStaticGroup', 'Add-PpCMSCustomInventory',
-               'Add-PpCMSHardwareInventory', 'Add-PpCMSPackageToUnit',
-               'Add-PpCMSUnitToBusinessUnit', 'Get-PpCMSAdvertisedPackages',
-               'Get-PpCMSDeploymentTemplateVariable', 'Get-PpCMSGroupMembership',
-               'Get-PpCMSIsPackageLinked', 'Get-PpCMSIsPackageScheduleEnabled',
-               'Get-PpCMSPackage', 'Get-PpCMSPackageStatus', 'Get-PpCMSProperty',
-               'Initialize-PpCMSRerunPackage', 'Install-PpCMSAdvertisedPackage',
-               'Invoke-PpCMSRunSystemAgent', 'Invoke-PpCMSRunUserAgent',
-               'Invoke-PpJobRetryLater', 'Remove-PpCMSComputerFromCalendarGroup',
-               'Remove-PpCMSComputerFromDepartmentGroup',
-               'Remove-PpCMSComputerFromPowerSchemeGroup',
-               'Remove-PpCMSComputerFromReinstallGroup',
-               'Remove-PpCMSComputerFromStaticGroup',
-               'Remove-PpCMSCustomInventory', 'Remove-PpCMSHardwareInventory',
-               'Remove-PpCMSPackageFromUnit', 'Reset-PpCMSCustomInventory',
-               'Set-PpCMSCurrentUser', 'Set-PpCMSPackageStatusToInstalled',
-               'Set-PpCMSPackageStatusToNotCompliant',
-               'Test-PpCMSExistPackageOnManagementServer',
+FunctionsToExport = 'Add-PpCMSComputerToCalendarGroup', 
+               'Add-PpCMSComputerToDepartmentGroup', 
+               'Add-PpCMSComputerToPowerSchemeGroup', 
+               'Add-PpCMSComputerToReinstallGroup', 
+               'Add-PpCMSComputerToStaticGroup', 'Add-PpCMSCustomInventory', 
+               'Add-PpCMSHardwareInventory', 'Add-PpCMSPackageToUnit', 
+               'Add-PpCMSUnitToBusinessUnit', 'Get-PpCMSAdvertisedPackages', 
+               'Get-PpCMSDeploymentTemplateVariable', 'Get-PpCMSGroupMembership', 
+               'Get-PpCMSIsPackageLinked', 'Get-PpCMSIsPackageScheduleEnabled', 
+               'Get-PpCMSPackage', 'Get-PpCMSPackageStatus', 'Get-PpCMSProperty', 
+               'Initialize-PpCMSRerunPackage', 'Install-PpCMSAdvertisedPackage', 
+               'Invoke-PpCMSRunSystemAgent', 'Invoke-PpCMSRunUserAgent', 
+               'Invoke-PpJobRetryLater', 'Remove-PpCMSComputerFromCalendarGroup', 
+               'Remove-PpCMSComputerFromDepartmentGroup', 
+               'Remove-PpCMSComputerFromPowerSchemeGroup', 
+               'Remove-PpCMSComputerFromReinstallGroup', 
+               'Remove-PpCMSComputerFromStaticGroup', 
+               'Remove-PpCMSCustomInventory', 'Remove-PpCMSHardwareInventory', 
+               'Remove-PpCMSPackageFromUnit', 'Reset-PpCMSCustomInventory', 
+               'Set-PpCMSCurrentUser', 'Set-PpCMSPackageStatusToInstalled', 
+               'Set-PpCMSPackageStatusToNotCompliant', 
+               'Test-PpCMSExistPackageOnManagementServer', 
                'Uninstall-PpCMSPackageFromUnit'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -130,7 +133,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        Prerelease = 'Prerelease9'
+        # Prerelease = ''
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

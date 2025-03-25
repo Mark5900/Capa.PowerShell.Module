@@ -70,22 +70,22 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Add-CapaPackageToBusinessUnit', 'Add-CapaPackageToGroup',
-               'Add-CapaPackageToManagementServer', 'Clone-CapaPackage',
-               'Copy-CapaPackage', 'Copy-CapaPackageRelation', 'New-CapaPackage',
-               'Disable-CapaPackageSchedule', 'Enable-CapaPackageSchedule',
-               'Exist-CapaPackage', 'Export-CapaPackage',
-               'Get-CapaPackageDescription', 'Get-CapaPackageFolder',
-               'Get-CapaPackageGroups', 'Get-CapaPackages',
-               'Get-CapaPackagesOnManagementServer', 'Get-CapaPackageStatus',
-               'Get-CapaPackageUnits', 'Import-CapaPackage',
-               'Initialize-CapaPackagePromote', 'Remove-CapaPackage',
-               'Remove-CapaPackageFromGroup',
-               'Remove-CapaPackageFromManagementServer',
-               'Set-CapaPackageDescription', 'Set-CapaPackageFolder',
-               'Set-CapaPackagePriority', 'Set-CapaPackageSchedule',
-               'Update-CapaPackageNow', 'Get-CapaAllInventoryPackages',
-               'Get-CapatAllNoneInventoryPackages', 'New-CapaPowerPack',
+FunctionsToExport = 'Add-CapaPackageToBusinessUnit', 'Add-CapaPackageToGroup', 
+               'Add-CapaPackageToManagementServer', 'Clone-CapaPackage', 
+               'Copy-CapaPackage', 'Copy-CapaPackageRelation', 'New-CapaPackage', 
+               'Disable-CapaPackageSchedule', 'Enable-CapaPackageSchedule', 
+               'Exist-CapaPackage', 'Export-CapaPackage', 
+               'Get-CapaPackageDescription', 'Get-CapaPackageFolder', 
+               'Get-CapaPackageGroups', 'Get-CapaPackages', 
+               'Get-CapaPackagesOnManagementServer', 'Get-CapaPackageStatus', 
+               'Get-CapaPackageUnits', 'Import-CapaPackage', 
+               'Initialize-CapaPackagePromote', 'Remove-CapaPackage', 
+               'Remove-CapaPackageFromGroup', 
+               'Remove-CapaPackageFromManagementServer', 
+               'Set-CapaPackageDescription', 'Set-CapaPackageFolder', 
+               'Set-CapaPackagePriority', 'Set-CapaPackageSchedule', 
+               'Update-CapaPackageNow', 'Get-CapaAllInventoryPackages', 
+               'Get-CapatAllNoneInventoryPackages', 'New-CapaPowerPack', 
                'Update-CapaPackageScriptAndKit', 'New-CapaPackageWithGit'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -127,7 +127,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        Prerelease = 'Prerelease9'
+        # Prerelease = ''
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

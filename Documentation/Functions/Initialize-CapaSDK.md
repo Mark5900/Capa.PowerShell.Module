@@ -154,9 +154,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246140/Set+database+settings
-And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246148/Set+default+management+point
-And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246158/Set+instance+management+point
-And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246174/Set+splitter
+For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580733/Set+database+settings
+And https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580750/Set+default+management+point
+And https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580769/Set+instance+management+point
+And https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580794/Set+splitter
 
 ## RELATED LINKS

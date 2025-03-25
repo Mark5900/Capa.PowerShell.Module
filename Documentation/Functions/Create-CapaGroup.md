@@ -127,7 +127,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246224/Create+group
-And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246232/Create+group+in+Business+Unit
+For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580877/Create+group
+And https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580894/Create+group+in+Business+Unit
 
 ## RELATED LINKS

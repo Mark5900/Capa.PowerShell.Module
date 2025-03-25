@@ -70,14 +70,14 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Add-CapaUnitToProfile', 'Unlink-CapaUnitFromProfile',
-               'Remove-CapaProfileFromDevice', 'Add-CapaExchangePayloadToProfile',
-               'Add-CapaWifiPayloadToProfile', 'Add-CapaEnforcePasscodeAndroid',
-               'Add-CapaKeyValueToAppConfigAndroid',
-               'Add-CapaKeyValueToAppConfigIOS',
-               'Assign-CapaProfileToBusinessUnit', 'Clone-CapaDeviceApplication',
-               'Create-CapaProfile', 'Edit-CapaExchangePayload',
-               'Edit-CapaWifiPayload', 'Get-CapaDeviceApplications',
+FunctionsToExport = 'Add-CapaUnitToProfile', 'Unlink-CapaUnitFromProfile', 
+               'Remove-CapaProfileFromDevice', 'Add-CapaExchangePayloadToProfile', 
+               'Add-CapaWifiPayloadToProfile', 'Add-CapaEnforcePasscodeAndroid', 
+               'Add-CapaKeyValueToAppConfigAndroid', 
+               'Add-CapaKeyValueToAppConfigIOS', 
+               'Assign-CapaProfileToBusinessUnit', 'Clone-CapaDeviceApplication', 
+               'Create-CapaProfile', 'Edit-CapaExchangePayload', 
+               'Edit-CapaWifiPayload', 'Get-CapaDeviceApplications', 
                'Get-CapaProfiles', 'Link-CapaProfileToGroup'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -119,7 +119,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        Prerelease = 'Prerelease9'
+        # Prerelease = ''
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

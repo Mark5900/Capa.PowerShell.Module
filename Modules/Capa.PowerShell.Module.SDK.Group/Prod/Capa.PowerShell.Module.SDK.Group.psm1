@@ -30,8 +30,8 @@
 		PS C:\> Create-CapaGroup -CapaSDK $CapaSDk -GroupName  'Jylland' -GroupType  Static -UnitType Computer -BusinessUnit 'Denmark'
 
 	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246224/Create+group
-		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246232/Create+group+in+Business+Unit
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580877/Create+group
+		And https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580894/Create+group+in+Business+Unit
 #>
 function Create-CapaGroup {
 	[CmdletBinding()]
@@ -76,7 +76,7 @@ function Create-CapaGroup {
 				PS C:\> Get-CapaApplicationGroups -CapaSDK $CapaSDK
 
 	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246256/Get+application+groups
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580951/Get+application+groups
 #>
 function Get-CapaApplicationGroups {
 	[CmdletBinding()]
@@ -129,7 +129,7 @@ function Get-CapaApplicationGroups {
 				PS C:\> Get-CapaGroupDescription -CapaSDK $CapaSDK -GroupName 'Default' -GroupType Static
 
 	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246264/Get+Group+Description
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580968/Get+Group+Description
 #>
 function Get-CapaGroupDescription {
 	[CmdletBinding()]
@@ -172,7 +172,7 @@ function Get-CapaGroupDescription {
 		PS C:\> Get-CapaGroupFolder -CapaSDK $CapaSDK -GroupName 'Default' -GroupType Dynamic_ADSI
 
 	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246272/Get+Group+Folder
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580985/Get+Group+Folder
 #>
 function Get-CapaGroupFolder {
 	[CmdletBinding()]
@@ -214,7 +214,7 @@ function Get-CapaGroupFolder {
 		PS C:\> Get-CapaGroupPackages -CapaSDK $CapaSDK -GroupName $GroupName -Type Dynamic_ADSI
 
 	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246910/Get+group+packages
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342582280/Get+group+packages
 #>
 function Get-CapaGroupPackages {
 	param

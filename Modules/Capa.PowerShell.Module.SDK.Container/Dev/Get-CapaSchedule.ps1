@@ -17,7 +17,7 @@
 		PS C:\> Get-CapaSchedule -CapaSDK $CapaSDK -Id '5'
 
 	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246132/Get+schedule
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580716/Get+schedule
 #>
 function Get-CapaSchedule {
     [CmdletBinding()]

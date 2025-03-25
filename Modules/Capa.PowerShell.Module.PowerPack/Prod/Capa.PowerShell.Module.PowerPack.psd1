@@ -51,7 +51,7 @@ ClrVersion = '2.0.50727'
 ProcessorArchitecture = 'None'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @()
+	RequiredModules      = @("Capa.PowerShell.Module.PowerPack.CMS", "Capa.PowerShell.Module.PowerPack.Exit", "Capa.PowerShell.Module.PowerPack.File", "Capa.PowerShell.Module.PowerPack.Ini", "Capa.PowerShell.Module.PowerPack.Job", "Capa.PowerShell.Module.PowerPack.Log", "Capa.PowerShell.Module.PowerPack.MSI", "Capa.PowerShell.Module.PowerPack.Reg","Capa.PowerShell.Module.PowerPack.Service", "Capa.PowerShell.Module.PowerPack.Shell", "Capa.PowerShell.Module.PowerPack.Sys", "Capa.PowerShell.Module.PowerPack.UsrMgr", "Capa.PowerShell.Module.PowerPack.Winget", "Capa.PowerShell.Module.Tools", "Capa.PowerShell.Module.CCS")
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -69,8 +69,8 @@ RequiredModules = @()
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Add-PpDll', 'Start-PSDownloadPackage', 'Invoke-RunAsLoggedOnUser', 
-               'Initialize-PpVariables', 'Register-Powerpack', 
+FunctionsToExport = 'Add-PpDll', 'Start-PSDownloadPackage', 'Invoke-RunAsLoggedOnUser',
+               'Initialize-PpVariables', 'Register-Powerpack',
                'Unregister-Powerpack', 'Initialize-PpInputObject'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

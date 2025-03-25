@@ -51,7 +51,7 @@ ClrVersion = '2.0.50727'
 ProcessorArchitecture = 'None'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @()
+	RequiredModules      = @('Capa.PowerShell.Module.SDK.Authentication', 'Capa.PowerShell.Module.SDK.Container', 'Capa.PowerShell.Module.SDK.Group', 'Capa.PowerShell.Module.SDK.Inventory', 'Capa.PowerShell.Module.SDK.MDM', 'Capa.PowerShell.Module.SDK.OSDeployment', 'Capa.PowerShell.Module.SDK.Package', 'Capa.PowerShell.Module.SDK.SystemSdk', 'Capa.PowerShell.Module.SDK.Unit', 'Capa.PowerShell.Module.SDK.User', 'Capa.PowerShell.Module.SDK.Utilities', 'Capa.PowerShell.Module.SDK.VPP', 'Capa.PowerShell.Module.SDK.WSUS',"Capa.PowerShell.Module.Tools")
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()

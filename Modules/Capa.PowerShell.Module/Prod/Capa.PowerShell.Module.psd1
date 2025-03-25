@@ -51,7 +51,7 @@ ClrVersion = '2.0.50727'
 ProcessorArchitecture = 'None'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @()
+	RequiredModules      = @('Capa.PowerShell.Module.PowerPack', 'Capa.PowerShell.Module.SDK')
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()

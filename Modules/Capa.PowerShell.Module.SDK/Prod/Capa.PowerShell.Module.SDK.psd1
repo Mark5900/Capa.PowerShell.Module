@@ -12,7 +12,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.13.0'
+ModuleVersion = '1.13.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -51,7 +51,20 @@ ClrVersion = '2.0.50727'
 ProcessorArchitecture = 'None'
 
 # Modules that must be imported into the global environment prior to importing this module
-	RequiredModules      = @('Capa.PowerShell.Module.SDK.Authentication', 'Capa.PowerShell.Module.SDK.Container', 'Capa.PowerShell.Module.SDK.Group', 'Capa.PowerShell.Module.SDK.Inventory', 'Capa.PowerShell.Module.SDK.MDM', 'Capa.PowerShell.Module.SDK.OSDeployment', 'Capa.PowerShell.Module.SDK.Package', 'Capa.PowerShell.Module.SDK.SystemSdk', 'Capa.PowerShell.Module.SDK.Unit', 'Capa.PowerShell.Module.SDK.User', 'Capa.PowerShell.Module.SDK.Utilities', 'Capa.PowerShell.Module.SDK.VPP', 'Capa.PowerShell.Module.SDK.WSUS',"Capa.PowerShell.Module.Tools")
+RequiredModules = @('Capa.PowerShell.Module.SDK.Authentication', 
+               'Capa.PowerShell.Module.SDK.Container', 
+               'Capa.PowerShell.Module.SDK.Group', 
+               'Capa.PowerShell.Module.SDK.Inventory', 
+               'Capa.PowerShell.Module.SDK.MDM', 
+               'Capa.PowerShell.Module.SDK.OSDeployment', 
+               'Capa.PowerShell.Module.SDK.Package', 
+               'Capa.PowerShell.Module.SDK.SystemSdk', 
+               'Capa.PowerShell.Module.SDK.Unit', 
+               'Capa.PowerShell.Module.SDK.User', 
+               'Capa.PowerShell.Module.SDK.Utilities', 
+               'Capa.PowerShell.Module.SDK.VPP', 
+               'Capa.PowerShell.Module.SDK.WSUS', 
+               'Capa.PowerShell.Module.Tools')
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -110,7 +123,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        # Prerelease = ''
+        Prerelease = 'Prerelease1'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

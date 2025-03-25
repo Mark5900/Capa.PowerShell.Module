@@ -246,7 +246,7 @@ function Invoke-RunAsLoggedOnUser {
     )
 
     try {
-        if ($Cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Call Invoke-RunAsLoggedOnUser with Command: '$Command', Arguments: '$Arguments'"
         }
 
@@ -262,14 +262,14 @@ function Invoke-RunAsLoggedOnUser {
         }
 
         if (!$UserId) {
-            if ($Cs) {
+            if ($global:cs) {
                 Job_WriteLog -Text 'Invoke-RunAsLoggedOnUser: No user found - User must be logged on physically.'
             }
             return 0
         }
 
         foreach ($User in $UserId) {
-            if ($Cs) {
+            if ($global:cs) {
                 Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: User detected using process owner: '$($User)'"
             }
 
@@ -279,14 +279,14 @@ function Invoke-RunAsLoggedOnUser {
             if ($SchedTask) {
                 Start-ScheduledTask -TaskName 'PowerPackUserJob'
 
-                if ($Cs) {
+                if ($global:cs) {
                     Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: Scheduled Task 'PowerPackUserJob' has been started."
                 }
 
                 $Count = 0
                 $TaskState = (Get-ScheduledTask -TaskName 'PowerPackUserJob' -ErrorAction SilentlyContinue).State
 
-                if ($Cs) {
+                if ($global:cs) {
                     Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: Scheduled Task 'PowerPackUserJob' state: $TaskState"
                 }
 
@@ -296,7 +296,7 @@ function Invoke-RunAsLoggedOnUser {
                         $Count++
                         $TaskState = (Get-ScheduledTask -TaskName 'PowerPackUserJob' -ErrorAction SilentlyContinue).State
 
-                        if ($Cs -and $Count % 10 -eq 0) {
+                        if ($global:cs -and $Count % 10 -eq 0) {
                             Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: Scheduled Task 'PowerPackUserJob' current state: $TaskState"
                         }
 
@@ -306,14 +306,14 @@ function Invoke-RunAsLoggedOnUser {
                     }
 
                     $TaskState = (Get-ScheduledTask -TaskName 'PowerPackUserJob').State
-                    if ($Cs) {
+                    if ($global:cs) {
                         Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: Scheduled Task 'PowerPackUserJob' ended with state: $TaskState"
                     }
                 }
             }
 
             Get-ScheduledTask | Where-Object { $_.taskname -ilike 'PowerPackUserJob' } | Unregister-ScheduledTask -Confirm:$false
-            if ($Cs) {
+            if ($global:cs) {
                 Job_WriteLog -Text 'Invoke-RunAsLoggedOnUser: Completed with success.'
             }
         }
@@ -321,17 +321,17 @@ function Invoke-RunAsLoggedOnUser {
         return 0
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
-        if ($Cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: Error Line: $_.InvocationInfo.Line"
         }
 
         Write-Error 'Error Item: '$_.Exception.ItemName
-        if ($Cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: Error Item: $_.Exception.ItemName"
         }
 
         Unregister-ScheduledTask -TaskName 'PowerPackUserJob' -Confirm:$false -ErrorAction SilentlyContinue
-        if ($Cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Invoke-RunAsLoggedOnUser: '$_.Exception.HResult'"
         }
 
@@ -408,16 +408,16 @@ function Register-Powerpack {
         }
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog "Register-Powerpack: Error Line: $($_.InvocationInfo.Line)"
         }
 
         Write-Error 'Error Item: '$_.Exception.ItemName
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Register-Powerpack: Error Item: $_.Exception.ItemName"
         }
 
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Register-Powerpack: '$_.Exception.HResult'"
         }
         $_.Exception.HResult
@@ -441,17 +441,17 @@ function Register-Powerpack {
 #>
 function Start-PSDownloadPackage {
     try {
-        $Return = $InputObject.DownloadPackage()
+        $Return = $Global:InputObject.DownloadPackage()
         Job_WriteLog -Text "Downloading package: $AppName"
         Write-Host "Downloading package: $AppName"
 
         Do {
             Start-Sleep -Seconds 1
-            $Progress = $InputObject.DownloadProgress
+            $Progress = $Global:InputObject.DownloadProgress
 
             if ($Progress -eq -1) {
                 $Message = '[Line ' + $_.InvocationInfo.ScriptLineNumber + '] ' + $_.Exception.Message
-                $HResult = $InputObject.ExceptionHResult
+                $HResult = $Global:InputObject.ExceptionHResult
                 Write-Error "Download failed: $HResult $Message"
                 Job_WriteLog -Text "Download failed: $HResult $Message"
                 Exit-PpScript 3322
@@ -504,16 +504,16 @@ function Unregister-Powerpack {
         Reg_DelTree -RegRoot HKLM -RegPath "Software\Capasystems\Powerpacks\$Application"
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Unregister-Powerpack: Error Line: $($_.InvocationInfo.Line)"
         }
 
         Write-Error 'Error Item: '$_.Exception.ItemName
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Unregister-Powerpack: Error Item: $($_.Exception.ItemName)"
         }
 
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Unregister-Powerpack: '$($_.Exception.HResult)'"
         }
         $_.Exception.HResult

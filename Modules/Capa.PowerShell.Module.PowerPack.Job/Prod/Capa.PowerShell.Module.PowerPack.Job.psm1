@@ -15,7 +15,7 @@
         Custom command
 #>
 function Job_DisableLog {
-    $Cs.Job_DisableLog()
+    $global:cs.Job_DisableLog()
 }
 
 
@@ -35,7 +35,7 @@ function Job_DisableLog {
         Custom command
 #>
 function Job_EnableLog {
-    $Cs.Job_EnableLog()
+    $global:cs.Job_EnableLog()
 }
 
 
@@ -59,29 +59,29 @@ function Job_EnableLog {
 #>
 function Job_RebootWS {
     [CmdletBinding()]
-    [Aliases('Invoke-Job_RebootWS')]
+    [Alias('Invoke-Job_RebootWS')]
     Param(
         [Parameter(Mandatory = $false)]
         [string]$Text
     )
     try {
         Write-Host $Text
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Call Invoke-Job_RebootWS with text: '$Text'"
         }
-        if ($InputObject) { $InputObject.RebootRequested = $true }
+        if ($Global:InputObject) { $Global:InputObject.RebootRequested = $true }
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Invoke-Job_RebootWS: Error Line: $($_.InvocationInfo.Line)"
         }
 
         Write-Error 'Error Item: '$_.Exception.ItemName
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Invoke-Job_RebootWS: Error Item: $($_.Exception.ItemName)"
         }
 
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Invoke-Job_RebootWS: '$($_.Exception.HResult)'"
         }
         $_.Exception.HResult
@@ -158,17 +158,18 @@ function Job_Start {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455683/cs.Job+WriteLog
 #>
 function Job_WriteLog {
-    param (
-        [string]$FunctionName = '',
-        [Parameter(Mandatory = $true)]
-        [string]$Text
-    )
+	param (
+		[Parameter(Mandatory = $true)]
+		[string]$Text,
+		[Parameter(Mandatory = $false)]
+		[string]$FunctionName = ''
+	)
 
-    if ($FunctionName -ne '') {
-        $Global:Cs.Job_WriteLog($FunctionName, $Text)
-    } else {
-        $Global:Cs.Job_WriteLog($Text)
-    }
+	if ($FunctionName -ne '') {
+		$Global:Cs.Job_WriteLog($FunctionName, $Text)
+	} else {
+		$Global:Cs.Job_WriteLog($Text)
+	}
 }
 
 

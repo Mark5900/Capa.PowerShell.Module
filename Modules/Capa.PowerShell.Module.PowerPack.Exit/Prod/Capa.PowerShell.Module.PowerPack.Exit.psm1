@@ -592,40 +592,40 @@ function Exit-PpScript() {
         [string]$ExitMessage
     )
     $Global:Cs.AutoSectionHeader = $false
-    if ($ExitMessage) { 
+    if ($ExitMessage) {
         Job_WriteLog -Text $ExitMessage
     }
-    
-    $IgnoreAndContinueErrors = @(3010)
 
-    if ($ExitCode.count -eq 0) { 
-        $ExitNumber = 0
-        [string]$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber)" 
-    } elseif ($ExitCode -is [System.Collections.ArrayList]) {
-        $ExitNumber = $ExitCode[0].Exception.HResult
-        if (!$IgnoreAndContinueErrors.Contains($ExitNumber)) { 
-            Job_WriteLog -Text "$($ExitCode[0].Exception.Message)"
-        }
-        $ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber) - in line: $($ExitCode[0].InvocationInfo.ScriptLineNumber)"
-    } else {
-        # Must be integer - handle as such
-        if ([string]::IsNullOrWhiteSpace($ExitCode)) { 
-            $ExitCode = 0 
-        }
-        if ($IgnoreAndContinueErrors.Contains($ExitCode)) {
-            $Ex = New-Object System.ApplicationException
-            $Ex.hresult = $ExitCode
-            Write-Error -Exception $Ex -ErrorAction SilentlyContinue
-            return
-        } else {
-            $ExitNumber = $ExitCode
-            [string]$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber)"
-        }
-    }
-    
+	$IgnoreAndContinueErrors = @(3010)
+
+	if ($ExitCode.count -eq 0) {
+		$ExitNumber = 0
+		[string]$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber)"
+	} elseif ($ExitCode -is [System.Collections.ArrayList]) {
+		$ExitNumber = $ExitCode[0].Exception.HResult
+		if (!$IgnoreAndContinueErrors.Contains($ExitNumber)) {
+			Job_WriteLog -Text "$($ExitCode[0].Exception.Message)"
+		}
+		$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber) - in line: $($ExitCode[0].InvocationInfo.ScriptLineNumber)"
+	} else {
+		# Must be integer - handle as such
+		if ([string]::IsNullOrWhiteSpace($ExitCode)) {
+			$ExitCode = 0
+		}
+		if ($IgnoreAndContinueErrors.Contains($ExitCode)) {
+			$Ex = New-Object System.ApplicationException
+			$Ex.hresult = $ExitCode
+			Write-Error -Exception $Ex -ErrorAction SilentlyContinue
+			return
+		} else {
+			$ExitNumber = $ExitCode
+			[string]$ErrorMessage = "SCRIPT ENDED WITH EXITCODE: $($ExitNumber)"
+		}
+	}
+
     Job_WriteLog -Text $ErrorMessage
-    if ($InputObject) {
-        $InputObject.ExitCode = $ExitNumber 
+    if ($Global:InputObject) {
+        $Global:InputObject.ExitCode = $ExitNumber
     }
     exit $ExitNumber
 }

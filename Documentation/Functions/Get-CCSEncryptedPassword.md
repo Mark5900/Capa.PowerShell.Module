@@ -1,24 +1,25 @@
-# Job_RebootWS
+# Get-CCSEncryptedPassword
 
-Module: Capa.PowerShell.Module.PowerPack.Job
+Module: Capa.PowerShell.Module.CCS
 
 ## SYNOPSIS
-Job request reboot of the workstation
+This function encrypts a string using the InstallationScreen.exe utility.
 
 ## SYNTAX
 
 ```
-Job_RebootWS [[-Text] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Get-CCSEncryptedPassword [-String] <String> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Job request reboot of the workstation
+This function takes a string as input and uses the InstallationScreen.exe utility to encrypt it.
+The encrypted string is returned as output and used multiple times, when working with the CCS Webservice.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Job_RebootWS -Text 'Reboot requested'
+Get-CCSEncryptedPassword -String "Admin1234"
 ```
 
 ## PARAMETERS
@@ -38,15 +39,15 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Text
-The text to write to the log
+### -String
+The string to be encrypted.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 1
 Default value: None
 Accept pipeline input: False
@@ -61,6 +62,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-Command from PSlib.psm1
 
 ## RELATED LINKS

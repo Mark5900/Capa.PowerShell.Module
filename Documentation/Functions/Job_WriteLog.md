@@ -8,7 +8,7 @@ This function will write a log entry.
 ## SYNTAX
 
 ```
-Job_WriteLog [[-FunctionName] <String>] [-Text] <String> [-ProgressAction <ActionPreference>]
+Job_WriteLog [-Text] <String> [[-FunctionName] <String>] [-ProgressAction <ActionPreference>]
  [<CommonParameters>]
 ```
 
@@ -39,7 +39,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -69,7 +69,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 2
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

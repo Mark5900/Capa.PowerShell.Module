@@ -1,24 +1,26 @@
-# Job_RebootWS
+# Initialize-CCS
 
-Module: Capa.PowerShell.Module.PowerPack.Job
+Module: Capa.PowerShell.Module.CCS
 
 ## SYNOPSIS
-Job request reboot of the workstation
+This function initializes the CCS Webservice client.
 
 ## SYNTAX
 
 ```
-Job_RebootWS [[-Text] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Initialize-CCS [-Url] <String> [-WebServiceCredential] <PSCredential> [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Job request reboot of the workstation
+This function initializes the CCS Webservice client by loading the necessary DLL and setting up the binding and endpoint.
+It also sets the client credentials for authentication.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Job_RebootWS -Text 'Reboot requested'
+Initialize-CCS -Url "https://example.com/CCSWebservice/CCS.asmx" -WebServiceCredential $Credential
 ```
 
 ## PARAMETERS
@@ -38,16 +40,31 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Text
-The text to write to the log
+### -Url
+The URL of the CCS Webservice.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WebServiceCredential
+The credentials used to authenticate with the CCS Webservice.
+
+```yaml
+Type: PSCredential
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -61,6 +78,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-Command from PSlib.psm1
 
 ## RELATED LINKS

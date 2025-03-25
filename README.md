@@ -1,4 +1,5 @@
 # Capa.PowerShell.Module
+[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
 This modules is made to use [CapaInstaller Software Development Kit functions](https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246085/SDK+-+CapaInstaller+Software+Development+Kit+functions) in PowerShell 7 and now also supports [PowerPacks](https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455297/PowerShell+Scripting+Library).
 Any help and feedback is welcome! 😁
@@ -77,7 +78,7 @@ Import-Module Capa.PowerShell.Module.SDK.Units
     .NOTES
     ===========================================================================
     Created with: 	Visual Studio Code
-    Created on: 
+    Created on:
     Created by:   	MARA
     Organization: IT-Center Fyn
     Filename:
@@ -122,7 +123,7 @@ Name           : CIKURSUS
 Created        : 11-11-2021 14:24:23
 LastExecuted   : 22-03-2023 19:14:03
 Status         : Active
-Description    : 
+Description    :
 GUID           : bc79d9fc-67d8-4221-bd81-423652ed7615
 ID             : 2
 TypeName       : Users
@@ -134,7 +135,7 @@ Name           : ADMINISTRATOR
 Created        : 18-11-2021 15:11:46
 LastExecuted   : 18-11-2021 15:12:45
 Status         : Active
-Description    : 
+Description    :
 GUID           : 883853dc-fafd-4a94-9a85-dff6e8d360e1
 ID             : 6
 TypeName       : Users

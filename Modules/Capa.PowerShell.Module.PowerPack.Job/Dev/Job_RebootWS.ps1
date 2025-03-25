@@ -18,29 +18,29 @@
 #>
 function Job_RebootWS {
     [CmdletBinding()]
-    [Aliases('Invoke-Job_RebootWS')]
+    [Alias('Invoke-Job_RebootWS')]
     Param(
         [Parameter(Mandatory = $false)]
         [string]$Text
     )
     try {
         Write-Host $Text
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Call Invoke-Job_RebootWS with text: '$Text'"
         }
-        if ($InputObject) { $InputObject.RebootRequested = $true }
+        if ($Global:InputObject) { $Global:InputObject.RebootRequested = $true }
     } catch {
         Write-Error 'Error Line: ' $_.InvocationInfo.Line
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Invoke-Job_RebootWS: Error Line: $($_.InvocationInfo.Line)"
         }
 
         Write-Error 'Error Item: '$_.Exception.ItemName
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Invoke-Job_RebootWS: Error Item: $($_.Exception.ItemName)"
         }
 
-        if ($cs) {
+        if ($global:cs) {
             Job_WriteLog -Text "Invoke-Job_RebootWS: '$($_.Exception.HResult)'"
         }
         $_.Exception.HResult

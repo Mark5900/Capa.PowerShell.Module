@@ -14,5 +14,5 @@
         Custom command
 #>
 function Job_EnableLog {
-    $Cs.Job_EnableLog()
+    $global:cs.Job_EnableLog()
 }

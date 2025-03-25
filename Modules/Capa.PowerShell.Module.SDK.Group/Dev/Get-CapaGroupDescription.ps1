@@ -20,7 +20,7 @@
 				PS C:\> Get-CapaGroupDescription -CapaSDK $CapaSDK -GroupName 'Default' -GroupType Static
 
 	.NOTES
-		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246264/Get+Group+Description
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580968/Get+Group+Description
 #>
 function Get-CapaGroupDescription {
 	[CmdletBinding()]

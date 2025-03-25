@@ -8,7 +8,7 @@ Initialize global variables
 ## SYNTAX
 
 ```
-Initialize-PpVariables [-DllPath] <String> [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Initialize-PpVariables [[-DllPath] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -31,9 +31,9 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 1
-Default value: None
+Default value: $Global:DllPath
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

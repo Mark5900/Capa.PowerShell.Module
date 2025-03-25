@@ -1,8 +1,14 @@
 # Overview of all functions in modules
 
+## Capa.PowerShell.Module.CCS
+
+- [Get-CCSEncryptedPassword](Functions/Get-CCSEncryptedPassword.md)
+- [Initialize-CCS](Functions/Initialize-CCS.md)
+- [Remove-CCSADComputer](Functions/Remove-CCSADComputer.md)
 ## Capa.PowerShell.Module.PowerPack
 
 - [Add-PpDll](Functions/Add-PpDll.md)
+- [Initialize-PpInputObject](Functions/Initialize-PpInputObject.md)
 - [Initialize-PpVariables](Functions/Initialize-PpVariables.md)
 - [Invoke-RunAsLoggedOnUser](Functions/Invoke-RunAsLoggedOnUser.md)
 - [Register-Powerpack](Functions/Register-Powerpack.md)
@@ -342,6 +348,7 @@ This module contains custom functions that are include bothe in the SDK and Powe
 - [Get-ScriptDirectory](Functions/Get-ScriptDirectory.md)
 - [Invoke-BaseAgentDownloadFile](Functions/Invoke-BaseAgentDownloadFile.md)
 - [Invoke-DownloadCapaPackage](Functions/Invoke-DownloadCapaPackage.md)
+- [New-MessageBox](Functions/New-MessageBox.md)
 - [Start-ScriptLogging](Functions/Start-ScriptLogging.md)
 - [Stop-ScriptLogging](Functions/Stop-ScriptLogging.md)
 - [Write-LogLine](Functions/Write-LogLine.md)

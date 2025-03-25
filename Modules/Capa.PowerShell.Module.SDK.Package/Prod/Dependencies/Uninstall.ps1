@@ -1,16 +1,16 @@
 [CmdletBinding()]
 Param(
-	[Parameter(Mandatory = $true)]
+	[Parameter(Mandatory = $false)]
 	[string]$Packageroot,
-	[Parameter(Mandatory = $true)]
+	[Parameter(Mandatory = $false)]
 	[string]$AppName,
-	[Parameter(Mandatory = $true)]
+	[Parameter(Mandatory = $false)]
 	[string]$AppRelease,
-	[Parameter(Mandatory = $true)]
+	[Parameter(Mandatory = $false)]
 	[string]$LogFile,
-	[Parameter(Mandatory = $true)]
+	[Parameter(Mandatory = $false)]
 	[string]$TempFolder,
-	[Parameter(Mandatory = $true)]
+	[Parameter(Mandatory = $false)]
 	[string]$DllPath,
 	[Parameter(Mandatory = $false)]
 	[Object]$InputObject = $null
@@ -45,6 +45,7 @@ function Begin {
 	Log_SectionHeader -Name 'Begin'
 	Job_WriteLog -Text ("[Init]: Starting package: '" + $Global:AppName + "' Release: '" + $Global:AppRelease + "'")
 	If (!(Sys_IsMinimumRequiredDiskspaceAvailable -Drive 'c:' -MinimumRequiredDiskspace 1500)) { Exit-PpMissingDiskSpace }
+	Initialize-PpInputObject
 	If ($global:DownloadPackage -and $Global:InputObject) { Start-PSDownloadPackage }
 	Initialize-PpVariables -DllPath $Global:DllPath
 
@@ -72,10 +73,10 @@ function PostUninstall {
 ### Main ###
 ############
 try {
-	Begin -InputObject $Global:InputObject -Packageroot $Global:Packageroot -AppName $Global:AppName -AppRelease $Global:AppRelease -LogFile $Global:LogFile -TempFolder $Global:TempFolder -DllPath $Global:DllPath
-	PreInstall
-	Install
-	PostInstall
+	Begin
+	PreUninstall
+	Uninstall
+	PostUninstall
 	Exit-PpScript $Error
 } catch {
 	$line = $_.InvocationInfo.ScriptLineNumber

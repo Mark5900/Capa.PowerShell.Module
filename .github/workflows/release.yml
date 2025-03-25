@@ -7,8 +7,10 @@ on:
       - main
       - auto-release
       - Auto-release
+      - Prerelease
     paths:
       - "Modules/**"
+
 
 jobs:
   release:
@@ -42,7 +44,7 @@ jobs:
       - name: Install PSMSI module
         run: pwsh -Command "Install-Module -Name PSMSI -Force -Scope CurrentUser"
 
-      - name: Install platyPS
+      - name: Install platyPS module
         run: pwsh -Command "Install-Module -Name platyPS -Force -Scope CurrentUser"
 
       - name: Install @semantic-release/git

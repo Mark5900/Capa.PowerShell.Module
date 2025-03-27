@@ -3,6 +3,7 @@ $Url = 'https://mracapa02.capainstaller.com/CCSWebservice/CCS.asmx'
 $CCSCredential = Get-Credential
 $DomainCredential = Get-Credential
 Add-CCSADComputerToSecurityGroup -ComputerName 'MRADTEST02' -SecurityGroupName 'TestGruppe' -Domain 'Firmax.local' -Url $Url -CCSCredential $CCSCredential -DomainCredential $DomainCredential
+Add-CCSADComputerToSecurityGroup -ComputerName 'MRADTEST02' -SecurityGroupName 'TestGruppe1' -Domain 'Firmax.local' -Url $Url -CCSCredential $CCSCredential -DomainCredential $DomainCredential
 
 $Splat = @{
 	ComputerName     = 'MRADTEST02'

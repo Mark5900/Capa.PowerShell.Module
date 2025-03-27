@@ -57,7 +57,7 @@ function Add-CCSADComputerToSecurityGroup {
 	$FunctionName = 'Add-CCSADComputerToSecurityGroup'
 
 	if ($Global:Cs) {
-		Job_WriteLog -Text "Add-CCSADComputerToSecurityGroup: ComputerName: $ComputerName, SecurityGroupName: $SecurityGroupName, DomainOUPath: $DomainOUPath, Domain: $Domain, Url: $Url, PasswordIsEncrypted: $PasswordIsEncrypted"
+		Job_WriteLog -Text "$FunctionName ComputerName: $ComputerName, SecurityGroupName: $SecurityGroupName, DomainOUPath: $DomainOUPath, Domain: $Domain, Url: $Url, PasswordIsEncrypted: $PasswordIsEncrypted"
 	}
 
 	$CCS = Initialize-CCS -Url $Url -WebServiceCredential $CCSCredential
@@ -79,15 +79,15 @@ function Add-CCSADComputerToSecurityGroup {
 	)
 
 	if ($Global:Cs) {
-		Job_WriteLog -Text "Add-CCSADComputerToSecurityGroup: Result: $Result"
+		Job_WriteLog -Text "$FunctionName Result: $Result"
 	}
 
 	switch -Wildcard ($Result) {
 		'*does not exist*' {
-			throw $Result
+			throw "$FunctionName $Result"
 		}
 		'The server is unwilling to process the request*' {
-			throw $Result
+			throw "$FunctionName $Result"
 		}
 		default {
 			return $Result

@@ -118,7 +118,21 @@ function Update-APSDFile {
 					#ModuleVersion = $UseModuleVersion
 					#}
 
-					$NewRequiredModules += $module.ModuleName
+					#$NewRequiredModules += $module.ModuleName
+					if ([string]::IsNullOrEmpty($module.ModuleName)) {
+						$ModuleName = $module
+					} else {
+						$ModuleName = $module.ModuleName
+					}
+
+					if ($Prerelease) {
+						$NewRequiredModules += $ModuleName
+					} else {
+						$NewRequiredModules += @{
+							ModuleName    = $ModuleName
+							ModuleVersion = $Version
+						}
+					}
 				}
 				$NewManifest[$key.Key] = $NewRequiredModules
 			}
@@ -154,7 +168,6 @@ function Update-PSDVersions {
 			Update-APSDFile -Version $Version -Path $PsdPath
 		}
 	}
-
 }
 function New-ModuleInstaller {
 	param (

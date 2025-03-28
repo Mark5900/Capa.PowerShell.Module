@@ -12,7 +12,7 @@
 RootModule = '.\Capa.PowerShell.Module.PowerPack.File.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.13.0'
+ModuleVersion = '1.13.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -115,7 +115,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        # Prerelease = ''
+        Prerelease = 'Prerelease1'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

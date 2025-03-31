@@ -82,15 +82,10 @@ function Add-CCSADComputerToSecurityGroup {
 		Job_WriteLog -Text "$FunctionName Result: $Result"
 	}
 
-	switch -Wildcard ($Result) {
-		'*does not exist*' {
-			throw "$FunctionName $Result"
-		}
-		'The server is unwilling to process the request*' {
-			throw "$FunctionName $Result"
-		}
-		default {
-			return $Result
-		}
+	$Throw = Invoke-CCSIsError -Result $Result
+	if ($Throw) {
+		throw "$FunctionName $Result"
 	}
+
+	return $Result
 }

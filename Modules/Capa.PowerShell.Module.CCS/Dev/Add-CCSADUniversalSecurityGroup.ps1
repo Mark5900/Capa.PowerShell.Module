@@ -28,6 +28,9 @@
 
 	.PARAMETER PasswordIsEncrypted
 		Indicates whether the AD password is encrypted.
+
+	.EXAMPLE
+		Add-CCSADUniversalSecurityGroup -GroupName 'TestGroup' -Description 'Test Description' -DomainOUPath 'OU=Groups,DC=example,DC=com' -Domain 'example.com' -Url 'https://example.com/CCSWebservice/CCS.asmx' -CCSCredential $CCSCredential -DomainCredential $DomainCredential -PasswordIsEncrypted $false
 #>
 function Add-CCSADUniversalSecurityGroup {
 	param (
@@ -75,4 +78,11 @@ function Add-CCSADUniversalSecurityGroup {
 	if ($Global:Cs) {
 		Job_WriteLog -Text "$FunctionName Result: $Result"
 	}
+
+	$Throw = Invoke-CCSIsError -Result $Result
+	if ($Throw) {
+		throw "$FunctionName $Result"
+	}
+
+	return $Result
 }

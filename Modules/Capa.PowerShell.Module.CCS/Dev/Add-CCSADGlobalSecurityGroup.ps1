@@ -79,5 +79,10 @@ function Add-CCSADGlobalSecurityGroup {
 		Job_WriteLog -Text "$FunctionName Result: $Result"
 	}
 
+	$Throw = Invoke-CCSIsError -Result $Result
+	if ($Throw) {
+		throw "$FunctionName $Result"
+	}
+
 	return $Result
 }

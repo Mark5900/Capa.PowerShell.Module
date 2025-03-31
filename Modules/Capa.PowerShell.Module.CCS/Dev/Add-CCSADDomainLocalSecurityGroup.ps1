@@ -28,6 +28,9 @@
 
 	.PARAMETER PasswordIsEncrypted
 		Indicates if the password in the DomainCredential is encrypted. Default is false.
+
+	.EXAMPLE
+		Add-CCSADDomainLocalSecurityGroup -GroupName 'TestGroup' -Description 'Test Description' -DomainOUPath 'OU=Groups,DC=example,DC=com' -Domain 'example.com' -Url 'https://example.com/CCSWebservice/CCS.asmx' -CCSCredential $CCSCredential -DomainCredential $DomainCredential -PasswordIsEncrypted $false
 #>
 function Add-CCSADDomainLocalSecurityGroup {
 	param (
@@ -74,6 +77,11 @@ function Add-CCSADDomainLocalSecurityGroup {
 
 	if ($Global:Cs) {
 		Job_WriteLog -Text "$FunctionName Result: $Result"
+	}
+
+	$Throw = Invoke-CCSIsError -Result $Result
+	if ($Throw) {
+		throw "$FunctionName $Result"
 	}
 
 	return $Result

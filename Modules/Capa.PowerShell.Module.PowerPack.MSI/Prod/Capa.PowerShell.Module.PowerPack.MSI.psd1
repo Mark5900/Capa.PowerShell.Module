@@ -34,7 +34,7 @@ Description = 'PowerShell module for CapaInstaller PowerPacks containing functio
 	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455297/PowerShell+Scripting+Library'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '7.4'
+PowerShellVersion = '7.0'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -70,8 +70,8 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'MSI_GetProductCodeFromMSI', 'MSI_GetPropertyFromMSI', 
-               'MSI_GetPropertiesFromMSI', 'MSI_IsMSIFileInstalled', 
+FunctionsToExport = 'MSI_GetProductCodeFromMSI', 'MSI_GetPropertyFromMSI',
+               'MSI_GetPropertiesFromMSI', 'MSI_IsMSIFileInstalled',
                'MSI_IsMSIGuidInstalled', 'Install-PpMSI', 'Uninstall-PpMSI'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

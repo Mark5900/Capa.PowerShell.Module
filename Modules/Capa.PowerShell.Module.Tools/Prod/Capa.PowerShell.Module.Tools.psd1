@@ -33,7 +33,7 @@ Copyright = '(c) Mark5900. All rights reserved.'
 Description = 'PowerShell module for CapaInstaller containing tools for CapaInstaller and PowerPacks.'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '7.4'
+	PowerShellVersion    = '7.0'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -69,8 +69,8 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Start-ScriptLogging', 'Stop-ScriptLogging', 'Write-LogLine', 
-               'Invoke-BaseAgentDownloadFile', 'Invoke-DownloadCapaPackage', 
+FunctionsToExport = 'Start-ScriptLogging', 'Stop-ScriptLogging', 'Write-LogLine',
+               'Invoke-BaseAgentDownloadFile', 'Invoke-DownloadCapaPackage',
                'Expand-KitFile', 'Get-ScriptDirectory', 'New-MessageBox'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

@@ -33,7 +33,7 @@ Copyright = '(c) Mark5900. All rights reserved.'
 Description = 'PowerShell module for CapaInstaller PowerPacks containing functions for Winget commands.'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '7.4'
+PowerShellVersion = '7.0'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -69,9 +69,9 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Add-PpWingetScopeMachine', 'Confirm-PpWingetAppInstall', 
-               'Find-PpWinGet', 'Get-PpWingetReturnCodeDescription', 
-               'Install-PpWingetApp', 'Install-PpWingetPrerequisites', 
+FunctionsToExport = 'Add-PpWingetScopeMachine', 'Confirm-PpWingetAppInstall',
+               'Find-PpWinGet', 'Get-PpWingetReturnCodeDescription',
+               'Install-PpWingetApp', 'Install-PpWingetPrerequisites',
                'Uninstall-PpWingetApp', 'Update-PpWingetApp'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

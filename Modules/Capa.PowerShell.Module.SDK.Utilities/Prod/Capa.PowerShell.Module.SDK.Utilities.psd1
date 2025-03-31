@@ -34,7 +34,7 @@ Description = 'PowerShell module for CapaInstaller SDK containing functions for 
 	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19382173123/SDK+-+CapaInstaller+Software+Development+Kit+functions'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '7.4'
+	PowerShellVersion    = '7.0'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -70,7 +70,7 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Create-CapaADGroup', 'Get-CapaLog', 'Get-CapaReinstallStatus', 
+FunctionsToExport = 'Create-CapaADGroup', 'Get-CapaLog', 'Get-CapaReinstallStatus',
                'Move-CapaDeviceToPoint', 'Restart-CapaAgent', 'Set-CapaWakeOnLAN'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

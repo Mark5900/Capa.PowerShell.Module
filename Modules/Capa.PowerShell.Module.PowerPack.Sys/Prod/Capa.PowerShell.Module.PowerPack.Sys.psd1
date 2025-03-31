@@ -34,7 +34,7 @@ Description = 'PowerShell module for CapaInstaller PowerPacks containing functio
 	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455297/PowerShell+Scripting+Library'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '7.4'
+PowerShellVersion = '7.0'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -70,8 +70,8 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Sys_GetFreeDiskSpace', 'Sys_ExistProcess', 'Sys_KillProcess', 
-               'Sys_IsMinimumRequiredDiskspaceAvailable', 'Sys_WaitForProcess', 
+FunctionsToExport = 'Sys_GetFreeDiskSpace', 'Sys_ExistProcess', 'Sys_KillProcess',
+               'Sys_IsMinimumRequiredDiskspaceAvailable', 'Sys_WaitForProcess',
                'Sys_WaitForProcessToExist', 'Show-PpMessageBox'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

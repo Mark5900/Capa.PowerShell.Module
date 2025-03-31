@@ -34,7 +34,7 @@ Description = 'PowerShell module for CapaInstaller PowerPacks containing functio
 	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455297/PowerShell+Scripting+Library'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '7.4'
+PowerShellVersion = '7.0'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -70,15 +70,15 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Exit-PpRetryLater', 'Exit_ApplicationAlreadyInstalled', 
-               'Exit-PpRebootRequested', 'Exit-PpMissingDiskSpace', 
-               'Exit-PpCommandSucceded', 'Exit-PpModuleNotFound', 
-               'Exit-PpCommandObsolete', 'Exit-PpCommandNotDelivered', 
-               'Exit-PpCommandTimedOut', 'Exit-PpCommandFailed', 
-               'Exit-PpApplicationAlreadyInstalled', 'Exit_CommandHandlingFailed', 
-               'Exit-PpCommandNotRecognized', 'Exit-PpPowerShellExecutionFailed', 
-               'Exit-PpPackageNotCompliant', 'Exit-PpPackageCancelled', 
-               'Exit-PpPackageFailedInstall', 'Exit-PpPackageFailedUninstall', 
+FunctionsToExport = 'Exit-PpRetryLater', 'Exit_ApplicationAlreadyInstalled',
+               'Exit-PpRebootRequested', 'Exit-PpMissingDiskSpace',
+               'Exit-PpCommandSucceded', 'Exit-PpModuleNotFound',
+               'Exit-PpCommandObsolete', 'Exit-PpCommandNotDelivered',
+               'Exit-PpCommandTimedOut', 'Exit-PpCommandFailed',
+               'Exit-PpApplicationAlreadyInstalled', 'Exit_CommandHandlingFailed',
+               'Exit-PpCommandNotRecognized', 'Exit-PpPowerShellExecutionFailed',
+               'Exit-PpPackageNotCompliant', 'Exit-PpPackageCancelled',
+               'Exit-PpPackageFailedInstall', 'Exit-PpPackageFailedUninstall',
                'Exit-PpScript'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

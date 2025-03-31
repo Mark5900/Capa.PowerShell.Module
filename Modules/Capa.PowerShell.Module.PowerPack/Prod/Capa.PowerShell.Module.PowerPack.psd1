@@ -33,7 +33,7 @@ Copyright = '(c) Mark5900. All rights reserved.'
 Description = 'PowerShell module for CapaInstaller containing functions for PowerPacks.'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '7.4'
+PowerShellVersion = '7.0'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -51,20 +51,20 @@ ClrVersion = '2.0.50727'
 ProcessorArchitecture = 'None'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.PowerPack.CMS'; ModuleVersion = '1.13.1'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Exit'; ModuleVersion = '1.13.1'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.File'; ModuleVersion = '1.13.1'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Ini'; ModuleVersion = '1.13.1'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; ModuleVersion = '1.13.1'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Log'; ModuleVersion = '1.13.1'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.MSI'; ModuleVersion = '1.13.1'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Reg'; ModuleVersion = '1.13.1'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Service'; ModuleVersion = '1.13.1'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Shell'; ModuleVersion = '1.13.1'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Sys'; ModuleVersion = '1.13.1'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.UsrMgr'; ModuleVersion = '1.13.1'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Winget'; ModuleVersion = '1.13.1'; }, 
-               @{ModuleName = 'Capa.PowerShell.Module.Tools'; ModuleVersion = '1.13.1'; }, 
+RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.PowerPack.CMS'; ModuleVersion = '1.13.1'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Exit'; ModuleVersion = '1.13.1'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.File'; ModuleVersion = '1.13.1'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Ini'; ModuleVersion = '1.13.1'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; ModuleVersion = '1.13.1'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Log'; ModuleVersion = '1.13.1'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.MSI'; ModuleVersion = '1.13.1'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Reg'; ModuleVersion = '1.13.1'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Service'; ModuleVersion = '1.13.1'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Shell'; ModuleVersion = '1.13.1'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Sys'; ModuleVersion = '1.13.1'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.UsrMgr'; ModuleVersion = '1.13.1'; },
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Winget'; ModuleVersion = '1.13.1'; },
+               @{ModuleName = 'Capa.PowerShell.Module.Tools'; ModuleVersion = '1.13.1'; },
                @{ModuleName = 'Capa.PowerShell.Module.CCS'; ModuleVersion = '1.13.1'; })
 
 # Assemblies that must be loaded prior to importing this module
@@ -83,8 +83,8 @@ RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.PowerPack.CMS'; Modul
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Add-PpDll', 'Start-PSDownloadPackage', 'Invoke-RunAsLoggedOnUser', 
-               'Initialize-PpVariables', 'Register-Powerpack', 
+FunctionsToExport = 'Add-PpDll', 'Start-PSDownloadPackage', 'Invoke-RunAsLoggedOnUser',
+               'Initialize-PpVariables', 'Register-Powerpack',
                'Unregister-Powerpack', 'Initialize-PpInputObject'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

@@ -33,7 +33,7 @@ Copyright = '(c) Mark5900. All rights reserved.'
 Description = 'This module contains cmdlets for CapaInstaller SDK and PowerPack.'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '7.4'
+PowerShellVersion = '7.0'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -51,7 +51,7 @@ ClrVersion = '2.0.50727'
 ProcessorArchitecture = 'None'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.PowerPack'; ModuleVersion = '1.13.1'; }, 
+RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.PowerPack'; ModuleVersion = '1.13.1'; },
                @{ModuleName = 'Capa.PowerShell.Module.SDK'; ModuleVersion = '1.13.1'; })
 
 # Assemblies that must be loaded prior to importing this module

@@ -34,7 +34,7 @@ Description = 'PowerShell module for CapaInstaller SDK containing functions for 
 	For more information, see https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19382173123/SDK+-+CapaInstaller+Software+Development+Kit+functions'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '7.4'
+	PowerShellVersion    = '7.0'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''

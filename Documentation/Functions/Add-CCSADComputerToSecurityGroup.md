@@ -1,37 +1,33 @@
-# Remove-CCSADComputer
+# Add-CCSADComputerToSecurityGroup
 
 Module: Capa.PowerShell.Module.CCS
 
 ## SYNOPSIS
-Remove a computer from Active Directory using the CCS Web Service.
+Adds a computer to a security group in Active Directory using the CCS Web Service.
 
 ## SYNTAX
 
 ```
-Remove-CCSADComputer [-ComputerName] <String> [[-DomainOUPath] <String>] [-Domain] <String> [-Url] <String>
- [-CCSCredential] <PSCredential> [[-DomainCredential] <PSCredential>] [[-PasswordIsEncrypted] <Boolean>]
- [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Add-CCSADComputerToSecurityGroup [-ComputerName] <String> [-SecurityGroupName] <String>
+ [[-DomainOUPath] <String>] [-Domain] <String> [-Url] <String> [-CCSCredential] <PSCredential>
+ [[-DomainCredential] <PSCredential>] [[-PasswordIsEncrypted] <Boolean>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Removes a computer from Active Directory using the CCS Web Service.
+Adds a computer to a security group in Active Directory using the CCS Web Service.
 This function requires the CCS Web Service URL and credentials to access it.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Remove-CCSADComputer -ComputerName "TestPC" -DomainOUPath "OU=Computers,DC=example,DC=com" -Domain "example.com" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential
+Add-CCSADComputerToSecurityGroup -ComputerName "TestPC" -SecurityGroupName "TestGroup" -DomainOUPath "OU=Computers,DC=example,DC=com" -Domain "example.com" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential
 ```
 
 ### EXAMPLE 2
 ```
-Remove-CCSADComputer -ComputerName "TestPC" -DomainOUPath "OU=Computers,DC=example,DC=com" -Domain "example.com" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential -DomainCredential $DomainCredential
-```
-
-### EXAMPLE 3
-```
-Remove-CCSADComputer -ComputerName "TestPC" -DomainOUPath "LDAP://DC01.FirmaX.local/OU=Computers,DC=FirmaX,DC=local" -Domain "FirmaX.local" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential -DomainCredential $DomainCredential -PasswordIsEncrypted $true
+Add-CCSADComputerToSecurityGroup -ComputerName "TestPC" -SecurityGroupName "TestGroup" -DomainOUPath "OU=Computers,DC=example,DC=com" -Domain "example.com" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential -DomainCredential $DomainCredential
 ```
 
 ## PARAMETERS
@@ -45,14 +41,14 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 5
+Position: 6
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -ComputerName
-The name of the computer to be removed from Active Directory.
+The name of the computer to be added to the security group.
 
 ```yaml
 Type: String
@@ -75,14 +71,14 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 3
+Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -DomainCredential
-The credentials of an account with permissions to remove the computer from Active Directory, if not defined it will run in the CCSWebservice context.
+The credentials of an account with permissions to add the computer to the security group, if not defined it will run in the CCSWebservice context.
 
 ```yaml
 Type: PSCredential
@@ -90,7 +86,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 6
+Position: 7
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -105,7 +101,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -121,7 +117,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 7
+Position: 8
 Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -142,6 +138,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -SecurityGroupName
+The name of the security group to which the computer will be added.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Url
 The URL of the CCS Web Service.
 Example "https://example.com/CCSWebservice/CCS.asmx".
@@ -152,7 +163,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 4
+Position: 5
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

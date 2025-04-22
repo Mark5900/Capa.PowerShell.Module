@@ -31,6 +31,9 @@
 
 	.EXAMPLE
 		PS C:\> Remove-CCSADComputer -ComputerName "TestPC" -DomainOUPath "OU=Computers,DC=example,DC=com" -Domain "example.com" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential -DomainCredential $DomainCredential
+
+	.EXAMPLE
+		PS C:\> Remove-CCSADComputer -ComputerName "TestPC" -DomainOUPath "LDAP://DC01.FirmaX.local/OU=Computers,DC=FirmaX,DC=local" -Domain "FirmaX.local" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential -DomainCredential $DomainCredential -PasswordIsEncrypted $true
 #>
 function Remove-CCSADComputer {
 	param (

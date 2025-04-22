@@ -47,6 +47,5 @@ Describe 'Tests that should work' {
 AfterAll {
 	try {
 		Remove-ADComputer -Identity $ComputerName2 -Credential $DomainCredential -Confirm:$false
-	}
-	catch {}
+	} catch {}
 }

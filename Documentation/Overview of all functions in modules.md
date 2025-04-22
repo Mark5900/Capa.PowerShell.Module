@@ -2,8 +2,15 @@
 
 ## Capa.PowerShell.Module.CCS
 
+- [Add-CCSADComputerToSecurityGroup](Functions/Add-CCSADComputerToSecurityGroup.md)
+- [Add-CCSADDomainLocalSecurityGroup](Functions/Add-CCSADDomainLocalSecurityGroup.md)
+- [Add-CCSADGlobalSecurityGroup](Functions/Add-CCSADGlobalSecurityGroup.md)
+- [Add-CCSADUniversalSecurityGroup](Functions/Add-CCSADUniversalSecurityGroup.md)
+- [Add-CCSADUserToSecurityGroup](Functions/Add-CCSADUserToSecurityGroup.md)
+- [Get-CCSADComputerNames](Functions/Get-CCSADComputerNames.md)
 - [Get-CCSEncryptedPassword](Functions/Get-CCSEncryptedPassword.md)
 - [Initialize-CCS](Functions/Initialize-CCS.md)
+- [Invoke-CCSIsError](Functions/Invoke-CCSIsError.md)
 - [Remove-CCSADComputer](Functions/Remove-CCSADComputer.md)
 ## Capa.PowerShell.Module.PowerPack
 

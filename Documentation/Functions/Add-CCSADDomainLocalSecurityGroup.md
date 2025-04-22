@@ -1,37 +1,26 @@
-# Remove-CCSADComputer
+# Add-CCSADDomainLocalSecurityGroup
 
 Module: Capa.PowerShell.Module.CCS
 
 ## SYNOPSIS
-Remove a computer from Active Directory using the CCS Web Service.
+Creates a domain local security group in Active Directory.
 
 ## SYNTAX
 
 ```
-Remove-CCSADComputer [-ComputerName] <String> [[-DomainOUPath] <String>] [-Domain] <String> [-Url] <String>
- [-CCSCredential] <PSCredential> [[-DomainCredential] <PSCredential>] [[-PasswordIsEncrypted] <Boolean>]
- [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Add-CCSADDomainLocalSecurityGroup [-GroupName] <String> [[-Description] <String>] [[-DomainOUPath] <String>]
+ [-Domain] <String> [-Url] <String> [-CCSCredential] <PSCredential> [[-DomainCredential] <PSCredential>]
+ [[-PasswordIsEncrypted] <Boolean>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Removes a computer from Active Directory using the CCS Web Service.
-This function requires the CCS Web Service URL and credentials to access it.
+Creates a domain local security group in Active Directory using the CCS Web Service.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Remove-CCSADComputer -ComputerName "TestPC" -DomainOUPath "OU=Computers,DC=example,DC=com" -Domain "example.com" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential
-```
-
-### EXAMPLE 2
-```
-Remove-CCSADComputer -ComputerName "TestPC" -DomainOUPath "OU=Computers,DC=example,DC=com" -Domain "example.com" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential -DomainCredential $DomainCredential
-```
-
-### EXAMPLE 3
-```
-Remove-CCSADComputer -ComputerName "TestPC" -DomainOUPath "LDAP://DC01.FirmaX.local/OU=Computers,DC=FirmaX,DC=local" -Domain "FirmaX.local" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential -DomainCredential $DomainCredential -PasswordIsEncrypted $true
+Add-CCSADDomainLocalSecurityGroup -GroupName 'TestGroup' -Description 'Test Description' -DomainOUPath 'OU=Groups,DC=example,DC=com' -Domain 'example.com' -Url 'https://example.com/CCSWebservice/CCS.asmx' -CCSCredential $CCSCredential -DomainCredential $DomainCredential -PasswordIsEncrypted $false
 ```
 
 ## PARAMETERS
@@ -45,59 +34,14 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 5
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ComputerName
-The name of the computer to be removed from Active Directory.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Domain
-The domain in which the computer resides.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 3
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -DomainCredential
-The credentials of an account with permissions to remove the computer from Active Directory, if not defined it will run in the CCSWebservice context.
-
-```yaml
-Type: PSCredential
-Parameter Sets: (All)
-Aliases:
-
-Required: False
 Position: 6
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -DomainOUPath
-The Organizational Unit (OU) path in which the computer resides.
+### -Description
+A description for the security group.
 
 ```yaml
 Type: String
@@ -106,6 +50,66 @@ Aliases:
 
 Required: False
 Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Domain
+The domain in which the security group will be created.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DomainCredential
+The credentials of an account with permissions to create the security group, if not defined it will run in the CCSWebservice context.
+
+```yaml
+Type: PSCredential
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 7
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DomainOUPath
+The Organizational Unit (OU) path in which the security group will be created.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -GroupName
+The name of the security group to be created.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -121,7 +125,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 7
+Position: 8
 Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -152,7 +156,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 4
+Position: 5
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

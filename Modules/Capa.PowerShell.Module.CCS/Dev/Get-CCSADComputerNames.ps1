@@ -41,7 +41,7 @@ function Get-CCSADComputerNames {
 		[Parameter(Mandatory = $false)]
 		[bool]$PasswordIsEncrypted = $false
 	)
-	$FunctionName = 'Add-CCSADUserToSecurityGroup'
+	$FunctionName = 'Get-CCSADComputerNames'
 
 	if ($Global:Cs) {
 		Job_WriteLog -Text "$FunctionName DomainOUPath: $DomainOUPath, Domain: $Domain, Url: $Url, PasswordIsEncrypted: $PasswordIsEncrypted"

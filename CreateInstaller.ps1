@@ -679,6 +679,11 @@ function GenerateFunctionsDocumentation {
 	$OverviewPath = Join-Path $PSScriptRoot 'Documentation' 'Overview of all functions in modules.md'
 	Remove-Item -Path $OverviewPath -Force -ErrorAction SilentlyContinue
 	New-Item -Path $OverviewPath -ItemType File
+	Add-Content -Path $OverviewPath -Value '---'
+	Add-Content -Path $OverviewPath -Value 'title: Capa.PowerShell.Module'
+	Add-Content -Path $OverviewPath -Value 'permalink: /powershell/Modules/Capa.PowerShell.Module/'
+	Add-Content -Path $OverviewPath -Value 'author_profile: true'
+	Add-Content -Path $OverviewPath -Value '---'
 	Add-Content -Path $OverviewPath -Value '# Overview of all functions in modules'
 	Add-Content -Path $OverviewPath -Value ''
 

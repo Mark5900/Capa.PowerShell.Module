@@ -2,6 +2,7 @@
 document type: cmdlet
 external help file: Capa.PowerShell.Module.PowerPack.Service-Help.xml
 HelpUri: ''
+layout: single
 Locale: en-DK
 Module Name: Capa.PowerShell.Module.PowerPack.Service
 ms.date: 05/09/2025

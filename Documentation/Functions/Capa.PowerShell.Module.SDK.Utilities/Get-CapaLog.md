@@ -2,6 +2,7 @@
 document type: cmdlet
 external help file: Capa.PowerShell.Module.SDK.Utilities-Help.xml
 HelpUri: ''
+layout: single
 Locale: en-DK
 Module Name: Capa.PowerShell.Module.SDK.Utilities
 ms.date: 05/09/2025

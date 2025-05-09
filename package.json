@@ -41,7 +41,7 @@
 					"assets": [
 						"Modules",
 						"Installers",
-						"Documentation",
+						"Documentation\\Overview of all functions in modules.md",
 						"version.txt",
 						"CHANGELOG.md",
 						"package.json"

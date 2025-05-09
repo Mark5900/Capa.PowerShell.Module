@@ -707,6 +707,9 @@ function GenerateFunctionsDocumentation {
 			OutputFolder   = Join-Path $PSScriptRoot 'Documentation' 'Functions'
 			HelpVersion    = $Version
 			WithModulePage = $true
+			Metadata       = @{
+				layout = 'single'
+			}
 		}
 		New-MarkdownCommandHelp @newMarkdownCommandHelpSplat -Force
 
@@ -723,7 +726,7 @@ function GenerateFunctionsDocumentation {
 		$Files = Get-ChildItem -Path $DevPath -File | Where-Object { $_.Name -notlike '*Tests.ps1' } #>
 
 		$FunctionsPath = Join-Path $PSScriptRoot 'Documentation' 'Functions' $Folder.Name
-		$Files = Get-ChildItem -Path $FunctionsPath -File -Recurse
+		$Files = Get-ChildItem -Path $FunctionsPath -File
 
 		foreach ($File in $Files) {
 			if ($Folder.Name -eq $File.BaseName) {
@@ -731,6 +734,8 @@ function GenerateFunctionsDocumentation {
 			}
 
 			Add-Content -Path $OverviewPath -Value "- [$($File.BaseName)](Functions/$($Folder.Name)/$($File.BaseName).md)"
+
+			#$Content = Get-Content -Path $File.FullName
 
 			<# # Add what module the function is in to the function documentation
 			$FunctionPath = Join-Path $PSScriptRoot 'Documentation' 'Functions' "$($File.BaseName).md"

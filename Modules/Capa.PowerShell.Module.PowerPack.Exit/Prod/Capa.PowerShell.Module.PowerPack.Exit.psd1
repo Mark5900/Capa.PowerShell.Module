@@ -12,7 +12,7 @@
 RootModule = '.\Capa.PowerShell.Module.PowerPack.Exit.psm1'
 
 # Version number of this module.
-	ModuleVersion        = '1.13.0'
+ModuleVersion = '1.15.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -70,15 +70,15 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Exit-PpRetryLater', 'Exit_ApplicationAlreadyInstalled',
-               'Exit-PpRebootRequested', 'Exit-PpMissingDiskSpace',
-               'Exit-PpCommandSucceded', 'Exit-PpModuleNotFound',
-               'Exit-PpCommandObsolete', 'Exit-PpCommandNotDelivered',
-               'Exit-PpCommandTimedOut', 'Exit-PpCommandFailed',
-               'Exit-PpApplicationAlreadyInstalled', 'Exit_CommandHandlingFailed',
-               'Exit-PpCommandNotRecognized', 'Exit-PpPowerShellExecutionFailed',
-               'Exit-PpPackageNotCompliant', 'Exit-PpPackageCancelled',
-               'Exit-PpPackageFailedInstall', 'Exit-PpPackageFailedUninstall',
+FunctionsToExport = 'Exit-PpRetryLater', 'Exit_ApplicationAlreadyInstalled', 
+               'Exit-PpRebootRequested', 'Exit-PpMissingDiskSpace', 
+               'Exit-PpCommandSucceded', 'Exit-PpModuleNotFound', 
+               'Exit-PpCommandObsolete', 'Exit-PpCommandNotDelivered', 
+               'Exit-PpCommandTimedOut', 'Exit-PpCommandFailed', 
+               'Exit-PpApplicationAlreadyInstalled', 'Exit_CommandHandlingFailed', 
+               'Exit-PpCommandNotRecognized', 'Exit-PpPowerShellExecutionFailed', 
+               'Exit-PpPackageNotCompliant', 'Exit-PpPackageCancelled', 
+               'Exit-PpPackageFailedInstall', 'Exit-PpPackageFailedUninstall', 
                'Exit-PpScript'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -120,7 +120,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        Prerelease = 'Prerelease2'
+        Prerelease = 'Prerelease3'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

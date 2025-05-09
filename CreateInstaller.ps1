@@ -683,6 +683,7 @@ function GenerateFunctionsDocumentation {
 	Add-Content -Path $OverviewPath -Value 'title: Capa.PowerShell.Module'
 	Add-Content -Path $OverviewPath -Value 'permalink: /powershell/Modules/Capa.PowerShell.Module/'
 	Add-Content -Path $OverviewPath -Value 'author_profile: true'
+	Add-Content -Path $OverviewPath -Value 'layout: single'
 	Add-Content -Path $OverviewPath -Value '---'
 	Add-Content -Path $OverviewPath -Value '# Overview of all functions in modules'
 	Add-Content -Path $OverviewPath -Value ''

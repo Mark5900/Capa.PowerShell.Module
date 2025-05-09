@@ -12,7 +12,7 @@
 RootModule = '.\Capa.PowerShell.Module.PowerPack.CMS.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.15.0'
+	ModuleVersion        = '1.13.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -70,28 +70,28 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Add-PpCMSComputerToCalendarGroup', 
-               'Add-PpCMSComputerToDepartmentGroup', 
-               'Add-PpCMSComputerToPowerSchemeGroup', 
-               'Add-PpCMSComputerToReinstallGroup', 
-               'Add-PpCMSComputerToStaticGroup', 'Add-PpCMSCustomInventory', 
-               'Add-PpCMSHardwareInventory', 'Add-PpCMSPackageToUnit', 
-               'Add-PpCMSUnitToBusinessUnit', 'Get-PpCMSAdvertisedPackages', 
-               'Get-PpCMSDeploymentTemplateVariable', 'Get-PpCMSGroupMembership', 
-               'Get-PpCMSIsPackageLinked', 'Get-PpCMSIsPackageScheduleEnabled', 
-               'Get-PpCMSPackage', 'Get-PpCMSPackageStatus', 'Get-PpCMSProperty', 
-               'Initialize-PpCMSRerunPackage', 'Install-PpCMSAdvertisedPackage', 
-               'Invoke-PpCMSRunSystemAgent', 'Invoke-PpCMSRunUserAgent', 
-               'Invoke-PpJobRetryLater', 'Remove-PpCMSComputerFromCalendarGroup', 
-               'Remove-PpCMSComputerFromDepartmentGroup', 
-               'Remove-PpCMSComputerFromPowerSchemeGroup', 
-               'Remove-PpCMSComputerFromReinstallGroup', 
-               'Remove-PpCMSComputerFromStaticGroup', 
-               'Remove-PpCMSCustomInventory', 'Remove-PpCMSHardwareInventory', 
-               'Remove-PpCMSPackageFromUnit', 'Reset-PpCMSCustomInventory', 
-               'Set-PpCMSCurrentUser', 'Set-PpCMSPackageStatusToInstalled', 
-               'Set-PpCMSPackageStatusToNotCompliant', 
-               'Test-PpCMSExistPackageOnManagementServer', 
+FunctionsToExport = 'Add-PpCMSComputerToCalendarGroup',
+               'Add-PpCMSComputerToDepartmentGroup',
+               'Add-PpCMSComputerToPowerSchemeGroup',
+               'Add-PpCMSComputerToReinstallGroup',
+               'Add-PpCMSComputerToStaticGroup', 'Add-PpCMSCustomInventory',
+               'Add-PpCMSHardwareInventory', 'Add-PpCMSPackageToUnit',
+               'Add-PpCMSUnitToBusinessUnit', 'Get-PpCMSAdvertisedPackages',
+               'Get-PpCMSDeploymentTemplateVariable', 'Get-PpCMSGroupMembership',
+               'Get-PpCMSIsPackageLinked', 'Get-PpCMSIsPackageScheduleEnabled',
+               'Get-PpCMSPackage', 'Get-PpCMSPackageStatus', 'Get-PpCMSProperty',
+               'Initialize-PpCMSRerunPackage', 'Install-PpCMSAdvertisedPackage',
+               'Invoke-PpCMSRunSystemAgent', 'Invoke-PpCMSRunUserAgent',
+               'Invoke-PpJobRetryLater', 'Remove-PpCMSComputerFromCalendarGroup',
+               'Remove-PpCMSComputerFromDepartmentGroup',
+               'Remove-PpCMSComputerFromPowerSchemeGroup',
+               'Remove-PpCMSComputerFromReinstallGroup',
+               'Remove-PpCMSComputerFromStaticGroup',
+               'Remove-PpCMSCustomInventory', 'Remove-PpCMSHardwareInventory',
+               'Remove-PpCMSPackageFromUnit', 'Reset-PpCMSCustomInventory',
+               'Set-PpCMSCurrentUser', 'Set-PpCMSPackageStatusToInstalled',
+               'Set-PpCMSPackageStatusToNotCompliant',
+               'Test-PpCMSExistPackageOnManagementServer',
                'Uninstall-PpCMSPackageFromUnit'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -133,7 +133,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        Prerelease = 'Prerelease3'
+        Prerelease = 'Prerelease2'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

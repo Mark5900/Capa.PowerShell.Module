@@ -12,7 +12,7 @@
 RootModule = '.\Capa.PowerShell.Module.CCS.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.14.0'
+ModuleVersion = '1.13.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()

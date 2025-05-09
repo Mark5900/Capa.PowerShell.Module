@@ -45,7 +45,8 @@ jobs:
         run: pwsh -Command "Install-Module -Name PSMSI -Force -Scope CurrentUser"
 
       - name: Install platyPS module
-        run: pwsh -Command "Install-Module -Name platyPS -Force -Scope CurrentUser"
+        run: pwsh -Command "Install-Module -Name Microsoft.PowerShell.PlatyPS -Force -Scope CurrentUser -AllowPreRelease"
+        #run: pwsh -Command "Install-Module -Name platyPS -Force -Scope CurrentUser"
 
       - name: Install @semantic-release/git
         run: npm install --save-dev @semantic-release/git

@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Delete a local user account.
 
+	.DESCRIPTION
+		This function deletes a local user account from the system.
+
 	.PARAMETER UserName
 		The name of the user to delete.
 

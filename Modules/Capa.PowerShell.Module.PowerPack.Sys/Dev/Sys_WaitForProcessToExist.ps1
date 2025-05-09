@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Waits for a process to exist.
 
+	.DESCRIPTION
+		This function waits for a process to exist. It checks the process at regular intervals until it either exists or the maximum wait time is reached.
+
 	.PARAMETER ProcessName
 		The name of the process to wait for.
 

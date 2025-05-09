@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Creates a registry key.
 
+	.DESCRIPTION
+		This function creates a registry key at the specified path.
+
 	.PARAMETER RegRoot
 		The root of the registry key, can be HKLM, HKCU or HKU.
 

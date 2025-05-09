@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Kills a process.
 
+	.DESCRIPTION
+		This function kills a process by its name.
+
 	.PARAMETER ProcessName
 		The name of the process to kill.
 

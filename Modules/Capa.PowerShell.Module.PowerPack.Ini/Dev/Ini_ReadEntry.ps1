@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Reads an entry from an INI file.
 
+	.DESCRIPTION
+		This function reads a specified entry from a given INI file.
+
 	.Parameter FilePath
 		The path to the INI file.
 

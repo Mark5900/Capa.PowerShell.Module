@@ -4,6 +4,9 @@
     .SYNOPSIS
         Delete path if it is empty.
 
+	.DESCRIPTION
+			This function deletes the specified path if it is empty.
+
     .Parameter Path
         The path to delete.
 

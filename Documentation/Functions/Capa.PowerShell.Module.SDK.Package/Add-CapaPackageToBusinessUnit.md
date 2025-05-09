@@ -1,0 +1,173 @@
+---
+document type: cmdlet
+external help file: Capa.PowerShell.Module.SDK.Package-Help.xml
+HelpUri: ''
+Locale: en-DK
+Module Name: Capa.PowerShell.Module.SDK.Package
+ms.date: 05/09/2025
+PlatyPS schema version: 2024-05-01
+title: Add-CapaPackageToBusinessUnit
+---
+
+# Add-CapaPackageToBusinessUnit
+
+## SYNOPSIS
+
+Adds a package to a business unit.
+
+## SYNTAX
+
+### __AllParameterSets
+
+```
+Add-CapaPackageToBusinessUnit [-CapaSDK] <Object> [-PackageName] <Object> [-PackageVersion] <Object>
+ [-PackageType] <Object> [-BusinessUnitName] <Object> [<CommonParameters>]
+```
+
+## ALIASES
+
+This cmdlet has the following aliases,
+  {{Insert list of aliases}}
+
+## DESCRIPTION
+
+Adds a package to a business unit.
+
+## EXAMPLES
+
+### EXAMPLE 1
+
+Add-CapaPackageToBusinessUnit -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion 'v3.0' -PackageType Computer -BusinessUnitName 'HeadQuarterBronx'
+
+## PARAMETERS
+
+### -BusinessUnitName
+
+The name of the business unit.
+
+```yaml
+Type: System.Object
+DefaultValue: ''
+SupportsWildcards: false
+ParameterValue: []
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 4
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -CapaSDK
+
+The CapaSDK object.
+
+```yaml
+Type: System.Object
+DefaultValue: ''
+SupportsWildcards: false
+ParameterValue: []
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -PackageName
+
+The name of the package.
+
+```yaml
+Type: System.Object
+DefaultValue: ''
+SupportsWildcards: false
+ParameterValue: []
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 1
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -PackageType
+
+The type of the package, either Computer or User.
+
+```yaml
+Type: System.Object
+DefaultValue: ''
+SupportsWildcards: false
+ParameterValue: []
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 3
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -PackageVersion
+
+The version of the package.
+
+```yaml
+Type: System.Object
+DefaultValue: ''
+SupportsWildcards: false
+ParameterValue: []
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 2
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+for more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246796/Add+Package+to+BusinessUnit
+
+
+## RELATED LINKS
+
+{{ Fill in the related links here }}
+

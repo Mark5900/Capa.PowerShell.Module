@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Exists a registry key.
 
+	.DESCRIPTION
+		This function checks if a registry key exists at the specified path.
+
 	.PARAMETER RegRoot
 		The root of the registry key, can be HKLM, HKEY_LOCAL_MACHINE, HKCU or HKU.
 

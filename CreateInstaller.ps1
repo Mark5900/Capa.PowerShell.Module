@@ -1,5 +1,6 @@
 Import-Module PSMSI
-Import-Module platyPS
+#Import-Module platyPS
+Import-Module Microsoft.PowerShell.PlatyPS
 <#
     .NOTES
     ===========================================================================
@@ -700,10 +701,17 @@ function GenerateFunctionsDocumentation {
 
 		Import-Module $PSMPath -Force
 
-		New-MarkdownHelp -Module $Folder.Name -OutputFolder .\Documentation\Functions -Force -AlphabeticParamsOrder -NoMetadata
+		#New-MarkdownHelp -Module $Folder.Name -OutputFolder .\Documentation\Functions -Force -AlphabeticParamsOrder -NoMetadata
+		$newMarkdownCommandHelpSplat = @{
+			ModuleInfo     = Get-Module $Folder.Name
+			OutputFolder   = Join-Path $PSScriptRoot 'Documentation' 'Functions'
+			HelpVersion    = $Version
+			WithModulePage = $true
+		}
+		New-MarkdownCommandHelp @newMarkdownCommandHelpSplat -Force
 
 		# Add to Overview of all functions in modules.md
-		Add-Content -Path $OverviewPath -Value "## $($Folder.Name)"
+		Add-Content -Path $OverviewPath -Value "## [$($Folder.Name)](Functions/$($Folder.Name)/$($Folder.Name).md)"
 
 		if ($Folder.Name -eq 'Capa.PowerShell.Module.Tools') {
 			Add-Content -Path $OverviewPath -Value 'This module contains custom functions that are include bothe in the SDK and PowerPack modules, so you can use them were you need them.'
@@ -711,13 +719,20 @@ function GenerateFunctionsDocumentation {
 
 		Add-Content -Path $OverviewPath -Value ''
 
-		$DevPath = Join-Path $Folder.FullName 'Dev'
-		$Files = Get-ChildItem -Path $DevPath -File | Where-Object { $_.Name -notlike '*Tests.ps1' }
+		<# $DevPath = Join-Path $Folder.FullName 'Dev'
+		$Files = Get-ChildItem -Path $DevPath -File | Where-Object { $_.Name -notlike '*Tests.ps1' } #>
+
+		$FunctionsPath = Join-Path $PSScriptRoot 'Documentation' 'Functions' $Folder.Name
+		$Files = Get-ChildItem -Path $FunctionsPath -File -Recurse
 
 		foreach ($File in $Files) {
-			Add-Content -Path $OverviewPath -Value "- [$($File.BaseName)](Functions/$($File.BaseName).md)"
+			if ($Folder.Name -eq $File.BaseName) {
+				continue
+			}
 
-			# Add what module the function is in to the function documentation
+			Add-Content -Path $OverviewPath -Value "- [$($File.BaseName)](Functions/$($Folder.Name)/$($File.BaseName).md)"
+
+			<# # Add what module the function is in to the function documentation
 			$FunctionPath = Join-Path $PSScriptRoot 'Documentation' 'Functions' "$($File.BaseName).md"
 
 			if ((Test-Path $FunctionPath) -eq $false) {
@@ -727,11 +742,11 @@ function GenerateFunctionsDocumentation {
 			$Content = Get-Content -Path $FunctionPath
 
 			$Content = $Content -replace '## SYNOPSIS', "Module: $($Folder.Name)`n`n## SYNOPSIS"
-			Set-Content -Path $FunctionPath -Value $Content
+			Set-Content -Path $FunctionPath -Value $Content #>
 		}
+		Add-Content -Path $OverviewPath -Value ''
+		Add-Content -Path $OverviewPath -Value ''
 	}
-
-	Add-Content -Path $OverviewPath -Value ''
 }
 
 ##############

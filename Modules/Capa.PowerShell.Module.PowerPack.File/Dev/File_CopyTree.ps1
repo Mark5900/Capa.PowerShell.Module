@@ -4,6 +4,9 @@
     .SYNOPSIS
         Copy a folder.
 
+		.DESCRIPTION
+				This function copies a folder from the source to the destination.
+
     .Parameter Source
         The source folder.
 

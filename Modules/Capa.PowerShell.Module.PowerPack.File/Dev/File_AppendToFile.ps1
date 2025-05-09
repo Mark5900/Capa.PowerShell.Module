@@ -4,6 +4,9 @@
     .SYNOPSIS
         Append text to a file.
 
+		.DESCRIPTION
+				This function appends the specified text to the end of the specified file.
+
     .Parameter File
         The file to append to.
 

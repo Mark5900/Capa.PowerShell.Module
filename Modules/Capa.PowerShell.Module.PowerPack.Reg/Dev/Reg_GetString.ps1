@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Gets a registry string.
 
+	.DESCRIPTION
+		Gets a registry string.
+
 	.PARAMETER RegRoot
 		The root of the registry key, can be HKLM, HKEY_LOCAL_MACHINE, HKCU or HKU.
 

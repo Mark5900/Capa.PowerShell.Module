@@ -4,6 +4,9 @@
     .SYNOPSIS
         Create a directory.
 
+		.DESCRIPTION
+				This function creates a directory at the specified path.
+
     .Parameter Path
         The path to Create.
 

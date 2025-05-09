@@ -5,6 +5,9 @@
 	.SYNOPSIS
 		Determines if a service exists.
 
+	.DESCRIPTION
+		This function checks if a service exists on the system.
+
 	.PARAMETER ServiceName
 		The name of the service.
 
@@ -32,6 +35,9 @@ function Service_Exist {
 <#
 	.SYNOPSIS
 		Starts a service.
+
+	.DESCRIPTION
+		This function starts a service on the system.
 
 	.PARAMETER ServiceName
 		The name of the service.
@@ -68,6 +74,9 @@ function Service_Start {
 <#
 	.SYNOPSIS
 		Stops a service.
+
+	.DESCRIPTION
+		This function starts a service on the system.
 
 	.PARAMETER ServiceName
 		The name of the service.

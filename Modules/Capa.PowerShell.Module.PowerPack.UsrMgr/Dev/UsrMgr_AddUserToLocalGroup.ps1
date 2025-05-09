@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Adds a user to a local group.
 
+	.DESCRIPTION
+		This function adds a user to a local group on the system.
+
 	.PARAMETER UserName
 		The name of the user to add to the group.
 

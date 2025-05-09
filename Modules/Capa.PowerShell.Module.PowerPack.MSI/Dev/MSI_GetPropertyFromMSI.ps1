@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Gets the value of a property from an MSI file.
 
+	.DESCRIPTION
+		This function retrieves the value of a specified property from an MSI file.
+
 	.PARAMETER MsiFile
 		The path to the MSI file.
 

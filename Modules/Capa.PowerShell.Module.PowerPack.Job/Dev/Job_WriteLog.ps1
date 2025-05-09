@@ -4,6 +4,9 @@
     .SYNOPSIS
         This function will write a log entry.
 
+		.DESCRIPTION
+				This function will write a log entry.
+
     .PARAMETER FunctionName
         Name of function to associate with log entry (default blank, Log_Sectionheader will override).
 

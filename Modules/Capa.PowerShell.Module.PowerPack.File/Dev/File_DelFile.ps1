@@ -4,6 +4,9 @@
     .SYNOPSIS
         Delete a file.
 
+		.DESCRIPTION
+				This function deletes the specified file.
+
     .Parameter FilePath
         The file to delete.
 

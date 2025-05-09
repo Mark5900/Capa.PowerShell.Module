@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Stops a service.
 
+	.DESCRIPTION
+		This function starts a service on the system.
+
 	.PARAMETER ServiceName
 		The name of the service.
 

@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Gets the free disk space of a drive.
 
+	.DESCRIPTION
+		This function retrieves the free disk space of the specified drive.
+
 	.PARAMETER Drive
 		The drive to get the free disk space from, default is 'C:'.
 

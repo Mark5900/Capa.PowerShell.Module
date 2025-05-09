@@ -5,6 +5,9 @@
 	.SYNOPSIS
 		Adds a user to a local group.
 
+	.DESCRIPTION
+		This function adds a user to a local group on the system.
+
 	.PARAMETER UserName
 		The name of the user to add to the group.
 
@@ -42,6 +45,9 @@ function UsrMgr_AddUserToLocalGroup {
 	.SYNOPSIS
 		Change the password of a local user account.
 
+	.DESCRIPTION
+		This function changes the password of a local user account on the system.
+
 	.PARAMETER UserName
 		The name of the user to change the password of.
 
@@ -71,6 +77,9 @@ function UsrMgr_ChangePassword {
 <#
 	.SYNOPSIS
 		Create a local user account.
+
+	.DESCRIPTION
+		This function creates a local user account on the system.
 
 	.PARAMETER UserName
 		The name of the user to create.
@@ -121,6 +130,9 @@ function UsrMgr_CreateLocalUser {
 	.SYNOPSIS
 		Delete a local user account.
 
+	.DESCRIPTION
+		This function deletes a local user account from the system.
+
 	.PARAMETER UserName
 		The name of the user to delete.
 
@@ -145,6 +157,9 @@ function UsrMgr_DeleteLocalUserAccount {
 <#
 	.SYNOPSIS
 		Get group members of a local group.
+
+	.DESCRIPTION
+		This function retrieves the members of a local group on the system.
 
 	.PARAMETER GroupName
 		The name of the group to get the members of.
@@ -172,6 +187,9 @@ function UsrMgr_EnumMembersOfLocalGroup {
 <#
 	.SYNOPSIS
 		Check if a local user account exists.
+
+	.DESCRIPTION
+		This function checks if a local user account exists on the specified domain or local machine.
 
 	.PARAMETER UserName
 		The name of the user to check for.
@@ -224,6 +242,9 @@ function UsrMgr_GetNameBySid {
 <#
 	.SYNOPSIS
 		Remove a user from a local group.
+
+	.DESCRIPTION
+		Removes a user from a local group on the specified domain or local machine.
 
 	.PARAMETER UserName
 		The name of the user to remove from the group.

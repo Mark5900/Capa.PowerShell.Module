@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Executes a command line application.
 
+	.DESCRIPTION
+		This function executes a command line application with the specified arguments and options.
+
 	.PARAMETER Command
 		The command to execute.
 

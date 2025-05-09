@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Change the password of a local user account.
 
+	.DESCRIPTION
+		This function changes the password of a local user account on the system.
+
 	.PARAMETER UserName
 		The name of the user to change the password of.
 

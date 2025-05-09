@@ -5,6 +5,9 @@
 	.SYNOPSIS
 		Executes a command line application.
 
+	.DESCRIPTION
+		This function executes a command line application with the specified arguments and options.
+
 	.PARAMETER Command
 		The command to execute.
 
@@ -63,6 +66,10 @@ function Shell_Execute {
 <#
 	.SYNOPSIS
 		Executes a command line application with a timeout.
+
+	.DESCRIPTION
+		This function executes a command line application with the specified arguments and options.
+		It will wait for the specified timeout before returning.
 
 	.PARAMETER Command
 		The command to execute.

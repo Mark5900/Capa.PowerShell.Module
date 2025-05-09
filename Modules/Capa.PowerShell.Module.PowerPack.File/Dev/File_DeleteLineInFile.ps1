@@ -4,6 +4,9 @@
     .SYNOPSIS
         Delete a line in a file.
 
+		.DESCRIPTION
+				This function deletes a line in a file that contains the specified text.
+
     .Parameter File
         The file to delete the line from.
 

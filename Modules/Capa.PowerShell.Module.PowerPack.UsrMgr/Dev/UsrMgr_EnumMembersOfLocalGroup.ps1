@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Get group members of a local group.
 
+	.DESCRIPTION
+		This function retrieves the members of a local group on the system.
+
 	.PARAMETER GroupName
 		The name of the group to get the members of.
 

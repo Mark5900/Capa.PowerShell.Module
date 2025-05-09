@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Checks if an MSI file is installed.
 
+	.DESCRIPTION
+		This function checks if the specified MSI file is installed on the system.
+
 	.PARAMETER MsiFile
 		The path to the MSI file.
 

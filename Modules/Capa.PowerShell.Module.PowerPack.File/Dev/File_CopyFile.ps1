@@ -4,6 +4,9 @@
     .SYNOPSIS
         Copy a file.
 
+		.DESCRIPTION
+				This function copies a file from the source to the destination.
+
     .Parameter Source
         The source file.
 

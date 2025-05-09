@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Waits for a process to finish.
 
+	.DESCRIPTION
+		This function waits for a process to finish running. It checks the process at regular intervals until it either finishes or the maximum wait time is reached.
+
 	.PARAMETER ProcessName
 		The name of the process to wait for.
 

@@ -4,6 +4,9 @@
     .SYNOPSIS
         Check if a file exists.
 
+		.DESCRIPTION
+				This function checks if the specified file exists.
+
     .Parameter FilePath
         The file to check.
 

@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Determines if a service exists.
 
+	.DESCRIPTION
+		This function checks if a service exists on the system.
+
 	.PARAMETER ServiceName
 		The name of the service.
 

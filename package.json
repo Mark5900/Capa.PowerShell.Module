@@ -39,9 +39,27 @@
 				"@semantic-release/git",
 				{
 					"assets": [
+						"Documentation\\Capa.PowerShell.Module.PowerPack.*"
+					],
+					"message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+				}
+			],
+			[
+				"@semantic-release/git",
+				{
+					"assets": [
+						"Documentation\\Capa.PowerShell.Module.SDK.*"
+					],
+					"message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+				}
+			],
+			[
+				"@semantic-release/git",
+				{
+					"assets": [
 						"Modules",
 						"Installers",
-						"Documentation\\Overview of all functions in modules.md",
+						"Documentation",
 						"version.txt",
 						"CHANGELOG.md",
 						"package.json"

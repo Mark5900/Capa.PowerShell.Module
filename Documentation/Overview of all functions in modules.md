@@ -2,6 +2,7 @@
 title: Capa.PowerShell.Module
 permalink: /powershell/Modules/Capa.PowerShell.Module/
 author_profile: true
+layout: single
 ---
 # Overview of all functions in modules
 

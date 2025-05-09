@@ -12,7 +12,7 @@
 RootModule = '.\Capa.PowerShell.Module.CCS.psm1'
 
 # Version number of this module.
-	ModuleVersion        = '1.12.0'
+ModuleVersion = '1.15.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -69,10 +69,10 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Get-CCSEncryptedPassword', 'Initialize-CCS', 'Remove-CCSADComputer',
-               'Add-CCSADComputerToSecurityGroup',
-               'Add-CCSADDomainLocalSecurityGroup', 'Add-CCSADGlobalSecurityGroup',
-               'Add-CCSADUniversalSecurityGroup', 'Add-CCSADUserToSecurityGroup',
+FunctionsToExport = 'Get-CCSEncryptedPassword', 'Initialize-CCS', 'Remove-CCSADComputer', 
+               'Add-CCSADComputerToSecurityGroup', 
+               'Add-CCSADDomainLocalSecurityGroup', 'Add-CCSADGlobalSecurityGroup', 
+               'Add-CCSADUniversalSecurityGroup', 'Add-CCSADUserToSecurityGroup', 
                'Get-CCSADComputerNames'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -114,7 +114,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        Prerelease = 'Prerelease1'
+        Prerelease = 'Prerelease2'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

@@ -1,3 +1,8 @@
+---
+title: Capa.PowerShell.Module
+permalink: /powershell/Modules/Capa.PowerShell.Module/
+author_profile: true
+---
 # Overview of all functions in modules
 
 ## Capa.PowerShell.Module.CCS

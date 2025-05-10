@@ -20,6 +20,8 @@ $UpgradeCode = '84859CA1-0F7D-47BF-8D36-AE22F5E171AD'
 # Change as needed
 $VersionFile = Join-Path $PSScriptRoot 'version.txt'
 
+$ErrorActionPreference = 'Stop'
+
 try {
 	$Version = (Get-Content -Path $VersionFile).Trim()
 	$Prerelease = $false
@@ -694,6 +696,7 @@ function GenerateFunctionsDocumentation {
 		Write-Host "Generating documentation for $($Folder.Name)"
 
 		# Functions documentation
+		$OutputFolder = Join-Path $PSScriptRoot 'Documentation' 'Functions'
 		$PSMPath = Join-Path $Folder.FullName 'Prod' "$($Folder.Name).psm1"
 		if ((Test-Path $PSMPath) -eq $false) {
 			continue
@@ -704,14 +707,53 @@ function GenerateFunctionsDocumentation {
 		#New-MarkdownHelp -Module $Folder.Name -OutputFolder .\Documentation\Functions -Force -AlphabeticParamsOrder -NoMetadata
 		$newMarkdownCommandHelpSplat = @{
 			ModuleInfo     = Get-Module $Folder.Name
-			OutputFolder   = Join-Path $PSScriptRoot 'Documentation' 'Functions'
+			OutputFolder   = $OutputFolder
 			HelpVersion    = $Version
 			WithModulePage = $true
 			Metadata       = @{
-				layout = 'single'
+				layout         = 'single'
+				author_profile = $true
 			}
 		}
 		New-MarkdownCommandHelp @newMarkdownCommandHelpSplat -Force
+
+		$MarkdownModuleFilesFolder = Join-Path $OutputFolder $Folder.Name
+		$MarkdownModuleFilePath = Join-Path $OutputFolder $Folder.Name "$($Folder.Name).md"
+		$CurrentMouduleFile = Import-MarkdownModuleFile -Path $MarkdownModuleFilePath
+
+		<# $CommandHelp = @()
+		$Commands = Get-Command -Module $Folder.Name
+		foreach ($Command in $Commands) {
+			Write-Host "Generating documentation for $($Command.Name)"
+			$CommandHelp += New-CommandHelp -Command $Command
+		} #>
+
+		<# $mdfiles = Measure-PlatyPSMarkdown -Path $MarkdownModuleFilesFolder\*.md
+		$CommandHelp = $mdfiles | Where-Object Filetype -Match 'CommandHelp' |
+			Import-MarkdownCommandHelp -Path { $_.FilePath } #>
+
+		<# $Splat = @{
+			Path        = $MarkdownModuleFilePath
+			CommandHelp = $CurrentMouduleFile.CommandGroups.Commands
+			Metadata    = @{
+				layout         = 'single'
+				author_profile = $true
+			}
+			Locale      = $CurrentMouduleFile.Metadata.Locale
+			NoBackup    = $true
+		}
+		Update-MarkdownModuleFile @Splat -Force #>
+
+		$Content = Get-Content $MarkdownModuleFilePath
+		$Line1 = 'author_profile: true'
+		$Line2 = 'layout: single'
+		$UpdatedContent = @()
+		$UpdatedContent += $Content[0]
+		$UpdatedContent += $Line1
+		$UpdatedContent += $Line2
+		for ($i = 1; $i -lt $Content.Count; $i++) {
+			$UpdatedContent += $Content[$i]
+		}
 
 		# Add to Overview of all functions in modules.md
 		Add-Content -Path $OverviewPath -Value "## [$($Folder.Name)](Functions/$($Folder.Name)/$($Folder.Name).md)"

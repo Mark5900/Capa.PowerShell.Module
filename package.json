@@ -31,7 +31,7 @@
 			[
 				"@semantic-release/exec",
 				{
-					"prepareCmd": "echo ${nextRelease.version} > version.txt && pwsh -ExecutionPolicy Bypass -File CreateInstaller.ps1"
+					"prepareCmd": "echo ${nextRelease.version} > version.txt && pwsh -ExecutionPolicy Bypass -File CreateInstaller.ps1 > git add --force --ignore-errors Documentation/**"
 				}
 			],
 			"@semantic-release/release-notes-generator",

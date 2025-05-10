@@ -754,6 +754,7 @@ function GenerateFunctionsDocumentation {
 		for ($i = 1; $i -lt $Content.Count; $i++) {
 			$UpdatedContent += $Content[$i]
 		}
+		Set-Content -Path $MarkdownModuleFilePath -Value $UpdatedContent
 
 		# Add to Overview of all functions in modules.md
 		Add-Content -Path $OverviewPath -Value "## [$($Folder.Name)](Functions/$($Folder.Name)/$($Folder.Name).md)"

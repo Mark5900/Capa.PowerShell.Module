@@ -39,9 +39,9 @@
 				"@semantic-release/git",
 				{
 					"assets": [
-						"Modules/**/*",
-						"Installers/*.msi",
-						"Documentation/**/*",
+						"Modules",
+						"Installers",
+						"Documentation",
 						"version.txt",
 						"CHANGELOG.md",
 						"package.json"

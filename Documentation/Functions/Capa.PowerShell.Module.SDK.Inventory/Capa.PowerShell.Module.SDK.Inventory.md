@@ -1,4 +1,6 @@
 ---
+author_profile: true
+layout: single
 document type: module
 Help Version: 1.15.0
 HelpInfoUri: 

@@ -1,11 +1,12 @@
 ---
+author_profile: true
 document type: cmdlet
 external help file: Capa.PowerShell.Module.CCS-Help.xml
 HelpUri: ''
 layout: single
-Locale: en-DK
+Locale: en-US
 Module Name: Capa.PowerShell.Module.CCS
-ms.date: 05/09/2025
+ms.date: 05/10/2025
 PlatyPS schema version: 2024-05-01
 title: Remove-CCSADComputer
 ---

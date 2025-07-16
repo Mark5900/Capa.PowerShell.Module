@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Enumerates all registry keys.
 
+	.DESCRIPTION
+		This function enumerates all registry keys at the specified path.
+
 	.PARAMETER RegRoot
 		The root of the registry key, can be HKLM, HKCU or HKU.
 

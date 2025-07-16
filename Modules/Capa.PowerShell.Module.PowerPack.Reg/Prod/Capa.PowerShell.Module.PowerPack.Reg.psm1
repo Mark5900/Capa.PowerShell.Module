@@ -5,6 +5,9 @@
 	.SYNOPSIS
 		Creates a registry key.
 
+	.DESCRIPTION
+		This function creates a registry key at the specified path.
+
 	.PARAMETER RegRoot
 		The root of the registry key, can be HKLM, HKCU or HKU.
 
@@ -312,6 +315,9 @@ function Reg_DeleteVariable {
 	.SYNOPSIS
 		Enumerates all registry keys.
 
+	.DESCRIPTION
+		This function enumerates all registry keys at the specified path.
+
 	.PARAMETER RegRoot
 		The root of the registry key, can be HKLM, HKCU or HKU.
 
@@ -350,6 +356,9 @@ function Reg_EnumKey {
 	.SYNOPSIS
 		Exists a registry key.
 
+	.DESCRIPTION
+		This function checks if a registry key exists at the specified path.
+
 	.PARAMETER RegRoot
 		The root of the registry key, can be HKLM, HKEY_LOCAL_MACHINE, HKCU or HKU.
 
@@ -382,6 +391,9 @@ function Reg_ExistKey {
 <#
 	.SYNOPSIS
 		Exists a registry variable.
+
+	.DESCRIPTION
+		This function checks if a registry variable exists at the specified path.
 
 	.PARAMETER RegRoot
 		The root of the registry key, can be HKLM, HKEY_LOCAL_MACHINE, HKCU or HKU.
@@ -536,6 +548,9 @@ function Reg_GetMultiString {
 	.SYNOPSIS
 		Gets a registry string.
 
+	.DESCRIPTION
+		Gets a registry string.
+
 	.PARAMETER RegRoot
 		The root of the registry key, can be HKLM, HKEY_LOCAL_MACHINE, HKCU or HKU.
 
@@ -572,6 +587,9 @@ function Reg_GetString {
 
 <#
 	.SYNOPSIS
+		Sets a registry dword.
+
+	.DESCRIPTION
 		Sets a registry dword.
 
 	.PARAMETER RegRoot
@@ -615,6 +633,9 @@ function Reg_SetDword {
 	.SYNOPSIS
 		Sets a registry expand string.
 
+	.DESCRIPTION
+		Sets a registry expand string.
+
 	.PARAMETER RegRoot
 		The root of the registry key, can be HKLM, HKEY_LOCAL_MACHINE, HKCU or HKU.
 
@@ -654,6 +675,9 @@ function Reg_SetExpandString {
 
 <#
 	.SYNOPSIS
+		Sets a registry integer.
+
+	.DESCRIPTION
 		Sets a registry integer.
 
 	.PARAMETER RegRoot
@@ -736,6 +760,9 @@ function Reg_SetQword {
 
 <#
 	.SYNOPSIS
+		Sets a registry string.
+
+	.DESCRIPTION
 		Sets a registry string.
 
 	.PARAMETER RegRoot

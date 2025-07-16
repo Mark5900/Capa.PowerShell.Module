@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Sets a registry expand string.
 
+	.DESCRIPTION
+		Sets a registry expand string.
+
 	.PARAMETER RegRoot
 		The root of the registry key, can be HKLM, HKEY_LOCAL_MACHINE, HKCU or HKU.
 

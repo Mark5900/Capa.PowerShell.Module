@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Gets the product code of an MSI file.
 
+	.DESCRIPTION
+		This function retrieves the product code of the specified MSI file.
+
 	.PARAMETER MsiFile
 		The path to the MSI file.
 

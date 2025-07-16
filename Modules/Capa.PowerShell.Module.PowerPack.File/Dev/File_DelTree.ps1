@@ -4,6 +4,9 @@
     .SYNOPSIS
         Delete a folder.
 
+		.DESCRIPTION
+				This function deletes the specified folder.
+
     .Parameter Path
         The folder to delete.
 

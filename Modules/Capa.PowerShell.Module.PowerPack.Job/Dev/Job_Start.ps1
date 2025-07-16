@@ -4,6 +4,9 @@
     .SYNOPSIS
         This function will initialize the Powershell Scripting Library and set logpath and other variables.
 
+		.DESCRIPTION
+				This function will initialize the Powershell Scripting Library and set logpath and other variables.
+
     .PARAMETER JobType
         The type of the job.
 

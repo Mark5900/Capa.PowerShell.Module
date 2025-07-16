@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Creates a section header in the logfile.
 
+	.DESCRIPTION
+		This function creates a section header in the logfile.
+
 	.PARAMETER Name
 		The name of the section.
 

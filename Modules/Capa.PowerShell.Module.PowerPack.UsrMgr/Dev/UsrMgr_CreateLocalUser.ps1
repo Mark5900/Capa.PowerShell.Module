@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Create a local user account.
 
+	.DESCRIPTION
+		This function creates a local user account on the system.
+
 	.PARAMETER UserName
 		The name of the user to create.
 

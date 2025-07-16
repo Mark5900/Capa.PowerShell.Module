@@ -4,6 +4,9 @@
     .SYNOPSIS
         Check if a folder exists.
 
+		.DESCRIPTION
+				This function checks if the specified folder exists.
+
     .Parameter Path
         The folder to check.
 

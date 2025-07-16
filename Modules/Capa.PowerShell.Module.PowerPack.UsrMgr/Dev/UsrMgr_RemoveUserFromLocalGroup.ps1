@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Remove a user from a local group.
 
+	.DESCRIPTION
+		Removes a user from a local group on the specified domain or local machine.
+
 	.PARAMETER UserName
 		The name of the user to remove from the group.
 

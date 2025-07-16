@@ -4,6 +4,10 @@
 	.SYNOPSIS
 		Executes a command line application with a timeout.
 
+	.DESCRIPTION
+		This function executes a command line application with the specified arguments and options.
+		It will wait for the specified timeout before returning.
+
 	.PARAMETER Command
 		The command to execute.
 

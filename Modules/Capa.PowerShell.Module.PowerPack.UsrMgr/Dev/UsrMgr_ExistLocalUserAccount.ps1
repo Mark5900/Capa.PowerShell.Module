@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Check if a local user account exists.
 
+	.DESCRIPTION
+		This function checks if a local user account exists on the specified domain or local machine.
+
 	.PARAMETER UserName
 		The name of the user to check for.
 

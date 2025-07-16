@@ -31,7 +31,7 @@
 			[
 				"@semantic-release/exec",
 				{
-					"prepareCmd": "echo ${nextRelease.version} > version.txt && pwsh -ExecutionPolicy Bypass -File CreateInstaller.ps1"
+					"prepareCmd": "echo ${nextRelease.version} > version.txt && pwsh -ExecutionPolicy Bypass -File CreateInstaller.ps1 && git add Documentation && git commit -m \"chore: Update documentation\""
 				}
 			],
 			"@semantic-release/release-notes-generator",
@@ -46,7 +46,7 @@
 						"CHANGELOG.md",
 						"package.json"
 					],
-					"message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+					"message": "chore(release): Update version to ${nextRelease.version}"
 				}
 			],
 			[
@@ -62,7 +62,7 @@
 		]
 	},
 	"devDependencies": {
-		"@semantic-release/exec": "^7.0.3",
+		"@semantic-release/exec": "^7.1.0",
 		"@semantic-release/git": "^10.0.1"
 	}
 }

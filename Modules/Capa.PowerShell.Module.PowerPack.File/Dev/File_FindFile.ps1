@@ -4,6 +4,9 @@
     .SYNOPSIS
         Find a file.
 
+		.DESCRIPTION
+				This function finds the specified file.
+
     .Parameter FileName
         The file to find.
 

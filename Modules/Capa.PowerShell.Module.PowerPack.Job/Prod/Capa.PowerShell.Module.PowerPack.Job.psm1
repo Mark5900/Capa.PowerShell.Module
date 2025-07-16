@@ -95,6 +95,9 @@ function Job_RebootWS {
     .SYNOPSIS
         This function will initialize the Powershell Scripting Library and set logpath and other variables.
 
+		.DESCRIPTION
+				This function will initialize the Powershell Scripting Library and set logpath and other variables.
+
     .PARAMETER JobType
         The type of the job.
 
@@ -140,6 +143,9 @@ function Job_Start {
 <#
     .SYNOPSIS
         This function will write a log entry.
+
+		.DESCRIPTION
+				This function will write a log entry.
 
     .PARAMETER FunctionName
         Name of function to associate with log entry (default blank, Log_Sectionheader will override).

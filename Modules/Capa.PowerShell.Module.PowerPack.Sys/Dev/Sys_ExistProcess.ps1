@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Checks if a process exists.
 
+	.DESCRIPTION
+		This function checks if a process is running on the system.
+
 	.PARAMETER ProcessName
 		The name of the process to check.
 

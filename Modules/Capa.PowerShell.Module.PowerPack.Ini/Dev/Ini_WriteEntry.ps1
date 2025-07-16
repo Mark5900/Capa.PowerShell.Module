@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Writes an entry to an INI file.
 
+	.DESCRIPTION
+		This function writes a specified entry to a given INI file.
+
 	.Parameter FilePath
 		The path to the INI file.
 

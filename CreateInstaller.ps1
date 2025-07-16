@@ -1,5 +1,6 @@
 Import-Module PSMSI
-Import-Module platyPS
+#Import-Module platyPS
+Import-Module Microsoft.PowerShell.PlatyPS
 <#
     .NOTES
     ===========================================================================
@@ -18,6 +19,8 @@ $ProductName = 'Capa.PowerShell.Module'
 $UpgradeCode = '84859CA1-0F7D-47BF-8D36-AE22F5E171AD'
 # Change as needed
 $VersionFile = Join-Path $PSScriptRoot 'version.txt'
+
+$ErrorActionPreference = 'Stop'
 
 try {
 	$Version = (Get-Content -Path $VersionFile).Trim()
@@ -679,6 +682,12 @@ function GenerateFunctionsDocumentation {
 	$OverviewPath = Join-Path $PSScriptRoot 'Documentation' 'Overview of all functions in modules.md'
 	Remove-Item -Path $OverviewPath -Force -ErrorAction SilentlyContinue
 	New-Item -Path $OverviewPath -ItemType File
+	Add-Content -Path $OverviewPath -Value '---'
+	Add-Content -Path $OverviewPath -Value 'title: Capa.PowerShell.Module'
+	Add-Content -Path $OverviewPath -Value 'permalink: /powershell/Modules/Capa.PowerShell.Module/'
+	Add-Content -Path $OverviewPath -Value 'author_profile: true'
+	Add-Content -Path $OverviewPath -Value 'layout: single'
+	Add-Content -Path $OverviewPath -Value '---'
 	Add-Content -Path $OverviewPath -Value '# Overview of all functions in modules'
 	Add-Content -Path $OverviewPath -Value ''
 
@@ -687,6 +696,7 @@ function GenerateFunctionsDocumentation {
 		Write-Host "Generating documentation for $($Folder.Name)"
 
 		# Functions documentation
+		$OutputFolder = Join-Path $PSScriptRoot 'Documentation' 'Functions'
 		$PSMPath = Join-Path $Folder.FullName 'Prod' "$($Folder.Name).psm1"
 		if ((Test-Path $PSMPath) -eq $false) {
 			continue
@@ -694,10 +704,60 @@ function GenerateFunctionsDocumentation {
 
 		Import-Module $PSMPath -Force
 
-		New-MarkdownHelp -Module $Folder.Name -OutputFolder .\Documentation\Functions -Force -AlphabeticParamsOrder -NoMetadata
+		#New-MarkdownHelp -Module $Folder.Name -OutputFolder .\Documentation\Functions -Force -AlphabeticParamsOrder -NoMetadata
+		$newMarkdownCommandHelpSplat = @{
+			ModuleInfo     = Get-Module $Folder.Name
+			OutputFolder   = $OutputFolder
+			HelpVersion    = $Version
+			WithModulePage = $true
+			Metadata       = @{
+				layout         = 'single'
+				author_profile = $true
+			}
+		}
+		New-MarkdownCommandHelp @newMarkdownCommandHelpSplat -Force
+
+		$MarkdownModuleFilesFolder = Join-Path $OutputFolder $Folder.Name
+		$MarkdownModuleFilePath = Join-Path $OutputFolder $Folder.Name "$($Folder.Name).md"
+		$CurrentMouduleFile = Import-MarkdownModuleFile -Path $MarkdownModuleFilePath
+
+		<# $CommandHelp = @()
+		$Commands = Get-Command -Module $Folder.Name
+		foreach ($Command in $Commands) {
+			Write-Host "Generating documentation for $($Command.Name)"
+			$CommandHelp += New-CommandHelp -Command $Command
+		} #>
+
+		<# $mdfiles = Measure-PlatyPSMarkdown -Path $MarkdownModuleFilesFolder\*.md
+		$CommandHelp = $mdfiles | Where-Object Filetype -Match 'CommandHelp' |
+			Import-MarkdownCommandHelp -Path { $_.FilePath } #>
+
+		<# $Splat = @{
+			Path        = $MarkdownModuleFilePath
+			CommandHelp = $CurrentMouduleFile.CommandGroups.Commands
+			Metadata    = @{
+				layout         = 'single'
+				author_profile = $true
+			}
+			Locale      = $CurrentMouduleFile.Metadata.Locale
+			NoBackup    = $true
+		}
+		Update-MarkdownModuleFile @Splat -Force #>
+
+		$Content = Get-Content $MarkdownModuleFilePath
+		$Line1 = 'author_profile: true'
+		$Line2 = 'layout: single'
+		$UpdatedContent = @()
+		$UpdatedContent += $Content[0]
+		$UpdatedContent += $Line1
+		$UpdatedContent += $Line2
+		for ($i = 1; $i -lt $Content.Count; $i++) {
+			$UpdatedContent += $Content[$i]
+		}
+		Set-Content -Path $MarkdownModuleFilePath -Value $UpdatedContent
 
 		# Add to Overview of all functions in modules.md
-		Add-Content -Path $OverviewPath -Value "## $($Folder.Name)"
+		Add-Content -Path $OverviewPath -Value "## [$($Folder.Name)](Functions/$($Folder.Name)/$($Folder.Name).md)"
 
 		if ($Folder.Name -eq 'Capa.PowerShell.Module.Tools') {
 			Add-Content -Path $OverviewPath -Value 'This module contains custom functions that are include bothe in the SDK and PowerPack modules, so you can use them were you need them.'
@@ -705,13 +765,22 @@ function GenerateFunctionsDocumentation {
 
 		Add-Content -Path $OverviewPath -Value ''
 
-		$DevPath = Join-Path $Folder.FullName 'Dev'
-		$Files = Get-ChildItem -Path $DevPath -File | Where-Object { $_.Name -notlike '*Tests.ps1' }
+		<# $DevPath = Join-Path $Folder.FullName 'Dev'
+		$Files = Get-ChildItem -Path $DevPath -File | Where-Object { $_.Name -notlike '*Tests.ps1' } #>
+
+		$FunctionsPath = Join-Path $PSScriptRoot 'Documentation' 'Functions' $Folder.Name
+		$Files = Get-ChildItem -Path $FunctionsPath -File
 
 		foreach ($File in $Files) {
-			Add-Content -Path $OverviewPath -Value "- [$($File.BaseName)](Functions/$($File.BaseName).md)"
+			if ($Folder.Name -eq $File.BaseName) {
+				continue
+			}
 
-			# Add what module the function is in to the function documentation
+			Add-Content -Path $OverviewPath -Value "- [$($File.BaseName)](Functions/$($Folder.Name)/$($File.BaseName).md)"
+
+			#$Content = Get-Content -Path $File.FullName
+
+			<# # Add what module the function is in to the function documentation
 			$FunctionPath = Join-Path $PSScriptRoot 'Documentation' 'Functions' "$($File.BaseName).md"
 
 			if ((Test-Path $FunctionPath) -eq $false) {
@@ -721,11 +790,11 @@ function GenerateFunctionsDocumentation {
 			$Content = Get-Content -Path $FunctionPath
 
 			$Content = $Content -replace '## SYNOPSIS', "Module: $($Folder.Name)`n`n## SYNOPSIS"
-			Set-Content -Path $FunctionPath -Value $Content
+			Set-Content -Path $FunctionPath -Value $Content #>
 		}
+		Add-Content -Path $OverviewPath -Value ''
+		Add-Content -Path $OverviewPath -Value ''
 	}
-
-	Add-Content -Path $OverviewPath -Value ''
 }
 
 ##############

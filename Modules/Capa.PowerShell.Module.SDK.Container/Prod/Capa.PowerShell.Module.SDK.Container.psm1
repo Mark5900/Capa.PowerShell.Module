@@ -5,6 +5,9 @@
 	.SYNOPSIS
 		Get the version of the CapaSDK dll.
 
+	.DESCRIPTION
+		Returns the version of the CapaSDK dll.
+
 	.PARAMETER CapaSDK
 		The CapaSDK object.
 
@@ -18,7 +21,7 @@ function Get-CapaDllVersion {
 	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
-		$CapaSDK
+		[object]$CapaSDK
 	)
 
     $value = $CapaSDK.GetDLLVersion()

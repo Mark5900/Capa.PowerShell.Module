@@ -45,6 +45,9 @@ function Install-Msi {
 	.SYNOPSIS
 		Gets the product code of an MSI file.
 
+	.DESCRIPTION
+		This function retrieves the product code of the specified MSI file.
+
 	.PARAMETER MsiFile
 		The path to the MSI file.
 
@@ -71,6 +74,9 @@ function MSI_GetProductCodeFromMSI {
 <#
 	.SYNOPSIS
 		Gets the values of properties from an MSI file.
+
+	.DESCRIPTION
+		This function retrieves the values of specified properties from an MSI file.
 
 	.PARAMETER MsiFile
 		The path to the MSI file.
@@ -104,6 +110,9 @@ function MSI_GetPropertiesFromMSI {
 	.SYNOPSIS
 		Gets the value of a property from an MSI file.
 
+	.DESCRIPTION
+		This function retrieves the value of a specified property from an MSI file.
+
 	.PARAMETER MsiFile
 		The path to the MSI file.
 
@@ -136,6 +145,9 @@ function MSI_GetPropertyFromMSI {
 	.SYNOPSIS
 		Checks if an MSI file is installed.
 
+	.DESCRIPTION
+		This function checks if the specified MSI file is installed on the system.
+
 	.PARAMETER MsiFile
 		The path to the MSI file.
 
@@ -163,6 +175,9 @@ function MSI_IsMSIFileInstalled {
 	.SYNOPSIS
 		Checks if an GUID is installed.
 
+	.DESCRIPTION
+		This function checks if the specified GUID is installed on the system.
+
 	.PARAMETER MsiGuid
 		TMSI Productcode to check installation status of.
 
@@ -184,6 +199,28 @@ function MSI_IsMSIGuidInstalled {
 }
 
 
+<#
+	.SYNOPSIS
+		Uninstalls an MSI package by its DisplayName and optionally by its version.
+
+	.DESCRIPTION
+		This function uninstalls an MSI package from the system. It searches for the package in the registry and executes the uninstall command.
+
+	.PARAMETER DisplayName
+		The display name of the MSI package to uninstall. This parameter is mandatory.
+		Wildcard characters are allowed in the DisplayName parameter.
+
+	.PARAMETER Version
+		The version of the MSI package to uninstall. This parameter is optional. If not provided, all versions of the package with the specified display name will be uninstalled.
+
+	.EXAMPLE
+		Uninstall-PpMSI -DisplayName "MyApp" -Version "1.0.0"
+		This command uninstalls the MSI package with the display name "MyApp" and version "1.0.0".
+
+	.EXAMPLE
+		Uninstall-PpMSI -DisplayName "MyApp*"
+		This command uninstalls all MSI packages with display names that start with "MyApp".
+#>
 function Uninstall-PpMSI {
 	param (
 		[Parameter(Mandatory = $true)]

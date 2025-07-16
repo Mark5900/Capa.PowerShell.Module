@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Checks if a minimum required disk space is available.
 
+	.DESCRIPTION
+		This function checks if the specified drive has at least the minimum required disk space available.
+
 	.PARAMETER Drive
 		The drive to check, default is 'C:'.
 

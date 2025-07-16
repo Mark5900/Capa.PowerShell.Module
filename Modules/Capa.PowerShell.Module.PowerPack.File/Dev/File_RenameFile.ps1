@@ -4,6 +4,9 @@
     .SYNOPSIS
         Rename a file.
 
+		.DESCRIPTION
+				This function renames the specified file.
+
     .Parameter Source
         The file to rename.
 

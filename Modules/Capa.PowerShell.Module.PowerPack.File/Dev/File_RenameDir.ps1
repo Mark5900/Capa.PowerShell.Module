@@ -4,6 +4,9 @@
     .SYNOPSIS
         Rename a folder.
 
+		.DESCRIPTION
+				This function renames the specified folder.
+
     .Parameter Source
         The folder to rename.
 

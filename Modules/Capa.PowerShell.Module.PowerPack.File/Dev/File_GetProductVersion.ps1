@@ -4,6 +4,9 @@
     .SYNOPSIS
         Get the product version of a file.
 
+		.DESCRIPTION
+				This function retrieves the product version of the specified file.
+
     .Parameter FilePath
         The file to get the product version from.
 

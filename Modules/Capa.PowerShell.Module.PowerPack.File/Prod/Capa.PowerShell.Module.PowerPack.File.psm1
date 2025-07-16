@@ -5,6 +5,9 @@
     .SYNOPSIS
         Append text to a file.
 
+		.DESCRIPTION
+				This function appends the specified text to the end of the specified file.
+
     .Parameter File
         The file to append to.
 
@@ -34,6 +37,9 @@ function File_AppendToFile {
 <#
     .SYNOPSIS
         Copy a file.
+
+		.DESCRIPTION
+				This function copies a file from the source to the destination.
 
     .Parameter Source
         The source file.
@@ -69,6 +75,9 @@ function File_CopyFile {
 <#
     .SYNOPSIS
         Copy a folder.
+
+		.DESCRIPTION
+				This function copies a folder from the source to the destination.
 
     .Parameter Source
         The source folder.
@@ -108,6 +117,9 @@ Function File_CopyTree {
     .SYNOPSIS
         Create a directory.
 
+		.DESCRIPTION
+				This function creates a directory at the specified path.
+
     .Parameter Path
         The path to Create.
 
@@ -133,6 +145,9 @@ function File_CreateDir {
     .SYNOPSIS
         Delete path if it is empty.
 
+	.DESCRIPTION
+			This function deletes the specified path if it is empty.
+
     .Parameter Path
         The path to delete.
 
@@ -157,6 +172,9 @@ function File_DelEmptyFolder {
 <#
     .SYNOPSIS
         Delete a line in a file.
+
+		.DESCRIPTION
+				This function deletes a line in a file that contains the specified text.
 
     .Parameter File
         The file to delete the line from.
@@ -196,6 +214,9 @@ function File_DeleteLineInFile {
     .SYNOPSIS
         Delete a file.
 
+		.DESCRIPTION
+				This function deletes the specified file.
+
     .Parameter FilePath
         The file to delete.
 
@@ -225,6 +246,9 @@ function File_DelFile {
     .SYNOPSIS
         Delete a folder.
 
+		.DESCRIPTION
+				This function deletes the specified folder.
+
     .Parameter Path
         The folder to delete.
 
@@ -249,6 +273,9 @@ function File_DelTree {
 <#
     .SYNOPSIS
         Check if a folder exists.
+
+		.DESCRIPTION
+				This function checks if the specified folder exists.
 
     .Parameter Path
         The folder to check.
@@ -277,6 +304,9 @@ function File_ExistDir {
     .SYNOPSIS
         Check if a file exists.
 
+		.DESCRIPTION
+				This function checks if the specified file exists.
+
     .Parameter FilePath
         The file to check.
 
@@ -303,6 +333,9 @@ function File_ExistFile {
 <#
     .SYNOPSIS
         Find a file.
+
+		.DESCRIPTION
+				This function finds the specified file.
 
     .Parameter FileName
         The file to find.
@@ -339,6 +372,9 @@ function File_FindFile {
 <#
     .SYNOPSIS
         Get the file version of a file.
+
+		.DESCRIPTION
+				This function retrieves the file version of the specified file.
 
     .Parameter FilePath
         The file to get the version from.
@@ -395,6 +431,9 @@ function File_GetFolderSize {
     .SYNOPSIS
         Get the product version of a file.
 
+		.DESCRIPTION
+				This function retrieves the product version of the specified file.
+
     .Parameter FilePath
         The file to get the product version from.
 
@@ -421,6 +460,9 @@ function File_GetProductVersion {
 <#
     .SYNOPSIS
         Rename a folder.
+
+		.DESCRIPTION
+				This function renames the specified folder.
 
     .Parameter Source
         The folder to rename.
@@ -455,6 +497,9 @@ function File_RenameDir {
 <#
     .SYNOPSIS
         Rename a file.
+
+		.DESCRIPTION
+				This function renames the specified file.
 
     .Parameter Source
         The file to rename.

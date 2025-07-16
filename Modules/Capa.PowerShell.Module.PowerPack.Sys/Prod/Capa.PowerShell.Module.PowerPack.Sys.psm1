@@ -1,5 +1,36 @@
 
 # TODO: #286 Add help for Show-PpMessageBox
+<#
+	.SYNOPSIS
+		Show a message box.
+
+	.DESCRIPTION
+		Show a message box.
+
+	.PARAMETER Title
+		The title of the message box.
+
+	.PARAMETER Message
+		The message to display in the message box.
+
+	.PARAMETER Buttons
+		The buttons to display in the message box. Can be 'OK', 'OKCancel', 'YesNo', or 'YesNoCancel'.
+
+	.PARAMETER DefaultButton
+		The default button to select. Can be 'OK', 'Cancel', 'Yes', or 'No'.
+
+	.PARAMETER Icon
+		The icon to display in the message box. Can be 'Information', 'Warning', 'Error', or 'Question'.
+
+	.PARAMETER TimeoutSeconds
+		The timeout in seconds before the message box closes automatically. Default is 30 seconds.
+
+	.PARAMETER Async
+		Indicates if the message box should be shown asynchronously. Default is $false.
+
+	.EXAMPLE
+		Show-PpMessageBox -Title "Test" -Message "This is a test message." -Buttons "OK" -DefaultButton "OK" -Icon "Information" -TimeoutSeconds 30 -Async $false
+#>
 function Show-PpMessageBox {
 	[CmdletBinding()]
 	param (
@@ -30,6 +61,9 @@ function Show-PpMessageBox {
 	.SYNOPSIS
 		Checks if a process exists.
 
+	.DESCRIPTION
+		This function checks if a process is running on the system.
+
 	.PARAMETER ProcessName
 		The name of the process to check.
 
@@ -56,6 +90,9 @@ function Sys_ExistProcess {
 <#
 	.SYNOPSIS
 		Gets the free disk space of a drive.
+
+	.DESCRIPTION
+		This function retrieves the free disk space of the specified drive.
 
 	.PARAMETER Drive
 		The drive to get the free disk space from, default is 'C:'.
@@ -85,6 +122,9 @@ function Sys_GetFreeDiskSpace {
 <#
 	.SYNOPSIS
 		Checks if a minimum required disk space is available.
+
+	.DESCRIPTION
+		This function checks if the specified drive has at least the minimum required disk space available.
 
 	.PARAMETER Drive
 		The drive to check, default is 'C:'.
@@ -141,6 +181,9 @@ function Sys_isUserLoggedOn {
 	.SYNOPSIS
 		Kills a process.
 
+	.DESCRIPTION
+		This function kills a process by its name.
+
 	.PARAMETER ProcessName
 		The name of the process to kill.
 
@@ -188,6 +231,9 @@ function Sys_Sleep {
 	.SYNOPSIS
 		Waits for a process to finish.
 
+	.DESCRIPTION
+		This function waits for a process to finish running. It checks the process at regular intervals until it either finishes or the maximum wait time is reached.
+
 	.PARAMETER ProcessName
 		The name of the process to wait for.
 
@@ -222,6 +268,9 @@ function Sys_WaitForProcess {
 <#
 	.SYNOPSIS
 		Waits for a process to exist.
+
+	.DESCRIPTION
+		This function waits for a process to exist. It checks the process at regular intervals until it either exists or the maximum wait time is reached.
 
 	.PARAMETER ProcessName
 		The name of the process to wait for.

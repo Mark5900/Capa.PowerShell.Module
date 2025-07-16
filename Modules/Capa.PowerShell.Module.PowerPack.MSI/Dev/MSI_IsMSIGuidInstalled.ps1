@@ -4,6 +4,9 @@
 	.SYNOPSIS
 		Checks if an GUID is installed.
 
+	.DESCRIPTION
+		This function checks if the specified GUID is installed on the system.
+
 	.PARAMETER MsiGuid
 		TMSI Productcode to check installation status of.
 

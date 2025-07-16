@@ -4,6 +4,9 @@
     .SYNOPSIS
         Get the file version of a file.
 
+		.DESCRIPTION
+				This function retrieves the file version of the specified file.
+
     .Parameter FilePath
         The file to get the version from.
 

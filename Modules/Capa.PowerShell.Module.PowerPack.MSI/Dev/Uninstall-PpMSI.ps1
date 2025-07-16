@@ -1,3 +1,25 @@
+<#
+	.SYNOPSIS
+		Uninstalls an MSI package by its DisplayName and optionally by its version.
+
+	.DESCRIPTION
+		This function uninstalls an MSI package from the system. It searches for the package in the registry and executes the uninstall command.
+
+	.PARAMETER DisplayName
+		The display name of the MSI package to uninstall. This parameter is mandatory.
+		Wildcard characters are allowed in the DisplayName parameter.
+
+	.PARAMETER Version
+		The version of the MSI package to uninstall. This parameter is optional. If not provided, all versions of the package with the specified display name will be uninstalled.
+
+	.EXAMPLE
+		Uninstall-PpMSI -DisplayName "MyApp" -Version "1.0.0"
+		This command uninstalls the MSI package with the display name "MyApp" and version "1.0.0".
+
+	.EXAMPLE
+		Uninstall-PpMSI -DisplayName "MyApp*"
+		This command uninstalls all MSI packages with display names that start with "MyApp".
+#>
 function Uninstall-PpMSI {
 	param (
 		[Parameter(Mandatory = $true)]

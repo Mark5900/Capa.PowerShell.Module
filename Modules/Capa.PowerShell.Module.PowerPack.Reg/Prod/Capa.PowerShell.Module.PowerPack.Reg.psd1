@@ -12,7 +12,7 @@
 RootModule = '.\Capa.PowerShell.Module.PowerPack.Reg.psm1'
 
 # Version number of this module.
-  ModuleVersion       = '1.13.0'
+ModuleVersion = '1.15.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -70,10 +70,10 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Reg_DeleteVariable', 'Reg_CreateKey', 'Reg_DeleteTree', 'Reg_EnumKey',
-               'Reg_ExistKey', 'Reg_ExistVariable', 'Reg_GetString', 'Reg_SetDword',
-               'Reg_SetExpandString', 'Reg_SetInteger', 'Reg_SetString',
-               'Set-PpRegistryValue', 'Reg_GetExpandString', 'Reg_GetInteger',
+FunctionsToExport = 'Reg_DeleteVariable', 'Reg_CreateKey', 'Reg_DeleteTree', 'Reg_EnumKey', 
+               'Reg_ExistKey', 'Reg_ExistVariable', 'Reg_GetString', 'Reg_SetDword', 
+               'Reg_SetExpandString', 'Reg_SetInteger', 'Reg_SetString', 
+               'Set-PpRegistryValue', 'Reg_GetExpandString', 'Reg_GetInteger', 
                'Reg_GetMultiString', 'Reg_SetQword'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -115,7 +115,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        Prerelease = 'Prerelease6'
+        Prerelease = 'Prerelease7'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

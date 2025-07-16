@@ -70,10 +70,10 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Reg_DeleteVariable', 'Reg_CreateKey', 'Reg_DeleteTree', 'Reg_EnumKey', 
-               'Reg_ExistKey', 'Reg_ExistVariable', 'Reg_GetString', 'Reg_SetDword', 
-               'Reg_SetExpandString', 'Reg_SetInteger', 'Reg_SetString', 
-               'Set-PpRegistryValue'
+FunctionsToExport = 'Reg_DeleteVariable', 'Reg_CreateKey', 'Reg_DeleteTree', 'Reg_EnumKey',
+               'Reg_ExistKey', 'Reg_ExistVariable', 'Reg_GetString', 'Reg_SetDword',
+               'Reg_SetExpandString', 'Reg_SetInteger', 'Reg_SetString',
+               'Set-PpRegistryValue', "Reg_GetExpandString", "Reg_GetInteger", "Reg_GetMultiString", "Reg_SetQword"
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = '*'

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/10/2025
+ms.date: 07/16/2025
 PlatyPS schema version: 2024-05-01
 title: Copy-CapaPackage
 ---
@@ -51,7 +51,6 @@ the CapaSDK object.
 Type: System.Object
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -73,7 +72,6 @@ The new name of the package.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -95,7 +93,6 @@ The new version of the package.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -117,7 +114,6 @@ The name of the package.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -139,7 +135,6 @@ The type of the package, either Computer or User.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -161,7 +156,6 @@ The version of the package.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)

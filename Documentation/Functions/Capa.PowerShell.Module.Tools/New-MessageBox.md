@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.Tools
-ms.date: 05/10/2025
+ms.date: 07/16/2025
 PlatyPS schema version: 2024-05-01
 title: New-MessageBox
 ---
@@ -95,7 +95,6 @@ Will return a human readable representation of which button was pressed as oppos
 Type: System.Management.Automation.SwitchParameter
 DefaultValue: False
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: Timeout
@@ -129,7 +128,6 @@ Valid values for -Buttons include:
 Type: System.String
 DefaultValue: OK
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: Timeout
@@ -157,7 +155,6 @@ HelpMessage: ''
 Type: System.String
 DefaultValue: Button1
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: DefaultButton
@@ -184,7 +181,6 @@ Valid values for -Icon include:
 Type: System.String
 DefaultValue: None
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: Timeout
@@ -212,7 +208,6 @@ The message you want displayed
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: Timeout
@@ -240,7 +235,6 @@ Switch which will force the popup window to appear on top of all other windows.
 Type: System.Management.Automation.SwitchParameter
 DefaultValue: False
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: Timeout
@@ -263,7 +257,6 @@ Defaults to 0 (zero) which will keep dialog open until a button is clicked
 Type: System.Int32
 DefaultValue: 0
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: Timeout
@@ -285,7 +278,6 @@ The text to appear in title bar of dialog box
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: Timeout

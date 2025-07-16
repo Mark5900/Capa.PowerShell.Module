@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/10/2025
+ms.date: 07/16/2025
 PlatyPS schema version: 2024-05-01
 title: New-CapaPackageWithGit
 ---
@@ -68,7 +68,6 @@ When specified the advanced setup will be used
 Type: System.Management.Automation.SwitchParameter
 DefaultValue: False
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: Advanced
@@ -90,7 +89,6 @@ The base path where the package folder will be created
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -112,7 +110,6 @@ The Capa server name
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -134,7 +131,6 @@ The Capa database name
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -156,7 +152,6 @@ The default management point
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -178,7 +173,6 @@ The path of where CapaInstaller is saving the packages, example E:\CapaInstaller
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -200,7 +194,6 @@ The name of the package
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: NotAdvanced
@@ -222,7 +215,6 @@ The type of the package, either VBScript or PowerPack
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -244,7 +236,6 @@ The version of the package
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: NotAdvanced
@@ -266,7 +257,6 @@ The name of the software
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: Advanced
@@ -288,7 +278,6 @@ The version of the software
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: Advanced
@@ -310,7 +299,6 @@ The SQL server name
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)

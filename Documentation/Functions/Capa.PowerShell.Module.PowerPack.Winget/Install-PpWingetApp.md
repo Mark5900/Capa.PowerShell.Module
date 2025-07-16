@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.Winget
-ms.date: 05/10/2025
+ms.date: 07/16/2025
 PlatyPS schema version: 2024-05-01
 title: Install-PpWingetApp
 ---
@@ -60,7 +60,6 @@ Or update winget if it is installed.
 Type: System.Boolean
 DefaultValue: False
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -82,7 +81,6 @@ HelpMessage: ''
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -104,7 +102,6 @@ The locale to use for the installation, for example 'da-DK'
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)

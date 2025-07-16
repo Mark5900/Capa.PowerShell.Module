@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/10/2025
+ms.date: 07/16/2025
 PlatyPS schema version: 2024-05-01
 title: New-CapaPowerPack
 ---
@@ -66,7 +66,6 @@ Allow the package to be installed on the server
 Type: System.Boolean
 DefaultValue: False
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -88,7 +87,6 @@ The CapaSDK object
 Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -110,7 +108,6 @@ The changelog comment of the package
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -132,7 +129,6 @@ The SQL Server credential
 Type: System.Management.Automation.PSCredential
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -154,7 +150,6 @@ The Capa database name
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -176,7 +171,6 @@ The display name of the package, if not specified then the package name and vers
 Type: System.String
 DefaultValue: '"$PackageName $PackageVersion"'
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -198,7 +192,6 @@ The install script content of the package, if not specified then the default ins
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -220,7 +213,6 @@ The path to the kit folder, if not specified then a dummy kit folder will be cre
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -242,7 +234,6 @@ The name of the package
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -264,7 +255,6 @@ The version of the package
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -287,7 +277,6 @@ Requires that KitFolderPath is specified.
 Type: System.Int32
 DefaultValue: 0
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -309,7 +298,6 @@ The SQL Server instance
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -331,7 +319,6 @@ The uninstall script content of the package, if not specified then the default u
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)

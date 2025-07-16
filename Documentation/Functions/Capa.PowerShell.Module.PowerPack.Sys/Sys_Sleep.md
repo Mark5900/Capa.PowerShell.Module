@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.Sys
-ms.date: 05/10/2025
+ms.date: 07/16/2025
 PlatyPS schema version: 2024-05-01
 title: Sys_Sleep
 ---
@@ -46,7 +46,6 @@ The number of seconds to sleep, shall be bigger than 0 and less than 14400.
 Type: System.Int32
 DefaultValue: 0
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)

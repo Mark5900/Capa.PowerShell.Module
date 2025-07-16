@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.Shell
-ms.date: 05/10/2025
+ms.date: 07/16/2025
 PlatyPS schema version: 2024-05-01
 title: Shell_Execute
 ---
@@ -47,7 +47,6 @@ The arguments to pass to the command.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -69,7 +68,6 @@ The command to execute.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -92,7 +90,6 @@ If set to $true you need to specify the full path to the command.
 Type: System.Boolean
 DefaultValue: False
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -114,7 +111,6 @@ Wait for the command to finish before returning.
 Type: System.Boolean
 DefaultValue: True
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -137,7 +133,6 @@ Optional values are 'Hidden', 'Normal', 'Minimized', 'Maximized'.
 Type: System.Object
 DefaultValue: Hidden
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -159,7 +154,6 @@ The working directory for the command, default is empty.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)

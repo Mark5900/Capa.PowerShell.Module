@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/10/2025
+ms.date: 07/16/2025
 PlatyPS schema version: 2024-05-01
 title: Update-CapaPackageScriptAndKit
 ---
@@ -111,7 +111,6 @@ Default is to use the current user's credentials.
 Type: System.Management.Automation.PSCredential
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: PowerPackWithKit
@@ -139,7 +138,6 @@ The name of the database.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: PowerPackWithKit
@@ -167,7 +165,6 @@ The path to the folder containing files to set as kit.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: Kit
@@ -202,7 +199,6 @@ Example: \\CISRVKURSUS.CIKURSUS.local\CMPProduction\ComputerJobs
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: Kit
@@ -242,7 +238,6 @@ The name of the package.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -265,7 +260,6 @@ Valid values are: PowerPack, VBScript.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: VBScriptWithKit
@@ -305,7 +299,6 @@ The version of the package.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -327,7 +320,6 @@ The content of the script.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: VBScriptWithKit
@@ -368,7 +360,6 @@ Valid values are: Install, Uninstall, UserConfiguration.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: VBScriptWithKit
@@ -408,7 +399,6 @@ The name of the SQL Server instance.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: PowerPackWithKit

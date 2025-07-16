@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.Tools
-ms.date: 05/10/2025
+ms.date: 07/16/2025
 PlatyPS schema version: 2024-05-01
 title: Write-LogLine
 ---
@@ -60,7 +60,6 @@ Only usable to see in the console.
 Type: System.Object
 DefaultValue: (Get-Host).ui.rawui.ForegroundColor
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -83,7 +82,6 @@ Default value is 'Main'.
 Type: System.String
 DefaultValue: Main
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)
@@ -105,7 +103,6 @@ The text to write to the log file.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-ParameterValue: []
 Aliases: []
 ParameterSets:
 - Name: (All)

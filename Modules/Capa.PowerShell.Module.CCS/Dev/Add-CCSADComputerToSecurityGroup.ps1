@@ -42,7 +42,7 @@ function Add-CCSADComputerToSecurityGroup {
 		[Parameter(Mandatory = $true)]
 		[string]$SecurityGroupName,
 		[Parameter(Mandatory = $false)]
-		[string]$DomainOUPath,
+    [string]$DomainOUPath = '',
 		[Parameter(Mandatory = $true)]
 		[string]$Domain,
 		[Parameter(Mandatory = $true)]

@@ -44,7 +44,7 @@ function Get-CCSADComputerNames {
 	$FunctionName = 'Get-CCSADComputerNames'
 
 	if ($Global:Cs) {
-		Job_WriteLog -Text "$FunctionName DomainOUPath: $DomainOUPath, Domain: $Domain, Url: $Url, PasswordIsEncrypted: $PasswordIsEncrypted"
+		$Global:Cs.Job_WriteLog("$FunctionName DomainOUPath: $DomainOUPath, Domain: $Domain, Url: $Url, PasswordIsEncrypted: $PasswordIsEncrypted")
 	}
 
 	$CCS = Initialize-CCS -Url $Url -WebServiceCredential $CCSCredential
@@ -64,7 +64,7 @@ function Get-CCSADComputerNames {
 	)
 
 	if ($Global:Cs) {
-		Job_WriteLog -Text "$FunctionName Result: $Result"
+		$Global:Cs.Job_WriteLog("$FunctionName Result: $Result")
 	}
 
 	$Throw = Invoke-CCSIsError -Result $Result

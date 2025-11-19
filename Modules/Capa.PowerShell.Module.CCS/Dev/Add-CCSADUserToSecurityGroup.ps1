@@ -54,7 +54,7 @@ function Add-CCSADUserToSecurityGroup {
 	$FunctionName = 'Add-CCSADUserToSecurityGroup'
 
 	if ($Global:Cs) {
-		Job_WriteLog -Text "$FunctionName UserName: $UserName, SecurityGroupName: $SecurityGroupName, DomainOUPath: $DomainOUPath, Domain: $Domain, Url: $Url, PasswordIsEncrypted: $PasswordIsEncrypted"
+		$Global:Cs.Job_WriteLog("$FunctionName UserName: $UserName, SecurityGroupName: $SecurityGroupName, DomainOUPath: $DomainOUPath, Domain: $Domain, Url: $Url, PasswordIsEncrypted: $PasswordIsEncrypted")
 	}
 
 	$CCS = Initialize-CCS -Url $Url -WebServiceCredential $CCSCredential
@@ -76,7 +76,7 @@ function Add-CCSADUserToSecurityGroup {
 	)
 
 	if ($Global:Cs) {
-		Job_WriteLog -Text "$FunctionName Result: $Result"
+		$Global:Cs.Job_WriteLog("$FunctionName Result: $Result")
 	}
 
 	$Throw = Invoke-CCSIsError -Result $Result

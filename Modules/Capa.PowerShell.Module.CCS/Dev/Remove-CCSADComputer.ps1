@@ -53,7 +53,7 @@ function Remove-CCSADComputer {
 		[bool]$PasswordIsEncrypted = $false
 	)
 	if ($Global:Cs) {
-		Job_WriteLog -Text "Remove-CCSADComputer: ComputerName: $ComputerName, DomainOUPath: $DomainOUPath, Domain: $Domain, Url: $Url, PasswordIsEncrypted: $PasswordIsEncrypted"
+        $Global:Cs.Job_WriteLog("Remove-CCSADComputer: ComputerName: $ComputerName, DomainOUPath: $DomainOUPath, Domain: $Domain, Url: $Url, PasswordIsEncrypted: $PasswordIsEncrypted")
 	}
 
 	$CCS = Initialize-CCS -Url $Url -WebServiceCredential $CCSCredential
@@ -74,7 +74,7 @@ function Remove-CCSADComputer {
 	)
 
 	if ($Global:Cs) {
-		Job_WriteLog -Text "Remove-CCSADComputer: Result: $Result"
+		$Global:Cs.Job_WriteLog("Remove-CCSADComputer: Result: $Result")
 	}
 
 	return $Result

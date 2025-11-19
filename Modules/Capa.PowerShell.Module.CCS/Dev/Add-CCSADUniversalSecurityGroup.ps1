@@ -54,7 +54,7 @@ function Add-CCSADUniversalSecurityGroup {
 	$FunctionName = 'Add-CCSADUniversalSecurityGroup'
 
 	if ($Global:Cs) {
-		Job_WriteLog -Text "$FunctionName GroupName: $GroupName, Description: $Description, DomainOUPath: $DomainOUPath, Domain: $Domain, Url: $Url, PasswordIsEncrypted: $PasswordIsEncrypted"
+		$Global:Cs.Job_WriteLog("$FunctionName GroupName: $GroupName, Description: $Description, DomainOUPath: $DomainOUPath, Domain: $Domain, Url: $Url, PasswordIsEncrypted: $PasswordIsEncrypted")
 	}
 
 	$CCS = Initialize-CCS -Url $Url -WebServiceCredential $CCSCredential
@@ -76,7 +76,7 @@ function Add-CCSADUniversalSecurityGroup {
 	)
 
 	if ($Global:Cs) {
-		Job_WriteLog -Text "$FunctionName Result: $Result"
+		$Global:Cs.Job_WriteLog("$FunctionName Result: $Result")
 	}
 
 	$Throw = Invoke-CCSIsError -Result $Result

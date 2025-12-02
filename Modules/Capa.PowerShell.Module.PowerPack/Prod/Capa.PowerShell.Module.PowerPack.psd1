@@ -51,21 +51,21 @@ ClrVersion = '2.0.50727'
 ProcessorArchitecture = 'None'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @('Capa.PowerShell.Module.PowerPack.CMS', 
-               'Capa.PowerShell.Module.PowerPack.Exit', 
-               'Capa.PowerShell.Module.PowerPack.File', 
-               'Capa.PowerShell.Module.PowerPack.Ini', 
-               'Capa.PowerShell.Module.PowerPack.Job', 
-               'Capa.PowerShell.Module.PowerPack.Log', 
-               'Capa.PowerShell.Module.PowerPack.MSI', 
-               'Capa.PowerShell.Module.PowerPack.Reg', 
-               'Capa.PowerShell.Module.PowerPack.Service', 
-               'Capa.PowerShell.Module.PowerPack.Shell', 
-               'Capa.PowerShell.Module.PowerPack.Sys', 
-               'Capa.PowerShell.Module.PowerPack.UsrMgr', 
-               'Capa.PowerShell.Module.PowerPack.Winget', 
-               'Capa.PowerShell.Module.Tools', 
-               'Capa.PowerShell.Module.CCS')
+RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.PowerPack.CMS'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Exit'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.File'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Ini'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Job'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Log'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.MSI'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Reg'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Service'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Shell'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Sys'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.UsrMgr'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.PowerPack.Winget'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.Tools'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.CCS'; ModuleVersion = '1.15.1'; })
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -126,7 +126,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        Prerelease = 'Prerelease1'
+        # Prerelease = ''
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

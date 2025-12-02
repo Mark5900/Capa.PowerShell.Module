@@ -51,8 +51,8 @@ ClrVersion = '2.0.50727'
 ProcessorArchitecture = 'None'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @('Capa.PowerShell.Module.PowerPack', 
-               'Capa.PowerShell.Module.SDK')
+RequiredModules = @(@{ModuleName = 'Capa.PowerShell.Module.PowerPack'; ModuleVersion = '1.15.1'; }, 
+               @{ModuleName = 'Capa.PowerShell.Module.SDK'; ModuleVersion = '1.15.1'; })
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -111,7 +111,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        Prerelease = 'Prerelease1'
+        # Prerelease = ''
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

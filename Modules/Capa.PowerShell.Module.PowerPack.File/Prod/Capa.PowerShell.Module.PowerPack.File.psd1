@@ -12,7 +12,7 @@
 RootModule = '.\Capa.PowerShell.Module.PowerPack.File.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.15.0'
+ModuleVersion = '1.15.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -70,10 +70,10 @@ ProcessorArchitecture = 'None'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'File_AppendToFile', 'File_CopyFile', 'File_CopyTree', 'File_CreateDir',
-               'File_DelEmptyFolder', 'File_DeleteLineInFile', 'File_DelFile',
-               'File_DelTree', 'File_ExistFile', 'File_ExistDir', 'File_FindFile',
-               'File_GetFileVersion', 'File_GetProductVersion', 'File_RenameDir',
+FunctionsToExport = 'File_AppendToFile', 'File_CopyFile', 'File_CopyTree', 'File_CreateDir', 
+               'File_DelEmptyFolder', 'File_DeleteLineInFile', 'File_DelFile', 
+               'File_DelTree', 'File_ExistFile', 'File_ExistDir', 'File_FindFile', 
+               'File_GetFileVersion', 'File_GetProductVersion', 'File_RenameDir', 
                'File_RenameFile'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -115,7 +115,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        # Prerelease = ''
+        Prerelease = 'Prerelease1'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

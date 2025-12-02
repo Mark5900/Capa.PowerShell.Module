@@ -23,26 +23,5 @@ function Job_RebootWS {
         [Parameter(Mandatory = $false)]
         [string]$Text
     )
-    try {
-        Write-Host $Text
-        if ($global:cs) {
-            Job_WriteLog -Text "Call Invoke-Job_RebootWS with text: '$Text'"
-        }
-        if ($Global:InputObject) { $Global:InputObject.RebootRequested = $true }
-    } catch {
-        Write-Error 'Error Line: ' $_.InvocationInfo.Line
-        if ($global:cs) {
-            Job_WriteLog -Text "Invoke-Job_RebootWS: Error Line: $($_.InvocationInfo.Line)"
-        }
-
-        Write-Error 'Error Item: '$_.Exception.ItemName
-        if ($global:cs) {
-            Job_WriteLog -Text "Invoke-Job_RebootWS: Error Item: $($_.Exception.ItemName)"
-        }
-
-        if ($global:cs) {
-            Job_WriteLog -Text "Invoke-Job_RebootWS: '$($_.Exception.HResult)'"
-        }
-        $_.Exception.HResult
-    }
+    $cs.Job_RebootWS($Text)
 }

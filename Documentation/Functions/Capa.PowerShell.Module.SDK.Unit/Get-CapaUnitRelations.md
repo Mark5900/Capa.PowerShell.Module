@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 07/16/2025
+ms.date: 12/02/2025
 PlatyPS schema version: 2024-05-01
 title: Get-CapaUnitRelations
 ---
@@ -77,7 +77,7 @@ ParameterSets:
 - Name: (All)
   Position: 1
   IsRequired: true
-  ValueFromPipeline: false
+  ValueFromPipeline: true
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
 DontShow: false
@@ -114,6 +114,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 [about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
+
+### System.Object
+
+{{ Fill in the Description }}
 
 ## OUTPUTS
 

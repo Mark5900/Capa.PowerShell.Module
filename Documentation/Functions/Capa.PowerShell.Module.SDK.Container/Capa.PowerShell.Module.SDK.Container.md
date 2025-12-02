@@ -7,7 +7,7 @@ HelpInfoUri:
 Locale: en-US
 Module Guid: 00000000-0000-0000-0000-000000000000
 Module Name: Capa.PowerShell.Module.SDK.Container
-ms.date: 07/16/2025
+ms.date: 12/02/2025
 PlatyPS schema version: 2024-05-01
 title: Capa.PowerShell.Module.SDK.Container Module
 ---

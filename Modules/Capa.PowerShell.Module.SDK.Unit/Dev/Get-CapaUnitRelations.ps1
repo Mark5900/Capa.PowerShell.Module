@@ -28,36 +28,35 @@ function Get-CapaUnitRelations {
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
-		[Parameter(Mandatory = $true)]
+		[Parameter(Mandatory = $true, ValueFromPipeline = $true)]
 		$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		$UnitType
 	)
 
-	$oaUnits = @()
-
-	$aUnits = $CapaSDK.GetUnitRelations($UnitName, $UnitType)
-
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
-			RelationType = $aItem[0];
-			Name         = $aItem[1];
-			Created      = $aItem[2];
-			LastExecuted = $aItem[3];
-			Status       = $aItem[4];
-			Description  = $aItem[5];
-			GUID         = $aItem[7];
-			ID           = $aItem[8];
-			TypeName     = $aItem[9];
-			UUID         = $aItem[10];
-			IsMobile     = $aItem[11];
-			Location     = $aItem[12];
-			CmpId        = $aItem[13];
-			BuId         = $aItem[14]
+	process {
+		# Retrieve unit relations using the Capa SDK
+		$CapaSDK.GetUnitRelations($UnitName, $UnitType) | ForEach-Object {
+			# Split the relation string into its components
+			$aItem = $_.Split(';')
+			# Create and return a custom object with the relation details
+			[pscustomobject]@{
+				RelationType = $aItem[0];
+				Name         = $aItem[1];
+				Created      = $aItem[2];
+				LastExecuted = $aItem[3];
+				Status       = $aItem[4];
+				Description  = $aItem[5];
+				GUID         = $aItem[7];
+				ID           = $aItem[8];
+				TypeName     = $aItem[9];
+				UUID         = $aItem[10];
+				IsMobile     = $aItem[11];
+				Location     = $aItem[12];
+				CmpId        = $aItem[13];
+				BuId         = $aItem[14]
+			}
 		}
 	}
-
-	Return $oaUnit
 }

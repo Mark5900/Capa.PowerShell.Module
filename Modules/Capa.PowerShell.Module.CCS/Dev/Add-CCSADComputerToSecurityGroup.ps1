@@ -121,10 +121,10 @@ function Add-CCSADComputerToSecurityGroup {
 		)]
 		[ValidateNotNullOrEmpty()]
 		[ValidateScript({
-				if ($_ -match '^https?://') {
+				if ($_ -match '^https://') {
 					$true
 				} else {
-					throw "URL must start with http:// or https://"
+					throw "URL must start with https:// (secure connection required)"
 				}
 			})]
 		[Alias('WebServiceUrl', 'Uri')]
@@ -228,6 +228,7 @@ function Add-CCSADComputerToSecurityGroup {
 						$ADUsername,
 						$ADPassword
 					)
+                    Write-Debug "Result from CCS Web Service: $Result"
 
 					if ($Global:Cs) {
 						$Global:Cs.Job_WriteLog("$FunctionName Result for $Computer : $Result")
@@ -237,6 +238,8 @@ function Add-CCSADComputerToSecurityGroup {
 
 					# Check for errors in result
 					$IsError = Invoke-CCSIsError -Result $Result
+
+                    Write-Debug "IsError evaluation for result: $IsError"
 					if ($IsError) {
 						$FailureCount++
 
@@ -252,16 +255,27 @@ function Add-CCSADComputerToSecurityGroup {
 							$RecommendedActionText = "Check that the domain credentials have sufficient permissions to modify the security group."
 						} elseif ($Result -like '*already a member*') {
 							$ErrorCat = [System.Management.Automation.ErrorCategory]::ResourceExists
-							$RecommendedActionText = "The computer is already a member of the security group."
-						}
+					$RecommendedActionText = "The computer is already a member of the security group."
+				}
 
-						Invoke-CCSErrorHandling `
-							-ErrorMessage "Failed to add computer '$Computer' to security group '$SecurityGroupName': $Result" `
-							-ErrorCategory $ErrorCat `
-							-TargetObject $Computer `
-							-FunctionName $FunctionName `
-							-RecommendedAction $RecommendedActionText `
-							-Throw:$false
+				# Determine if we should throw based on the ErrorAction preference
+				$ShouldThrow = $false
+				if ($PSBoundParameters.ContainsKey('ErrorAction')) {
+					$ShouldThrow = $PSBoundParameters['ErrorAction'] -eq 'Stop'
+					Write-Debug "ErrorAction from PSBoundParameters: $($PSBoundParameters['ErrorAction'])"
+				} else {
+					$ShouldThrow = $ErrorActionPreference -eq 'Stop'
+					Write-Debug "ErrorAction from ErrorActionPreference: $ErrorActionPreference"
+				}
+				Write-Debug "ShouldThrow is set to: $ShouldThrow"
+
+				Invoke-CCSErrorHandling `
+					-ErrorMessage "Failed to add computer '$Computer' to security group '$SecurityGroupName': $Result" `
+					-ErrorCategory $ErrorCat `
+					-TargetObject $Computer `
+					-FunctionName $FunctionName `
+					-RecommendedAction $RecommendedActionText `
+					-Throw:$ShouldThrow
 					} else {
 						$SuccessCount++
 						Write-Verbose "[$FunctionName] Successfully added $Computer to $SecurityGroupName"
@@ -270,17 +284,25 @@ function Add-CCSADComputerToSecurityGroup {
 				} else {
 					Write-Verbose "[$FunctionName] WhatIf: Would add $Computer to $SecurityGroupName"
 				}
-			} catch {
-				$FailureCount++
+		} catch {
+			$FailureCount++
 
-				Invoke-CCSErrorHandling `
-					-ErrorMessage "Exception occurred while processing computer '$Computer': $_" `
-					-ErrorCategory InvalidOperation `
-					-TargetObject $Computer `
-					-FunctionName $FunctionName `
-					-Exception $_.Exception `
-					-RecommendedAction "Check the error details and verify all parameters are correct." `
-					-Throw:($ErrorActionPreference -eq 'Stop')
+			# Determine if we should throw based on the ErrorAction preference
+			$ShouldThrow = $false
+			if ($PSBoundParameters.ContainsKey('ErrorAction')) {
+				$ShouldThrow = $PSBoundParameters['ErrorAction'] -eq 'Stop'
+			} else {
+				$ShouldThrow = $ErrorActionPreference -eq 'Stop'
+			}
+
+			Invoke-CCSErrorHandling `
+				-ErrorMessage "Exception occurred while processing computer '$Computer': $_" `
+				-ErrorCategory InvalidOperation `
+				-TargetObject $Computer `
+				-FunctionName $FunctionName `
+				-Exception $_.Exception `
+				-RecommendedAction "Check the error details and verify all parameters are correct." `
+				-Throw:$ShouldThrow
 			}
 		}
 	}

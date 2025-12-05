@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - dev
-      - CI_6.7
+      - Add-CCS
     paths:
       - "Modules/**"
   workflow_dispatch:
@@ -24,6 +24,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Pester
+        env:
+          DOMAINADMINUSERNAME: ${{ secrets.DOMAINADMINUSERNAME }}
+          DOMAINADMINPASSWORD: ${{ secrets.DOMAINADMINPASSWORD }}
         run: |
           Import-Module Pester
           $configuration = New-PesterConfiguration
@@ -31,6 +34,7 @@ jobs:
           $configuration.TestResult.OutputPath = 'C:\Temp\PesterTests.xml'
           $configuration.TestResult.Enabled = $true
           $configuration.TestResult.OutputFormat = 'JUnitXml'
+          $configuration.Output.Verbosity = 'Detailed'
 
           Invoke-Pester -Configuration $configuration
         shell: pwsh

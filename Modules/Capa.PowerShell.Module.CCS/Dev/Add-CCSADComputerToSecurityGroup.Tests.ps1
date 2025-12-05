@@ -1,5 +1,10 @@
 BeforeAll {
-    . $PSCommandPath.Replace('.Tests.ps1', '.ps1')
+    $RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
+
+    $Items = Get-ChildItem -Path "$RootPath\Capa.PowerShell.Module.CCS\Dev\" -Filter "*.ps1" | Where-Object { $_.Name -notlike "*Tests.ps1" }
+    foreach ($Item in $Items) {
+        . $Item.FullName
+    }
 
 	# Setup test environment
 	$script:TestUrl = "https://$(hostname).capainstaller.com/CCSWebservice/CCS.asmx"

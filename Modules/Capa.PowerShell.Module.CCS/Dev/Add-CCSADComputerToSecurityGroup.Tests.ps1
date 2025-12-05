@@ -93,46 +93,48 @@ Describe 'Add-CCSADComputerToSecurityGroup' -Tag 'Unit' {
 	Context 'DomainOUPath Validation' {
 
 		BeforeAll {
-			Mock Initialize-CCS { return $script:MockCCS } -ModuleName $ModuleName
-			Mock Get-CCSEncryptedPassword { return 'EncryptedPassword' } -ModuleName $ModuleName
-			Mock Invoke-CCSIsError { return $false } -ModuleName $ModuleName
+			Mock Initialize-CCS { return $script:MockCCS }
+			Mock Get-CCSEncryptedPassword { return 'EncryptedPassword' }
+			Mock Invoke-CCSIsError { return $false }
 
 			$TestCred = New-Object System.Management.Automation.PSCredential('testuser', (ConvertTo-SecureString 'testpass' -AsPlainText -Force))
 		}
 
 		It 'Should accept empty DomainOUPath' {
-			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url 'https://test.com/CCS.asmx' -CCSCredential $TestCred -DomainOUPath '' -WhatIf } | Should -Not -Throw
+			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url $script:TestUrl -CCSCredential $TestCred -DomainOUPath '' -WhatIf } | Should -Not -Throw
 		}
 
 		It 'Should accept standard DN format' {
-			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url 'https://test.com/CCS.asmx' -CCSCredential $TestCred -DomainOUPath 'OU=Computers,DC=example,DC=com' -WhatIf } | Should -Not -Throw
+			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url $script:TestUrl -CCSCredential $TestCred -DomainOUPath 'OU=Computers,DC=example,DC=com' -WhatIf } | Should -Not -Throw
 		}
 
 		It 'Should accept DC-only format' {
-			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url 'https://test.com/CCS.asmx' -CCSCredential $TestCred -DomainOUPath 'DC=example,DC=com' -WhatIf } | Should -Not -Throw
+			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url $script:TestUrl -CCSCredential $TestCred -DomainOUPath 'DC=example,DC=com' -WhatIf } | Should -Not -Throw
 		}
 
 		It 'Should accept LDAP format' {
-			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url 'https://test.com/CCS.asmx' -CCSCredential $TestCred -DomainOUPath 'LDAP://DC01.example.com/OU=Computers,DC=example,DC=com' -WhatIf } | Should -Not -Throw
+			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url $script:TestUrl -CCSCredential $TestCred -DomainOUPath 'LDAP://DC01.example.com/OU=Computers,DC=example,DC=com' -WhatIf } | Should -Not -Throw
 		}
 
 		It 'Should reject invalid format' {
-			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url 'https://test.com/CCS.asmx' -CCSCredential $TestCred -DomainOUPath 'InvalidPath' -WhatIf } | Should -Throw
+			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url $script:TestUrl -CCSCredential $TestCred -DomainOUPath 'InvalidPath' -WhatIf } | Should -Throw
 		}
 	}
 
 	Context 'URL Validation' {
 
 		BeforeAll {
+			Mock Initialize-CCS { return $script:MockCCS }
 			$TestCred = New-Object System.Management.Automation.PSCredential('testuser', (ConvertTo-SecureString 'testpass' -AsPlainText -Force))
 		}
 
 		It 'Should accept HTTPS URL' {
-			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url 'https://test.com/CCS.asmx' -CCSCredential $TestCred -WhatIf } | Should -Not -Throw
+			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url $script:TestUrl -CCSCredential $TestCred -WhatIf } | Should -Not -Throw
 		}
 
 		It 'Should accept HTTP URL' {
-			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url 'http://test.com/CCS.asmx' -CCSCredential $TestCred -WhatIf } | Should -Not -Throw
+			$httpUrl = $script:TestUrl -replace '^https:', 'http:'
+			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url $httpUrl -CCSCredential $TestCred -WhatIf } | Should -Not -Throw
 		}
 
 		It 'Should reject URL without protocol' {
@@ -143,20 +145,20 @@ Describe 'Add-CCSADComputerToSecurityGroup' -Tag 'Unit' {
 	Context 'Domain Validation' {
 
 		BeforeAll {
-			Mock Initialize-CCS { return $script:MockCCS } -ModuleName $ModuleName
+			Mock Initialize-CCS { return $script:MockCCS }
 			$TestCred = New-Object System.Management.Automation.PSCredential('testuser', (ConvertTo-SecureString 'testpass' -AsPlainText -Force))
 		}
 
 		It 'Should accept valid domain format' {
-			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url 'https://test.com/CCS.asmx' -CCSCredential $TestCred -WhatIf } | Should -Not -Throw
+			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url $script:TestUrl -CCSCredential $TestCred -WhatIf } | Should -Not -Throw
 		}
 
 		It 'Should accept subdomain format' {
-			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'sub.example.com' -Url 'https://test.com/CCS.asmx' -CCSCredential $TestCred -WhatIf } | Should -Not -Throw
+			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'sub.example.com' -Url $script:TestUrl -CCSCredential $TestCred -WhatIf } | Should -Not -Throw
 		}
 
 		It 'Should reject invalid domain format' {
-			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'invalid_domain' -Url 'https://test.com/CCS.asmx' -CCSCredential $TestCred -WhatIf } | Should -Throw
+			{ Add-CCSADComputerToSecurityGroup -ComputerName 'PC01' -SecurityGroupName 'TestGroup' -Domain 'invalid_domain' -Url $script:TestUrl -CCSCredential $TestCred -WhatIf } | Should -Throw
 		}
 	}
 
@@ -239,9 +241,9 @@ Describe 'Add-CCSADComputerToSecurityGroup - Integration Tests' -Tag 'Integratio
 Describe 'Add-CCSADComputerToSecurityGroup - Performance Tests' -Tag 'Performance' {
 
 	BeforeAll {
-		Mock Initialize-CCS { return $script:MockCCS } -ModuleName $ModuleName
-		Mock Get-CCSEncryptedPassword { return 'EncryptedPassword' } -ModuleName $ModuleName
-		Mock Invoke-CCSIsError { return $false } -ModuleName $ModuleName
+		Mock Initialize-CCS { return $script:MockCCS }
+		Mock Get-CCSEncryptedPassword { return 'EncryptedPassword' }
+		Mock Invoke-CCSIsError { return $false }
 
 		$TestCred = New-Object System.Management.Automation.PSCredential('testuser', (ConvertTo-SecureString 'testpass' -AsPlainText -Force))
 	}
@@ -251,7 +253,7 @@ Describe 'Add-CCSADComputerToSecurityGroup - Performance Tests' -Tag 'Performanc
 		It 'Should process pipeline input efficiently' {
 			$computers = 1..10 | ForEach-Object { "PC$_" }
 			$measure = Measure-Command {
-				$computers | Add-CCSADComputerToSecurityGroup -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url 'https://test.com/CCS.asmx' -CCSCredential $TestCred -WhatIf -WarningAction SilentlyContinue
+				$computers | Add-CCSADComputerToSecurityGroup -SecurityGroupName 'TestGroup' -Domain 'example.com' -Url $script:TestUrl -CCSCredential $TestCred -WhatIf -WarningAction SilentlyContinue
 			}
 			$measure.TotalSeconds | Should -BeLessThan 5
 		}

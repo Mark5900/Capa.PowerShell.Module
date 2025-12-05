@@ -162,12 +162,13 @@ function Add-CCSADComputerToSecurityGroup {
 			Write-Verbose "[$FunctionName] Initializing CCS Web Service connection"
 			$CCS = Initialize-CCS -Url $Url -WebServiceCredential $CCSCredential -ErrorAction Stop
 		} catch {
-			$ErrorMessage = "Failed to initialize CCS Web Service: $_"
-			Write-Error $ErrorMessage
-			if ($Global:Cs) {
-				$Global:Cs.Job_WriteLog("$FunctionName ERROR: $ErrorMessage", $true)
-			}
-			throw
+			Invoke-CCSErrorHandling `
+				-ErrorMessage "Failed to initialize CCS Web Service: $_" `
+				-ErrorCategory ConnectionError `
+				-TargetObject $Url `
+				-FunctionName $FunctionName `
+				-Exception $_.Exception `
+				-RecommendedAction "Verify the URL is correct and the CCS Web Service is accessible. Check credentials."
 		}
 
 		# Prepare domain credentials if provided
@@ -187,12 +188,12 @@ function Add-CCSADComputerToSecurityGroup {
 					Write-Verbose "[$FunctionName] Password encrypted successfully"
 				}
 			} catch {
-				$ErrorMessage = "Failed to process domain credential password: $_"
-				Write-Error $ErrorMessage
-				if ($Global:Cs) {
-					$Global:Cs.Job_WriteLog("$FunctionName ERROR: $ErrorMessage", $true)
-				}
-				throw
+				Invoke-CCSErrorHandling `
+					-ErrorMessage "Failed to process domain credential password: $_" `
+					-ErrorCategory SecurityError `
+					-FunctionName $FunctionName `
+					-Exception $_.Exception `
+					-RecommendedAction "Ensure the domain credential is valid and the password can be encrypted."
 			}
 		} else {
 			Write-Verbose "[$FunctionName] No domain credential provided, using CCS Web Service context"
@@ -238,11 +239,29 @@ function Add-CCSADComputerToSecurityGroup {
 					$IsError = Invoke-CCSIsError -Result $Result
 					if ($IsError) {
 						$FailureCount++
-						$ErrorMessage = "$FunctionName Failed for computer '$Computer': $Result"
-						Write-Error $ErrorMessage
-						if ($Global:Cs) {
-							$Global:Cs.Job_WriteLog($ErrorMessage, $true)
+
+						# Determine appropriate error category based on result message
+						$ErrorCat = [System.Management.Automation.ErrorCategory]::OperationStopped
+						$RecommendedActionText = "Verify the computer and security group names are correct."
+
+						if ($Result -like '*does not exist*') {
+							$ErrorCat = [System.Management.Automation.ErrorCategory]::ObjectNotFound
+							$RecommendedActionText = "Verify that the computer '$Computer' and security group '$SecurityGroupName' exist in Active Directory."
+						} elseif ($Result -like '*unwilling to process*') {
+							$ErrorCat = [System.Management.Automation.ErrorCategory]::PermissionDenied
+							$RecommendedActionText = "Check that the domain credentials have sufficient permissions to modify the security group."
+						} elseif ($Result -like '*already a member*') {
+							$ErrorCat = [System.Management.Automation.ErrorCategory]::ResourceExists
+							$RecommendedActionText = "The computer is already a member of the security group."
 						}
+
+						Invoke-CCSErrorHandling `
+							-ErrorMessage "Failed to add computer '$Computer' to security group '$SecurityGroupName': $Result" `
+							-ErrorCategory $ErrorCat `
+							-TargetObject $Computer `
+							-FunctionName $FunctionName `
+							-RecommendedAction $RecommendedActionText `
+							-Throw:$false
 					} else {
 						$SuccessCount++
 						Write-Verbose "[$FunctionName] Successfully added $Computer to $SecurityGroupName"
@@ -253,17 +272,15 @@ function Add-CCSADComputerToSecurityGroup {
 				}
 			} catch {
 				$FailureCount++
-				$ErrorMessage = "Exception occurred while processing computer '$Computer': $_"
-				Write-Error $ErrorMessage
 
-				if ($Global:Cs) {
-					$Global:Cs.Job_WriteLog("$FunctionName ERROR: $ErrorMessage", $true)
-				}
-
-				# Continue processing other computers unless ErrorAction is Stop
-				if ($ErrorActionPreference -eq 'Stop') {
-					throw
-				}
+				Invoke-CCSErrorHandling `
+					-ErrorMessage "Exception occurred while processing computer '$Computer': $_" `
+					-ErrorCategory InvalidOperation `
+					-TargetObject $Computer `
+					-FunctionName $FunctionName `
+					-Exception $_.Exception `
+					-RecommendedAction "Check the error details and verify all parameters are correct." `
+					-Throw:($ErrorActionPreference -eq 'Stop')
 			}
 		}
 	}

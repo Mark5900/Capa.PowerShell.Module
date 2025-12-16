@@ -1,12 +1,10 @@
 BeforeAll {
-	# Import the module
-	$ModulePath = Split-Path -Parent $PSCommandPath
-	$ModuleName = 'Capa.PowerShell.Module.CCS'
+    $RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
-	# Import module if not already loaded
-	if (-not (Get-Module -Name $ModuleName)) {
-		Import-Module "$ModulePath\$ModuleName.psd1" -Force -ErrorAction Stop
-	}
+    $Items = Get-ChildItem -Path "$RootPath\Capa.PowerShell.Module.CCS\Dev\" -Filter '*.ps1' | Where-Object { $_.Name -notlike '*Tests.ps1' }
+    foreach ($Item in $Items) {
+        Import-Module $Item.FullName -Force -ErrorAction Stop
+    }
 }
 
 Describe 'Invoke-CCSErrorHandling' -Tag 'Unit' {
@@ -128,14 +126,15 @@ Describe 'Invoke-CCSErrorHandling' -Tag 'Unit' {
 	Context 'Global Cs Logging' {
 
 		BeforeEach {
-			# Mock global Cs object
+			# Mock global Cs object with Add-Member for method
 			$Global:Cs = [PSCustomObject]@{
 				LogMessages = @()
-				Job_WriteLog = {
-					param($message, $isError)
-					$Global:Cs.LogMessages += @{ Message = $message; IsError = $isError }
-				}.GetNewClosure()
 			}
+
+			$Global:Cs | Add-Member -MemberType ScriptMethod -Name Job_WriteLog -Value {
+				param($message, $isError)
+				$this.LogMessages += @{ Message = $message; IsError = $isError }
+			} -Force
 		}
 
 		AfterEach {

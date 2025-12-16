@@ -9,11 +9,15 @@ BeforeAll {
     # Setup test environment
     $script:TestUrl = "https://$(hostname).capainstaller.com/CCSWebservice/CCS.asmx"
     $script:TestDomain = 'Firmax.local'
+    $CredentialPath = "D:\PowerShell\Credentials\$($env:USERNAME)DomainAdminPesterTests.xml"
 
     # Setup credentials from environment variables (GitHub secrets)
     if ($env:DOMAINADMINUSERNAME -and $env:DOMAINADMINPASSWORD) {
         $securePassword = ConvertTo-SecureString $env:DOMAINADMINPASSWORD -AsPlainText -Force
         $script:TestDomainCredential = New-Object System.Management.Automation.PSCredential($env:DOMAINADMINUSERNAME, $securePassword)
+        $script:TestCCSCredential = $script:TestDomainCredential
+    } elseif (Test-Path -Path $CredentialPath) {
+        $script:TestDomainCredential = Import-Clixml -Path $CredentialPath
         $script:TestCCSCredential = $script:TestDomainCredential
     } else {
         $script:TestDomainCredential = Get-Credential -Message 'Enter domain admin credentials for integration tests'

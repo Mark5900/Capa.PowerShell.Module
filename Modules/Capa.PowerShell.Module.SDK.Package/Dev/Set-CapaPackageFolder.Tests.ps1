@@ -52,5 +52,4 @@ Describe 'Test with a package allready in the folder' {
 }
 AfterAll {
 	Remove-CapaPackage -CapaSDK $CapaSDK -PackageName 'Test1' -PackageVersion 'v1.0' -PackageType 'Computer' -Force True
-	Get-Module | Remove-Module
 }

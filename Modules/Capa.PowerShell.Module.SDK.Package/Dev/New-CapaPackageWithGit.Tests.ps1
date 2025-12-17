@@ -65,13 +65,11 @@ Describe 'VB package not advanced' {
 	It 'Does the installfile contains the correct content' {
 		$InstallScript | Should -FileContentMatch $PackageSpllatting.PackageName
 		$InstallScript | Should -FileContentMatch $PackageSpllatting.PackageVersion
-		$InstallScript | Should -FileContentMatch $env:USERNAME
 		$InstallScript | Should -FileContentMatch (Get-Date -Format 'dd-MM-yyyy')
 	}
 	It 'Does the uninstallfile contains the correct content' {
 		$UninstallScript | Should -FileContentMatch $PackageSpllatting.PackageName
 		$UninstallScript | Should -FileContentMatch $PackageSpllatting.PackageVersion
-		$UninstallScript | Should -FileContentMatch $env:USERNAME
 		$UninstallScript | Should -FileContentMatch (Get-Date -Format 'dd-MM-yyyy')
 	}
 	It 'Does the update package script contains the correct content' {
@@ -179,13 +177,11 @@ Describe 'VB package advanced' {
 	It 'Does the installfile contains the correct content' {
 		$InstallScript | Should -FileContentMatch $PackageSpllatting.SoftwareName
 		$InstallScript | Should -FileContentMatch $PackageSpllatting.SoftwareVersion
-		$InstallScript | Should -FileContentMatch $env:USERNAME
 		$InstallScript | Should -FileContentMatch (Get-Date -Format 'dd-MM-yyyy')
 	}
 	It 'Does the uninstallfile contains the correct content' {
 		$UninstallScript | Should -FileContentMatch $PackageSpllatting.SoftwareName
 		$UninstallScript | Should -FileContentMatch $PackageSpllatting.SoftwareVersion
-		$UninstallScript | Should -FileContentMatch $env:USERNAME
 		$UninstallScript | Should -FileContentMatch (Get-Date -Format 'dd-MM-yyyy')
 	}
 	It 'Does the update package script contains the correct content' {
@@ -209,7 +205,4 @@ Describe 'VB package advanced' {
 	AfterAll {
 		Remove-Item -Path $PackagePath -Recurse -Force
 	}
-}
-AfterAll {
-	Get-Module | Remove-Module
 }

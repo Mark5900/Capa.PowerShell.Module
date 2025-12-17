@@ -23,10 +23,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run Pester
+      - name: Create Credential File
         env:
           DOMAINADMINUSERNAME: ${{ secrets.DOMAINADMINUSERNAME }}
           DOMAINADMINPASSWORD: ${{ secrets.DOMAINADMINPASSWORD }}
+        run: |
+          $Path = "D:\PowerShell\Credentials\$($env:USERNAME)DomainAdminPesterTests.xml"
+
+          if (Test-Path $Path) {
+              Remove-Item $Path -Force
+          }
+
+          $securePassword = ConvertTo-SecureString $env:DOMAINADMINPASSWORD -AsPlainText -Force
+          $credential = New-Object System.Management.Automation.PSCredential ($env:DOMAINADMINUSERNAME, $securePassword)
+          $credential | Export-Clixml -Path $Path
+        shell: pwsh
+
+      - name: Run Pester
         run: |
           Import-Module Pester
           $configuration = New-PesterConfiguration

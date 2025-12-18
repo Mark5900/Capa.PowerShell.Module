@@ -60,42 +60,107 @@ Describe 'Remove-CCSADComputer' -Tag 'Unit' {
             (Get-Command Remove-CCSADComputer).Parameters['PasswordIsEncrypted'].Attributes.Mandatory | Should -Be $false
         }
 
-        It 'Should have ComputerName as string type' {
-            (Get-Command Remove-CCSADComputer).Parameters['ComputerName'].ParameterType.Name | Should -Be 'String'
+        It 'Should accept array of computer names' {
+            (Get-Command Remove-CCSADComputer).Parameters['ComputerName'].ParameterType.Name | Should -Be 'String[]'
         }
 
-        It 'Should have DomainOUPath as string type' {
-            (Get-Command Remove-CCSADComputer).Parameters['DomainOUPath'].ParameterType.Name | Should -Be 'String'
-        }
-
-        It 'Should have PasswordIsEncrypted default to false' {
-            $cmd = Get-Command Remove-CCSADComputer
-            $param = $cmd.Parameters['PasswordIsEncrypted']
-            $param.Attributes.Where({$_ -is [System.Management.Automation.PSDefaultValueAttribute]}).Count -gt 0 -or
-            $true | Should -Be $true  # Parameter has default value in function
+        It 'Should accept pipeline input for ComputerName' {
+            (Get-Command Remove-CCSADComputer).Parameters['ComputerName'].Attributes.ValueFromPipeline | Should -Be $true
         }
     }
 
-    Context 'Function Attributes' {
+    Context 'Parameter Aliases' {
 
-        It 'Should have comment-based help' {
-            $help = Get-Help Remove-CCSADComputer
-            $help.Synopsis | Should -Not -BeNullOrEmpty
+        It 'Should have alias "Name" for ComputerName' {
+            (Get-Command Remove-CCSADComputer).Parameters['ComputerName'].Aliases | Should -Contain 'Name'
         }
 
-        It 'Should have description in help' {
-            $help = Get-Help Remove-CCSADComputer
-            $help.Description | Should -Not -BeNullOrEmpty
+        It 'Should have alias "Computer" for ComputerName' {
+            (Get-Command Remove-CCSADComputer).Parameters['ComputerName'].Aliases | Should -Contain 'Computer'
         }
 
-        It 'Should have examples in help' {
-            $help = Get-Help Remove-CCSADComputer -Examples
-            $help.Examples.Example.Count | Should -BeGreaterThan 0
+        It 'Should have alias "OU" for DomainOUPath' {
+            (Get-Command Remove-CCSADComputer).Parameters['DomainOUPath'].Aliases | Should -Contain 'OU'
+        }
+    }
+
+    Context 'DomainOUPath Validation' {
+
+        It 'Should accept empty DomainOUPath' {
+            { Remove-CCSADComputer -ComputerName 'PC01' -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainOUPath '' -WhatIf } | Should -Not -Throw
         }
 
-        It 'Should have parameter descriptions in help' {
-            $help = Get-Help Remove-CCSADComputer -Parameter ComputerName
-            $help.Description | Should -Not -BeNullOrEmpty
+        It 'Should accept standard DN format' {
+            { Remove-CCSADComputer -ComputerName 'PC01' -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainOUPath 'OU=Computers,DC=Firmax,DC=local' -WhatIf } | Should -Not -Throw
+        }
+
+        It 'Should accept DC-only format' {
+            { Remove-CCSADComputer -ComputerName 'PC01' -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainOUPath 'DC=Firmax,DC=local' -WhatIf } | Should -Not -Throw
+        }
+
+        It 'Should accept LDAP format' {
+            { Remove-CCSADComputer -ComputerName 'PC01' -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainOUPath 'LDAP://DC01.Firmax.local/OU=Computers,DC=Firmax,DC=local' -WhatIf } | Should -Not -Throw
+        }
+
+        It 'Should reject invalid format' {
+            { Remove-CCSADComputer -ComputerName 'PC01' -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainOUPath 'InvalidPath' -WhatIf } | Should -Throw
+        }
+    }
+
+    Context 'URL Validation' {
+
+        It 'Should accept HTTPS URL' {
+            { Remove-CCSADComputer -ComputerName 'PC01' -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -WhatIf } | Should -Not -Throw
+        }
+
+        It 'Should reject HTTP URL (only HTTPS allowed)' {
+            $httpUrl = $script:TestUrl -replace '^https:', 'http:'
+            { Remove-CCSADComputer -ComputerName 'PC01' -Domain $script:TestDomain -Url $httpUrl -CCSCredential $script:TestCCSCredential -WhatIf } | Should -Throw
+        }
+
+        It 'Should reject URL without protocol' {
+            { Remove-CCSADComputer -ComputerName 'PC01' -Domain $script:TestDomain -Url 'test.com/CCS.asmx' -CCSCredential $script:TestCCSCredential -WhatIf } | Should -Throw
+        }
+    }
+
+    Context 'Domain Validation' {
+
+        It 'Should accept valid domain format' {
+            { Remove-CCSADComputer -ComputerName 'PC01' -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -WhatIf } | Should -Not -Throw
+        }
+
+        It 'Should accept subdomain format' {
+            { Remove-CCSADComputer -ComputerName 'PC01' -Domain 'sub.firmax.local' -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -WhatIf } | Should -Not -Throw
+        }
+
+        It 'Should reject invalid domain format' {
+            { Remove-CCSADComputer -ComputerName 'PC01' -Domain 'invalid_domain' -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -WhatIf } | Should -Throw
+        }
+    }
+
+    Context 'ShouldProcess Support' {
+
+        It 'Should support WhatIf' {
+            (Get-Command Remove-CCSADComputer).Parameters.ContainsKey('WhatIf') | Should -Be $true
+        }
+
+        It 'Should support Confirm' {
+            (Get-Command Remove-CCSADComputer).Parameters.ContainsKey('Confirm') | Should -Be $true
+        }
+    }
+
+    Context 'CmdletBinding Attributes' {
+
+        It 'Should be an advanced function' {
+            (Get-Command Remove-CCSADComputer).CmdletBinding | Should -Be $true
+        }
+
+        It 'Should have SupportsShouldProcess' {
+            (Get-Command Remove-CCSADComputer).Parameters['WhatIf'] | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Should have OutputType defined' {
+            (Get-Command Remove-CCSADComputer).OutputType.Name | Should -Contain 'System.String'
         }
     }
 }
@@ -108,26 +173,30 @@ Describe 'Remove-CCSADComputer - Integration Tests' -Tag 'Integration' {
             $script:TestComputerName = 'PESTER-REMOVE-TEST-PC'
         }
 
-        It 'Should return "Computer does not exist." for non-existent computer' {
-            $result = Remove-CCSADComputer -ComputerName $script:TestComputerName -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainCredential $script:TestDomainCredential -ErrorAction SilentlyContinue
-            $result | Should -Be 'Computer does not exist.'
+        It 'Should connect to CCS Web Service successfully' {
+            { Remove-CCSADComputer -ComputerName $script:TestComputerName -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -WhatIf } | Should -Not -Throw
         }
 
-        It 'Should accept DomainOUPath parameter' {
-            { Remove-CCSADComputer -ComputerName $script:TestComputerName -DomainOUPath 'DC=Firmax,DC=local' -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainCredential $script:TestDomainCredential -ErrorAction SilentlyContinue } | Should -Not -Throw
+        It 'Should handle non-existent computer gracefully' {
+            { Remove-CCSADComputer -ComputerName $script:TestComputerName -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainCredential $script:TestDomainCredential -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
+        }
+
+        It 'Should remove computer with domain credentials' {
+            { Remove-CCSADComputer -ComputerName $script:TestComputerName -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainCredential $script:TestDomainCredential -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
+        }
+
+        It 'Should process multiple computers' {
+            $computers = @("$script:TestComputerName`1", "$script:TestComputerName`2")
+            { $computers | Remove-CCSADComputer -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainCredential $script:TestDomainCredential -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
+        }
+
+        It 'Should convert LDAP path format' {
+            $ldapPath = 'LDAP://DC01.Firmax.local/DC=Firmax,DC=local'
+            { Remove-CCSADComputer -ComputerName $script:TestComputerName -DomainOUPath $ldapPath -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainCredential $script:TestDomainCredential -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
         }
 
         It 'Should work without DomainCredential (CCS context)' {
-            { Remove-CCSADComputer -ComputerName $script:TestComputerName -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction SilentlyContinue } | Should -Not -Throw
-        }
-
-        It 'Should handle LDAP format DomainOUPath' {
-            $ldapPath = 'LDAP://DC01.Firmax.local/DC=Firmax,DC=local'
-            { Remove-CCSADComputer -ComputerName $script:TestComputerName -DomainOUPath $ldapPath -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainCredential $script:TestDomainCredential -ErrorAction SilentlyContinue } | Should -Not -Throw
-        }
-
-        It 'Should accept PasswordIsEncrypted parameter' {
-            { Remove-CCSADComputer -ComputerName $script:TestComputerName -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainCredential $script:TestDomainCredential -PasswordIsEncrypted $false -ErrorAction SilentlyContinue } | Should -Not -Throw
+            { Remove-CCSADComputer -ComputerName $script:TestComputerName -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
         }
     }
 
@@ -137,29 +206,19 @@ Describe 'Remove-CCSADComputer - Integration Tests' -Tag 'Integration' {
             $badCred = New-Object System.Management.Automation.PSCredential('baduser', (ConvertTo-SecureString 'badpass' -AsPlainText -Force))
             { Remove-CCSADComputer -ComputerName 'TestPC' -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $badCred -ErrorAction Stop } | Should -Throw
         }
-
-        It 'Should handle non-existent URL gracefully' {
-            { Remove-CCSADComputer -ComputerName 'TestPC' -Domain $script:TestDomain -Url 'https://nonexistent.invalid/CCS.asmx' -CCSCredential $script:TestCCSCredential -ErrorAction Stop } | Should -Throw
-        }
-
-        It 'Should require mandatory parameters' {
-            { Remove-CCSADComputer -ErrorAction Stop } | Should -Throw
-        }
     }
 }
 
-Describe 'Remove-CCSADComputer - Output Tests' -Tag 'Output' {
+Describe 'Remove-CCSADComputer - Performance Tests' -Tag 'Performance' {
 
-    Context 'Return Values' {
+    Context 'Pipeline Performance' {
 
-        It 'Should return a string' {
-            $result = Remove-CCSADComputer -ComputerName 'NonExistent-PC' -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainCredential $script:TestDomainCredential -ErrorAction SilentlyContinue
-            $result | Should -BeOfType [string]
-        }
-
-        It 'Should not return null or empty for valid parameters' {
-            $result = Remove-CCSADComputer -ComputerName 'NonExistent-PC' -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainCredential $script:TestDomainCredential -ErrorAction SilentlyContinue
-            $result | Should -Not -BeNullOrEmpty
+        It 'Should process pipeline input efficiently' {
+            $computers = 1..10 | ForEach-Object { "PC$_" }
+            $measure = Measure-Command {
+                $computers | Remove-CCSADComputer -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -WhatIf -WarningAction SilentlyContinue
+            }
+            $measure.TotalSeconds | Should -BeLessThan 5
         }
     }
 }

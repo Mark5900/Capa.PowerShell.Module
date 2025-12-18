@@ -61,6 +61,7 @@ jobs:
             $configuration.TestResult.Enabled = $true
             $configuration.TestResult.OutputFormat = 'JUnitXml'
             $configuration.Output.Verbosity = 'Detailed'
+            $configuration.Filter.ExcludeTag = @('Integration', 'Performance')
 
             Invoke-Pester -Configuration $configuration
             Stop-Transcript

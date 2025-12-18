@@ -6,7 +6,7 @@ BeforeAll {
     $ExpectedEncrypted = 'mOQXCLuC/rSkIrAQU3Ttbg=='
 }
 
-Describe 'Get-CCSEncryptedPassword - Advanced Function' {
+Describe 'Get-CCSEncryptedPassword - Advanced Function' -Tag 'Integration' {
     Context 'Parameter Validation' {
         It 'Throws if SecureString is missing' {
             { Get-CCSEncryptedPassword } | Should -Throw

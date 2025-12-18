@@ -104,6 +104,35 @@ Describe 'Create-CCSADSecurityGroupsForShares' -Tag 'Unit' {
 		}
 	}
 
+	Context 'ShouldProcess Support' {
+
+		It 'Should support WhatIf' {
+			(Get-Command Create-CCSADSecurityGroupsForShares).Parameters.ContainsKey('WhatIf') | Should -Be $true
+		}
+
+		It 'Should support Confirm' {
+			(Get-Command Create-CCSADSecurityGroupsForShares).Parameters.ContainsKey('Confirm') | Should -Be $true
+		}
+	}
+
+	Context 'CmdletBinding Attributes' {
+
+		It 'Should be an advanced function' {
+			(Get-Command Create-CCSADSecurityGroupsForShares).CmdletBinding | Should -Be $true
+		}
+
+		It 'Should have SupportsShouldProcess' {
+			(Get-Command Create-CCSADSecurityGroupsForShares).Parameters['WhatIf'] | Should -Not -BeNullOrEmpty
+		}
+
+		It 'Should have OutputType defined' {
+			(Get-Command Create-CCSADSecurityGroupsForShares).OutputType.Name | Should -Contain 'System.String'
+		}
+	}
+}
+
+Describe 'Create-CCSADSecurityGroupsForShares - Integration Tests' -Tag 'Integration' {
+
 	Context 'DomainOUPath Validation' {
 
 		It 'Should accept empty DomainOUPath' {
@@ -176,35 +205,6 @@ Describe 'Create-CCSADSecurityGroupsForShares' -Tag 'Unit' {
 			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -CreateReadWriteGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
 		}
 	}
-
-	Context 'ShouldProcess Support' {
-
-		It 'Should support WhatIf' {
-			(Get-Command Create-CCSADSecurityGroupsForShares).Parameters.ContainsKey('WhatIf') | Should -Be $true
-		}
-
-		It 'Should support Confirm' {
-			(Get-Command Create-CCSADSecurityGroupsForShares).Parameters.ContainsKey('Confirm') | Should -Be $true
-		}
-	}
-
-	Context 'CmdletBinding Attributes' {
-
-		It 'Should be an advanced function' {
-			(Get-Command Create-CCSADSecurityGroupsForShares).CmdletBinding | Should -Be $true
-		}
-
-		It 'Should have SupportsShouldProcess' {
-			(Get-Command Create-CCSADSecurityGroupsForShares).Parameters['WhatIf'] | Should -Not -BeNullOrEmpty
-		}
-
-		It 'Should have OutputType defined' {
-			(Get-Command Create-CCSADSecurityGroupsForShares).OutputType.Name | Should -Contain 'System.String'
-		}
-	}
-}
-
-Describe 'Create-CCSADSecurityGroupsForShares - Integration Tests' -Tag 'Integration' {
 
 	Context 'Live CCS Web Service Operations' {
 

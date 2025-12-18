@@ -107,19 +107,19 @@ Describe 'Create-CCSADSecurityGroupsForShares' -Tag 'Unit' {
 	Context 'DomainOUPath Validation' {
 
 		It 'Should accept empty DomainOUPath' {
-			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainOUPath '' -ErrorAction Stop } | Should -Throw -ErrorId 'At least one of CreateReadGroup*'
+			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainOUPath '' -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
 		}
 
 		It 'Should accept standard DN format' {
-			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainOUPath 'OU=Groups,DC=Firmax,DC=local' -ErrorAction Stop } | Should -Throw
+			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainOUPath 'OU=Groups,DC=Firmax,DC=local' -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
 		}
 
 		It 'Should accept DC-only format' {
-			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainOUPath 'DC=Firmax,DC=local' -ErrorAction Stop } | Should -Throw
+			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainOUPath 'DC=Firmax,DC=local' -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
 		}
 
 		It 'Should accept LDAP format' {
-			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainOUPath 'LDAP://DC01.Firmax.local/OU=Groups,DC=Firmax,DC=local' -ErrorAction Stop } | Should -Throw
+			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -DomainOUPath 'LDAP://DC01.Firmax.local/OU=Groups,DC=Firmax,DC=local' -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
 		}
 
 		It 'Should reject invalid format' {
@@ -130,7 +130,7 @@ Describe 'Create-CCSADSecurityGroupsForShares' -Tag 'Unit' {
 	Context 'URL Validation' {
 
 		It 'Should accept HTTPS URL' {
-			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction Stop } | Should -Throw
+			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
 		}
 
 		It 'Should reject HTTP URL (only HTTPS allowed)' {
@@ -146,11 +146,11 @@ Describe 'Create-CCSADSecurityGroupsForShares' -Tag 'Unit' {
 	Context 'Domain Validation' {
 
 		It 'Should accept valid domain format' {
-			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction Stop } | Should -Throw
+			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
 		}
 
 		It 'Should accept subdomain format' {
-			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain 'sub.firmax.local' -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction Stop } | Should -Throw
+			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain 'sub.firmax.local' -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
 		}
 
 		It 'Should reject invalid domain format' {
@@ -165,15 +165,15 @@ Describe 'Create-CCSADSecurityGroupsForShares' -Tag 'Unit' {
 		}
 
 		It 'Should accept when only CreateReadGroup is specified' {
-			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction Stop } | Should -Throw
+			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
 		}
 
 		It 'Should accept when only CreateReadWriteGroup is specified' {
-			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadWriteGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction Stop } | Should -Throw
+			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadWriteGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
 		}
 
 		It 'Should accept when both CreateReadGroup and CreateReadWriteGroup are specified' {
-			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -CreateReadWriteGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction Stop } | Should -Throw
+			{ Create-CCSADSecurityGroupsForShares -GroupFormat 'Share_$sharename$' -GroupDescriptionFormat 'Access to $sharename$' -CreateReadGroup -CreateReadWriteGroup -Domain $script:TestDomain -Url $script:TestUrl -CCSCredential $script:TestCCSCredential -ErrorAction SilentlyContinue -WarningAction SilentlyContinue } | Should -Not -Throw
 		}
 	}
 

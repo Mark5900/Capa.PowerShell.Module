@@ -32,7 +32,6 @@ function Initialize-CCS {
 		This is an advanced function with comprehensive error handling, parameter validation, and verbose output.
 	#>
 	[CmdletBinding()]
-	[OutputType([CapaProxy.CCSSoapClient])]
 	param (
 		[Parameter(
 			Mandatory = $true,

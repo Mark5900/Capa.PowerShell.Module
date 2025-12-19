@@ -52,7 +52,7 @@ Describe 'New plain PowerPack' {
         $KitFile | Should -Exist
     }
     It 'Check data in DB' {
-        $Query = "SELECT * FROM JOB WHERE Name = '$($PowerPackSplatting.PackageName)' AND Version = '$($PowerPackSplatting.PackageVersion)' AND CMPID = 2"
+        $Query = "SELECT * FROM JOB WHERE Name = '$($PowerPackSplatting.PackageName)' AND Version = '$($PowerPackSplatting.PackageVersion)' AND CMPID = 1"
         $Package = Invoke-Sqlcmd -ServerInstance $PowerPackSplatting.SqlServerInstance -Database $PowerPackSplatting.Database -Query $Query -TrustServerCertificate
 
         $Package | Should -Not -BeNullOrEmpty

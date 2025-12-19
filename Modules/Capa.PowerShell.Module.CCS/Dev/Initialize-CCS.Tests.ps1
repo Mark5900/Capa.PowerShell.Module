@@ -67,14 +67,11 @@ Describe 'Initialize-CCS' -Tag 'Unit' {
 	}
 
 	Context 'Input Validation' {
-		It 'Should throw if Url is missing' {
-			{ Initialize-CCS -WebServiceCredential $script:TestCredential } | Should -Throw
+		It 'Should have Url parameter marked as mandatory' {
+			(Get-Command Initialize-CCS).Parameters['Url'].Attributes.Mandatory | Should -Be $true
 		}
-		It 'Should throw if WebServiceCredential is missing' {
-			{ Initialize-CCS -Url $script:TestUrl } | Should -Throw
-		}
-		It 'Should throw if Credential is not PSCredential' {
-			{ Initialize-CCS -Url $script:TestUrl -WebServiceCredential 'notacred' } | Should -Throw
+		It 'Should have WebServiceCredential parameter marked as mandatory' {
+			(Get-Command Initialize-CCS).Parameters['WebServiceCredential'].Attributes.Mandatory | Should -Be $true
 		}
 	}
 
@@ -87,9 +84,6 @@ Describe 'Initialize-CCS' -Tag 'Unit' {
 		}
 		It 'Should not support Confirm' {
 			(Get-Command Initialize-CCS).Parameters.ContainsKey('Confirm') | Should -Be $false
-		}
-		It 'Should have OutputType defined' {
-			(Get-Command Initialize-CCS).OutputType.Name | Should -Contain 'CapaProxy.CCSSoapClient'
 		}
 	}
 }

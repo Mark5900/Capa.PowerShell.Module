@@ -34,6 +34,7 @@ Describe 'New plain PowerPack' {
             Database          = 'CapaInstaller'
         }
         New-CapaPowerPack @PowerPackSplatting
+        Start-Sleep -Seconds 5
         Initialize-CapaPackagePromote -CapaSDK $oCMSDev -PackageName 'Test1' -PackageVersion 'v1.0' -PackageType 'Computer'
     }
     It 'Package should exist' {

@@ -2,8 +2,8 @@ BeforeAll {
 	# Import functions
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 
-	$StopLoggingPath = Join-Path $PSScriptRoot 'Stop-ScriptLogging.ps1'
-	Import-Module $StopLoggingPath -Force
+    Import-Module (Join-Path $PSScriptRoot 'Stop-ScriptLogging.ps1') -Force
+    Import-Module (Join-Path $PSScriptRoot 'Write-LogLine.ps1') -Force
 
 	# Create test folder
 	$TempFolderPath = Join-Path $PSScriptRoot 'Temp'
@@ -141,6 +141,7 @@ Describe 'Does $DeleteDaysOldLogs work' {
 Describe 'Does $DeleteAllLogs work' {
 	It 'Only one file should exist' {
 		Stop-ScriptLogging
+        Start-Sleep -Seconds 2
 		Start-ScriptLogging -Path $TempFolderPath -LogName $TestFolderName -DeleteAllLogs $true
 
 		Start-Sleep -Seconds 2

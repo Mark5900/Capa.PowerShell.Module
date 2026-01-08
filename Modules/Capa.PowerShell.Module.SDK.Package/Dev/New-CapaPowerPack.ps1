@@ -169,5 +169,10 @@ function New-CapaPowerPack {
 	} Catch {
 		$PSCmdlet.ThrowTerminatingError($PSitem)
 		return -1
-	}
+	} Finally {
+        # Cleanup Temp Folder
+        If (Test-Path $TempTempFolder) {
+            Remove-Item -Path $TempTempFolder -Recurse -Force | Out-Null
+        }
+    }
 }

@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - dev
-      - CI_6.7
+      - Add-CCS
     paths:
       - "Modules/**"
   workflow_dispatch:
@@ -23,16 +23,48 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Create Credential File
+        env:
+          DOMAINADMINUSERNAME: ${{ secrets.DOMAINADMINUSERNAME }}
+          DOMAINADMINPASSWORD: ${{ secrets.DOMAINADMINPASSWORD }}
+        run: |
+          $Path = "D:\PowerShell\Credentials\$($env:USERNAME)DomainAdminPesterTests.xml"
+
+          if (Test-Path $Path) {
+              Remove-Item $Path -Force
+          }
+
+          $securePassword = ConvertTo-SecureString $env:DOMAINADMINPASSWORD -AsPlainText -Force
+          $credential = New-Object System.Management.Automation.PSCredential ($env:DOMAINADMINUSERNAME, $securePassword)
+          $credential | Export-Clixml -Path $Path
+        shell: pwsh
+
       - name: Run Pester
         run: |
-          Import-Module Pester
-          $configuration = New-PesterConfiguration
-          $configuration.Run.Exit = $true
-          $configuration.TestResult.OutputPath = 'C:\Temp\PesterTests.xml'
-          $configuration.TestResult.Enabled = $true
-          $configuration.TestResult.OutputFormat = 'JUnitXml'
+            $LogFolder = 'C:\Temp'
+            $LogFileName = 'PesterTests.log'
 
-          Invoke-Pester -Configuration $configuration
+            if (-Not (Test-Path $LogFolder)) {
+                New-Item -Path $LogFolder -ItemType Directory | Out-Null
+            }
+
+            if (Test-Path "$LogFolder\$LogFileName") {
+                Remove-Item "$LogFolder\$LogFileName" -Force
+            }
+
+            Start-Transcript -Path "$LogFolder\$LogFileName" -Append
+
+            Import-Module Pester
+            $configuration = New-PesterConfiguration
+            $configuration.Run.Exit = $true
+            $configuration.TestResult.OutputPath = 'C:\Temp\PesterTests.xml'
+            $configuration.TestResult.Enabled = $true
+            $configuration.TestResult.OutputFormat = 'JUnitXml'
+            $configuration.Output.Verbosity = 'Detailed'
+            $configuration.Filter.ExcludeTag = @('Integration', 'Performance')
+
+            Invoke-Pester -Configuration $configuration
+            Stop-Transcript
         shell: pwsh
 
       - name: Upload Test Report
@@ -41,6 +73,13 @@ jobs:
         with:
           name: Pester Test Report
           path: 'C:\Temp\PesterTests.xml'
+
+      - name: Upload Test Log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Pester Test Log
+          path: 'C:\Temp\PesterTests.log'
 
       - name: Test Report
         if: always()

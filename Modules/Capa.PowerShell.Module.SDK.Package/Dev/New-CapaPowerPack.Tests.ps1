@@ -18,7 +18,11 @@ BeforeAll {
     $oCMSProd = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
 
     $PackageRoot = Get-ItemPropertyValue -Path 'registry::HKEY_LOCAL_MACHINE\SOFTWARE\CapaSystems\CapaInstaller' -Name 'Packageroot'
-    $PackageRoot = $PackageRoot.Replace('Prod', $env:COMPUTERNAME)
+    # PackageRoot format: \\ServerName\Prod\... or \\ServerName\COMPUTERNAME\...
+    # Only replace 'Prod' with COMPUTERNAME if it's not already the computer name
+    if ($PackageRoot -match '\\\\[^\\]+\\Prod\\') {
+        $PackageRoot = $PackageRoot.Replace('\Prod\', "\$env:COMPUTERNAME\")
+    }
     $ComputerJobPath = Join-Path $PackageRoot 'ComputerJobs'
 }
 Describe 'New plain PowerPack' {

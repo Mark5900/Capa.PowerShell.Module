@@ -2,7 +2,7 @@
 
 ## How to create the CCSProxy.dll
 
-1. In browser ogen CCSWebservice path like `https://mracapa02.capainstaller.com/CCSWebservice/CCS.asmx?WSDL`
+1. In browser open CCSWebservice path like `https://mracapa02.capainstaller.com/CCSWebservice/CCS.asmx?WSDL`
 2. Save site as `CCS.wsdl`
 3. Run `Developer Powershell for VS 2022` as administrator
 4. cd to the directory where `CCS.wsdl` is located

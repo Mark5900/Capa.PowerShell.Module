@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.CCS
-ms.date: 12/02/2025
+ms.date: 01/08/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CCSEncryptedPassword
 ---
@@ -15,14 +15,14 @@ title: Get-CCSEncryptedPassword
 
 ## SYNOPSIS
 
-This function encrypts a string using the InstallationScreen.exe utility.
+Encrypts a SecureString using the InstallationScreen.exe utility for CCS Webservice use.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Get-CCSEncryptedPassword [-String] <string> [<CommonParameters>]
+Get-CCSEncryptedPassword [-SecureString] <securestring> [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -32,32 +32,37 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-This function takes a string as input and uses the InstallationScreen.exe utility to encrypt it.
-The encrypted string is returned as output and used multiple times, when working with the CCS Webservice.
+Takes a SecureString and uses the InstallationScreen.exe utility to encrypt it.
+Returns the encrypted string, suitable for use with CCS Webservice operations.
+Includes robust error handling, parameter validation, and advanced function features.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Get-CCSEncryptedPassword -String "Admin1234"
+$secure = ConvertTo-SecureString "Admin1234" -AsPlainText -Force
+Get-CCSEncryptedPassword -SecureString $secure
 
 ## PARAMETERS
 
-### -String
+### -SecureString
 
-The string to be encrypted.
+The SecureString to encrypt.
+Must not be empty.
 
 ```yaml
-Type: System.String
+Type: System.Security.SecureString
 DefaultValue: ''
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- Password
+- Secret
 ParameterSets:
 - Name: (All)
   Position: 0
   IsRequired: true
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
+  ValueFromPipeline: true
+  ValueFromPipelineByPropertyName: true
   ValueFromRemainingArguments: false
 DontShow: false
 AcceptedValues: []
@@ -73,9 +78,24 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### System.Security.SecureString
+
+{{ Fill in the Description }}
+
 ## OUTPUTS
 
+### System.String. The encrypted string.
+
+{{ Fill in the Description }}
+
+### System.String
+
+{{ Fill in the Description }}
+
 ## NOTES
+
+Advanced function with CmdletBinding, error handling, and pipeline support.
+
 
 ## RELATED LINKS
 

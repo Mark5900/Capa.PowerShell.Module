@@ -536,7 +536,7 @@ function Start-ScriptLogging {
 		$LogFiles = Get-ChildItem -Path $LogFolderPath
 
 		foreach ($LogFile in $LogFiles) {
-			If ($LogFile.CreationTime.Date -le ((Get-Date).AddDays(-$DeleteDaysOldLogs).ToString('yyyy-MM-dd'))) {
+			If ($LogFile.CreationTime.Date -le ((Get-Date).AddDays(-$DeleteDaysOldLogs).ToString('yyyy-MM-dd')) -or $DeleteAllLogs -eq $true) {
 				Remove-Item $LogFile -Force -ErrorAction SilentlyContinue
 				Write-LogLine -ScriptPart $FunctionName -Text "Deleting $LogFile"
 			}

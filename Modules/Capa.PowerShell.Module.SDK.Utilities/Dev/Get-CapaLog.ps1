@@ -1,5 +1,3 @@
-# TODO: #241 Update and add tests
-
 <#
 	.SYNOPSIS
 		Returns the log for a unit package relation.
@@ -33,22 +31,31 @@
 #>
 function Get-CapaLog {
 	[CmdletBinding()]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
 		[String]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]$PackageType
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetLog')) {
+		throw 'CapaSDK does not contain method GetLog.'
+	}
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'

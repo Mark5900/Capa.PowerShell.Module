@@ -1,5 +1,3 @@
-# TODO: #239 Update and add tests
-
 <#
 	.SYNOPSIS
 		Set the primary user on a unit.
@@ -26,17 +24,27 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247714/Set+Primary+User
 #>
 function Set-CapaPrimaryUser {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
+		[ValidatePattern('^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$')]
 		[String]$Uuid,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UserIdentifier
 	)
 
-	$value = $CapaSDK.SetPrimaryUser($Uuid, $UserIdentifier)
-	return $value
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'SetPrimaryUser')) {
+		throw 'CapaSDK does not contain method SetPrimaryUser.'
+	}
+
+	if ($PSCmdlet.ShouldProcess($Uuid, "Set primary user '$UserIdentifier'")) {
+		$value = $CapaSDK.SetPrimaryUser($Uuid, $UserIdentifier)
+		return $value
+	}
 }

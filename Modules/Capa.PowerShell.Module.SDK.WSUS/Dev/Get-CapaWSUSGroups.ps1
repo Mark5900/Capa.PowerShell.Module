@@ -1,5 +1,3 @@
-# TODO: #252 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets a list of WSUS groups.
@@ -29,18 +27,31 @@ function Get-CapaWSUSGroups {
 		[int]$PointID
 	)
 
-	$oaUnits = @()
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetWSUSGroups')) {
+		throw 'CapaSDK does not contain method GetWSUSGroups.'
+	}
 
 	$aUnits = $CapaSDK.GetWSUSGroups($PointID)
+	if ($null -eq $aUnits) {
+		return @()
+	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
-			ID   = $aItem[0];
-			Name = $aItem[1];
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';', 3
+		if ($aItem.Count -lt 3) {
+			continue
+		}
+
+		[pscustomobject]@{
+			ID   = $aItem[0]
+			Name = $aItem[1]
 			GUID = $aItem[2]
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }

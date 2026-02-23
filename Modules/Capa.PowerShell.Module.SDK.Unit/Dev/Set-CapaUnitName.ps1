@@ -1,45 +1,54 @@
-# TODO: #234 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247740/Set+unit+name
+		Set the name of a unit.
 
 	.DESCRIPTION
-		A detailed description of the Set-CapaUnitName function.
+		Set a new name on an existing unit in CapaInstaller.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		The current unit name.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The unit type.
 
 	.PARAMETER Name
-		A description of the Name parameter.
+		The new unit name.
 
 	.EXAMPLE
-				PS C:\> Set-CapaUnitName -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer -Name 'Value4'
+		PS C:\> Set-CapaUnitName -CapaSDK $CapaSDK -UnitName 'PC001' -UnitType Computer -Name 'PC001-RENAMED'
 
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247740/Set+unit+name
 #>
 function Set-CapaUnitName {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$Name
 	)
 
-	$value = $CapaSDK.SetUnitName($UnitName, $UnitType, $Name)
-	return $value
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'SetUnitName')) {
+		throw 'CapaSDK does not contain method SetUnitName.'
+	}
+
+	$target = "$UnitType unit '$UnitName'"
+	$action = "Set name to '$Name'"
+	if ($PSCmdlet.ShouldProcess($target, $action)) {
+		$value = $CapaSDK.SetUnitName($UnitName, $UnitType, $Name)
+		return $value
+	}
 }

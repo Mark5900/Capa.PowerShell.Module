@@ -1,46 +1,54 @@
-# TODO: #233 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247732/Set+unit+label
+		Set the label on a unit.
 
 	.DESCRIPTION
-		A detailed description of the Set-CapaUnitLabel function.
+		Set or update the label for an existing unit in CapaInstaller.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		The name of the unit.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The unit type.
 
 	.PARAMETER Label
-		A description of the Label parameter.
+		The label value to set.
 
 	.EXAMPLE
-		PS C:\> Set-CapaUnitLabel -CapaSDK $value1 -UnitName 'Value2' -UnitType 'Value3' -Label 'Value4'
+		PS C:\> Set-CapaUnitLabel -CapaSDK $CapaSDK -UnitName 'PC001' -UnitType Computer -Label 'Production'
 
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247732/Set+unit+label
 #>
 function Set-CapaUnitLabel {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Label
 	)
 
-	$value = $CapaSDK.SetUnitLabel($UnitName, $UnitType, $Label)
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'SetUnitLabel')) {
+		throw 'CapaSDK does not contain method SetUnitLabel.'
+	}
 
-	return $value
+	$target = "$UnitType unit '$UnitName'"
+	$action = "Set label to '$Label'"
+	if ($PSCmdlet.ShouldProcess($target, $action)) {
+		$value = $CapaSDK.SetUnitLabel($UnitName, $UnitType, $Label)
+		return $value
+	}
 }

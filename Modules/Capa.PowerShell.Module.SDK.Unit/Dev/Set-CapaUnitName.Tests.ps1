@@ -21,16 +21,17 @@ BeforeAll {
 		throw "Computer unit '$env:COMPUTERNAME' was not found in CapaInstaller."
 	}
 
-	$script:OriginalUnitName = $script:TargetUnit.Name
-	$script:RenamedUnitName = "$($script:OriginalUnitName)-TEST"
+	$script:UnitName = $script:TargetUnit.Name
+	$script:OriginalUnitName = $script:UnitName
+	$script:RenamedUnitName = "$($script:UnitName)-TEST"
 	if ($script:RenamedUnitName.Length -gt 50) {
 		$script:RenamedUnitName = $script:RenamedUnitName.Substring(0, 50)
 	}
 }
 
-Describe 'Set-CapaUnitName' {
+Describe 'Set-CapaUnitName integration' {
 	It 'Renames an existing unit and can rename it back' {
-		$Result = Set-CapaUnitName -CapaSDK $oCMS -UnitName $script:OriginalUnitName -UnitType 'Computer' -Name $script:RenamedUnitName -Confirm:$false
+		$Result = Set-CapaUnitName -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Computer' -Name $script:RenamedUnitName -Confirm:$false
 		$Result | Should -Be $true
 
 		$RenamedUnit = $null
@@ -43,13 +44,13 @@ Describe 'Set-CapaUnitName' {
 		}
 		$RenamedUnit | Should -Not -BeNullOrEmpty
 
-		$RollbackResult = Set-CapaUnitName -CapaSDK $oCMS -UnitName $script:RenamedUnitName -UnitType 'Computer' -Name $script:OriginalUnitName -Confirm:$false
+		$RollbackResult = Set-CapaUnitName -CapaSDK $oCMS -UnitName $script:RenamedUnitName -UnitType 'Computer' -Name $script:UnitName -Confirm:$false
 		$RollbackResult | Should -Be $true
 
 		$RestoredUnit = $null
 		for ($i = 0; $i -lt 10; $i++) {
 			Start-Sleep -Seconds 2
-			$RestoredUnit = Get-CapaUnits -CapaSDK $oCMS -Type Computer | Where-Object { $_.Name -eq $script:OriginalUnitName } | Select-Object -First 1
+			$RestoredUnit = Get-CapaUnits -CapaSDK $oCMS -Type Computer | Where-Object { $_.Name -eq $script:UnitName } | Select-Object -First 1
 			if ($null -ne $RestoredUnit) {
 				break
 			}
@@ -58,10 +59,10 @@ Describe 'Set-CapaUnitName' {
 	}
 
 	It 'Does not rename when using WhatIf' {
-		$Result = Set-CapaUnitName -CapaSDK $oCMS -UnitName $script:OriginalUnitName -UnitType 'Computer' -Name $script:RenamedUnitName -WhatIf -Confirm:$false
+		$Result = Set-CapaUnitName -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Computer' -Name $script:RenamedUnitName -WhatIf -Confirm:$false
 		$Result | Should -BeNullOrEmpty
 
-		$UnitAfterWhatIf = Get-CapaUnits -CapaSDK $oCMS -Type Computer | Where-Object { $_.Name -eq $script:OriginalUnitName } | Select-Object -First 1
+		$UnitAfterWhatIf = Get-CapaUnits -CapaSDK $oCMS -Type Computer | Where-Object { $_.Name -eq $script:UnitName } | Select-Object -First 1
 		$UnitAfterWhatIf | Should -Not -BeNullOrEmpty
 	}
 
@@ -70,20 +71,19 @@ Describe 'Set-CapaUnitName' {
 	}
 
 	It 'Validates Name is not empty' {
-		{ Set-CapaUnitName -CapaSDK $oCMS -UnitName $script:OriginalUnitName -UnitType 'Computer' -Name '' -Confirm:$false } | Should -Throw
+		{ Set-CapaUnitName -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Computer' -Name '' -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates UnitType values' {
-		{ Set-CapaUnitName -CapaSDK $oCMS -UnitName $script:OriginalUnitName -UnitType 'Device' -Name 'AnyValue' -Confirm:$false } | Should -Throw
+		{ Set-CapaUnitName -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Device' -Name 'AnyValue' -Confirm:$false } | Should -Throw
 	}
 }
 
-
 AfterAll {
-	if ($null -ne $script:OriginalUnitName -and $null -ne $script:RenamedUnitName) {
+	if ($null -ne $script:UnitName -and $null -ne $script:RenamedUnitName) {
 		$CurrentRenamed = Get-CapaUnits -CapaSDK $oCMS -Type Computer | Where-Object { $_.Name -eq $script:RenamedUnitName } | Select-Object -First 1
 		if ($null -ne $CurrentRenamed) {
-			Set-CapaUnitName -CapaSDK $oCMS -UnitName $script:RenamedUnitName -UnitType 'Computer' -Name $script:OriginalUnitName -Confirm:$false | Out-Null
+			Set-CapaUnitName -CapaSDK $oCMS -UnitName $script:RenamedUnitName -UnitType 'Computer' -Name $script:UnitName -Confirm:$false | Out-Null
 		}
 	}
-	}
+}

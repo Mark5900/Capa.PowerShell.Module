@@ -1,61 +1,71 @@
-# TODO: #228 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247672/Remove+unit+from+package
+		Remove a unit from a package.
 
 	.DESCRIPTION
-		A detailed description of the Remove-CapaUnitFromPackage function.
+		Remove package relation from an existing unit in CapaInstaller.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		The package name.
 
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		The package version.
 
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		The package type.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		The unit name.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The unit type.
 
 	.EXAMPLE
-				PS C:\> Remove-CapaUnitFromPackage -CapaSDK $value1 -PackageName 'Value2' -PackageVersion 'Value3' -PackageType Computer -UnitName 'Value5' -UnitType Computer
+		PS C:\> Remove-CapaUnitFromPackage -CapaSDK $CapaSDK -PackageName '7-Zip' -PackageVersion '24.09' -PackageType Computer -UnitName 'PC001' -UnitType Computer
 
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247672/Remove+unit+from+package
 #>
 function Remove-CapaUnitFromPackage {
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User', '1', '2')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$UnitType
 	)
 
-	if ($PackageType -eq 'Computer') {
-		$PackageType = 1
-	} else {
-		$PackageType = 2
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'RemoveUnitFromPackage')) {
+		throw 'CapaSDK does not contain method RemoveUnitFromPackage.'
 	}
 
-	$bool = $CapaSDK.RemoveUnitFromPackage($UnitName, $UnitType, $PackageName, $PackageVersion, $PackageType)
-	Return $bool
+	switch ($PackageType) {
+		'Computer' { $PackageType = '1' }
+		'User' { $PackageType = '2' }
+	}
+
+	$target = "$UnitType unit '$UnitName'"
+	$action = "Remove package '$PackageName' version '$PackageVersion'"
+	if ($PSCmdlet.ShouldProcess($target, $action)) {
+		$bool = $CapaSDK.RemoveUnitFromPackage($UnitName, $UnitType, $PackageName, $PackageVersion, $PackageType)
+		return $bool
+	}
 }

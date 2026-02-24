@@ -1,44 +1,54 @@
-# TODO: #208 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247410/Exist+Unit+On+Management+Point
+		Checks whether a unit exists on a management point.
 
 	.DESCRIPTION
-		A detailed description of the Exist-CapaUnitOnManagementPoint function.
+		Checks whether the specified unit exists on the specified management point
+		by calling the CapaSDK method ExistUnitOnManagementPoint.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName  parameter.
+		Name of the unit to check.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.PARAMETER CMPID
-		A description of the CMPID  parameter.
+		Management point ID to check against.
 
 	.EXAMPLE
-		PS C:\> Exist-CapaUnitOnManagementPoint -CapaSDK $value1 -UnitName  $value2 -UnitType Computer -CMPID  $value4
+		PS C:\> Exist-CapaUnitOnManagementPoint -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -CMPID 2
+
+		Returns whether PC-01 exists on management point 2.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247410/Exist+Unit+On+Management+Point
 #>
 function Exist-CapaUnitOnManagementPoint {
-	[CmdletBinding(DefaultParameterSetName = 'NameType')]
+	[CmdletBinding()]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		$UnitType,
+		[string]$UnitType,
 		[Parameter(Mandatory = $true)]
-		$CMPID
+		[ValidateRange(1, 2147483647)]
+		[int]$CMPID
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'ExistUnitOnManagementPoint')) {
+		throw 'CapaSDK does not contain method ExistUnitOnManagementPoint.'
+	}
 
 	$value = $CapaSDK.ExistUnitOnManagementPoint($UnitName, $UnitType, $CMPID)
 	return $value

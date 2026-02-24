@@ -1,34 +1,41 @@
-# TODO: #224 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246240/Delete+group
+		Remove a unit by UUID.
 
 	.DESCRIPTION
-		A detailed description of the Remove-CapaUnitByUUID function.
+		Delete an existing unit by UUID in CapaInstaller.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 
 	.PARAMETER UUID
-		A description of the UUID parameter.
+		The UUID of the unit to delete.
 
 	.EXAMPLE
-				PS C:\> Remove-CapaUnitByUUID -CapaSDK $value1 -UUID 'Value2'
+		PS C:\> Remove-CapaUnitByUUID -CapaSDK $CapaSDK -UUID '12345678-1234-1234-1234-123456789012'
 
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247372/Delete+unit
 #>
 function Remove-CapaUnitByUUID {
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
+		[ValidatePattern('^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$')]
 		[string]$UUID
 	)
 
-	$bool = $CapaSDK.DeleteUnitByUUID($UUID)
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'DeleteUnitByUUID')) {
+		throw 'CapaSDK does not contain method DeleteUnitByUUID.'
+	}
 
-	Return $bool
+	if ($PSCmdlet.ShouldProcess($UUID, 'Delete unit by UUID')) {
+		$bool = $CapaSDK.DeleteUnitByUUID($UUID)
+		return $bool
+	}
 }

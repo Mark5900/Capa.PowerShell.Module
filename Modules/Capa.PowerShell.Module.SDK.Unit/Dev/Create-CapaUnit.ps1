@@ -1,63 +1,80 @@
-# TODO: #204 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247364/Create+unit
+		Creates a unit.
 
 	.DESCRIPTION
-		A detailed description of the Create-CapaUnit function.
+		Creates a unit in CapaInstaller by calling the CapaSDK method CreateUnit.
+		Supports creating both basic units and device-specific units.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName  parameter.
+		Name of the unit to create.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.PARAMETER LinkToManagementServerID
-		A description of the LinkToManagementServerID  parameter.
+		Management server ID to link the unit to.
 
 	.PARAMETER Status
-		A description of the Status parameter.
+		Status of the unit. Valid values are Active and Inactive.
 
 	.PARAMETER Uuid
-		A description of the Uuid  parameter.
+		Optional UUID used when UnitDeviceType is specified.
 
 	.PARAMETER SerialNumber
-		A description of the SerialNumber  parameter.
+		Optional serial number used when UnitDeviceType is specified.
 
 	.PARAMETER UnitDeviceType
-		A description of the UnitDeviceType parameter.
+		Optional device type. When specified, the extended CreateUnit overload is used.
 
 	.EXAMPLE
-				PS C:\> Create-CapaUnit -CapaSDK $value1 -UnitName  'Value2' -UnitType Computer -LinkToManagementServerID  $value4
+		PS C:\> Create-CapaUnit -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -LinkToManagementServerID 2
+
+		Creates a computer unit named PC-01 linked to management server ID 2.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247364/Create+unit
 #>
 function Create-CapaUnit {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$LinkToManagementServerID,
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Active', 'Inactive')]
 		[String]$Status = 'Active',
+		[ValidatePattern('^$|^[0-9a-fA-F-]{36}$')]
 		[String]$Uuid = '',
 		[String]$SerialNumber = '',
 		[ValidateSet('Windows', 'OSX', 'iOS', 'Android', 'WindowsPhone')]
 		[String]$UnitDeviceType = ''
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'CreateUnit')) {
+		throw 'CapaSDK does not contain method CreateUnit.'
+	}
+
+	$target = "$UnitType unit '$UnitName'"
+	$action = "Create unit linked to management server ID $LinkToManagementServerID"
+	if (-not $PSCmdlet.ShouldProcess($target, $action)) {
+		return
+	}
 
 	if ($UnitDeviceType -eq '') {
 		$value = $CapaSDK.CreateUnit($UnitName, $UnitType, $LinkToManagementServerID, $Status)

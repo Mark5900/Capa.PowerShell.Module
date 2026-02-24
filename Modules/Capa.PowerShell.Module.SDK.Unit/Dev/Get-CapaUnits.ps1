@@ -1,50 +1,87 @@
-# TODO: #222 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247572/Get+units
+		Gets units from CapaInstaller.
 
 	.DESCRIPTION
-		A detailed description of the Get-CapaUnits function.
+		Gets units by type, or from a specific business unit, by calling CapaSDK.
+		If BusinessUnit is provided, data is retrieved with GetUnitsOnBusinessUnit.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER Type
-		A description of the Type parameter.
+		Optional unit type filter. Valid values are Computer and User.
+
+	.PARAMETER BusinessUnit
+		Optional business unit name. When provided, units are fetched from
+		the specified business unit.
 
 	.EXAMPLE
-				PS C:\> Get-CapaUnits -CapaSDK $value1
+		PS C:\> Get-CapaUnits -CapaSDK $CapaSDK -Type Computer
+
+		Returns computer units.
+
+	.EXAMPLE
+		PS C:\> Get-CapaUnits -CapaSDK $CapaSDK -BusinessUnit 'Default'
+
+		Returns units on business unit Default.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247572/Get+units
 #>
 function Get-CapaUnits {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $false)]
-		[ValidateSet('Computer', 'User')]
 		[string]$Type = '',
+		[Parameter(Mandatory = $false)]
+		[AllowEmptyString()]
 		[string]$BusinessUnit = ''
 	)
 
-	$oaUnits = @()
+	if (-not [string]::IsNullOrWhiteSpace($Type) -and @('Computer', 'User') -notcontains $Type) {
+		throw "Type must be either 'Computer' or 'User'."
+	}
 
-	if ($BusinessUnit -eq '') {
+	if (-not [string]::IsNullOrWhiteSpace($BusinessUnit) -and -not ($CapaSDK.PSObject.Methods.Name -contains 'GetUnitsOnBusinessUnit')) {
+		throw 'CapaSDK does not contain method GetUnitsOnBusinessUnit.'
+	}
+
+	if ([string]::IsNullOrWhiteSpace($BusinessUnit) -and -not ($CapaSDK.PSObject.Methods.Name -contains 'GetUnits')) {
+		throw 'CapaSDK does not contain method GetUnits.'
+	}
+
+	if ([string]::IsNullOrWhiteSpace($BusinessUnit)) {
 		$aUnits = $CapaSDK.GetUnits($Type)
 	} else {
-		if ($UnitType -eq '') {
+		if ([string]::IsNullOrWhiteSpace($Type)) {
 			$aUnits = $CapaSDK.GetUnitsOnBusinessUnit($BusinessUnit)
-		} Else {
-			$aUnits = $CapaSDK.GetUnitsOnBusinessUnit($BusinessUnit, $UnitType)
+		} else {
+			$aUnits = $CapaSDK.GetUnitsOnBusinessUnit($BusinessUnit, $Type)
 		}
 	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
+	if ($null -eq $aUnits) {
+		return @()
+	}
+
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';', 11
+		if ($aItem.Count -lt 11) {
+			continue
+		}
+
+		[pscustomobject]@{
 			Name           = $aItem[0];
 			Created        = $aItem[1];
 			LastExecuted   = $aItem[2];
@@ -59,5 +96,5 @@ function Get-CapaUnits {
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }

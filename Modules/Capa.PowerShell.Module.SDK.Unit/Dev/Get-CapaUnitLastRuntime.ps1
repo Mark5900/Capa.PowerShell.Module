@@ -1,46 +1,56 @@
-# TODO: #212 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247492/Get+unit+last+runtime
+		Gets last runtime for a unit.
 
 	.DESCRIPTION
-		A detailed description of the Get-CapaUnitLastRuntime function.
+		Gets the last runtime value for a unit by calling the CapaSDK method
+		GetUnitLastRuntime.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		Name of the unit to query.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.EXAMPLE
-				PS C:\> Get-CapaUnitLastRuntime -CapaSDK $value1 -UnitName "" -UnitType ""
+		PS C:\> Get-CapaUnitLastRuntime -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer
+
+		Returns last runtime information for PC-01.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247492/Get+unit+last+runtime
 #>
 function Get-CapaUnitLastRuntime {
+	[CmdletBinding()]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[string]$UnitName = '',
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User', '1', '2')]
-		[string]$UnitType = ''
+		[string]$UnitType
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetUnitLastRuntime')) {
+		throw 'CapaSDK does not contain method GetUnitLastRuntime.'
+	}
 
 	if ($UnitType -eq 'Computer') {
 		$UnitType = '1'
-	} else {
+	} elseif ($UnitType -eq 'User') {
 		$UnitType = '2'
 	}
 
 	$aUnits = $CapaSDK.GetUnitLastRuntime($UnitName, $UnitType)
 
-	Return $aUnits
+	return $aUnits
 }

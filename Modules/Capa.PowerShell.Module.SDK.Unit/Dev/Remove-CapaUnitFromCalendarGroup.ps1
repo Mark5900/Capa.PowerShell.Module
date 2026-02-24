@@ -1,45 +1,54 @@
-# TODO: #226 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247656/Remove+unit+from+calendar+group
+		Remove a unit from a calendar group.
 
 	.DESCRIPTION
-		A detailed description of the Remove-CapaUnitFromCalendarGroup function.
+		Remove an existing unit from a calendar group in CapaInstaller.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		The unit name.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The unit type.
 
 	.PARAMETER CalendarGroupName
-		A description of the CalendarGroupName parameter.
+		The calendar group name.
 
 	.EXAMPLE
-				PS C:\> Remove-CapaUnitFromCalendarGroup -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer -CalendarGroupName 'Value4'
+		PS C:\> Remove-CapaUnitFromCalendarGroup -CapaSDK $CapaSDK -UnitName 'PC001' -UnitType Computer -CalendarGroupName 'Workstations - Nightly'
 
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247656/Remove+unit+from+calendar+group
 #>
 function Remove-CapaUnitFromCalendarGroup {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$CalendarGroupName
 	)
 
-	$value = $CapaSDK.RemoveUnitFromCalendarGroup($UnitName, $UnitType, $CalendarGroupName)
-	return $value
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'RemoveUnitFromCalendarGroup')) {
+		throw 'CapaSDK does not contain method RemoveUnitFromCalendarGroup.'
+	}
+
+	$target = "$UnitType unit '$UnitName'"
+	$action = "Remove from calendar group '$CalendarGroupName'"
+	if ($PSCmdlet.ShouldProcess($target, $action)) {
+		$value = $CapaSDK.RemoveUnitFromCalendarGroup($UnitName, $UnitType, $CalendarGroupName)
+		return $value
+	}
 }

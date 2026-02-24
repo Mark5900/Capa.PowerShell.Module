@@ -1,40 +1,50 @@
-# TODO: #210 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247632/GetUnitFolder
+		Gets folder path for a unit.
 
 	.DESCRIPTION
-		A detailed description of the Get-CapaUnitFolder function.
+		Gets the folder location for the specified unit by calling the CapaSDK
+		method GetUnitFolder.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		Name of the unit to query folder path for.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.EXAMPLE
-				PS C:\> Get-CapaUnitFolder -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer
+		PS C:\> Get-CapaUnitFolder -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer
+
+		Returns the folder path for PC-01.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247632/GetUnitFolder
 #>
 function Get-CapaUnitFolder {
+	[CmdletBinding()]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$UnitType
 	)
 
-	$bool = $CapaSDK.GetUnitFolder($UnitName, $UnitType)
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetUnitFolder')) {
+		throw 'CapaSDK does not contain method GetUnitFolder.'
+	}
 
-	Return $bool
+	$value = $CapaSDK.GetUnitFolder($UnitName, $UnitType)
+
+	return $value
 }

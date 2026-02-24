@@ -1,94 +1,101 @@
-# TODO: #203 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247348/Add+unit+to+reinstall
+		Adds a unit to reinstall.
 
 	.DESCRIPTION
-		A detailed description of the Add-CapaUnitToReinstall function.
+		Adds the specified unit to reinstall by calling the CapaSDK method
+		AddUnitToReinstall.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER ComputerName
-		A description of the ComputerName parameter.
+		Computer unit name (or UUID alias) to add to reinstall.
 
 	.PARAMETER OSpointID
-		A description of the OSpointID parameter.
+		OS point ID.
 
 	.PARAMETER OSserverID
-		A description of the OSserverID parameter.
+		OS server ID.
 
 	.PARAMETER OSImageID
-		A description of the OSImageID parameter.
+		OS image ID.
 
 	.PARAMETER DiskConfigID
-		A description of the DiskConfigID parameter.
+		Disk configuration ID.
 
 	.PARAMETER InstallTypeID
-		A description of the InstallTypeID parameter.
+		Installation type ID.
 
 	.PARAMETER NewUnitName
-		A description of the NewUnitName parameter.
+		Optional new unit name after reinstall.
 
 	.PARAMETER ReinstallMode
-		A description of the ReinstallMode parameter.
+		Reinstall mode.
 
 	.PARAMETER Active
-		A description of the Active parameter.
+		Whether reinstall entry is active.
 
 	.PARAMETER UnlinkAllPackagesAndGroups
-		A description of the UnlinkAllPackagesAndGroups parameter.
+		Whether to unlink all packages and groups.
 
 	.PARAMETER UnlinkAllAdvPackages
-		A description of the UnlinkAllAdvPackages parameter.
+		Whether to unlink all advanced packages.
 
 	.PARAMETER ChangelogComment
-		A description of the ChangelogComment parameter.
+		Optional changelog comment.
 
 	.PARAMETER ReinstallStartDate
-		A description of the ReinstallStartDate parameter.
+		Optional reinstall start date.
 
 	.PARAMETER CustomField1
-		A description of the CustomField1 parameter.
+		Optional custom field 1.
 
 	.PARAMETER CustomField2
-		A description of the CustomField2 parameter.
+		Optional custom field 2.
 
 	.EXAMPLE
-				PS C:\> Add-CapaUnitToReinstall -CapaSDK $value1 -ComputerName 'Value2' -OSpointID $value3 -OSserverID $value4 -OSImageID $value5 -DiskConfigID $value6 -InstallTypeID $value7
+		PS C:\> Add-CapaUnitToReinstall -CapaSDK $CapaSDK -ComputerName 'PC-01' -OSpointID 1 -OSserverID 1 -OSImageID 1 -DiskConfigID 1 -InstallTypeID 1
+
+		Adds PC-01 to reinstall.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247348/Add+unit+to+reinstall
 #>
 function Add-CapaUnitToReinstall {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[Alias('UUID')]
+		[ValidateNotNullOrEmpty()]
 		[String]$ComputerName,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, 2147483647)]
 		[int]$OSpointID,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, 2147483647)]
 		[int]$OSserverID,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, 2147483647)]
 		[int]$OSImageID,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, 2147483647)]
 		[int]$DiskConfigID,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, 2147483647)]
 		[int]$InstallTypeID,
 		[String]$NewUnitName = '',
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Silent', 'AlwaysConfirm', 'ConfirmOnlyIfUserLoggedOn')]
 		[String]$ReinstallMode = 'Silent',
-		[ValidateSet('True', 'False')]
 		[bool]$Active = $true,
-		[ValidateSet('True', 'False')]
 		[bool]$UnlinkAllPackagesAndGroups = $false,
-		[ValidateSet('True', 'False')]
 		[bool]$UnlinkAllAdvPackages = $false,
 		[String]$ChangelogComment = '',
 		[String]$ReinstallStartDate = '',
@@ -96,6 +103,16 @@ function Add-CapaUnitToReinstall {
 		[String]$CustomField2 = ''
 	)
 
-	$value = $CapaSDK.AddUnitToReinstall($ComputerName, $OSpointID, $OSserverID, $OSImageID, $DiskConfigID, $InstallTypeID, $NewUnitName, $ReinstallMode, $Active, $UnlinkAllPackagesAndGroups, $ChangelogComment, $ReinstallStartDate, $CustomField1, $CustomField2)
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'AddUnitToReinstall')) {
+		throw 'CapaSDK does not contain method AddUnitToReinstall.'
+	}
+
+	$target = "Computer unit '$ComputerName'"
+	$action = 'Add to reinstall'
+	if (-not $PSCmdlet.ShouldProcess($target, $action)) {
+		return
+	}
+
+	$value = $CapaSDK.AddUnitToReinstall($ComputerName, $OSpointID, $OSserverID, $OSImageID, $DiskConfigID, $InstallTypeID, $NewUnitName, $ReinstallMode, $Active, $UnlinkAllPackagesAndGroups, $UnlinkAllAdvPackages, $ChangelogComment, $ReinstallStartDate, $CustomField1, $CustomField2)
 	return $value
 }

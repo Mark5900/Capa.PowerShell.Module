@@ -1,44 +1,60 @@
-# TODO: #198 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247294/Add+unit+to+business+unit
+		Adds a unit to a business unit.
 
 	.DESCRIPTION
-		A detailed description of the Add-CapaUnitToBusinessUnit function.
+		Adds the specified unit to the specified business unit by calling the
+		CapaSDK method AddUnitToBusinessUnit.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		Name of the unit to add.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.PARAMETER BusinessUnit
-		A description of the BusinessUnit parameter.
+		Name of the business unit.
 
 	.EXAMPLE
-				PS C:\> Add-CapaUnitToBusinessUnit -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer -BusinessUnit 'Value4'
+		PS C:\> Add-CapaUnitToBusinessUnit -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -BusinessUnit 'TestBU'
+
+		Adds PC-01 to TestBU.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247294/Add+unit+to+business+unit
 #>
 function Add-CapaUnitToBusinessUnit {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$BusinessUnit
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'AddUnitToBusinessUnit')) {
+		throw 'CapaSDK does not contain method AddUnitToBusinessUnit.'
+	}
+
+	$target = "$UnitType unit '$UnitName'"
+	$action = "Add to business unit '$BusinessUnit'"
+	if (-not $PSCmdlet.ShouldProcess($target, $action)) {
+		return
+	}
 
 	$value = $CapaSDK.AddUnitToBusinessUnit($UnitName, $UnitType, $BusinessUnit)
 

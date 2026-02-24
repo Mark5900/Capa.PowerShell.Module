@@ -1,39 +1,48 @@
-# TODO: #221 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247564/Get+unit+WSUS+Group
+		Gets WSUS group relation data for a unit.
 
 	.DESCRIPTION
-		A detailed description of the Get-CapaUnitWSUSGroup function.
+		Gets the WSUS group relation for the specified unit by calling
+		the CapaSDK method GetUnitWSUSGroup.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		Name of the unit to query.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.EXAMPLE
-				PS C:\> Get-CapaUnitWSUSGroup -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer
+		PS C:\> Get-CapaUnitWSUSGroup -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer
+
+		Returns WSUS group relation data for unit PC-01.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247564/Get+unit+WSUS+Group
 #>
 function Get-CapaUnitWSUSGroup {
 	[CmdletBinding()]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$UnitType
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetUnitWSUSGroup')) {
+		throw 'CapaSDK does not contain method GetUnitWSUSGroup.'
+	}
 
 	$value = $CapaSDK.GetUnitWSUSGroup($UnitName, $UnitType)
 	return $value

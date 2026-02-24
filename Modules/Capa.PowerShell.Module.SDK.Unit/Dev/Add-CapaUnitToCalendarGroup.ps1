@@ -1,43 +1,60 @@
-# TODO: #199 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247302/Add+unit+to+calendar+group
+		Adds a unit to a calendar group.
 
 	.DESCRIPTION
-		A detailed description of the Add-CapaUnitToCalendarGroup function.
+		Adds the specified unit to the specified calendar group by calling the
+		CapaSDK method AddUnitToCalendarGroup.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName  parameter.
+		Name of the unit to add.
 
 	.PARAMETER UnitType
-		A description of the UnitType  parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.PARAMETER CalendarGroupName
-		A description of the CalendarGroupName parameter.
+		Name of the calendar group.
 
 	.EXAMPLE
-				PS C:\> Add-CapaUnitToCalendarGroup -CapaSDK $value1 -UnitName  'Value2' -UnitType  'Value3' -CalendarGroupName 'Value4'
+		PS C:\> Add-CapaUnitToCalendarGroup -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -CalendarGroupName 'Nightly Window'
+
+		Adds PC-01 to the calendar group Nightly Window.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247302/Add+unit+to+calendar+group
 #>
 function Add-CapaUnitToCalendarGroup {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
 		[String]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$CalendarGroupName
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'AddUnitToCalendarGroup')) {
+		throw 'CapaSDK does not contain method AddUnitToCalendarGroup.'
+	}
+
+	$target = "$UnitType unit '$UnitName'"
+	$action = "Add to calendar group '$CalendarGroupName'"
+	if (-not $PSCmdlet.ShouldProcess($target, $action)) {
+		return
+	}
 
 	$value = $CapaSDK.AddUnitToCalendarGroup($UnitName, $UnitType, $CalendarGroupName)
 	return $value

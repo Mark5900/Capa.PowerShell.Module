@@ -1,47 +1,60 @@
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247536/Get+unit+package+status
+		Gets package status for a unit.
 
 	.DESCRIPTION
-		A detailed description of the Get-CapaUnitPackageStatus function.
+		Gets the status of a package on a unit by calling the CapaSDK method
+		GetUnitPackageStatus.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName  parameter.
+		Name of the unit to query package status for.
 
 	.PARAMETER UnitType
-		A description of the UnitType  parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.PARAMETER PackageName
-		A description of the PackageName  parameter.
+		Name of the package.
 
 	.PARAMETER PackageVersion
-		A description of the PackageVersion  parameter.
+		Version of the package.
 
 	.EXAMPLE
-		PS C:\> Get-CapaUnitPackageStatus -CapaSDK 'Value1' -UnitName  'Value2' -UnitType  'Value3' -PackageName  'Value4' -PackageVersion  'Value5' -PackageType  'Value6'
+		PS C:\> Get-CapaUnitPackageStatus -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -PackageName 'MyPkg' -PackageVersion 'v1.0'
+
+		Returns package status for MyPkg v1.0 on PC-01.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247536/Get+unit+package+status
 #>
 function Get-CapaUnitPackageStatus {
 	[CmdletBinding()]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetUnitPackageStatus')) {
+		throw 'CapaSDK does not contain method GetUnitPackageStatus.'
+	}
 
 	if ($UnitType -eq 'Computer') {
 		$PackageType = '1'

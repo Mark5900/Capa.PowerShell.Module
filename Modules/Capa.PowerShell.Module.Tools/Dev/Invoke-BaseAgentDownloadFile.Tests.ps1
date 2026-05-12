@@ -3,7 +3,7 @@ BeforeAll {
 }
 
 Describe 'Invoke-BaseAgentDownloadFile' {
-	It 'Downloads file when LocalPath is a folder and polling completes' {
+	It 'Downloads file when DestinationPath is a folder and polling completes' {
 		Mock Get-ItemProperty { [pscustomobject]@{ LocalPort = 1337 } }
 		Mock Test-Path { $true } -ParameterFilter { $Path -eq 'C:\Temp' -and $PathType -eq 'Container' }
 		Mock Start-Sleep {}
@@ -28,7 +28,7 @@ Describe 'Invoke-BaseAgentDownloadFile' {
 			return [pscustomobject]@{ Content = '{"status": "completed"}' }
 		} -ParameterFilter { $Method -eq 'Get' -and $Uri -eq 'http://localhost:1337/file/abc123' }
 
-		Invoke-BaseAgentDownloadFile -RemotePath '\Resources\AgentInstaller\CapaInstaller agent.xml' -LocalPath 'C:\Temp'
+		Invoke-BaseAgentDownloadFile -RemotePath '\Resources\AgentInstaller\CapaInstaller agent.xml' -DestinationPath 'C:\Temp'
 
 		Assert-MockCalled Invoke-WebRequest -Times 1 -Exactly -ParameterFilter {
 			$Method -eq 'Post' -and
@@ -43,6 +43,31 @@ Describe 'Invoke-BaseAgentDownloadFile' {
 		}
 
 		Assert-MockCalled Start-Sleep -Times 3 -Exactly
+	}
+
+	It 'Supports LocalPath as a backward-compatible alias' {
+		Mock Get-ItemProperty { [pscustomobject]@{ LocalPort = 1337 } }
+		Mock Test-Path { $false }
+		Mock Start-Sleep {}
+
+		Mock Invoke-WebRequest {
+			[pscustomobject]@{
+				Headers = [pscustomobject]@{
+					Keys = @('Location')
+					Location = 'http://localhost:1337/file/alias123'
+				}
+			}
+		} -ParameterFilter { $Method -eq 'Post' }
+
+		Mock Invoke-WebRequest {
+			[pscustomobject]@{ Content = '{"status": "completed"}' }
+		} -ParameterFilter { $Method -eq 'Get' -and $Uri -eq 'http://localhost:1337/file/alias123' }
+
+		Invoke-BaseAgentDownloadFile -RemotePath '\Resources\x.txt' -LocalPath 'C:\Temp\x.txt'
+
+		Assert-MockCalled Invoke-WebRequest -Times 1 -Exactly -ParameterFilter {
+			$Method -eq 'Post' -and $Body -like '*"local-location": "C:\\Temp\\x.txt"*'
+		}
 	}
 
 	It 'Throws if POST response has no Location header' {
@@ -60,7 +85,7 @@ Describe 'Invoke-BaseAgentDownloadFile' {
 
 		Mock Invoke-WebRequest { [pscustomobject]@{ Content = '{"status": "completed"}' } } -ParameterFilter { $Method -eq 'Get' }
 
-		{ Invoke-BaseAgentDownloadFile -RemotePath '\Resources\x.txt' -LocalPath 'C:\Temp\x.txt' } | Should -Throw 'Failed to download package'
+		{ Invoke-BaseAgentDownloadFile -RemotePath '\Resources\x.txt' -DestinationPath 'C:\Temp\x.txt' } | Should -Throw 'Failed to download package'
 		Assert-MockCalled Invoke-WebRequest -Times 0 -Exactly -ParameterFilter { $Method -eq 'Get' }
 	}
 
@@ -82,6 +107,6 @@ Describe 'Invoke-BaseAgentDownloadFile' {
 			[pscustomobject]@{ Content = '{"status": "failed"}' }
 		} -ParameterFilter { $Method -eq 'Get' -and $Uri -eq 'http://localhost:1337/file/def456' }
 
-		{ Invoke-BaseAgentDownloadFile -RemotePath '\Resources\x.txt' -LocalPath 'C:\Temp\x.txt' } | Should -Throw 'Failed to download package'
+		{ Invoke-BaseAgentDownloadFile -RemotePath '\Resources\x.txt' -DestinationPath 'C:\Temp\x.txt' } | Should -Throw 'Failed to download package'
 	}
 }

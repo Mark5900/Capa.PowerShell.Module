@@ -1,5 +1,3 @@
-# TODO: #135 Update and add tests
-
 <#
 	.SYNOPSIS
 		This will add a new Exchange payload to a profile.
@@ -93,22 +91,27 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246500/Add+Exchange+Payload+to+Profile
 #>
 function Add-CapaExchangePayloadToProfile {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileID,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$AccountName,
 		[Parameter(Mandatory = $false)]
 		[string]$DomainandUserName,
 		[Parameter(Mandatory = $false)]
-		[securestring]$Password = '',
+		[string]$Password = '',
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$EmailAddress,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$ExchangeActiveSyncHost,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('True', 'False')]
@@ -138,6 +141,8 @@ function Add-CapaExchangePayloadToProfile {
 		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.AddExchangePayloadToProfile($ProfileID, $AccountName, $DomainandUserName, $Password, $EmailAddress, $ExchangeActiveSyncHost, $UseSSL, $PastDaysofMailtoSync, $AllowMove, $UseOnlyinMail, $UseSMIME, $AllowRecentAddressSyncing, $Syncinterval, $SyncEmail, $SyncCalendar, $SyncContacts, $SyncTasks, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($ProfileID, 'Add Exchange payload to profile')) {
+		$value = $CapaSDK.AddExchangePayloadToProfile($ProfileID, $AccountName, $DomainandUserName, $Password, $EmailAddress, $ExchangeActiveSyncHost, $UseSSL, $PastDaysofMailtoSync, $AllowMove, $UseOnlyinMail, $UseSMIME, $AllowRecentAddressSyncing, $Syncinterval, $SyncEmail, $SyncCalendar, $SyncContacts, $SyncTasks, $ChangelogComment)
+		return $value
+	}
 }

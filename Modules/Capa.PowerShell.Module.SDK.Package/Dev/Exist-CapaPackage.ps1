@@ -1,5 +1,3 @@
-# TODO: #164 Update and add tests
-
 <#
 	.SYNOPSIS
 		Verifies if a package exists.
@@ -27,24 +25,27 @@
 #>
 function Exist-CapaPackage {
 	[CmdletBinding()]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Name,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Version,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[string]$Type
 	)
 
-	if ($PackageType -eq 'Computer') {
-		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
-		$PackageType = '2'
+	if ($Type -eq 'Computer') {
+		$Type = '1'
+	} elseif ($Type -eq 'User') {
+		$Type = '2'
 	}
 
 	$value = $CapaSDK.ExistPackage($Name, $Version, $Type)

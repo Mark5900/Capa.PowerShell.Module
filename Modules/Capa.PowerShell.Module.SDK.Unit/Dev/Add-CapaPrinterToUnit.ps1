@@ -1,44 +1,60 @@
-# TODO: #197 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247286/Add+printer+to+unit
+		Adds a printer to a unit.
 
 	.DESCRIPTION
-		A detailed description of the Add-CapaPrinterToUnit function.
+		Adds the specified printer share to the specified unit by calling the
+		CapaSDK method AddPrinterToUnit.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName  parameter.
+		Name of the unit to add the printer to.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.PARAMETER PrinterShareName
-		A description of the PrinterShareName  parameter.
+		Printer share name.
 
 	.EXAMPLE
-				PS C:\> Add-CapaPrinterToUnit -CapaSDK $value1 -UnitName  'Value2' -UnitType Computer -PrinterShareName  'Value4'
+		PS C:\> Add-CapaPrinterToUnit -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -PrinterShareName '\\PRINT01\\Office-Color'
+
+		Adds printer share \\PRINT01\\Office-Color to PC-01.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247286/Add+printer+to+unit
 #>
 function Add-CapaPrinterToUnit {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PrinterShareName
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'AddPrinterToUnit')) {
+		throw 'CapaSDK does not contain method AddPrinterToUnit.'
+	}
+
+	$target = "$UnitType unit '$UnitName'"
+	$action = "Add printer share '$PrinterShareName'"
+	if (-not $PSCmdlet.ShouldProcess($target, $action)) {
+		return
+	}
 
 	$value = $CapaSDK.AddPrinterToUnit($UnitName, $UnitType, $PrinterShareName)
 	return $value

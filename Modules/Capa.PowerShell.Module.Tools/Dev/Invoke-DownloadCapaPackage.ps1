@@ -21,12 +21,17 @@
 		This function requires the Capa BaseAgent to be installed on the machine.
 #>
 function Invoke-DownloadCapaPackage {
+	[CmdletBinding()]
+	[OutputType([void])]
 	param (
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$DestinationFolder
 	)
 	$LocalPort = Get-ItemProperty -Path 'HKLM:\SOFTWARE\CapaSystems\BaseAgent' -Name 'LocalPort' | Select-Object -ExpandProperty LocalPort

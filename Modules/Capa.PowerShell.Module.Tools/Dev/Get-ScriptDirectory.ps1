@@ -6,6 +6,10 @@
 		Get the directory of the current script. It is better than $PSScriptRoot because it works also when running the script line by line in the console.
 #>
 Function Get-ScriptDirectory {
+	[CmdletBinding()]
+	[OutputType([string])]
+	param ()
+
 	# Necessary so different PowerShell editors and module contexts can be used
 	if ($MyInvocation.ScriptName) {
 		# If called from a script, use the script's path

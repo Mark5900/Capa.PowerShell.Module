@@ -1,41 +1,48 @@
-# TODO: #225 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247648/Remove+unit+from+business+unit
+		Remove a unit from a business unit.
 
 	.DESCRIPTION
-		A detailed description of the Remove-CapaUnitFromBusinessUnit function.
+		Remove an existing unit from a business unit relation in CapaInstaller.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		The unit name.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The unit type.
 
 	.EXAMPLE
-		PS C:\> Remove-CapaUnitFromBusinessUnit -CapaSDK $value1 -UnitName 'Value2' -UnitType 'Value3'
+		PS C:\> Remove-CapaUnitFromBusinessUnit -CapaSDK $CapaSDK -UnitName 'PC001' -UnitType Computer
 
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247648/Remove+unit+from+business+unit
 #>
 function Remove-CapaUnitFromBusinessUnit {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$UnitType
 	)
 
-	$value = $CapaSDK.RemoveUnitFromBusinessUnit($UnitName, $UnitType)
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'RemoveUnitFromBusinessUnit')) {
+		throw 'CapaSDK does not contain method RemoveUnitFromBusinessUnit.'
+	}
 
-	return $value
+	$target = "$UnitType unit '$UnitName'"
+	$action = 'Remove from business unit'
+	if ($PSCmdlet.ShouldProcess($target, $action)) {
+		$value = $CapaSDK.RemoveUnitFromBusinessUnit($UnitName, $UnitType)
+		return $value
+	}
 }

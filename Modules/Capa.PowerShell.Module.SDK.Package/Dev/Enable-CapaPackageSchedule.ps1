@@ -1,5 +1,3 @@
-# TODO: #163 Update and add tests
-
 <#
 	.SYNOPSIS
 		Enable a packages schedule.
@@ -26,14 +24,18 @@
 		Additional information about the function.
 #>
 function Enable-CapaPackageSchedule {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
@@ -42,11 +44,12 @@ function Enable-CapaPackageSchedule {
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
+	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 
-	$value = $CapaSDK.EnablePackageSchedule($PackageName, $PackageVersion, $PackageType)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Enable package schedule')) {
+		$value = $CapaSDK.EnablePackageSchedule($PackageName, $PackageVersion, $PackageType)
+		return $value
+	}
 }

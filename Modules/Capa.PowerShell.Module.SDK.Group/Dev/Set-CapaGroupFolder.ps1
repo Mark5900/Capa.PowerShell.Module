@@ -1,5 +1,3 @@
-# TODO: #122 Update and add tests
-
 <#
 	.SYNOPSIS
 		Sets the folder structure of a group.
@@ -30,26 +28,32 @@
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246326/Set+Group+folder+in+a+Business+Unit
 #>
 function Set-CapaGroupFolder {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		$GroupName,
+		[ValidateNotNullOrEmpty()]
+		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Department', 'Dynamic_SQL', 'Static')]
-		$GroupType,
+		[string]$GroupType,
 		[Parameter(Mandatory = $true)]
-		$FolderStructure,
+		[ValidateNotNullOrEmpty()]
+		[string]$FolderStructure,
 		[string]$BusinessunitName = ''
 	)
 
-	if ($BusinessunitName -eq '') {
-		$value = $CapaSDK.SetGroupFolder($GroupName, $GroupType, $FolderStructure)
-	} else {
-		$value = $CapaSDK.SetGroupFolderBU($GroupName, $GroupType, $FolderStructure, $BusinessunitName)
-	}
+	if ($PSCmdlet.ShouldProcess($GroupName, "Set group folder to '$FolderStructure'")) {
+		if ($BusinessunitName -eq '') {
+			$value = $CapaSDK.SetGroupFolder($GroupName, $GroupType, $FolderStructure)
+		} else {
+			$value = $CapaSDK.SetGroupFolderBU($GroupName, $GroupType, $FolderStructure, $BusinessunitName)
+		}
 
-	return $value
+		return $value
+	}
 }

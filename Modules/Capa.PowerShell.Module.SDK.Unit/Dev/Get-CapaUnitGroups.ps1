@@ -1,46 +1,65 @@
-# TODO: #211 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247482/Get+unit+groups
+		Gets groups linked to a unit.
 
 	.DESCRIPTION
-		A detailed description of the Get-CapaUnitGroups function.
+		Gets groups linked to the specified unit by calling the CapaSDK method
+		GetUnitGroups and returns parsed group objects.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		Name of the unit to query groups for.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.EXAMPLE
-				PS C:\> Get-CapaUnitGroups -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer
+		PS C:\> Get-CapaUnitGroups -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer
+
+		Returns groups linked to PC-01.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247482/Get+unit+groups
 #>
 function Get-CapaUnitGroups {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$UnitType
 	)
 
-	$oaUnits = @()
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetUnitGroups')) {
+		throw 'CapaSDK does not contain method GetUnitGroups.'
+	}
 
 	$aUnits = $CapaSDK.GetUnitGroups($UnitName, $UnitType)
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
+	if ($null -eq $aUnits) {
+		return @()
+	}
+
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';', 6
+		if ($aItem.Count -lt 6) {
+			continue
+		}
+
+		[pscustomobject]@{
 			Name        = $aItem[0];
 			Type        = $aItem[1];
 			unitTypeID  = $aItem[2];
@@ -50,5 +69,5 @@ function Get-CapaUnitGroups {
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }

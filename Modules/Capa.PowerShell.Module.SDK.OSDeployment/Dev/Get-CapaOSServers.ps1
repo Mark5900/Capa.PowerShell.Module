@@ -1,5 +1,3 @@
-# TODO: #154 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets a list of OS Servers including sub servers.
@@ -21,11 +19,14 @@
 #>
 function Get-CapaOSServers {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$OSPointID
 	)
 
@@ -45,5 +46,5 @@ function Get-CapaOSServers {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

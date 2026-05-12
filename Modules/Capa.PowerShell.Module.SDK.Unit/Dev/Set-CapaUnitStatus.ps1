@@ -1,5 +1,3 @@
-# TODO: #236 Update and add tests
-
 <#
 	.SYNOPSIS
 		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247758/Set+unit+status
@@ -23,19 +21,27 @@
 		Additional information about the function.
 #>
 function Set-CapaUnitStatus {
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName = '',
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Active', 'Inactive')]
 		[string]$Status = ''
 	)
 
-	$aUnits = $CapaSDK.SetUnitStatus($UnitName, $Status)
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'SetUnitStatus')) {
+		throw 'CapaSDK does not contain method SetUnitStatus.'
+	}
 
-	Return $aUnits
+	if ($PSCmdlet.ShouldProcess($UnitName, "Set unit status to '$Status'")) {
+		$aUnits = $CapaSDK.SetUnitStatus($UnitName, $Status)
+		return $aUnits
+	}
 }
 

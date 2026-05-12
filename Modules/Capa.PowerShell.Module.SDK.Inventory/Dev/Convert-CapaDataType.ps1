@@ -1,5 +1,3 @@
-# TODO: #123 Update and add tests
-
 <#
 	.SYNOPSIS
 		A function to convert Capa data types.
@@ -17,8 +15,11 @@
 		A custom function to convert Capa data types to a more readable format.
 #>
 function Convert-CapaDataType {
+	[CmdletBinding()]
+	[OutputType([string])]
 	param
 	(
+		[Parameter(Mandatory = $true)]
 		$Datatype
 	)
 

@@ -1,5 +1,3 @@
-# TODO: #155 Update and add tests
-
 <#
 	.SYNOPSIS
 		Adds a package to a business unit.
@@ -29,30 +27,35 @@
 		for more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246796/Add+Package+to+BusinessUnit
 #>
 function Add-CapaPackageToBusinessUnit {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		$PackageName,
+		[ValidateNotNullOrEmpty()]
+		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
-		$PackageVersion,
+		[ValidateNotNullOrEmpty()]
+		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User', '1', '2')]
-		$PackageType,
+		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
-		$BusinessUnitName
+		[ValidateNotNullOrEmpty()]
+		[string]$BusinessUnitName
 	)
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
+	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 
-	$value = $CapaSDK.AddPackageToBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
-
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Add package to business unit '$BusinessUnitName'")) {
+		$value = $CapaSDK.AddPackageToBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
+		return $value
+	}
 }

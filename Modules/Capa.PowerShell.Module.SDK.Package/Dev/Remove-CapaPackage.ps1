@@ -1,5 +1,3 @@
-# TODO: #180 Update and add tests
-
 <#
 	.SYNOPSIS
 		Removes a package.
@@ -36,13 +34,18 @@
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247000/Remove+Package+From+BusinessUnit
 #>
 function Remove-CapaPackage {
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
@@ -53,10 +56,14 @@ function Remove-CapaPackage {
 
 	)
 	if ($BusinessUnitName -eq '') {
-		$value = $CapaSDK.DeletePackage($PackageName, $PackageVersion, $PackageType, $Force)
+		if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Delete package')) {
+			$value = $CapaSDK.DeletePackage($PackageName, $PackageVersion, $PackageType, $Force)
+			return $value
+		}
 	} else {
-		$value = $CapaSDK.RemovePackageFromBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
+		if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Remove package from business unit '$BusinessUnitName'")) {
+			$value = $CapaSDK.RemovePackageFromBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
+			return $value
+		}
 	}
-
-	Return $value
 }

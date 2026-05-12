@@ -1,5 +1,3 @@
-# TODO: #139 Update and add tests
-
 <#
 	.SYNOPSIS
 		Add a new WiFi payload to a profile.
@@ -71,10 +69,12 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246510/Add+WiFi+Payload+to+Profile
 #>
 function Add-CapaWifiPayloadToProfile {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileID,
@@ -112,7 +112,9 @@ function Add-CapaWifiPayloadToProfile {
 	} elseif ($ProxyType -eq 'Automatic' -and $ProxyServerConfigURL -eq '') {
 		Write-Error "ProxyServerConfigURL cannot be NULL when choosing ProxyType: $ProxyType"
 	} Else {
-		$value = $CapaSDK.AddWifiPayloadToProfile($ProfileID, $NetworkName, $HiddenNetwork, $AutoJoin, $SecurityType, $Password, $ProxyType, $ProxyType, $ProxyServer, $ProxyPort, $ProxyAuthentication, $ProxyPassword, $ProxyServerConfigURL, $ChangelogComment)
-		return $value
+		if ($PSCmdlet.ShouldProcess($ProfileID, "Add WiFi payload '$NetworkName' to profile")) {
+			$value = $CapaSDK.AddWifiPayloadToProfile($ProfileID, $NetworkName, $HiddenNetwork, $AutoJoin, $SecurityType, $Password, $ProxyType, $ProxyServer, $ProxyPort, $ProxyAuthentication, $ProxyPassword, $ProxyServerConfigURL, $ChangelogComment)
+			return $value
+		}
 	}
 }

@@ -61,6 +61,8 @@
         This is a custom function that is not part of the CapaSDK
 #>
 function New-CapaPowerPack {
+	[CmdletBinding()]
+	[OutputType([int], [bool])]
 	param (
 		[Parameter(Mandatory = $true)]
 		[pscustomobject]$CapaSDK,

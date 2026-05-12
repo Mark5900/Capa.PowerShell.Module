@@ -1,5 +1,3 @@
-# TODO: #117 Update and add tests
-
 <#
 .SYNOPSIS
 Returns printers linked to a group.
@@ -24,15 +22,18 @@ For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/
 #>
 function Get-CapaGroupPrinters {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[String]$GroupName,
+		[ValidateNotNullOrEmpty()]
+		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Static')]
-		[String]$GroupType
+		[string]$GroupType
 	)
 
 	$oaUnits = @()
@@ -53,5 +54,5 @@ function Get-CapaGroupPrinters {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

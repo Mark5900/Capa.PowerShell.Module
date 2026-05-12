@@ -1,5 +1,3 @@
-# TODO: #242 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets the reinstall status for a unit.
@@ -24,16 +22,22 @@
 #>
 function Get-CapaReinstallStatus {
 	[CmdletBinding()]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		$UnitType
+		[String]$UnitType
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetReinstallStatus')) {
+		throw 'CapaSDK does not contain method GetReinstallStatus.'
+	}
 
 	$value = $CapaSDK.GetReinstallStatus($UnitName, $UnitType)
 	return $value

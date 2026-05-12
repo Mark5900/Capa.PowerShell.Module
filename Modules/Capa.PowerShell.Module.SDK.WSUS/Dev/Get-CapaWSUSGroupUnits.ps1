@@ -1,5 +1,3 @@
-# TODO: #251 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets a list of units linked to a WSUS group.
@@ -29,26 +27,39 @@ function Get-CapaWSUSGroupUnits {
 		[String]$WSUSGroupName
 	)
 
-	$oaUnits = @()
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetWSUSGroupUnits')) {
+		throw 'CapaSDK does not contain method GetWSUSGroupUnits.'
+	}
 
-	$aUnits = $CapaSDK.GetOSDiskConfiguration($OSPointID)
+	$aUnits = $CapaSDK.GetWSUSGroupUnits($WSUSGroupName)
+	if ($null -eq $aUnits) {
+		return @()
+	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
-			Name           = $aItem[0];
-			Created        = $aItem[1];
-			LastExecuted   = $aItem[2];
-			Status         = $aItem[3];
-			Description    = $aItem[4];
-			GUID           = $aItem[5];
-			ID             = $aItem[7];
-			TypeName       = $aItem[8];
-			UUID           = $aItem[9];
-			IsMobileDevice = $aItem[10];
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';'
+		if ($aItem.Count -lt 12) {
+			continue
+		}
+
+		[pscustomobject]@{
+			Name           = $aItem[0]
+			Created        = $aItem[1]
+			LastExecuted   = $aItem[2]
+			Status         = $aItem[3]
+			Description    = $aItem[4]
+			GUID           = $aItem[5]
+			ID             = $aItem[7]
+			TypeName       = $aItem[8]
+			UUID           = $aItem[9]
+			IsMobileDevice = $aItem[10]
 			Location       = $aItem[11]
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }

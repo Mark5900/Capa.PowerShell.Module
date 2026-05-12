@@ -1,5 +1,3 @@
-# TODO: #244 Update and add tests
-
 <#
 	.SYNOPSIS
 		Sets an action to restart an agent.
@@ -24,25 +22,33 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247696/Restart+Agent+using+SDK
 #>
 function Restart-CapaAgent {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]$UnitType
 	)
 
-	if ($PackageType -eq 'Computer') {
-		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
-		$PackageType = '2'
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'RestartAgent')) {
+		throw 'CapaSDK does not contain method RestartAgent.'
 	}
 
-	$value = $CapaSDK.RestartAgent($UnitName, $UnitType)
-	return $value
+	if ($UnitType -eq 'Computer') {
+		$UnitType = '1'
+	}
+	if ($UnitType -eq 'User') {
+		$UnitType = '2'
+	}
+
+	if ($PSCmdlet.ShouldProcess($UnitName, 'Restart agent')) {
+		$value = $CapaSDK.RestartAgent($UnitName, $UnitType)
+		return $value
+	}
 }

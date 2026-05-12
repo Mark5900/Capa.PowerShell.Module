@@ -1,5 +1,3 @@
-# TODO: #146 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get all profiles.
@@ -18,9 +16,11 @@
 #>
 function Get-CapaProfiles {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
@@ -41,5 +41,5 @@ function Get-CapaProfiles {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

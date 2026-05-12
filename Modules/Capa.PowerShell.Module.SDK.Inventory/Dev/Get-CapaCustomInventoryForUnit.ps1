@@ -1,5 +1,3 @@
-# TODO: #125 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get the custom inventory for a unit.
@@ -29,12 +27,16 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246358/Get+custom+inventory+for+unit
 #>
 function Get-CapaCustomInventoryForUnit {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
@@ -42,6 +44,7 @@ function Get-CapaCustomInventoryForUnit {
 		[string]$UnitType,
 		[Parameter(ParameterSetName = 'Uuid',
 			Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Uuid
 	)
 
@@ -66,5 +69,5 @@ function Get-CapaCustomInventoryForUnit {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

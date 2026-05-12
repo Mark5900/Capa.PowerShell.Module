@@ -1,5 +1,3 @@
-# TODO: #237 Update and add tests
-
 <#
 	.SYNOPSIS
 		Clear the primary user on a unit.
@@ -20,15 +18,24 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247356/Clear+Primary+User
 #>
 function Clear-CapaPrimaryUser {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
+		[ValidatePattern('^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$')]
 		[String]$Uuid
 	)
 
-	$value = $CapaSDK.ClearPrimaryUser($Uuid)
-	return $value
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'ClearPrimaryUser')) {
+		throw 'CapaSDK does not contain method ClearPrimaryUser.'
+	}
+
+	if ($PSCmdlet.ShouldProcess($Uuid, 'Clear primary user')) {
+		$value = $CapaSDK.ClearPrimaryUser($Uuid)
+		return $value
+	}
 }

@@ -1,37 +1,37 @@
-# TODO: #232 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247724/Set+unit+description
+		Set the description on a unit.
 
 	.DESCRIPTION
-		A detailed description of the Set-CapaUnitDescription function.
+		Set or update description for an existing unit in CapaInstaller.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 
 	.PARAMETER UnitName
-		A description of the UnitName  parameter.
+		The name of the unit.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The unit type.
 
 	.PARAMETER Description
-		A description of the Description parameter.
+		The description value to set. Leave empty string to clear description.
 
 	.EXAMPLE
-				PS C:\> Set-CapaUnitDescription -CapaSDK $value1 -UnitName  'Value2' -UnitType Computer
+		PS C:\> Set-CapaUnitDescription -CapaSDK $CapaSDK -UnitName 'PC001' -UnitType Computer -Description 'Production workstation'
 
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247724/Set+unit+description
 #>
 function Set-CapaUnitDescription {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
@@ -39,6 +39,14 @@ function Set-CapaUnitDescription {
 		[String]$Description = ''
 	)
 
-	$value = $CapaSDK.SetUnitDescription($UnitName, $UnitType, $Description)
-	return $value
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'SetUnitDescription')) {
+		throw 'CapaSDK does not contain method SetUnitDescription.'
+	}
+
+	$target = "$UnitType unit '$UnitName'"
+	$action = "Set description"
+	if ($PSCmdlet.ShouldProcess($target, $action)) {
+		$value = $CapaSDK.SetUnitDescription($UnitName, $UnitType, $Description)
+		return $value
+	}
 }

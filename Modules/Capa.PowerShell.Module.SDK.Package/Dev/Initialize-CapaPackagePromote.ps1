@@ -1,5 +1,3 @@
-# TODO: #177 Update and add tests
-
 <#
 	.SYNOPSIS
 		Initializes a package promotion.
@@ -26,19 +24,26 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246992/Promote+Package
 #>
 function Initialize-CapaPackagePromote {
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion
 	)
 
-	$bool = $CapaSDK.PackagePromote($PackageName, $PackageVersion, $PackageType)
-	Return $bool
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Promote package')) {
+		$bool = $CapaSDK.PackagePromote($PackageName, $PackageVersion, $PackageType)
+		return $bool
+	}
 }

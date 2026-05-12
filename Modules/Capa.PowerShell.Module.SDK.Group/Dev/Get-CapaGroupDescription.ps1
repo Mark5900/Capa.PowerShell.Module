@@ -1,5 +1,3 @@
-# TODO: #114 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get a groups description.
@@ -24,15 +22,18 @@
 #>
 function Get-CapaGroupDescription {
 	[CmdletBinding()]
+	[OutputType([string])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[String]$GroupName,
+		[ValidateNotNullOrEmpty()]
+		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
-		[String]$GroupType
+		[string]$GroupType
 	)
 
 	$value = $CapaSDK.GetGroupDescription($GroupName, $GroupType)

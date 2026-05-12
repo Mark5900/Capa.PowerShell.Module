@@ -1,5 +1,3 @@
-# TODO: #187 Update and add tests
-
 <#
 	.SYNOPSIS
 		Performs a update now on a package.
@@ -30,20 +28,26 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247056/Update+Now+on+Package
 #>
 function Update-CapaPackageNow {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$PackageType
 	)
 
-	$value = $CapaSDK.PackageUpdateNow($PackageName, $PackageVersion, $PackageType)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Update package now')) {
+		$value = $CapaSDK.PackageUpdateNow($PackageName, $PackageVersion, $PackageType)
+		return $value
+	}
 }

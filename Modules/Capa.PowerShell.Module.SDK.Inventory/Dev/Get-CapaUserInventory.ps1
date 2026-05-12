@@ -1,5 +1,3 @@
-# TODO: #131 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get software inventory for a user.
@@ -21,12 +19,15 @@
 #>
 function Get-CapaUserInventory {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		$UserName
+		[ValidateNotNullOrEmpty()]
+		[string]$UserName
 	)
 
 	$oaUnits = @()
@@ -45,5 +46,5 @@ function Get-CapaUserInventory {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

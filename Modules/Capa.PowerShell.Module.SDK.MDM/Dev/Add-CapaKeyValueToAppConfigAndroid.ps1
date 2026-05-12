@@ -1,5 +1,3 @@
-# TODO: #136 Update and add tests
-
 <#
 	.SYNOPSIS
 		Add a new key/value setting to an existing AppConfig payload in the specified profile.
@@ -33,24 +31,29 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246531/Add+edit+Key+Value+setting+to+Android+AppConfig
 #>
 function Add-CapaKeyValueToAppConfigAndroid {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	[Alias('Edit-CapaKeyValueToAppConfigAndroid')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$DeviceApplicationID,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Key,
 		[Parameter(Mandatory = $true)]
 		[string]$Value,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('String', 'Bool', 'Hidden', 'Integer')]
-		$KeyValueType,
-		$ChangelogComment = ''
+		[string]$KeyValueType,
+		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.AddKeyValueToAppConfigAndroid($DeviceApplicationID, $Key, $Value, $KeyValueType, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($DeviceApplicationID, "Add key/value '$Key' to Android AppConfig")) {
+		$value = $CapaSDK.AddKeyValueToAppConfigAndroid($DeviceApplicationID, $Key, $Value, $KeyValueType, $ChangelogComment)
+		return $value
+	}
 }

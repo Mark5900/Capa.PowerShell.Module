@@ -1,5 +1,3 @@
-# TODO: #120 Update and add tests
-
 <#
 	.SYNOPSIS
 		Removes a group.
@@ -33,11 +31,15 @@
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246248/Delete+Group+in+Business+Unit
 #>
 function Remove-CapaGroup {
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
@@ -45,14 +47,16 @@ function Remove-CapaGroup {
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$UnitType,
-		[String]$BusinessUnit = ''
+		[string]$BusinessUnit = ''
 	)
 
-	if ($BusinessUnit -eq '') {
-		$value = $CapaSDK.DeleteGroup($GroupName, $GroupType, $UnitType)
-	} else {
-		$value = $CapaSDK.DeleteGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
-	}
+	if ($PSCmdlet.ShouldProcess($GroupName, "Remove group of type '$GroupType'")) {
+		if ($BusinessUnit -eq '') {
+			$value = $CapaSDK.DeleteGroup($GroupName, $GroupType, $UnitType)
+		} else {
+			$value = $CapaSDK.DeleteGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
+		}
 
-	Return $value
+		return $value
+	}
 }

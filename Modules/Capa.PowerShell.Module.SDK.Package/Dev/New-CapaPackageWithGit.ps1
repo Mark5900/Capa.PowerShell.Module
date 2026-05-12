@@ -54,6 +54,8 @@
 		This is a custom function that is not part of the CapaSDK
 #>
 function New-CapaPackageWithGit {
+	[CmdletBinding()]
+	[OutputType([bool])]
 	param (
 		[Parameter(ParameterSetName = 'NotAdvanced', Mandatory = $true)]
 		[string]$PackageName,

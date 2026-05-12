@@ -1,5 +1,3 @@
-# TODO: #165 Update and add tests
-
 <#
 	.SYNOPSIS
 		Export a package.
@@ -29,21 +27,27 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246882/Export+package
 #>
 function Export-CapaPackage {
+	[CmdletBinding()]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$ToFolder
 	)
 
 	$bool = $CapaSDK.ExportPackage($PackageName, $PackageVersion, $PackageType, $ToFolder)
-	Return $bool
+	return $bool
 }

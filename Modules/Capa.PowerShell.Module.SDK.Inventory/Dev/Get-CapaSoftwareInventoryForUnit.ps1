@@ -1,5 +1,3 @@
-# TODO: #129 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get software inventory for a unit.
@@ -29,37 +27,34 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246398/Get+software+inventory+for+unit
 #>
 function Get-CapaSoftwareInventoryForUnit {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
-		[Parameter(ParameterSetName = 'NameType',
-			Mandatory = $true)]
-		[Parameter(ParameterSetName = 'Uuid',
-			Mandatory = $true)]
-		[ValidateSet('Computer', 'User', '1', '2')]
+		[Parameter(ParameterSetName = 'NameType', Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
 		[string]$UnitType,
 		[Parameter(ParameterSetName = 'Uuid',
 			Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Uuid
 	)
 
-	if ($UnitType -eq 'Computer') {
-		$UnitType = '1'
-	}
-	if ($UnitType -eq 'User') {
-		$UnitType = '2'
-	}
+	$UnitTypeId = if ($UnitType -eq 'Computer') { '1' } elseif ($UnitType -eq 'User') { '2' } else { $UnitType }
 
 	$oaUnits = @()
 
 	if ($PSCmdlet.ParameterSetName -eq 'NameType') {
-		$aUnits = $CapaSDK.GetSoftwareInventoryForUnit($UnitName, $UnitType)
+		$aUnits = $CapaSDK.GetSoftwareInventoryForUnit($UnitName, $UnitTypeId)
 	} else {
-		$aUnits = $CapaSDK.GetSoftwareInventoryForUnit($Uuid, $UnitType)
+		$aUnits = $CapaSDK.GetSoftwareInventoryForUnit($Uuid, $UnitTypeId)
 	}
 
 	foreach ($sItem in $aUnits) {
@@ -76,5 +71,5 @@ function Get-CapaSoftwareInventoryForUnit {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

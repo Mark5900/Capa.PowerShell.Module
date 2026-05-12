@@ -1,5 +1,3 @@
-# TODO: #243 Update and add tests
-
 <#
 	.SYNOPSIS
 		Moves a device from its current Management Point to the specified Management Point.
@@ -28,19 +26,30 @@ All relations to the device in the old Management Point will be removed, includi
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247640/Move+Device+To+Management+Point
 #>
 function Move-CapaDeviceToPoint {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		$DeviceUUID,
+		[ValidateNotNullOrEmpty()]
+		[ValidatePattern('^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$')]
+		[String]$DeviceUUID,
 		[Parameter(Mandatory = $true)]
-		$PointName,
+		[ValidateNotNullOrEmpty()]
+		[String]$PointName,
 		[Parameter(Mandatory = $true)]
-		$ManagementServerFQDN
+		[AllowEmptyString()]
+		[String]$ManagementServerFQDN
 	)
 
-	$value = $CapaSDK.MoveDeviceToPoint($DeviceUUID, $PointName, $ManagementServerFQDN)
-	return $value
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'MoveDeviceToPoint')) {
+		throw 'CapaSDK does not contain method MoveDeviceToPoint.'
+	}
+
+	if ($PSCmdlet.ShouldProcess($DeviceUUID, "Move device to management point '$PointName'")) {
+		$value = $CapaSDK.MoveDeviceToPoint($DeviceUUID, $PointName, $ManagementServerFQDN)
+		return $value
+	}
 }

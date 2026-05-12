@@ -1,5 +1,3 @@
-# TODO: #171 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets a list of packages and their status on a unit.
@@ -24,11 +22,14 @@
 #>
 function Get-CapaPackageStatus {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
@@ -50,5 +51,5 @@ function Get-CapaPackageStatus {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

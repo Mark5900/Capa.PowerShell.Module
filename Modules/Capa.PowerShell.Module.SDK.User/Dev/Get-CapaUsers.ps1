@@ -1,5 +1,3 @@
-# TODO: #238 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get a list of all users.
@@ -18,35 +16,49 @@
 #>
 function Get-CapaUsers {
 	[CmdletBinding()]
+	[OutputType([object[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK
 	)
 
-	$oaUnits = @()
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetUsers')) {
+		throw 'CapaSDK does not contain method GetUsers.'
+	}
 
 	$aUnits = $CapaSDK.GetUsers()
+	if ($null -eq $aUnits) {
+		return @()
+	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
-			Name           = $aItem[0];
-			Created        = $aItem[1];
-			LastExecuted   = $aItem[2];
-			Status         = $aItem[3];
-			Description    = $aItem[4];
-			GUID           = $aItem[5];
-			ID             = $aItem[7];
-			TypeName       = $aItem[8];
-			UUID           = $aItem[9];
-			Location       = $aItem[10];
-			FullName       = $aItem[11];
-			EmailPrimary   = $aItem[12];
-			EmailSecondary = $aItem[13];
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';'
+		if ($aItem.Count -lt 15) {
+			continue
+		}
+
+		[pscustomobject]@{
+			Name           = $aItem[0]
+			Created        = $aItem[1]
+			LastExecuted   = $aItem[2]
+			Status         = $aItem[3]
+			Description    = $aItem[4]
+			GUID           = $aItem[5]
+			ID             = $aItem[7]
+			TypeName       = $aItem[8]
+			UUID           = $aItem[9]
+			Location       = $aItem[10]
+			FullName       = $aItem[11]
+			EmailPrimary   = $aItem[12]
+			EmailSecondary = $aItem[13]
 			EmailTertiary  = $aItem[14]
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }

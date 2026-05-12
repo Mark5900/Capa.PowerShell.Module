@@ -1,5 +1,3 @@
-# TODO: #116 Update and add tests
-
 <#
 	.SYNOPSIS
 		Returns packages linked to a group.
@@ -23,11 +21,15 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342582280/Get+group+packages
 #>
 function Get-CapaGroupPackages {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
@@ -58,5 +60,5 @@ function Get-CapaGroupPackages {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

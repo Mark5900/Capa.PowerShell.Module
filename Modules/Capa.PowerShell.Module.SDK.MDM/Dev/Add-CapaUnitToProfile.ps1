@@ -1,5 +1,3 @@
-# TODO: #138 Update and add tests
-
 <#
 	.SYNOPSIS
 		Link profile to a device.
@@ -35,34 +33,41 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246463/Link+profile+to+device
 #>
 function Add-CapaUnitToProfile {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	[Alias('Link-CapaUnitToProfile')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
-		[String]$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(ParameterSetName = 'Uuid',
 			Mandatory = $true)]
-		[String]$Uuid,
+		[ValidateNotNullOrEmpty()]
+		[string]$Uuid,
 		[Parameter(Mandatory = $true)]
-		[String]$ProfileName,
+		[ValidateNotNullOrEmpty()]
+		[string]$ProfileName,
 		[Parameter(Mandatory = $false)]
-		[String]$ChangelogComment
+		[string]$ChangelogComment = ''
 	)
 
-	switch ($PsCmdlet.ParameterSetName) {
-		'Uuid' {
-			$value = $CapaSDK.AddUnitToProfile($UnitName, $ProfileName, $ChangelogComment)
-			break
+	$Target = if ($PsCmdlet.ParameterSetName -eq 'Uuid') { $Uuid } else { $UnitName }
+	if ($PSCmdlet.ShouldProcess($Target, "Link unit to profile '$ProfileName'")) {
+		switch ($PsCmdlet.ParameterSetName) {
+			'Uuid' {
+				$value = $CapaSDK.AddUnitToProfile($Uuid, $ProfileName, $ChangelogComment)
+				break
+			}
+			'NameType' {
+				$value = $CapaSDK.AddUnitToProfile($UnitName, $ProfileName, $ChangelogComment)
+				break
+			}
 		}
-		'NameType' {
-			$value = $CapaSDK.AddUnitToProfile($Uuid, $ProfileName, $ChangelogComment)
-			break
-		}
+		return $value
 	}
-
-	return $value
 }

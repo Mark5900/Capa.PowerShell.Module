@@ -1,5 +1,3 @@
-# TODO: #130 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get update inventory for a unit.
@@ -24,15 +22,18 @@
 #>
 function Get-CapaUpdateInventoryForUnit {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[String]$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[String]$UnitType
+		[string]$UnitType
 	)
 
 	$oaUnits = @()
@@ -52,5 +53,5 @@ function Get-CapaUpdateInventoryForUnit {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

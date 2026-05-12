@@ -1,39 +1,54 @@
-# TODO: #205 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247372/Delete+unit
+		Deletes a unit.
 
 	.DESCRIPTION
-		A detailed description of the Delete-CapaUnit function.
+		Deletes an existing unit in CapaInstaller by calling the CapaSDK method
+		DeleteUnit.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName  parameter.
+		Name of the unit to delete.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.EXAMPLE
-				PS C:\> Delete-CapaUnit -CapaSDK $value1 -UnitName  'Value2' -UnitType Computer
+		PS C:\> Delete-CapaUnit -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -Confirm:$false
+
+		Deletes unit PC-01.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247372/Delete+unit
 #>
 function Delete-CapaUnit {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$UnitType
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'DeleteUnit')) {
+		throw 'CapaSDK does not contain method DeleteUnit.'
+	}
+
+	$target = "$UnitType unit '$UnitName'"
+	$action = 'Delete unit'
+	if (-not $PSCmdlet.ShouldProcess($target, $action)) {
+		return
+	}
 
 	$value = $CapaSDK.DeleteUnit($UnitName, $UnitType)
 	return $value

@@ -1,5 +1,3 @@
-# TODO: #147 Update and add tests
-
 <#
 	.SYNOPSIS
 		Link an existing profile to a group.
@@ -32,14 +30,17 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246638/Link+profile+to+group
 #>
 function Link-CapaProfileToGroup {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileId,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('AD', 'Department', 'Dynamic', 'Static')]
@@ -48,6 +49,8 @@ function Link-CapaProfileToGroup {
 		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.AddProfileToGroup($ProfileId, $GroupName, $GroupType, $BusinessUnitName, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($ProfileId, "Link profile to group '$GroupName'")) {
+		$value = $CapaSDK.AddProfileToGroup($ProfileId, $GroupName, $GroupType, $BusinessUnitName, $ChangelogComment)
+		return $value
+	}
 }

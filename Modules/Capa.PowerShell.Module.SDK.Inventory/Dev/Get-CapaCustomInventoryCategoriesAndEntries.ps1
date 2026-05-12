@@ -1,5 +1,3 @@
-# TODO: #124 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get custom inventory categories and entries.
@@ -18,20 +16,22 @@
 #>
 function Get-CapaCustomInventoryCategoriesAndEntries {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
 	$oaUnits = @()
 
-	$aUnits = $CapaSDK.GetCustomInventoryCategoriesAndEntrie($UserName)
+	$aUnits = $CapaSDK.GetCustomInventoryCategoriesAndEntries()
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 
-		$Datatype = Convert-CapaDataType -Datatype $aItem [2]
+		$Datatype = Convert-CapaDataType -Datatype $aItem[2]
 
 		$oaUnits += [pscustomobject]@{
 			Category = $aItem[0];
@@ -40,5 +40,5 @@ function Get-CapaCustomInventoryCategoriesAndEntries {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

@@ -1,5 +1,3 @@
-# TODO: #111 Update and add tests
-
 <#
 	.SYNOPSIS
 		Returns a schedule object by id.
@@ -11,7 +9,7 @@
 		The CapaSDK object.
 
 	.PARAMETER Id
-		Id of the requested unit.
+		Id of the requested schedule.
 
 	.EXAMPLE
 		PS C:\> Get-CapaSchedule -CapaSDK $CapaSDK -Id '5'
@@ -20,37 +18,40 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580716/Get+schedule
 #>
 function Get-CapaSchedule {
-    [CmdletBinding()]
-    param
-    (
-        [Parameter(Mandatory = $true)]
-        $CapaSDK,
-        [Parameter(Mandatory = $true)]
-        [string]$Id
-    )
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
+	param
+	(
+		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
+		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
+		[string]$Id
+	)
 
-    $oaUnits = @()
+	$oaUnits = @()
 
-    $aUnits = $CapaSDK.GetSchedule($Id)
+	$aUnits = $CapaSDK.GetSchedule($Id)
 
-    foreach ($sItem in $aUnits) {
-        $aItem = $sItem.Split(';')
-        $oaUnits += [pscustomobject]@{
-            Id                = $aItem[0];
-            ScheduleStart     = $aItem[1];
-            ScheduleEnd       = $aItem[2];
-            Occurrences       = $aItem[3];
-            IntervalStart     = $aItem[4];
-            IntervalEnd       = $aItem[5];
-            Recurrence        = $aItem[6];
-            RecurrencePattern = $aItem[7];
-            Run               = $aItem[8];
-            LastRun           = $aItem[9];
-            Active            = $aItem[10];
-            WOL               = $aItem[11];
-            Guid              = $aItem[12]
-        }
-    }
+	foreach ($sItem in $aUnits) {
+		$aItem = $sItem.Split(';')
+		$oaUnits += [pscustomobject]@{
+			Id                = $aItem[0];
+			ScheduleStart     = $aItem[1];
+			ScheduleEnd       = $aItem[2];
+			Occurrences       = $aItem[3];
+			IntervalStart     = $aItem[4];
+			IntervalEnd       = $aItem[5];
+			Recurrence        = $aItem[6];
+			RecurrencePattern = $aItem[7];
+			Run               = $aItem[8];
+			LastRun           = $aItem[9];
+			Active            = $aItem[10];
+			WOL               = $aItem[11];
+			Guid              = $aItem[12]
+		}
+	}
 
-    Return $oaUnits
+	return $oaUnits
 }

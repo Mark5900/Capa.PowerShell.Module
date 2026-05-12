@@ -1,5 +1,3 @@
-# TODO: #158 Update and add tests
-
 <#
 	.SYNOPSIS
 		Clone a package in Root Point.
@@ -29,23 +27,30 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246823/Clone+Package
 #>
 function Clone-CapaPackage {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$NewVersion
 	)
 
-	$value = $CapaSDK.ClonePackage($PackageName, $PackageVersion, $PackageType, $NewVersion)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Clone package to version '$NewVersion'")) {
+		$value = $CapaSDK.ClonePackage($PackageName, $PackageVersion, $PackageType, $NewVersion)
+		return $value
+	}
 }
 

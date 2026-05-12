@@ -1,5 +1,3 @@
-# TODO: #121 Update and add tests
-
 <#
 	.SYNOPSIS
 		Set a group description.
@@ -26,20 +24,25 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246310/Set+Group+Description
 #>
 function Set-CapaGroupDescription {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[String]$GroupName,
+		[ValidateNotNullOrEmpty()]
+		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
-		[String]$GroupType,
+		[string]$GroupType,
 		[Parameter(Mandatory = $false)]
-		[String]$Description = ''
+		[string]$Description = ''
 	)
 
-	$value = $CapaSDK.SetGroupDescription($GroupName, $GroupType, $Description)
-	return $value
+	if ($PSCmdlet.ShouldProcess($GroupName, "Set group description")) {
+		$value = $CapaSDK.SetGroupDescription($GroupName, $GroupType, $Description)
+		return $value
+	}
 }

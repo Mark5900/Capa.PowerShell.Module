@@ -1,5 +1,3 @@
-# TODO: #133 Update and add tests
-
 <#
 	.SYNOPSIS
 		Set hardware inventory for a unit.
@@ -39,30 +37,36 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246446/Set+hardware+inventory
 #>
 function Set-CapaHardwareInventory {
-	[CmdletBinding(DefaultParameterSetName = 'NameType')]
+	[CmdletBinding(DefaultParameterSetName = 'NameType', SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
-		[String]$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
-		[String]$UnitType,
+		[string]$UnitType,
 		[Parameter(ParameterSetName = 'Uuid',
 			Mandatory = $true)]
-		[String]$Uuid,
+		[ValidateNotNullOrEmpty()]
+		[string]$Uuid,
 		[Parameter(Mandatory = $true)]
-		[String]$Section,
+		[ValidateNotNullOrEmpty()]
+		[string]$Section,
 		[Parameter(Mandatory = $true)]
-		[String]$Name,
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
 		[Parameter(Mandatory = $true)]
-		[String]$Value,
+		[string]$Value,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Integer', 'Time', 'String', 'Text', 'I', 'T', 'S', 'N')]
-		[String]$DataType
+		[string]$DataType
 	)
 
 	switch ($UnitType) {
@@ -91,11 +95,14 @@ function Set-CapaHardwareInventory {
 		default { }
 	}
 
-	if ($PSCmdlet.ParameterSetName -eq 'NameType') {
-		$value = $CapaSDK.SetHardwareInventory($UnitName, $UnitType, $Section, $Name, $Value, $DataType)
-	} Else {
-		$value = $CapaSDK.SetHardwareInventoryUUID($Uuid, $Section, $Name, $Value, $DataType)
-	}
+	$Target = if ($PSCmdlet.ParameterSetName -eq 'NameType') { $UnitName } else { $Uuid }
+	if ($PSCmdlet.ShouldProcess($Target, "Set hardware inventory '$Section\$Name'")) {
+		if ($PSCmdlet.ParameterSetName -eq 'NameType') {
+			$value = $CapaSDK.SetHardwareInventory($UnitName, $UnitType, $Section, $Name, $Value, $DataType)
+		} else {
+			$value = $CapaSDK.SetHardwareInventoryUUID($Uuid, $Section, $Name, $Value, $DataType)
+		}
 
-	return $value
+		return $value
+	}
 }

@@ -1,5 +1,3 @@
-# TODO: #119 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get groups.
@@ -28,9 +26,12 @@
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246290/Get+groups+on+Business+Unit
 #>
 function Get-CapaGroups {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
@@ -70,5 +71,5 @@ function Get-CapaGroups {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

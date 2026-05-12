@@ -1,5 +1,3 @@
-# TODO: #144 Update and add tests
-
 <#
 	.SYNOPSIS
 		Edit an existing WiFi payload.
@@ -75,10 +73,12 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246604/Edit+WiFi+Payload
 #>
 function Edit-CapaWifiPayload {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileID,
@@ -118,7 +118,9 @@ function Edit-CapaWifiPayload {
 	} elseif ($ProxyType -eq 'Automatic' -and $ProxyServerConfigURL -eq '') {
 		Write-Error "ProxyServerConfigURL cannot be NULL when choosing ProxyType: $ProxyType"
 	} Else {
-		$value = $CapaSDK.EditWifiPayload($ProfileID, $CurrentNetworkName, $NetworkName, $HiddenNetwork, $AutoJoin, $SecurityType, $Password, $ProxyType, $ProxyType, $ProxyServer, $ProxyPort, $ProxyAuthentication, $ProxyPassword, $ProxyServerConfigURL, $ChangelogComment)
-		return $value
+		if ($PSCmdlet.ShouldProcess($ProfileID, "Edit WiFi payload '$CurrentNetworkName'")) {
+			$value = $CapaSDK.EditWifiPayload($ProfileID, $CurrentNetworkName, $NetworkName, $HiddenNetwork, $AutoJoin, $SecurityType, $Password, $ProxyType, $ProxyServer, $ProxyPort, $ProxyAuthentication, $ProxyPassword, $ProxyServerConfigURL, $ChangelogComment)
+			return $value
+		}
 	}
 }

@@ -1,5 +1,3 @@
-# TODO: #247 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets a list of users linked to a VPP user.
@@ -21,21 +19,37 @@
 #>
 function Get-CapaUsersLinkedToVppUser {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$VppUserID
 	)
 
-	$oaUnits = @()
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetUsersLinkedToVppUser')) {
+		throw 'CapaSDK does not contain method GetUsersLinkedToVppUser.'
+	}
 
 	$aUnits = $CapaSDK.GetUsersLinkedToVppUser($VppUserID)
+	if ($null -eq $aUnits) {
+		return @()
+	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';', 15
+		if ($aItem.Count -lt 15) {
+			continue
+		}
+
+		[pscustomobject]@{
 			Name           = $aItem[0];
 			Created        = $aItem[1];
 			LastExecuted   = $aItem[2];
@@ -53,5 +67,5 @@ function Get-CapaUsersLinkedToVppUser {
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }

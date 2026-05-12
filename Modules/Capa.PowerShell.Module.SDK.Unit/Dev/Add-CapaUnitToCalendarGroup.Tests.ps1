@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -14,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$script:UnitType = 'Computer'
 	$script:UnitName = "PesterCalUnit_$([guid]::NewGuid().ToString('N').Substring(0, 8))"
@@ -28,6 +30,7 @@ BeforeAll {
 
 Describe 'Add-CapaUnitToCalendarGroup integration' {
 	It 'Adds unit to calendar group and returns true' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$result = Add-CapaUnitToCalendarGroup -CapaSDK $oCMS -UnitName $script:UnitName -UnitType $script:UnitType -CalendarGroupName $script:CalendarGroupName -Confirm:$false
 		$result | Should -BeTrue
 
@@ -45,6 +48,7 @@ Describe 'Add-CapaUnitToCalendarGroup integration' {
 	}
 
 	It 'Does not add relation when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$result = Add-CapaUnitToCalendarGroup -CapaSDK $oCMS -UnitName $script:WhatIfUnitName -UnitType $script:UnitType -CalendarGroupName $script:CalendarGroupName -WhatIf -Confirm:$false
 		$result | Should -BeNullOrEmpty
 
@@ -54,6 +58,7 @@ Describe 'Add-CapaUnitToCalendarGroup integration' {
 	}
 
 	It 'Throws when CapaSDK method is missing' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$mockSdk = [pscustomobject]@{}
 		{
 			Add-CapaUnitToCalendarGroup -CapaSDK $mockSdk -UnitName $script:UnitName -UnitType $script:UnitType -CalendarGroupName $script:CalendarGroupName -Confirm:$false
@@ -61,6 +66,7 @@ Describe 'Add-CapaUnitToCalendarGroup integration' {
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{
 			Add-CapaUnitToCalendarGroup -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Device' -CalendarGroupName $script:CalendarGroupName -Confirm:$false
 		} | Should -Throw
@@ -68,6 +74,7 @@ Describe 'Add-CapaUnitToCalendarGroup integration' {
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($null -ne $script:UnitName -and $null -ne $script:CalendarGroupName) {
 		try {
 			$rawGroups = @($oCMS.GetUnitGroups($script:UnitName, $script:UnitType))

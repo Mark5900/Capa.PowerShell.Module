@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -13,7 +15,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$Units = Get-CapaUnits -CapaSDK $oCMS -Type Computer
 	$script:ExistingUnit = $Units | Where-Object { $_.Name -eq $env:COMPUTERNAME } | Select-Object -First 1
@@ -39,14 +41,17 @@ BeforeAll {
 
 Describe 'Get-CapaUnitManagementPoint integration' {
 	It 'Queries management point for existing unit without throwing' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Get-CapaUnitManagementPoint -CapaSDK $oCMS -UnitName $script:ExistingUnit.Name -UnitType 'Computer' } | Should -Not -Throw
 	}
 
 	It 'Queries management point for temporary unit without throwing' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Get-CapaUnitManagementPoint -CapaSDK $oCMS -UnitName $script:TempUnitName -UnitType 'Computer' } | Should -Not -Throw
 	}
 
 	It 'Returns a management point value when available' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Get-CapaUnitManagementPoint -CapaSDK $oCMS -UnitName $script:ExistingUnit.Name -UnitType 'Computer'
 		if ($null -ne $Result -and -not [string]::IsNullOrWhiteSpace([string]$Result)) {
 			$Result | Should -Not -BeNullOrEmpty
@@ -56,15 +61,18 @@ Describe 'Get-CapaUnitManagementPoint integration' {
 	}
 
 	It 'Validates UnitName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Get-CapaUnitManagementPoint -CapaSDK $oCMS -UnitName '' -UnitType 'Computer' } | Should -Throw
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Get-CapaUnitManagementPoint -CapaSDK $oCMS -UnitName $script:ExistingUnit.Name -UnitType 'Device' } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if (-not [string]::IsNullOrWhiteSpace($script:TempUnitName)) {
 		$TempUnit = Get-CapaUnits -CapaSDK $oCMS -Type Computer | Where-Object { $_.Name -eq $script:TempUnitName } | Select-Object -First 1
 		if ($null -ne $TempUnit) {

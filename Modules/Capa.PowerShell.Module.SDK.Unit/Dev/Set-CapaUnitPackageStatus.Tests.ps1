@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -14,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMSDev = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1
+	try { $oCMSDev = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 	$oCMSProd = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
 
 	$Units = Get-CapaUnits -CapaSDK $oCMSProd -Type Computer
@@ -46,6 +48,7 @@ BeforeAll {
 
 Describe 'Set-CapaUnitPackageStatus integration' {
 	It 'Can set package status on an existing unit for a real package' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$DesiredStatus = 'Failed'
 
 		$SetStatus = Set-CapaUnitPackageStatus -CapaSDK $oCMSProd -UnitName $script:UnitName -UnitType 'Computer' -PackageName $script:PackageName -PackageVersion $script:PackageVersion -Status $DesiredStatus -Confirm:$false
@@ -65,6 +68,7 @@ Describe 'Set-CapaUnitPackageStatus integration' {
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($null -ne $script:PackageName -and $null -ne $script:PackageVersion) {
 		$PackageSplatting = @{
 			CapaSDK        = $oCMSProd

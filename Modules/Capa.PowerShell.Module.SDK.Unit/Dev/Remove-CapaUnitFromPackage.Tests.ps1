@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -14,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMSDev = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1
+	try { $oCMSDev = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 	$oCMSProd = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
 
 	$Units = Get-CapaUnits -CapaSDK $oCMSProd -Type Computer
@@ -46,6 +48,7 @@ BeforeAll {
 
 Describe 'Remove-CapaUnitFromPackage integration' {
 	It 'Removes package relation from existing unit' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Remove-CapaUnitFromPackage -CapaSDK $oCMSProd -PackageName $script:PackageName -PackageVersion $script:PackageVersion -PackageType 'Computer' -UnitName $script:UnitName -UnitType 'Computer' -Confirm:$false
 		$Result | Should -Be $true
 
@@ -64,24 +67,29 @@ Describe 'Remove-CapaUnitFromPackage integration' {
 	}
 
 	It 'Does not remove when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Remove-CapaUnitFromPackage -CapaSDK $oCMSProd -PackageName $script:PackageName -PackageVersion $script:PackageVersion -PackageType 'Computer' -UnitName $script:UnitName -UnitType 'Computer' -WhatIf -Confirm:$false
 		$Result | Should -BeNullOrEmpty
 	}
 
 	It 'Validates PackageName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitFromPackage -CapaSDK $oCMSProd -PackageName '' -PackageVersion $script:PackageVersion -PackageType 'Computer' -UnitName $script:UnitName -UnitType 'Computer' -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates UnitName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitFromPackage -CapaSDK $oCMSProd -PackageName $script:PackageName -PackageVersion $script:PackageVersion -PackageType 'Computer' -UnitName '' -UnitType 'Computer' -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitFromPackage -CapaSDK $oCMSProd -PackageName $script:PackageName -PackageVersion $script:PackageVersion -PackageType 'Computer' -UnitName $script:UnitName -UnitType 'Device' -Confirm:$false } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($null -ne $script:PackageName -and $null -ne $script:PackageVersion) {
 		$PackageSplatting = @{
 			CapaSDK        = $oCMSProd

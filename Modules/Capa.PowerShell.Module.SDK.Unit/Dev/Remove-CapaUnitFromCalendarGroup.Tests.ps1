@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -14,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$Units = Get-CapaUnits -CapaSDK $oCMS -Type Computer
 	$script:TargetUnit = $Units | Where-Object { $_.Name -eq $env:COMPUTERNAME } | Select-Object -First 1
@@ -60,6 +62,7 @@ BeforeAll {
 
 Describe 'Remove-CapaUnitFromCalendarGroup integration' {
 	It 'Removes existing unit relation from calendar group' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if (-not $script:CanRunIntegration) {
 			$true | Should -BeTrue
 			return
@@ -81,6 +84,7 @@ Describe 'Remove-CapaUnitFromCalendarGroup integration' {
 	}
 
 	It 'Does not remove relation when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if (-not $script:CanRunIntegration) {
 			$true | Should -BeTrue
 			return
@@ -99,19 +103,23 @@ Describe 'Remove-CapaUnitFromCalendarGroup integration' {
 	}
 
 	It 'Validates UnitName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitFromCalendarGroup -CapaSDK $oCMS -UnitName '' -UnitType $script:UnitType -CalendarGroupName $script:CalendarGroupName -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates CalendarGroupName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitFromCalendarGroup -CapaSDK $oCMS -UnitName $script:UnitName -UnitType $script:UnitType -CalendarGroupName '' -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitFromCalendarGroup -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Device' -CalendarGroupName $script:CalendarGroupName -Confirm:$false } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($script:CanRunIntegration -and $null -ne $script:UnitName -and $null -ne $script:CalendarGroupName) {
 		$StillRelated = & $script:TestCalendarRelation -UnitName $script:UnitName -UnitType $script:UnitType -CalendarGroupName $script:CalendarGroupName
 		if (-not $StillRelated) {

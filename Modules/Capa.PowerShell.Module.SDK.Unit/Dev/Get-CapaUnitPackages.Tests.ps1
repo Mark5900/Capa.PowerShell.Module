@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -14,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMSDev = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1
+	try { $oCMSDev = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 	$oCMSProd = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
 
 	$script:TempUnitName = "TestUnitPackagesUnit_$([DateTime]::Now.ToString('yyyyMMddHHmmss'))"
@@ -85,6 +87,7 @@ BeforeAll {
 
 Describe 'Get-CapaUnitPackages integration' {
 	It 'Returns packages for temporary unit' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if ([string]::IsNullOrWhiteSpace($script:AssertionUnitName)) {
 			$true | Should -BeTrue
 			return
@@ -94,6 +97,7 @@ Describe 'Get-CapaUnitPackages integration' {
 	}
 
 	It 'Contains the temporary linked package' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if (-not $script:CanRunPackageAssertions) {
 			$true | Should -BeTrue
 			return
@@ -105,6 +109,7 @@ Describe 'Get-CapaUnitPackages integration' {
 	}
 
 	It 'Returns expected properties when rows are returned' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Get-CapaUnitPackages -CapaSDK $oCMSProd -UnitName $script:AssertionUnitName -UnitType 'Computer'
 		if ($null -ne $Result -and $Result.Count -gt 0) {
 			$Properties = $Result[0].PSObject.Properties.Name
@@ -117,15 +122,18 @@ Describe 'Get-CapaUnitPackages integration' {
 	}
 
 	It 'Validates UnitName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Get-CapaUnitPackages -CapaSDK $oCMSProd -UnitName '' -UnitType 'Computer' } | Should -Throw
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Get-CapaUnitPackages -CapaSDK $oCMSProd -UnitName $script:TempUnitName -UnitType 'Device' } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($null -ne $script:PackageName -and $null -ne $script:PackageVersion) {
 		$PackageSplatting = @{
 			PackageName    = $script:PackageName

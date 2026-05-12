@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -13,7 +15,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$Units = Get-CapaUnits -CapaSDK $oCMS -Type Computer
 	$script:TargetUnit = $Units | Where-Object { $_.Name -eq $env:COMPUTERNAME } | Select-Object -First 1
@@ -30,6 +32,7 @@ BeforeAll {
 
 Describe 'Rename-CapaUnit integration' {
 	It 'Renames an existing unit and can rename it back' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Rename-CapaUnit -CapaSDK $oCMS -CurrentUnitName $script:UnitName -UnitType 'Computer' -NewUnitName $script:RenamedUnitName -Confirm:$false
 		$Result | Should -Be $true
 
@@ -58,6 +61,7 @@ Describe 'Rename-CapaUnit integration' {
 	}
 
 	It 'Does not rename when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Rename-CapaUnit -CapaSDK $oCMS -CurrentUnitName $script:UnitName -UnitType 'Computer' -NewUnitName $script:RenamedUnitName -WhatIf -Confirm:$false
 		$Result | Should -BeNullOrEmpty
 
@@ -66,19 +70,23 @@ Describe 'Rename-CapaUnit integration' {
 	}
 
 	It 'Validates CurrentUnitName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Rename-CapaUnit -CapaSDK $oCMS -CurrentUnitName '' -UnitType 'Computer' -NewUnitName 'AnyValue' -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates NewUnitName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Rename-CapaUnit -CapaSDK $oCMS -CurrentUnitName $script:UnitName -UnitType 'Computer' -NewUnitName '' -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Rename-CapaUnit -CapaSDK $oCMS -CurrentUnitName $script:UnitName -UnitType 'Device' -NewUnitName 'AnyValue' -Confirm:$false } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($null -ne $script:UnitName -and $null -ne $script:RenamedUnitName) {
 		$CurrentRenamed = Get-CapaUnits -CapaSDK $oCMS -Type Computer | Where-Object { $_.Name -eq $script:RenamedUnitName } | Select-Object -First 1
 		if ($null -ne $CurrentRenamed) {

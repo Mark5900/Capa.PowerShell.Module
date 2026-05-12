@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -14,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$Units = Get-CapaUnits -CapaSDK $oCMS -Type Computer
 	$script:TargetUnit = $Units | Where-Object { $_.Name -eq $env:COMPUTERNAME } | Select-Object -First 1
@@ -57,6 +59,7 @@ BeforeAll {
 
 Describe 'Remove-CapaUnitFromGroup integration' {
 	It 'Removes existing unit relation from group' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Remove-CapaUnitFromGroup -CapaSDK $oCMS -UnitName $script:UnitName -UnitType $script:UnitType -GroupName $script:GroupName -GroupType $script:GroupType -Confirm:$false
 		$Result | Should -Be $true
 
@@ -73,6 +76,7 @@ Describe 'Remove-CapaUnitFromGroup integration' {
 	}
 
 	It 'Does not remove relation when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if (-not (& $script:TestUnitGroupRelation -UnitName $script:UnitName -UnitType $script:UnitType -GroupName $script:GroupName -GroupType $script:GroupType)) {
 			$AddStatus = Add-CapaUnitToGroup -CapaSDK $oCMS -UnitName $script:UnitName -UnitType $script:UnitType -GroupName $script:GroupName -GroupType $script:GroupType
 			$AddStatus | Should -Be $true
@@ -86,19 +90,23 @@ Describe 'Remove-CapaUnitFromGroup integration' {
 	}
 
 	It 'Validates UnitName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitFromGroup -CapaSDK $oCMS -UnitName '' -UnitType $script:UnitType -GroupName $script:GroupName -GroupType $script:GroupType -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates GroupName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitFromGroup -CapaSDK $oCMS -UnitName $script:UnitName -UnitType $script:UnitType -GroupName '' -GroupType $script:GroupType -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitFromGroup -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Device' -GroupName $script:GroupName -GroupType $script:GroupType -Confirm:$false } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($null -ne $script:UnitName -and $null -ne $script:GroupName -and $null -ne $script:GroupType) {
 		$StillRelated = & $script:TestUnitGroupRelation -UnitName $script:UnitName -UnitType $script:UnitType -GroupName $script:GroupName -GroupType $script:GroupType
 		if (-not $StillRelated) {

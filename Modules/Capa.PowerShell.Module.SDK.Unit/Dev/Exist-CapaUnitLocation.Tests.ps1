@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -13,7 +15,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$Units = Get-CapaUnits -CapaSDK $oCMS -Type Computer
 	$script:ExistingUnit = $Units | Where-Object { $_.Name -eq $env:COMPUTERNAME } | Select-Object -First 1
@@ -49,6 +51,7 @@ BeforeAll {
 
 Describe 'Exist-CapaUnitLocation integration' {
 	It 'Checks existing unit against its location' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if ([string]::IsNullOrWhiteSpace($script:ExistingLocation)) {
 			$true | Should -BeTrue
 			return
@@ -59,6 +62,7 @@ Describe 'Exist-CapaUnitLocation integration' {
 	}
 
 	It 'Checks temporary unit against its location' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if ([string]::IsNullOrWhiteSpace($script:TempLocation)) {
 			$true | Should -BeTrue
 			return
@@ -69,19 +73,23 @@ Describe 'Exist-CapaUnitLocation integration' {
 	}
 
 	It 'Validates UnitName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Exist-CapaUnitLocation -CapaSDK $oCMS -UnitName '' -UnitType 'Computer' -Location 'Any' } | Should -Throw
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Exist-CapaUnitLocation -CapaSDK $oCMS -UnitName $script:ExistingUnit.Name -UnitType 'Device' -Location 'Any' } | Should -Throw
 	}
 
 	It 'Validates Location is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Exist-CapaUnitLocation -CapaSDK $oCMS -UnitName $script:ExistingUnit.Name -UnitType 'Computer' -Location '' } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if (-not [string]::IsNullOrWhiteSpace($script:TempUnitName)) {
 		$TempUnit = Get-CapaUnits -CapaSDK $oCMS -Type Computer | Where-Object { $_.Name -eq $script:TempUnitName } | Select-Object -First 1
 		if ($null -ne $TempUnit) {

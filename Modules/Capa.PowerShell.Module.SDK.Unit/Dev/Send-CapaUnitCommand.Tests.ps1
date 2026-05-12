@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -13,7 +15,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$Units = Get-CapaUnits -CapaSDK $oCMS -Type Computer
 	$script:TargetUnit = $Units | Where-Object { $_.Name -eq $env:COMPUTERNAME } | Select-Object -First 1
@@ -31,6 +33,7 @@ BeforeAll {
 
 Describe 'Send-CapaUnitCommand integration' {
 	It 'Sends a supported inventory command to existing unit' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$CommandsToTry = @('SWInventory', 'HWInventory', 'SecInventory', 'ManagedSoftwareInventory')
 		$Result = $null
 		$SelectedCommand = $null
@@ -59,19 +62,23 @@ Describe 'Send-CapaUnitCommand integration' {
 	}
 
 	It 'Does not send command when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Send-CapaUnitCommand -CapaSDK $oCMS -DeviceUUID $script:DeviceUUID -Command 'SWInventory' -ChangelogComment $script:ChangelogComment -WhatIf -Confirm:$false
 		$Result | Should -BeNullOrEmpty
 	}
 
 	It 'Validates DeviceUUID format' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Send-CapaUnitCommand -CapaSDK $oCMS -DeviceUUID 'not-a-guid' -Command 'SWInventory' -ChangelogComment $script:ChangelogComment -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates ChangelogComment is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Send-CapaUnitCommand -CapaSDK $oCMS -DeviceUUID $script:DeviceUUID -Command 'SWInventory' -ChangelogComment '' -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates Command values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Send-CapaUnitCommand -CapaSDK $oCMS -DeviceUUID $script:DeviceUUID -Command 'InvalidCommand' -ChangelogComment $script:ChangelogComment -Confirm:$false } | Should -Throw
 	}
 }

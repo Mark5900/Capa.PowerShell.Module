@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -14,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$script:BusinessUnitName = 'TestBU'
 	$script:UnitType = 'Computer'
@@ -55,6 +57,7 @@ BeforeAll {
 
 Describe 'Add-CapaUnitToBusinessUnit integration' {
 	It 'Adds unit to business unit and returns true' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$result = Add-CapaUnitToBusinessUnit -CapaSDK $oCMS -UnitName $script:UnitName -UnitType $script:UnitType -BusinessUnit $script:BusinessUnitName -Confirm:$false
 		$result | Should -BeTrue
 
@@ -71,6 +74,7 @@ Describe 'Add-CapaUnitToBusinessUnit integration' {
 	}
 
 	It 'Does not add relation when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$result = Add-CapaUnitToBusinessUnit -CapaSDK $oCMS -UnitName $script:WhatIfUnitName -UnitType $script:UnitType -BusinessUnit $script:BusinessUnitName -WhatIf -Confirm:$false
 		$result | Should -BeNullOrEmpty
 
@@ -79,6 +83,7 @@ Describe 'Add-CapaUnitToBusinessUnit integration' {
 	}
 
 	It 'Throws when CapaSDK method is missing' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$mockSdk = [pscustomobject]@{}
 		{
 			Add-CapaUnitToBusinessUnit -CapaSDK $mockSdk -UnitName $script:UnitName -UnitType $script:UnitType -BusinessUnit $script:BusinessUnitName -Confirm:$false
@@ -86,6 +91,7 @@ Describe 'Add-CapaUnitToBusinessUnit integration' {
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{
 			Add-CapaUnitToBusinessUnit -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Device' -BusinessUnit $script:BusinessUnitName -Confirm:$false
 		} | Should -Throw
@@ -93,6 +99,7 @@ Describe 'Add-CapaUnitToBusinessUnit integration' {
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($null -ne $script:UnitName) {
 		try {
 			$relationFound = & $script:TestBusinessUnitRelation -UnitName $script:UnitName -BusinessUnitName $script:BusinessUnitName

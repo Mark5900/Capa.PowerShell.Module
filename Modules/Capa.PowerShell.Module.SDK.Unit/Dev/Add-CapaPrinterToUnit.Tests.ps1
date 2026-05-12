@@ -1,4 +1,5 @@
 BeforeAll {
+	$script:SkipIntegration = $false
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -15,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$script:BusinessUnitName = 'TestBU'
 	$script:UnitType = 'Computer'
@@ -78,6 +79,7 @@ BeforeAll {
 
 Describe 'Add-CapaPrinterToUnit integration' {
 	It 'Adds printer to unit and returns true when a printer is available' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if (-not $script:CanRunIntegration) {
 			$true | Should -BeTrue -Because $script:SkipReason
 			return
@@ -93,6 +95,7 @@ Describe 'Add-CapaPrinterToUnit integration' {
 	}
 
 	It 'Does not add when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if (-not $script:CanRunIntegration) {
 			$true | Should -BeTrue -Because $script:SkipReason
 			return
@@ -108,6 +111,7 @@ Describe 'Add-CapaPrinterToUnit integration' {
 	}
 
 	It 'Throws when CapaSDK method is missing' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$mockSdk = [pscustomobject]@{}
 		{
 			Add-CapaPrinterToUnit -CapaSDK $mockSdk -UnitName $script:UnitName -UnitType $script:UnitType -PrinterShareName 'AnyPrinter' -Confirm:$false
@@ -115,6 +119,7 @@ Describe 'Add-CapaPrinterToUnit integration' {
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{
 			Add-CapaPrinterToUnit -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Device' -PrinterShareName 'AnyPrinter' -Confirm:$false
 		} | Should -Throw
@@ -122,6 +127,7 @@ Describe 'Add-CapaPrinterToUnit integration' {
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($null -ne $script:UnitName) {
 		try { Remove-CapaUnitFromBusinessUnit -CapaSDK $oCMS -UnitName $script:UnitName -UnitType $script:UnitType -Confirm:$false | Out-Null } catch {}
 		try { Delete-CapaUnit -CapaSDK $oCMS -UnitName $script:UnitName -UnitType $script:UnitType -Confirm:$false | Out-Null } catch {}

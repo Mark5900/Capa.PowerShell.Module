@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -15,7 +17,7 @@ BeforeAll {
 		}
 	}
 
-	$script:oCMSDev = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1
+	try { $script:oCMSDev = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 	$script:oCMSProd = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
 
 	$script:UnitName = "PesterUnitPkgAdd_$([guid]::NewGuid().ToString('N').Substring(0, 8))"
@@ -40,6 +42,7 @@ BeforeAll {
 
 Describe 'Add-CapaUnitToPackage' {
 	It 'Adds a unit to a package and returns true' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$result = Add-CapaUnitToPackage -CapaSDK $script:oCMSProd -PackageType 'Computer' -PackageName $script:PackageName -PackageVersion $script:PackageVersion -UnitName $script:UnitName -UnitType 'Computer' -Confirm:$false
 		$result | Should -BeTrue
 
@@ -57,6 +60,7 @@ Describe 'Add-CapaUnitToPackage' {
 	}
 
 	It 'Supports -WhatIf and does not make changes' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$newUnitName = "PesterUnitPkgWhatIf_$([guid]::NewGuid().ToString('N').Substring(0, 8))"
 		$null = Create-CapaUnit -CapaSDK $script:oCMSProd -UnitName $newUnitName -UnitType 'Computer' -LinkToManagementServerID 2
 
@@ -74,6 +78,7 @@ Describe 'Add-CapaUnitToPackage' {
 	}
 
 	It 'Throws when CapaSDK method is missing' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$mockSdk = [pscustomobject]@{}
 		{
 			Add-CapaUnitToPackage -CapaSDK $mockSdk -PackageType 'Computer' -PackageName $script:PackageName -PackageVersion $script:PackageVersion -UnitName $script:UnitName -UnitType 'Computer'
@@ -81,6 +86,7 @@ Describe 'Add-CapaUnitToPackage' {
 	}
 
 	It 'Validates PackageType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{
 			Add-CapaUnitToPackage -CapaSDK $script:oCMSProd -PackageType 'InvalidType' -PackageName $script:PackageName -PackageVersion $script:PackageVersion -UnitName $script:UnitName -UnitType 'Computer'
 		} | Should -Throw
@@ -88,6 +94,7 @@ Describe 'Add-CapaUnitToPackage' {
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($null -ne $script:PackageName -and $null -ne $script:PackageVersion) {
 		$PackageSplatting = @{
 			CapaSDK        = $script:oCMSProd

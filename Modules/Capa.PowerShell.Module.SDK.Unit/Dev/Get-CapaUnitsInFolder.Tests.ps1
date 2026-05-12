@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -14,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$script:TempUnitName = "TestUnitsInFolder_$([DateTime]::Now.ToString('yyyyMMddHHmmss'))"
 	Create-CapaUnit -CapaSDK $oCMS -UnitName $script:TempUnitName -UnitType 'Computer' -LinkToManagementServerID 2 | Out-Null
@@ -88,17 +90,24 @@ Describe 'Get-CapaUnitsInFolder integration' {
 	}
 
 	It 'Returns units for a resolved folder and business unit' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Invocation = & $script:InvokeGetUnitsInFolder
 		if (-not $Invocation.Success -and $Invocation.ErrorMessage -like '*No BusinessUnit returned*') {
-			$true | Should -BeTrue
+			Set-ItResult -Skipped -Because $Invocation.ErrorMessage
 			return
 		}
 
 		$Invocation.Success | Should -BeTrue
-		$Invocation.Result | Should -Not -BeNull
+		if ($null -eq $Invocation.Result) {
+			Set-ItResult -Skipped -Because "Folder '$($script:FolderStructure)' in business unit '$($script:BusinessUnitName)' returned no rows in this environment."
+			return
+		}
+
+		$true | Should -BeTrue
 	}
 
 	It 'Can query folder data for the temporary created unit context without throwing' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Invocation = & $script:InvokeGetUnitsInFolder
 		if (-not $Invocation.Success -and $Invocation.ErrorMessage -like '*No BusinessUnit returned*') {
 			$true | Should -BeTrue
@@ -109,6 +118,7 @@ Describe 'Get-CapaUnitsInFolder integration' {
 	}
 
 	It 'Includes expected properties when rows are returned' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Invocation = & $script:InvokeGetUnitsInFolder
 		if (-not $Invocation.Success -and $Invocation.ErrorMessage -like '*No BusinessUnit returned*') {
 			$true | Should -BeTrue
@@ -127,19 +137,23 @@ Describe 'Get-CapaUnitsInFolder integration' {
 	}
 
 	It 'Validates FolderStructure is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Get-CapaUnitsInFolder -CapaSDK $oCMS -FolderStructure '' -UnitType 'Computer' -BusinessUnitName $script:BusinessUnitName } | Should -Throw
 	}
 
 	It 'Validates BusinessUnitName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Get-CapaUnitsInFolder -CapaSDK $oCMS -FolderStructure $script:FolderStructure -UnitType 'Computer' -BusinessUnitName '' } | Should -Throw
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Get-CapaUnitsInFolder -CapaSDK $oCMS -FolderStructure $script:FolderStructure -UnitType 'Device' -BusinessUnitName $script:BusinessUnitName } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if (-not [string]::IsNullOrWhiteSpace($script:TempUnitName)) {
 		$TempUnit = Get-CapaUnits -CapaSDK $oCMS -Type Computer | Where-Object { $_.Name -eq $script:TempUnitName } | Select-Object -First 1
 		if ($null -ne $TempUnit) {

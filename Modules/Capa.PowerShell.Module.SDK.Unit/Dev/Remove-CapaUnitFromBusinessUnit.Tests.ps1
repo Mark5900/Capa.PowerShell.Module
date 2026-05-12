@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -14,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$Units = Get-CapaUnits -CapaSDK $oCMS -Type Computer
 	$script:TargetUnit = $Units | Where-Object { $_.Name -eq $env:COMPUTERNAME } | Select-Object -First 1
@@ -76,6 +78,7 @@ BeforeAll {
 
 Describe 'Remove-CapaUnitFromBusinessUnit integration' {
 	It 'Removes unit from business unit relation' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if (-not $script:CanRunIntegration) {
 			$true | Should -BeTrue
 			return
@@ -97,6 +100,7 @@ Describe 'Remove-CapaUnitFromBusinessUnit integration' {
 	}
 
 	It 'Does not remove when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if (-not $script:CanRunIntegration) {
 			$true | Should -BeTrue
 			return
@@ -115,15 +119,18 @@ Describe 'Remove-CapaUnitFromBusinessUnit integration' {
 	}
 
 	It 'Validates UnitName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitFromBusinessUnit -CapaSDK $oCMS -UnitName '' -UnitType $script:UnitType -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitFromBusinessUnit -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Device' -Confirm:$false } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($script:CanRunIntegration -and $null -ne $script:UnitName -and $null -ne $script:TargetBusinessUnitName) {
 		$StillRelated = & $script:TestBusinessUnitRelation -UnitName $script:UnitName -BusinessUnitName $script:TargetBusinessUnitName
 

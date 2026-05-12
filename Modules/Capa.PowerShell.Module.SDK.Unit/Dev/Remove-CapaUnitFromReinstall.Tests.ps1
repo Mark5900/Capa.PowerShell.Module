@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -14,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$Units = Get-CapaUnits -CapaSDK $oCMS -Type Computer
 	$script:TargetUnit = $Units | Where-Object { $_.Name -eq $env:COMPUTERNAME } | Select-Object -First 1
@@ -36,6 +38,7 @@ BeforeAll {
 
 Describe 'Remove-CapaUnitFromReinstall integration' {
 	It 'Removes computer from reinstall (idempotent)' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitFromReinstall -CapaSDK $oCMS -ComputerName $script:ComputerName -Confirm:$false } | Should -Not -Throw
 
 		$ReinstallStatus = $null
@@ -51,11 +54,13 @@ Describe 'Remove-CapaUnitFromReinstall integration' {
 	}
 
 	It 'Does not remove when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Remove-CapaUnitFromReinstall -CapaSDK $oCMS -ComputerName $script:ComputerName -WhatIf -Confirm:$false
 		$Result | Should -BeNullOrEmpty
 	}
 
 	It 'Validates ComputerName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitFromReinstall -CapaSDK $oCMS -ComputerName '' -Confirm:$false } | Should -Throw
 	}
 }

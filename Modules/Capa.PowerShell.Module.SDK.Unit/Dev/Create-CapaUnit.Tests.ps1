@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -14,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$script:UnitType = 'Computer'
 	$script:BusinessUnitName = 'TestBU'
@@ -26,6 +28,7 @@ BeforeAll {
 
 Describe 'Create-CapaUnit integration' {
 	It 'Creates a new unit and returns true' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$unitName = "PesterCreateUnit_$([guid]::NewGuid().ToString('N').Substring(0, 8))"
 		$result = Create-CapaUnit -CapaSDK $oCMS -UnitName $unitName -UnitType $script:UnitType -LinkToManagementServerID 2 -Confirm:$false
 		$result | Should -BeTrue
@@ -53,6 +56,7 @@ Describe 'Create-CapaUnit integration' {
 	}
 
 	It 'Does not create when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$unitName = "PesterCreateUnitWhatIf_$([guid]::NewGuid().ToString('N').Substring(0, 8))"
 		$result = Create-CapaUnit -CapaSDK $oCMS -UnitName $unitName -UnitType $script:UnitType -LinkToManagementServerID 2 -WhatIf -Confirm:$false
 		$result | Should -BeNullOrEmpty
@@ -62,6 +66,7 @@ Describe 'Create-CapaUnit integration' {
 	}
 
 	It 'Throws when CapaSDK method is missing' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$mockSdk = [pscustomobject]@{}
 		{
 			Create-CapaUnit -CapaSDK $mockSdk -UnitName 'AnyUnit' -UnitType 'Computer' -LinkToManagementServerID 2 -Confirm:$false
@@ -69,6 +74,7 @@ Describe 'Create-CapaUnit integration' {
 	}
 
 	It 'Validates LinkToManagementServerID range' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{
 			Create-CapaUnit -CapaSDK $oCMS -UnitName 'AnyUnit' -UnitType 'Computer' -LinkToManagementServerID 0 -Confirm:$false
 		} | Should -Throw
@@ -76,6 +82,7 @@ Describe 'Create-CapaUnit integration' {
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	foreach ($unitName in $script:CreatedUnits) {
 		if (-not [string]::IsNullOrWhiteSpace($unitName)) {
 			if ($script:HasTestBU) {

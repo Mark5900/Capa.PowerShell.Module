@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -14,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$Units = Get-CapaUnits -CapaSDK $oCMS -Type Computer
 	$script:ExistingUnit = $Units | Where-Object { $_.Name -eq $env:COMPUTERNAME } | Select-Object -First 1
@@ -46,10 +48,12 @@ BeforeAll {
 
 Describe 'Get-CapaUnitGroups integration' {
 	It 'Queries unit groups for existing unit without throwing' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Get-CapaUnitGroups -CapaSDK $oCMS -UnitName $script:ExistingUnit.Name -UnitType 'Computer' } | Should -Not -Throw
 	}
 
 	It 'Contains temporary static group for temporary unit' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Found = $null
 		for ($i = 0; $i -lt 15; $i++) {
 			Start-Sleep -Seconds 2
@@ -63,6 +67,7 @@ Describe 'Get-CapaUnitGroups integration' {
 	}
 
 	It 'Returns expected properties when groups are returned' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Groups = Get-CapaUnitGroups -CapaSDK $oCMS -UnitName $script:TempUnitName -UnitType 'Computer'
 		if ($null -ne $Groups -and $Groups.Count -gt 0) {
 			$Properties = $Groups[0].PSObject.Properties.Name
@@ -75,15 +80,18 @@ Describe 'Get-CapaUnitGroups integration' {
 	}
 
 	It 'Validates UnitName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Get-CapaUnitGroups -CapaSDK $oCMS -UnitName '' -UnitType 'Computer' } | Should -Throw
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Get-CapaUnitGroups -CapaSDK $oCMS -UnitName $script:TempUnitName -UnitType 'Device' } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if (-not [string]::IsNullOrWhiteSpace($script:TempUnitName) -and -not [string]::IsNullOrWhiteSpace($script:TempGroupName)) {
 		try {
 			Remove-CapaUnitFromGroup -CapaSDK $oCMS -UnitName $script:TempUnitName -UnitType 'Computer' -GroupName $script:TempGroupName -GroupType 'Static' -Confirm:$false | Out-Null

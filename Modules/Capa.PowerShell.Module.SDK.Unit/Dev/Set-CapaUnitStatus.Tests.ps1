@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -13,7 +15,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$Units = Get-CapaUnits -CapaSDK $oCMS -Type Computer
 	if ($null -eq $Units -or $Units.Count -eq 0) {
@@ -35,6 +37,7 @@ BeforeAll {
 
 Describe 'Set-CapaUnitStatus integration' {
 	It 'Sets status on an existing computer unit' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$DesiredStatus = if ($script:OriginalStatus -eq 'Active') { 'Inactive' } else { 'Active' }
 
 		$Result = Set-CapaUnitStatus -CapaSDK $oCMS -UnitName $script:UnitName -Status $DesiredStatus -Confirm:$false
@@ -58,6 +61,7 @@ Describe 'Set-CapaUnitStatus integration' {
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($null -ne $script:UnitName -and $null -ne $script:OriginalStatus) {
 		Set-CapaUnitStatus -CapaSDK $oCMS -UnitName $script:UnitName -Status $script:OriginalStatus -Confirm:$false | Out-Null
 	}

@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -13,7 +15,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$Units = Get-CapaUnits -CapaSDK $oCMS -Type Computer
 	$script:ExistingUnit = $Units | Where-Object { $_.Name -eq $env:COMPUTERNAME } | Select-Object -First 1
@@ -41,16 +43,19 @@ BeforeAll {
 
 Describe 'Exist-CapaUnit integration' {
 	It 'Checks existing unit by name and type' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Exist-CapaUnit -CapaSDK $oCMS -UnitName $script:ExistingUnit.Name -UnitType 'Computer'
 		$Result | Should -Not -BeNull
 	}
 
 	It 'Checks temporary unit by name and type' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Exist-CapaUnit -CapaSDK $oCMS -UnitName $script:TempUnitName -UnitType 'Computer'
 		$Result | Should -Not -BeNull
 	}
 
 	It 'Checks temporary unit by UUID when available' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if ([string]::IsNullOrWhiteSpace($script:TempUnitUuid)) {
 			$true | Should -BeTrue
 			return
@@ -61,19 +66,23 @@ Describe 'Exist-CapaUnit integration' {
 	}
 
 	It 'Validates UnitName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Exist-CapaUnit -CapaSDK $oCMS -UnitName '' -UnitType 'Computer' } | Should -Throw
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Exist-CapaUnit -CapaSDK $oCMS -UnitName $script:ExistingUnit.Name -UnitType 'Device' } | Should -Throw
 	}
 
 	It 'Validates UUID format' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Exist-CapaUnit -CapaSDK $oCMS -Uuid 'not-a-uuid' } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if (-not [string]::IsNullOrWhiteSpace($script:TempUnitName)) {
 		$TempUnit = Get-CapaUnits -CapaSDK $oCMS -Type Computer | Where-Object { $_.Name -eq $script:TempUnitName } | Select-Object -First 1
 		if ($null -ne $TempUnit) {

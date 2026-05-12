@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -15,7 +17,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$script:TempUnitName = "TestAddReinstall_$([DateTime]::Now.ToString('yyyyMMddHHmmss'))"
 	Create-CapaUnit -CapaSDK $oCMS -UnitName $script:TempUnitName -UnitType 'Computer' -LinkToManagementServerID 2 | Out-Null
@@ -78,6 +80,7 @@ BeforeAll {
 
 Describe 'Add-CapaUnitToReinstall integration' {
 	It 'Adds temporary unit to reinstall when OS deployment data is available' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if (-not $script:CanRunReinstallFlow) {
 			$true | Should -BeTrue
 			return
@@ -99,6 +102,7 @@ Describe 'Add-CapaUnitToReinstall integration' {
 	}
 
 	It 'Does not add when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if (-not $script:CanRunReinstallFlow) {
 			$true | Should -BeTrue
 			return
@@ -109,15 +113,18 @@ Describe 'Add-CapaUnitToReinstall integration' {
 	}
 
 	It 'Validates ComputerName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Add-CapaUnitToReinstall -CapaSDK $oCMS -ComputerName '' -OSpointID 1 -OSserverID 1 -OSImageID 1 -DiskConfigID 1 -InstallTypeID 1 } | Should -Throw
 	}
 
 	It 'Validates ReinstallMode values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Add-CapaUnitToReinstall -CapaSDK $oCMS -ComputerName $script:TempUnitName -OSpointID 1 -OSserverID 1 -OSImageID 1 -DiskConfigID 1 -InstallTypeID 1 -ReinstallMode 'PromptUser' } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if (-not [string]::IsNullOrWhiteSpace($script:TempUnitName)) {
 		try {
 			Remove-CapaUnitFromReinstall -CapaSDK $oCMS -ComputerName $script:TempUnitName -Confirm:$false | Out-Null

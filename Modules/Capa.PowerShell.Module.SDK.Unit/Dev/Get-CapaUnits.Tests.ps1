@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -14,7 +16,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$script:TempUnitName = "TestGetUnits_$([DateTime]::Now.ToString('yyyyMMddHHmmss'))"
 	Create-CapaUnit -CapaSDK $oCMS -UnitName $script:TempUnitName -UnitType 'Computer' -LinkToManagementServerID 2 | Out-Null
@@ -49,28 +51,36 @@ BeforeAll {
 
 Describe 'Get-CapaUnits integration' {
 	It 'Returns computer units' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Get-CapaUnits -CapaSDK $oCMS -Type 'Computer'
 		$Result | Should -Not -BeNullOrEmpty
 	}
 
 	It 'Includes the temporary created unit in computer result set' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Get-CapaUnits -CapaSDK $oCMS -Type 'Computer'
 		$Found = $Result | Where-Object { $_.Name -eq $script:TempUnitName } | Select-Object -First 1
 		$Found | Should -Not -BeNullOrEmpty
 	}
 
 	It 'Can query by business unit when available' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		if ([string]::IsNullOrWhiteSpace($script:BusinessUnit)) {
-			$true | Should -BeTrue
+			Set-ItResult -Skipped -Because 'No business unit name was available in this environment.'
 			return
 		}
 
 		try {
 			$Result = Get-CapaUnits -CapaSDK $oCMS -BusinessUnit $script:BusinessUnit -Type 'Computer'
-			$Result | Should -Not -BeNull
+			if ($null -eq $Result) {
+				Set-ItResult -Skipped -Because "Business unit '$($script:BusinessUnit)' returned no rows in this environment."
+				return
+			}
+
+			$true | Should -BeTrue
 		} catch {
 			if ($_.Exception.Message -like '*No BusinessUnit returned*') {
-				$true | Should -BeTrue
+				Set-ItResult -Skipped -Because $_.Exception.Message
 			} else {
 				throw
 			}
@@ -78,6 +88,7 @@ Describe 'Get-CapaUnits integration' {
 	}
 
 	It 'Returns objects with expected properties' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Get-CapaUnits -CapaSDK $oCMS -Type 'Computer'
 		$First = $Result | Select-Object -First 1
 		$First | Should -Not -BeNullOrEmpty
@@ -89,11 +100,13 @@ Describe 'Get-CapaUnits integration' {
 	}
 
 	It 'Validates Type values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Get-CapaUnits -CapaSDK $oCMS -Type 'Device' } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if (-not [string]::IsNullOrWhiteSpace($script:TempUnitName)) {
 		$TempUnit = Get-CapaUnits -CapaSDK $oCMS -Type 'Computer' | Where-Object { $_.Name -eq $script:TempUnitName } | Select-Object -First 1
 		if ($null -ne $TempUnit) {

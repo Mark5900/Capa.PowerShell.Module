@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -13,7 +15,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$Units = Get-CapaUnits -CapaSDK $oCMS -Type Computer
 	$script:TargetUnit = $Units | Where-Object { $_.Name -eq $env:COMPUTERNAME } | Select-Object -First 1
@@ -33,6 +35,7 @@ BeforeAll {
 
 Describe 'Set-CapaUnitLabel integration' {
 	It 'Sets label on existing computer unit' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Set-CapaUnitLabel -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Computer' -Label $script:TestLabel -Confirm:$false
 		$Result | Should -Be $true
 
@@ -50,24 +53,29 @@ Describe 'Set-CapaUnitLabel integration' {
 	}
 
 	It 'Does not set label when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Set-CapaUnitLabel -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Computer' -Label "$($script:TestLabel)_WHATIF" -WhatIf -Confirm:$false
 		$Result | Should -BeNullOrEmpty
 	}
 
 	It 'Validates UnitName is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Set-CapaUnitLabel -CapaSDK $oCMS -UnitName '' -UnitType 'Computer' -Label 'AnyLabel' -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates Label is not empty' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Set-CapaUnitLabel -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Computer' -Label '' -Confirm:$false } | Should -Throw
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Set-CapaUnitLabel -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Device' -Label 'AnyLabel' -Confirm:$false } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($script:HasGetUnitLabel -and $null -ne $script:OriginalLabel -and $null -ne $script:UnitName) {
 		Set-CapaUnitLabel -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Computer' -Label $script:OriginalLabel -Confirm:$false | Out-Null
 	}

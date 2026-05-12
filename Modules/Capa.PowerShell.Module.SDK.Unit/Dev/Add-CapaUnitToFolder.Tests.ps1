@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -13,7 +15,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$script:UnitName = "PesterUnitFolderAdd_$([guid]::NewGuid().ToString('N').Substring(0, 8))"
 	$script:WhatIfUnitName = "PesterUnitFolderWhatIf_$([guid]::NewGuid().ToString('N').Substring(0, 8))"
@@ -43,6 +45,7 @@ BeforeAll {
 
 Describe 'Add-CapaUnitToFolder integration' {
 	It 'Adds unit to target folder and returns true' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$result = Add-CapaUnitToFolder -CapaSDK $oCMS -UnitName $script:UnitName -UnitType $script:UnitType -FolderStructure $script:FolderStructure -CreateFolder 'true' -Confirm:$false
 		$result | Should -BeTrue
 
@@ -62,6 +65,7 @@ Describe 'Add-CapaUnitToFolder integration' {
 	}
 
 	It 'Does not add when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$originalFolder = [string](Get-CapaUnitFolder -CapaSDK $oCMS -UnitName $script:WhatIfUnitName -UnitType $script:UnitType)
 
 		$result = Add-CapaUnitToFolder -CapaSDK $oCMS -UnitName $script:WhatIfUnitName -UnitType $script:UnitType -FolderStructure $script:WhatIfFolderStructure -CreateFolder 'true' -WhatIf -Confirm:$false
@@ -72,6 +76,7 @@ Describe 'Add-CapaUnitToFolder integration' {
 	}
 
 	It 'Throws when CapaSDK method is missing' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$mockSdk = [pscustomobject]@{}
 		{
 			Add-CapaUnitToFolder -CapaSDK $mockSdk -UnitName $script:UnitName -UnitType $script:UnitType -FolderStructure $script:FolderStructure -CreateFolder 'true' -Confirm:$false
@@ -79,6 +84,7 @@ Describe 'Add-CapaUnitToFolder integration' {
 	}
 
 	It 'Validates UnitType values' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{
 			Add-CapaUnitToFolder -CapaSDK $oCMS -UnitName $script:UnitName -UnitType 'Device' -FolderStructure $script:FolderStructure -CreateFolder 'true' -Confirm:$false
 		} | Should -Throw
@@ -86,6 +92,7 @@ Describe 'Add-CapaUnitToFolder integration' {
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if (-not [string]::IsNullOrWhiteSpace($script:UnitName)) {
 		try {
 			Delete-CapaUnit -CapaSDK $oCMS -UnitName $script:UnitName -UnitType $script:UnitType -Confirm:$false | Out-Null

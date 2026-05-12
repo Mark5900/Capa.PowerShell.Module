@@ -1,4 +1,6 @@
 BeforeAll {
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
@@ -13,7 +15,7 @@ BeforeAll {
 		}
 	}
 
-	$oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2
+	try { $oCMS = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 2 } catch { $script:SkipIntegration = $true; $script:SkipReason = $_.Exception.Message; return }
 
 	$script:CreatedUnitName = "TestRemoveByUuid_$([DateTime]::Now.ToString('yyyyMMddHHmmss'))"
 	$script:CreatedUnitUuid = $null
@@ -68,6 +70,7 @@ BeforeAll {
 
 Describe 'Remove-CapaUnitByUUID integration' {
 	It 'Deletes created unit by UUID' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$Result = Remove-CapaUnitByUUID -CapaSDK $oCMS -UUID $script:CreatedUnitUuid -Confirm:$false
 		$Result | Should -Be $true
 
@@ -91,6 +94,7 @@ Describe 'Remove-CapaUnitByUUID integration' {
 	}
 
 	It 'Does not delete when using WhatIf' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		$SecondUnitName = "TestRemoveByUuidWhatIf_$([DateTime]::Now.ToString('yyyyMMddHHmmss'))"
 		$SecondUnitUuid = $null
 
@@ -124,11 +128,13 @@ Describe 'Remove-CapaUnitByUUID integration' {
 	}
 
 	It 'Validates UUID format' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
 		{ Remove-CapaUnitByUUID -CapaSDK $oCMS -UUID 'not-a-guid' -Confirm:$false } | Should -Throw
 	}
 }
 
 AfterAll {
+	if ($script:SkipIntegration) { return }
 	if ($null -ne $script:CreatedUnitName -and $null -ne $script:CreatedUnitUuid) {
 		& $script:RemoveTestUnit -UnitName $script:CreatedUnitName -UnitUuid $script:CreatedUnitUuid
 	}

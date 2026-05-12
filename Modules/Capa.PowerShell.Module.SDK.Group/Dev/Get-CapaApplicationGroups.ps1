@@ -1,5 +1,3 @@
-# TODO: #113 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get a list of all application groups.
@@ -18,9 +16,11 @@
 #>
 function Get-CapaApplicationGroups {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
@@ -41,5 +41,5 @@ function Get-CapaApplicationGroups {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

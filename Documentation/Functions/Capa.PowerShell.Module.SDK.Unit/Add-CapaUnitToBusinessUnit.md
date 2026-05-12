@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Add-CapaUnitToBusinessUnit
 ---
@@ -15,15 +15,15 @@ title: Add-CapaUnitToBusinessUnit
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247294/Add+unit+to+business+unit
+Adds a unit to a business unit.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Add-CapaUnitToBusinessUnit [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string>
- [-BusinessUnit] <string> [<CommonParameters>]
+Add-CapaUnitToBusinessUnit [-CapaSDK] <psobject> [-UnitName] <string> [-UnitType] <string>
+ [-BusinessUnit] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -33,19 +33,22 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Add-CapaUnitToBusinessUnit function.
+Adds the specified unit to the specified business unit by calling the
+CapaSDK method AddUnitToBusinessUnit.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Add-CapaUnitToBusinessUnit -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer -BusinessUnit 'Value4'
+Add-CapaUnitToBusinessUnit -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -BusinessUnit 'TestBU'
+
+Adds PC-01 to TestBU.
 
 ## PARAMETERS
 
 ### -BusinessUnit
 
-A description of the BusinessUnit parameter.
+Name of the business unit.
 
 ```yaml
 Type: System.String
@@ -66,10 +69,10 @@ HelpMessage: ''
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -85,9 +88,31 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -UnitName
 
-A description of the UnitName parameter.
+Name of the unit to add.
 
 ```yaml
 Type: System.String
@@ -108,7 +133,8 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType parameter.
+Type of unit.
+Valid values are Computer and User.
 
 ```yaml
 Type: System.String
@@ -119,6 +145,28 @@ ParameterSets:
 - Name: (All)
   Position: 2
   IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -138,9 +186,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Boolean
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247294/Add+unit+to+business+unit
 
 
 ## RELATED LINKS

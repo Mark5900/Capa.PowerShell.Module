@@ -1,6 +1,4 @@
 
-# TODO: #246 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets a list of devices linked to a VPP user.
@@ -22,21 +20,37 @@
 #>
 function Get-CapaDevicesLinkedToVppUser {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[Int]$vppUserID
 	)
 
-	$oaUnits = @()
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetDevicesLinkedToVppUser')) {
+		throw 'CapaSDK does not contain method GetDevicesLinkedToVppUser.'
+	}
 
 	$aUnits = $CapaSDK.GetDevicesLinkedToVppUser($vppUserID)
+	if ($null -eq $aUnits) {
+		return @()
+	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';', 12
+		if ($aItem.Count -lt 12) {
+			continue
+		}
+
+		[pscustomobject]@{
 			Name           = $aItem[0];
 			Created        = $aItem[1];
 			LastExecuted   = $aItem[2];
@@ -47,15 +61,13 @@ function Get-CapaDevicesLinkedToVppUser {
 			TypeName       = $aItem[8];
 			UUID           = $aItem[9];
 			IsMobileDevice = $aItem[10];
-			location       = $aItem[11]
+			Location       = $aItem[11]
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }
 
-
-# TODO: #247 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -78,21 +90,37 @@ function Get-CapaDevicesLinkedToVppUser {
 #>
 function Get-CapaUsersLinkedToVppUser {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$VppUserID
 	)
 
-	$oaUnits = @()
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetUsersLinkedToVppUser')) {
+		throw 'CapaSDK does not contain method GetUsersLinkedToVppUser.'
+	}
 
 	$aUnits = $CapaSDK.GetUsersLinkedToVppUser($VppUserID)
+	if ($null -eq $aUnits) {
+		return @()
+	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';', 15
+		if ($aItem.Count -lt 15) {
+			continue
+		}
+
+		[pscustomobject]@{
 			Name           = $aItem[0];
 			Created        = $aItem[1];
 			LastExecuted   = $aItem[2];
@@ -110,11 +138,9 @@ function Get-CapaUsersLinkedToVppUser {
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }
 
-
-# TODO: #248 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -134,19 +160,34 @@ function Get-CapaUsersLinkedToVppUser {
 #>
 function Get-CapaVppPrograms {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK
 	)
 
-	$oaUnits = @()
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetVppPrograms')) {
+		throw 'CapaSDK does not contain method GetVppPrograms.'
+	}
 
 	$aUnits = $CapaSDK.GetVppPrograms()
+	if ($null -eq $aUnits) {
+		return @()
+	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';', 8
+		if ($aItem.Count -lt 8) {
+			continue
+		}
+
+		[pscustomobject]@{
 			ID               = $aItem[0];
 			Name             = $aItem[1];
 			OrganisationName = $aItem[2];
@@ -157,11 +198,9 @@ function Get-CapaVppPrograms {
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }
 
-
-# TODO: #249 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -188,24 +227,46 @@ function Get-CapaVppPrograms {
 #>
 function Get-CapaVppUsers {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[int]$VppProgramID = ''
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
+		[Parameter(Mandatory = $false)]
+		[ValidateRange(1, [int]::MaxValue)]
+		[Nullable[int]]$VppProgramID = $null
 	)
 
-	$oaUnits = @()
-
-	if ($VppProgramID -eq '') {
-		$aUnits = $CapaSDK.GetVppUsersAll()
-	} Else {
-		$aUnits = $CapaSDK.GetVppUsers($VppProgramID)
+	if ($PSBoundParameters.ContainsKey('VppProgramID') -and -not ($CapaSDK.PSObject.Methods.Name -contains 'GetVppUsers')) {
+		throw 'CapaSDK does not contain method GetVppUsers.'
 	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
+	if (-not $PSBoundParameters.ContainsKey('VppProgramID') -and -not ($CapaSDK.PSObject.Methods.Name -contains 'GetVppUsersAll')) {
+		throw 'CapaSDK does not contain method GetVppUsersAll.'
+	}
+
+	if ($PSBoundParameters.ContainsKey('VppProgramID')) {
+		$aUnits = $CapaSDK.GetVppUsers($VppProgramID)
+	} else {
+		$aUnits = $CapaSDK.GetVppUsersAll()
+	}
+
+	if ($null -eq $aUnits) {
+		return @()
+	}
+
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';', 14
+		if ($aItem.Count -lt 14) {
+			continue
+		}
+
+		[pscustomobject]@{
 			ID              = $aItem[0];
 			Status          = $aItem[1];
 			Updated         = $aItem[2];
@@ -222,11 +283,9 @@ function Get-CapaVppUsers {
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }
 
-
-# TODO: #250 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -266,22 +325,40 @@ function Get-CapaVppUsers {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247828/Invite+unit+to+vpp
 #>
 function Invite-CapaUnitToVppProgram {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$VppProgramID,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$UnitID,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UserFullName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UserEmailName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UserDescription
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'InviteUnitToVppProgram')) {
+		throw 'CapaSDK does not contain method InviteUnitToVppProgram.'
+	}
+
+	$target = "UnitID '$UnitID'"
+	$action = "Invite unit to VPP program '$VppProgramID'"
+
+	if (-not $PSCmdlet.ShouldProcess($target, $action)) {
+		return $false
+	}
 
 	$value = $CapaSDK.InviteUnitToVppProgram($VppProgramID, $UnitID, $UserFullName, $UserEmailName, $UserDescription)
 	return $value

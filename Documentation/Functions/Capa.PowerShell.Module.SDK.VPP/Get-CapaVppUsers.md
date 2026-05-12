@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.VPP
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaVppUsers
 ---
@@ -22,7 +22,7 @@ Gets a list of all VPP users.
 ### __AllParameterSets
 
 ```
-Get-CapaVppUsers [-CapaSDK] <Object> [[-VppProgramID] <int>] [<CommonParameters>]
+Get-CapaVppUsers [-CapaSDK] <psobject> [[-VppProgramID] <int>] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -51,7 +51,7 @@ Get-CapaVppUsers -CapaSDK $CapaSDK -VppProgramID 1
 The CapaSDK object.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -72,7 +72,7 @@ HelpMessage: ''
 A description of the VppProgramID parameter.
 
 ```yaml
-Type: System.Int32
+Type: System.Nullable`1[System.Int32]
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -98,6 +98,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
+
+### System.Management.Automation.PSObject
+
+{{ Fill in the Description }}
 
 ## NOTES
 

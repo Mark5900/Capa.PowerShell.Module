@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaUnitsInFolder
 ---
@@ -15,15 +15,15 @@ title: Get-CapaUnitsInFolder
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247582/Get+Units+in+Folder
+Gets units located in a specific folder.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Get-CapaUnitsInFolder [-CapaSDK] <Object> [-FolderStructure] <Object> [-UnitType] <Object>
- [-BusinessUnitName] <Object> [<CommonParameters>]
+Get-CapaUnitsInFolder [-CapaSDK] <psobject> [-FolderStructure] <string> [-UnitType] <string>
+ [-BusinessUnitName] <string> [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -33,22 +33,25 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Get-CapaUnitsInFolder function.
+Gets units in the specified folder for a given business unit and unit type
+by calling the CapaSDK method GetUnitsInFolder.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Get-CapaUnitsInFolder -CapaSDK $value1 -FolderStructure  $value2 -UnitType Computer -BusinessUnitName  $value4
+Get-CapaUnitsInFolder -CapaSDK $CapaSDK -FolderStructure 'Devices\\Laptops' -UnitType Computer -BusinessUnitName 'Default'
+
+Returns computer units in folder Devices\Laptops under business unit Default.
 
 ## PARAMETERS
 
 ### -BusinessUnitName
 
-A description of the BusinessUnitName  parameter.
+Name of the business unit to query in.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -66,10 +69,10 @@ HelpMessage: ''
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -87,10 +90,10 @@ HelpMessage: ''
 
 ### -FolderStructure
 
-A description of the FolderStructure  parameter.
+Folder path to query within the selected business unit.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -108,10 +111,11 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType parameter.
+Type of units to return.
+Valid values are Computer and User.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -138,9 +142,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Management.Automation.PSObject
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247582/Get+Units+in+Folder
 
 
 ## RELATED LINKS

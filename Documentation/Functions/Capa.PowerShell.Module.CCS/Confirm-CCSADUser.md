@@ -6,7 +6,7 @@ HelpUri: https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19306246741
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.CCS
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Confirm-CCSADUser
 ---

@@ -1,6 +1,4 @@
 
-# TODO: #155 Update and add tests
-
 <#
 	.SYNOPSIS
 		Adds a package to a business unit.
@@ -30,36 +28,39 @@
 		for more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246796/Add+Package+to+BusinessUnit
 #>
 function Add-CapaPackageToBusinessUnit {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		$PackageName,
+		[ValidateNotNullOrEmpty()]
+		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
-		$PackageVersion,
+		[ValidateNotNullOrEmpty()]
+		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User', '1', '2')]
-		$PackageType,
+		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
-		$BusinessUnitName
+		[ValidateNotNullOrEmpty()]
+		[string]$BusinessUnitName
 	)
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
+	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 
-	$value = $CapaSDK.AddPackageToBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
-
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Add package to business unit '$BusinessUnitName'")) {
+		$value = $CapaSDK.AddPackageToBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
+		return $value
+	}
 }
 
-
-# TODO: #156 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -93,30 +94,36 @@ function Add-CapaPackageToBusinessUnit {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246807/Add+package+to+group
 #>
 function Add-CapaPackageToGroup {
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
 		[string]$GroupType
 	)
 
-	$bool = $CapaSDK.AddPackageToGroup($PackageName, $PackageVersion, $PackageType, $GroupName, $GroupType)
-	Return $bool
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Add package to group '$GroupName'")) {
+		$bool = $CapaSDK.AddPackageToGroup($PackageName, $PackageVersion, $PackageType, $GroupName, $GroupType)
+		return $bool
+	}
 }
 
-
-# TODO: #157 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -147,35 +154,39 @@ function Add-CapaPackageToGroup {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246815/Add+package+to+management+server
 #>
 function Add-CapaPackageToManagementServer {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$ServerName
 	)
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
+	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 
-	$value = $CapaSDK.AddPackageToManagementServer($PackageName, $PackageVersion, $PackageType, $ServerName)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Add package to management server '$ServerName'")) {
+		$value = $CapaSDK.AddPackageToManagementServer($PackageName, $PackageVersion, $PackageType, $ServerName)
+		return $value
+	}
 }
 
-
-# TODO: #158 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -206,29 +217,34 @@ function Add-CapaPackageToManagementServer {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246823/Clone+Package
 #>
 function Clone-CapaPackage {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$NewVersion
 	)
 
-	$value = $CapaSDK.ClonePackage($PackageName, $PackageVersion, $PackageType, $NewVersion)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Clone package to version '$NewVersion'")) {
+		$value = $CapaSDK.ClonePackage($PackageName, $PackageVersion, $PackageType, $NewVersion)
+		return $value
+	}
 }
 
 
-
-# TODO: #159 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -262,33 +278,40 @@ function Clone-CapaPackage {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246842/Copy+Package
 #>
 function Copy-CapaPackage {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$NewName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$NewVersion
 	)
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
+	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 
-	$value = $CapaSDK.CopyPackage($PackageName, $PackageVersion, $PackageType, $NewName, $NewVersion)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Copy package to '$NewName $NewVersion'")) {
+		$value = $CapaSDK.CopyPackage($PackageName, $PackageVersion, $PackageType, $NewName, $NewVersion)
+		return $value
+	}
 }
 
 
@@ -587,8 +610,6 @@ function Copy-CapaPackageRelation {
 }
 
 
-# TODO: #162 Update and add tests
-
 <#
 	.SYNOPSIS
 		Disable a packages schedule.
@@ -615,25 +636,30 @@ function Copy-CapaPackageRelation {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246858/Disable+Package+Schedule
 #>
 function Disable-CapaPackageSchedule {
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType
 	)
 
-	$bool = $CapaSDK.DisablePackageSchedule($PackageName, $PackageVersion, $PackageType)
-	Return $bool
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Disable package schedule')) {
+		$bool = $CapaSDK.DisablePackageSchedule($PackageName, $PackageVersion, $PackageType)
+		return $bool
+	}
 }
 
-
-# TODO: #163 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -661,14 +687,18 @@ function Disable-CapaPackageSchedule {
 		Additional information about the function.
 #>
 function Enable-CapaPackageSchedule {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
@@ -677,17 +707,16 @@ function Enable-CapaPackageSchedule {
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
+	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 
-	$value = $CapaSDK.EnablePackageSchedule($PackageName, $PackageVersion, $PackageType)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Enable package schedule')) {
+		$value = $CapaSDK.EnablePackageSchedule($PackageName, $PackageVersion, $PackageType)
+		return $value
+	}
 }
 
-
-# TODO: #164 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -716,32 +745,33 @@ function Enable-CapaPackageSchedule {
 #>
 function Exist-CapaPackage {
 	[CmdletBinding()]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Name,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Version,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[string]$Type
 	)
 
-	if ($PackageType -eq 'Computer') {
-		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
-		$PackageType = '2'
+	if ($Type -eq 'Computer') {
+		$Type = '1'
+	} elseif ($Type -eq 'User') {
+		$Type = '2'
 	}
 
 	$value = $CapaSDK.ExistPackage($Name, $Version, $Type)
 	return $value
 }
 
-
-# TODO: #165 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -772,27 +802,31 @@ function Exist-CapaPackage {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246882/Export+package
 #>
 function Export-CapaPackage {
+	[CmdletBinding()]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$ToFolder
 	)
 
 	$bool = $CapaSDK.ExportPackage($PackageName, $PackageVersion, $PackageType, $ToFolder)
-	Return $bool
+	return $bool
 }
 
-
-# TODO: #166 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -815,9 +849,11 @@ function Export-CapaPackage {
 #>
 function Get-CapaAllInventoryPackages {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[string]$PackageType = ''
 	)
@@ -847,11 +883,9 @@ function Get-CapaAllInventoryPackages {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #167 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -880,13 +914,17 @@ function Get-CapaAllInventoryPackages {
 #>
 function Get-CapaPackageDescription {
 	[CmdletBinding()]
+	[OutputType([string])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
@@ -895,8 +933,7 @@ function Get-CapaPackageDescription {
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
+	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 
@@ -904,8 +941,6 @@ function Get-CapaPackageDescription {
 	return $value
 }
 
-
-# TODO: #169 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -933,25 +968,28 @@ function Get-CapaPackageDescription {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246936/Get+Package+Folder
 #>
 function Get-CapaPackageFolder {
+	[CmdletBinding()]
+	[OutputType([string])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion
 	)
 
 	$aUnits = $CapaSDK.GetPackageFolder($PackageName, $PackageVersion, $PackageType)
-	Return $aUnits
+	return $aUnits
 }
 
-
-# TODO: #170 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -979,16 +1017,21 @@ function Get-CapaPackageFolder {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246300/Get+package+groups
 #>
 function Get-CapaPackageGroups {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion
 	)
 
@@ -1007,11 +1050,9 @@ function Get-CapaPackageGroups {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #173 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -1040,9 +1081,12 @@ function Get-CapaPackageGroups {
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246964/Get+packages+on+Business+Unit
 #>
 function Get-CapaPackages {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Computer', 'User')]
@@ -1079,11 +1123,9 @@ function Get-CapaPackages {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #174 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -1109,11 +1151,14 @@ function Get-CapaPackages {
 #>
 function Get-CapaPackagesOnManagementServer {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$ServerName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
@@ -1122,7 +1167,7 @@ function Get-CapaPackagesOnManagementServer {
 
 	$oaUnits = @()
 
-	$aUnits = $CapaSDK.GetOSDiskConfiguration($ServerName, $PackageType)
+	$aUnits = $CapaSDK.GetPackagesOnManagementServer($ServerName, $PackageType)
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
@@ -1133,23 +1178,21 @@ function Get-CapaPackagesOnManagementServer {
 			DisplayName        = $aItem[3];
 			IsMandatory        = $aItem[4];
 			ScheduleId         = $aItem[5];
-			Description        = $aItem[7];
-			GUID               = $aItem[8];
-			ID                 = $aItem[9];
-			IsInteractive      = $aItem[10];
-			DependendPackageID = $aItem[11];
-			IsInventoryPackage = $aItem[12];
-			CollectMode        = $aItem[13];
-			Priority           = $aItem[14];
-			ServerDeploy       = $aItem[15]
+			Description        = $aItem[6];
+			GUID               = $aItem[7];
+			ID                 = $aItem[8];
+			IsInteractive      = $aItem[9];
+			DependendPackageID = $aItem[10];
+			IsInventoryPackage = $aItem[11];
+			CollectMode        = $aItem[12];
+			Priority           = $aItem[13];
+			ServerDeploy       = $aItem[14]
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #171 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -1175,11 +1218,14 @@ function Get-CapaPackagesOnManagementServer {
 #>
 function Get-CapaPackageStatus {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
@@ -1201,11 +1247,9 @@ function Get-CapaPackageStatus {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #172 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -1233,13 +1277,18 @@ function Get-CapaPackageStatus {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247456/Get+package+units
 #>
 function Get-CapaPackageUnits {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
@@ -1263,11 +1312,9 @@ function Get-CapaPackageUnits {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #175 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -1290,9 +1337,11 @@ function Get-CapaPackageUnits {
 #>
 function Get-CapatAllNoneInventoryPackages {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[string]$PackageType = ''
 	)
@@ -1322,7 +1371,7 @@ function Get-CapatAllNoneInventoryPackages {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
 
@@ -1380,8 +1429,6 @@ function Import-CapaPackage {
 }
 
 
-# TODO: #177 Update and add tests
-
 <#
 	.SYNOPSIS
 		Initializes a package promotion.
@@ -1408,21 +1455,28 @@ function Import-CapaPackage {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246992/Promote+Package
 #>
 function Initialize-CapaPackagePromote {
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion
 	)
 
-	$bool = $CapaSDK.PackagePromote($PackageName, $PackageVersion, $PackageType)
-	Return $bool
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Promote package')) {
+		$bool = $CapaSDK.PackagePromote($PackageName, $PackageVersion, $PackageType)
+		return $bool
+	}
 }
 
 
@@ -1533,6 +1587,8 @@ function New-CapaPackage {
 		This is a custom function that is not part of the CapaSDK
 #>
 function New-CapaPackageWithGit {
+	[CmdletBinding()]
+	[OutputType([bool])]
 	param (
 		[Parameter(ParameterSetName = 'NotAdvanced', Mandatory = $true)]
 		[string]$PackageName,
@@ -1770,6 +1826,8 @@ function New-CapaPackageWithGit {
         This is a custom function that is not part of the CapaSDK
 #>
 function New-CapaPowerPack {
+	[CmdletBinding()]
+	[OutputType([int], [bool])]
 	param (
 		[Parameter(Mandatory = $true)]
 		[pscustomobject]$CapaSDK,
@@ -1887,8 +1945,6 @@ function New-CapaPowerPack {
 }
 
 
-# TODO: #180 Update and add tests
-
 <#
 	.SYNOPSIS
 		Removes a package.
@@ -1925,13 +1981,18 @@ function New-CapaPowerPack {
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247000/Remove+Package+From+BusinessUnit
 #>
 function Remove-CapaPackage {
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
@@ -1942,16 +2003,18 @@ function Remove-CapaPackage {
 
 	)
 	if ($BusinessUnitName -eq '') {
-		$value = $CapaSDK.DeletePackage($PackageName, $PackageVersion, $PackageType, $Force)
+		if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Delete package')) {
+			$value = $CapaSDK.DeletePackage($PackageName, $PackageVersion, $PackageType, $Force)
+			return $value
+		}
 	} else {
-		$value = $CapaSDK.RemovePackageFromBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
+		if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Remove package from business unit '$BusinessUnitName'")) {
+			$value = $CapaSDK.RemovePackageFromBusinessUnit($PackageName, $PackageVersion, $PackageType, $BusinessUnitName)
+			return $value
+		}
 	}
-
-	Return $value
 }
 
-
-# TODO: #181 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -1985,30 +2048,36 @@ function Remove-CapaPackage {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247008/Remove+package+from+group
 #>
 function Remove-CapaPackageFromGroup {
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
 		[string]$GroupType
 	)
 
-	$bool = $CapaSDK.RemovePackageFromGroup($PackageName, $PackageVersion, $PackageType, $GroupName, $GroupType)
-	Return $bool
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Remove package from group '$GroupName'")) {
+		$bool = $CapaSDK.RemovePackageFromGroup($PackageName, $PackageVersion, $PackageType, $GroupName, $GroupType)
+		return $bool
+	}
 }
 
-
-# TODO: #182 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -2039,35 +2108,39 @@ function Remove-CapaPackageFromGroup {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247016/Remove+package+from+management+server
 #>
 function Remove-CapaPackageFromManagementServer {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$ServerName
 	)
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
+	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 
-	$value = $CapaSDK.RemovePackageFromManagementServer($PackageName, $PackageVersion, $PackageType, $ServerName)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Remove package from management server '$ServerName'")) {
+		$value = $CapaSDK.RemovePackageFromManagementServer($PackageName, $PackageVersion, $PackageType, $ServerName)
+		return $value
+	}
 }
 
-
-# TODO: #183 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -2098,31 +2171,37 @@ function Remove-CapaPackageFromManagementServer {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247024/Set+Package+Description
 #>
 function Set-CapaPackageDescription {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		[String]$Description
 	)
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
+	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 
-	$value = $CapaSDK.SetPackageDescription($PackageName, $PackageVersion, $PackageType, $Description)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Set package description')) {
+		$value = $CapaSDK.SetPackageDescription($PackageName, $PackageVersion, $PackageType, $Description)
+		return $value
+	}
 }
 
 
@@ -2137,51 +2216,57 @@ function Set-CapaPackageDescription {
 	.PARAMETER CapaSDK
 		The CapaSDK object.
 
-	.PARAMETER PackageType
-		The type of package to set the folder structure of, either Computer or User.
-
 	.PARAMETER PackageName
 		The name of the package to set the folder structure of.
 
 	.PARAMETER PackageVersion
 		The version of the package to set the folder structure of.
 
-	.PARAMETER FolderStructure
+	.PARAMETER PackageType
+		The type of package to set the folder structure of, either Computer or User.
+
+	.PARAMETER PackageFolder
 		The folder structure to set, for example 'Folder1\Folder2'.
 
-	.PARAMETER ChangelogText
+	.PARAMETER ChangelogComment
 		An optional changelog text to set.
 
 	.EXAMPLE
-				PS C:\> Set-CapaPackageFolder -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50' -FolderStructure 'Folder1\Folder2' -ChangelogText 'This is a changelog'
+				PS C:\> Set-CapaPackageFolder -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -PackageFolder 'Folder1\Folder2' -ChangelogComment 'This is a changelog'
 
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247032/Set+Package+Folder
 #>
 function Set-CapaPackageFolder {
+	[CmdletBinding()]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
+		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
-		[string]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[string]$PackageVersion,
-		[Parameter(Mandatory = $true)]
-		[string]$FolderStructure,
-		[string]$ChangelogText
+		[ValidateNotNullOrEmpty()]
+		[Alias('FolderStructure')]
+		[string]$PackageFolder,
+		[Alias('ChangelogText')]
+		[string]$ChangelogComment
 	)
 
-	$bool = $CapaSDK.SetPackageFolder($PackageName, $PackageVersion, $PackageType, $FolderStructure, $ChangelogText)
+	$bool = $CapaSDK.SetPackageFolder($PackageName, $PackageVersion, $PackageType, $PackageFolder, $ChangelogComment)
 
 	Return $bool
 }
 
-
-# TODO: #185 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -2212,14 +2297,18 @@ function Set-CapaPackageFolder {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247040/Set+Package+Property
 #>
 function Set-CapaPackagePriority {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
@@ -2229,17 +2318,16 @@ function Set-CapaPackagePriority {
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
+	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 
-	$value = $CapaSDK.SetPackagePriority($PackageName, $PackageVersion, $PackageType, $Priority)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Set package priority to $Priority")) {
+		$value = $CapaSDK.SetPackagePriority($PackageName, $PackageVersion, $PackageType, $Priority)
+		return $value
+	}
 }
 
-
-# TODO: #186 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -2311,19 +2399,24 @@ function Set-CapaPackagePriority {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247048/Set+Package+Schedule
 #>
 function Set-CapaPackageSchedule {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$ScheduleStart,
 		[Parameter(Mandatory = $false)]
 		[String]$ScheduleEnd,
@@ -2337,12 +2430,12 @@ function Set-CapaPackageSchedule {
 		[String]$ScheduleRecurrencePattern = ''
 	)
 
-	$value = $CapaSDK.SetPackageSchedule($PackageName, $PackageVersion, $PackageType, $ScheduleStart, $ScheduleEnd, $ScheduleIntervalBegin, $ScheduleIntervalEnd, $ScheduleRecurrence, $ScheduleRecurrencePattern)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Set package schedule')) {
+		$value = $CapaSDK.SetPackageSchedule($PackageName, $PackageVersion, $PackageType, $ScheduleStart, $ScheduleEnd, $ScheduleIntervalBegin, $ScheduleIntervalEnd, $ScheduleRecurrence, $ScheduleRecurrencePattern)
+		return $value
+	}
 }
 
-
-# TODO: #187 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -2374,22 +2467,28 @@ function Set-CapaPackageSchedule {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247056/Update+Now+on+Package
 #>
 function Update-CapaPackageNow {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$PackageType
 	)
 
-	$value = $CapaSDK.PackageUpdateNow($PackageName, $PackageVersion, $PackageType)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Update package now')) {
+		$value = $CapaSDK.PackageUpdateNow($PackageName, $PackageVersion, $PackageType)
+		return $value
+	}
 }
 
 
@@ -2458,6 +2557,8 @@ function Update-CapaPackageNow {
         This is a custom function that is not part of the CapaSDK
 #>
 function Update-CapaPackageScriptAndKit {
+	[CmdletBinding()]
+	[OutputType([bool])]
 	param (
 		[Parameter(Mandatory = $true)]
 		[String]$PackageName,

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaUnits
 ---
@@ -15,14 +15,15 @@ title: Get-CapaUnits
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247572/Get+units
+Gets units from CapaInstaller.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Get-CapaUnits [-CapaSDK] <Object> [[-Type] <string>] [[-BusinessUnit] <string>] [<CommonParameters>]
+Get-CapaUnits [-CapaSDK] <psobject> [[-Type] <string>] [[-BusinessUnit] <string>]
+ [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -32,19 +33,30 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Get-CapaUnits function.
+Gets units by type, or from a specific business unit, by calling CapaSDK.
+If BusinessUnit is provided, data is retrieved with GetUnitsOnBusinessUnit.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Get-CapaUnits -CapaSDK $value1
+Get-CapaUnits -CapaSDK $CapaSDK -Type Computer
+
+Returns computer units.
+
+### EXAMPLE 2
+
+Get-CapaUnits -CapaSDK $CapaSDK -BusinessUnit 'Default'
+
+Returns units on business unit Default.
 
 ## PARAMETERS
 
 ### -BusinessUnit
 
-{{ Fill BusinessUnit Description }}
+Optional business unit name.
+When provided, units are fetched from
+the specified business unit.
 
 ```yaml
 Type: System.String
@@ -65,10 +77,10 @@ HelpMessage: ''
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -86,7 +98,8 @@ HelpMessage: ''
 
 ### -Type
 
-A description of the Type parameter.
+Optional unit type filter.
+Valid values are Computer and User.
 
 ```yaml
 Type: System.String
@@ -116,9 +129,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Management.Automation.PSObject
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247572/Get+units
 
 
 ## RELATED LINKS

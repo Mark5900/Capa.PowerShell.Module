@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaUnitLinkedUser
 ---
@@ -15,14 +15,14 @@ title: Get-CapaUnitLinkedUser
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247510/Get+unit+linked+user
+Gets linked user entries for a computer unit.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Get-CapaUnitLinkedUser [-CapaSDK] <Object> [-ComputerName] <string> [<CommonParameters>]
+Get-CapaUnitLinkedUser [-CapaSDK] <psobject> [-ComputerName] <string> [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -32,22 +32,25 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Get-CapaUnitLinkedUser function.
+Gets users linked to the specified computer by calling the CapaSDK method
+GetUnitLinkedUser and returns parsed user objects.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Get-CapaUnitLinkedUser -CapaSDK $value1 -ComputerName  'Value2'
+Get-CapaUnitLinkedUser -CapaSDK $CapaSDK -ComputerName 'PC-01'
+
+Returns linked user entries for PC-01.
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -65,7 +68,7 @@ HelpMessage: ''
 
 ### -ComputerName
 
-A description of the ComputerName  parameter.
+Name of the computer unit to query linked users for.
 
 ```yaml
 Type: System.String
@@ -95,9 +98,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Management.Automation.PSObject
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247510/Get+unit+linked+user
 
 
 ## RELATED LINKS

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Add-CapaPrinterToUnit
 ---
@@ -15,15 +15,15 @@ title: Add-CapaPrinterToUnit
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247286/Add+printer+to+unit
+Adds a printer to a unit.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Add-CapaPrinterToUnit [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string>
- [-PrinterShareName] <string> [<CommonParameters>]
+Add-CapaPrinterToUnit [-CapaSDK] <psobject> [-UnitName] <string> [-UnitType] <string>
+ [-PrinterShareName] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -33,22 +33,25 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Add-CapaPrinterToUnit function.
+Adds the specified printer share to the specified unit by calling the
+CapaSDK method AddPrinterToUnit.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Add-CapaPrinterToUnit -CapaSDK $value1 -UnitName  'Value2' -UnitType Computer -PrinterShareName  'Value4'
+Add-CapaPrinterToUnit -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -PrinterShareName '\\PRINT01\\Office-Color'
+
+Adds printer share \\PRINT01\\Office-Color to PC-01.
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -64,9 +67,31 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -PrinterShareName
 
-A description of the PrinterShareName  parameter.
+Printer share name.
 
 ```yaml
 Type: System.String
@@ -87,7 +112,7 @@ HelpMessage: ''
 
 ### -UnitName
 
-A description of the UnitName  parameter.
+Name of the unit to add the printer to.
 
 ```yaml
 Type: System.String
@@ -108,7 +133,8 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType parameter.
+Type of unit.
+Valid values are Computer and User.
 
 ```yaml
 Type: System.String
@@ -119,6 +145,28 @@ ParameterSets:
 - Name: (All)
   Position: 2
   IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -138,9 +186,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Boolean
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247286/Add+printer+to+unit
 
 
 ## RELATED LINKS

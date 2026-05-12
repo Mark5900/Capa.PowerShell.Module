@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Exist-CapaUnitLocation
 ---
@@ -15,14 +15,14 @@ title: Exist-CapaUnitLocation
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247402/Exist+unit+location
+Checks whether a unit exists on a specific location.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Exist-CapaUnitLocation [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string>
+Exist-CapaUnitLocation [-CapaSDK] <psobject> [-UnitName] <string> [-UnitType] <string>
  [-Location] <string> [<CommonParameters>]
 ```
 
@@ -33,22 +33,25 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Exist-CapaUnitLocation function.
+Checks whether the specified unit exists on the specified location by
+calling the CapaSDK method ExistUnitLocation.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Exist-CapaUnitLocation -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer -Location 'Value4'
+Exist-CapaUnitLocation -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -Location 'Default\\Devices'
+
+Returns whether PC-01 exists on location Default\Devices.
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -66,7 +69,7 @@ HelpMessage: ''
 
 ### -Location
 
-A description of the Location parameter.
+Location path to validate for the unit.
 
 ```yaml
 Type: System.String
@@ -87,7 +90,7 @@ HelpMessage: ''
 
 ### -UnitName
 
-A description of the UnitName parameter.
+Name of the unit to check.
 
 ```yaml
 Type: System.String
@@ -108,7 +111,8 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType parameter.
+Type of unit.
+Valid values are Computer and User.
 
 ```yaml
 Type: System.String
@@ -138,9 +142,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Boolean
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247402/Exist+unit+location
 
 
 ## RELATED LINKS

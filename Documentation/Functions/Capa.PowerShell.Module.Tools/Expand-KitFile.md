@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.Tools
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Expand-KitFile
 ---
@@ -15,14 +15,15 @@ title: Expand-KitFile
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Extracts a CapaInstaller kit file to a destination folder.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Expand-KitFile [-KitFile] <string> [-DestinationFolder] <string> [<CommonParameters>]
+Expand-KitFile [-KitFile] <string> [-DestinationFolder] <string> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -32,19 +33,41 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Extracts the content of a `.kit` file using the CapaInstaller COM extractor.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+Expand-KitFile -KitFile 'C:\Temp\CapaInstaller.kit' -DestinationFolder 'C:\Temp\ExpandedKit'
 
 ## PARAMETERS
 
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -DestinationFolder
 
-{{ Fill DestinationFolder Description }}
+The folder where the kit content will be extracted.
 
 ```yaml
 Type: System.String
@@ -65,7 +88,7 @@ HelpMessage: ''
 
 ### -KitFile
 
-{{ Fill KitFile Description }}
+The full path to the `.kit` file that should be extracted.
 
 ```yaml
 Type: System.String
@@ -76,6 +99,28 @@ ParameterSets:
 - Name: (All)
   Position: 0
   IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -95,13 +140,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
+### System.Void
 
 {{ Fill in the Description }}
 
 ## NOTES
 
-{{ Fill in the Notes }}
+Requires CapaInstaller to be installed on the machine.
+
 
 ## RELATED LINKS
 

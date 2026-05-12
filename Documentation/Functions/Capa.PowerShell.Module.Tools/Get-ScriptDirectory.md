@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.Tools
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-ScriptDirectory
 ---
@@ -22,7 +22,7 @@ Get the directory of the current script.
 ### __AllParameterSets
 
 ```
-Get-ScriptDirectory
+Get-ScriptDirectory [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -39,9 +39,20 @@ It is better than $PSScriptRoot because it works also when running the script li
 
 ## PARAMETERS
 
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ## OUTPUTS
+
+### System.String
+
+{{ Fill in the Description }}
 
 ## NOTES
 

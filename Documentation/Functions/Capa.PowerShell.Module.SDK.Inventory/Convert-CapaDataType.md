@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Inventory
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Convert-CapaDataType
 ---
@@ -22,7 +22,7 @@ A function to convert Capa data types.
 ### __AllParameterSets
 
 ```
-Convert-CapaDataType [[-Datatype] <Object>]
+Convert-CapaDataType [-Datatype] <Object> [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -54,7 +54,7 @@ Aliases: []
 ParameterSets:
 - Name: (All)
   Position: 0
-  IsRequired: false
+  IsRequired: true
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -63,9 +63,20 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ## OUTPUTS
+
+### System.String
+
+{{ Fill in the Description }}
 
 ## NOTES
 

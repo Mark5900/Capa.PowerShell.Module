@@ -1,14 +1,39 @@
 
+<#
+	.SYNOPSIS
+		Extracts a CapaInstaller kit file to a destination folder.
+
+	.DESCRIPTION
+		Extracts the content of a `.kit` file using the CapaInstaller COM extractor.
+
+	.PARAMETER KitFile
+		The full path to the `.kit` file that should be extracted.
+
+	.PARAMETER DestinationFolder
+		The folder where the kit content will be extracted.
+
+	.EXAMPLE
+		Expand-KitFile -KitFile 'C:\Temp\CapaInstaller.kit' -DestinationFolder 'C:\Temp\ExpandedKit'
+
+	.NOTES
+		Requires CapaInstaller to be installed on the machine.
+#>
 function Expand-KitFile {
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([void])]
 	param (
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$KitFile,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$DestinationFolder
 	)
 
-	$Obj = New-Object -ComObject CapaInstaller.Scripting.Extract
-	$Obj.ExtractZip($KitFile, $DestinationFolder)
+	if ($PSCmdlet.ShouldProcess($KitFile, "Extract kit file to '$DestinationFolder'")) {
+		$Obj = New-Object -ComObject CapaInstaller.Scripting.Extract
+		$Obj.ExtractZip($KitFile, $DestinationFolder)
+	}
 }
 
 
@@ -20,6 +45,10 @@ function Expand-KitFile {
 		Get the directory of the current script. It is better than $PSScriptRoot because it works also when running the script line by line in the console.
 #>
 Function Get-ScriptDirectory {
+	[CmdletBinding()]
+	[OutputType([string])]
+	param ()
+
 	# Necessary so different PowerShell editors and module contexts can be used
 	if ($MyInvocation.ScriptName) {
 		# If called from a script, use the script's path
@@ -47,40 +76,45 @@ Function Get-ScriptDirectory {
 	.PARAMETER RemotePath
 		The path of the file to download.
 
-	.PARAMETER LocalPath
+	.PARAMETER DestinationPath
 		The folder or specific path where the file will be downloaded to.
 
 	.EXAMPLE
-		Invoke-BaseAgentDownloadFile -RemotePath "\Resources/AgentInstaller/CapaInstaller agent.xml" -LocalPath "c:\temp"
+		Invoke-BaseAgentDownloadFile -RemotePath "\Resources/AgentInstaller/CapaInstaller agent.xml" -DestinationPath "c:\temp"
 
 	.EXAMPLE
-		Invoke-BaseAgentDownloadFile -RemotePath "\Resources/AgentInstaller/CapaInstaller agent.xml" -LocalPath "c:\temp\CapaInstaller agent.xml"
+		Invoke-BaseAgentDownloadFile -RemotePath "\Resources/AgentInstaller/CapaInstaller agent.xml" -DestinationPath "c:\temp\CapaInstaller agent.xml"
 
 	.NOTES
 		This function requires the Capa BaseAgent to be installed on the machine.
 #>
 function Invoke-BaseAgentDownloadFile {
+	[CmdletBinding()]
+	[OutputType([void])]
 	param (
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$RemotePath,
 		[Parameter(Mandatory = $true)]
-		[string]$LocalPath
+		[ValidateNotNullOrEmpty()]
+		[Alias('LocalPath')]
+		[string]$DestinationPath
 	)
 	$LocalPort = Get-ItemProperty -Path 'HKLM:\SOFTWARE\CapaSystems\BaseAgent' -Name 'LocalPort' | Select-Object -ExpandProperty LocalPort
 	$BaseURL = "http://localhost:$LocalPort/file"
 
 	$FileName = Split-Path -Path $RemotePath -Leaf
-	if (Test-Path $LocalPath -PathType Container) {
-		$LocalPath = Join-Path -Path $LocalPath -ChildPath $FileName
+	if (Test-Path $DestinationPath -PathType Container) {
+		$DestinationPath = Join-Path -Path $DestinationPath -ChildPath $FileName
 	}
 
-	$LocalPath = $LocalPath.Replace('/', '\')
-	$LocalPath = $LocalPath.Replace('\', '\\')
+	$DestinationPath = $DestinationPath.Replace('/', '\')
+	$DestinationPath = $DestinationPath.Replace('\', '\\')
 	$RemotePath = $RemotePath.Replace('\', "/")
 
 	$Json = "{
 	`"remote-location`": `"$RemotePath`",
-	`"local-location`": `"$LocalPath`",
+	`"local-location`": `"$DestinationPath`",
 	`"local-progress`": 0,
 	`"tag`": `"Mark5900`"
 }"
@@ -131,12 +165,17 @@ function Invoke-BaseAgentDownloadFile {
 		This function requires the Capa BaseAgent to be installed on the machine.
 #>
 function Invoke-DownloadCapaPackage {
+	[CmdletBinding()]
+	[OutputType([void])]
 	param (
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$DestinationFolder
 	)
 	$LocalPort = Get-ItemProperty -Path 'HKLM:\SOFTWARE\CapaSystems\BaseAgent' -Name 'LocalPort' | Select-Object -ExpandProperty LocalPort

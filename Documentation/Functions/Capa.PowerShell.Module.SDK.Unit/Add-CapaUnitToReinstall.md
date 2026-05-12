@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Add-CapaUnitToReinstall
 ---
@@ -15,19 +15,19 @@ title: Add-CapaUnitToReinstall
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247348/Add+unit+to+reinstall
+Adds a unit to reinstall.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Add-CapaUnitToReinstall [-CapaSDK] <Object> [-ComputerName] <string> [-OSpointID] <int>
+Add-CapaUnitToReinstall [-CapaSDK] <psobject> [-ComputerName] <string> [-OSpointID] <int>
  [-OSserverID] <int> [-OSImageID] <int> [-DiskConfigID] <int> [-InstallTypeID] <int>
  [[-NewUnitName] <string>] [[-ReinstallMode] <string>] [[-Active] <bool>]
  [[-UnlinkAllPackagesAndGroups] <bool>] [[-UnlinkAllAdvPackages] <bool>]
  [[-ChangelogComment] <string>] [[-ReinstallStartDate] <string>] [[-CustomField1] <string>]
- [[-CustomField2] <string>] [<CommonParameters>]
+ [[-CustomField2] <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -37,19 +37,22 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Add-CapaUnitToReinstall function.
+Adds the specified unit to reinstall by calling the CapaSDK method
+AddUnitToReinstall.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Add-CapaUnitToReinstall -CapaSDK $value1 -ComputerName 'Value2' -OSpointID $value3 -OSserverID $value4 -OSImageID $value5 -DiskConfigID $value6 -InstallTypeID $value7
+Add-CapaUnitToReinstall -CapaSDK $CapaSDK -ComputerName 'PC-01' -OSpointID 1 -OSserverID 1 -OSImageID 1 -DiskConfigID 1 -InstallTypeID 1
+
+Adds PC-01 to reinstall.
 
 ## PARAMETERS
 
 ### -Active
 
-A description of the Active parameter.
+Whether reinstall entry is active.
 
 ```yaml
 Type: System.Boolean
@@ -70,10 +73,10 @@ HelpMessage: ''
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -91,7 +94,7 @@ HelpMessage: ''
 
 ### -ChangelogComment
 
-A description of the ChangelogComment parameter.
+Optional changelog comment.
 
 ```yaml
 Type: System.String
@@ -112,7 +115,7 @@ HelpMessage: ''
 
 ### -ComputerName
 
-A description of the ComputerName parameter.
+Computer unit name (or UUID alias) to add to reinstall.
 
 ```yaml
 Type: System.String
@@ -132,9 +135,31 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -CustomField1
 
-A description of the CustomField1 parameter.
+Optional custom field 1.
 
 ```yaml
 Type: System.String
@@ -155,7 +180,7 @@ HelpMessage: ''
 
 ### -CustomField2
 
-A description of the CustomField2 parameter.
+Optional custom field 2.
 
 ```yaml
 Type: System.String
@@ -176,7 +201,7 @@ HelpMessage: ''
 
 ### -DiskConfigID
 
-A description of the DiskConfigID parameter.
+Disk configuration ID.
 
 ```yaml
 Type: System.Int32
@@ -197,7 +222,7 @@ HelpMessage: ''
 
 ### -InstallTypeID
 
-A description of the InstallTypeID parameter.
+Installation type ID.
 
 ```yaml
 Type: System.Int32
@@ -218,7 +243,7 @@ HelpMessage: ''
 
 ### -NewUnitName
 
-A description of the NewUnitName parameter.
+Optional new unit name after reinstall.
 
 ```yaml
 Type: System.String
@@ -239,7 +264,7 @@ HelpMessage: ''
 
 ### -OSImageID
 
-A description of the OSImageID parameter.
+OS image ID.
 
 ```yaml
 Type: System.Int32
@@ -260,7 +285,7 @@ HelpMessage: ''
 
 ### -OSpointID
 
-A description of the OSpointID parameter.
+OS point ID.
 
 ```yaml
 Type: System.Int32
@@ -281,7 +306,7 @@ HelpMessage: ''
 
 ### -OSserverID
 
-A description of the OSserverID parameter.
+OS server ID.
 
 ```yaml
 Type: System.Int32
@@ -302,7 +327,7 @@ HelpMessage: ''
 
 ### -ReinstallMode
 
-A description of the ReinstallMode parameter.
+Reinstall mode.
 
 ```yaml
 Type: System.String
@@ -323,7 +348,7 @@ HelpMessage: ''
 
 ### -ReinstallStartDate
 
-A description of the ReinstallStartDate parameter.
+Optional reinstall start date.
 
 ```yaml
 Type: System.String
@@ -344,7 +369,7 @@ HelpMessage: ''
 
 ### -UnlinkAllAdvPackages
 
-A description of the UnlinkAllAdvPackages parameter.
+Whether to unlink all advanced packages.
 
 ```yaml
 Type: System.Boolean
@@ -365,7 +390,7 @@ HelpMessage: ''
 
 ### -UnlinkAllPackagesAndGroups
 
-A description of the UnlinkAllPackagesAndGroups parameter.
+Whether to unlink all packages and groups.
 
 ```yaml
 Type: System.Boolean
@@ -375,6 +400,28 @@ Aliases: []
 ParameterSets:
 - Name: (All)
   Position: 10
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -395,9 +442,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Boolean
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247348/Add+unit+to+reinstall
 
 
 ## RELATED LINKS

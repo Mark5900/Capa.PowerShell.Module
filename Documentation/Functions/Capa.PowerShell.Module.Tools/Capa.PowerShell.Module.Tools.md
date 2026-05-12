@@ -7,7 +7,7 @@ HelpInfoUri:
 Locale: en-US
 Module Guid: 00000000-0000-0000-0000-000000000000
 Module Name: Capa.PowerShell.Module.Tools
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Capa.PowerShell.Module.Tools Module
 ---
@@ -22,7 +22,7 @@ title: Capa.PowerShell.Module.Tools Module
 
 ### [Expand-KitFile](Expand-KitFile.md)
 
-{{ Fill in the Synopsis }}
+Extracts a CapaInstaller kit file to a destination folder.
 
 ### [Get-ScriptDirectory](Get-ScriptDirectory.md)
 

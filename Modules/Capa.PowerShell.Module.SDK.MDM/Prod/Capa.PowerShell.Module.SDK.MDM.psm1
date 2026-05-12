@@ -1,6 +1,4 @@
 
-# TODO: #134 Update and add tests
-
 <#
 	.SYNOPSIS
 		Add a new Enforce Passcode payload or edit an existing one.
@@ -27,25 +25,28 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246520/Add+edit+Enforce+Passcode+Android
 #>
 function Add-CapaEnforcePasscodeAndroid {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	[Alias('Edit-CapaEnforcePasscodeAndroid')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileId,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Passcode,
-		$ChangelogComment = ''
+		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.AddEditEnforcePasscodeAndroid($ProfileId, $Passcode, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($ProfileId, 'Add or edit Enforce Passcode Android payload')) {
+		$value = $CapaSDK.AddEditEnforcePasscodeAndroid($ProfileId, $Passcode, $ChangelogComment)
+		return $value
+	}
 }
 
-
-# TODO: #135 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -140,22 +141,27 @@ function Add-CapaEnforcePasscodeAndroid {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246500/Add+Exchange+Payload+to+Profile
 #>
 function Add-CapaExchangePayloadToProfile {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileID,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$AccountName,
 		[Parameter(Mandatory = $false)]
 		[string]$DomainandUserName,
 		[Parameter(Mandatory = $false)]
-		[securestring]$Password = '',
+		[string]$Password = '',
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$EmailAddress,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$ExchangeActiveSyncHost,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('True', 'False')]
@@ -185,12 +191,12 @@ function Add-CapaExchangePayloadToProfile {
 		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.AddExchangePayloadToProfile($ProfileID, $AccountName, $DomainandUserName, $Password, $EmailAddress, $ExchangeActiveSyncHost, $UseSSL, $PastDaysofMailtoSync, $AllowMove, $UseOnlyinMail, $UseSMIME, $AllowRecentAddressSyncing, $Syncinterval, $SyncEmail, $SyncCalendar, $SyncContacts, $SyncTasks, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($ProfileID, 'Add Exchange payload to profile')) {
+		$value = $CapaSDK.AddExchangePayloadToProfile($ProfileID, $AccountName, $DomainandUserName, $Password, $EmailAddress, $ExchangeActiveSyncHost, $UseSSL, $PastDaysofMailtoSync, $AllowMove, $UseOnlyinMail, $UseSMIME, $AllowRecentAddressSyncing, $Syncinterval, $SyncEmail, $SyncCalendar, $SyncContacts, $SyncTasks, $ChangelogComment)
+		return $value
+	}
 }
 
-
-# TODO: #136 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -225,30 +231,33 @@ function Add-CapaExchangePayloadToProfile {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246531/Add+edit+Key+Value+setting+to+Android+AppConfig
 #>
 function Add-CapaKeyValueToAppConfigAndroid {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	[Alias('Edit-CapaKeyValueToAppConfigAndroid')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$DeviceApplicationID,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Key,
 		[Parameter(Mandatory = $true)]
 		[string]$Value,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('String', 'Bool', 'Hidden', 'Integer')]
-		$KeyValueType,
-		$ChangelogComment = ''
+		[string]$KeyValueType,
+		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.AddKeyValueToAppConfigAndroid($DeviceApplicationID, $Key, $Value, $KeyValueType, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($DeviceApplicationID, "Add key/value '$Key' to Android AppConfig")) {
+		$value = $CapaSDK.AddKeyValueToAppConfigAndroid($DeviceApplicationID, $Key, $Value, $KeyValueType, $ChangelogComment)
+		return $value
+	}
 }
 
-
-# TODO: #137 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -283,15 +292,18 @@ function Add-CapaKeyValueToAppConfigAndroid {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246542/Add+edit+Key+Value+setting+to+iOS+AppConfig
 #>
 function Add-CapaKeyValueToAppConfigIOS {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	[Alias('Edit-CapaKeyValueToAppConfigIOS')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$DeviceApplicationID,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Key,
 		[Parameter(Mandatory = $true)]
 		[string]$Value,
@@ -301,12 +313,12 @@ function Add-CapaKeyValueToAppConfigIOS {
 		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.AddKeyValueToAppConfigIOS($DeviceApplicationID, $Key, $Value, $KeyValueType, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($DeviceApplicationID, "Add key/value '$Key' to iOS AppConfig")) {
+		$value = $CapaSDK.AddKeyValueToAppConfigIOS($DeviceApplicationID, $Key, $Value, $KeyValueType, $ChangelogComment)
+		return $value
+	}
 }
 
-
-# TODO: #138 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -343,40 +355,45 @@ function Add-CapaKeyValueToAppConfigIOS {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246463/Link+profile+to+device
 #>
 function Add-CapaUnitToProfile {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	[Alias('Link-CapaUnitToProfile')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
-		[String]$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(ParameterSetName = 'Uuid',
 			Mandatory = $true)]
-		[String]$Uuid,
+		[ValidateNotNullOrEmpty()]
+		[string]$Uuid,
 		[Parameter(Mandatory = $true)]
-		[String]$ProfileName,
+		[ValidateNotNullOrEmpty()]
+		[string]$ProfileName,
 		[Parameter(Mandatory = $false)]
-		[String]$ChangelogComment
+		[string]$ChangelogComment = ''
 	)
 
-	switch ($PsCmdlet.ParameterSetName) {
-		'Uuid' {
-			$value = $CapaSDK.AddUnitToProfile($UnitName, $ProfileName, $ChangelogComment)
-			break
+	$Target = if ($PsCmdlet.ParameterSetName -eq 'Uuid') { $Uuid } else { $UnitName }
+	if ($PSCmdlet.ShouldProcess($Target, "Link unit to profile '$ProfileName'")) {
+		switch ($PsCmdlet.ParameterSetName) {
+			'Uuid' {
+				$value = $CapaSDK.AddUnitToProfile($Uuid, $ProfileName, $ChangelogComment)
+				break
+			}
+			'NameType' {
+				$value = $CapaSDK.AddUnitToProfile($UnitName, $ProfileName, $ChangelogComment)
+				break
+			}
 		}
-		'NameType' {
-			$value = $CapaSDK.AddUnitToProfile($Uuid, $ProfileName, $ChangelogComment)
-			break
-		}
+		return $value
 	}
-
-	return $value
 }
 
-
-# TODO: #139 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -449,10 +466,12 @@ function Add-CapaUnitToProfile {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246510/Add+WiFi+Payload+to+Profile
 #>
 function Add-CapaWifiPayloadToProfile {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileID,
@@ -490,13 +509,13 @@ function Add-CapaWifiPayloadToProfile {
 	} elseif ($ProxyType -eq 'Automatic' -and $ProxyServerConfigURL -eq '') {
 		Write-Error "ProxyServerConfigURL cannot be NULL when choosing ProxyType: $ProxyType"
 	} Else {
-		$value = $CapaSDK.AddWifiPayloadToProfile($ProfileID, $NetworkName, $HiddenNetwork, $AutoJoin, $SecurityType, $Password, $ProxyType, $ProxyType, $ProxyServer, $ProxyPort, $ProxyAuthentication, $ProxyPassword, $ProxyServerConfigURL, $ChangelogComment)
-		return $value
+		if ($PSCmdlet.ShouldProcess($ProfileID, "Add WiFi payload '$NetworkName' to profile")) {
+			$value = $CapaSDK.AddWifiPayloadToProfile($ProfileID, $NetworkName, $HiddenNetwork, $AutoJoin, $SecurityType, $Password, $ProxyType, $ProxyServer, $ProxyPort, $ProxyAuthentication, $ProxyPassword, $ProxyServerConfigURL, $ChangelogComment)
+			return $value
+		}
 	}
 }
 
-
-# TODO: #140 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -524,24 +543,27 @@ function Add-CapaWifiPayloadToProfile {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246552/Assign+Profile+to+Business+Unit
 #>
 function Assign-CapaProfileToBusinessUnit {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileId,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$BusinessUnitName,
 		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.AssignProfileToBusinessUnit($ProfileId, $BusinessUnitName, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($ProfileId, "Assign profile to business unit '$BusinessUnitName'")) {
+		$value = $CapaSDK.AssignProfileToBusinessUnit($ProfileId, $BusinessUnitName, $ChangelogComment)
+		return $value
+	}
 }
 
-
-# TODO: #141 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -569,24 +591,27 @@ function Assign-CapaProfileToBusinessUnit {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246561/Clone+Device+Application
 #>
 function Clone-CapaDeviceApplication {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$DeviceApplicationID,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$NewName,
 		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.CloneDeviceApplication($DeviceApplicationID, $NewName, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($DeviceApplicationID, "Clone device application to '$NewName'")) {
+		$value = $CapaSDK.CloneDeviceApplication($DeviceApplicationID, $NewName, $ChangelogComment)
+		return $value
+	}
 }
 
-
-# TODO: #142 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -624,14 +649,18 @@ function Clone-CapaDeviceApplication {
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246582/Create+Profile+in+Business+Unit
 #>
 function Create-CapaProfile {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Name,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Description,
 		[Parameter(Mandatory = $true)]
 		[int]$Priority,
@@ -639,17 +668,17 @@ function Create-CapaProfile {
 		[string]$BusinessUnitId = ''
 	)
 
-	if ($BusinessUnitId -eq '') {
-		$value = $CapaSDK.CreateProfile($Name, $Description, $Priority, $ChangelogComment)
-	} else {
-		$value = $CapaSDK.CreateProfileInBusinessUnit($Name, $Description, $Priority, $ChangelogComment, $BusinessUnitId)
-	}
+	if ($PSCmdlet.ShouldProcess($Name, 'Create profile')) {
+		if ($BusinessUnitId -eq '') {
+			$value = $CapaSDK.CreateProfile($Name, $Description, $Priority, $ChangelogComment)
+		} else {
+			$value = $CapaSDK.CreateProfileInBusinessUnit($Name, $Description, $Priority, $ChangelogComment, $BusinessUnitId)
+		}
 
-	return $value
+		return $value
+	}
 }
 
-
-# TODO: #143 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -745,21 +774,25 @@ function Create-CapaProfile {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246594/Edit+Exchange+Payload
 #>
 function Edit-CapaExchangePayload {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileID,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$CurrentAccountName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$AccountName,
 		[Parameter(Mandatory = $true)]
 		[string]$DomainandUserName,
 		[Parameter(Mandatory = $false)]
-		[securestring]$Password = '',
+		[string]$Password = '',
 		[Parameter(Mandatory = $true)]
 		[string]$EmailAddress,
 		[Parameter(Mandatory = $true)]
@@ -790,12 +823,12 @@ function Edit-CapaExchangePayload {
 		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.EditExchangePayload($ProfileID, $CurrentAccountName, $AccountName, $DomainandUserName, $Password, $EmailAddress, $ExchangeActiveSyncHost, $UseSSL, $PastDaysofMailtoSync, $AllowMove, $UseOnlyinMail, $UseSMIME, $AllowRecentAddressSyncing, $Syncinterval, $SyncEmail, $SyncContacts, $SyncTasks, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($ProfileID, "Edit Exchange payload '$CurrentAccountName'")) {
+		$value = $CapaSDK.EditExchangePayload($ProfileID, $CurrentAccountName, $AccountName, $DomainandUserName, $Password, $EmailAddress, $ExchangeActiveSyncHost, $UseSSL, $PastDaysofMailtoSync, $AllowMove, $UseOnlyinMail, $UseSMIME, $AllowRecentAddressSyncing, $Syncinterval, $SyncEmail, $SyncContacts, $SyncTasks, $ChangelogComment)
+		return $value
+	}
 }
 
-
-# TODO: #144 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -872,10 +905,12 @@ function Edit-CapaExchangePayload {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246604/Edit+WiFi+Payload
 #>
 function Edit-CapaWifiPayload {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileID,
@@ -915,13 +950,13 @@ function Edit-CapaWifiPayload {
 	} elseif ($ProxyType -eq 'Automatic' -and $ProxyServerConfigURL -eq '') {
 		Write-Error "ProxyServerConfigURL cannot be NULL when choosing ProxyType: $ProxyType"
 	} Else {
-		$value = $CapaSDK.EditWifiPayload($ProfileID, $CurrentNetworkName, $NetworkName, $HiddenNetwork, $AutoJoin, $SecurityType, $Password, $ProxyType, $ProxyType, $ProxyServer, $ProxyPort, $ProxyAuthentication, $ProxyPassword, $ProxyServerConfigURL, $ChangelogComment)
-		return $value
+		if ($PSCmdlet.ShouldProcess($ProfileID, "Edit WiFi payload '$CurrentNetworkName'")) {
+			$value = $CapaSDK.EditWifiPayload($ProfileID, $CurrentNetworkName, $NetworkName, $HiddenNetwork, $AutoJoin, $SecurityType, $Password, $ProxyType, $ProxyServer, $ProxyPort, $ProxyAuthentication, $ProxyPassword, $ProxyServerConfigURL, $ChangelogComment)
+			return $value
+		}
 	}
 }
 
-
-# TODO: #145 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -941,9 +976,11 @@ function Edit-CapaWifiPayload {
 #>
 function Get-CapaDeviceApplications {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
@@ -964,11 +1001,9 @@ function Get-CapaDeviceApplications {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #146 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -988,9 +1023,11 @@ function Get-CapaDeviceApplications {
 #>
 function Get-CapaProfiles {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
@@ -1011,11 +1048,9 @@ function Get-CapaProfiles {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #147 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -1049,14 +1084,17 @@ function Get-CapaProfiles {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246638/Link+profile+to+group
 #>
 function Link-CapaProfileToGroup {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileId,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('AD', 'Department', 'Dynamic', 'Static')]
@@ -1065,12 +1103,12 @@ function Link-CapaProfileToGroup {
 		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.AddProfileToGroup($ProfileId, $GroupName, $GroupType, $BusinessUnitName, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($ProfileId, "Link profile to group '$GroupName'")) {
+		$value = $CapaSDK.AddProfileToGroup($ProfileId, $GroupName, $GroupType, $BusinessUnitName, $ChangelogComment)
+		return $value
+	}
 }
 
-
-# TODO: #148 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -1107,38 +1145,44 @@ function Link-CapaProfileToGroup {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246487/Remove+profile+from+device
 #>
 function Remove-CapaProfileFromDevice {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
-		[String]$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(ParameterSetName = 'Uuid',
 			Mandatory = $true)]
-		[String]$UUID,
+		[ValidateNotNullOrEmpty()]
+		[string]$UUID,
 		[Parameter(Mandatory = $true)]
-		[String]$ProfileName,
-		[Parameter(Mandatory = $true)]
-		[String]$ChangelogComment
+		[ValidateNotNullOrEmpty()]
+		[string]$ProfileName,
+		[Parameter(Mandatory = $false)]
+		[string]$ChangelogComment = ''
 	)
 
-	switch ($PsCmdlet.ParameterSetName) {
-		'NameType' {
-			$value = $CapaSDK.RemoveUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
-			break
+	$Target = if ($PsCmdlet.ParameterSetName -eq 'Uuid') { $UUID } else { $UnitName }
+	if ($PSCmdlet.ShouldProcess($Target, "Remove profile '$ProfileName' from device")) {
+		switch ($PsCmdlet.ParameterSetName) {
+			'NameType' {
+				$value = $CapaSDK.RemoveUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
+				break
+			}
+			'Uuid' {
+				$value = $CapaSDK.RemoveUnitFromProfile($UUID, $ProfileName, $ChangelogComment)
+				break
+			}
 		}
-		'Uuid' {
-			$value = $CapaSDK.RemoveUnitFromProfile($UUID, $ProfileName, $ChangelogComment)
-			break
-		}
+		return $value
 	}
-	return $value
 }
 
-
-# TODO: #149 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -1172,34 +1216,42 @@ function Remove-CapaProfileFromDevice {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246474/Unlink+profile+from+device
 #>
 function Unlink-CapaUnitFromProfile {
-	[CmdletBinding(DefaultParameterSetName = 'Uuid')]
+	[CmdletBinding(DefaultParameterSetName = 'Uuid', SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
-		[String]$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
-		[String]$ProfileName,
-		[Parameter(Mandatory = $true)]
-		[String]$ChangelogComment,
+		[ValidateNotNullOrEmpty()]
+		[string]$ProfileName,
+		[Parameter(Mandatory = $false)]
+		[string]$ChangelogComment,
 		[Parameter(ParameterSetName = 'Uuid',
 			Mandatory = $true)]
-		[String]$Uuid
+		[ValidateNotNullOrEmpty()]
+		[string]$Uuid
 	)
 
-	switch ($PsCmdlet.ParameterSetName) {
-		'NameType' {
-			$value = $CapaSDK.UnlinkUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
-			break
+	$Target = if ($PsCmdlet.ParameterSetName -eq 'Uuid') { $Uuid } else { $UnitName }
+	if ($PSCmdlet.ShouldProcess($Target, "Unlink profile '$ProfileName' from device")) {
+		switch ($PsCmdlet.ParameterSetName) {
+			'NameType' {
+				$value = $CapaSDK.UnlinkUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
+				break
+			}
+			'Uuid' {
+				$value = $CapaSDK.UnlinkUnitFromProfile($Uuid, $ProfileName, $ChangelogComment)
+				break
+			}
 		}
-		'Uuid' {
-			$value = $CapaSDK.UnlinkUnitFromProfile($Uuid, $ProfileName, $ChangelogComment)
-			break
-		}
+		return $value
 	}
-	return $value
 }
 
 

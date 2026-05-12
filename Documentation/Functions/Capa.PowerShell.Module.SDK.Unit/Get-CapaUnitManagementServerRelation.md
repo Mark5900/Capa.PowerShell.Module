@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaUnitManagementServerRelation
 ---
@@ -15,14 +15,14 @@ title: Get-CapaUnitManagementServerRelation
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247528/Get+unit+management+server+relation
+Gets management server relation for a unit.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Get-CapaUnitManagementServerRelation [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string>
+Get-CapaUnitManagementServerRelation [-CapaSDK] <psobject> [-UnitName] <string> [-UnitType] <string>
  [<CommonParameters>]
 ```
 
@@ -33,22 +33,25 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Get-CapaUnitManagementServerRelation function.
+Gets management server relation data for the specified unit by calling
+the CapaSDK method GetUnitManagementServerRelation.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Get-CapaUnitManagementServerRelation -CapaSDK $value1 -UnitName  'Value2' -UnitType  'Value3'
+Get-CapaUnitManagementServerRelation -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer
+
+Returns management server relation for PC-01.
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -66,7 +69,7 @@ HelpMessage: ''
 
 ### -UnitName
 
-A description of the UnitName  parameter.
+Name of the unit to query relation for.
 
 ```yaml
 Type: System.String
@@ -87,7 +90,8 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType  parameter.
+Type of unit.
+Valid values are Computer and User.
 
 ```yaml
 Type: System.String
@@ -117,9 +121,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Object
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247528/Get+unit+management+server+relation
 
 
 ## RELATED LINKS

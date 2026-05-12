@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Utilities
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaReinstallStatus
 ---
@@ -22,7 +22,7 @@ Gets the reinstall status for a unit.
 ### __AllParameterSets
 
 ```
-Get-CapaReinstallStatus [-CapaSDK] <Object> [-UnitName] <Object> [-UnitType] <Object>
+Get-CapaReinstallStatus [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string>
  [<CommonParameters>]
 ```
 
@@ -69,7 +69,7 @@ HelpMessage: ''
 The name of the unit.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -91,7 +91,7 @@ The type of the unit.
 This can be either "Computer" or "User"
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -117,6 +117,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
+
+### System.Object
+
+{{ Fill in the Description }}
 
 ## NOTES
 

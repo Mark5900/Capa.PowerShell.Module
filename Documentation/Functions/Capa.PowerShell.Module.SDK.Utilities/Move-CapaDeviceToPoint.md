@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Utilities
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Move-CapaDeviceToPoint
 ---
@@ -22,8 +22,8 @@ Moves a device from its current Management Point to the specified Management Poi
 ### __AllParameterSets
 
 ```
-Move-CapaDeviceToPoint [-CapaSDK] <Object> [-DeviceUUID] <Object> [-PointName] <Object>
- [-ManagementServerFQDN] <Object> [<CommonParameters>]
+Move-CapaDeviceToPoint [-CapaSDK] <Object> [-DeviceUUID] <string> [-PointName] <string>
+ [-ManagementServerFQDN] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -67,12 +67,34 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -DeviceUUID
 
 The UUID of the device.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -94,7 +116,7 @@ The name of the Management Server the device should be linked to.
 If an empty string is specified, the device will not be linked to a Management Server after the move.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -115,7 +137,7 @@ HelpMessage: ''
 The name of the Management Point the device should be moved to.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -123,6 +145,28 @@ ParameterSets:
 - Name: (All)
   Position: 2
   IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -141,6 +185,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
+
+### System.Boolean
+
+{{ Fill in the Description }}
 
 ## NOTES
 

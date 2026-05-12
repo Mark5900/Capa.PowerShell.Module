@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.SystemSdk
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Count-CapaConscomActions
 ---
@@ -22,7 +22,7 @@ Counts the number of conscom actions.
 ### __AllParameterSets
 
 ```
-Count-CapaConscomActions [-CapaSDK] <Object> [-ManagementServerID] <int> [<CommonParameters>]
+Count-CapaConscomActions [-CapaSDK] <Object> [[-ManagementServerID] <int>] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -76,7 +76,7 @@ Aliases: []
 ParameterSets:
 - Name: (All)
   Position: 1
-  IsRequired: true
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -95,6 +95,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
+
+### System.Int32
+
+{{ Fill in the Description }}
 
 ## NOTES
 

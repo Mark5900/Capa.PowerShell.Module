@@ -1,6 +1,4 @@
 
-# TODO: #109 Update and add tests
-
 <#
 	.SYNOPSIS
 		Create a new CapaSDK object that is needed for all other functions.
@@ -47,21 +45,24 @@
 #>
 function Initialize-CapaSDK {
 	[CmdletBinding()]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Server,
 		[Parameter(Mandatory = $true)]
-		[string]$Database = '',
+		[ValidateNotNullOrEmpty()]
+		[string]$Database,
 		[string]$UserName = '',
 		[string]$Password = '',
 		[Parameter(Mandatory = $false)]
-		[string]$DefaultManagementPoint,
-		[string]$InstanceManagementPoint
+		[string]$DefaultManagementPoint = '',
+		[string]$InstanceManagementPoint = ''
 	)
 	$oCMS = New-Object -ComObject CapaInstaller.SDK
 
-	If ($UserName -ne '' -or $Password -ne '') {
+	if ($UserName -ne '' -or $Password -ne '') {
 		$oCMS.SetDatabaseSettings($Server, $Database, $true, $UserName, $Password) | Out-Null
 	} else {
 		$oCMS.SetDatabaseSettings($Server, $Database, $false) | Out-Null

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Add-CapaUnitToGroup
 ---
@@ -15,16 +15,16 @@ title: Add-CapaUnitToGroup
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247318/Add+unit+to+group
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247332/Add+unit+to+group+BU
+Adds a unit to a group.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Add-CapaUnitToGroup [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string>
- [-GroupName] <string> [-GroupType] <string> [[-BusinessUnitName] <string>] [<CommonParameters>]
+Add-CapaUnitToGroup [-CapaSDK] <psobject> [-UnitName] <string> [-UnitType] <string>
+ [-GroupName] <string> [-GroupType] <string> [[-BusinessUnitName] <string>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -34,19 +34,29 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Add-CapaUnitToGroup function.
+Adds the specified unit to the specified group by calling AddUnitToGroup
+or AddUnitToGroupBU on the CapaSDK instance.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Add-CapaUnitToGroup -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer -GroupName 'Value4' -GroupType Calendar
+Add-CapaUnitToGroup -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -GroupName 'Workstations' -GroupType Static
+
+Adds PC-01 to the Workstations static group.
+
+### EXAMPLE 2
+
+Add-CapaUnitToGroup -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -GroupName 'HQ Devices' -GroupType Static -BusinessUnitName 'Headquarters'
+
+Adds PC-01 to the group in the specified business unit.
 
 ## PARAMETERS
 
 ### -BusinessUnitName
 
-A description of the BusinessUnitName parameter.
+Optional business unit name.
+When specified, AddUnitToGroupBU is used.
 
 ```yaml
 Type: System.String
@@ -67,10 +77,10 @@ HelpMessage: ''
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -86,9 +96,31 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -GroupName
 
-A description of the GroupName parameter.
+Name of the group.
 
 ```yaml
 Type: System.String
@@ -109,7 +141,8 @@ HelpMessage: ''
 
 ### -GroupType
 
-A description of the GroupType parameter.
+Type of group.
+Dynamic_SQL and Dynamic_ADSI are only valid for Printer units.
 
 ```yaml
 Type: System.String
@@ -130,7 +163,7 @@ HelpMessage: ''
 
 ### -UnitName
 
-A description of the UnitName parameter.
+Name of the unit to add to the group.
 
 ```yaml
 Type: System.String
@@ -151,7 +184,8 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType parameter.
+Type of unit.
+Valid values are Computer, User, and Printer.
 
 ```yaml
 Type: System.String
@@ -162,6 +196,28 @@ ParameterSets:
 - Name: (All)
   Position: 2
   IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -181,9 +237,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Boolean
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247318/Add+unit+to+group
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247332/Add+unit+to+group+BU
 
 
 ## RELATED LINKS

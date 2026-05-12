@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Set-CapaUnitPackageStatus
 ---
@@ -15,7 +15,7 @@ title: Set-CapaUnitPackageStatus
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247748/Set+unit+package+status
+Set package status for a unit.
 
 ## SYNTAX
 
@@ -24,7 +24,7 @@ https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247748/Set+unit
 ```
 Set-CapaUnitPackageStatus [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string>
  [-PackageName] <string> [-PackageVersion] <string> [-Status] <string>
- [[-ChangelogComment] <string>] [<CommonParameters>]
+ [[-ChangelogComment] <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -34,19 +34,19 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Set-CapaUnitPackageStatus function.
+Set package status for a unit in CapaInstaller.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Set-CapaUnitPackageStatus -CapaSDK $value1 -UnitName  $value2 -UnitType Computer -PackageName  $value4 -PackageVersion  $value5 -Status  $value6
+Set-CapaUnitPackageStatus -CapaSDK $CapaSDK -UnitName 'PC001' -UnitType Computer -PackageName '7-Zip' -PackageVersion '24.09' -Status Installed
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The CapaSDK object.
 
 ```yaml
 Type: System.Object
@@ -67,7 +67,7 @@ HelpMessage: ''
 
 ### -ChangelogComment
 
-A description of the ChangelogComment parameter.
+Optional changelog comment.
 
 ```yaml
 Type: System.String
@@ -86,9 +86,31 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -PackageName
 
-A description of the PackageName  parameter.
+The name of the package.
 
 ```yaml
 Type: System.String
@@ -109,7 +131,7 @@ HelpMessage: ''
 
 ### -PackageVersion
 
-A description of the PackageVersion  parameter.
+The package version.
 
 ```yaml
 Type: System.String
@@ -130,7 +152,7 @@ HelpMessage: ''
 
 ### -Status
 
-A description of the Status  parameter.
+The package status to set.
 
 ```yaml
 Type: System.String
@@ -151,7 +173,7 @@ HelpMessage: ''
 
 ### -UnitName
 
-A description of the UnitName  parameter.
+The name of the unit.
 
 ```yaml
 Type: System.String
@@ -172,7 +194,7 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType parameter.
+The unit type.
 
 ```yaml
 Type: System.String
@@ -183,6 +205,28 @@ ParameterSets:
 - Name: (All)
   Position: 2
   IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -202,9 +246,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Boolean
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247748/Set+unit+package+status
 
 
 ## RELATED LINKS

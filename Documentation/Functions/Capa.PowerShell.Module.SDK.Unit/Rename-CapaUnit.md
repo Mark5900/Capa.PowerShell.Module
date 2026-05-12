@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Rename-CapaUnit
 ---
@@ -15,15 +15,15 @@ title: Rename-CapaUnit
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247688/Rename+unit
+Rename an existing unit.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Rename-CapaUnit [-CapaSDK] <Object> [-CurrentUnitName] <Object> [-UnitType] <Object>
- [-NewUnitName] <Object> [<CommonParameters>]
+Rename-CapaUnit [-CapaSDK] <Object> [-CurrentUnitName] <string> [-UnitType] <string>
+ [-NewUnitName] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -33,19 +33,19 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Rename-CapaUnit function.
+Rename an existing unit in CapaInstaller.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Rename-CapaUnit -CapaSDK $value1 -CurrentUnitName  $value2 -UnitType  $value3 -NewUnitName  $value4
+Rename-CapaUnit -CapaSDK $CapaSDK -CurrentUnitName 'PC001' -UnitType Computer -NewUnitName 'PC001-RENAMED'
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The CapaSDK object.
 
 ```yaml
 Type: System.Object
@@ -64,12 +64,34 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
-### -CurrentUnitName
+### -Confirm
 
-A description of the CurrentUnitName  parameter.
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -CurrentUnitName
+
+The current unit name.
+
+```yaml
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -87,10 +109,10 @@ HelpMessage: ''
 
 ### -NewUnitName
 
-A description of the NewUnitName  parameter.
+The new unit name.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -108,10 +130,10 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType  parameter.
+The unit type.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -119,6 +141,28 @@ ParameterSets:
 - Name: (All)
   Position: 2
   IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -138,9 +182,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Boolean
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247688/Rename+unit
 
 
 ## RELATED LINKS

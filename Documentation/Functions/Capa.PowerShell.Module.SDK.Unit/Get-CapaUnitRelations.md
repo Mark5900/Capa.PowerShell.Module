@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaUnitRelations
 ---
@@ -15,14 +15,14 @@ title: Get-CapaUnitRelations
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247554/Get+Unit+Relations
+Gets relations for a unit.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Get-CapaUnitRelations [-CapaSDK] <Object> [-UnitName] <Object> [-UnitType] <Object>
+Get-CapaUnitRelations [-CapaSDK] <psobject> [-UnitName] <string> [-UnitType] <string>
  [<CommonParameters>]
 ```
 
@@ -33,22 +33,25 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Get-CapaUnitRelations function.
+Gets unit relations by calling the CapaSDK method GetUnitRelations and
+returns parsed relation objects.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Get-CapaUnitRelations -CapaSDK $value1 -UnitName $value2 -UnitType $value3
+Get-CapaUnitRelations -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer
+
+Returns relation rows for unit PC-01.
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -66,10 +69,10 @@ HelpMessage: ''
 
 ### -UnitName
 
-A description of the UnitName parameter.
+Name of the unit to query relations for.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -87,10 +90,11 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType parameter.
+Type of unit.
+Valid values are Computer and User.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -115,15 +119,20 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.Object
+### System.String
 
 {{ Fill in the Description }}
 
 ## OUTPUTS
 
+### System.Management.Automation.PSObject
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247554/Get+Unit+Relations
 
 
 ## RELATED LINKS

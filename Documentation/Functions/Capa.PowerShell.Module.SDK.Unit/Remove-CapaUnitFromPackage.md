@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Remove-CapaUnitFromPackage
 ---
@@ -15,7 +15,7 @@ title: Remove-CapaUnitFromPackage
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247672/Remove+unit+from+package
+Remove a unit from a package.
 
 ## SYNTAX
 
@@ -23,7 +23,8 @@ https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247672/Remove+u
 
 ```
 Remove-CapaUnitFromPackage [-CapaSDK] <Object> [-PackageName] <string> [-PackageVersion] <string>
- [-PackageType] <string> [-UnitName] <string> [-UnitType] <string> [<CommonParameters>]
+ [-PackageType] <string> [-UnitName] <string> [-UnitType] <string> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -33,19 +34,19 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Remove-CapaUnitFromPackage function.
+Remove package relation from an existing unit in CapaInstaller.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Remove-CapaUnitFromPackage -CapaSDK $value1 -PackageName 'Value2' -PackageVersion 'Value3' -PackageType Computer -UnitName 'Value5' -UnitType Computer
+Remove-CapaUnitFromPackage -CapaSDK $CapaSDK -PackageName '7-Zip' -PackageVersion '24.09' -PackageType Computer -UnitName 'PC001' -UnitType Computer
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The CapaSDK object.
 
 ```yaml
 Type: System.Object
@@ -64,9 +65,31 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -PackageName
 
-A description of the PackageName parameter.
+The package name.
 
 ```yaml
 Type: System.String
@@ -87,7 +110,7 @@ HelpMessage: ''
 
 ### -PackageType
 
-A description of the PackageType parameter.
+The package type.
 
 ```yaml
 Type: System.String
@@ -108,7 +131,7 @@ HelpMessage: ''
 
 ### -PackageVersion
 
-A description of the PackageVersion parameter.
+The package version.
 
 ```yaml
 Type: System.String
@@ -129,7 +152,7 @@ HelpMessage: ''
 
 ### -UnitName
 
-A description of the UnitName parameter.
+The unit name.
 
 ```yaml
 Type: System.String
@@ -150,7 +173,7 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType parameter.
+The unit type.
 
 ```yaml
 Type: System.String
@@ -161,6 +184,28 @@ ParameterSets:
 - Name: (All)
   Position: 5
   IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -180,9 +225,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Boolean
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247672/Remove+unit+from+package
 
 
 ## RELATED LINKS

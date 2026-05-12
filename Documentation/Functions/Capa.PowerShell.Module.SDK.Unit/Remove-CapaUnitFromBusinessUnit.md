@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 01/08/2026
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Remove-CapaUnitFromBusinessUnit
 ---
@@ -15,7 +15,7 @@ title: Remove-CapaUnitFromBusinessUnit
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247648/Remove+unit+from+business+unit
+Remove a unit from a business unit.
 
 ## SYNTAX
 
@@ -23,7 +23,7 @@ https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247648/Remove+u
 
 ```
 Remove-CapaUnitFromBusinessUnit [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string>
- [<CommonParameters>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -33,19 +33,19 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Remove-CapaUnitFromBusinessUnit function.
+Remove an existing unit from a business unit relation in CapaInstaller.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Remove-CapaUnitFromBusinessUnit -CapaSDK $value1 -UnitName 'Value2' -UnitType 'Value3'
+Remove-CapaUnitFromBusinessUnit -CapaSDK $CapaSDK -UnitName 'PC001' -UnitType Computer
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The CapaSDK object.
 
 ```yaml
 Type: System.Object
@@ -64,9 +64,31 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -UnitName
 
-A description of the UnitName parameter.
+The unit name.
 
 ```yaml
 Type: System.String
@@ -87,7 +109,7 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType parameter.
+The unit type.
 
 ```yaml
 Type: System.String
@@ -98,6 +120,28 @@ ParameterSets:
 - Name: (All)
   Position: 2
   IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -117,9 +161,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Boolean
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247648/Remove+unit+from+business+unit
 
 
 ## RELATED LINKS

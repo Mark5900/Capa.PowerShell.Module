@@ -1,5 +1,3 @@
-# TODO: #186 Update and add tests
-
 <#
 	.SYNOPSIS
 		Sets the schedule of a package.
@@ -70,19 +68,24 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247048/Set+Package+Schedule
 #>
 function Set-CapaPackageSchedule {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$ScheduleStart,
 		[Parameter(Mandatory = $false)]
 		[String]$ScheduleEnd,
@@ -96,6 +99,8 @@ function Set-CapaPackageSchedule {
 		[String]$ScheduleRecurrencePattern = ''
 	)
 
-	$value = $CapaSDK.SetPackageSchedule($PackageName, $PackageVersion, $PackageType, $ScheduleStart, $ScheduleEnd, $ScheduleIntervalBegin, $ScheduleIntervalEnd, $ScheduleRecurrence, $ScheduleRecurrencePattern)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Set package schedule')) {
+		$value = $CapaSDK.SetPackageSchedule($PackageName, $PackageVersion, $PackageType, $ScheduleStart, $ScheduleEnd, $ScheduleIntervalBegin, $ScheduleIntervalEnd, $ScheduleRecurrence, $ScheduleRecurrencePattern)
+		return $value
+	}
 }

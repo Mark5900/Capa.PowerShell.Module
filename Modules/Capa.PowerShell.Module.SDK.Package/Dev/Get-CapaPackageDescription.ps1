@@ -1,5 +1,3 @@
-# TODO: #167 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get a description of a package.
@@ -27,13 +25,17 @@
 #>
 function Get-CapaPackageDescription {
 	[CmdletBinding()]
+	[OutputType([string])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
@@ -42,8 +44,7 @@ function Get-CapaPackageDescription {
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
+	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 

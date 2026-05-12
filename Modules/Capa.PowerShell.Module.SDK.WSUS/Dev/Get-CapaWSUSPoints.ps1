@@ -1,5 +1,3 @@
-# TODO: #253 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get a list of WSUS points.
@@ -18,10 +16,12 @@
 #>
 function Get-CapaWSUSPoints {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK
 	)
 
 	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetWSUSPoints')) {

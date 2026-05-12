@@ -18,13 +18,19 @@
 		Requires CapaInstaller to be installed on the machine.
 #>
 function Expand-KitFile {
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([void])]
 	param (
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$KitFile,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$DestinationFolder
 	)
 
-	$Obj = New-Object -ComObject CapaInstaller.Scripting.Extract
-	$Obj.ExtractZip($KitFile, $DestinationFolder)
+	if ($PSCmdlet.ShouldProcess($KitFile, "Extract kit file to '$DestinationFolder'")) {
+		$Obj = New-Object -ComObject CapaInstaller.Scripting.Extract
+		$Obj.ExtractZip($KitFile, $DestinationFolder)
+	}
 }

@@ -1,5 +1,3 @@
-# TODO: #134 Update and add tests
-
 <#
 	.SYNOPSIS
 		Add a new Enforce Passcode payload or edit an existing one.
@@ -26,19 +24,24 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246520/Add+edit+Enforce+Passcode+Android
 #>
 function Add-CapaEnforcePasscodeAndroid {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	[Alias('Edit-CapaEnforcePasscodeAndroid')]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileId,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Passcode,
-		$ChangelogComment = ''
+		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.AddEditEnforcePasscodeAndroid($ProfileId, $Passcode, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($ProfileId, 'Add or edit Enforce Passcode Android payload')) {
+		$value = $CapaSDK.AddEditEnforcePasscodeAndroid($ProfileId, $Passcode, $ChangelogComment)
+		return $value
+	}
 }

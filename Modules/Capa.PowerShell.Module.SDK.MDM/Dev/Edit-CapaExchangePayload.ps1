@@ -1,5 +1,3 @@
-# TODO: #143 Update and add tests
-
 <#
 	.SYNOPSIS
 		Editing an existing Exchange Payload.
@@ -94,21 +92,25 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246594/Edit+Exchange+Payload
 #>
 function Edit-CapaExchangePayload {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileID,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$CurrentAccountName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$AccountName,
 		[Parameter(Mandatory = $true)]
 		[string]$DomainandUserName,
 		[Parameter(Mandatory = $false)]
-		[securestring]$Password = '',
+		[string]$Password = '',
 		[Parameter(Mandatory = $true)]
 		[string]$EmailAddress,
 		[Parameter(Mandatory = $true)]
@@ -139,6 +141,8 @@ function Edit-CapaExchangePayload {
 		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.EditExchangePayload($ProfileID, $CurrentAccountName, $AccountName, $DomainandUserName, $Password, $EmailAddress, $ExchangeActiveSyncHost, $UseSSL, $PastDaysofMailtoSync, $AllowMove, $UseOnlyinMail, $UseSMIME, $AllowRecentAddressSyncing, $Syncinterval, $SyncEmail, $SyncContacts, $SyncTasks, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($ProfileID, "Edit Exchange payload '$CurrentAccountName'")) {
+		$value = $CapaSDK.EditExchangePayload($ProfileID, $CurrentAccountName, $AccountName, $DomainandUserName, $Password, $EmailAddress, $ExchangeActiveSyncHost, $UseSSL, $PastDaysofMailtoSync, $AllowMove, $UseOnlyinMail, $UseSMIME, $AllowRecentAddressSyncing, $Syncinterval, $SyncEmail, $SyncContacts, $SyncTasks, $ChangelogComment)
+		return $value
+	}
 }

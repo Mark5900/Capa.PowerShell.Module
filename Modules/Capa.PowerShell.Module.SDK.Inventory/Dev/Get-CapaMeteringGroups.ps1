@@ -1,5 +1,3 @@
-# TODO: #128 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get metering groups.
@@ -18,9 +16,11 @@
 #>
 function Get-CapaMeteringGroups {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
@@ -42,5 +42,5 @@ function Get-CapaMeteringGroups {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

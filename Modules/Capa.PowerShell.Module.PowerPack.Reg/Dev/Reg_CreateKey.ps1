@@ -1,4 +1,3 @@
-# TODO: #88 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -20,6 +19,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455819/cs.Reg+CreateKey
 #>
 function Reg_CreateKey {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -30,3 +30,4 @@ function Reg_CreateKey {
 
 	$Global:cs.Reg_CreateKey($RegRoot, $RegPath)
 }
+

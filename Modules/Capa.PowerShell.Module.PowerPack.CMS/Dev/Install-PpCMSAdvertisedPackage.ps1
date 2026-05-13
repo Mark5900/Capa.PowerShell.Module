@@ -1,4 +1,3 @@
-# TODO: #331 Update Get-Help for Install-PpCMSAdvertisedPackage
 <#
 	.SYNOPSIS
 		Installs an advertised package on the unit on which the script is being executed
@@ -30,3 +29,4 @@ function Install-PpCMSAdvertisedPackage {
 	)
 	return CMS_InstallAdvertisedPackage -package $PackageName -version $PackageVersion
 }
+

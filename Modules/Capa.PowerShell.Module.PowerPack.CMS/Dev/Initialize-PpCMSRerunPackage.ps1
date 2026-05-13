@@ -1,4 +1,3 @@
-# TODO: #335 Update Get-Help for Initialize-PpCMSRerunPackage
 <#
 	.SYNOPSIS
 		Sets status for the specified package to 'Waiting' causing it to rerun the next time the Agent is being executed.
@@ -30,3 +29,4 @@ function Initialize-PpCMSRerunPackage {
 	)
 	return CMS_RerunPackage -package $PackageName -version $PackageVersion
 }
+

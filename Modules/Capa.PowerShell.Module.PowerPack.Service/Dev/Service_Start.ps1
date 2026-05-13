@@ -1,5 +1,3 @@
-# TODO: #100 Update and add tests
-
 <#
 	.SYNOPSIS
 		Starts a service.
@@ -23,6 +21,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456006/cs.Service+Start
 #>
 function Service_Start {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true, Position = 0)]
 		[string]$ServiceName,

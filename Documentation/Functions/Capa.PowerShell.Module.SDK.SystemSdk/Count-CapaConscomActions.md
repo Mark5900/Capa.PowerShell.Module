@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.SystemSdk
-ms.date: 05/12/2026
+ms.date: 05/13/2026
 PlatyPS schema version: 2024-05-01
 title: Count-CapaConscomActions
 ---

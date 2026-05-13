@@ -7,7 +7,7 @@ HelpInfoUri:
 Locale: en-US
 Module Guid: 00000000-0000-0000-0000-000000000000
 Module Name: Capa.PowerShell.Module.PowerPack.Job
-ms.date: 05/12/2026
+ms.date: 05/13/2026
 PlatyPS schema version: 2024-05-01
 title: Capa.PowerShell.Module.PowerPack.Job Module
 ---

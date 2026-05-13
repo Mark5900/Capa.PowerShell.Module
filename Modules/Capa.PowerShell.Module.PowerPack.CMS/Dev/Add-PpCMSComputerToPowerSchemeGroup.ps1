@@ -1,4 +1,3 @@
-# TODO: #321 Update Get-Help for Add-PpCMSComputerToPowerSchemeGroup
 <#
 	.SYNOPSIS
 		Adds a specified computer unit to a power scheme group.
@@ -28,3 +27,4 @@ function Add-PpCMSComputerToPowerSchemeGroup {
 	)
 	return CMS_AddComputerToPowerSchemeGroup -group $Group
 }
+

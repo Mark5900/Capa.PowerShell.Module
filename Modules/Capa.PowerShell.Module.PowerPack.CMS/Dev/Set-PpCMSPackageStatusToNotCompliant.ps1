@@ -1,4 +1,3 @@
-# TODO: #347 Update Get-Help for Set-PpCMSPackageStatusToNotCompliant
 <#
 	.SYNOPSIS
 		Set the status of a package to Not Compliant.
@@ -30,3 +29,4 @@ function Set-PpCMSPackageStatusToNotCompliant {
 	)
 	return CMS_SetPackageStatusToNotCompliant -package $PackageName -version $PackageVersion
 }
+

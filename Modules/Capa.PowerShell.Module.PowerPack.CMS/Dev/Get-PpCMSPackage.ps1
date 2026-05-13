@@ -1,4 +1,3 @@
-# TODO: #353 Update Get-Help for Get-PpCMSPackage
 <#
 	.SYNOPSIS
 		Returns the specified package.
@@ -82,3 +81,4 @@ function Get-PpCMSPackage {
 	)
 	return CMS_GetPackage -package $PackageName -version $PackageVersion
 }
+

@@ -1,4 +1,3 @@
-# TODO: #333 Update Get-Help for Remove-PpCMSPackageFromUnit
 <#
 	.SYNOPSIS
 		Removes the specified package from the unit on which the script is being executed
@@ -30,3 +29,4 @@ function Remove-PpCMSPackageFromUnit {
 	)
 	return CMS_RemovePackageFromUnit -package $PackageName -version $PackageVersion
 }
+

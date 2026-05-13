@@ -1,6 +1,4 @@
 
-# TODO: #112 Update and add tests
-
 <#
 	.SYNOPSIS
 		Create a group.
@@ -24,43 +22,46 @@
 		The name of the business unit to create the group in, if not specified the group will be created in global scope.
 
 	.EXAMPLE
-		PS C:\> Create-CapaGroup -CapaSDK $CapaSDk -GroupName  'Jylland' -GroupType  Static -UnitType Computer
+		PS C:\> Create-CapaGroup -CapaSDK $CapaSDk -GroupName 'Jylland' -GroupType Static -UnitType Computer
 
 	.EXAMPLE
-		PS C:\> Create-CapaGroup -CapaSDK $CapaSDk -GroupName  'Jylland' -GroupType  Static -UnitType Computer -BusinessUnit 'Denmark'
+		PS C:\> Create-CapaGroup -CapaSDK $CapaSDk -GroupName 'Jylland' -GroupType Static -UnitType Computer -BusinessUnit 'Denmark'
 
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580877/Create+group
 		And https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580894/Create+group+in+Business+Unit
 #>
 function Create-CapaGroup {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Calendar', 'Department', 'Static')]
 		[string]$GroupType,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[String]$UnitType,
+		[string]$UnitType,
 		[string]$BusinessUnit = ''
 	)
 
-	if ($BusinessUnit -eq '') {
-		$value = $CapaSDK.CreateGroup($GroupName, $GroupType, $UnitType)
-	} else {
-		$value = $CapaSDK.CreateGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
-	}
+	if ($PSCmdlet.ShouldProcess($GroupName, "Create group of type '$GroupType'")) {
+		if ($BusinessUnit -eq '') {
+			$value = $CapaSDK.CreateGroup($GroupName, $GroupType, $UnitType)
+		} else {
+			$value = $CapaSDK.CreateGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
+		}
 
-	return $value
+		return $value
+	}
 }
 
-
-# TODO: #113 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -80,9 +81,11 @@ function Create-CapaGroup {
 #>
 function Get-CapaApplicationGroups {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
@@ -103,11 +106,9 @@ function Get-CapaApplicationGroups {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #114 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -133,23 +134,24 @@ function Get-CapaApplicationGroups {
 #>
 function Get-CapaGroupDescription {
 	[CmdletBinding()]
+	[OutputType([string])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[String]$GroupName,
+		[ValidateNotNullOrEmpty()]
+		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
-		[String]$GroupType
+		[string]$GroupType
 	)
 
 	$value = $CapaSDK.GetGroupDescription($GroupName, $GroupType)
 	return $value
 }
 
-
-# TODO: #115 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -176,23 +178,24 @@ function Get-CapaGroupDescription {
 #>
 function Get-CapaGroupFolder {
 	[CmdletBinding()]
+	[OutputType([string])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[String]$GroupName,
+		[ValidateNotNullOrEmpty()]
+		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Department', 'Dynamic_SQL', 'Static')]
-		[String]$GroupType
+		[string]$GroupType
 	)
 
 	$value = $CapaSDK.GetGroupFolder($GroupName, $GroupType)
 	return $value
 }
 
-
-# TODO: #116 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -217,11 +220,15 @@ function Get-CapaGroupFolder {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342582280/Get+group+packages
 #>
 function Get-CapaGroupPackages {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
@@ -252,11 +259,9 @@ function Get-CapaGroupPackages {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #117 Update and add tests
 
 <#
 .SYNOPSIS
@@ -282,15 +287,18 @@ For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/
 #>
 function Get-CapaGroupPrinters {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[String]$GroupName,
+		[ValidateNotNullOrEmpty()]
+		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Static')]
-		[String]$GroupType
+		[string]$GroupType
 	)
 
 	$oaUnits = @()
@@ -311,11 +319,9 @@ function Get-CapaGroupPrinters {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #119 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -345,9 +351,12 @@ function Get-CapaGroupPrinters {
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246290/Get+groups+on+Business+Unit
 #>
 function Get-CapaGroups {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
@@ -387,11 +396,9 @@ function Get-CapaGroups {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #118 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -416,11 +423,15 @@ function Get-CapaGroups {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247446/Get+group+units
 #>
 function Get-CapaGroupUnits {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
@@ -444,11 +455,9 @@ function Get-CapaGroupUnits {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #120 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -483,11 +492,15 @@ function Get-CapaGroupUnits {
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246248/Delete+Group+in+Business+Unit
 #>
 function Remove-CapaGroup {
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
@@ -495,20 +508,20 @@ function Remove-CapaGroup {
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$UnitType,
-		[String]$BusinessUnit = ''
+		[string]$BusinessUnit = ''
 	)
 
-	if ($BusinessUnit -eq '') {
-		$value = $CapaSDK.DeleteGroup($GroupName, $GroupType, $UnitType)
-	} else {
-		$value = $CapaSDK.DeleteGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
-	}
+	if ($PSCmdlet.ShouldProcess($GroupName, "Remove group of type '$GroupType'")) {
+		if ($BusinessUnit -eq '') {
+			$value = $CapaSDK.DeleteGroup($GroupName, $GroupType, $UnitType)
+		} else {
+			$value = $CapaSDK.DeleteGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
+		}
 
-	Return $value
+		return $value
+	}
 }
 
-
-# TODO: #121 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -536,26 +549,29 @@ function Remove-CapaGroup {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246310/Set+Group+Description
 #>
 function Set-CapaGroupDescription {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[String]$GroupName,
+		[ValidateNotNullOrEmpty()]
+		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
-		[String]$GroupType,
+		[string]$GroupType,
 		[Parameter(Mandatory = $false)]
-		[String]$Description = ''
+		[string]$Description = ''
 	)
 
-	$value = $CapaSDK.SetGroupDescription($GroupName, $GroupType, $Description)
-	return $value
+	if ($PSCmdlet.ShouldProcess($GroupName, "Set group description")) {
+		$value = $CapaSDK.SetGroupDescription($GroupName, $GroupType, $Description)
+		return $value
+	}
 }
 
-
-# TODO: #122 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -587,28 +603,34 @@ function Set-CapaGroupDescription {
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246326/Set+Group+folder+in+a+Business+Unit
 #>
 function Set-CapaGroupFolder {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		$GroupName,
+		[ValidateNotNullOrEmpty()]
+		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Department', 'Dynamic_SQL', 'Static')]
-		$GroupType,
+		[string]$GroupType,
 		[Parameter(Mandatory = $true)]
-		$FolderStructure,
+		[ValidateNotNullOrEmpty()]
+		[string]$FolderStructure,
 		[string]$BusinessunitName = ''
 	)
 
-	if ($BusinessunitName -eq '') {
-		$value = $CapaSDK.SetGroupFolder($GroupName, $GroupType, $FolderStructure)
-	} else {
-		$value = $CapaSDK.SetGroupFolderBU($GroupName, $GroupType, $FolderStructure, $BusinessunitName)
-	}
+	if ($PSCmdlet.ShouldProcess($GroupName, "Set group folder to '$FolderStructure'")) {
+		if ($BusinessunitName -eq '') {
+			$value = $CapaSDK.SetGroupFolder($GroupName, $GroupType, $FolderStructure)
+		} else {
+			$value = $CapaSDK.SetGroupFolderBU($GroupName, $GroupType, $FolderStructure, $BusinessunitName)
+		}
 
-	return $value
+		return $value
+	}
 }
 
 

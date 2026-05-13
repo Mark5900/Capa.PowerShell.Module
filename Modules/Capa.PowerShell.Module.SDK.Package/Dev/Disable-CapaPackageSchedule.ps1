@@ -1,5 +1,3 @@
-# TODO: #162 Update and add tests
-
 <#
 	.SYNOPSIS
 		Disable a packages schedule.
@@ -26,19 +24,26 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246858/Disable+Package+Schedule
 #>
 function Disable-CapaPackageSchedule {
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType
 	)
 
-	$bool = $CapaSDK.DisablePackageSchedule($PackageName, $PackageVersion, $PackageType)
-	Return $bool
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Disable package schedule')) {
+		$bool = $CapaSDK.DisablePackageSchedule($PackageName, $PackageVersion, $PackageType)
+		return $bool
+	}
 }

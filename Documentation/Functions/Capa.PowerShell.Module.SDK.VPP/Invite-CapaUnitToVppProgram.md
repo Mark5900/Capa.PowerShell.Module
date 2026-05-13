@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.VPP
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Invite-CapaUnitToVppProgram
 ---
@@ -22,8 +22,9 @@ Creates a VPP user at Apple where an invitation URL is generated. This invitatio
 ### __AllParameterSets
 
 ```
-Invite-CapaUnitToVppProgram [-CapaSDK] <Object> [-VppProgramID] <int> [-UnitID] <int>
- [-UserFullName] <string> [-UserEmailName] <string> [-UserDescription] <string> [<CommonParameters>]
+Invite-CapaUnitToVppProgram [-CapaSDK] <psobject> [-VppProgramID] <int> [-UnitID] <int>
+ [-UserFullName] <string> [-UserEmailName] <string> [-UserDescription] <string> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -56,7 +57,7 @@ Invite-CapaUnitToVppProgram -CapaSDK $CapaSDK -VppProgramID 1 -UnitID 1 -UserFul
 The CapaSDK object.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -64,6 +65,28 @@ ParameterSets:
 - Name: (All)
   Position: 0
   IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -177,6 +200,28 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### CommonParameters
 
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
@@ -187,6 +232,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
+
+### System.Boolean
+
+{{ Fill in the Description }}
 
 ## NOTES
 

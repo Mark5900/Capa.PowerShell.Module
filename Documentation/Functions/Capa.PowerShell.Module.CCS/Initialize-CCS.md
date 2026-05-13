@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.CCS
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Initialize-CCS
 ---
@@ -15,7 +15,7 @@ title: Initialize-CCS
 
 ## SYNOPSIS
 
-This function initializes the CCS Webservice client.
+Initializes the CCS Web Service client for secure communication.
 
 ## SYNTAX
 
@@ -32,8 +32,8 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-This function initializes the CCS Webservice client by loading the necessary DLL and setting up the binding and endpoint.
-It also sets the client credentials for authentication.
+Initializes the CCS Web Service client by loading the necessary DLL, setting up the binding and endpoint, and configuring client credentials for authentication.
+This advanced function includes comprehensive error handling, input validation, and verbose/debug output.
 
 ## EXAMPLES
 
@@ -41,23 +41,35 @@ It also sets the client credentials for authentication.
 
 Initialize-CCS -Url "https://example.com/CCSWebservice/CCS.asmx" -WebServiceCredential $Credential
 
+Initializes the CCS client with the specified URL and credentials.
+
+### EXAMPLE 2
+
+$client = Initialize-CCS -Url $url -Credential $cred -Verbose
+
+Initializes the CCS client with verbose output, using the Credential alias.
+
 ## PARAMETERS
 
 ### -Url
 
-The URL of the CCS Webservice.
+The URL of the CCS Web Service.
+Must be a valid HTTPS URI format.
+Example: "https://example.com/CCSWebservice/CCS.asmx"
 
 ```yaml
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- Uri
+- WebServiceUrl
 ParameterSets:
 - Name: (All)
   Position: 0
   IsRequired: true
   ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
+  ValueFromPipelineByPropertyName: true
   ValueFromRemainingArguments: false
 DontShow: false
 AcceptedValues: []
@@ -66,19 +78,21 @@ HelpMessage: ''
 
 ### -WebServiceCredential
 
-The credentials used to authenticate with the CCS Webservice.
+The credentials used to authenticate with the CCS Web Service.
 
 ```yaml
 Type: System.Management.Automation.PSCredential
 DefaultValue: ''
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- Credential
+- Cred
 ParameterSets:
 - Name: (All)
   Position: 1
   IsRequired: true
   ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
+  ValueFromPipelineByPropertyName: true
   ValueFromRemainingArguments: false
 DontShow: false
 AcceptedValues: []
@@ -94,9 +108,25 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### System.String
+
+{{ Fill in the Description }}
+
+### System.Management.Automation.PSCredential
+
+{{ Fill in the Description }}
+
 ## OUTPUTS
 
+### CapaProxy.CCSSoapClient
+Returns the initialized CCS SOAP client object.
+
+{{ Fill in the Description }}
+
 ## NOTES
+
+This is an advanced function with comprehensive error handling, parameter validation, and verbose output.
+
 
 ## RELATED LINKS
 

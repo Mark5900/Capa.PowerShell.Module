@@ -1,5 +1,3 @@
-# TODO: #142 Update and add tests
-
 <#
 	.SYNOPSIS
 		Create a new profile in the Default Management Point.
@@ -36,14 +34,18 @@
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246582/Create+Profile+in+Business+Unit
 #>
 function Create-CapaProfile {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Name,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Description,
 		[Parameter(Mandatory = $true)]
 		[int]$Priority,
@@ -51,11 +53,13 @@ function Create-CapaProfile {
 		[string]$BusinessUnitId = ''
 	)
 
-	if ($BusinessUnitId -eq '') {
-		$value = $CapaSDK.CreateProfile($Name, $Description, $Priority, $ChangelogComment)
-	} else {
-		$value = $CapaSDK.CreateProfileInBusinessUnit($Name, $Description, $Priority, $ChangelogComment, $BusinessUnitId)
-	}
+	if ($PSCmdlet.ShouldProcess($Name, 'Create profile')) {
+		if ($BusinessUnitId -eq '') {
+			$value = $CapaSDK.CreateProfile($Name, $Description, $Priority, $ChangelogComment)
+		} else {
+			$value = $CapaSDK.CreateProfileInBusinessUnit($Name, $Description, $Priority, $ChangelogComment, $BusinessUnitId)
+		}
 
-	return $value
+		return $value
+	}
 }

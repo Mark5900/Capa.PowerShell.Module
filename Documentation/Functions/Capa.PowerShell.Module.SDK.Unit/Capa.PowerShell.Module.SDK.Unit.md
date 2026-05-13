@@ -2,12 +2,12 @@
 author_profile: true
 layout: single
 document type: module
-Help Version: 1.15.1
+Help Version: 1.16.0
 HelpInfoUri: 
 Locale: en-US
 Module Guid: 00000000-0000-0000-0000-000000000000
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Capa.PowerShell.Module.SDK.Unit Module
 ---
@@ -22,157 +22,155 @@ title: Capa.PowerShell.Module.SDK.Unit Module
 
 ### [Add-CapaPrinterToUnit](Add-CapaPrinterToUnit.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247286/Add+printer+to+unit
+Adds a printer to a unit.
 
 ### [Add-CapaUnitToBusinessUnit](Add-CapaUnitToBusinessUnit.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247294/Add+unit+to+business+unit
+Adds a unit to a business unit.
 
 ### [Add-CapaUnitToCalendarGroup](Add-CapaUnitToCalendarGroup.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247302/Add+unit+to+calendar+group
+Adds a unit to a calendar group.
 
 ### [Add-CapaUnitToFolder](Add-CapaUnitToFolder.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247310/Add+unit+to+folder
+Adds a unit to a folder.
 
 ### [Add-CapaUnitToGroup](Add-CapaUnitToGroup.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247318/Add+unit+to+group
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247332/Add+unit+to+group+BU
+Adds a unit to a group.
 
 ### [Add-CapaUnitToPackage](Add-CapaUnitToPackage.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247340/Add+unit+to+package
+Adds a unit to a package.
 
 ### [Add-CapaUnitToReinstall](Add-CapaUnitToReinstall.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247348/Add+unit+to+reinstall
+Adds a unit to reinstall.
 
 ### [Create-CapaUnit](Create-CapaUnit.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247364/Create+unit
+Creates a unit.
 
 ### [Delete-CapaUnit](Delete-CapaUnit.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247372/Delete+unit
+Deletes a unit.
 
 ### [Exist-CapaUnit](Exist-CapaUnit.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247388/Exist+unit
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247418/Exist+uuid
+Checks whether a unit exists by name/type or UUID.
 
 ### [Exist-CapaUnitLocation](Exist-CapaUnitLocation.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247402/Exist+unit+location
+Checks whether a unit exists on a specific location.
 
 ### [Exist-CapaUnitOnManagementPoint](Exist-CapaUnitOnManagementPoint.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247410/Exist+Unit+On+Management+Point
+Checks whether a unit exists on a management point.
 
 ### [Get-CapaUnitDescription](Get-CapaUnitDescription.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247474/Get+unit+description
+Gets description for a unit.
 
 ### [Get-CapaUnitFolder](Get-CapaUnitFolder.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247632/GetUnitFolder
+Gets folder path for a unit.
 
 ### [Get-CapaUnitGroups](Get-CapaUnitGroups.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247482/Get+unit+groups
+Gets groups linked to a unit.
 
 ### [Get-CapaUnitLastRuntime](Get-CapaUnitLastRuntime.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247492/Get+unit+last+runtime
+Gets last runtime for a unit.
 
 ### [Get-CapaUnitLinkedUnits](Get-CapaUnitLinkedUnits.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247500/Get+unit+linked+units
+Gets units linked to a unit.
 
 ### [Get-CapaUnitLinkedUser](Get-CapaUnitLinkedUser.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247510/Get+unit+linked+user
+Gets linked user entries for a computer unit.
 
 ### [Get-CapaUnitManagementPoint](Get-CapaUnitManagementPoint.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247520/Get+Unit+Management+Point
+Gets management point for a unit.
 
 ### [Get-CapaUnitManagementServerRelation](Get-CapaUnitManagementServerRelation.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247528/Get+unit+management+server+relation
+Gets management server relation for a unit.
 
 ### [Get-CapaUnitPackages](Get-CapaUnitPackages.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247544/Get+unit+packages
+Gets packages linked to a unit.
 
 ### [Get-CapaUnitPackageStatus](Get-CapaUnitPackageStatus.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247536/Get+unit+package+status
+Gets package status for a unit.
 
 ### [Get-CapaUnitRelations](Get-CapaUnitRelations.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247554/Get+Unit+Relations
+Gets relations for a unit.
 
 ### [Get-CapaUnits](Get-CapaUnits.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247572/Get+units
+Gets units from CapaInstaller.
 
 ### [Get-CapaUnitsInFolder](Get-CapaUnitsInFolder.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247582/Get+Units+in+Folder
+Gets units located in a specific folder.
 
 ### [Get-CapaUnitWSUSGroup](Get-CapaUnitWSUSGroup.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247564/Get+unit+WSUS+Group
+Gets WSUS group relation data for a unit.
 
 ### [Remove-CapaUnitByUUID](Remove-CapaUnitByUUID.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246240/Delete+group
+Remove a unit by UUID.
 
 ### [Remove-CapaUnitFromBusinessUnit](Remove-CapaUnitFromBusinessUnit.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247648/Remove+unit+from+business+unit
+Remove a unit from a business unit.
 
 ### [Remove-CapaUnitFromCalendarGroup](Remove-CapaUnitFromCalendarGroup.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247656/Remove+unit+from+calendar+group
+Remove a unit from a calendar group.
 
 ### [Remove-CapaUnitFromGroup](Remove-CapaUnitFromGroup.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247664/Remove+unit+from+group
+Remove a unit from a group.
 
 ### [Remove-CapaUnitFromPackage](Remove-CapaUnitFromPackage.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247672/Remove+unit+from+package
+Remove a unit from a package.
 
 ### [Remove-CapaUnitFromReinstall](Remove-CapaUnitFromReinstall.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247680/Remove+unit+from+reinstall
+Remove a unit from reinstall.
 
 ### [Rename-CapaUnit](Rename-CapaUnit.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247688/Rename+unit
+Rename an existing unit.
 
 ### [Send-CapaUnitCommand](Send-CapaUnitCommand.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247704/Send+Unit+Command
+Send a command to a unit.
 
 ### [Set-CapaUnitDescription](Set-CapaUnitDescription.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247724/Set+unit+description
+Set the description on a unit.
 
 ### [Set-CapaUnitLabel](Set-CapaUnitLabel.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247732/Set+unit+label
+Set the label on a unit.
 
 ### [Set-CapaUnitName](Set-CapaUnitName.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247740/Set+unit+name
+Set the name of a unit.
 
 ### [Set-CapaUnitPackageStatus](Set-CapaUnitPackageStatus.md)
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247748/Set+unit+package+status
+Set package status for a unit.
 
 ### [Set-CapaUnitStatus](Set-CapaUnitStatus.md)
 

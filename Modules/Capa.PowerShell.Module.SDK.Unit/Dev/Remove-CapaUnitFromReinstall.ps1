@@ -1,34 +1,40 @@
-# TODO: #229 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247680/Remove+unit+from+reinstall
+		Remove a unit from reinstall.
 
 	.DESCRIPTION
-		A detailed description of the Remove-CapaUnitFromReinstall function.
+		Remove an existing computer from reinstall in CapaInstaller.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 
 	.PARAMETER ComputerName
-		A description of the ComputerName parameter.
+		The name of the computer.
 
 	.EXAMPLE
-				PS C:\> Remove-CapaUnitFromReinstall -CapaSDK $value1 -ComputerName 'Value2'
+		PS C:\> Remove-CapaUnitFromReinstall -CapaSDK $CapaSDK -ComputerName 'PC001'
 
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247680/Remove+unit+from+reinstall
 #>
 function Remove-CapaUnitFromReinstall {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$ComputerName
 	)
 
-	$value = $CapaSDK.RemoveUnitFromReinstall($ComputerName)
-	return $value
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'RemoveUnitFromReinstall')) {
+		throw 'CapaSDK does not contain method RemoveUnitFromReinstall.'
+	}
+
+	if ($PSCmdlet.ShouldProcess($ComputerName, 'Remove unit from reinstall')) {
+		$value = $CapaSDK.RemoveUnitFromReinstall($ComputerName)
+		return $value
+	}
 }

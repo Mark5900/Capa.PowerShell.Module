@@ -1,5 +1,3 @@
-# TODO: #148 Update and add tests
-
 <#
 	.SYNOPSIS
 		This function will remove a profile from a device.
@@ -35,32 +33,40 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246487/Remove+profile+from+device
 #>
 function Remove-CapaProfileFromDevice {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
-		[String]$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(ParameterSetName = 'Uuid',
 			Mandatory = $true)]
-		[String]$UUID,
+		[ValidateNotNullOrEmpty()]
+		[string]$UUID,
 		[Parameter(Mandatory = $true)]
-		[String]$ProfileName,
-		[Parameter(Mandatory = $true)]
-		[String]$ChangelogComment
+		[ValidateNotNullOrEmpty()]
+		[string]$ProfileName,
+		[Parameter(Mandatory = $false)]
+		[string]$ChangelogComment = ''
 	)
 
-	switch ($PsCmdlet.ParameterSetName) {
-		'NameType' {
-			$value = $CapaSDK.RemoveUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
-			break
+	$Target = if ($PsCmdlet.ParameterSetName -eq 'Uuid') { $UUID } else { $UnitName }
+	if ($PSCmdlet.ShouldProcess($Target, "Remove profile '$ProfileName' from device")) {
+		switch ($PsCmdlet.ParameterSetName) {
+			'NameType' {
+				$value = $CapaSDK.RemoveUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
+				break
+			}
+			'Uuid' {
+				$value = $CapaSDK.RemoveUnitFromProfile($UUID, $ProfileName, $ChangelogComment)
+				break
+			}
 		}
-		'Uuid' {
-			$value = $CapaSDK.RemoveUnitFromProfile($UUID, $ProfileName, $ChangelogComment)
-			break
-		}
+		return $value
 	}
-	return $value
 }

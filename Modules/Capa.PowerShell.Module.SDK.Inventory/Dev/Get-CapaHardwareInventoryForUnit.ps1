@@ -1,5 +1,3 @@
-# TODO: #126 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get the hardware inventory for a unit.
@@ -26,27 +24,26 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246368/Get+hardware+inventory+for+unit
 #>
 function Get-CapaHardwareInventoryForUnit {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User', '1', '2')]
+		[ValidateSet('Computer', 'User')]
 		[string]$UnitType
 	)
 
-	if ($UnitType -eq 'Computer') {
-		$UnitType = '1'
-	}
-	if ($UnitType -eq 'User') {
-		$UnitType = '2'
-	}
+	$UnitTypeId = if ($UnitType -eq 'Computer') { '1' } else { '2' }
 
 	$oaUnits = @()
 
-	$aUnits = $CapaSDK.GetHardwareInventoryForUnit($UnitName, $UnitType)
+	$aUnits = $CapaSDK.GetHardwareInventoryForUnit($UnitName, $UnitTypeId)
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
@@ -61,5 +58,5 @@ function Get-CapaHardwareInventoryForUnit {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

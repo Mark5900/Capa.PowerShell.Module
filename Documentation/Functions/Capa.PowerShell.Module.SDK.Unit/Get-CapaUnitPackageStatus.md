@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaUnitPackageStatus
 ---
@@ -15,7 +15,7 @@ title: Get-CapaUnitPackageStatus
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247536/Get+unit+package+status
+Gets package status for a unit.
 
 ## SYNTAX
 
@@ -33,19 +33,22 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Get-CapaUnitPackageStatus function.
+Gets the status of a package on a unit by calling the CapaSDK method
+GetUnitPackageStatus.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Get-CapaUnitPackageStatus -CapaSDK 'Value1' -UnitName  'Value2' -UnitType  'Value3' -PackageName  'Value4' -PackageVersion  'Value5' -PackageType  'Value6'
+Get-CapaUnitPackageStatus -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -PackageName 'MyPkg' -PackageVersion 'v1.0'
+
+Returns package status for MyPkg v1.0 on PC-01.
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
 Type: System.Management.Automation.PSObject
@@ -66,7 +69,7 @@ HelpMessage: ''
 
 ### -PackageName
 
-A description of the PackageName  parameter.
+Name of the package.
 
 ```yaml
 Type: System.String
@@ -87,7 +90,7 @@ HelpMessage: ''
 
 ### -PackageVersion
 
-A description of the PackageVersion  parameter.
+Version of the package.
 
 ```yaml
 Type: System.String
@@ -108,7 +111,7 @@ HelpMessage: ''
 
 ### -UnitName
 
-A description of the UnitName  parameter.
+Name of the unit to query package status for.
 
 ```yaml
 Type: System.String
@@ -129,7 +132,8 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType  parameter.
+Type of unit.
+Valid values are Computer and User.
 
 ```yaml
 Type: System.String
@@ -159,9 +163,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Object
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247536/Get+unit+package+status
 
 
 ## RELATED LINKS

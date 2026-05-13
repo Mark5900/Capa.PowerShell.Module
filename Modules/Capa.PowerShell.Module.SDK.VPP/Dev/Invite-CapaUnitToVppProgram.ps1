@@ -1,5 +1,3 @@
-# TODO: #250 Update and add tests
-
 <#
 	.SYNOPSIS
 		Creates a VPP user at Apple where an invitation URL is generated. This invitation is then sent to the device where the user will have the option to accept or decline.
@@ -38,22 +36,40 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247828/Invite+unit+to+vpp
 #>
 function Invite-CapaUnitToVppProgram {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$VppProgramID,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$UnitID,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UserFullName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UserEmailName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UserDescription
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'InviteUnitToVppProgram')) {
+		throw 'CapaSDK does not contain method InviteUnitToVppProgram.'
+	}
+
+	$target = "UnitID '$UnitID'"
+	$action = "Invite unit to VPP program '$VppProgramID'"
+
+	if (-not $PSCmdlet.ShouldProcess($target, $action)) {
+		return $false
+	}
 
 	$value = $CapaSDK.InviteUnitToVppProgram($VppProgramID, $UnitID, $UserFullName, $UserEmailName, $UserDescription)
 	return $value

@@ -63,6 +63,8 @@
         This is a custom function that is not part of the CapaSDK
 #>
 function Update-CapaPackageScriptAndKit {
+	[CmdletBinding()]
+	[OutputType([bool])]
 	param (
 		[Parameter(Mandatory = $true)]
 		[String]$PackageName,

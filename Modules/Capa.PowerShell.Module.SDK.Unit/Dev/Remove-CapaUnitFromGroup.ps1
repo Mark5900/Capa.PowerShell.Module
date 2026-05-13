@@ -1,51 +1,60 @@
-# TODO: #227 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247664/Remove+unit+from+group
+		Remove a unit from a group.
 
 	.DESCRIPTION
-		A detailed description of the Remove-CapaUnitFromGroup function.
+		Remove an existing unit from a group in CapaInstaller.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		The unit name.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The unit type.
 
 	.PARAMETER GroupName
-		A description of the GroupName parameter.
+		The group name.
 
 	.PARAMETER GroupType
-		A description of the GroupType parameter.
+		The group type.
 
 	.EXAMPLE
-		PS C:\> Remove-CapaUnitFromGroup -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer -GroupName 'Value4' -GroupType ""
+		PS C:\> Remove-CapaUnitFromGroup -CapaSDK $CapaSDK -UnitName 'PC001' -UnitType Computer -GroupName 'Test Group' -GroupType Static
 
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247664/Remove+unit+from+group
 #>
 function Remove-CapaUnitFromGroup {
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
 		[string]$GroupType
 	)
 
-	$bool = $CapaSDK.RemoveUnitFromGroup($UnitName, $UnitType, $GroupName, $GroupType)
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'RemoveUnitFromGroup')) {
+		throw 'CapaSDK does not contain method RemoveUnitFromGroup.'
+	}
 
-	Return $bool
+	$target = "$UnitType unit '$UnitName'"
+	$action = "Remove from group '$GroupName' ($GroupType)"
+	if ($PSCmdlet.ShouldProcess($target, $action)) {
+		$bool = $CapaSDK.RemoveUnitFromGroup($UnitName, $UnitType, $GroupName, $GroupType)
+		return $bool
+	}
 }

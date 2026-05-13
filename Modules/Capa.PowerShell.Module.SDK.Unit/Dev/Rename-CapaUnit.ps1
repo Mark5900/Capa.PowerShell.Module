@@ -1,45 +1,57 @@
-# TODO: #230 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247688/Rename+unit
+		Rename an existing unit.
 
 	.DESCRIPTION
-		A detailed description of the Rename-CapaUnit function.
+		Rename an existing unit in CapaInstaller.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 
 	.PARAMETER CurrentUnitName
-		A description of the CurrentUnitName  parameter.
+		The current unit name.
 
 	.PARAMETER UnitType
-		A description of the UnitType  parameter.
+		The unit type.
 
 	.PARAMETER NewUnitName
-		A description of the NewUnitName  parameter.
+		The new unit name.
 
 	.EXAMPLE
-		PS C:\> Rename-CapaUnit -CapaSDK $value1 -CurrentUnitName  $value2 -UnitType  $value3 -NewUnitName  $value4
+		PS C:\> Rename-CapaUnit -CapaSDK $CapaSDK -CurrentUnitName 'PC001' -UnitType Computer -NewUnitName 'PC001-RENAMED'
 
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247688/Rename+unit
 #>
 function Rename-CapaUnit {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
+		[String]
 		$CurrentUnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
+		[String]
 		$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
+		[String]
 		$NewUnitName
 	)
 
-	$value = $CapaSDK.RenameUnit($CurrentUnitName, $UnitType, $NewUnitName)
-	return $value
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'RenameUnit')) {
+		throw 'CapaSDK does not contain method RenameUnit.'
+	}
+
+	$target = "$UnitType unit '$CurrentUnitName'"
+	$action = "Rename to '$NewUnitName'"
+	if ($PSCmdlet.ShouldProcess($target, $action)) {
+		$value = $CapaSDK.RenameUnit($CurrentUnitName, $UnitType, $NewUnitName)
+		return $value
+	}
 }

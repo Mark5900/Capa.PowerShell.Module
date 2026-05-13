@@ -1,5 +1,3 @@
-# TODO: #166 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets all inventory packages.
@@ -21,9 +19,11 @@
 #>
 function Get-CapaAllInventoryPackages {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[string]$PackageType = ''
 	)
@@ -53,5 +53,5 @@ function Get-CapaAllInventoryPackages {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

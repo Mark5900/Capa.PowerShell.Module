@@ -1,5 +1,3 @@
-# TODO: #118 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get units linked to a group.
@@ -23,11 +21,15 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247446/Get+group+units
 #>
 function Get-CapaGroupUnits {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Calendar', 'Department', 'Dynamic_SQL', 'Reinstall', 'Security', 'Static')]
@@ -51,5 +53,5 @@ function Get-CapaGroupUnits {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

@@ -3,16 +3,21 @@ BeforeAll {
 	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
 	$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 
-	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Package\Dev\Remove-CapaPackage.ps1"
-	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Package\Dev\Exist-CapaPackage.ps1"
-	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Package\Dev\New-CapaPowerPack.ps1"
-	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Package\Dev\Export-CapaPackage.ps1"
-	Import-Module "$RootPath\Capa.PowerShell.Module.SDK.Authentication\Dev\Initialize-CapaSDK.ps1"
+    $Folders = @(
+        'Capa.PowerShell.Module.SDK.Authentication',
+        'Capa.PowerShell.Module.SDK.Package'
+    )
+    foreach ($Folder in $Folders) {
+        $Items = Get-ChildItem -Path "$RootPath\$Folder\Dev\" -Filter '*.ps1' | Where-Object { $_.Name -notlike '*Tests.ps1' }
+        foreach ($Item in $Items) {
+            Import-Module $Item.FullName -Force -ErrorAction Stop
+        }
+    }
 
-	$CapaSDK = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1
+    $oCMSDev = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1
 
 	$PackageSplatting = @{
-		CapaSDK           = $CapaSDK
+		CapaSDK           = $oCMSDev
 		PackageName       = 'Test1'
 		PackageVersion    = 'v1.0'
 		DisplayName       = 'Test1 v1.0'
@@ -20,7 +25,7 @@ BeforeAll {
 		Database          = 'CapaInstaller'
 	}
 	$PackageExportSplatting = @{
-		CapaSDK        = $CapaSDK
+		CapaSDK        = $oCMSDev
 		PackageType    = 'Computer'
 		PackageName    = 'Test1'
 		PackageVersion = 'v1.0'
@@ -28,7 +33,7 @@ BeforeAll {
 	}
 
 	$PackageRemoveSplatting = @{
-		CapaSDK        = $CapaSDK
+		CapaSDK        = $oCMSDev
 		PackageName    = 'Test1'
 		PackageVersion = 'v1.0'
 		PackageType    = 'Computer'
@@ -48,7 +53,7 @@ BeforeAll {
 Describe 'Test Import-CapaPackage' {
 	BeforeAll {
 		$PackageImportSplatting = @{
-			CapaSDK               = $CapaSDK
+			CapaSDK               = $oCMSDev
 			FilePath              = 'C:\Temp\Test1_v1.0.zip'
 			OverrideCIPCdata      = $true
 			ImportFolderStructure = $true

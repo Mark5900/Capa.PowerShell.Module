@@ -1,5 +1,3 @@
-# TODO: #150 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets a list of OS Disk Configurations.
@@ -21,11 +19,14 @@
 #>
 function Get-CapaOSDiskConfigration {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$OSPointID
 	)
 
@@ -46,5 +47,5 @@ function Get-CapaOSDiskConfigration {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

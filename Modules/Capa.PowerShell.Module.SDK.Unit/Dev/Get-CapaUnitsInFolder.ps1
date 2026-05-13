@@ -1,52 +1,71 @@
-# TODO: #223 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247582/Get+Units+in+Folder
+		Gets units located in a specific folder.
 
 	.DESCRIPTION
-		A detailed description of the Get-CapaUnitsInFolder function.
+		Gets units in the specified folder for a given business unit and unit type
+		by calling the CapaSDK method GetUnitsInFolder.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER FolderStructure
-		A description of the FolderStructure  parameter.
+		Folder path to query within the selected business unit.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of units to return. Valid values are Computer and User.
 
 	.PARAMETER BusinessUnitName
-		A description of the BusinessUnitName  parameter.
+		Name of the business unit to query in.
 
 	.EXAMPLE
-				PS C:\> Get-CapaUnitsInFolder -CapaSDK $value1 -FolderStructure  $value2 -UnitType Computer -BusinessUnitName  $value4
+		PS C:\> Get-CapaUnitsInFolder -CapaSDK $CapaSDK -FolderStructure 'Devices\\Laptops' -UnitType Computer -BusinessUnitName 'Default'
+
+		Returns computer units in folder Devices\Laptops under business unit Default.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247582/Get+Units+in+Folder
 #>
 function Get-CapaUnitsInFolder {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		$FolderStructure,
+		[ValidateNotNullOrEmpty()]
+		[string]$FolderStructure,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		$UnitType,
+		[string]$UnitType,
 		[Parameter(Mandatory = $true)]
-		$BusinessUnitName
+		[ValidateNotNullOrEmpty()]
+		[string]$BusinessUnitName
 	)
 
-	$oaUnits = @()
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetUnitsInFolder')) {
+		throw 'CapaSDK does not contain method GetUnitsInFolder.'
+	}
 
 	$aUnits = $CapaSDK.GetUnitsInFolder($FolderStructure, $UnitType, $BusinessUnitName)
+	if ($null -eq $aUnits) {
+		return @()
+	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';', 12
+		if ($aItem.Count -lt 12) {
+			continue
+		}
+
+		[pscustomobject]@{
 			Name           = $aItem[0];
 			Created        = $aItem[1];
 			LastExecuted   = $aItem[2];
@@ -61,5 +80,5 @@ function Get-CapaUnitsInFolder {
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }

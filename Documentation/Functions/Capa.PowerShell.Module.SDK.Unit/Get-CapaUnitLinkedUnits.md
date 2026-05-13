@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaUnitLinkedUnits
 ---
@@ -15,14 +15,14 @@ title: Get-CapaUnitLinkedUnits
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247500/Get+unit+linked+units
+Gets units linked to a unit.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Get-CapaUnitLinkedUnits [-CapaSDK] <Object> [-UnitName] <Object> [-UnitType] <Object>
+Get-CapaUnitLinkedUnits [-CapaSDK] <psobject> [-UnitName] <string> [-UnitType] <string>
  [<CommonParameters>]
 ```
 
@@ -33,22 +33,27 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Get-CapaUnitLinkedUnits function.
+Gets linked units for the specified unit by calling the CapaSDK method
+GetUnitLinkedUnits.
+If that method is deprecated in the SDK, the function
+falls back to GetUnitRelations.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Get-CapaUnitLinkedUnits
+Get-CapaUnitLinkedUnits -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer
+
+Returns linked units for PC-01.
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-{{ Fill CapaSDK Description }}
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -66,10 +71,10 @@ HelpMessage: ''
 
 ### -UnitName
 
-{{ Fill UnitName Description }}
+Name of the unit to query linked units for.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -87,10 +92,11 @@ HelpMessage: ''
 
 ### -UnitType
 
-{{ Fill UnitType Description }}
+Type of unit.
+Valid values are Computer and User.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -117,9 +123,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Management.Automation.PSObject
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247500/Get+unit+linked+units
 
 
 ## RELATED LINKS

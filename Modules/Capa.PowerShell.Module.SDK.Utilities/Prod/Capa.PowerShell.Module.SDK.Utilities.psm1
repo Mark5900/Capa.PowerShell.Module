@@ -1,6 +1,4 @@
 
-# TODO: #240 Update and add tests
-
 <#
 	.SYNOPSIS
 		Create an CapaInstaller AD group.
@@ -30,28 +28,38 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246216/Create+AD+group
 #>
 function Create-CapaADGroup {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$LDAPPath,
 		[Parameter(Mandatory = $true)]
+		[ValidateSet('true', 'false')]
 		[String]$recursive
 	)
 
-	$value = $CapaSDK.CreateADGroup($GroupName, $UnitType, $LDAPPath, $recursive)
-	return $value
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'CreateADGroup')) {
+		throw 'CapaSDK does not contain method CreateADGroup.'
+	}
+
+	$recursiveValue = $recursive.ToLowerInvariant()
+
+	if ($PSCmdlet.ShouldProcess($GroupName, "Create AD group of type '$UnitType'")) {
+		$value = $CapaSDK.CreateADGroup($GroupName, $UnitType, $LDAPPath, $recursiveValue)
+		return $value
+	}
 }
 
-
-# TODO: #241 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -86,22 +94,31 @@ function Create-CapaADGroup {
 #>
 function Get-CapaLog {
 	[CmdletBinding()]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
 		[String]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]$PackageType
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetLog')) {
+		throw 'CapaSDK does not contain method GetLog.'
+	}
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
@@ -114,8 +131,6 @@ function Get-CapaLog {
 	return $value
 }
 
-
-# TODO: #242 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -141,23 +156,27 @@ function Get-CapaLog {
 #>
 function Get-CapaReinstallStatus {
 	[CmdletBinding()]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		$UnitType
+		[String]$UnitType
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetReinstallStatus')) {
+		throw 'CapaSDK does not contain method GetReinstallStatus.'
+	}
 
 	$value = $CapaSDK.GetReinstallStatus($UnitName, $UnitType)
 	return $value
 }
 
-
-# TODO: #243 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -187,25 +206,34 @@ All relations to the device in the old Management Point will be removed, includi
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247640/Move+Device+To+Management+Point
 #>
 function Move-CapaDeviceToPoint {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		$DeviceUUID,
+		[ValidateNotNullOrEmpty()]
+		[ValidatePattern('^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$')]
+		[String]$DeviceUUID,
 		[Parameter(Mandatory = $true)]
-		$PointName,
+		[ValidateNotNullOrEmpty()]
+		[String]$PointName,
 		[Parameter(Mandatory = $true)]
-		$ManagementServerFQDN
+		[AllowEmptyString()]
+		[String]$ManagementServerFQDN
 	)
 
-	$value = $CapaSDK.MoveDeviceToPoint($DeviceUUID, $PointName, $ManagementServerFQDN)
-	return $value
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'MoveDeviceToPoint')) {
+		throw 'CapaSDK does not contain method MoveDeviceToPoint.'
+	}
+
+	if ($PSCmdlet.ShouldProcess($DeviceUUID, "Move device to management point '$PointName'")) {
+		$value = $CapaSDK.MoveDeviceToPoint($DeviceUUID, $PointName, $ManagementServerFQDN)
+		return $value
+	}
 }
 
-
-# TODO: #244 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -231,31 +259,37 @@ function Move-CapaDeviceToPoint {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247696/Restart+Agent+using+SDK
 #>
 function Restart-CapaAgent {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]$UnitType
 	)
 
-	if ($PackageType -eq 'Computer') {
-		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
-		$PackageType = '2'
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'RestartAgent')) {
+		throw 'CapaSDK does not contain method RestartAgent.'
 	}
 
-	$value = $CapaSDK.RestartAgent($UnitName, $UnitType)
-	return $value
+	if ($UnitType -eq 'Computer') {
+		$UnitType = '1'
+	}
+	if ($UnitType -eq 'User') {
+		$UnitType = '2'
+	}
+
+	if ($PSCmdlet.ShouldProcess($UnitName, 'Restart agent')) {
+		$value = $CapaSDK.RestartAgent($UnitName, $UnitType)
+		return $value
+	}
 }
 
-
-# TODO: #245 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -277,17 +311,25 @@ function Restart-CapaAgent {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247774/Set+Wake+On+LAN
 #>
 function Set-CapaWakeOnLAN {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName
 	)
 
-	$value = $CapaSDK.SetWakeOnLAN($UnitName, '1')
-	return $value
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'SetWakeOnLAN')) {
+		throw 'CapaSDK does not contain method SetWakeOnLAN.'
+	}
+
+	if ($PSCmdlet.ShouldProcess($UnitName, 'Set Wake On LAN')) {
+		$value = $CapaSDK.SetWakeOnLAN($UnitName, '1')
+		return $value
+	}
 }
 
 

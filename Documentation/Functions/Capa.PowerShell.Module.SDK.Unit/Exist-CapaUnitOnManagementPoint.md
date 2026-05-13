@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Exist-CapaUnitOnManagementPoint
 ---
@@ -15,15 +15,15 @@ title: Exist-CapaUnitOnManagementPoint
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247410/Exist+Unit+On+Management+Point
+Checks whether a unit exists on a management point.
 
 ## SYNTAX
 
-### NameType (Default)
+### __AllParameterSets
 
 ```
-Exist-CapaUnitOnManagementPoint [-CapaSDK] <Object> [-UnitName] <Object> [-UnitType] <Object>
- [-CMPID] <Object> [<CommonParameters>]
+Exist-CapaUnitOnManagementPoint [-CapaSDK] <psobject> [-UnitName] <string> [-UnitType] <string>
+ [-CMPID] <int> [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -33,22 +33,25 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Exist-CapaUnitOnManagementPoint function.
+Checks whether the specified unit exists on the specified management point
+by calling the CapaSDK method ExistUnitOnManagementPoint.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Exist-CapaUnitOnManagementPoint -CapaSDK $value1 -UnitName  $value2 -UnitType Computer -CMPID  $value4
+Exist-CapaUnitOnManagementPoint -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -CMPID 2
+
+Returns whether PC-01 exists on management point 2.
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -66,11 +69,11 @@ HelpMessage: ''
 
 ### -CMPID
 
-A description of the CMPID  parameter.
+Management point ID to check against.
 
 ```yaml
-Type: System.Object
-DefaultValue: ''
+Type: System.Int32
+DefaultValue: 0
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
@@ -87,10 +90,10 @@ HelpMessage: ''
 
 ### -UnitName
 
-A description of the UnitName  parameter.
+Name of the unit to check.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -108,10 +111,11 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType parameter.
+Type of unit.
+Valid values are Computer and User.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -138,9 +142,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Boolean
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247410/Exist+Unit+On+Management+Point
 
 
 ## RELATED LINKS

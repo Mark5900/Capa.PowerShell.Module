@@ -1,5 +1,3 @@
-# TODO: #170 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get grops linked to a package.
@@ -26,16 +24,21 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246300/Get+package+groups
 #>
 function Get-CapaPackageGroups {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion
 	)
 
@@ -54,5 +57,5 @@ function Get-CapaPackageGroups {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

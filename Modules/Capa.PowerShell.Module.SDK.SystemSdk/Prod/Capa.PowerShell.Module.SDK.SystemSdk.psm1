@@ -1,6 +1,4 @@
 
-# TODO: #189 Update and add tests
-
 <#
 	.SYNOPSIS
 		Counts the number of conscom actions.
@@ -22,11 +20,14 @@
 #>
 function Count-CapaConscomActions {
 	[CmdletBinding()]
+	[OutputType([int])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
-		[Parameter(Mandatory = $true)]
+		[Parameter(Mandatory = $false)]
+		[ValidateRange(0, [int]::MaxValue)]
 		[int]$ManagementServerID
 	)
 
@@ -34,8 +35,6 @@ function Count-CapaConscomActions {
 	return $value
 }
 
-
-# TODO: #190 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -55,9 +54,11 @@ function Count-CapaConscomActions {
 #>
 function Get-CapaBusinessUnits {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
@@ -74,11 +75,9 @@ function Get-CapaBusinessUnits {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #191 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -98,9 +97,11 @@ function Get-CapaBusinessUnits {
 #>
 function Get-CapaExternalTools {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
@@ -118,11 +119,9 @@ function Get-CapaExternalTools {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #192 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -146,19 +145,21 @@ function Get-CapaExternalTools {
 #>
 function Get-CapaManagementPoint {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
-		[int]$CmpId = ''
+		[int]$CmpId
 	)
 
 	$oaUnits = @()
 
-	if ($CmpId -eq '') {
+	if (-not $PSBoundParameters.ContainsKey('CmpId')) {
 		$aUnits = $CapaSDK.GetManagementPoints()
 	} else {
-		$aUnits = $CapaSDK.GetManagementPoint($OSPointID)
+		$aUnits = $CapaSDK.GetManagementPoint($CmpId)
 	}
 
 	foreach ($sItem in $aUnits) {
@@ -176,11 +177,9 @@ function Get-CapaManagementPoint {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #193 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -200,9 +199,11 @@ function Get-CapaManagementPoint {
 #>
 function Get-CapaManagementServers {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
@@ -225,11 +226,9 @@ function Get-CapaManagementServers {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #194 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -260,35 +259,39 @@ function Get-CapaManagementServers {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247144/Rebuild+kit+on+Management+Server
 #>
 function Rebuild-CapaKitFileOnManagementServer {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$ServerName
 	)
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
+	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 
-	$value = $CapaSDK.RebuildKitFileOnServer($PackageName, $PackageVersion, $PackageType, $ServerName)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Rebuild kit on management server '$ServerName'")) {
+		$value = $CapaSDK.RebuildKitFileOnServer($PackageName, $PackageVersion, $PackageType, $ServerName)
+		return $value
+	}
 }
 
-
-# TODO: #195 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -319,35 +322,39 @@ function Rebuild-CapaKitFileOnManagementServer {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247136/Rebuild+kit+on+Management+Point
 #>
 function Rebuild-CapaKitFileOnPoint {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
 		[String]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$PointID
 	)
 
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
-	}
-	if ($PackageType -eq 'User') {
+	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 
-	$value = $CapaSDK.RebuildKitFileOnPoint($PackageName, $PackageVersion, $PackageType, $PointID)
-	return $value
+	if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", "Rebuild kit on management point '$PointID'")) {
+		$value = $CapaSDK.RebuildKitFileOnPoint($PackageName, $PackageVersion, $PackageType, $PointID)
+		return $value
+	}
 }
 
-
-# TODO: #196 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -383,18 +390,22 @@ function Rebuild-CapaKitFileOnPoint {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247152/Reset+LastRun+Date+On+Global+Task
 #>
 function Reset-CapaLastRunDateOnGlobalTask {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Auto Archive Changelog', 'Cleanup Performance Index Data', 'Clear Changeset', 'Clear Deleted Units', 'Group Health Check', 'Inventory Cleanup', 'Process Metering History', 'Process SQL groups', 'System Health', 'Update Active Directory Groups', 'Update Application Groups', 'Update OS Version', 'Update Unit Commands', 'Update Unlicensed Software Queries')]
 		[string]$TaskDisplayName
 	)
 
-	$value = $CapaSDK.ResetLastRunOnGlobalTask($TaskDisplayName)
-	return $value
+	if ($PSCmdlet.ShouldProcess($TaskDisplayName, 'Reset last run date on global task')) {
+		$value = $CapaSDK.ResetLastRunOnGlobalTask($TaskDisplayName)
+		return $value
+	}
 }
 
 

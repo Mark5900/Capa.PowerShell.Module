@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Create-CapaUnit
 ---
@@ -15,16 +15,16 @@ title: Create-CapaUnit
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247364/Create+unit
+Creates a unit.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Create-CapaUnit [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string>
+Create-CapaUnit [-CapaSDK] <psobject> [-UnitName] <string> [-UnitType] <string>
  [-LinkToManagementServerID] <int> [[-Status] <string>] [[-Uuid] <string>]
- [[-SerialNumber] <string>] [[-UnitDeviceType] <string>] [<CommonParameters>]
+ [[-SerialNumber] <string>] [[-UnitDeviceType] <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -34,22 +34,25 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Create-CapaUnit function.
+Creates a unit in CapaInstaller by calling the CapaSDK method CreateUnit.
+Supports creating both basic units and device-specific units.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Create-CapaUnit -CapaSDK $value1 -UnitName  'Value2' -UnitType Computer -LinkToManagementServerID  $value4
+Create-CapaUnit -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -LinkToManagementServerID 2
+
+Creates a computer unit named PC-01 linked to management server ID 2.
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -65,9 +68,31 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -LinkToManagementServerID
 
-A description of the LinkToManagementServerID  parameter.
+Management server ID to link the unit to.
 
 ```yaml
 Type: System.Int32
@@ -88,7 +113,7 @@ HelpMessage: ''
 
 ### -SerialNumber
 
-A description of the SerialNumber  parameter.
+Optional serial number used when UnitDeviceType is specified.
 
 ```yaml
 Type: System.String
@@ -109,7 +134,8 @@ HelpMessage: ''
 
 ### -Status
 
-A description of the Status parameter.
+Status of the unit.
+Valid values are Active and Inactive.
 
 ```yaml
 Type: System.String
@@ -130,7 +156,8 @@ HelpMessage: ''
 
 ### -UnitDeviceType
 
-A description of the UnitDeviceType parameter.
+Optional device type.
+When specified, the extended CreateUnit overload is used.
 
 ```yaml
 Type: System.String
@@ -151,7 +178,7 @@ HelpMessage: ''
 
 ### -UnitName
 
-A description of the UnitName  parameter.
+Name of the unit to create.
 
 ```yaml
 Type: System.String
@@ -172,7 +199,8 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType parameter.
+Type of unit.
+Valid values are Computer and User.
 
 ```yaml
 Type: System.String
@@ -193,7 +221,7 @@ HelpMessage: ''
 
 ### -Uuid
 
-A description of the Uuid  parameter.
+Optional UUID used when UnitDeviceType is specified.
 
 ```yaml
 Type: System.String
@@ -203,6 +231,28 @@ Aliases: []
 ParameterSets:
 - Name: (All)
   Position: 5
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -223,9 +273,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Boolean
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247364/Create+unit
 
 
 ## RELATED LINKS

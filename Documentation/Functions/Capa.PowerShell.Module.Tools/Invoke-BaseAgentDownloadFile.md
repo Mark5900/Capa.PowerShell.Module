@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.Tools
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Invoke-BaseAgentDownloadFile
 ---
@@ -22,7 +22,7 @@ Downloads a file from CI server using the BaseAgent.
 ### __AllParameterSets
 
 ```
-Invoke-BaseAgentDownloadFile [-RemotePath] <string> [-LocalPath] <string> [<CommonParameters>]
+Invoke-BaseAgentDownloadFile [-RemotePath] <string> [-DestinationPath] <string> [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -38,15 +38,15 @@ Downloads a file from server using the BaseAgent.
 
 ### EXAMPLE 1
 
-Invoke-BaseAgentDownloadFile -RemotePath "\Resources/AgentInstaller/CapaInstaller agent.xml" -LocalPath "c:\temp"
+Invoke-BaseAgentDownloadFile -RemotePath "\Resources/AgentInstaller/CapaInstaller agent.xml" -DestinationPath "c:\temp"
 
 ### EXAMPLE 2
 
-Invoke-BaseAgentDownloadFile -RemotePath "\Resources/AgentInstaller/CapaInstaller agent.xml" -LocalPath "c:\temp\CapaInstaller agent.xml"
+Invoke-BaseAgentDownloadFile -RemotePath "\Resources/AgentInstaller/CapaInstaller agent.xml" -DestinationPath "c:\temp\CapaInstaller agent.xml"
 
 ## PARAMETERS
 
-### -LocalPath
+### -DestinationPath
 
 The folder or specific path where the file will be downloaded to.
 
@@ -54,7 +54,8 @@ The folder or specific path where the file will be downloaded to.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- LocalPath
 ParameterSets:
 - Name: (All)
   Position: 1
@@ -98,6 +99,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
+
+### System.Void
+
+{{ Fill in the Description }}
 
 ## NOTES
 

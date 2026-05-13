@@ -1,5 +1,3 @@
-# TODO: #192 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get management points or a specific management point.
@@ -22,19 +20,21 @@
 #>
 function Get-CapaManagementPoint {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
-		[int]$CmpId = ''
+		[int]$CmpId
 	)
 
 	$oaUnits = @()
 
-	if ($CmpId -eq '') {
+	if (-not $PSBoundParameters.ContainsKey('CmpId')) {
 		$aUnits = $CapaSDK.GetManagementPoints()
 	} else {
-		$aUnits = $CapaSDK.GetManagementPoint($OSPointID)
+		$aUnits = $CapaSDK.GetManagementPoint($CmpId)
 	}
 
 	foreach ($sItem in $aUnits) {
@@ -52,5 +52,5 @@ function Get-CapaManagementPoint {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

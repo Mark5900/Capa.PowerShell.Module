@@ -1,5 +1,3 @@
-# TODO: #153 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets a list of OS Points.
@@ -18,15 +16,17 @@
 #>
 function Get-CapaOSPoints {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
 	$oaUnits = @()
 
-	$aUnits = $CapaSDK.GetOSPoints($OSPointID)
+	$aUnits = $CapaSDK.GetOSPoints()
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
@@ -52,5 +52,5 @@ function Get-CapaOSPoints {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

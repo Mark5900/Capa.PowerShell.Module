@@ -1,5 +1,3 @@
-# TODO: #189 Update and add tests
-
 <#
 	.SYNOPSIS
 		Counts the number of conscom actions.
@@ -21,11 +19,14 @@
 #>
 function Count-CapaConscomActions {
 	[CmdletBinding()]
+	[OutputType([int])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
-		[Parameter(Mandatory = $true)]
+		[Parameter(Mandatory = $false)]
+		[ValidateRange(0, [int]::MaxValue)]
 		[int]$ManagementServerID
 	)
 

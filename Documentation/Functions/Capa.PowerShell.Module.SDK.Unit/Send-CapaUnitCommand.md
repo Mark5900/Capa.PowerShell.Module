@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Send-CapaUnitCommand
 ---
@@ -15,7 +15,7 @@ title: Send-CapaUnitCommand
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247704/Send+Unit+Command
+Send a command to a unit.
 
 ## SYNTAX
 
@@ -23,7 +23,7 @@ https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247704/Send+Uni
 
 ```
 Send-CapaUnitCommand [-CapaSDK] <Object> [-DeviceUUID] <string> [-Command] <string>
- [-ChangelogComment] <string> [<CommonParameters>]
+ [-ChangelogComment] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -33,19 +33,19 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Send-CapaUnitCommand function.
+Send a unit command to an existing device in CapaInstaller.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Send-CapaUnitCommand -CapaSDK $value1 -DeviceUUID  'Value2' -Command SWInventory -ChangelogComment  'Value4'
+Send-CapaUnitCommand -CapaSDK $CapaSDK -DeviceUUID '12345678-1234-1234-1234-123456789012' -Command SWInventory -ChangelogComment 'Run inventory from PowerShell'
 
 ## PARAMETERS
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The CapaSDK object.
 
 ```yaml
 Type: System.Object
@@ -66,7 +66,7 @@ HelpMessage: ''
 
 ### -ChangelogComment
 
-A description of the ChangelogComment  parameter.
+Changelog comment for the action.
 
 ```yaml
 Type: System.String
@@ -87,7 +87,7 @@ HelpMessage: ''
 
 ### -Command
 
-A description of the Command parameter.
+The command to send to the device.
 
 ```yaml
 Type: System.String
@@ -106,9 +106,31 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -DeviceUUID
 
-A description of the DeviceUUID  parameter.
+The UUID of the device.
 
 ```yaml
 Type: System.String
@@ -119,6 +141,28 @@ ParameterSets:
 - Name: (All)
   Position: 1
   IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -138,9 +182,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Boolean
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247704/Send+Unit+Command
 
 
 ## RELATED LINKS

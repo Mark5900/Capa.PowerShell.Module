@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Inventory
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaSoftwareInventoryForUnit
 ---
@@ -29,8 +29,7 @@ Get-CapaSoftwareInventoryForUnit -CapaSDK <Object> -UnitName <string> -UnitType 
 ### Uuid
 
 ```
-Get-CapaSoftwareInventoryForUnit -CapaSDK <Object> -UnitType <string> -Uuid <string>
- [<CommonParameters>]
+Get-CapaSoftwareInventoryForUnit -CapaSDK <Object> -Uuid <string> [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -106,12 +105,6 @@ DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
-- Name: Uuid
-  Position: Named
-  IsRequired: true
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
 - Name: NameType
   Position: Named
   IsRequired: true
@@ -154,6 +147,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
+
+### System.Management.Automation.PSObject
+
+{{ Fill in the Description }}
 
 ## NOTES
 

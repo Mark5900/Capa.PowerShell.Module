@@ -1,6 +1,4 @@
 
-# TODO: #123 Update and add tests
-
 <#
 	.SYNOPSIS
 		A function to convert Capa data types.
@@ -18,8 +16,11 @@
 		A custom function to convert Capa data types to a more readable format.
 #>
 function Convert-CapaDataType {
+	[CmdletBinding()]
+	[OutputType([string])]
 	param
 	(
+		[Parameter(Mandatory = $true)]
 		$Datatype
 	)
 
@@ -37,8 +38,6 @@ function Convert-CapaDataType {
 	return $Datatype
 }
 
-
-# TODO: #124 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -58,20 +57,22 @@ function Convert-CapaDataType {
 #>
 function Get-CapaCustomInventoryCategoriesAndEntries {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
 	$oaUnits = @()
 
-	$aUnits = $CapaSDK.GetCustomInventoryCategoriesAndEntrie($UserName)
+	$aUnits = $CapaSDK.GetCustomInventoryCategoriesAndEntries()
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 
-		$Datatype = Convert-CapaDataType -Datatype $aItem [2]
+		$Datatype = Convert-CapaDataType -Datatype $aItem[2]
 
 		$oaUnits += [pscustomobject]@{
 			Category = $aItem[0];
@@ -80,11 +81,9 @@ function Get-CapaCustomInventoryCategoriesAndEntries {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #125 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -115,12 +114,16 @@ function Get-CapaCustomInventoryCategoriesAndEntries {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246358/Get+custom+inventory+for+unit
 #>
 function Get-CapaCustomInventoryForUnit {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
@@ -128,6 +131,7 @@ function Get-CapaCustomInventoryForUnit {
 		[string]$UnitType,
 		[Parameter(ParameterSetName = 'Uuid',
 			Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Uuid
 	)
 
@@ -152,11 +156,9 @@ function Get-CapaCustomInventoryForUnit {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #126 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -184,27 +186,26 @@ function Get-CapaCustomInventoryForUnit {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246368/Get+hardware+inventory+for+unit
 #>
 function Get-CapaHardwareInventoryForUnit {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User', '1', '2')]
+		[ValidateSet('Computer', 'User')]
 		[string]$UnitType
 	)
 
-	if ($UnitType -eq 'Computer') {
-		$UnitType = '1'
-	}
-	if ($UnitType -eq 'User') {
-		$UnitType = '2'
-	}
+	$UnitTypeId = if ($UnitType -eq 'Computer') { '1' } else { '2' }
 
 	$oaUnits = @()
 
-	$aUnits = $CapaSDK.GetHardwareInventoryForUnit($UnitName, $UnitType)
+	$aUnits = $CapaSDK.GetHardwareInventoryForUnit($UnitName, $UnitTypeId)
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
@@ -219,11 +220,9 @@ function Get-CapaHardwareInventoryForUnit {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #127 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -251,27 +250,26 @@ function Get-CapaHardwareInventoryForUnit {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246378/Get+logon+history+for+unit
 #>
 function Get-CapaLogonHistoryForUnit {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User', '1', '2')]
+		[ValidateSet('Computer', 'User')]
 		[string]$UnitType
 	)
 
-	if ($UnitType -eq 'Computer') {
-		$UnitType = '1'
-	}
-	if ($UnitType -eq 'User') {
-		$UnitType = '2'
-	}
+	$UnitTypeId = if ($UnitType -eq 'Computer') { '1' } else { '2' }
 
 	$oaUnits = @()
 
-	$aUnits = $CapaSDK.GetLogonHistoryForUnit($UnitName, $UnitType)
+	$aUnits = $CapaSDK.GetLogonHistoryForUnit($UnitName, $UnitTypeId)
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
@@ -286,11 +284,9 @@ function Get-CapaLogonHistoryForUnit {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #128 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -310,9 +306,11 @@ function Get-CapaLogonHistoryForUnit {
 #>
 function Get-CapaMeteringGroups {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
@@ -334,11 +332,9 @@ function Get-CapaMeteringGroups {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #129 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -369,37 +365,34 @@ function Get-CapaMeteringGroups {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246398/Get+software+inventory+for+unit
 #>
 function Get-CapaSoftwareInventoryForUnit {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
-		[Parameter(ParameterSetName = 'NameType',
-			Mandatory = $true)]
-		[Parameter(ParameterSetName = 'Uuid',
-			Mandatory = $true)]
-		[ValidateSet('Computer', 'User', '1', '2')]
+		[Parameter(ParameterSetName = 'NameType', Mandatory = $true)]
+		[ValidateSet('Computer', 'User')]
 		[string]$UnitType,
 		[Parameter(ParameterSetName = 'Uuid',
 			Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$Uuid
 	)
 
-	if ($UnitType -eq 'Computer') {
-		$UnitType = '1'
-	}
-	if ($UnitType -eq 'User') {
-		$UnitType = '2'
-	}
+	$UnitTypeId = if ($UnitType -eq 'Computer') { '1' } elseif ($UnitType -eq 'User') { '2' } else { $UnitType }
 
 	$oaUnits = @()
 
 	if ($PSCmdlet.ParameterSetName -eq 'NameType') {
-		$aUnits = $CapaSDK.GetSoftwareInventoryForUnit($UnitName, $UnitType)
+		$aUnits = $CapaSDK.GetSoftwareInventoryForUnit($UnitName, $UnitTypeId)
 	} else {
-		$aUnits = $CapaSDK.GetSoftwareInventoryForUnit($Uuid, $UnitType)
+		$aUnits = $CapaSDK.GetSoftwareInventoryForUnit($Uuid, $UnitTypeId)
 	}
 
 	foreach ($sItem in $aUnits) {
@@ -416,11 +409,9 @@ function Get-CapaSoftwareInventoryForUnit {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #130 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -446,15 +437,18 @@ function Get-CapaSoftwareInventoryForUnit {
 #>
 function Get-CapaUpdateInventoryForUnit {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[String]$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[String]$UnitType
+		[string]$UnitType
 	)
 
 	$oaUnits = @()
@@ -474,11 +468,9 @@ function Get-CapaUpdateInventoryForUnit {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #131 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -501,12 +493,15 @@ function Get-CapaUpdateInventoryForUnit {
 #>
 function Get-CapaUserInventory {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		$UserName
+		[ValidateNotNullOrEmpty()]
+		[string]$UserName
 	)
 
 	$oaUnits = @()
@@ -525,11 +520,9 @@ function Get-CapaUserInventory {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #132 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -569,30 +562,36 @@ function Get-CapaUserInventory {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246438/Set+custom+inventory
 #>
 function Set-CapaCustomInventory {
-	[CmdletBinding(DefaultParameterSetName = 'NameType')]
+	[CmdletBinding(DefaultParameterSetName = 'NameType', SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
-		[String]$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
-		[String]$UnitType,
+		[string]$UnitType,
 		[Parameter(ParameterSetName = 'Uuid',
 			Mandatory = $true)]
-		[String]$Uuid,
+		[ValidateNotNullOrEmpty()]
+		[string]$Uuid,
 		[Parameter(Mandatory = $true)]
-		[String]$Section,
+		[ValidateNotNullOrEmpty()]
+		[string]$Section,
 		[Parameter(Mandatory = $true)]
-		[String]$Name,
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
 		[Parameter(Mandatory = $true)]
-		[String]$Value,
+		[string]$Value,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Integer', 'Time', 'String', 'Text', 'I', 'T', 'S', 'N')]
-		[String]$DataType
+		[string]$DataType
 	)
 
 	switch ($UnitType) {
@@ -621,17 +620,18 @@ function Set-CapaCustomInventory {
 		default { }
 	}
 
-	if ($PSCmdlet.ParameterSetName -eq 'NameType') {
-		$value = $CapaSDK.SetCustomInventory($UnitName, $UnitType, $Section, $Name, $Value, $DataType)
-	} Else {
-		$value = $CapaSDK.SetCustomInventoryUUID($Uuid, $Section, $Name, $Value, $DataType)
-	}
+	$Target = if ($PSCmdlet.ParameterSetName -eq 'NameType') { $UnitName } else { $Uuid }
+	if ($PSCmdlet.ShouldProcess($Target, "Set custom inventory '$Section\$Name'")) {
+		if ($PSCmdlet.ParameterSetName -eq 'NameType') {
+			$value = $CapaSDK.SetCustomInventory($UnitName, $UnitType, $Section, $Name, $Value, $DataType)
+		} else {
+			$value = $CapaSDK.SetCustomInventoryUUID($Uuid, $Section, $Name, $Value, $DataType)
+		}
 
-	return $value
+		return $value
+	}
 }
 
-
-# TODO: #133 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -672,30 +672,36 @@ function Set-CapaCustomInventory {
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246446/Set+hardware+inventory
 #>
 function Set-CapaHardwareInventory {
-	[CmdletBinding(DefaultParameterSetName = 'NameType')]
+	[CmdletBinding(DefaultParameterSetName = 'NameType', SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
-		[String]$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
 		[ValidateSet('1', '2', 'Computer', 'User')]
-		[String]$UnitType,
+		[string]$UnitType,
 		[Parameter(ParameterSetName = 'Uuid',
 			Mandatory = $true)]
-		[String]$Uuid,
+		[ValidateNotNullOrEmpty()]
+		[string]$Uuid,
 		[Parameter(Mandatory = $true)]
-		[String]$Section,
+		[ValidateNotNullOrEmpty()]
+		[string]$Section,
 		[Parameter(Mandatory = $true)]
-		[String]$Name,
+		[ValidateNotNullOrEmpty()]
+		[string]$Name,
 		[Parameter(Mandatory = $true)]
-		[String]$Value,
+		[string]$Value,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Integer', 'Time', 'String', 'Text', 'I', 'T', 'S', 'N')]
-		[String]$DataType
+		[string]$DataType
 	)
 
 	switch ($UnitType) {
@@ -724,13 +730,16 @@ function Set-CapaHardwareInventory {
 		default { }
 	}
 
-	if ($PSCmdlet.ParameterSetName -eq 'NameType') {
-		$value = $CapaSDK.SetHardwareInventory($UnitName, $UnitType, $Section, $Name, $Value, $DataType)
-	} Else {
-		$value = $CapaSDK.SetHardwareInventoryUUID($Uuid, $Section, $Name, $Value, $DataType)
-	}
+	$Target = if ($PSCmdlet.ParameterSetName -eq 'NameType') { $UnitName } else { $Uuid }
+	if ($PSCmdlet.ShouldProcess($Target, "Set hardware inventory '$Section\$Name'")) {
+		if ($PSCmdlet.ParameterSetName -eq 'NameType') {
+			$value = $CapaSDK.SetHardwareInventory($UnitName, $UnitType, $Section, $Name, $Value, $DataType)
+		} else {
+			$value = $CapaSDK.SetHardwareInventoryUUID($Uuid, $Section, $Name, $Value, $DataType)
+		}
 
-	return $value
+		return $value
+	}
 }
 
 

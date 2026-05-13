@@ -1,5 +1,3 @@
-# TODO: #245 Update and add tests
-
 <#
 	.SYNOPSIS
 		Set a action to perform a Wake On LAN Request for the unit.
@@ -20,15 +18,23 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247774/Set+Wake+On+LAN
 #>
 function Set-CapaWakeOnLAN {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName
 	)
 
-	$value = $CapaSDK.SetWakeOnLAN($UnitName, '1')
-	return $value
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'SetWakeOnLAN')) {
+		throw 'CapaSDK does not contain method SetWakeOnLAN.'
+	}
+
+	if ($PSCmdlet.ShouldProcess($UnitName, 'Set Wake On LAN')) {
+		$value = $CapaSDK.SetWakeOnLAN($UnitName, '1')
+		return $value
+	}
 }

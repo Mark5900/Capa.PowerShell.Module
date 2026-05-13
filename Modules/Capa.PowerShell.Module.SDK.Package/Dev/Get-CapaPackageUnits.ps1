@@ -1,5 +1,3 @@
-# TODO: #172 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets a list of units linked to a package.
@@ -26,13 +24,18 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247456/Get+package+units
 #>
 function Get-CapaPackageUnits {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
@@ -56,5 +59,5 @@ function Get-CapaPackageUnits {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

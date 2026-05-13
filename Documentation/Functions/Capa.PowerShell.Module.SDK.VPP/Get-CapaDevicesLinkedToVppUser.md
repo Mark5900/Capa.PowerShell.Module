@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.VPP
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaDevicesLinkedToVppUser
 ---
@@ -22,7 +22,7 @@ Gets a list of devices linked to a VPP user.
 ### __AllParameterSets
 
 ```
-Get-CapaDevicesLinkedToVppUser [-CapaSDK] <Object> [-vppUserID] <int> [<CommonParameters>]
+Get-CapaDevicesLinkedToVppUser [-CapaSDK] <psobject> [-vppUserID] <int> [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -47,7 +47,7 @@ Get-CapaDevicesLinkedToVppUser -CapaSDK $CapaSDK -vppUserID 1
 The CapaSDK object.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -94,6 +94,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
+
+### System.Management.Automation.PSObject
+
+{{ Fill in the Description }}
 
 ## NOTES
 

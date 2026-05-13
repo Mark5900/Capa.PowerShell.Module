@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Add-CapaUnitToCalendarGroup
 ---
@@ -15,15 +15,15 @@ title: Add-CapaUnitToCalendarGroup
 
 ## SYNOPSIS
 
-https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247302/Add+unit+to+calendar+group
+Adds a unit to a calendar group.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Add-CapaUnitToCalendarGroup [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string>
- [-CalendarGroupName] <string> [<CommonParameters>]
+Add-CapaUnitToCalendarGroup [-CapaSDK] <psobject> [-UnitName] <string> [-UnitType] <string>
+ [-CalendarGroupName] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -33,19 +33,22 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-A detailed description of the Add-CapaUnitToCalendarGroup function.
+Adds the specified unit to the specified calendar group by calling the
+CapaSDK method AddUnitToCalendarGroup.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Add-CapaUnitToCalendarGroup -CapaSDK $value1 -UnitName  'Value2' -UnitType  'Value3' -CalendarGroupName 'Value4'
+Add-CapaUnitToCalendarGroup -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -CalendarGroupName 'Nightly Window'
+
+Adds PC-01 to the calendar group Nightly Window.
 
 ## PARAMETERS
 
 ### -CalendarGroupName
 
-A description of the CalendarGroupName parameter.
+Name of the calendar group.
 
 ```yaml
 Type: System.String
@@ -66,10 +69,10 @@ HelpMessage: ''
 
 ### -CapaSDK
 
-A description of the CapaSDK parameter.
+The initialized CapaSDK instance from Initialize-CapaSDK.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -85,9 +88,31 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -UnitName
 
-A description of the UnitName  parameter.
+Name of the unit to add.
 
 ```yaml
 Type: System.String
@@ -108,7 +133,8 @@ HelpMessage: ''
 
 ### -UnitType
 
-A description of the UnitType  parameter.
+Type of unit.
+Valid values are Computer and User.
 
 ```yaml
 Type: System.String
@@ -119,6 +145,28 @@ ParameterSets:
 - Name: (All)
   Position: 2
   IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -138,9 +186,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Boolean
+
+{{ Fill in the Description }}
+
 ## NOTES
 
-Additional information about the function.
+For more information, see:
+https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247302/Add+unit+to+calendar+group
 
 
 ## RELATED LINKS

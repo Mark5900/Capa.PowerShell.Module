@@ -1,47 +1,65 @@
-# TODO: #219 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247544/Get+unit+packages
+		Gets packages linked to a unit.
 
 	.DESCRIPTION
-		A detailed description of the Get-CapaUnitPackages function.
+		Gets packages linked to a unit by calling the CapaSDK method GetUnitPackages
+		and returns parsed package objects.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		Name of the unit to query packages for.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.EXAMPLE
-				PS C:\> Get-CapaUnitPackages -CapaSDK $value1 -UnitName $value2 -UnitType Computer
+		PS C:\> Get-CapaUnitPackages -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer
+
+		Returns packages linked to PC-01.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247544/Get+unit+packages
 #>
 function Get-CapaUnitPackages {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		$UnitType
+		[string]$UnitType
 	)
 
-	$oaUnits = @()
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetUnitPackages')) {
+		throw 'CapaSDK does not contain method GetUnitPackages.'
+	}
 
 	$aUnits = $CapaSDK.GetUnitPackages($UnitName, $UnitType)
+	if ($null -eq $aUnits) {
+		return @()
+	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';', 16
+		if ($aItem.Count -lt 16) {
+			continue
+		}
+
+		[pscustomobject]@{
 			Name               = $aItem[0];
 			Version            = $aItem[1];
 			Type               = $aItem[2];
@@ -60,5 +78,5 @@ function Get-CapaUnitPackages {
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }

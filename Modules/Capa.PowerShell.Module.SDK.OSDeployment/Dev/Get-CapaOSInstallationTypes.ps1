@@ -1,5 +1,3 @@
-# TODO: #152 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get a list of OS Installation Types.
@@ -21,11 +19,14 @@
 #>
 function Get-CapaOSInstallationTypes {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$OSPointID
 	)
 
@@ -42,5 +43,5 @@ function Get-CapaOSInstallationTypes {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

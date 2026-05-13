@@ -1,5 +1,3 @@
-# TODO: #190 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get a list of all business units.
@@ -18,9 +16,11 @@
 #>
 function Get-CapaBusinessUnits {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
@@ -37,5 +37,5 @@ function Get-CapaBusinessUnits {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

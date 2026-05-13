@@ -1,5 +1,3 @@
-# TODO: #253 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get a list of WSUS points.
@@ -18,24 +16,39 @@
 #>
 function Get-CapaWSUSPoints {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK
 	)
 
-	$oaUnits = @()
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetWSUSPoints')) {
+		throw 'CapaSDK does not contain method GetWSUSPoints.'
+	}
 
 	$aUnits = $CapaSDK.GetWSUSPoints()
+	if ($null -eq $aUnits) {
+		return @()
+	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
-			ID   = $aItem[0];
-			Name = $aItem[1];
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';', 3
+		if ($aItem.Count -lt 3) {
+			continue
+		}
+
+		[pscustomobject]@{
+			ID   = $aItem[0]
+			Name = $aItem[1]
 			GUID = $aItem[2]
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }

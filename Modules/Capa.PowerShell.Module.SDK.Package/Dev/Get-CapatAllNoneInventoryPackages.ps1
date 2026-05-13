@@ -1,5 +1,3 @@
-# TODO: #175 Update and add tests
-
 <#
 	.SYNOPSIS
 		Returns all none inventory packages.
@@ -21,9 +19,11 @@
 #>
 function Get-CapatAllNoneInventoryPackages {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[string]$PackageType = ''
 	)
@@ -53,5 +53,5 @@ function Get-CapatAllNoneInventoryPackages {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

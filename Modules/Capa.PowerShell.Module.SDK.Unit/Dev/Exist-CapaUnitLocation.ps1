@@ -1,44 +1,54 @@
-# TODO: #207 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247402/Exist+unit+location
+		Checks whether a unit exists on a specific location.
 
 	.DESCRIPTION
-		A detailed description of the Exist-CapaUnitLocation function.
+		Checks whether the specified unit exists on the specified location by
+		calling the CapaSDK method ExistUnitLocation.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		Name of the unit to check.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.PARAMETER Location
-		A description of the Location parameter.
+		Location path to validate for the unit.
 
 	.EXAMPLE
-				PS C:\> Exist-CapaUnitLocation -CapaSDK $value1 -UnitName 'Value2' -UnitType Computer -Location 'Value4'
+		PS C:\> Exist-CapaUnitLocation -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -Location 'Default\\Devices'
+
+		Returns whether PC-01 exists on location Default\Devices.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247402/Exist+unit+location
 #>
 function Exist-CapaUnitLocation {
 	[CmdletBinding()]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$Location
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'ExistUnitLocation')) {
+		throw 'CapaSDK does not contain method ExistUnitLocation.'
+	}
 
 	$value = $CapaSDK.ExistUnitLocation($UnitName, $UnitType, $Location)
 	return $value

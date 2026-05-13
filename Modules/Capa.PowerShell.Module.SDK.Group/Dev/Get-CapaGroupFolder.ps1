@@ -1,5 +1,3 @@
-# TODO: #115 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets the folder structure of a group.
@@ -25,15 +23,18 @@
 #>
 function Get-CapaGroupFolder {
 	[CmdletBinding()]
+	[OutputType([string])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[String]$GroupName,
+		[ValidateNotNullOrEmpty()]
+		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Dynamic_ADSI', 'Department', 'Dynamic_SQL', 'Static')]
-		[String]$GroupType
+		[string]$GroupType
 	)
 
 	$value = $CapaSDK.GetGroupFolder($GroupName, $GroupType)

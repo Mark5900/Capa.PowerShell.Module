@@ -1,5 +1,3 @@
-# TODO: #145 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get all the Device Applications.
@@ -18,9 +16,11 @@
 #>
 function Get-CapaDeviceApplications {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
@@ -41,5 +41,5 @@ function Get-CapaDeviceApplications {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

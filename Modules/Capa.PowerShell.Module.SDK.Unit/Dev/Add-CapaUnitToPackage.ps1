@@ -1,61 +1,80 @@
-# TODO: #202 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247340/Add+unit+to+package
+		Adds a unit to a package.
 
 	.DESCRIPTION
-		A detailed description of the Add-CapaUnitToPackage function.
+		Adds the specified unit to the specified package by calling the CapaSDK
+		method AddUnitToPackage.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER PackageType
-		A description of the PackageType parameter.
+		Package type. Valid values are Computer, User, 1, and 2.
 
 	.PARAMETER PackageName
-		A description of the PackageName parameter.
+		Name of the package.
 
 	.PARAMETER PackageVersion
-		A description of the PackageVersion parameter.
+		Version of the package.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		Name of the unit to add.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.EXAMPLE
-		PS C:\> Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageType Computer -PackageName 'value3' -PackageVersion 'value4' -UnitName 'value5' -UnitType Computer
+		PS C:\> Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageType Computer -PackageName 'MyPkg' -PackageVersion 'v1.0' -UnitName 'PC-01' -UnitType Computer
+
+		Adds PC-01 to package MyPkg v1.0.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247340/Add+unit+to+package
 #>
 function Add-CapaUnitToPackage {
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User', '1', '2')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$UnitType
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'AddUnitToPackage')) {
+		throw 'CapaSDK does not contain method AddUnitToPackage.'
+	}
+
 	if ($PackageType -eq 'Computer') {
 		$PackageType = '1'
 	} elseif ($PackageType -eq 'User') {
 		$PackageType = '2'
 	}
 
+	$target = "$UnitType unit '$UnitName'"
+	$action = "Add to package '$PackageName' ($PackageVersion)"
+	if (-not $PSCmdlet.ShouldProcess($target, $action)) {
+		return
+	}
+
 	$bool = $CapaSDK.AddUnitToPackage($UnitName, $UnitType, $PackageName, $PackageVersion, $PackageType)
 
-	Return $bool
+	return $bool
 }

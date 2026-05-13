@@ -1,5 +1,3 @@
-# TODO: #141 Update and add tests
-
 <#
 	.SYNOPSIS
 		Clone an existing Device Application and its payloads.
@@ -26,18 +24,23 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246561/Clone+Device+Application
 #>
 function Clone-CapaDeviceApplication {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$DeviceApplicationID,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$NewName,
 		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.CloneDeviceApplication($DeviceApplicationID, $NewName, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($DeviceApplicationID, "Clone device application to '$NewName'")) {
+		$value = $CapaSDK.CloneDeviceApplication($DeviceApplicationID, $NewName, $ChangelogComment)
+		return $value
+	}
 }

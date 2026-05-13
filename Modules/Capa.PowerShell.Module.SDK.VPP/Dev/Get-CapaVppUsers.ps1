@@ -1,5 +1,3 @@
-# TODO: #249 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets a list of all VPP users.
@@ -25,24 +23,46 @@
 #>
 function Get-CapaVppUsers {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
-		[int]$VppProgramID = ''
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
+		[Parameter(Mandatory = $false)]
+		[ValidateRange(1, [int]::MaxValue)]
+		[Nullable[int]]$VppProgramID = $null
 	)
 
-	$oaUnits = @()
-
-	if ($VppProgramID -eq '') {
-		$aUnits = $CapaSDK.GetVppUsersAll()
-	} Else {
-		$aUnits = $CapaSDK.GetVppUsers($VppProgramID)
+	if ($PSBoundParameters.ContainsKey('VppProgramID') -and -not ($CapaSDK.PSObject.Methods.Name -contains 'GetVppUsers')) {
+		throw 'CapaSDK does not contain method GetVppUsers.'
 	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
+	if (-not $PSBoundParameters.ContainsKey('VppProgramID') -and -not ($CapaSDK.PSObject.Methods.Name -contains 'GetVppUsersAll')) {
+		throw 'CapaSDK does not contain method GetVppUsersAll.'
+	}
+
+	if ($PSBoundParameters.ContainsKey('VppProgramID')) {
+		$aUnits = $CapaSDK.GetVppUsers($VppProgramID)
+	} else {
+		$aUnits = $CapaSDK.GetVppUsersAll()
+	}
+
+	if ($null -eq $aUnits) {
+		return @()
+	}
+
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';', 14
+		if ($aItem.Count -lt 14) {
+			continue
+		}
+
+		[pscustomobject]@{
 			ID              = $aItem[0];
 			Status          = $aItem[1];
 			Updated         = $aItem[2];
@@ -59,5 +79,5 @@ function Get-CapaVppUsers {
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }

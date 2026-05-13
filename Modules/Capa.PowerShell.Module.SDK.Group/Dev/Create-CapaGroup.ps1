@@ -1,5 +1,3 @@
-# TODO: #112 Update and add tests
-
 <#
 	.SYNOPSIS
 		Create a group.
@@ -23,37 +21,42 @@
 		The name of the business unit to create the group in, if not specified the group will be created in global scope.
 
 	.EXAMPLE
-		PS C:\> Create-CapaGroup -CapaSDK $CapaSDk -GroupName  'Jylland' -GroupType  Static -UnitType Computer
+		PS C:\> Create-CapaGroup -CapaSDK $CapaSDk -GroupName 'Jylland' -GroupType Static -UnitType Computer
 
 	.EXAMPLE
-		PS C:\> Create-CapaGroup -CapaSDK $CapaSDk -GroupName  'Jylland' -GroupType  Static -UnitType Computer -BusinessUnit 'Denmark'
+		PS C:\> Create-CapaGroup -CapaSDK $CapaSDk -GroupName 'Jylland' -GroupType Static -UnitType Computer -BusinessUnit 'Denmark'
 
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580877/Create+group
 		And https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342580894/Create+group+in+Business+Unit
 #>
 function Create-CapaGroup {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$GroupName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Calendar', 'Department', 'Static')]
 		[string]$GroupType,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[String]$UnitType,
+		[string]$UnitType,
 		[string]$BusinessUnit = ''
 	)
 
-	if ($BusinessUnit -eq '') {
-		$value = $CapaSDK.CreateGroup($GroupName, $GroupType, $UnitType)
-	} else {
-		$value = $CapaSDK.CreateGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
-	}
+	if ($PSCmdlet.ShouldProcess($GroupName, "Create group of type '$GroupType'")) {
+		if ($BusinessUnit -eq '') {
+			$value = $CapaSDK.CreateGroup($GroupName, $GroupType, $UnitType)
+		} else {
+			$value = $CapaSDK.CreateGroupInBusinessUnit($GroupName, $GroupType, $UnitType, $BusinessUnit)
+		}
 
-	return $value
+		return $value
+	}
 }

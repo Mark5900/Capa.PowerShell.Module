@@ -1,5 +1,3 @@
-# TODO: #127 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get logon history for a unit.
@@ -26,27 +24,26 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246378/Get+logon+history+for+unit
 #>
 function Get-CapaLogonHistoryForUnit {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
-		[ValidateSet('Computer', 'User', '1', '2')]
+		[ValidateSet('Computer', 'User')]
 		[string]$UnitType
 	)
 
-	if ($UnitType -eq 'Computer') {
-		$UnitType = '1'
-	}
-	if ($UnitType -eq 'User') {
-		$UnitType = '2'
-	}
+	$UnitTypeId = if ($UnitType -eq 'Computer') { '1' } else { '2' }
 
 	$oaUnits = @()
 
-	$aUnits = $CapaSDK.GetLogonHistoryForUnit($UnitName, $UnitType)
+	$aUnits = $CapaSDK.GetLogonHistoryForUnit($UnitName, $UnitTypeId)
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
@@ -61,5 +58,5 @@ function Get-CapaLogonHistoryForUnit {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

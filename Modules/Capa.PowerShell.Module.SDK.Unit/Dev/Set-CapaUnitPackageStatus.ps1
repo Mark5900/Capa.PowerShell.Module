@@ -1,53 +1,55 @@
-# TODO: #235 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247748/Set+unit+package+status
+		Set package status for a unit.
 
 	.DESCRIPTION
-		A detailed description of the Set-CapaUnitPackageStatus function.
+		Set package status for a unit in CapaInstaller.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The CapaSDK object.
 
 	.PARAMETER UnitName
-		A description of the UnitName  parameter.
+		The name of the unit.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		The unit type.
 
 	.PARAMETER PackageName
-		A description of the PackageName  parameter.
+		The name of the package.
 
 	.PARAMETER PackageVersion
-		A description of the PackageVersion  parameter.
+		The package version.
 
 	.PARAMETER Status
-		A description of the Status  parameter.
+		The package status to set.
 
 	.PARAMETER ChangelogComment
-		A description of the ChangelogComment parameter.
+		Optional changelog comment.
 
 	.EXAMPLE
-		PS C:\> Set-CapaUnitPackageStatus -CapaSDK $value1 -UnitName  $value2 -UnitType Computer -PackageName  $value4 -PackageVersion  $value5 -Status  $value6
+		PS C:\> Set-CapaUnitPackageStatus -CapaSDK $CapaSDK -UnitName 'PC001' -UnitType Computer -PackageName '7-Zip' -PackageVersion '24.09' -Status Installed
 
 	.NOTES
-		Additional information about the function.
+		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247748/Set+unit+package+status
 #>
 function Set-CapaUnitPackageStatus {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[String]$UnitType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[String]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Waiting', 'Failed', 'Installed', 'Uninstall', 'Cancel')]
@@ -55,12 +57,20 @@ function Set-CapaUnitPackageStatus {
 		[String]$ChangelogComment = ''
 	)
 
-	if ($UnitType -eq 'Computer') {
-		$PackageType = '1'
-	} elseif ($UnitType -eq 'User') {
-		$PackageType = '2'
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'SetUnitPackageStatus')) {
+		throw 'CapaSDK does not contain method SetUnitPackageStatus.'
 	}
 
-	$value = $CapaSDK.SetUnitPackageStatus($UnitName, $UnitType, $PackageName, $PackageVersion, $PackageType, $Status, $ChangelogComment)
-	return $value
+	switch ($UnitType) {
+		'Computer' { $PackageType = '1' }
+		'User' { $PackageType = '2' }
+		default { throw "Unsupported UnitType '$UnitType'." }
+	}
+
+	$target = "$UnitType unit '$UnitName'"
+	$action = "Set package '$PackageName' version '$PackageVersion' status to '$Status'"
+	if ($PSCmdlet.ShouldProcess($target, $action)) {
+		$value = $CapaSDK.SetUnitPackageStatus($UnitName, $UnitType, $PackageName, $PackageVersion, $PackageType, $Status, $ChangelogComment)
+		return $value
+	}
 }

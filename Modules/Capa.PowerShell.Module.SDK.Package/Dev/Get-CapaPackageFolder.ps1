@@ -1,5 +1,3 @@
-# TODO: #169 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get the folder structure of a package.
@@ -26,19 +24,24 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246936/Get+Package+Folder
 #>
 function Get-CapaPackageFolder {
+	[CmdletBinding()]
+	[OutputType([string])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageName,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$PackageVersion
 	)
 
 	$aUnits = $CapaSDK.GetPackageFolder($PackageName, $PackageVersion, $PackageType)
-	Return $aUnits
+	return $aUnits
 }

@@ -1,6 +1,4 @@
 
-# TODO: #150 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets a list of OS Disk Configurations.
@@ -22,11 +20,14 @@
 #>
 function Get-CapaOSDiskConfigration {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$OSPointID
 	)
 
@@ -47,11 +48,9 @@ function Get-CapaOSDiskConfigration {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #151 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -74,11 +73,14 @@ function Get-CapaOSDiskConfigration {
 #>
 function Get-CapaOSImages {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$OSPointID
 	)
 
@@ -100,11 +102,9 @@ function Get-CapaOSImages {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #152 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -127,11 +127,14 @@ function Get-CapaOSImages {
 #>
 function Get-CapaOSInstallationTypes {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$OSPointID
 	)
 
@@ -148,11 +151,9 @@ function Get-CapaOSInstallationTypes {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #153 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -172,15 +173,17 @@ function Get-CapaOSInstallationTypes {
 #>
 function Get-CapaOSPoints {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
 	$oaUnits = @()
 
-	$aUnits = $CapaSDK.GetOSPoints($OSPointID)
+	$aUnits = $CapaSDK.GetOSPoints()
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
@@ -206,11 +209,9 @@ function Get-CapaOSPoints {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
-
-# TODO: #154 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -233,11 +234,14 @@ function Get-CapaOSPoints {
 #>
 function Get-CapaOSServers {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[int]$OSPointID
 	)
 
@@ -257,7 +261,7 @@ function Get-CapaOSServers {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }
 
 

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Set-CapaPackageFolder
 ---
@@ -22,8 +22,8 @@ Set the folder structure of a package.
 ### __AllParameterSets
 
 ```
-Set-CapaPackageFolder [-CapaSDK] <Object> [-PackageType] <string> [-PackageName] <string>
- [-PackageVersion] <string> [-FolderStructure] <string> [[-ChangelogText] <string>]
+Set-CapaPackageFolder [-CapaSDK] <Object> [-PackageName] <string> [-PackageVersion] <string>
+ [-PackageType] <string> [-PackageFolder] <string> [[-ChangelogComment] <string>]
  [<CommonParameters>]
 ```
 
@@ -41,7 +41,7 @@ Returns True if the folder structure was set, otherwise False.
 
 ### EXAMPLE 1
 
-Set-CapaPackageFolder -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50' -FolderStructure 'Folder1\Folder2' -ChangelogText 'This is a changelog'
+Set-CapaPackageFolder -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -PackageFolder 'Folder1\Folder2' -ChangelogComment 'This is a changelog'
 
 ## PARAMETERS
 
@@ -66,7 +66,7 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
-### -ChangelogText
+### -ChangelogComment
 
 An optional changelog text to set.
 
@@ -74,7 +74,8 @@ An optional changelog text to set.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- ChangelogText
 ParameterSets:
 - Name: (All)
   Position: 5
@@ -87,7 +88,7 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
-### -FolderStructure
+### -PackageFolder
 
 The folder structure to set, for example 'Folder1\Folder2'.
 
@@ -95,7 +96,8 @@ The folder structure to set, for example 'Folder1\Folder2'.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- FolderStructure
 ParameterSets:
 - Name: (All)
   Position: 4
@@ -119,7 +121,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 2
+  Position: 1
   IsRequired: true
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -140,7 +142,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 1
+  Position: 3
   IsRequired: true
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -161,7 +163,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 3
+  Position: 2
   IsRequired: true
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -181,6 +183,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
+
+### System.Boolean
+
+{{ Fill in the Description }}
 
 ## NOTES
 

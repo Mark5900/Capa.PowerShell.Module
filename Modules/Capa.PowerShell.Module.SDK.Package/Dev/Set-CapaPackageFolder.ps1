@@ -9,45 +9,53 @@
 	.PARAMETER CapaSDK
 		The CapaSDK object.
 
-	.PARAMETER PackageType
-		The type of package to set the folder structure of, either Computer or User.
-
 	.PARAMETER PackageName
 		The name of the package to set the folder structure of.
 
 	.PARAMETER PackageVersion
 		The version of the package to set the folder structure of.
 
-	.PARAMETER FolderStructure
+	.PARAMETER PackageType
+		The type of package to set the folder structure of, either Computer or User.
+
+	.PARAMETER PackageFolder
 		The folder structure to set, for example 'Folder1\Folder2'.
 
-	.PARAMETER ChangelogText
+	.PARAMETER ChangelogComment
 		An optional changelog text to set.
 
 	.EXAMPLE
-				PS C:\> Set-CapaPackageFolder -CapaSDK $CapaSDK -PackageType 'Computer' -PackageName 'Winrar' -PackageVersion '5.50' -FolderStructure 'Folder1\Folder2' -ChangelogText 'This is a changelog'
+				PS C:\> Set-CapaPackageFolder -CapaSDK $CapaSDK -PackageName 'Winrar' -PackageVersion '5.50' -PackageType 'Computer' -PackageFolder 'Folder1\Folder2' -ChangelogComment 'This is a changelog'
 
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247032/Set+Package+Folder
 #>
 function Set-CapaPackageFolder {
+	[CmdletBinding()]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
+		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
+		[string]$PackageName,
+		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
+		[string]$PackageVersion,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
 		[string]$PackageType,
 		[Parameter(Mandatory = $true)]
-		[string]$PackageName,
-		[Parameter(Mandatory = $true)]
-		[string]$PackageVersion,
-		[Parameter(Mandatory = $true)]
-		[string]$FolderStructure,
-		[string]$ChangelogText
+		[ValidateNotNullOrEmpty()]
+		[Alias('FolderStructure')]
+		[string]$PackageFolder,
+		[Alias('ChangelogText')]
+		[string]$ChangelogComment
 	)
 
-	$bool = $CapaSDK.SetPackageFolder($PackageName, $PackageVersion, $PackageType, $FolderStructure, $ChangelogText)
+	$bool = $CapaSDK.SetPackageFolder($PackageName, $PackageVersion, $PackageType, $PackageFolder, $ChangelogComment)
 
 	Return $bool
 }

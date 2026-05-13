@@ -1,50 +1,68 @@
-# TODO: #200 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247310/Add+unit+to+folder
+		Adds a unit to a folder.
 
 	.DESCRIPTION
-		A detailed description of the Add-CapaUnitToFolder function.
+		Adds the specified unit to the specified folder path by calling the CapaSDK
+		method AddUnitToFolder.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		Name of the unit to move.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.PARAMETER FolderStructure
-		A description of the FolderStructure parameter.
+		Destination folder structure.
 
 	.PARAMETER CreateFolder
-		Default is false
+		Whether to create missing folders. Valid values are true and false.
+		Default is false.
 
 	.EXAMPLE
-				PS C:\> Add-CapaUnitToFolder -CapaSDK $value1 -UnitName "" -UnitType "" -FolderStructure ""
+		PS C:\> Add-CapaUnitToFolder -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -FolderStructure 'Pester\\Computers' -CreateFolder true
+
+		Moves PC-01 to Pester\\Computers and creates missing folders.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247310/Add+unit+to+folder
 #>
 function Add-CapaUnitToFolder {
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([bool])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
-		[string]$UnitName = '',
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		[string]$UnitType = '',
+		[string]$UnitType,
 		[Parameter(Mandatory = $true)]
-		[string]$FolderStructure = '',
+		[ValidateNotNullOrEmpty()]
+		[string]$FolderStructure,
 		[ValidateSet('true', 'false')]
-		[string]$CreateFolder
+		[string]$CreateFolder = 'false'
 	)
+
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'AddUnitToFolder')) {
+		throw 'CapaSDK does not contain method AddUnitToFolder.'
+	}
+
+	$target = "$UnitType unit '$UnitName'"
+	$action = "Move to folder '$FolderStructure' (CreateFolder=$CreateFolder)"
+	if (-not $PSCmdlet.ShouldProcess($target, $action)) {
+		return
+	}
 
 	$aUnits = $CapaSDK.AddUnitToFolder($UnitName, $UnitType, $FolderStructure, $CreateFolder)
 
-	Return $aUnits
+	return $aUnits
 }

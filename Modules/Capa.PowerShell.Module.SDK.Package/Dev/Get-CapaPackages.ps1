@@ -1,5 +1,3 @@
-# TODO: #173 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get a list of packages.
@@ -27,9 +25,12 @@
 		And https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246964/Get+packages+on+Business+Unit
 #>
 function Get-CapaPackages {
+	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $false)]
 		[ValidateSet('Computer', 'User')]
@@ -66,5 +67,5 @@ function Get-CapaPackages {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

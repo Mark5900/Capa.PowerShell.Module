@@ -1,5 +1,3 @@
-# TODO: #246 Update and add tests
-
 <#
 	.SYNOPSIS
 		Gets a list of devices linked to a VPP user.
@@ -21,21 +19,37 @@
 #>
 function Get-CapaDevicesLinkedToVppUser {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true)]
+		[ValidateRange(1, [int]::MaxValue)]
 		[Int]$vppUserID
 	)
 
-	$oaUnits = @()
+	if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetDevicesLinkedToVppUser')) {
+		throw 'CapaSDK does not contain method GetDevicesLinkedToVppUser.'
+	}
 
 	$aUnits = $CapaSDK.GetDevicesLinkedToVppUser($vppUserID)
+	if ($null -eq $aUnits) {
+		return @()
+	}
 
-	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
-		$oaUnits += [pscustomobject]@{
+	$oaUnits = foreach ($sItem in $aUnits) {
+		if ([string]::IsNullOrWhiteSpace([string]$sItem)) {
+			continue
+		}
+
+		$aItem = [string]$sItem -split ';', 12
+		if ($aItem.Count -lt 12) {
+			continue
+		}
+
+		[pscustomobject]@{
 			Name           = $aItem[0];
 			Created        = $aItem[1];
 			LastExecuted   = $aItem[2];
@@ -46,9 +60,9 @@ function Get-CapaDevicesLinkedToVppUser {
 			TypeName       = $aItem[8];
 			UUID           = $aItem[9];
 			IsMobileDevice = $aItem[10];
-			location       = $aItem[11]
+			Location       = $aItem[11]
 		}
 	}
 
-	Return $oaUnits
+	return @($oaUnits)
 }

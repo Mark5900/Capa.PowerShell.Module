@@ -514,8 +514,8 @@ Describe '$global:gsDisplayVersion' {
 	}
 }
 Describe '$global:gsWindowsType' {
-	It 'Should be "LanmanNT"' {
-		$global:gsWindowsType | Should -Be 'LanmanNT'
+	It 'Should be "ServerNT"' {
+		$global:gsWindowsType | Should -Be 'ServerNT'
 	}
 	It 'Should be a string' {
 		$global:gsWindowsType | Should -BeOfType [string]

@@ -61,6 +61,8 @@
         This is a custom function that is not part of the CapaSDK
 #>
 function New-CapaPowerPack {
+	[CmdletBinding()]
+	[OutputType([int], [bool])]
 	param (
 		[Parameter(Mandatory = $true)]
 		[pscustomobject]$CapaSDK,
@@ -169,5 +171,10 @@ function New-CapaPowerPack {
 	} Catch {
 		$PSCmdlet.ThrowTerminatingError($PSitem)
 		return -1
-	}
+	} Finally {
+        # Cleanup Temp Folder
+        If (Test-Path $TempTempFolder) {
+            Remove-Item -Path $TempTempFolder -Recurse -Force | Out-Null
+        }
+    }
 }

@@ -1,5 +1,3 @@
-# TODO: #149 Update and add tests
-
 <#
 	.SYNOPSIS
 		Unlink profile from a device.
@@ -32,32 +30,40 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246474/Unlink+profile+from+device
 #>
 function Unlink-CapaUnitFromProfile {
-	[CmdletBinding(DefaultParameterSetName = 'Uuid')]
+	[CmdletBinding(DefaultParameterSetName = 'Uuid', SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(ParameterSetName = 'NameType',
 			Mandatory = $true)]
-		[String]$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
-		[String]$ProfileName,
-		[Parameter(Mandatory = $true)]
-		[String]$ChangelogComment,
+		[ValidateNotNullOrEmpty()]
+		[string]$ProfileName,
+		[Parameter(Mandatory = $false)]
+		[string]$ChangelogComment,
 		[Parameter(ParameterSetName = 'Uuid',
 			Mandatory = $true)]
-		[String]$Uuid
+		[ValidateNotNullOrEmpty()]
+		[string]$Uuid
 	)
 
-	switch ($PsCmdlet.ParameterSetName) {
-		'NameType' {
-			$value = $CapaSDK.UnlinkUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
-			break
+	$Target = if ($PsCmdlet.ParameterSetName -eq 'Uuid') { $Uuid } else { $UnitName }
+	if ($PSCmdlet.ShouldProcess($Target, "Unlink profile '$ProfileName' from device")) {
+		switch ($PsCmdlet.ParameterSetName) {
+			'NameType' {
+				$value = $CapaSDK.UnlinkUnitFromProfile($UnitName, $ProfileName, $ChangelogComment)
+				break
+			}
+			'Uuid' {
+				$value = $CapaSDK.UnlinkUnitFromProfile($Uuid, $ProfileName, $ChangelogComment)
+				break
+			}
 		}
-		'Uuid' {
-			$value = $CapaSDK.UnlinkUnitFromProfile($Uuid, $ProfileName, $ChangelogComment)
-			break
-		}
+		return $value
 	}
-	return $value
 }

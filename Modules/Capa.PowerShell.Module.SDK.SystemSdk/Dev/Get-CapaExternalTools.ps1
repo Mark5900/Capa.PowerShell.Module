@@ -1,5 +1,3 @@
-# TODO: #191 Update and add tests
-
 <#
 	.SYNOPSIS
 		Get a list of all external tools.
@@ -18,9 +16,11 @@
 #>
 function Get-CapaExternalTools {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK
 	)
 
@@ -38,5 +38,5 @@ function Get-CapaExternalTools {
 		}
 	}
 
-	Return $oaUnits
+	return $oaUnits
 }

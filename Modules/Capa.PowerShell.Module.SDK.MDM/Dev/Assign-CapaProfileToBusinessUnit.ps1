@@ -1,5 +1,3 @@
-# TODO: #140 Update and add tests
-
 <#
 	.SYNOPSIS
 		Assign a profile to a business unit.
@@ -26,18 +24,23 @@
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246552/Assign+Profile+to+Business+Unit
 #>
 function Assign-CapaProfileToBusinessUnit {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+	[OutputType([object])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNull()]
 		$CapaSDK,
 		[Parameter(Mandatory = $true)]
 		[int]$ProfileId,
 		[Parameter(Mandatory = $true)]
+		[ValidateNotNullOrEmpty()]
 		[string]$BusinessUnitName,
 		[string]$ChangelogComment = ''
 	)
 
-	$value = $CapaSDK.AssignProfileToBusinessUnit($ProfileId, $BusinessUnitName, $ChangelogComment)
-	return $value
+	if ($PSCmdlet.ShouldProcess($ProfileId, "Assign profile to business unit '$BusinessUnitName'")) {
+		$value = $CapaSDK.AssignProfileToBusinessUnit($ProfileId, $BusinessUnitName, $ChangelogComment)
+		return $value
+	}
 }

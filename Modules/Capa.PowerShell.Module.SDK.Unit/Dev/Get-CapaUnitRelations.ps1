@@ -1,46 +1,67 @@
-# TODO: #220 Update and add tests
-
 <#
 	.SYNOPSIS
-		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247554/Get+Unit+Relations
+		Gets relations for a unit.
 
 	.DESCRIPTION
-		A detailed description of the Get-CapaUnitRelations function.
+		Gets unit relations by calling the CapaSDK method GetUnitRelations and
+		returns parsed relation objects.
 
 	.PARAMETER CapaSDK
-		A description of the CapaSDK parameter.
+		The initialized CapaSDK instance from Initialize-CapaSDK.
 
 	.PARAMETER UnitName
-		A description of the UnitName parameter.
+		Name of the unit to query relations for.
 
 	.PARAMETER UnitType
-		A description of the UnitType parameter.
+		Type of unit. Valid values are Computer and User.
 
 	.EXAMPLE
-		PS C:\> Get-CapaUnitRelations -CapaSDK $value1 -UnitName $value2 -UnitType $value3
+		PS C:\> Get-CapaUnitRelations -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer
+
+		Returns relation rows for unit PC-01.
 
 	.NOTES
-		Additional information about the function.
+		For more information, see:
+		https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247554/Get+Unit+Relations
 #>
 function Get-CapaUnitRelations {
 	[CmdletBinding()]
+	[OutputType([pscustomobject[]])]
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$CapaSDK,
+		[ValidateNotNull()]
+		[pscustomobject]$CapaSDK,
 		[Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-		$UnitName,
+		[ValidateNotNullOrEmpty()]
+		[string]$UnitName,
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('Computer', 'User')]
-		$UnitType
+		[string]$UnitType
 	)
 
+	begin {
+		if (-not ($CapaSDK.PSObject.Methods.Name -contains 'GetUnitRelations')) {
+			throw 'CapaSDK does not contain method GetUnitRelations.'
+		}
+	}
+
 	process {
-		# Retrieve unit relations using the Capa SDK
-		$CapaSDK.GetUnitRelations($UnitName, $UnitType) | ForEach-Object {
-			# Split the relation string into its components
-			$aItem = $_.Split(';')
-			# Create and return a custom object with the relation details
+		$aRelations = $CapaSDK.GetUnitRelations($UnitName, $UnitType)
+		if ($null -eq $aRelations) {
+			return @()
+		}
+
+		$oaRelations = foreach ($item in $aRelations) {
+			if ([string]::IsNullOrWhiteSpace([string]$item)) {
+				continue
+			}
+
+			$aItem = [string]$item -split ';', 15
+			if ($aItem.Count -lt 15) {
+				continue
+			}
+
 			[pscustomobject]@{
 				RelationType = $aItem[0];
 				Name         = $aItem[1];
@@ -58,5 +79,7 @@ function Get-CapaUnitRelations {
 				BuId         = $aItem[14]
 			}
 		}
+
+		return @($oaRelations)
 	}
 }

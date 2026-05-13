@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Inventory
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaUserInventory
 ---
@@ -22,7 +22,7 @@ Get software inventory for a user.
 ### __AllParameterSets
 
 ```
-Get-CapaUserInventory [-CapaSDK] <Object> [-UserName] <Object> [<CommonParameters>]
+Get-CapaUserInventory [-CapaSDK] <Object> [-UserName] <string> [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -68,7 +68,7 @@ HelpMessage: ''
 The username of the user.
 
 ```yaml
-Type: System.Object
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -94,6 +94,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
+
+### System.Management.Automation.PSObject
+
+{{ Fill in the Description }}
 
 ## NOTES
 

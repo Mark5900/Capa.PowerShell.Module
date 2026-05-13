@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.WSUS
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaWSUSPoints
 ---
@@ -22,7 +22,7 @@ Get a list of WSUS points.
 ### __AllParameterSets
 
 ```
-Get-CapaWSUSPoints [-CapaSDK] <Object> [<CommonParameters>]
+Get-CapaWSUSPoints [-CapaSDK] <psobject> [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -47,7 +47,7 @@ Get-CapaWSUSPoints -CapaSDK $CapaSDK
 The CapaSDK object.
 
 ```yaml
-Type: System.Object
+Type: System.Management.Automation.PSObject
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
@@ -73,6 +73,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
+
+### System.Management.Automation.PSObject
+
+{{ Fill in the Description }}
 
 ## NOTES
 

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.CCS
-ms.date: 12/02/2025
+ms.date: 05/12/2026
 PlatyPS schema version: 2024-05-01
 title: Add-CCSADUserToSecurityGroup
 ---
@@ -15,16 +15,16 @@ title: Add-CCSADUserToSecurityGroup
 
 ## SYNOPSIS
 
-Adds a user to a security group in Active Directory using the CCS API.
+Adds a user to a security group in Active Directory using the CCS Web Service.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Add-CCSADUserToSecurityGroup [-UserName] <string> [-SecurityGroupName] <string>
- [[-DomainOUPath] <string>] [-Domain] <string> [-Url] <string> [-CCSCredential] <pscredential>
- [[-DomainCredential] <pscredential>] [[-PasswordIsEncrypted] <bool>] [<CommonParameters>]
+Add-CCSADUserToSecurityGroup [-UserName] <string[]> [-SecurityGroupName] <string> -Domain <string>
+ -Url <string> -CCSCredential <pscredential> [-DomainOUPath <string>]
+ [-DomainCredential <pscredential>] [-PasswordIsEncrypted] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -34,29 +34,75 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-Adds a user to a security group in Active Directory using the CCS API.
+Adds a user to a security group in Active Directory using the CCS Web Service.
+This advanced function includes comprehensive error handling, input validation, and supports pipeline input.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Add-CCSADUserToSecurityGroup -UserName "jdoe" -SecurityGroupName "Domain Users" -DomainOUPath "OU=Users,DC=example,DC=com" -Domain "example.com" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $ccsCredential -DomainCredential $domainCredential
+Add-CCSADUserToSecurityGroup -UserName "jdoe" -SecurityGroupName "Domain Users" -Domain "example.com" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential
+
+Adds user jdoe to Domain Users group using default CCS context.
+
+### EXAMPLE 2
+
+Add-CCSADUserToSecurityGroup -UserName "jdoe" -SecurityGroupName "Domain Users" -DomainOUPath "OU=Users,DC=example,DC=com" -Domain "example.com" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential -DomainCredential $DomainCredential
+
+Adds user jdoe to Domain Users group using specific domain credentials and OU path.
+
+### EXAMPLE 3
+
+"jdoe", "asmith", "bwilson" | Add-CCSADUserToSecurityGroup -SecurityGroupName "Domain Users" -Domain "example.com" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential
+
+Adds multiple users to Domain Users group using pipeline input.
+
+### EXAMPLE 4
+
+Add-CCSADUserToSecurityGroup -UserName "jdoe" -SecurityGroupName "Domain Users" -DomainOUPath "LDAP://DC01.Firmax.local/OU=Users,DC=FirmaX,DC=local" -Domain "Firmax.local" -Url "https://example.com/CCSWebservice/CCS.asmx" -CCSCredential $Credential
+
+Adds user jdoe to Domain Users group using LDAP format for the OU path.
+The LDAP path will be automatically converted to standard DN format.
 
 ## PARAMETERS
 
 ### -CCSCredential
 
-The credentials for the CCS API.
+The credentials used to authenticate with the CCS Web Service.
 
 ```yaml
 Type: System.Management.Automation.PSCredential
 DefaultValue: ''
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- Credential
+- WebServiceCredential
 ParameterSets:
 - Name: (All)
-  Position: 5
+  Position: Named
   IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -67,7 +113,8 @@ HelpMessage: ''
 
 ### -Domain
 
-The domain name where the security group resides.
+The domain in which the user resides.
+Must be a valid domain name format.
 
 ```yaml
 Type: System.String
@@ -76,10 +123,10 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 3
+  Position: Named
   IsRequired: true
   ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
+  ValueFromPipelineByPropertyName: true
   ValueFromRemainingArguments: false
 DontShow: false
 AcceptedValues: []
@@ -88,16 +135,18 @@ HelpMessage: ''
 
 ### -DomainCredential
 
-The credentials for the domain where the security group resides.
+The credentials of an account with permissions to add the user to the security group.
+If not defined, it will run in the CCS Web Service context.
 
 ```yaml
 Type: System.Management.Automation.PSCredential
 DefaultValue: ''
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- ADCredential
 ParameterSets:
 - Name: (All)
-  Position: 6
+  Position: Named
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -109,19 +158,23 @@ HelpMessage: ''
 
 ### -DomainOUPath
 
-The Organizational Unit (OU) path of the domain where the security group resides.
+The Organizational Unit (OU) path in which the user resides.
+If not specified, searches the entire domain.
+Supports both standard DN format (OU=Users,DC=example,DC=com) and LDAP format (LDAP://DC01.example.local/OU=Users,DC=example,DC=com).
 
 ```yaml
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- OU
+- Path
 ParameterSets:
 - Name: (All)
-  Position: 2
+  Position: Named
   IsRequired: false
   ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
+  ValueFromPipelineByPropertyName: true
   ValueFromRemainingArguments: false
 DontShow: false
 AcceptedValues: []
@@ -130,17 +183,18 @@ HelpMessage: ''
 
 ### -PasswordIsEncrypted
 
-Indicates whether the password is encrypted.
+Indicates if the password in the DomainCredential is encrypted.
 Default is $false.
 
 ```yaml
-Type: System.Boolean
+Type: System.Management.Automation.SwitchParameter
 DefaultValue: False
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- Encrypted
 ParameterSets:
 - Name: (All)
-  Position: 7
+  Position: Named
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -158,13 +212,15 @@ The name of the security group to which the user will be added.
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- GroupName
+- Group
 ParameterSets:
 - Name: (All)
   Position: 1
   IsRequired: true
   ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
+  ValueFromPipelineByPropertyName: true
   ValueFromRemainingArguments: false
 DontShow: false
 AcceptedValues: []
@@ -173,16 +229,20 @@ HelpMessage: ''
 
 ### -Url
 
-The URL of the CCS API.
+The URL of the CCS Web Service.
+Must be a valid URI format.
+Example: "https://example.com/CCSWebservice/CCS.asmx"
 
 ```yaml
 Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- WebServiceUrl
+- Uri
 ParameterSets:
 - Name: (All)
-  Position: 4
+  Position: Named
   IsRequired: true
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -195,16 +255,42 @@ HelpMessage: ''
 ### -UserName
 
 The username of the user to be added to the security group.
+Supports pipeline input and accepts multiple user names.
 
 ```yaml
-Type: System.String
+Type: System.String[]
 DefaultValue: ''
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- Name
+- User
+- SamAccountName
 ParameterSets:
 - Name: (All)
   Position: 0
   IsRequired: true
+  ValueFromPipeline: true
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -WhatIf
+
+Runs the command in a mode that only reports what would happen without performing the actions.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -222,9 +308,29 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### System.String[]
+
+{{ Fill in the Description }}
+
+### System.String
+
+{{ Fill in the Description }}
+
 ## OUTPUTS
 
+### System.String
+Returns the result message from the CCS Web Service operation.
+
+{{ Fill in the Description }}
+
+### System.String
+
+{{ Fill in the Description }}
+
 ## NOTES
+
+This is an advanced function with support for ShouldProcess, pipeline input, and comprehensive error handling.
+
 
 ## RELATED LINKS
 

@@ -1,4 +1,3 @@
-# TODO: #401 Add tests for Reg_GetMultiString
 
 <#
 	.SYNOPSIS
@@ -20,6 +19,7 @@
 		PS C:\> Reg_GetMultiString -RegRoot "HKLM" -RegKey "SOFTWARE\CapaSystems" -RegValue "Test"
 #>
 function Reg_GetMultiString {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -32,3 +32,4 @@ function Reg_GetMultiString {
 
 	return $Global:cs.Reg_GetMultiString($RegRoot, $RegKey, $RegValue)
 }
+

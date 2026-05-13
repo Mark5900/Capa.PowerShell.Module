@@ -13,6 +13,9 @@
 		Idea from: https://github.com/Romanitho/Winget-Install/blob/main/winget-install.ps1
 #>
 function Add-PpWingetScopeMachine {
+	[CmdletBinding()]
+	param ()
+
 	$Function = 'Add-PpWingetScopeMachine'
 
 	#Get Settings path for system or current user

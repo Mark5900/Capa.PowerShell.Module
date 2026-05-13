@@ -9,7 +9,9 @@
 		Custom function not from CapaSystems.
 		Idea from: https://github.com/Romanitho/Winget-Install/blob/main/winget-install.ps1
 #>
+
 function Install-PpWingetPrerequisites {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $false)]
 		[string]$WingetPath

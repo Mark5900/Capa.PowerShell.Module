@@ -1,4 +1,3 @@
-# TODO: #81 Update and add tests
 
 <#
     .SYNOPSIS
@@ -24,6 +23,7 @@
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455683/cs.Job+WriteLog
 #>
 function Job_WriteLog {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Text,
@@ -37,3 +37,5 @@ function Job_WriteLog {
 		$Global:Cs.Job_WriteLog($Text)
 	}
 }
+
+

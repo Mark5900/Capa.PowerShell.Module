@@ -1,4 +1,3 @@
-# TODO: #80 Update and add tests
 
 <#
     .SYNOPSIS
@@ -29,7 +28,8 @@
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455360/cs.Job+Start
 #>
 function Job_Start {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$JobType,
         [Parameter(Mandatory = $true)]
@@ -44,4 +44,6 @@ function Job_Start {
 
     $Global:Cs.Job_Start($JobType, $PackageName, $PackageVersion, $LogPath, $Action)
 }
+
+
 

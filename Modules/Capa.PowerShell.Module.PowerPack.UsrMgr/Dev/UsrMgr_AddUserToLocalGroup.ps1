@@ -1,5 +1,3 @@
-# TODO: #386 Update Get-Help for UsrMgr_AddUserToLocalGroup
-
 <#
 	.SYNOPSIS
 		Adds a user to a local group.
@@ -26,6 +24,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456159/cs.UsrMgr+AddUserToLocalGroup
 #>
 function UsrMgr_AddUserToLocalGroup {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$UserName,

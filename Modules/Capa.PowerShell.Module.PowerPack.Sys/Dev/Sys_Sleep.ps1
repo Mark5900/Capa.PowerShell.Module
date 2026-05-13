@@ -1,4 +1,3 @@
-# TODO: #405 Create tests for Sys_Sleep function
 
 <#
 	.SYNOPSIS
@@ -11,6 +10,7 @@
 		The number of seconds to sleep, shall be bigger than 0 and less than 14400.
 #>
 function Sys_Sleep {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[int]$Seconds

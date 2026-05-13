@@ -1,4 +1,3 @@
-# TODO: #89 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -134,3 +133,4 @@ function Reg_DeleteTree {
 		}
 	}
 }
+

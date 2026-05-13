@@ -55,7 +55,11 @@ class InputObject {
 		The message box is also not the real one, but a simple example.
 #>
 function Initialize-PpInputObject {
+	[CmdletBinding()]
+	param ()
+
 	if ($null -eq $Global:InputObject) {
 		$Global:InputObject = [InputObject]::new()
 	}
 }
+

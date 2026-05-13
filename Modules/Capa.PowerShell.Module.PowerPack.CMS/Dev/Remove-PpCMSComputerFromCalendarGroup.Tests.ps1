@@ -1,1 +1,11 @@
-# TODO: #316 Write tests for Remove-PpCMSComputerFromCalendarGroup
+BeforeAll {
+	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
+}
+
+Describe 'Remove-PpCMSComputerFromCalendarGroup' {
+	It 'Has CmdletBinding attribute' {
+		$command = Get-Command -Name 'Remove-PpCMSComputerFromCalendarGroup' -CommandType Function -ErrorAction Stop
+
+		($command.ScriptBlock.Attributes | Where-Object { $_ -is [System.Management.Automation.CmdletBindingAttribute] }) | Should -Not -BeNullOrEmpty
+	}
+}

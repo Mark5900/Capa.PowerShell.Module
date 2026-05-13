@@ -1,4 +1,3 @@
-# TODO: #309 Update Get-Help for Add-PpCMSComputerToStaticGroup. Missing documentation for BU support.
 <#
 	.SYNOPSIS
 		Adds the specified unit to the specified static group.
@@ -28,3 +27,4 @@ function Add-PpCMSComputerToStaticGroup {
 	)
 	return CMS_AddComputerToStaticGroup -group $Group
 }
+

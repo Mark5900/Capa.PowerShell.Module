@@ -1,4 +1,3 @@
-# TODO: #106 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -17,6 +16,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456091/cs.Sys+KillProcess
 #>
 function Sys_KillProcess {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$ProcessName
@@ -24,3 +24,4 @@ function Sys_KillProcess {
 
 	$Global:cs.Sys_KillProcess($ProcessName)
 }
+

@@ -1,4 +1,3 @@
-# TODO: #317 Update Get-Help for Add-PpCMSComputerToDepartmentGroup, missing BU support description
 <#
 	.SYNOPSIS
 		Adds a specified computer unit to a department group.
@@ -28,3 +27,4 @@ function Add-PpCMSComputerToDepartmentGroup {
 	)
 	return CMS_AddComputerToDepartmentGroup -group $Group
 }
+

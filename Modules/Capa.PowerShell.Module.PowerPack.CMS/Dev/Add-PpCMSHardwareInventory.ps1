@@ -1,4 +1,3 @@
-# TODO: #301 Update Get-Help for Add-PpCMSHardwareInventory
 <#
 	.SYNOPSIS
 		Adds a HardwareInventory row to the database that is persistent.
@@ -48,7 +47,7 @@ function Add-PpCMSHardwareInventory {
 		[ValidateSet('String', 'Int', 'Time')]
 		[string]$ValueType
 	)
-	switch ($x) {
+	switch ($ValueType) {
 		'String' {
 			$ValueTypeShort = 'S'
 		}
@@ -65,3 +64,5 @@ function Add-PpCMSHardwareInventory {
 
 	return CMS_AddHardwareInventory -category $Category -entry $Entry -value $Value -valuetype $ValueTypeShort
 }
+
+

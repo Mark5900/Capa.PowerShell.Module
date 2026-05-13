@@ -1,4 +1,3 @@
-# TODO: #98 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -26,6 +25,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455972/cs.Reg+SetString
 #>
 function Reg_SetString {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -40,3 +40,4 @@ function Reg_SetString {
 
 	$Global:cs.Reg_SetString($RegRoot, $RegKey, $RegValue, $RegData)
 }
+

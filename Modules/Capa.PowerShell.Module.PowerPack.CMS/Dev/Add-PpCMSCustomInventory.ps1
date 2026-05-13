@@ -1,4 +1,3 @@
-# TODO: #295 Update Get-Help CMS_AddCustomInventory
 <#
 	.SYNOPSIS
 		Adds a custom inventory entry to the database.
@@ -50,7 +49,7 @@ function Add-PpCMSCustomInventory {
 		[ValidateSet('String', 'Integer', 'Time')]
 		[string]$ValueType
 	)
-	switch ($x) {
+	switch ($ValueType) {
 		String {
 			$ValueTypeShort = 'S'
 		}
@@ -67,3 +66,5 @@ function Add-PpCMSCustomInventory {
 
 	return CMS_AddCustomInventory -category $Category -entry $Entry -value $Value -valuetype $ValueTypeShort
 }
+
+

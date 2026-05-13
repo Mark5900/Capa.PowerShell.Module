@@ -1,4 +1,3 @@
-# TODO: #398 Add tests for File_GetFolderSize
 
 <#
 	.SYNOPSIS
@@ -17,6 +16,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/20251410491/cs.File_GetFolderSize
 #>
 function File_GetFolderSize {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$FilePath
@@ -24,3 +24,5 @@ function File_GetFolderSize {
 
 	return $Global:Cs.File_GetFolderSize($FilePath)
 }
+
+

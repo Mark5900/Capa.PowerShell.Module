@@ -1,4 +1,3 @@
-# TODO: #59 Update and add tests
 
 <#
     .SYNOPSIS

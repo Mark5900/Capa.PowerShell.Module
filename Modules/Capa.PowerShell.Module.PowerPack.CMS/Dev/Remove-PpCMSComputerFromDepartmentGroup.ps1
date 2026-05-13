@@ -1,4 +1,3 @@
-# TODO: #319 Update Get-Help for Remove-PpCMSComputerFromDepartmentGroup, missing BU support description
 <#
 	.SYNOPSIS
 		Removes a specified computer unit from a department group.
@@ -25,3 +24,4 @@ function Remove-PpCMSComputerFromDepartmentGroup {
 	)
 	return CMS_RemoveComputerFromDepartmentGroup -group $Group
 }
+

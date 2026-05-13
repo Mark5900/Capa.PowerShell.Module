@@ -1,4 +1,3 @@
-# TODO: #341 Update Get-Help for Add-PpCMSUnitToBusinessUnit
 <#
 	.SYNOPSIS
 		Adds the unit to the specified business unit
@@ -25,3 +24,4 @@ function Add-PpCMSUnitToBusinessUnit {
 	)
 	return CMS_AddUnitToBusinessUnit -businessunitname $BusinessUnitName
 }
+

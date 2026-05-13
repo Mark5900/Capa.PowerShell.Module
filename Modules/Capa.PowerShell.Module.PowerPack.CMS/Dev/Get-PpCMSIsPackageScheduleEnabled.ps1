@@ -1,4 +1,3 @@
-# TODO: #357 Update Get-Help for Get-PpCMSIsPackageScheduleEnabled
 <#
 	.SYNOPSIS
 		Returns as boolean indicating if the schedule for a package is enabled.
@@ -30,3 +29,4 @@ function Get-PpCMSIsPackageScheduleEnabled {
 	)
 	return CMS_IsPackageScheduleEnabled -package $PackageName -version $PackageVersion
 }
+

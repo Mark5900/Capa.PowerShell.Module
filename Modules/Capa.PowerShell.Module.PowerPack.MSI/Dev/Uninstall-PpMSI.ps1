@@ -21,6 +21,7 @@
 		This command uninstalls all MSI packages with display names that start with "MyApp".
 #>
 function Uninstall-PpMSI {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$DisplayName,
@@ -99,3 +100,4 @@ function Uninstall-PpMSI {
 		}
 	}
 }
+

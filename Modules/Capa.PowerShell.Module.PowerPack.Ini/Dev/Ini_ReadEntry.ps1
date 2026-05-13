@@ -1,4 +1,3 @@
-# TODO: #75 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -23,7 +22,8 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455649/cs.Ini+ReadEntry
 #>
 function Ini_ReadEntry {
-	param(
+	[CmdletBinding()]
+	param (
 		[Parameter(Mandatory = $true)]
 		[string]$FilePath,
 		[Parameter(Mandatory = $true)]
@@ -36,3 +36,5 @@ function Ini_ReadEntry {
 
 	return $Value
 }
+
+

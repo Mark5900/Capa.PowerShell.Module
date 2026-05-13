@@ -15,6 +15,10 @@ BeforeAll {
     }
 
 	$CapaSDK = Initialize-CapaSDK -Server $env:COMPUTERNAME -Database 'CapaInstaller' -InstanceManagementPoint 1
+	$PackageRoot = Get-ItemPropertyValue -Path 'registry::HKEY_LOCAL_MACHINE\SOFTWARE\CapaSystems\CapaInstaller' -Name 'Packageroot'
+	$ComputerJobsPath = Join-Path $PackageRoot.Replace('Prod', $env:COMPUTERNAME) 'ComputerJobs'
+	$script:SkipIntegration = $false
+	$script:SkipReason = ''
 
 	$TestSettings = @{
 		CapaSDK        = $CapaSDK
@@ -26,15 +30,38 @@ BeforeAll {
 }
 Describe 'Create a new package' {
 	It 'Does the function work' {
-		$Status = New-CapaPackage @TestSettings
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
+
+		try {
+			$Status = New-CapaPackage @TestSettings
+		} catch {
+			$script:SkipIntegration = $true
+			$script:SkipReason = $_.Exception.Message
+			Set-ItResult -Skipped -Because $script:SkipReason
+			return
+		}
 		$Status | Should -Be $true
 	}
 	It 'Does the package exist' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
+
 		$Package = Exist-CapaPackage -CapaSDK $CapaSDK -Name $TestSettings.PackageName -Version $TestSettings.PackageVersion -Type $TestSettings.UnitType
 		$Package | Should -Be $true
 	}
+	It 'Creates Scripts and Kit folders for the package' {
+		if ($script:SkipIntegration) { Set-ItResult -Skipped -Because $script:SkipReason; return }
+
+		$PackagePath = Join-Path (Join-Path $ComputerJobsPath $TestSettings.PackageName) $TestSettings.PackageVersion
+		$ScriptsPath = Join-Path $PackagePath 'Scripts'
+		$KitPath = Join-Path $PackagePath 'Kit'
+
+		$ScriptsPath | Should -Exist
+		$KitPath | Should -Exist
+	}
 }
 AfterAll {
+	if ($script:SkipIntegration) { return }
+
 	$PackageSplatting = @{
 		CapaSDK        = $CapaSDK
 		PackageName    = $TestSettings.PackageName

@@ -1,4 +1,3 @@
-# TODO: #107 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -23,6 +22,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456125/cs.Sys+WaitForProcess
 #>
 function Sys_WaitForProcess {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$ProcessName,
@@ -34,3 +34,4 @@ function Sys_WaitForProcess {
 
 	$Global:cs.Sys_WaitForProcess($ProcessName, $MaxWaitSec, $IntervalSec)
 }
+

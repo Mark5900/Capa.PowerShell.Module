@@ -1,4 +1,3 @@
-# TODO: #58 Update and add tests
 
 <#
     .SYNOPSIS
@@ -11,6 +10,9 @@
         Command from PSlib.psm1
 #>
 function Start-PSDownloadPackage {
+    [CmdletBinding()]
+    param ()
+
     try {
         $Return = $Global:InputObject.DownloadPackage()
         Job_WriteLog -Text "Downloading package: $AppName"
@@ -44,3 +46,5 @@ function Start-PSDownloadPackage {
         Exit-PpScript 3322
     }
 }
+
+

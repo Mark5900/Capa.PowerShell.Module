@@ -1,4 +1,3 @@
-# TODO: #103 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -17,6 +16,8 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456074/cs.Sys+ExistProcess
 #>
 function Sys_ExistProcess {
+	[CmdletBinding()]
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$ProcessName
@@ -26,3 +27,5 @@ function Sys_ExistProcess {
 
 	return $Value
 }
+
+

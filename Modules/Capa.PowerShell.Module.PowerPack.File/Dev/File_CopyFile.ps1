@@ -1,36 +1,34 @@
-# TODO: #61 Update and add tests
-
 <#
-    .SYNOPSIS
-        Copy a file.
+.SYNOPSIS
+Copy a file.
 
-		.DESCRIPTION
-				This function copies a file from the source to the destination.
+.DESCRIPTION
+This function copies a file from the source to the destination.
 
-    .Parameter Source
-        The source file.
+.PARAMETER Source
+The source file.
 
-    .Parameter Destination
-        The destination file.
+.PARAMETER Destination
+The destination file.
 
-    .Parameter Overwrite
-        Overwrite the destination file if it already exists.
+.PARAMETER Overwrite
+Overwrite the destination file if it already exists. Default is $true.
 
-    .EXAMPLE
-        File_CopyFile -Source "C:\Temp\test.txt" -Destination "C:\Temp\test2.txt"
+.EXAMPLE
+File_CopyFile -Source "C:\Temp\test.txt" -Destination "C:\Temp\test2.txt"
 
-    .NOTES
-        For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455394/cs.File+CopyFile
+.NOTES
+For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455394/cs.File+CopyFile
 #>
 function File_CopyFile {
-    param (
-        [Parameter(Mandatory = $true)]
-        [string]$Source,
-        [Parameter(Mandatory = $true)]
-        [string]$Destination,
-        [bool]$Overwrite = $true
-    )
+[CmdletBinding()]
+param (
+[Parameter(Mandatory = $true)]
+[string]$Source,
+[Parameter(Mandatory = $true)]
+[string]$Destination,
+[bool]$Overwrite = $true
+)
 
-    $Global:Cs.File_CopyFile($Source, $Destination, $Overwrite)
+$Global:Cs.File_CopyFile($Source, $Destination, $Overwrite)
 }
-

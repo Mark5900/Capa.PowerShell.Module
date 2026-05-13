@@ -1,4 +1,3 @@
-# TODO: #297 Update Get-Help for Remove-PpCMSCustomInventory
 <#
 	.SYNOPSIS
 		Removes a CustomInventory row from the database that is persistent.
@@ -26,3 +25,4 @@ function Remove-PpCMSCustomInventory {
 
 	return CMS_RemoveCustomInventory -category $Category -entry $Entry
 }
+

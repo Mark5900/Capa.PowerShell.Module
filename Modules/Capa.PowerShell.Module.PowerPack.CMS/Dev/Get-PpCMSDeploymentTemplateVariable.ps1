@@ -1,4 +1,3 @@
-# TODO: #291 Update Get-Help for Get-PpCMSDeploymentTemplateVariable
 <#
 	.SYNOPSIS
 		Returns a variable from the deployment template linked to the current client
@@ -60,3 +59,4 @@ function Get-PpCMSDeploymentTemplateVariable {
 
 	return CMS_GetDeploymentTemplateVariable -section $Section -variable $Variable -mustexist $MustExist
 }
+

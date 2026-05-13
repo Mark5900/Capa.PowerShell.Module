@@ -1,4 +1,3 @@
-# TODO: #67 Update and add tests
 
 <#
     .SYNOPSIS
@@ -26,7 +25,8 @@
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455462/cs.File+DeleteLineInFile
 #>
 function File_DeleteLineInFile {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$File,
         [Parameter(Mandatory = $true)]
@@ -37,3 +37,5 @@ function File_DeleteLineInFile {
 
     $Global:Cs.File_DeleteLineInFile($File, $Text, $OnlyFirstMatch, $IgnoreCase)
 }
+
+

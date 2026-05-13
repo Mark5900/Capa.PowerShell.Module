@@ -1,4 +1,3 @@
-# TODO: #64 Update and add tests
 
 <#
     .SYNOPSIS
@@ -17,10 +16,13 @@
         https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455445/cs.File+DelEmptyFolder
 #>
 function File_DelEmptyFolder {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$Path
     )
 
     $Global:Cs.File_DelEmptyFolder($Path)
 }
+
+

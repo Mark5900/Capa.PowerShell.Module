@@ -1,4 +1,3 @@
-# TODO: #63 Update and add tests
 
 <#
     .SYNOPSIS
@@ -17,10 +16,13 @@
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455428/cs.File+CreateDir
 #>
 function File_CreateDir {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$Path
     )
 
     $Global:Cs.File_CreateDir($Path)
 }
+
+

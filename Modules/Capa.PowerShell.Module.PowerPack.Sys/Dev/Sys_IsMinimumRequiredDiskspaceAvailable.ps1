@@ -1,4 +1,3 @@
-# TODO: #105 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -23,6 +22,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456108/cs.Sys+IsMinimumRequiredDiskspaceAvailable
 #>
 function Sys_IsMinimumRequiredDiskspaceAvailable {
+	[CmdletBinding()]
 	param (
 		[string]$Drive = 'C:',
 		[Parameter(Mandatory = $true)]
@@ -33,3 +33,5 @@ function Sys_IsMinimumRequiredDiskspaceAvailable {
 
 	return $Value
 }
+
+

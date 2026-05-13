@@ -1,5 +1,3 @@
-# TODO: #389 Update Get-Help for UsrMgr_DeleteLocalUserAccount
-
 <#
 	.SYNOPSIS
 		Delete a local user account.
@@ -17,6 +15,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456261/cs.UsrMgr+DeleteLocalUserAccount
 #>
 function UsrMgr_DeleteLocalUserAccount {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$UserName

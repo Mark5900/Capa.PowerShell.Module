@@ -1,5 +1,3 @@
-# TODO: #388 Update Get-Help for UsrMgr_CreateLocalUser
-
 <#
 	.SYNOPSIS
 		Create a local user account.
@@ -35,6 +33,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456193/cs.UsrMgr+CreateLocalUser
 #>
 function UsrMgr_CreateLocalUser {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$UserName,

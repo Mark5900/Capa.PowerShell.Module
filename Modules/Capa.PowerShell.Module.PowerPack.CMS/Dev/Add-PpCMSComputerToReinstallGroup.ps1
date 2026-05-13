@@ -1,4 +1,3 @@
-# TODO: #325 Update Get-Help for Add-PpCMSComputerToReinstallGroup, missing BU support description
 <#
 	.SYNOPSIS
 		Add a computer to a Reinstall Group.
@@ -28,3 +27,4 @@ function Add-PpCMSComputerToReinstallGroup {
 	)
 	return CMS_AddComputerToReinstallGroup -group $Group
 }
+

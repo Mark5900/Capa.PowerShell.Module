@@ -1,4 +1,3 @@
-# TODO: #315 Update Get-Help for Remove-PpCMSComputerFromCalendarGroup
 <#
 	.SYNOPSIS
 		Removes a specified computer unit from a calendar group.
@@ -25,3 +24,4 @@ function Remove-PpCMSComputerFromCalendarGroup {
 	)
 	return CMS_RemoveComputerFromCalendarGroup -group $Group
 }
+

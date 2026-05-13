@@ -1,4 +1,3 @@
-# TODO: #293 Update the Get-Help for Get-PpCMSInventory
 <#
 	.SYNOPSIS
 		Gets inventory values from the database.
@@ -53,3 +52,4 @@ function Get-PpCMSInventory {
 
 	return CMS_GetInventory -table $TableShort -category $Category -entry $Entry
 }
+

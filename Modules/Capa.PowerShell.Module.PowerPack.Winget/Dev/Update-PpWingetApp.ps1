@@ -31,6 +31,7 @@
 		Update-PpWingetApp -AppId 'Mozilla.Firefox' -AllowInstallOfWinGet $true
 #>
 function Update-PpWingetApp {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$AppId,

@@ -1,4 +1,3 @@
-# TODO: #78 Update and add tests
 
 <#
     .SYNOPSIS
@@ -14,5 +13,10 @@
         Custom command
 #>
 function Job_EnableLog {
+    [CmdletBinding()]
+	param ()
     $global:cs.Job_EnableLog()
 }
+
+
+

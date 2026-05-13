@@ -1,4 +1,3 @@
-# TODO: #399 Add tests for Reg_GetExpandString
 
 <#
 	.SYNOPSIS
@@ -20,6 +19,7 @@
 		PS C:\> Reg_GetExpandString -RegRoot "HKLM" -RegKey "SOFTWARE\CapaSystems" -RegValue "Test"
 #>
 function Reg_GetExpandString {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -32,3 +32,4 @@ function Reg_GetExpandString {
 
 	return $Global:cs.Reg_GetExpandString($RegRoot, $RegKey, $RegValue)
 }
+

@@ -1,4 +1,3 @@
-# TODO: #94 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -23,6 +22,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455904/cs.Reg+GetString
 #>
 function Reg_GetString {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -37,3 +37,5 @@ function Reg_GetString {
 
 	return $Value
 }
+
+

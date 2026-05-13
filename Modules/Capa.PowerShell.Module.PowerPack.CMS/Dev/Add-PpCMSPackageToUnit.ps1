@@ -1,4 +1,3 @@
-# TODO: #329 Update Get-Help for Add-PpCMSPackageToUnit
 <#
 	.SYNOPSIS
 		Adds the specified package to the unit on which the script is being executed
@@ -30,3 +29,4 @@ function Add-PpCMSPackageToUnit {
 	)
 	return CMS_AddPackageToUnit -package $PackageName -version $PackageVersion
 }
+

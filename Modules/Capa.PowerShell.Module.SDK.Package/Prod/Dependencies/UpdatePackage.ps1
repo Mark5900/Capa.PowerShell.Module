@@ -2,7 +2,6 @@ Import-Module Capa.PowerShell.Module.SDK.Authentication
 Import-Module Capa.PowerShell.Module.SDK.Package
 Import-Module SqlServer
 <#
-    .NOTES
     ===========================================================================
     Created with:	Visual Studio Code
     Created on:     2023-04-18
@@ -225,11 +224,8 @@ try {
 				Throw "Failed to create VB package '$($PackageInfo.PackageName) $($PackageInfo.PackageVersion)'"
 			}
 
-			<#
-                TODO: #256 Bug hot fix
-                The package is created in CI, but the folder containing the scripts and kit is not created.
-                This is a workaround to create the folder and can be removed when the bug is fixed.
-            #>
+			# Compatibility workaround: New-CapaPackage creates the CI package record,
+			# but Scripts/Kit folders are not guaranteed to exist for VB packages.
 			$VBPackageBaseFolder = "$($Settings.PackageBasePath)\$($PackageInfo.PackageName)\$($PackageInfo.PackageVersion)"
 			$VBScriptsFolder = "$VBPackageBaseFolder\Scripts"
 			$VBInstallScript = "$VBScriptsFolder\$($PackageInfo.PackageName).cis"

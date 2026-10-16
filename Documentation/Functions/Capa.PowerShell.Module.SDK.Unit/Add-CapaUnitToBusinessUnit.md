@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Add-CapaUnitToBusinessUnit
 ---
@@ -23,7 +23,7 @@ Adds a unit to a business unit.
 
 ```
 Add-CapaUnitToBusinessUnit [-CapaSDK] <psobject> [-UnitName] <string> [-UnitType] <string>
- [-BusinessUnit] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-BusinessUnit] <string> [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

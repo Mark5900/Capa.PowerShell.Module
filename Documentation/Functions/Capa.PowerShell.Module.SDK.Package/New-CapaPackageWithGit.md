@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: New-CapaPackageWithGit
 ---
@@ -24,7 +24,7 @@ Creates a new capa package with Git support
 ```
 New-CapaPackageWithGit -PackageName <string> -PackageVersion <string> -PackageType <string>
  -BasePath <string> [-CapaServer <string>] [-SQLServer <string>] [-Database <string>]
- [-DefaultManagementPoint <string>] [-PackageBasePath <string>] [<CommonParameters>]
+ [-DefaultManagementPoint <string>] [-PackageBasePath <string>]
 ```
 
 ### Advanced
@@ -32,7 +32,7 @@ New-CapaPackageWithGit -PackageName <string> -PackageVersion <string> -PackageTy
 ```
 New-CapaPackageWithGit -SoftwareName <string> -SoftwareVersion <string> -PackageType <string>
  -BasePath <string> -Advanced [-CapaServer <string>] [-SQLServer <string>] [-Database <string>]
- [-DefaultManagementPoint <string>] [-PackageBasePath <string>] [<CommonParameters>]
+ [-DefaultManagementPoint <string>] [-PackageBasePath <string>]
 ```
 
 ## ALIASES

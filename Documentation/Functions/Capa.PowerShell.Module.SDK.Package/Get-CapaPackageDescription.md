@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaPackageDescription
 ---
@@ -23,7 +23,7 @@ Get a description of a package.
 
 ```
 Get-CapaPackageDescription [-CapaSDK] <Object> [-PackageName] <string> [-PackageVersion] <string>
- [-PackageType] <string> [<CommonParameters>]
+ [-PackageType] <string>
 ```
 
 ## ALIASES

@@ -253,7 +253,9 @@ function Add-CapaUnitToFolder {
 		return
 	}
 
-	$aUnits = $CapaSDK.AddUnitToFolder($UnitName, $UnitType, $FolderStructure, $CreateFolder)
+	# The SDK parameter is a Boolean; passing the string 'false' to COM would be coerced to $true
+	$bCreateFolder = $CreateFolder -eq 'true'
+	$aUnits = $CapaSDK.AddUnitToFolder($UnitName, $UnitType, $FolderStructure, $bCreateFolder)
 
 	return $aUnits
 }
@@ -589,13 +591,14 @@ function Add-CapaUnitToReinstall {
 		Status of the unit. Valid values are Active and Inactive.
 
 	.PARAMETER Uuid
-		Optional UUID used when UnitDeviceType is specified.
+		Optional UUID for the unit. If not specified, the SDK generates a new UUID.
 
 	.PARAMETER SerialNumber
-		Optional serial number used when UnitDeviceType is specified.
+		Optional serial number for the unit (only used for Computer units).
 
 	.PARAMETER UnitDeviceType
-		Optional device type. When specified, the extended CreateUnit overload is used.
+		Optional device type (only used for Computer units). If not specified, the
+		SDK default 'Unknown' is used.
 
 	.EXAMPLE
 		PS C:\> Create-CapaUnit -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -LinkToManagementServerID 2
@@ -643,10 +646,12 @@ function Create-CapaUnit {
 		return
 	}
 
-	if ($UnitDeviceType -eq '') {
+	if ($UnitDeviceType -eq '' -and $Uuid -eq '' -and $SerialNumber -eq '') {
 		$value = $CapaSDK.CreateUnit($UnitName, $UnitType, $LinkToManagementServerID, $Status)
 	} else {
-		$value = $CapaSDK.CreateUnit($UnitName, $UnitType, $LinkToManagementServerID, $Status, $Uuid, $SerialNumber, $UnitDeviceType)
+		# 'Unknown' is the SDK default for unitDevicetype and behaves like the 4-argument call
+		$DeviceType = if ($UnitDeviceType -eq '') { 'Unknown' } else { $UnitDeviceType }
+		$value = $CapaSDK.CreateUnit($UnitName, $UnitType, $LinkToManagementServerID, $Status, $Uuid, $SerialNumber, $DeviceType)
 	}
 
 	return $value
@@ -1213,12 +1218,14 @@ function Get-CapaUnitLinkedUnits {
 		}
 
 		if ($UseRelationsFallback) {
-			$aItem = [string]$sItem -split ';', 15
-			if ($aItem.Count -lt 15) {
+			# FillUnitRelationsArray: RelationType;Name;Created;LastExecuted;Status;Description;GUID;ID;TypeName;UUID;IsMobile;Location;CmpId;BuId
+			$aItem = [string]$sItem -split ';', 14
+			if ($aItem.Count -lt 14) {
 				continue
 			}
 
-			if ($aItem[9] -eq $UnitType) {
+			# TypeName is the plural unit type name (e.g. 'Computers', 'Users')
+			if (@($UnitType, "$($UnitType)s") -contains $aItem[8]) {
 				continue
 			}
 
@@ -1228,9 +1235,10 @@ function Get-CapaUnitLinkedUnits {
 				LastExecuted = $aItem[3];
 				Status       = $aItem[4];
 				Description  = $aItem[5];
-				GUID         = $aItem[7];
-				ID           = $aItem[8];
-				TypeName     = $aItem[9]
+				GUID         = $aItem[6];
+				ID           = $aItem[7];
+				TypeName     = $aItem[8];
+				RelationType = $aItem[0]
 			}
 		} else {
 			$aItem = [string]$sItem -split ';', 9
@@ -1329,12 +1337,14 @@ function Get-CapaUnitLinkedUser {
 		}
 
 		if ($UseRelationsFallback) {
-			$aItem = [string]$sItem -split ';', 15
-			if ($aItem.Count -lt 15) {
+			# FillUnitRelationsArray: RelationType;Name;Created;LastExecuted;Status;Description;GUID;ID;TypeName;UUID;IsMobile;Location;CmpId;BuId
+			$aItem = [string]$sItem -split ';', 14
+			if ($aItem.Count -lt 14) {
 				continue
 			}
 
-			if ($aItem[9] -ne 'User') {
+			# TypeName is the plural unit type name (e.g. 'Users')
+			if (@('User', 'Users') -notcontains $aItem[8]) {
 				continue
 			}
 
@@ -1344,9 +1354,10 @@ function Get-CapaUnitLinkedUser {
 				LastExecuted = $aItem[3];
 				Status       = $aItem[4];
 				Description  = $aItem[5];
-				GUID         = $aItem[7];
-				ID           = $aItem[8];
-				TypeName     = $aItem[9]
+				GUID         = $aItem[6];
+				ID           = $aItem[7];
+				TypeName     = $aItem[8];
+				RelationType = $aItem[0]
 			}
 		} else {
 			$aItem = [string]$sItem -split ';', 9
@@ -1529,8 +1540,8 @@ function Get-CapaUnitPackages {
 			continue
 		}
 
-		$aItem = [string]$sItem -split ';', 16
-		if ($aItem.Count -lt 16) {
+		$aItem = [string]$sItem -split ';', 15
+		if ($aItem.Count -lt 15) {
 			continue
 		}
 
@@ -1541,15 +1552,15 @@ function Get-CapaUnitPackages {
 			DisplayName        = $aItem[3];
 			IsMandatory        = $aItem[4];
 			ScheduleId         = $aItem[5];
-			Description        = $aItem[7];
-			GUID               = $aItem[8];
-			ID                 = $aItem[9];
-			IsInteractive      = $aItem[10];
-			DependendPackageID = $aItem[11];
-			IsInventoryPackage = $aItem[12];
-			CollectMode        = $aItem[13];
-			Priority           = $aItem[14];
-			ServerDeploy       = $aItem[15]
+			Description        = $aItem[6];
+			GUID               = $aItem[7];
+			ID                 = $aItem[8];
+			IsInteractive      = $aItem[9];
+			DependendPackageID = $aItem[10];
+			IsInventoryPackage = $aItem[11];
+			CollectMode        = $aItem[12];
+			Priority           = $aItem[13];
+			ServerDeploy       = $aItem[14]
 		}
 	}
 
@@ -1685,8 +1696,8 @@ function Get-CapaUnitRelations {
 				continue
 			}
 
-			$aItem = [string]$item -split ';', 15
-			if ($aItem.Count -lt 15) {
+			$aItem = [string]$item -split ';', 14
+			if ($aItem.Count -lt 14) {
 				continue
 			}
 
@@ -1697,14 +1708,14 @@ function Get-CapaUnitRelations {
 				LastExecuted = $aItem[3];
 				Status       = $aItem[4];
 				Description  = $aItem[5];
-				GUID         = $aItem[7];
-				ID           = $aItem[8];
-				TypeName     = $aItem[9];
-				UUID         = $aItem[10];
-				IsMobile     = $aItem[11];
-				Location     = $aItem[12];
-				CmpId        = $aItem[13];
-				BuId         = $aItem[14]
+				GUID         = $aItem[6];
+				ID           = $aItem[7];
+				TypeName     = $aItem[8];
+				UUID         = $aItem[9];
+				IsMobile     = $aItem[10];
+				Location     = $aItem[11];
+				CmpId        = $aItem[12];
+				BuId         = $aItem[13]
 			}
 		}
 
@@ -1877,8 +1888,8 @@ function Get-CapaUnitsInFolder {
 			continue
 		}
 
-		$aItem = [string]$sItem -split ';', 12
-		if ($aItem.Count -lt 12) {
+		$aItem = [string]$sItem -split ';', 11
+		if ($aItem.Count -lt 11) {
 			continue
 		}
 
@@ -1889,11 +1900,11 @@ function Get-CapaUnitsInFolder {
 			Status         = $aItem[3];
 			Description    = $aItem[4];
 			GUID           = $aItem[5];
-			ID             = $aItem[7];
-			TypeName       = $aItem[8];
-			UUID           = $aItem[9];
-			IsMobileDevice = $aItem[10];
-			Location       = $aItem[11]
+			ID             = $aItem[6];
+			TypeName       = $aItem[7];
+			UUID           = $aItem[8];
+			IsMobileDevice = $aItem[9];
+			Location       = $aItem[10]
 		}
 	}
 

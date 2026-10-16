@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Remove-PpCMSComputerFromStaticGroup
 ---
@@ -15,14 +15,14 @@ title: Remove-PpCMSComputerFromStaticGroup
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Removes the specified unit from the specified static group.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Remove-PpCMSComputerFromStaticGroup [-Group] <string> [<CommonParameters>]
+Remove-PpCMSComputerFromStaticGroup [-Group] <string>
 ```
 
 ## ALIASES
@@ -32,19 +32,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Removes the specified unit from the specified static group.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Remove-PpCMSComputerFromStaticGroup -Group "CapaInstaller"
+if ($bStatus) {
+	Job_WriteLog -Text "Computer removed from group."
+} else {
+	Job_WriteLog -Text "Failed to remove computer from group."
+}
 
 ## PARAMETERS
 
 ### -Group
 
-{{ Fill Group Description }}
+The name of the static group to remove the unit from.
 
 ```yaml
 Type: System.String
@@ -74,13 +79,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

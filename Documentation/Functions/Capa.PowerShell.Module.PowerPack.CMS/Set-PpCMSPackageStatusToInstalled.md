@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Set-PpCMSPackageStatusToInstalled
 ---
@@ -15,7 +15,7 @@ title: Set-PpCMSPackageStatusToInstalled
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Sets the status of the specified package to installed.
 
 ## SYNTAX
 
@@ -23,7 +23,6 @@ title: Set-PpCMSPackageStatusToInstalled
 
 ```
 Set-PpCMSPackageStatusToInstalled [-PackageName] <string> [-PackageVersion] <string>
- [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -33,19 +32,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Sets the status of the specified package to installed.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Set-PpCMSPackageStatusToInstalled -PackageName "MyPackage" -PackageVersion "1.0.0"
+if ($bStatus) {
+	Job_WriteLog -Text "Package status set to installed."
+} else {
+	Job_WriteLog -Text "Failed to set package status to installed."
+}
 
 ## PARAMETERS
 
 ### -PackageName
 
-{{ Fill PackageName Description }}
+The name of the package to set the status for.
 
 ```yaml
 Type: System.String
@@ -66,7 +70,7 @@ HelpMessage: ''
 
 ### -PackageVersion
 
-{{ Fill PackageVersion Description }}
+The version of the package to set the status for.
 
 ```yaml
 Type: System.String
@@ -96,13 +100,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

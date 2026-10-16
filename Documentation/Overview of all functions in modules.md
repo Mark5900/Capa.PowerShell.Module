@@ -152,6 +152,7 @@ layout: single
 ## [Capa.PowerShell.Module.PowerPack.MSI](Functions/Capa.PowerShell.Module.PowerPack.MSI/Capa.PowerShell.Module.PowerPack.MSI.md)
 
 - [Install-Msi](Functions/Capa.PowerShell.Module.PowerPack.MSI/Install-Msi.md)
+- [Install-PpMSI](Functions/Capa.PowerShell.Module.PowerPack.MSI/Install-PpMSI.md)
 - [MSI_GetProductCodeFromMSI](Functions/Capa.PowerShell.Module.PowerPack.MSI/MSI_GetProductCodeFromMSI.md)
 - [MSI_GetPropertiesFromMSI](Functions/Capa.PowerShell.Module.PowerPack.MSI/MSI_GetPropertiesFromMSI.md)
 - [MSI_GetPropertyFromMSI](Functions/Capa.PowerShell.Module.PowerPack.MSI/MSI_GetPropertyFromMSI.md)

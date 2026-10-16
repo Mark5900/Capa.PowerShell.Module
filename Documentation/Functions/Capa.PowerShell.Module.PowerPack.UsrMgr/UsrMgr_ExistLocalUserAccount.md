@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.UsrMgr
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: UsrMgr_ExistLocalUserAccount
 ---
@@ -22,7 +22,7 @@ Check if a local user account exists.
 ### __AllParameterSets
 
 ```
-UsrMgr_ExistLocalUserAccount [-UserName] <string> [<CommonParameters>]
+UsrMgr_ExistLocalUserAccount [-UserName] <string>
 ```
 
 ## ALIASES

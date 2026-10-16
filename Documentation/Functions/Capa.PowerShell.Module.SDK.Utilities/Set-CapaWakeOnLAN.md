@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Utilities
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Set-CapaWakeOnLAN
 ---
@@ -22,7 +22,7 @@ Set a action to perform a Wake On LAN Request for the unit.
 ### __AllParameterSets
 
 ```
-Set-CapaWakeOnLAN [-CapaSDK] <Object> [-UnitName] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-CapaWakeOnLAN [-CapaSDK] <Object> [-UnitName] <string> [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

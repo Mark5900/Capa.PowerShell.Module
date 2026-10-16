@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.CCS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Create-CCSADSecurityGroupsForShares
 ---
@@ -25,7 +25,7 @@ Creates Active Directory security groups for network shares using the CCS Web Se
 Create-CCSADSecurityGroupsForShares [[-DomainOUPath] <string>] [-Domain] <string> [-Url] <string>
  [-CCSCredential] <pscredential> [[-DomainCredential] <pscredential>] [-GroupFormat] <string>
  [-GroupDescriptionFormat] <string> [-CreateReadGroup] [-CreateReadWriteGroup]
- [-ExcludeStandardShares] [-PasswordIsEncrypted] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ExcludeStandardShares] [-PasswordIsEncrypted] [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

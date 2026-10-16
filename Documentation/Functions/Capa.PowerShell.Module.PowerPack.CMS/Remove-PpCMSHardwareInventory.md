@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Remove-PpCMSHardwareInventory
 ---
@@ -15,14 +15,14 @@ title: Remove-PpCMSHardwareInventory
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Removes a HardwareInventory row from the database that is persistent.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Remove-PpCMSHardwareInventory [-Category] <string> [-Entry] <string> [<CommonParameters>]
+Remove-PpCMSHardwareInventory [-Category] <string> [-Entry] <string>
 ```
 
 ## ALIASES
@@ -32,19 +32,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Removes a HardwareInventory row from the database that is persistent.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Remove-PpCMSHardwareInventory -Category "MyCategory" -Entry "MyEntry"
+if ($bStatus) {
+	Job_WriteLog -Text "Hardware inventory removed successfully."
+} else {
+	Job_WriteLog -Text "Failed to remove hardware inventory."
+}
 
 ## PARAMETERS
 
 ### -Category
 
-{{ Fill Category Description }}
+Category name
 
 ```yaml
 Type: System.String
@@ -65,7 +70,7 @@ HelpMessage: ''
 
 ### -Entry
 
-{{ Fill Entry Description }}
+Variable name
 
 ```yaml
 Type: System.String
@@ -95,13 +100,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

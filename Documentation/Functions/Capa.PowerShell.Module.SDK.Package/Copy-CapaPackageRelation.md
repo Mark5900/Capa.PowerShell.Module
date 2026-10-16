@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Copy-CapaPackageRelation
 ---
@@ -26,7 +26,7 @@ Copy-CapaPackageRelation [-CapaSDK] <Object> [-FromPackageName] <string>
  [-FromPackageVersion] <string> [-FromPackageType] <string> [-ToPackageName] <string>
  [-ToPackageVersion] <string> [-ToPackageType] <string> [[-CopyGroups] <bool>] [[-CopyUnits] <bool>]
  [[-UnlinkGroupsAndUnitsFromExistingPackage] <bool>] [[-DisableScheduleOnExistingPackage] <bool>]
- [[-CopySchedule] <bool>] [<CommonParameters>]
+ [[-CopySchedule] <bool>]
 ```
 
 ## ALIASES

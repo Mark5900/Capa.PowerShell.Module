@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Inventory
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaUserInventory
 ---
@@ -15,14 +15,14 @@ title: Get-CapaUserInventory
 
 ## SYNOPSIS
 
-Get software inventory for a user.
+Get user inventory (standard inventory of type User) for a user.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Get-CapaUserInventory [-CapaSDK] <Object> [-UserName] <string> [<CommonParameters>]
+Get-CapaUserInventory [-CapaSDK] <Object> [-UserName] <string>
 ```
 
 ## ALIASES
@@ -32,13 +32,13 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-Get software inventory for a user.
+Get user inventory (standard inventory of type User) for a user.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Get-CapaSoftwareInventoryForUser -CapaSDK $CapaSDK -UserName 'Klient'
+Get-CapaUserInventory -CapaSDK $CapaSDK -UserName 'Klient'
 
 ## PARAMETERS
 
@@ -95,7 +95,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Management.Automation.PSObject
+### System.Management.Automation.PSObject[]
 
 {{ Fill in the Description }}
 

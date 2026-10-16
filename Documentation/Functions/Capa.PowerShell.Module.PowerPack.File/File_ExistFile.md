@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.File
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: File_ExistFile
 ---
@@ -22,7 +22,7 @@ Check if a file exists.
 ### __AllParameterSets
 
 ```
-File_ExistFile [-FilePath] <string> [<CommonParameters>]
+File_ExistFile [-FilePath] <string>
 ```
 
 ## ALIASES

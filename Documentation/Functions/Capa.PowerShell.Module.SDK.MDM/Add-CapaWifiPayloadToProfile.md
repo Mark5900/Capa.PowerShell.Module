@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.MDM
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Add-CapaWifiPayloadToProfile
 ---
@@ -26,7 +26,7 @@ Add-CapaWifiPayloadToProfile [-CapaSDK] <Object> [-ProfileID] <int> [-NetworkNam
  [[-HiddenNetwork] <bool>] [[-AutoJoin] <bool>] [-SecurityType] <string> [[-Password] <string>]
  [-ProxyType] <string> [[-ProxyServer] <string>] [[-ProxyPort] <string>]
  [[-ProxyAuthentication] <string>] [[-ProxyPassword] <string>] [[-ProxyServerConfigURL] <string>]
- [[-ChangelogComment] <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-ChangelogComment] <string>] [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

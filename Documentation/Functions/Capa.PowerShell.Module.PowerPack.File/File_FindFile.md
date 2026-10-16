@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.File
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: File_FindFile
 ---
@@ -22,7 +22,7 @@ Find a file.
 ### __AllParameterSets
 
 ```
-File_FindFile [-FileName] <string> [-SearchRoot] <string> [[-Recursive] <bool>] [<CommonParameters>]
+File_FindFile [-FileName] <string> [-SearchRoot] <string> [[-Recursive] <bool>]
 ```
 
 ## ALIASES

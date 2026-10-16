@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Remove-CapaUnitFromPackage
 ---
@@ -24,7 +24,6 @@ Remove a unit from a package.
 ```
 Remove-CapaUnitFromPackage [-CapaSDK] <Object> [-PackageName] <string> [-PackageVersion] <string>
  [-PackageType] <string> [-UnitName] <string> [-UnitType] <string> [-WhatIf] [-Confirm]
- [<CommonParameters>]
 ```
 
 ## ALIASES

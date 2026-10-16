@@ -1,117 +1,112 @@
 
-# TODO: #60 Update and add tests
-
 <#
-    .SYNOPSIS
-        Append text to a file.
+.SYNOPSIS
+Append text to a file.
 
-		.DESCRIPTION
-				This function appends the specified text to the end of the specified file.
+.DESCRIPTION
+This function appends the specified text to the end of the specified file.
 
-    .Parameter File
-        The file to append to.
+.PARAMETER File
+The file to append to.
 
-    .Parameter Text
-        The text to append to the file.
+.PARAMETER Text
+The text to append to the file.
 
-    .EXAMPLE
-        File_AppendToFile -File "C:\Temp\test.txt" -Text "Hello World"
+.EXAMPLE
+File_AppendToFile -File "C:\Temp\test.txt" -Text "Hello World"
 
-    .NOTES
-        For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455377/cs.File+AppendToFile
+.NOTES
+For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455377/cs.File+AppendToFile
 #>
 function File_AppendToFile {
-    param (
-        [Parameter(Mandatory = $true)]
-        [string]$File,
-        [Parameter(Mandatory = $true)]
-        [string]$Text
-    )
+[CmdletBinding()]
+param (
+[Parameter(Mandatory = $true)]
+[string]$File,
+[Parameter(Mandatory = $true)]
+[string]$Text
+)
 
-    $Global:Cs.File_AppendToFile($File, $Text)
+$Global:Cs.File_AppendToFile($File, $Text)
 }
 
 
-# TODO: #61 Update and add tests
-
 <#
-    .SYNOPSIS
-        Copy a file.
+.SYNOPSIS
+Copy a file.
 
-		.DESCRIPTION
-				This function copies a file from the source to the destination.
+.DESCRIPTION
+This function copies a file from the source to the destination.
 
-    .Parameter Source
-        The source file.
+.PARAMETER Source
+The source file.
 
-    .Parameter Destination
-        The destination file.
+.PARAMETER Destination
+The destination file.
 
-    .Parameter Overwrite
-        Overwrite the destination file if it already exists.
+.PARAMETER Overwrite
+Overwrite the destination file if it already exists. Default is $true.
 
-    .EXAMPLE
-        File_CopyFile -Source "C:\Temp\test.txt" -Destination "C:\Temp\test2.txt"
+.EXAMPLE
+File_CopyFile -Source "C:\Temp\test.txt" -Destination "C:\Temp\test2.txt"
 
-    .NOTES
-        For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455394/cs.File+CopyFile
+.NOTES
+For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455394/cs.File+CopyFile
 #>
 function File_CopyFile {
-    param (
-        [Parameter(Mandatory = $true)]
-        [string]$Source,
-        [Parameter(Mandatory = $true)]
-        [string]$Destination,
-        [bool]$Overwrite = $true
-    )
+[CmdletBinding()]
+param (
+[Parameter(Mandatory = $true)]
+[string]$Source,
+[Parameter(Mandatory = $true)]
+[string]$Destination,
+[bool]$Overwrite = $true
+)
 
-    $Global:Cs.File_CopyFile($Source, $Destination, $Overwrite)
+$Global:Cs.File_CopyFile($Source, $Destination, $Overwrite)
 }
 
-
-
-# TODO: #62 Update and add tests
 
 <#
-    .SYNOPSIS
-        Copy a folder.
+.SYNOPSIS
+Copy a folder.
 
-		.DESCRIPTION
-				This function copies a folder from the source to the destination.
+.DESCRIPTION
+This function copies a folder from the source to the destination.
 
-    .Parameter Source
-        The source folder.
+.PARAMETER Source
+The source folder.
 
-    .Parameter Destination
-        The destination folder and creates destination folder if it does not exist.
+.PARAMETER Destination
+The destination folder. Creates destination folder if it does not exist.
 
-    .Parameter CopySubDirs
-        Copy sub directories, default is true.
+.PARAMETER CopySubDirs
+Copy sub directories. Default is $true.
 
-    .Parameter Overwrite
-        Overwrite the destination files if they already exists, default is true.
+.PARAMETER Overwrite
+Overwrite the destination files if they already exist. Default is $true.
 
-    .EXAMPLE
-        File_CopyTree -Source "C:\Temp\test" -Destination "C:\Temp\test2"
+.EXAMPLE
+File_CopyTree -Source "C:\Temp\test" -Destination "C:\Temp\test2"
 
-    .NOTES
-        For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455411/cs.File+CopyTree
+.NOTES
+For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455411/cs.File+CopyTree
 #>
-Function File_CopyTree {
-    param (
-        [Parameter(Mandatory = $true)]
-        [string]$Source,
-        [Parameter(Mandatory = $true)]
-        [string]$Destination,
-        [bool]$CopySubDirs = $true,
-        [bool]$Overwrite = $true
-    )
+function File_CopyTree {
+[CmdletBinding()]
+param (
+[Parameter(Mandatory = $true)]
+[string]$Source,
+[Parameter(Mandatory = $true)]
+[string]$Destination,
+[bool]$CopySubDirs = $true,
+[bool]$Overwrite = $true
+)
 
-    $Global:Cs.File_CopyTree($Source, $Destination, $CopySubDirs, $Overwrite)
+$Global:Cs.File_CopyTree($Source, $Destination, $CopySubDirs, $Overwrite)
 }
 
 
-# TODO: #63 Update and add tests
 
 <#
     .SYNOPSIS
@@ -130,7 +125,8 @@ Function File_CopyTree {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455428/cs.File+CreateDir
 #>
 function File_CreateDir {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$Path
     )
@@ -139,7 +135,8 @@ function File_CreateDir {
 }
 
 
-# TODO: #64 Update and add tests
+
+
 
 <#
     .SYNOPSIS
@@ -158,7 +155,8 @@ function File_CreateDir {
         https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455445/cs.File+DelEmptyFolder
 #>
 function File_DelEmptyFolder {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$Path
     )
@@ -167,7 +165,8 @@ function File_DelEmptyFolder {
 }
 
 
-# TODO: #67 Update and add tests
+
+
 
 <#
     .SYNOPSIS
@@ -195,7 +194,8 @@ function File_DelEmptyFolder {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455462/cs.File+DeleteLineInFile
 #>
 function File_DeleteLineInFile {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$File,
         [Parameter(Mandatory = $true)]
@@ -208,7 +208,8 @@ function File_DeleteLineInFile {
 }
 
 
-# TODO: #65 Update and add tests
+
+
 
 <#
     .SYNOPSIS
@@ -230,7 +231,8 @@ function File_DeleteLineInFile {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455479/cs.File+DelFile
 #>
 function File_DelFile {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$FilePath,
         [bool]$Recursive = $false
@@ -240,7 +242,8 @@ function File_DelFile {
 }
 
 
-# TODO: #66 Update and add tests
+
+
 
 <#
     .SYNOPSIS
@@ -259,7 +262,8 @@ function File_DelFile {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455496/cs.File+DelTree
 #>
 function File_DelTree {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$Path
     )
@@ -268,7 +272,8 @@ function File_DelTree {
 }
 
 
-# TODO: #68 Update and add tests
+
+
 
 <#
     .SYNOPSIS
@@ -287,7 +292,8 @@ function File_DelTree {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455530/cs.File+ExistDir
 #>
 function File_ExistDir {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$Path
     )
@@ -298,7 +304,8 @@ function File_ExistDir {
 }
 
 
-# TODO: #69 Update and add tests
+
+
 
 <#
     .SYNOPSIS
@@ -317,7 +324,8 @@ function File_ExistDir {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455513/cs.File+ExistFile
 #>
 function File_ExistFile {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$FilePath
     )
@@ -328,7 +336,8 @@ function File_ExistFile {
 }
 
 
-# TODO: #70 Update and add tests
+
+
 
 <#
     .SYNOPSIS
@@ -353,7 +362,8 @@ function File_ExistFile {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455547/cs.File+FindFile
 #>
 function File_FindFile {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$FileName,
         [Parameter(Mandatory = $true)]
@@ -367,7 +377,8 @@ function File_FindFile {
 }
 
 
-# TODO: #71 Update and add tests
+
+
 
 <#
     .SYNOPSIS
@@ -386,7 +397,8 @@ function File_FindFile {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455564/cs.File+GetFileVersion
 #>
 function File_GetFileVersion {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$FilePath
     )
@@ -397,7 +409,8 @@ function File_GetFileVersion {
 }
 
 
-# TODO: #398 Add tests for File_GetFolderSize
+
+
 
 <#
 	.SYNOPSIS
@@ -416,6 +429,7 @@ function File_GetFileVersion {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/20251410491/cs.File_GetFolderSize
 #>
 function File_GetFolderSize {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$FilePath
@@ -425,7 +439,8 @@ function File_GetFolderSize {
 }
 
 
-# TODO: #72 Update and add tests
+
+
 
 <#
     .SYNOPSIS
@@ -444,7 +459,8 @@ function File_GetFolderSize {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455581/cs.File+GetProductVersion
 #>
 function File_GetProductVersion {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$FilePath
     )
@@ -455,7 +471,8 @@ function File_GetProductVersion {
 }
 
 
-# TODO: #73 Update and add tests
+
+
 
 <#
     .SYNOPSIS
@@ -480,7 +497,8 @@ function File_GetProductVersion {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455598/cs.File+RenameDir
 #>
 function File_RenameDir {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$Source,
         [Parameter(Mandatory = $true)]
@@ -492,7 +510,8 @@ function File_RenameDir {
 }
 
 
-# TODO: #74 Update and add tests
+
+
 
 <#
     .SYNOPSIS
@@ -517,7 +536,8 @@ function File_RenameDir {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455615/cs.File+RenameFile
 #>
 function File_RenameFile {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$Source,
         [Parameter(Mandatory = $true)]
@@ -527,5 +547,7 @@ function File_RenameFile {
 
     $Global:Cs.File_RenameFile($Source, $Destination, $Overwrite)
 }
+
+
 
 

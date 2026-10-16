@@ -110,7 +110,7 @@ function Get-CapaExternalTools {
 	$aUnits = $CapaSDK.GetExternalTools()
 
 	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
+		$aItem = [string]$sItem -split ';', 4
 		$oaUnits += [pscustomobject]@{
 			ID        = $aItem[0];
 			Name      = $aItem[1];
@@ -220,9 +220,9 @@ function Get-CapaManagementServers {
 			Drive         = $aItem[3];
 			Server        = $aItem[4];
 			Share         = $aItem[5];
-			IsParentShare = $aItem[7];
-			GUID          = $aItem[8];
-			ID            = $aItem[9]
+			IsParentShare = $aItem[6];
+			GUID          = $aItem[7];
+			ID            = $aItem[8]
 		}
 	}
 

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Create-CapaUnit
 ---
@@ -24,7 +24,7 @@ Creates a unit.
 ```
 Create-CapaUnit [-CapaSDK] <psobject> [-UnitName] <string> [-UnitType] <string>
  [-LinkToManagementServerID] <int> [[-Status] <string>] [[-Uuid] <string>]
- [[-SerialNumber] <string>] [[-UnitDeviceType] <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-SerialNumber] <string>] [[-UnitDeviceType] <string>] [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES
@@ -113,7 +113,7 @@ HelpMessage: ''
 
 ### -SerialNumber
 
-Optional serial number used when UnitDeviceType is specified.
+Optional serial number for the unit (only used for Computer units).
 
 ```yaml
 Type: System.String
@@ -156,8 +156,9 @@ HelpMessage: ''
 
 ### -UnitDeviceType
 
-Optional device type.
-When specified, the extended CreateUnit overload is used.
+Optional device type (only used for Computer units).
+If not specified, the
+SDK default 'Unknown' is used.
 
 ```yaml
 Type: System.String
@@ -221,7 +222,8 @@ HelpMessage: ''
 
 ### -Uuid
 
-Optional UUID used when UnitDeviceType is specified.
+Optional UUID for the unit.
+If not specified, the SDK generates a new UUID.
 
 ```yaml
 Type: System.String

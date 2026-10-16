@@ -1,5 +1,4 @@
 
-# TODO: #286 Add help for Show-PpMessageBox
 <#
 	.SYNOPSIS
 		Show a message box.
@@ -55,7 +54,7 @@ function Show-PpMessageBox {
 }
 
 
-# TODO: #103 Update and add tests
+
 
 <#
 	.SYNOPSIS
@@ -74,6 +73,8 @@ function Show-PpMessageBox {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456074/cs.Sys+ExistProcess
 #>
 function Sys_ExistProcess {
+	[CmdletBinding()]
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$ProcessName
@@ -85,7 +86,8 @@ function Sys_ExistProcess {
 }
 
 
-# TODO: #104 Update and add tests
+
+
 
 <#
 	.SYNOPSIS
@@ -107,6 +109,7 @@ function Sys_ExistProcess {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456057/cs.Sys+GetFreeDiskSpace
 #>
 function Sys_GetFreeDiskSpace {
+	[CmdletBinding()]
 	param (
 		[string]$Drive = 'C:'
 	)
@@ -117,7 +120,8 @@ function Sys_GetFreeDiskSpace {
 }
 
 
-# TODO: #105 Update and add tests
+
+
 
 <#
 	.SYNOPSIS
@@ -142,6 +146,7 @@ function Sys_GetFreeDiskSpace {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456108/cs.Sys+IsMinimumRequiredDiskspaceAvailable
 #>
 function Sys_IsMinimumRequiredDiskspaceAvailable {
+	[CmdletBinding()]
 	param (
 		[string]$Drive = 'C:',
 		[Parameter(Mandatory = $true)]
@@ -154,7 +159,8 @@ function Sys_IsMinimumRequiredDiskspaceAvailable {
 }
 
 
-# TODO: #404 Create tests for Sys_isUserLoggedOn
+
+
 
 <#
 	.SYNOPSIS
@@ -171,11 +177,14 @@ function Sys_IsMinimumRequiredDiskspaceAvailable {
 		}
 #>
 function Sys_isUserLoggedOn {
+	[CmdletBinding()]
+	param ()
+
 	return $Global:cs.Sys_isUserLoggedOn()
 }
 
 
-# TODO: #106 Update and add tests
+
 
 <#
 	.SYNOPSIS
@@ -194,6 +203,7 @@ function Sys_isUserLoggedOn {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456091/cs.Sys+KillProcess
 #>
 function Sys_KillProcess {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$ProcessName
@@ -203,7 +213,7 @@ function Sys_KillProcess {
 }
 
 
-# TODO: #405 Create tests for Sys_Sleep function
+
 
 <#
 	.SYNOPSIS
@@ -216,6 +226,7 @@ function Sys_KillProcess {
 		The number of seconds to sleep, shall be bigger than 0 and less than 14400.
 #>
 function Sys_Sleep {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[int]$Seconds
@@ -225,7 +236,6 @@ function Sys_Sleep {
 }
 
 
-# TODO: #107 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -250,6 +260,7 @@ function Sys_Sleep {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456125/cs.Sys+WaitForProcess
 #>
 function Sys_WaitForProcess {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$ProcessName,
@@ -263,7 +274,7 @@ function Sys_WaitForProcess {
 }
 
 
-# TODO: #108 Update and add tests
+
 
 <#
 	.SYNOPSIS
@@ -288,6 +299,7 @@ function Sys_WaitForProcess {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456142/cs.Sys+WaitForProcessToExist
 #>
 function Sys_WaitForProcessToExist {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$ProcessName,
@@ -299,5 +311,6 @@ function Sys_WaitForProcessToExist {
 
 	$Global:cs.Sys_WaitForProcessToExist($ProcessName, $MaxWaitSec, $IntervalSec)
 }
+
 
 

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Inventory
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaUpdateInventoryForUnit
 ---
@@ -23,7 +23,6 @@ Get update inventory for a unit.
 
 ```
 Get-CapaUpdateInventoryForUnit [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string>
- [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -117,7 +116,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Management.Automation.PSObject
+### System.Management.Automation.PSObject[]
 
 {{ Fill in the Description }}
 

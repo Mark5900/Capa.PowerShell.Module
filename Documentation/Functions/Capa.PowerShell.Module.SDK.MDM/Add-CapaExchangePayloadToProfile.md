@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.MDM
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Add-CapaExchangePayloadToProfile
 ---
@@ -28,7 +28,7 @@ Add-CapaExchangePayloadToProfile [-CapaSDK] <Object> [-ProfileID] <int> [-Accoun
  [[-AllowMove] <bool>] [[-UseOnlyinMail] <bool>] [[-UseSMIME] <bool>]
  [[-AllowRecentAddressSyncing] <bool>] [-Syncinterval] <string> [[-SyncEmail] <bool>]
  [[-SyncCalendar] <bool>] [[-SyncContacts] <bool>] [[-SyncTasks] <bool>]
- [[-ChangelogComment] <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-ChangelogComment] <string>] [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

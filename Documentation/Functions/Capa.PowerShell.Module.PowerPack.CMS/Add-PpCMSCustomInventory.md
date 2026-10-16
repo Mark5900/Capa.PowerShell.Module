@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Add-PpCMSCustomInventory
 ---
@@ -15,7 +15,7 @@ title: Add-PpCMSCustomInventory
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Adds a custom inventory entry to the database.
 
 ## SYNTAX
 
@@ -23,7 +23,7 @@ title: Add-PpCMSCustomInventory
 
 ```
 Add-PpCMSCustomInventory [-Category] <string> [-Entry] <string> [-Value] <string>
- [-ValueType] <string> [<CommonParameters>]
+ [-ValueType] <string>
 ```
 
 ## ALIASES
@@ -33,19 +33,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Adds a persistent CustomInventory row to the database, meaning that the data will not be flushed out the next time that the CustomInventory package is run.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Add-PpCMSCustomInventory -Category "MyCategory" -Entry "MyEntry" -Value "MyValue" -ValueType "String"
+if ($bStatus) {
+	Job_WriteLog -Text "Custom inventory added successfully."
+} else {
+	Job_WriteLog -Text "Failed to add custom inventory."
+}
 
 ## PARAMETERS
 
 ### -Category
 
-{{ Fill Category Description }}
+Category name
 
 ```yaml
 Type: System.String
@@ -66,7 +71,7 @@ HelpMessage: ''
 
 ### -Entry
 
-{{ Fill Entry Description }}
+Variable name
 
 ```yaml
 Type: System.String
@@ -87,7 +92,9 @@ HelpMessage: ''
 
 ### -Value
 
-{{ Fill Value Description }}
+Value of the variable.
+If the ValueType is Time then the value should be epoch time, meaning the number of seconds since 1970-01-01 00:00:00 UTC.
+You can also set the Time at "" or "0" to set the current time.
 
 ```yaml
 Type: System.String
@@ -108,7 +115,11 @@ HelpMessage: ''
 
 ### -ValueType
 
-{{ Fill ValueType Description }}
+Type of the value.
+Valid values are:
+- String
+- Integer
+- Time
 
 ```yaml
 Type: System.String
@@ -138,13 +149,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
 
-{{ Fill in the Notes }}
+Please note, that this is an expensive call, seen from the Frontend/database perspective.
+Calling this function repeatedly from a package could result in overall slower performance.
+This function should be used with care.
+
+https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/19610726255/CMS+AddCustomInventory
+
 
 ## RELATED LINKS
 

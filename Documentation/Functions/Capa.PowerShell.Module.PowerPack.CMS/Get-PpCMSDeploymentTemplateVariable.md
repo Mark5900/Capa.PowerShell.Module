@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-PpCMSDeploymentTemplateVariable
 ---
@@ -15,7 +15,7 @@ title: Get-PpCMSDeploymentTemplateVariable
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Returns a variable from the deployment template linked to the current client
 
 ## SYNTAX
 
@@ -23,7 +23,6 @@ title: Get-PpCMSDeploymentTemplateVariable
 
 ```
 Get-PpCMSDeploymentTemplateVariable [[-Section] <string>] [-Variable] <string> [[-MustExist] <bool>]
- [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -33,23 +32,31 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Returns a variable from the deployment template from which the client was installed.
+Alternatively, the
+template is fetched from the business unit that the client was linked to at installation time.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$value = Get-PpCMSDeploymentTemplateVariable -Variable "title" -MustExist $true
+Job_WriteLog -Text "Title: $value"
+
+### EXAMPLE 2
+
+$value = Get-PpCMSDeploymentTemplateVariable -Section "domain" -Variable "joinDomain" -MustExist $true
+Job_WriteLog -Text "Join domain: $value"
 
 ## PARAMETERS
 
 ### -MustExist
 
-{{ Fill MustExist Description }}
+True if the variable must exist, defaults is false
 
 ```yaml
 Type: System.Boolean
-DefaultValue: ''
+DefaultValue: False
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
@@ -66,7 +73,7 @@ HelpMessage: ''
 
 ### -Section
 
-{{ Fill Section Description }}
+The name of the section in the template
 
 ```yaml
 Type: System.String
@@ -87,7 +94,7 @@ HelpMessage: ''
 
 ### -Variable
 
-{{ Fill Variable Description }}
+The name of the variable to return
 
 ```yaml
 Type: System.String
@@ -117,13 +124,29 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
 
-{{ Fill in the Notes }}
+Example configutation:
+{
+	"operatingSystem": {
+		"ImageId": 13,
+		"diskConfigId": 1,
+		"localAdmin": "true",
+		"password": "15aarest"
+	},
+	"domain": {
+		"joinDomain": "CAPADEMO.LOCAL",
+		"domainName": "CAPADEMO.LOCAL",
+		"domainUserName": "ciinst",
+		"domainUserPassword": "dftgyhuj",
+		"computerObjectOU": "OU=Computers,OU=Lazise,OU=Dev2,DC=CAPADEMO,DC=local"},
+	"title": "Default",
+	"customValues": [{
+		"key": "a",
+		"value": "1"
+	}]
+}
+
 
 ## RELATED LINKS
 

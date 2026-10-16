@@ -82,7 +82,7 @@ function Get-CapaUsers {
 		}
 
 		$aItem = [string]$sItem -split ';'
-		if ($aItem.Count -lt 15) {
+		if ($aItem.Count -lt 14) {
 			continue
 		}
 
@@ -93,14 +93,14 @@ function Get-CapaUsers {
 			Status         = $aItem[3]
 			Description    = $aItem[4]
 			GUID           = $aItem[5]
-			ID             = $aItem[7]
-			TypeName       = $aItem[8]
-			UUID           = $aItem[9]
-			Location       = $aItem[10]
-			FullName       = $aItem[11]
-			EmailPrimary   = $aItem[12]
-			EmailSecondary = $aItem[13]
-			EmailTertiary  = $aItem[14]
+			ID             = $aItem[6]
+			TypeName       = $aItem[7]
+			UUID           = $aItem[8]
+			Location       = $aItem[9]
+			FullName       = $aItem[10]
+			EmailPrimary   = $aItem[11]
+			EmailSecondary = $aItem[12]
+			EmailTertiary  = $aItem[13]
 		}
 	}
 

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: New-CapaPowerPack
 ---
@@ -26,7 +26,7 @@ New-CapaPowerPack [-CapaSDK] <psobject> [-PackageName] <string> [-PackageVersion
  [[-DisplayName] <string>] [[-InstallScriptContent] <string>] [[-UninstallScriptContent] <string>]
  [[-KitFolderPath] <string>] [[-ChangelogComment] <string>] [-SqlServerInstance] <string>
  [-Database] <string> [[-Credential] <pscredential>] [[-PointID] <int>]
- [[-AllowInstallOnServer] <bool>] [<CommonParameters>]
+ [[-AllowInstallOnServer] <bool>]
 ```
 
 ## ALIASES

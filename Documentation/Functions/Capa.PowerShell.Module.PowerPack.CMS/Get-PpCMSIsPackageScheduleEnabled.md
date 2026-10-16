@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-PpCMSIsPackageScheduleEnabled
 ---
@@ -15,7 +15,7 @@ title: Get-PpCMSIsPackageScheduleEnabled
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Returns as boolean indicating if the schedule for a package is enabled.
 
 ## SYNTAX
 
@@ -23,7 +23,6 @@ title: Get-PpCMSIsPackageScheduleEnabled
 
 ```
 Get-PpCMSIsPackageScheduleEnabled [-PackageName] <string> [-PackageVersion] <string>
- [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -33,19 +32,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Returns as boolean indicating if the schedule for a package is enabled.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Get-PpCMSIsPackageScheduleEnabled -PackageName "Adobe Reader" -PackageVersion "11.0.00"
+if ($bStatus) {
+	Write-Host "Package schedule is enabled."
+} else {
+	Write-Host "Package schedule is not enabled."
+}
 
 ## PARAMETERS
 
 ### -PackageName
 
-{{ Fill PackageName Description }}
+The name of the package.
 
 ```yaml
 Type: System.String
@@ -66,7 +70,7 @@ HelpMessage: ''
 
 ### -PackageVersion
 
-{{ Fill PackageVersion Description }}
+The version of the package.
 
 ```yaml
 Type: System.String
@@ -96,13 +100,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

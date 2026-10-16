@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.File
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: File_CopyTree
 ---
@@ -23,7 +23,7 @@ Copy a folder.
 
 ```
 File_CopyTree [-Source] <string> [-Destination] <string> [[-CopySubDirs] <bool>]
- [[-Overwrite] <bool>] [<CommonParameters>]
+ [[-Overwrite] <bool>]
 ```
 
 ## ALIASES
@@ -45,7 +45,8 @@ File_CopyTree -Source "C:\Temp\test" -Destination "C:\Temp\test2"
 
 ### -CopySubDirs
 
-Copy sub directories, default is true.
+Copy sub directories.
+Default is $true.
 
 ```yaml
 Type: System.Boolean
@@ -66,7 +67,8 @@ HelpMessage: ''
 
 ### -Destination
 
-The destination folder and creates destination folder if it does not exist.
+The destination folder.
+Creates destination folder if it does not exist.
 
 ```yaml
 Type: System.String
@@ -87,7 +89,8 @@ HelpMessage: ''
 
 ### -Overwrite
 
-Overwrite the destination files if they already exists, default is true.
+Overwrite the destination files if they already exist.
+Default is $true.
 
 ```yaml
 Type: System.Boolean

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.MSI
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Uninstall-PpMSI
 ---
@@ -22,7 +22,7 @@ Uninstalls an MSI package by its DisplayName and optionally by its version.
 ### __AllParameterSets
 
 ```
-Uninstall-PpMSI [-DisplayName] <string> [[-Version] <string>] [<CommonParameters>]
+Uninstall-PpMSI [-DisplayName] <string> [[-Version] <string>]
 ```
 
 ## ALIASES

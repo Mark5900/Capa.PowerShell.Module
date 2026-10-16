@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-PpCMSInventory
 ---
@@ -15,14 +15,14 @@ title: Get-PpCMSInventory
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Gets inventory values from the database.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Get-PpCMSInventory [-Table] <string> [-Category] <string> [-Entry] <string> [<CommonParameters>]
+Get-PpCMSInventory [-Table] <string> [-Category] <string> [-Entry] <string>
 ```
 
 ## ALIASES
@@ -32,19 +32,20 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Gets inventory values from the database, from either the Hardware, Custom, or Logon inventory tables.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$value = Get-PpCMSInventory -Table 'Hardware Inventory' -Category 'System' -Entry 'Name'
+Job_WriteLog -Text "Name: $value"
 
 ## PARAMETERS
 
 ### -Category
 
-{{ Fill Category Description }}
+Category name
 
 ```yaml
 Type: System.String
@@ -65,7 +66,7 @@ HelpMessage: ''
 
 ### -Entry
 
-{{ Fill Entry Description }}
+Variable name
 
 ```yaml
 Type: System.String
@@ -86,7 +87,7 @@ HelpMessage: ''
 
 ### -Table
 
-{{ Fill Table Description }}
+This is the table toward which the request is made, and it can be either 'Hardware Inventory', 'Logon Inventory', or 'Custom Inventory'.
 
 ```yaml
 Type: System.String
@@ -116,13 +117,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
 
-{{ Fill in the Notes }}
+Please note, that this is an expensive call, seen from the Frontend/database perspective.
+Calling this function repeatedly from a package could result in overall slower performance.
+This function should be used with care.
+
 
 ## RELATED LINKS
 

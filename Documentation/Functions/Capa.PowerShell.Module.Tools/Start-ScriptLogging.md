@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.Tools
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Start-ScriptLogging
 ---
@@ -24,7 +24,7 @@ This fuction is used to start logging of a SDK script.
 ```
 Start-ScriptLogging [-Path] <string> [[-UseDateInFileName] <bool>] [[-UseTimeInFileName] <bool>]
  [[-UseStopwatch] <bool>] [[-DeleteDaysOldLogs] <int>] [[-LogName] <string>]
- [[-DeleteAllLogs] <bool>] [[-AppendToLog] <bool>] [<CommonParameters>]
+ [[-DeleteAllLogs] <bool>] [[-AppendToLog] <bool>]
 ```
 
 ## ALIASES

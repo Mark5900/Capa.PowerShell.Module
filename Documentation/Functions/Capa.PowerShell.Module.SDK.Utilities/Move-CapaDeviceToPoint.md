@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Utilities
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Move-CapaDeviceToPoint
 ---
@@ -23,7 +23,7 @@ Moves a device from its current Management Point to the specified Management Poi
 
 ```
 Move-CapaDeviceToPoint [-CapaSDK] <Object> [-DeviceUUID] <string> [-PointName] <string>
- [-ManagementServerFQDN] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ManagementServerFQDN] <string> [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

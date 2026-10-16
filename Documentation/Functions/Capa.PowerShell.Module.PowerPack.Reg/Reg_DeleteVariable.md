@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.Reg
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Reg_DeleteVariable
 ---
@@ -22,7 +22,7 @@ Deletes a registry value.
 ### __AllParameterSets
 
 ```
-Reg_DeleteVariable [-RegRoot] <string> [-RegPath] <string> [-RegValue] <string> [<CommonParameters>]
+Reg_DeleteVariable [-RegRoot] <string> [-RegPath] <string> [-RegValue] <string>
 ```
 
 ## ALIASES

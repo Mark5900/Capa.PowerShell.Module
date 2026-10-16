@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Uninstall-PpCMSPackageFromUnit
 ---
@@ -15,20 +15,20 @@ title: Uninstall-PpCMSPackageFromUnit
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Uninstalls package from unit.
 
 ## SYNTAX
 
 ### ID
 
 ```
-Uninstall-PpCMSPackageFromUnit -PackageID <string> [<CommonParameters>]
+Uninstall-PpCMSPackageFromUnit -PackageID <string>
 ```
 
 ### NameVersion
 
 ```
-Uninstall-PpCMSPackageFromUnit -PackageName <string> -PackageVersion <string> [<CommonParameters>]
+Uninstall-PpCMSPackageFromUnit -PackageName <string> -PackageVersion <string>
 ```
 
 ## ALIASES
@@ -38,19 +38,33 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Uninstalls package from unit.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Uninstall-PpCMSPackageFromUnit -PackageID 1234
+if ($bStatus) {
+	Job_WriteLog -Text "Package uninstalled"
+} else {
+	Job_WriteLog -Text "Failed to uninstall package"
+}
+
+### EXAMPLE 2
+
+$bStatus = Uninstall-PpCMSPackageFromUnit -PackageName 'MyPackage' -PackageVersion 'v1.0'
+if ($bStatus) {
+	Job_WriteLog -Text "Package uninstalled"
+} else {
+	Job_WriteLog -Text "Failed to uninstall package"
+}
 
 ## PARAMETERS
 
 ### -PackageID
 
-{{ Fill PackageID Description }}
+ID of the package (JobId from the JOB table).
 
 ```yaml
 Type: System.String
@@ -71,7 +85,7 @@ HelpMessage: ''
 
 ### -PackageName
 
-{{ Fill PackageName Description }}
+Name of the package.
 
 ```yaml
 Type: System.String
@@ -92,7 +106,7 @@ HelpMessage: ''
 
 ### -PackageVersion
 
-{{ Fill PackageVersion Description }}
+Version of the package.
 
 ```yaml
 Type: System.String
@@ -122,13 +136,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

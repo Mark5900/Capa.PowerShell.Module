@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-PpCMSAdvertisedPackages
 ---
@@ -15,14 +15,14 @@ title: Get-PpCMSAdvertisedPackages
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Get a list of advertised packages.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Get-PpCMSAdvertisedPackages [<CommonParameters>]
+Get-PpCMSAdvertisedPackages
 ```
 
 ## ALIASES
@@ -32,13 +32,17 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Get a list of advertised packages.
+With JobId, Type, Name, Version, Uninstallscript, Catalogname, Description, Advertiseddate, Groupname and Autoexpand.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$packages = Get-PpCMSAdvertisedPackages
+foreach ($package in $packages) {
+	Job_WriteLog -Text "Package: $($package.PackageName) Version: $($package.PackageVersion)"
+}
 
 ## PARAMETERS
 
@@ -53,13 +57,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

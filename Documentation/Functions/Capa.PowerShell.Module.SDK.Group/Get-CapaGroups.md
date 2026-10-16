@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Group
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaGroups
 ---
@@ -23,7 +23,6 @@ Get groups.
 
 ```
 Get-CapaGroups [-CapaSDK] <Object> [[-GroupType] <string>] [[-BusinessUnit] <string>]
- [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -91,7 +90,8 @@ HelpMessage: ''
 
 ### -GroupType
 
-{{ Fill GroupType Description }}
+If specified, only groups of this type will be returned.
+Can be one of the following: Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
 
 ```yaml
 Type: System.String
@@ -121,7 +121,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Management.Automation.PSObject
+### System.Management.Automation.PSObject[]
 
 {{ Fill in the Description }}
 

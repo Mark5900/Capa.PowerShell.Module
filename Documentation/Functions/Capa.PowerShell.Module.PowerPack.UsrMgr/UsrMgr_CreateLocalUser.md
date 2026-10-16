@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.UsrMgr
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: UsrMgr_CreateLocalUser
 ---
@@ -23,7 +23,7 @@ Create a local user account.
 
 ```
 UsrMgr_CreateLocalUser [-UserName] <string> [-FullName] <string> [-Password] <string>
- [[-Description] <string>] [[-PasswordNeverExpire] <bool>] [<CommonParameters>]
+ [[-Description] <string>] [[-PasswordNeverExpire] <bool>]
 ```
 
 ## ALIASES

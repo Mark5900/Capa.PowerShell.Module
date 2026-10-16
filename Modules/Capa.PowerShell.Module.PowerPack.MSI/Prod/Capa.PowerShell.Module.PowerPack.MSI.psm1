@@ -15,8 +15,9 @@
 	.EXAMPLE
 		Install-Msi -FilePath 'C:\Temp\MyApp.msi' -Arguments '/qn'
 #>
-function Install-Msi {
+function Install-PpMSI {
 	[CmdletBinding()]
+	[Alias('Install-Msi')]
 	Param(
 		[Parameter(Mandatory = $true)]
 		[string]$FilePath,
@@ -28,18 +29,18 @@ function Install-Msi {
 
 	$LogFolder = Split-Path $LogFile -Parent
 	$MsiLogFolder = Join-Path $LogFolder 'MSILogs'
-	$msiFile = Split-Path $msiFilePath -Leaf
+	$msiFile = Split-Path $FilePath -Leaf
 	$msiLog = $MsiLogFolder + '\' + $msiFile + '_install.log'
 
 	File_CreateDir -Path $MsiLogFolder
 
 	$RetValue = Shell_Execute -Command 'msiexec.exe' -Arguments "/i `"$FilePath`" $Arguments /l*vx `"$msiLog`""
 	Job_WriteLog -Text "$LogPrefix Return value: $RetValue"
-	f ($retvalue -ne 0) {Exit-PpScript -ExitCode $retvalue}
+	if ($RetValue -ne 0) { Exit-PpScript -ExitCode $RetValue }
 }
 
 
-# TODO: #83 Update and add tests
+
 
 <#
 	.SYNOPSIS
@@ -58,6 +59,7 @@ function Install-Msi {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455717/cs.MSI+GetProductCodeFromMSI
 #>
 function MSI_GetProductCodeFromMSI {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$MsiFile
@@ -69,7 +71,8 @@ function MSI_GetProductCodeFromMSI {
 }
 
 
-# TODO: #84 Update and add tests
+
+
 
 <#
 	.SYNOPSIS
@@ -91,6 +94,7 @@ function MSI_GetProductCodeFromMSI {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455751/cs.MSI+GetPropertiesFromMSI
 #>
 function MSI_GetPropertiesFromMSI {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$MsiFile,
@@ -104,7 +108,8 @@ function MSI_GetPropertiesFromMSI {
 }
 
 
-# TODO: #85 Update and add tests
+
+
 
 <#
 	.SYNOPSIS
@@ -126,6 +131,7 @@ function MSI_GetPropertiesFromMSI {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455734/cs.MSI+GetPropertyFromMSI
 #>
 function MSI_GetPropertyFromMSI {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$MsiFile,
@@ -139,7 +145,8 @@ function MSI_GetPropertyFromMSI {
 }
 
 
-# TODO: #86 Update and add tests
+
+
 
 <#
 	.SYNOPSIS
@@ -158,6 +165,7 @@ function MSI_GetPropertyFromMSI {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455768/cs.MSI+IsMSIFileInstalled
 #>
 function MSI_IsMSIFileInstalled {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$MsiFile
@@ -169,7 +177,8 @@ function MSI_IsMSIFileInstalled {
 }
 
 
-# TODO: #87 Update and add tests
+
+
 
 <#
 	.SYNOPSIS
@@ -188,6 +197,7 @@ function MSI_IsMSIFileInstalled {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455785/cs.MSI+IsMSIGuidInstalled
 #>
 function MSI_IsMSIGuidInstalled {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$MsiGuid
@@ -197,6 +207,8 @@ function MSI_IsMSIGuidInstalled {
 
 	return $Value
 }
+
+
 
 
 <#
@@ -222,6 +234,7 @@ function MSI_IsMSIGuidInstalled {
 		This command uninstalls all MSI packages with display names that start with "MyApp".
 #>
 function Uninstall-PpMSI {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$DisplayName,
@@ -300,5 +313,6 @@ function Uninstall-PpMSI {
 		}
 	}
 }
+
 
 

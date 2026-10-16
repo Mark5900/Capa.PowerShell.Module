@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-PpCMSGroupMembership
 ---
@@ -15,14 +15,14 @@ title: Get-PpCMSGroupMembership
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Returns an array of the groups to which the client is linked.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Get-PpCMSGroupMembership [<CommonParameters>]
+Get-PpCMSGroupMembership
 ```
 
 ## ALIASES
@@ -32,13 +32,36 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Returns an array of the groups to which the client is linked, containing values:
+- Packagetype
+- Parentid
+- Unittype
+- Id
+- Name
+- Description
+- Type
+- Typedisplayname
+- Icon
+- Cmpid
+- Scheduleid
+- Groupdeleted
+- Businessunitid
+- Linkedprofilecount
+- Linkedapplicationcount
+- Linkedpackagecount
+- Linkedunitcount
+- Folderid
+- Guid
+- Objecttype
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$groups = Get-PpCMSGroupMembership
+foreach ($group in $groups) {
+	Job_WriteLog -Text "Group: $($group.Name)"
+}
 
 ## PARAMETERS
 
@@ -53,13 +76,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

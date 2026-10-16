@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.OSDeployment
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaOSInstallationTypes
 ---
@@ -22,7 +22,7 @@ Get a list of OS Installation Types.
 ### __AllParameterSets
 
 ```
-Get-CapaOSInstallationTypes [-CapaSDK] <Object> [-OSPointID] <int> [<CommonParameters>]
+Get-CapaOSInstallationTypes [-CapaSDK] <Object> [-OSPointID] <int>
 ```
 
 ## ALIASES
@@ -95,7 +95,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Management.Automation.PSObject
+### System.Management.Automation.PSObject[]
 
 {{ Fill in the Description }}
 

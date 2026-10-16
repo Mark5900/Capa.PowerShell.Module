@@ -28,6 +28,7 @@ function Convert-CapaDataType {
 		1 { $Datatype = 'String' }
 		2 { $Datatype = 'Time' }
 		3 { $Datatype = 'Integer' }
+		4 { $Datatype = 'Text' }
 		'I' { $Datatype = 'Integer' }
 		'T' { $Datatype = 'Time' }
 		'S' { $Datatype = 'String' }
@@ -474,10 +475,10 @@ function Get-CapaUpdateInventoryForUnit {
 
 <#
 	.SYNOPSIS
-		Get software inventory for a user.
+		Get user inventory (standard inventory of type User) for a user.
 
 	.DESCRIPTION
-		Get software inventory for a user.
+		Get user inventory (standard inventory of type User) for a user.
 
 	.PARAMETER CapaSDK
 		The CapaSDK object.
@@ -486,7 +487,7 @@ function Get-CapaUpdateInventoryForUnit {
 		The username of the user.
 
 	.EXAMPLE
-				PS C:\> Get-CapaSoftwareInventoryForUser -CapaSDK $CapaSDK -UserName 'Klient'
+				PS C:\> Get-CapaUserInventory -CapaSDK $CapaSDK -UserName 'Klient'
 
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246418/Get+User+Inventory
@@ -510,11 +511,12 @@ function Get-CapaUserInventory {
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
+		$DataType = Convert-CapaDataType -Datatype $aItem[3]
 		$oaUnits += [pscustomobject]@{
 			Category = $aItem[0];
 			Entry    = $aItem[1];
 			Value    = $aItem[2];
-			Datatype = $aItem[3];
+			Datatype = $DataType;
 			GUID     = $aItem[4];
 			ID       = $aItem[5]
 		}

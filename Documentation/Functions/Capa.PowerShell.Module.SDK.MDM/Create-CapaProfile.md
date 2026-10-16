@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.MDM
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Create-CapaProfile
 ---
@@ -24,7 +24,6 @@ Create a new profile in the Default Management Point.
 ```
 Create-CapaProfile [-CapaSDK] <Object> [-Name] <string> [-Description] <string> [-Priority] <int>
  [[-ChangelogComment] <string>] [[-BusinessUnitId] <string>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -35,7 +34,7 @@ This cmdlet has the following aliases,
 ## DESCRIPTION
 
 Create a new profile in the Default Management Point.
-If BusinessUnitName is specified, the profile will be linked to the specified business unit.
+If BusinessUnitId is specified, the profile will be linked to the specified business unit.
 
 ## EXAMPLES
 
@@ -45,13 +44,13 @@ Create-CapaProfile -CapaSDK $CapaSDK -Name 'My Profile' -Description 'My Profile
 
 ### EXAMPLE 2
 
-Create-CapaProfile -CapaSDK $CapaSDK -Name 'My Profile' -Description 'My Profile Description' -Priority 1 -ChangelogComment 'Creating new profile' -BusinessUnitName 'My Business Unit'
+Create-CapaProfile -CapaSDK $CapaSDK -Name 'My Profile' -Description 'My Profile Description' -Priority 1 -ChangelogComment 'Creating new profile' -BusinessUnitId 1
 
 ## PARAMETERS
 
 ### -BusinessUnitId
 
-{{ Fill BusinessUnitId Description }}
+The ID of the business unit you wish to assign the profile to.
 
 ```yaml
 Type: System.String

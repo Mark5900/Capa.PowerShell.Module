@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-PpCMSProperty
 ---
@@ -15,14 +15,14 @@ title: Get-PpCMSProperty
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Returns a property from the property table in the SQL database
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Get-PpCMSProperty [-Property] <string> [<CommonParameters>]
+Get-PpCMSProperty [-Property] <string>
 ```
 
 ## ALIASES
@@ -32,19 +32,20 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Returns a property from the property table in the SQL database
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$value = Get-PpCmsProperty -Property CapaOneOrgId
+Job_WriteLog -Text "CapaOneOrgId: $value"
 
 ## PARAMETERS
 
 ### -Property
 
-{{ Fill Property Description }}
+The property to return, must be one of the following: CapaOneOrgId, CapaOneOrgKey, CapaOneOrgName, CapaOneOrgTag
 
 ```yaml
 Type: System.String
@@ -74,13 +75,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

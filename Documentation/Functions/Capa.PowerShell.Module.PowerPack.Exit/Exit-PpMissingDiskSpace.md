@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.Exit
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Exit-PpMissingDiskSpace
 ---
@@ -22,7 +22,7 @@ Set error code that there is missing disk space.
 ### __AllParameterSets
 
 ```
-Exit-PpMissingDiskSpace [[-ExitMessage] <string>] [<CommonParameters>]
+Exit-PpMissingDiskSpace [[-ExitMessage] <string>]
 ```
 
 ## ALIASES

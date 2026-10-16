@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Test-PpCMSExistPackageOnManagementServer
 ---
@@ -15,7 +15,7 @@ title: Test-PpCMSExistPackageOnManagementServer
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Checks if the specified package exists on the management server the agent is connected to.
 
 ## SYNTAX
 
@@ -23,7 +23,7 @@ title: Test-PpCMSExistPackageOnManagementServer
 
 ```
 Test-PpCMSExistPackageOnManagementServer [-PackageName] <string> [-PackageVersion] <string>
- [[-MustExist] <bool>] [<CommonParameters>]
+ [[-MustExist] <bool>]
 ```
 
 ## ALIASES
@@ -33,23 +33,29 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Checks if the specified package exists on the management server the agent is connected to.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Test-PpCMSExistPackageOnManagementServer -PackageName "MyPackage" -PackageVersion "1.0.0"
+if ($bStatus) {
+	Job_WriteLog -Text "Package exists on management server."
+} else {
+	Job_WriteLog -Text "Package does not exist on management server."
+}
 
 ## PARAMETERS
 
 ### -MustExist
 
-{{ Fill MustExist Description }}
+If the package must exist or not.
+Default is false.
 
 ```yaml
 Type: System.Boolean
-DefaultValue: ''
+DefaultValue: False
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
@@ -66,7 +72,7 @@ HelpMessage: ''
 
 ### -PackageName
 
-{{ Fill PackageName Description }}
+The name of the package to check for.
 
 ```yaml
 Type: System.String
@@ -87,7 +93,7 @@ HelpMessage: ''
 
 ### -PackageVersion
 
-{{ Fill PackageVersion Description }}
+The version of the package to check for.
 
 ```yaml
 Type: System.String
@@ -117,13 +123,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

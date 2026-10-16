@@ -105,10 +105,14 @@ class InputObject {
 		The message box is also not the real one, but a simple example.
 #>
 function Initialize-PpInputObject {
+	[CmdletBinding()]
+	param ()
+
 	if ($null -eq $Global:InputObject) {
 		$Global:InputObject = [InputObject]::new()
 	}
 }
+
 
 
 <#
@@ -209,7 +213,6 @@ function Initialize-PpVariables {
 }
 
 
-# TODO: #56 Update and add tests
 
 <#
     .SYNOPSIS
@@ -341,7 +344,7 @@ function Invoke-RunAsLoggedOnUser {
 }
 
 
-# TODO: #57 Update and add tests
+
 
 <#
     .SYNOPSIS
@@ -427,7 +430,6 @@ function Register-Powerpack {
 }
 
 
-# TODO: #58 Update and add tests
 
 <#
     .SYNOPSIS
@@ -440,6 +442,9 @@ function Register-Powerpack {
         Command from PSlib.psm1
 #>
 function Start-PSDownloadPackage {
+    [CmdletBinding()]
+    param ()
+
     try {
         $Return = $Global:InputObject.DownloadPackage()
         Job_WriteLog -Text "Downloading package: $AppName"
@@ -475,7 +480,8 @@ function Start-PSDownloadPackage {
 }
 
 
-# TODO: #59 Update and add tests
+
+
 
 <#
     .SYNOPSIS

@@ -1,6 +1,4 @@
 
-# TODO: #99 Update and add tests
-
 <#
 	.SYNOPSIS
 		Determines if a service exists.
@@ -18,6 +16,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455989/cs.Service+Exist
 #>
 function Service_Exist {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true, Position = 0)]
 		[string]$ServiceName
@@ -30,7 +29,8 @@ function Service_Exist {
 
 
 
-# TODO: #100 Update and add tests
+
+
 
 <#
 	.SYNOPSIS
@@ -55,6 +55,7 @@ function Service_Exist {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456006/cs.Service+Start
 #>
 function Service_Start {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true, Position = 0)]
 		[string]$ServiceName,
@@ -68,8 +69,6 @@ function Service_Start {
 	}
 }
 
-
-# TODO: #101 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -94,6 +93,7 @@ function Service_Start {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456023/cs.Service+Stop
 #>
 function Service_Stop {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$ServiceName,

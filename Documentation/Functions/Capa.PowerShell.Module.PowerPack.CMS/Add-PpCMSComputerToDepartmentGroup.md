@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Add-PpCMSComputerToDepartmentGroup
 ---
@@ -15,14 +15,14 @@ title: Add-PpCMSComputerToDepartmentGroup
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Adds a specified computer unit to a department group.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Add-PpCMSComputerToDepartmentGroup [-Group] <string> [<CommonParameters>]
+Add-PpCMSComputerToDepartmentGroup [-Group] <string>
 ```
 
 ## ALIASES
@@ -32,19 +32,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Adds a specified computer unit to a department group.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Add-PpCMSComputerToDepartmentGroup -Group "MyDepartmentGroup"
+if ($bStatus) {
+	Job_WriteLog -Text "Computer unit added to department group."
+} else {
+	Job_WriteLog -Text "Failed to add computer unit to department group."
+}
 
 ## PARAMETERS
 
 ### -Group
 
-{{ Fill Group Description }}
+The name of the department group to which the computer unit should be added.
 
 ```yaml
 Type: System.String
@@ -74,13 +79,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
 
-{{ Fill in the Notes }}
+https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/19610726181/CMS+AddComputerToDepartmentGroup
+
 
 ## RELATED LINKS
 

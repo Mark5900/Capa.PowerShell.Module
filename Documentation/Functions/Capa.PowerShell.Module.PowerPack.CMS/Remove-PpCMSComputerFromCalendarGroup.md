@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Remove-PpCMSComputerFromCalendarGroup
 ---
@@ -15,14 +15,14 @@ title: Remove-PpCMSComputerFromCalendarGroup
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Removes a specified computer unit from a calendar group.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Remove-PpCMSComputerFromCalendarGroup [-Group] <string> [<CommonParameters>]
+Remove-PpCMSComputerFromCalendarGroup [-Group] <string>
 ```
 
 ## ALIASES
@@ -32,19 +32,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Removes a specified computer unit from a calendar group.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Remove-PpCMSComputerFromCalendarGroup -Group "MyCalendarGroup"
+if ($bStatus) {
+	Job_WriteLog -Text "Computer unit removed from calendar group."
+} else {
+	Job_WriteLog -Text "Failed to remove computer unit from calendar group."
+}
 
 ## PARAMETERS
 
 ### -Group
 
-{{ Fill Group Description }}
+The name of the calendar group from which the computer unit should be removed.
 
 ```yaml
 Type: System.String
@@ -74,13 +79,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

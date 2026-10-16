@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Set-PpCMSCurrentUser
 ---
@@ -22,7 +22,7 @@ title: Set-PpCMSCurrentUser
 ### __AllParameterSets
 
 ```
-Set-PpCMSCurrentUser [-Username] <string> [<CommonParameters>]
+Set-PpCMSCurrentUser [-Username] <string>
 ```
 
 ## ALIASES

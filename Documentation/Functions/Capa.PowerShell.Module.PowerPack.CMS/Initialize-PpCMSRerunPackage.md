@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Initialize-PpCMSRerunPackage
 ---
@@ -15,14 +15,14 @@ title: Initialize-PpCMSRerunPackage
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Sets status for the specified package to 'Waiting' causing it to rerun the next time the Agent is being executed.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Initialize-PpCMSRerunPackage [-PackageName] <string> [-PackageVersion] <string> [<CommonParameters>]
+Initialize-PpCMSRerunPackage [-PackageName] <string> [-PackageVersion] <string>
 ```
 
 ## ALIASES
@@ -32,19 +32,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Sets status for the specified package to 'Waiting' causing it to rerun the next time the Agent is being executed.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Initialize-PpCMSRerunPackage -PackageName "MyPackage" -PackageVersion "v1.0"
+if ($bStatus) {
+	Job_WriteLog -Text "Package 'MyPackage' with version 'v1.0' has been set to rerun."
+} else {
+	Job_WriteLog -Text "Failed to set package 'MyPackage' with version 'v1.0' to rerun."
+}
 
 ## PARAMETERS
 
 ### -PackageName
 
-{{ Fill PackageName Description }}
+Name of the package to rerun.
 
 ```yaml
 Type: System.String
@@ -65,7 +70,7 @@ HelpMessage: ''
 
 ### -PackageVersion
 
-{{ Fill PackageVersion Description }}
+Version of the package to rerun.
 
 ```yaml
 Type: System.String
@@ -95,13 +100,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.CCS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CCSADComputerNames
 ---
@@ -24,7 +24,7 @@ Gets computer names from Active Directory using the CCS Web Service.
 ```
 Get-CCSADComputerNames [[-DomainOUPath] <string>] [-Domain] <string> [-Url] <string>
  [-CCSCredential] <pscredential> [[-DomainCredential] <pscredential>] [-PasswordIsEncrypted]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES
@@ -249,7 +249,7 @@ Returns an array of computer names from the CCS Web Service operation.
 
 {{ Fill in the Description }}
 
-### System.String
+### System.String[]
 
 {{ Fill in the Description }}
 

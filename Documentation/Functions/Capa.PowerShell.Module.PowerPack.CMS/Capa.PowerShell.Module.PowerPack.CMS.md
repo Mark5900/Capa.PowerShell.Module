@@ -2,12 +2,12 @@
 author_profile: true
 layout: single
 document type: module
-Help Version: 1.16.0
+Help Version: 1.16.1
 HelpInfoUri: 
 Locale: en-US
 Module Guid: 00000000-0000-0000-0000-000000000000
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Capa.PowerShell.Module.PowerPack.CMS Module
 ---
@@ -22,91 +22,91 @@ title: Capa.PowerShell.Module.PowerPack.CMS Module
 
 ### [Add-PpCMSComputerToCalendarGroup](Add-PpCMSComputerToCalendarGroup.md)
 
-{{ Fill in the Synopsis }}
+Adds the specified unit to the specified calendar group.
 
 ### [Add-PpCMSComputerToDepartmentGroup](Add-PpCMSComputerToDepartmentGroup.md)
 
-{{ Fill in the Synopsis }}
+Adds a specified computer unit to a department group.
 
 ### [Add-PpCMSComputerToPowerSchemeGroup](Add-PpCMSComputerToPowerSchemeGroup.md)
 
-{{ Fill in the Synopsis }}
+Adds a specified computer unit to a power scheme group.
 
 ### [Add-PpCMSComputerToReinstallGroup](Add-PpCMSComputerToReinstallGroup.md)
 
-{{ Fill in the Synopsis }}
+Add a computer to a Reinstall Group.
 
 ### [Add-PpCMSComputerToStaticGroup](Add-PpCMSComputerToStaticGroup.md)
 
-{{ Fill in the Synopsis }}
+Adds the specified unit to the specified static group.
 
 ### [Add-PpCMSCustomInventory](Add-PpCMSCustomInventory.md)
 
-{{ Fill in the Synopsis }}
+Adds a custom inventory entry to the database.
 
 ### [Add-PpCMSHardwareInventory](Add-PpCMSHardwareInventory.md)
 
-{{ Fill in the Synopsis }}
+Adds a HardwareInventory row to the database that is persistent.
 
 ### [Add-PpCMSPackageToUnit](Add-PpCMSPackageToUnit.md)
 
-{{ Fill in the Synopsis }}
+Adds the specified package to the unit on which the script is being executed
 
 ### [Add-PpCMSUnitToBusinessUnit](Add-PpCMSUnitToBusinessUnit.md)
 
-{{ Fill in the Synopsis }}
+Adds the unit to the specified business unit
 
 ### [Get-PpCMSAdvertisedPackages](Get-PpCMSAdvertisedPackages.md)
 
-{{ Fill in the Synopsis }}
+Get a list of advertised packages.
 
 ### [Get-PpCMSDeploymentTemplateVariable](Get-PpCMSDeploymentTemplateVariable.md)
 
-{{ Fill in the Synopsis }}
+Returns a variable from the deployment template linked to the current client
 
 ### [Get-PpCMSGroupMembership](Get-PpCMSGroupMembership.md)
 
-{{ Fill in the Synopsis }}
+Returns an array of the groups to which the client is linked.
 
 ### [Get-PpCMSInventory](Get-PpCMSInventory.md)
 
-{{ Fill in the Synopsis }}
+Gets inventory values from the database.
 
 ### [Get-PpCMSIsPackageLinked](Get-PpCMSIsPackageLinked.md)
 
-{{ Fill in the Synopsis }}
+Returns whether the specified package is linked to any unit or group.
 
 ### [Get-PpCMSIsPackageScheduleEnabled](Get-PpCMSIsPackageScheduleEnabled.md)
 
-{{ Fill in the Synopsis }}
+Returns as boolean indicating if the schedule for a package is enabled.
 
 ### [Get-PpCMSPackage](Get-PpCMSPackage.md)
 
-{{ Fill in the Synopsis }}
+Returns the specified package.
 
 ### [Get-PpCMSPackageStatus](Get-PpCMSPackageStatus.md)
 
-{{ Fill in the Synopsis }}
+Returns the package status for the specified package.
 
 ### [Get-PpCMSProperty](Get-PpCMSProperty.md)
 
-{{ Fill in the Synopsis }}
+Returns a property from the property table in the SQL database
 
 ### [Initialize-PpCMSRerunPackage](Initialize-PpCMSRerunPackage.md)
 
-{{ Fill in the Synopsis }}
+Sets status for the specified package to 'Waiting' causing it to rerun the next time the Agent is being executed.
 
 ### [Install-PpCMSAdvertisedPackage](Install-PpCMSAdvertisedPackage.md)
 
-{{ Fill in the Synopsis }}
+Installs an advertised package on the unit on which the script is being executed
 
 ### [Invoke-PpCMSRunSystemAgent](Invoke-PpCMSRunSystemAgent.md)
 
-{{ Fill in the Synopsis }}
+Reruns the CapaInstaller Service Agent
 
 ### [Invoke-PpCMSRunUserAgent](Invoke-PpCMSRunUserAgent.md)
 
-{{ Fill in the Synopsis }}
+Sends a CallHomeUser UnitCommand to the BaseAgent which in turn will request the InfoCenter to run the Agent script in the user context.
 
 ### [Invoke-PpJobRetryLater](Invoke-PpJobRetryLater.md)
 
@@ -114,35 +114,35 @@ title: Capa.PowerShell.Module.PowerPack.CMS Module
 
 ### [Remove-PpCMSComputerFromCalendarGroup](Remove-PpCMSComputerFromCalendarGroup.md)
 
-{{ Fill in the Synopsis }}
+Removes a specified computer unit from a calendar group.
 
 ### [Remove-PpCMSComputerFromDepartmentGroup](Remove-PpCMSComputerFromDepartmentGroup.md)
 
-{{ Fill in the Synopsis }}
+Removes a specified computer unit from a department group.
 
 ### [Remove-PpCMSComputerFromPowerSchemeGroup](Remove-PpCMSComputerFromPowerSchemeGroup.md)
 
-{{ Fill in the Synopsis }}
+Remove a computer from a Power Scheme Group.
 
 ### [Remove-PpCMSComputerFromReinstallGroup](Remove-PpCMSComputerFromReinstallGroup.md)
 
-{{ Fill in the Synopsis }}
+Remove a computer from a Reinstall Group.
 
 ### [Remove-PpCMSComputerFromStaticGroup](Remove-PpCMSComputerFromStaticGroup.md)
 
-{{ Fill in the Synopsis }}
+Removes the specified unit from the specified static group.
 
 ### [Remove-PpCMSCustomInventory](Remove-PpCMSCustomInventory.md)
 
-{{ Fill in the Synopsis }}
+Removes a CustomInventory row from the database that is persistent.
 
 ### [Remove-PpCMSHardwareInventory](Remove-PpCMSHardwareInventory.md)
 
-{{ Fill in the Synopsis }}
+Removes a HardwareInventory row from the database that is persistent.
 
 ### [Remove-PpCMSPackageFromUnit](Remove-PpCMSPackageFromUnit.md)
 
-{{ Fill in the Synopsis }}
+Removes the specified package from the unit on which the script is being executed
 
 ### [Reset-PpCMSCustomInventory](Reset-PpCMSCustomInventory.md)
 
@@ -154,17 +154,17 @@ title: Capa.PowerShell.Module.PowerPack.CMS Module
 
 ### [Set-PpCMSPackageStatusToInstalled](Set-PpCMSPackageStatusToInstalled.md)
 
-{{ Fill in the Synopsis }}
+Sets the status of the specified package to installed.
 
 ### [Set-PpCMSPackageStatusToNotCompliant](Set-PpCMSPackageStatusToNotCompliant.md)
 
-{{ Fill in the Synopsis }}
+Set the status of a package to Not Compliant.
 
 ### [Test-PpCMSExistPackageOnManagementServer](Test-PpCMSExistPackageOnManagementServer.md)
 
-{{ Fill in the Synopsis }}
+Checks if the specified package exists on the management server the agent is connected to.
 
 ### [Uninstall-PpCMSPackageFromUnit](Uninstall-PpCMSPackageFromUnit.md)
 
-{{ Fill in the Synopsis }}
+Uninstalls package from unit.
 

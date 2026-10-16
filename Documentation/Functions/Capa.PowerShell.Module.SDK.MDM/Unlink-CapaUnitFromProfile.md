@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.MDM
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Unlink-CapaUnitFromProfile
 ---
@@ -23,14 +23,14 @@ Unlink profile from a device.
 
 ```
 Unlink-CapaUnitFromProfile -CapaSDK <Object> -ProfileName <string> -Uuid <string>
- [-ChangelogComment <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ChangelogComment <string>] [-WhatIf] [-Confirm]
 ```
 
 ### NameType
 
 ```
 Unlink-CapaUnitFromProfile -CapaSDK <Object> -UnitName <string> -ProfileName <string>
- [-ChangelogComment <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ChangelogComment <string>] [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

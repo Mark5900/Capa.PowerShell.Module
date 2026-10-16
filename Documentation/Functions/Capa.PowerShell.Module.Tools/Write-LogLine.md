@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.Tools
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Write-LogLine
 ---
@@ -23,7 +23,6 @@ Use to write a line to the log file.
 
 ```
 Write-LogLine [-Text] <string> [[-ScriptPart] <string>] [[-ForegroundColor] <Object>]
- [<CommonParameters>]
 ```
 
 ## ALIASES

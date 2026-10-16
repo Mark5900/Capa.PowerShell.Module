@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Remove-CapaUnitByUUID
 ---
@@ -22,7 +22,7 @@ Remove a unit by UUID.
 ### __AllParameterSets
 
 ```
-Remove-CapaUnitByUUID [-CapaSDK] <Object> [-UUID] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-CapaUnitByUUID [-CapaSDK] <Object> [-UUID] <string> [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

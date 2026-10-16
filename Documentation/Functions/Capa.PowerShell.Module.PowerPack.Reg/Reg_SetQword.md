@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.Reg
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Reg_SetQword
 ---
@@ -23,7 +23,6 @@ Sets a registry QWORD value.
 
 ```
 Reg_SetQword [-RegRoot] <string> [-RegKey] <string> [-RegValue] <string> [-RegData] <int>
- [<CommonParameters>]
 ```
 
 ## ALIASES

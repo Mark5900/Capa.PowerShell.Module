@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.Sys
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Sys_WaitForProcessToExist
 ---
@@ -23,7 +23,6 @@ Waits for a process to exist.
 
 ```
 Sys_WaitForProcessToExist [-ProcessName] <string> [-MaxWaitSec] <int> [-IntervalSec] <int>
- [<CommonParameters>]
 ```
 
 ## ALIASES

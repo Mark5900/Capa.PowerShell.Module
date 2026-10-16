@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.MSI
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: MSI_GetPropertyFromMSI
 ---
@@ -22,7 +22,7 @@ Gets the value of a property from an MSI file.
 ### __AllParameterSets
 
 ```
-MSI_GetPropertyFromMSI [-MsiFile] <string> [-Property] <string> [<CommonParameters>]
+MSI_GetPropertyFromMSI [-MsiFile] <string> [-Property] <string>
 ```
 
 ## ALIASES

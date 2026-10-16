@@ -1,6 +1,4 @@
 
-# TODO: #386 Update Get-Help for UsrMgr_AddUserToLocalGroup
-
 <#
 	.SYNOPSIS
 		Adds a user to a local group.
@@ -27,6 +25,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456159/cs.UsrMgr+AddUserToLocalGroup
 #>
 function UsrMgr_AddUserToLocalGroup {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$UserName,
@@ -38,8 +37,6 @@ function UsrMgr_AddUserToLocalGroup {
 	$Global:cs.UsrMgr_AddUserToLocalGroup($UserName, $GroupName)
 }
 
-
-# TODO: #387 Update Get-Help for UsrMgr_ChangePassword
 
 <#
 	.SYNOPSIS
@@ -61,6 +58,7 @@ function UsrMgr_AddUserToLocalGroup {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456210/cs.UsrMgr+ChangePassword
 #>
 function UsrMgr_ChangePassword {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$UserName,
@@ -71,8 +69,6 @@ function UsrMgr_ChangePassword {
 	$Global:cs.UsrMgr_ChangePassword($UserName, $Password)
 }
 
-
-# TODO: #388 Update Get-Help for UsrMgr_CreateLocalUser
 
 <#
 	.SYNOPSIS
@@ -109,6 +105,7 @@ function UsrMgr_ChangePassword {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456193/cs.UsrMgr+CreateLocalUser
 #>
 function UsrMgr_CreateLocalUser {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$UserName,
@@ -123,8 +120,6 @@ function UsrMgr_CreateLocalUser {
 	$Global:cs.UsrMgr_CreateLocalUser($UserName, $FullName, $Password, $Description, $PasswordNeverExpire)
 }
 
-
-# TODO: #389 Update Get-Help for UsrMgr_DeleteLocalUserAccount
 
 <#
 	.SYNOPSIS
@@ -143,6 +138,7 @@ function UsrMgr_CreateLocalUser {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456261/cs.UsrMgr+DeleteLocalUserAccount
 #>
 function UsrMgr_DeleteLocalUserAccount {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$UserName
@@ -151,8 +147,6 @@ function UsrMgr_DeleteLocalUserAccount {
 	$Global:cs.UsrMgr_DeleteLocalUserAccount($UserName)
 }
 
-
-# TODO: #390 Update Get-Help for UsrMgr_EnumMembersOfLocalGroup
 
 <#
 	.SYNOPSIS
@@ -171,6 +165,7 @@ function UsrMgr_DeleteLocalUserAccount {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456176/cs.UsrMgr+EnumMembersOfLocalGroup
 #>
 function UsrMgr_EnumMembersOfLocalGroup {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$GroupName
@@ -181,8 +176,6 @@ function UsrMgr_EnumMembersOfLocalGroup {
 	return $Value
 }
 
-
-# TODO: #391 Update Get-Help for UsrMGr_ExistLocalUserAccount
 
 <#
 	.SYNOPSIS
@@ -201,6 +194,7 @@ function UsrMgr_EnumMembersOfLocalGroup {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456227/cs.UsrMgr+ExistLocalUserAccount
 #>
 function UsrMgr_ExistLocalUserAccount {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$UserName
@@ -211,8 +205,6 @@ function UsrMgr_ExistLocalUserAccount {
 	return $Value
 }
 
-
-# TODO: #506 Create tests for UsrMgr_GetNameBySid
 
 <#
 	.SYNOPSIS
@@ -228,6 +220,7 @@ function UsrMgr_ExistLocalUserAccount {
 		UsrMgr_GetNameBySid -SID "S-1-5-21-3623811015-3361044348-30300820-1013"
 #>
 function UsrMgr_GetNameBySid {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory=$true)]
 		[string]$SID
@@ -236,8 +229,6 @@ function UsrMgr_GetNameBySid {
 	return $Global:cs.UsrMgr_GetNameBySid($SID)
 }
 
-
-# TODO: #392 Update Get-Help for USRMgr_RemoveUserFromLocalGroup
 
 <#
 	.SYNOPSIS
@@ -259,6 +250,7 @@ function UsrMgr_GetNameBySid {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456244/cs.UsrMgr+RemoveUserFromLocalGroup
 #>
 function UsrMgr_RemoveUserFromLocalGroup {
+	[CmdletBinding()]
 	param (
 		$Domain = '',
 		[Parameter(Mandatory = $true)]

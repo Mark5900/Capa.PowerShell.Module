@@ -214,7 +214,7 @@ function Get-CapaGroupFolder {
 		The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
 
 	.EXAMPLE
-		PS C:\> Get-CapaGroupPackages -CapaSDK $CapaSDK -GroupName $GroupName -Type Dynamic_ADSI
+		PS C:\> Get-CapaGroupPackages -CapaSDK $CapaSDK -GroupName $GroupName -GroupType Dynamic_ADSI
 
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342582280/Get+group+packages
@@ -280,7 +280,7 @@ The name of the group.
 The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
 
 .EXAMPLE
-Get-Process C:\> Get-CapaGroupPrinters -CapaSDK $value1 -GroupName 'Value2' -GroupType Dynamic_ADSI
+PS C:\> Get-CapaGroupPrinters -CapaSDK $value1 -GroupName 'Value2' -GroupType Dynamic_ADSI
 
 .NOTES
 For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247436/Get+group+Printers
@@ -308,14 +308,16 @@ function Get-CapaGroupPrinters {
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			DisplayName = $aItem[0];
-			Created     = $aItem[1];
-			Status      = $aItem[2];
-			Description = $aItem[3];
-			GUID        = $aItem[4];
-			ID          = $aItem[5];
-			TypeName    = $aItem[7];
-			UUID        = $aItem[8]
+			DisplayName    = $aItem[0];
+			Created        = $aItem[1];
+			Status         = $aItem[2];
+			Description    = $aItem[3];
+			GUID           = $aItem[4];
+			ID             = $aItem[5];
+			TypeName       = $aItem[6];
+			UUID           = $aItem[7];
+			IsMobileDevice = $aItem[8];
+			Location       = $aItem[9]
 		}
 	}
 
@@ -333,7 +335,7 @@ function Get-CapaGroupPrinters {
 	.PARAMETER CapaSDK
 		CapaSDK object.
 
-	.PARAMETER Type
+	.PARAMETER GroupType
 		If specified, only groups of this type will be returned.
 		Can be one of the following: Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
 
@@ -381,8 +383,18 @@ function Get-CapaGroups {
 
 		if ($aItem[2] -eq '1') {
 			$UnitType = 'Computer'
-		} else {
+		} elseif ($aItem[2] -eq '2') {
 			$UnitType = 'User'
+		} else {
+			$UnitType = ''
+		}
+
+		$GUID = $aItem[4]
+		$ID = $aItem[5]
+		# The SDK writes Catalog groups without a splitter between GUID and ID
+		if ($aItem.Count -eq 5 -and $aItem[4].Length -gt 36) {
+			$GUID = $aItem[4].Substring(0, 36)
+			$ID = $aItem[4].Substring(36)
 		}
 
 		$oaUnits += [pscustomobject]@{
@@ -391,8 +403,8 @@ function Get-CapaGroups {
 			UnitTypeID   = $aItem[2];
 			UnitTypeName = $UnitType;
 			Description  = $aItem[3];
-			GUID         = $aItem[4];
-			ID           = $aItem[5]
+			GUID         = $GUID;
+			ID           = $ID
 		}
 	}
 
@@ -444,14 +456,17 @@ function Get-CapaGroupUnits {
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name         = $aItem[0];
-			Created      = $aItem[1];
-			LastExecuted = $aItem[2];
-			Status       = $aItem[3];
-			Description  = $aItem[4];
-			GUID         = $aItem[5];
-			ID           = $aItem[6];
-			TypeName     = $aItem[7]
+			Name           = $aItem[0];
+			Created        = $aItem[1];
+			LastExecuted   = $aItem[2];
+			Status         = $aItem[3];
+			Description    = $aItem[4];
+			GUID           = $aItem[5];
+			ID             = $aItem[6];
+			TypeName       = $aItem[7];
+			UUID           = $aItem[8];
+			IsMobileDevice = $aItem[9];
+			Location       = $aItem[10]
 		}
 	}
 

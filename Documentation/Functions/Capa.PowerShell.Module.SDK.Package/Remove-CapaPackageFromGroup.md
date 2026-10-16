@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Remove-CapaPackageFromGroup
 ---
@@ -24,7 +24,6 @@ Removes a package from a group.
 ```
 Remove-CapaPackageFromGroup [-CapaSDK] <Object> [-PackageName] <string> [-PackageVersion] <string>
  [-PackageType] <string> [-GroupName] <string> [-GroupType] <string> [-WhatIf] [-Confirm]
- [<CommonParameters>]
 ```
 
 ## ALIASES

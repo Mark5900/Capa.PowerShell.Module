@@ -1,6 +1,4 @@
 
-# TODO: #102 Update and add tests
-
 <#
 	.SYNOPSIS
 		Executes a command line application.
@@ -29,6 +27,7 @@
 		The working directory for the command, default is empty.
 #>
 function Shell_Execute {
+    [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
         [string]$Command,
@@ -61,8 +60,6 @@ function Shell_Execute {
 }
 
 
-# TODO: #403 Create tests for Shell_ExecuteWithTimeout
-
 <#
 	.SYNOPSIS
 		Executes a command line application with a timeout.
@@ -88,6 +85,7 @@ function Shell_Execute {
 		Shell_ExecuteWithTimeout -Command "msiexec" -Arguments "/i C:\Temp\MyInstaller.msi" -Timeout 60
 #>
 function Shell_ExecuteWithTimeout {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Command,

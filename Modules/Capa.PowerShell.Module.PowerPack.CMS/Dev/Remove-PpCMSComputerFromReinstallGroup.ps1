@@ -1,4 +1,3 @@
-# TODO: #327 Update Get-Help for Remove-PpCMSComputerFromReinstallGroup, missing BU support description
 <#
 	.SYNOPSIS
 		Remove a computer from a Reinstall Group.
@@ -25,3 +24,4 @@ function Remove-PpCMSComputerFromReinstallGroup {
 	)
 	return CMS_RemoveComputerFromReinstallGroup -group $Group
 }
+

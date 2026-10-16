@@ -1,4 +1,3 @@
-# TODO: #68 Update and add tests
 
 <#
     .SYNOPSIS
@@ -17,7 +16,8 @@
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455530/cs.File+ExistDir
 #>
 function File_ExistDir {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$Path
     )
@@ -26,3 +26,5 @@ function File_ExistDir {
 
     return $Value
 }
+
+

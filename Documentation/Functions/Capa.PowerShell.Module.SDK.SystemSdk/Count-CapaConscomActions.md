@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.SystemSdk
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Count-CapaConscomActions
 ---
@@ -22,7 +22,7 @@ Counts the number of conscom actions.
 ### __AllParameterSets
 
 ```
-Count-CapaConscomActions [-CapaSDK] <Object> [[-ManagementServerID] <int>] [<CommonParameters>]
+Count-CapaConscomActions [-CapaSDK] <Object> [[-ManagementServerID] <int>]
 ```
 
 ## ALIASES

@@ -1,4 +1,3 @@
-# TODO: #400 Add tests for Reg_GetInteger
 
 <#
 	.SYNOPSIS
@@ -20,6 +19,7 @@
 		PS C:\> Reg_GetInteger -RegRoot "HKLM" -RegKey "SOFTWARE\CapaSystems" -RegValue "Test"
 #>
 function Reg_GetInteger {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -32,3 +32,4 @@ function Reg_GetInteger {
 
 	return $Global:cs.Reg_GetInteger($RegRoot, $RegKey, $RegValue)
 }
+

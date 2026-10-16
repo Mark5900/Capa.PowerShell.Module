@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Utilities
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaReinstallStatus
 ---
@@ -23,7 +23,6 @@ Gets the reinstall status for a unit.
 
 ```
 Get-CapaReinstallStatus [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string>
- [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -39,7 +38,7 @@ Gets the reinstall status for a unit.
 
 ### EXAMPLE 1
 
-Test-CapaReinstallStatus -CapaSDK $CapaSDK -UnitName 'TestComputer' -UnitType 'Computer'
+Get-CapaReinstallStatus -CapaSDK $CapaSDK -UnitName 'TestComputer' -UnitType 'Computer'
 
 ## PARAMETERS
 

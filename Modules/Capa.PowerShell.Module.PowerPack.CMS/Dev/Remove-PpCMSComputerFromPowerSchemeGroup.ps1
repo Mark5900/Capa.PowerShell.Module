@@ -1,4 +1,3 @@
-# TODO: #323 Update Get-Help for Remove-PpCMSComputerFromPowerSchemeGroup
 <#
 	.SYNOPSIS
 		Remove a computer from a Power Scheme Group.
@@ -25,3 +24,4 @@ function Remove-PpCMSComputerFromPowerSchemeGroup {
 	)
 	return CMS_RemoveComputerFromPowerSchemeGroup -group $Group
 }
+

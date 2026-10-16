@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Register-Powerpack
 ---
@@ -24,7 +24,6 @@ Register a Powerpack in the registry
 ```
 Register-Powerpack [-Application] <string> [-AppName] <string> [-Arch] <string>
  [[-Language] <string>] [[-AppCode] <string>] [-Version] <string> [[-Vendor] <string>]
- [<CommonParameters>]
 ```
 
 ## ALIASES

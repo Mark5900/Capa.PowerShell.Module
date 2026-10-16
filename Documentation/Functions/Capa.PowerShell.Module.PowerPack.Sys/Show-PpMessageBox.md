@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.Sys
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Show-PpMessageBox
 ---
@@ -15,7 +15,7 @@ title: Show-PpMessageBox
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Show a message box.
 
 ## SYNTAX
 
@@ -24,7 +24,6 @@ title: Show-PpMessageBox
 ```
 Show-PpMessageBox [-Title] <string> [-Message] <string> [[-Buttons] <string>]
  [-DefaultButton] <string> [[-Icon] <string>] [[-TimeoutSeconds] <int>] [[-Async] <bool>]
- [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -34,23 +33,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Show a message box.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+Show-PpMessageBox -Title "Test" -Message "This is a test message." -Buttons "OK" -DefaultButton "OK" -Icon "Information" -TimeoutSeconds 30 -Async $false
 
 ## PARAMETERS
 
 ### -Async
 
-{{ Fill Async Description }}
+Indicates if the message box should be shown asynchronously.
+Default is $false.
 
 ```yaml
 Type: System.Boolean
-DefaultValue: ''
+DefaultValue: False
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
@@ -67,11 +67,12 @@ HelpMessage: ''
 
 ### -Buttons
 
-{{ Fill Buttons Description }}
+The buttons to display in the message box.
+Can be 'OK', 'OKCancel', 'YesNo', or 'YesNoCancel'.
 
 ```yaml
 Type: System.String
-DefaultValue: ''
+DefaultValue: OK
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
@@ -88,7 +89,8 @@ HelpMessage: ''
 
 ### -DefaultButton
 
-{{ Fill DefaultButton Description }}
+The default button to select.
+Can be 'OK', 'Cancel', 'Yes', or 'No'.
 
 ```yaml
 Type: System.String
@@ -109,11 +111,12 @@ HelpMessage: ''
 
 ### -Icon
 
-{{ Fill Icon Description }}
+The icon to display in the message box.
+Can be 'Information', 'Warning', 'Error', or 'Question'.
 
 ```yaml
 Type: System.String
-DefaultValue: ''
+DefaultValue: Information
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
@@ -130,7 +133,7 @@ HelpMessage: ''
 
 ### -Message
 
-{{ Fill Message Description }}
+The message to display in the message box.
 
 ```yaml
 Type: System.String
@@ -151,11 +154,12 @@ HelpMessage: ''
 
 ### -TimeoutSeconds
 
-{{ Fill TimeoutSeconds Description }}
+The timeout in seconds before the message box closes automatically.
+Default is 30 seconds.
 
 ```yaml
 Type: System.Int32
-DefaultValue: ''
+DefaultValue: 30
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
@@ -172,7 +176,7 @@ HelpMessage: ''
 
 ### -Title
 
-{{ Fill Title Description }}
+The title of the message box.
 
 ```yaml
 Type: System.String
@@ -202,13 +206,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

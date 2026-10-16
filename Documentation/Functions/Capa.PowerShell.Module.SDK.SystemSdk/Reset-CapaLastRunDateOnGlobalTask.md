@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.SystemSdk
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Reset-CapaLastRunDateOnGlobalTask
 ---
@@ -23,7 +23,7 @@ Resets the last run date on a global task.
 
 ```
 Reset-CapaLastRunDateOnGlobalTask [-CapaSDK] <Object> [-TaskDisplayName] <string> [-WhatIf]
- [-Confirm] [<CommonParameters>]
+ [-Confirm]
 ```
 
 ## ALIASES

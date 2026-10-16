@@ -57,8 +57,8 @@ function Get-CapaUnitRelations {
 				continue
 			}
 
-			$aItem = [string]$item -split ';', 15
-			if ($aItem.Count -lt 15) {
+			$aItem = [string]$item -split ';', 14
+			if ($aItem.Count -lt 14) {
 				continue
 			}
 
@@ -69,14 +69,14 @@ function Get-CapaUnitRelations {
 				LastExecuted = $aItem[3];
 				Status       = $aItem[4];
 				Description  = $aItem[5];
-				GUID         = $aItem[7];
-				ID           = $aItem[8];
-				TypeName     = $aItem[9];
-				UUID         = $aItem[10];
-				IsMobile     = $aItem[11];
-				Location     = $aItem[12];
-				CmpId        = $aItem[13];
-				BuId         = $aItem[14]
+				GUID         = $aItem[6];
+				ID           = $aItem[7];
+				TypeName     = $aItem[8];
+				UUID         = $aItem[9];
+				IsMobile     = $aItem[10];
+				Location     = $aItem[11];
+				CmpId        = $aItem[12];
+				BuId         = $aItem[13]
 			}
 		}
 

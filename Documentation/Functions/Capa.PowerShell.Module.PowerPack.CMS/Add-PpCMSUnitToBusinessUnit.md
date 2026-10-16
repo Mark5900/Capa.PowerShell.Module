@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Add-PpCMSUnitToBusinessUnit
 ---
@@ -15,14 +15,14 @@ title: Add-PpCMSUnitToBusinessUnit
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Adds the unit to the specified business unit
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Add-PpCMSUnitToBusinessUnit [-BusinessUnitName] <string> [<CommonParameters>]
+Add-PpCMSUnitToBusinessUnit [-BusinessUnitName] <string>
 ```
 
 ## ALIASES
@@ -32,19 +32,25 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Adds the unit on which the script is executed to the specified Business Unit.
+UserJobs add user and ComputerJobs add the computer.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Add-PpCMSUnitToBusinessUnit -BusinessUnitName "MyBusinessUnit"
+if ($bStatus) {
+	Job_WriteLog -Text "Unit added to business unit."
+} else {
+	Job_WriteLog -Text "Failed to add unit to business unit."
+}
 
 ## PARAMETERS
 
 ### -BusinessUnitName
 
-{{ Fill BusinessUnitName Description }}
+The name of the business unit to add the unit to
 
 ```yaml
 Type: System.String
@@ -74,13 +80,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

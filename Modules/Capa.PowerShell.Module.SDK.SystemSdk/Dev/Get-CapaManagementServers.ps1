@@ -37,9 +37,9 @@ function Get-CapaManagementServers {
 			Drive         = $aItem[3];
 			Server        = $aItem[4];
 			Share         = $aItem[5];
-			IsParentShare = $aItem[7];
-			GUID          = $aItem[8];
-			ID            = $aItem[9]
+			IsParentShare = $aItem[6];
+			GUID          = $aItem[7];
+			ID            = $aItem[8]
 		}
 	}
 

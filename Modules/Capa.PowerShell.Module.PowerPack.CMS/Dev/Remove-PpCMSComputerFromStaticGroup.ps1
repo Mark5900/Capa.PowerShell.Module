@@ -1,4 +1,3 @@
-# TODO: #311 Update Get-Help for Remove-PpCMSComputerFromStaticGroup. Missing documentation for BU support.
 <#
 	.SYNOPSIS
 		Removes the specified unit from the specified static group.
@@ -25,3 +24,4 @@ function Remove-PpCMSComputerFromStaticGroup {
 	)
 	return CMS_RemoveComputerFromStaticGroup -group $Group
 }
+

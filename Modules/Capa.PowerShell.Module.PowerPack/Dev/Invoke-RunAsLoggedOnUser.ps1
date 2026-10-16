@@ -1,4 +1,3 @@
-# TODO: #56 Update and add tests
 
 <#
     .SYNOPSIS
@@ -128,3 +127,4 @@ function Invoke-RunAsLoggedOnUser {
     }
     return 0
 }
+

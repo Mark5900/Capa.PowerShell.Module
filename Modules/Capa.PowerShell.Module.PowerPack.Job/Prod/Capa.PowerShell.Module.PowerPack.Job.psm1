@@ -1,5 +1,4 @@
 
-# TODO: #77 Update and add tests
 
 <#
     .SYNOPSIS
@@ -15,11 +14,16 @@
         Custom command
 #>
 function Job_DisableLog {
+    [CmdletBinding()]
+    param ()
     $global:cs.Job_DisableLog()
 }
 
 
-# TODO: #78 Update and add tests
+
+
+
+
 
 <#
     .SYNOPSIS
@@ -35,11 +39,15 @@ function Job_DisableLog {
         Custom command
 #>
 function Job_EnableLog {
+    [CmdletBinding()]
+	param ()
     $global:cs.Job_EnableLog()
 }
 
 
-# TODO: #79 Update and add tests
+
+
+
 
 <#
     .SYNOPSIS
@@ -68,7 +76,6 @@ function Job_RebootWS {
 }
 
 
-# TODO: #80 Update and add tests
 
 <#
     .SYNOPSIS
@@ -99,7 +106,8 @@ function Job_RebootWS {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455360/cs.Job+Start
 #>
 function Job_Start {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$JobType,
         [Parameter(Mandatory = $true)]
@@ -117,7 +125,8 @@ function Job_Start {
 
 
 
-# TODO: #81 Update and add tests
+
+
 
 <#
     .SYNOPSIS
@@ -143,6 +152,7 @@ function Job_Start {
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455683/cs.Job+WriteLog
 #>
 function Job_WriteLog {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Text,
@@ -156,5 +166,7 @@ function Job_WriteLog {
 		$Global:Cs.Job_WriteLog($Text)
 	}
 }
+
+
 
 

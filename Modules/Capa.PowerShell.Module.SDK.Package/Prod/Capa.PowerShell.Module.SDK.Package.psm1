@@ -495,7 +495,7 @@ function Copy-CapaPackageRelation {
 			if ($CopyUnits) {
 				Write-Progress -Activity "Copying unit $($Unit.Name)" -Status 'Progress' -PercentComplete (($Count / $AllFromUnits.Count) * 100)
 
-				$AllreadyLinked = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.Type -eq $UnitType }
+				$AllreadyLinked = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.TypeName -eq $Unit.TypeName }
 				if ($AllreadyLinked.Count -eq 0) {
 					try {
 						$bool = Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -UnitName $UnitUUID -UnitType $UnitType
@@ -1104,6 +1104,18 @@ function Get-CapaPackages {
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
+
+		# The SDK (FillPackageArray for User packages) concatenates GUID and ID without a splitter,
+		# so User packages only have 14 fields. Split the 36 character GUID from the ID.
+		if ($aItem.Count -eq 14 -and $aItem[7].Length -gt 36) {
+			$aItem = @($aItem[0..6]) + @($aItem[7].Substring(0, 36), $aItem[7].Substring(36)) + @($aItem[8..13])
+		}
+
+		# When a BusinessUnit is specified the SDK does not filter on type, so filter here
+		if ($Type -ne '' -and $aItem[2] -ne $Type) {
+			continue
+		}
+
 		$oaUnits += [pscustomobject]@{
 			Name               = $aItem[0];
 			Version            = $aItem[1];
@@ -1171,6 +1183,12 @@ function Get-CapaPackagesOnManagementServer {
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
+
+		# The SDK ignores the packageType argument and returns all package types, so filter here
+		if ($aItem[2] -ne $PackageType) {
+			continue
+		}
+
 		$oaUnits += [pscustomobject]@{
 			Name               = $aItem[0];
 			Version            = $aItem[1];
@@ -1301,14 +1319,17 @@ function Get-CapaPackageUnits {
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name         = $aItem[0];
-			Created      = $aItem[1];
-			LastExecuted = $aItem[2];
-			Status       = $aItem[3];
-			Description  = $aItem[4];
-			GUID         = $aItem[5];
-			ID           = $aItem[6];
-			TypeName     = $aItem[7]
+			Name           = $aItem[0];
+			Created        = $aItem[1];
+			LastExecuted   = $aItem[2];
+			Status         = $aItem[3];
+			Description    = $aItem[4];
+			GUID           = $aItem[5];
+			ID             = $aItem[6];
+			TypeName       = $aItem[7];
+			UUID           = $aItem[8];
+			IsMobileDevice = $aItem[9];
+			Location       = $aItem[10]
 		}
 	}
 
@@ -1919,7 +1940,7 @@ function New-CapaPowerPack {
 		}
 
 		$Query = "UPDATE JOB
-    Set POWERPACK = 'True', INSTALLSCRIPTCONTENT = '$($XML.Info.Package.InstallScriptContent)', UNINSTALLSCRIPTCONTENT =' $($XML.Info.Package.UnInstallScriptContent)'$SqlServerDeploy
+    Set POWERPACK = 'True', INSTALLSCRIPTCONTENT = '$($XML.Info.Package.InstallScriptContent)', UNINSTALLSCRIPTCONTENT = '$($XML.Info.Package.UnInstallScriptContent)'$SqlServerDeploy
     Where NAME = '$PackageName'
     AND VERSION = '$PackageVersion'"
 
@@ -2004,7 +2025,8 @@ function Remove-CapaPackage {
 	)
 	if ($BusinessUnitName -eq '') {
 		if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Delete package')) {
-			$value = $CapaSDK.DeletePackage($PackageName, $PackageVersion, $PackageType, $Force)
+			# Convert to a real boolean; passing the string 'False' to the COM Boolean parameter is converted to $true
+			$value = $CapaSDK.DeletePackage($PackageName, $PackageVersion, $PackageType, ($Force -eq 'True'))
 			return $value
 		}
 	} else {
@@ -2615,7 +2637,7 @@ function Update-CapaPackageScriptAndKit {
 			throw 'Cannot find the package. Check PackageBasePath'
 		}
 
-		$ScriptPath = Join-Path $PackagePath 'Scripts' $ScriptName
+		$ScriptPath = Join-Path $PackagePath 'Scripts'
 		$KitPath = Join-Path $PackagePath 'Kit'
 	}
 

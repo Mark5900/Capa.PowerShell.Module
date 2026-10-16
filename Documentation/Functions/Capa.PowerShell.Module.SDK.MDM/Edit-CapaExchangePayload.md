@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.MDM
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Edit-CapaExchangePayload
 ---
@@ -27,8 +27,8 @@ Edit-CapaExchangePayload [-CapaSDK] <Object> [-ProfileID] <int> [-CurrentAccount
  [-EmailAddress] <string> [-ExchangeActiveSyncHost] <string> [-UseSSL] <bool>
  [[-PastDaysofMailtoSync] <int>] [[-AllowMove] <bool>] [[-UseOnlyinMail] <bool>]
  [[-UseSMIME] <bool>] [[-AllowRecentAddressSyncing] <bool>] [-Syncinterval] <string>
- [[-SyncEmail] <bool>] [[-SyncContacts] <bool>] [[-SyncTasks] <bool>] [[-ChangelogComment] <string>]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-SyncEmail] <bool>] [[-SyncCalendar] <bool>] [[-SyncContacts] <bool>] [[-SyncTasks] <bool>]
+ [[-ChangelogComment] <string>] [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES
@@ -61,6 +61,7 @@ Edit-CapaExchangePayload @(
 	AllowRecentAddressSyncing = $true
 	syncinterval = "30 minutes"
 	SyncEmail = $true
+	SyncCalendar = $true
 	SyncContacts = $true
 	SyncTasks = $false
 	ChangelogComment = "Editing Exchange Payload"
@@ -167,7 +168,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 18
+  Position: 19
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -357,9 +358,9 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
-### -SyncContacts
+### -SyncCalendar
 
-Whether to synchronize contacts between the device and the server.
+Whether to synchronize calendar between the device and the server.
 
 ```yaml
 Type: System.Boolean
@@ -378,9 +379,30 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -SyncContacts
+
+Whether to synchronize contacts between the device and the server.
+
+```yaml
+Type: System.Boolean
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 17
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -SyncEmail
 
-Whether to synchronize calendar between the device and the server.
+Whether to synchronize email between the device and the server.
 
 ```yaml
 Type: System.Boolean
@@ -432,7 +454,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 17
+  Position: 18
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false

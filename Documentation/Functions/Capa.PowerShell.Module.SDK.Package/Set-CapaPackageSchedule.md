@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Set-CapaPackageSchedule
 ---
@@ -26,7 +26,6 @@ Set-CapaPackageSchedule [-CapaSDK] <Object> [-PackageName] <string> [-PackageVer
  [-PackageType] <string> [-ScheduleStart] <string> [[-ScheduleEnd] <string>]
  [[-ScheduleIntervalBegin] <string>] [[-ScheduleIntervalEnd] <string>]
  [-ScheduleRecurrence] <string> [[-ScheduleRecurrencePattern] <string>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
 ```
 
 ## ALIASES

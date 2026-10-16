@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.CCS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CCSEncryptedPassword
 ---
@@ -22,7 +22,7 @@ Encrypts a SecureString using the InstallationScreen.exe utility for CCS Webserv
 ### __AllParameterSets
 
 ```
-Get-CCSEncryptedPassword [-SecureString] <securestring> [<CommonParameters>]
+Get-CCSEncryptedPassword [-SecureString] <securestring>
 ```
 
 ## ALIASES

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Add-PpCMSPackageToUnit
 ---
@@ -15,14 +15,14 @@ title: Add-PpCMSPackageToUnit
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Adds the specified package to the unit on which the script is being executed
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Add-PpCMSPackageToUnit [-PackageName] <string> [-PackageVersion] <string> [<CommonParameters>]
+Add-PpCMSPackageToUnit [-PackageName] <string> [-PackageVersion] <string>
 ```
 
 ## ALIASES
@@ -32,19 +32,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Adds the specified package to the unit on which the script is being executed
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Add-PpCMSPackageToUnit -PackageName "MyPackage" -PackageVersion "1.0.0"
+if ($bStatus) {
+	Job_WriteLog -Text "Package added to unit."
+} else {
+	Job_WriteLog -Text "Failed to add package to unit."
+}
 
 ## PARAMETERS
 
 ### -PackageName
 
-{{ Fill PackageName Description }}
+The name of the package to add to the unit
 
 ```yaml
 Type: System.String
@@ -65,7 +70,7 @@ HelpMessage: ''
 
 ### -PackageVersion
 
-{{ Fill PackageVersion Description }}
+The version of the package to add to the unit
 
 ```yaml
 Type: System.String
@@ -95,13 +100,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

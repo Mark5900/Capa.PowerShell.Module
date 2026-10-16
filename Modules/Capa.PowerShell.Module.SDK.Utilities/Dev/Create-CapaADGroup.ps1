@@ -51,7 +51,8 @@ function Create-CapaADGroup {
 		throw 'CapaSDK does not contain method CreateADGroup.'
 	}
 
-	$recursiveValue = $recursive.ToLowerInvariant()
+	# SDK parameter is Boolean; a non-empty string (incl. 'false') is converted to $true by the COM binder
+	$recursiveValue = $recursive -eq 'true'
 
 	if ($PSCmdlet.ShouldProcess($GroupName, "Create AD group of type '$UnitType'")) {
 		$value = $CapaSDK.CreateADGroup($GroupName, $UnitType, $LDAPPath, $recursiveValue)

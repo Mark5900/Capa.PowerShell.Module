@@ -1,4 +1,3 @@
-# TODO: #73 Update and add tests
 
 <#
     .SYNOPSIS
@@ -23,7 +22,8 @@
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455598/cs.File+RenameDir
 #>
 function File_RenameDir {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$Source,
         [Parameter(Mandatory = $true)]
@@ -33,3 +33,5 @@ function File_RenameDir {
 
     $Global:Cs.File_RenameDir($Source, $Destination, $Overwrite)
 }
+
+

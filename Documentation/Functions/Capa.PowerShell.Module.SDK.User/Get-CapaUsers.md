@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.User
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaUsers
 ---
@@ -22,7 +22,7 @@ Get a list of all users.
 ### __AllParameterSets
 
 ```
-Get-CapaUsers [-CapaSDK] <Object> [<CommonParameters>]
+Get-CapaUsers [-CapaSDK] <Object>
 ```
 
 ## ALIASES
@@ -74,7 +74,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
+### System.Object[]
 
 {{ Fill in the Description }}
 

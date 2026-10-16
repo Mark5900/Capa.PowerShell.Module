@@ -1,4 +1,3 @@
-# TODO: #104 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -20,6 +19,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456057/cs.Sys+GetFreeDiskSpace
 #>
 function Sys_GetFreeDiskSpace {
+	[CmdletBinding()]
 	param (
 		[string]$Drive = 'C:'
 	)
@@ -28,3 +28,5 @@ function Sys_GetFreeDiskSpace {
 
 	return $Value
 }
+
+

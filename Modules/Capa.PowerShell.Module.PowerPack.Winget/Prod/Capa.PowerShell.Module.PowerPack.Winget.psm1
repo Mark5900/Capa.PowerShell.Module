@@ -14,6 +14,9 @@
 		Idea from: https://github.com/Romanitho/Winget-Install/blob/main/winget-install.ps1
 #>
 function Add-PpWingetScopeMachine {
+	[CmdletBinding()]
+	param ()
+
 	$Function = 'Add-PpWingetScopeMachine'
 
 	#Get Settings path for system or current user
@@ -70,6 +73,7 @@ function Add-PpWingetScopeMachine {
 		Idea from: https://github.com/Romanitho/Winget-Install/blob/main/winget-install.ps1
 #>
 function Confirm-PpWingetAppInstall {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$AppId,
@@ -164,6 +168,7 @@ function Find-PpWinGetCmd {
 		Source: https://github.com/microsoft/winget-cli/blob/master/doc/windows/package-manager/winget/returnCodes.md
 #>
 function Get-PpWingetReturnCodeDescription {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[int]$Decimal
@@ -986,7 +991,9 @@ function Install-PpWingetApp {
 		Custom function not from CapaSystems.
 		Idea from: https://github.com/Romanitho/Winget-Install/blob/main/winget-install.ps1
 #>
+
 function Install-PpWingetPrerequisites {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $false)]
 		[string]$WingetPath
@@ -1208,6 +1215,7 @@ function Uninstall-PpWingetApp {
 		Update-PpWingetApp -AppId 'Mozilla.Firefox' -AllowInstallOfWinGet $true
 #>
 function Update-PpWingetApp {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$AppId,

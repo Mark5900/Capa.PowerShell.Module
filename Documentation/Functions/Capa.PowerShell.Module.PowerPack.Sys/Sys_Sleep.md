@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.Sys
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Sys_Sleep
 ---
@@ -22,7 +22,7 @@ Sleeps for a specified number of seconds.
 ### __AllParameterSets
 
 ```
-Sys_Sleep [-Seconds] <int> [<CommonParameters>]
+Sys_Sleep [-Seconds] <int>
 ```
 
 ## ALIASES

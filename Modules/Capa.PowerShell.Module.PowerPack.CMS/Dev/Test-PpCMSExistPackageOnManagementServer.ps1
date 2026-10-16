@@ -1,4 +1,3 @@
-# TODO: #343 Update Get-Help for Test-PpCMSExistPackageOnManagementServer
 <#
 	.SYNOPSIS
 		Checks if the specified package exists on the management server the agent is connected to.
@@ -35,3 +34,4 @@ function Test-PpCMSExistPackageOnManagementServer {
 	)
 	return CMS_ExistPackageOnManagementServer -package $PackageName -version $PackageVersion -mustexist $MustExist
 }
+

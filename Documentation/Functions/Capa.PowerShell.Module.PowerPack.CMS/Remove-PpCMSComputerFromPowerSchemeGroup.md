@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Remove-PpCMSComputerFromPowerSchemeGroup
 ---
@@ -15,14 +15,14 @@ title: Remove-PpCMSComputerFromPowerSchemeGroup
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Remove a computer from a Power Scheme Group.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Remove-PpCMSComputerFromPowerSchemeGroup [-Group] <string> [<CommonParameters>]
+Remove-PpCMSComputerFromPowerSchemeGroup [-Group] <string>
 ```
 
 ## ALIASES
@@ -32,19 +32,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Remove a computer from a Power Scheme Group.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Remove-PpCMSComputerFromPowerSchemeGroup -Group "MyGroup"
+if ($bStatus) {
+	Job_WriteLog -Text "Computer removed from Power Scheme Group."
+} else {
+	Job_WriteLog -Text "Failed to remove computer from Power Scheme Group."
+}
 
 ## PARAMETERS
 
 ### -Group
 
-{{ Fill Group Description }}
+The name of the Power Scheme Group.
 
 ```yaml
 Type: System.String
@@ -74,13 +79,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

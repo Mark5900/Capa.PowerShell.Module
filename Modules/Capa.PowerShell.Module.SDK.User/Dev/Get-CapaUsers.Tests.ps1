@@ -7,8 +7,8 @@ Describe 'Get-CapaUsers' {
 		$CapaSDK = [pscustomobject]@{}
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetUsers -Value {
 			@(
-				'user1;2026-01-01;2026-01-02;Active;Desc1;guid-1;unused;101;User;uuid-1;HQ;User One;u1@contoso.com;u1b@contoso.com;u1c@contoso.com',
-				'user2;2026-01-03;2026-01-04;Active;Desc2;guid-2;unused;102;User;uuid-2;Branch;User Two;u2@contoso.com;u2b@contoso.com;u2c@contoso.com'
+				'user1;2026-01-01;2026-01-02;Active;Desc1;guid-1;101;Users;uuid-1;HQ;User One;u1@contoso.com;u1b@contoso.com;u1c@contoso.com',
+				'user2;2026-01-03;2026-01-04;Active;Desc2;guid-2;102;Users;uuid-2;Branch;User Two;u2@contoso.com;u2b@contoso.com;u2c@contoso.com'
 			)
 		}
 
@@ -28,7 +28,7 @@ Describe 'Get-CapaUsers' {
 			@(
 				'',
 				'user-invalid;too;few;columns',
-				'user3;2026-01-05;2026-01-06;Active;Desc3;guid-3;unused;103;User;uuid-3;Remote;User Three;u3@contoso.com;u3b@contoso.com;u3c@contoso.com'
+				'user3;2026-01-05;2026-01-06;Active;Desc3;guid-3;103;Users;uuid-3;Remote;User Three;u3@contoso.com;u3b@contoso.com;u3c@contoso.com'
 			)
 		}
 

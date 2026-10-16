@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.Job
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Job_RebootWS
 ---
@@ -22,7 +22,7 @@ Job request reboot of the workstation
 ### __AllParameterSets
 
 ```
-Job_RebootWS [[-Text] <string>] [<CommonParameters>]
+Job_RebootWS [[-Text] <string>]
 ```
 
 ## ALIASES

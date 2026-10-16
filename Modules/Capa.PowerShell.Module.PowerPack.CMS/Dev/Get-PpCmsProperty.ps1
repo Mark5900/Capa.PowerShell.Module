@@ -1,4 +1,3 @@
-# TODO: #290 Update Get-Help for Get-PpCMSProperty
 <#
 	.SYNOPSIS
 		Returns a property from the property table in the SQL database
@@ -23,3 +22,4 @@ function Get-PpCMSProperty {
 
 	return CMS_GetProperty -prop $Property
 }
+

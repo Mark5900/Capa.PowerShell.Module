@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Update-CapaPackageNow
 ---
@@ -23,7 +23,7 @@ Performs a update now on a package.
 
 ```
 Update-CapaPackageNow [-CapaSDK] <Object> [-PackageName] <string> [-PackageVersion] <string>
- [-PackageType] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-PackageType] <string> [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

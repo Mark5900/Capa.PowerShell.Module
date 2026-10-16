@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.User
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Clear-CapaPrimaryUser
 ---
@@ -22,7 +22,7 @@ Clear the primary user on a unit.
 ### __AllParameterSets
 
 ```
-Clear-CapaPrimaryUser [-CapaSDK] <Object> [-Uuid] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
+Clear-CapaPrimaryUser [-CapaSDK] <Object> [-Uuid] <string> [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

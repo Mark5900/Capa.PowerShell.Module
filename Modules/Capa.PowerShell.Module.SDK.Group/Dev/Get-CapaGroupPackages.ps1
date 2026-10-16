@@ -15,7 +15,7 @@
 		The type of the group, either Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
 
 	.EXAMPLE
-		PS C:\> Get-CapaGroupPackages -CapaSDK $CapaSDK -GroupName $GroupName -Type Dynamic_ADSI
+		PS C:\> Get-CapaGroupPackages -CapaSDK $CapaSDK -GroupName $GroupName -GroupType Dynamic_ADSI
 
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI67DOC/pages/20342582280/Get+group+packages

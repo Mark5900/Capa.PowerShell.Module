@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Add-PpCMSHardwareInventory
 ---
@@ -15,7 +15,7 @@ title: Add-PpCMSHardwareInventory
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Adds a HardwareInventory row to the database that is persistent.
 
 ## SYNTAX
 
@@ -23,7 +23,7 @@ title: Add-PpCMSHardwareInventory
 
 ```
 Add-PpCMSHardwareInventory [-Category] <string> [-Entry] <string> [-Value] <string>
- [-ValueType] <string> [<CommonParameters>]
+ [-ValueType] <string>
 ```
 
 ## ALIASES
@@ -33,19 +33,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Adds a HardwareInventory row to the database that is persistent, meaning that the data will not be flushed out the next time that the HardwareInventory package is run.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Add-PpCMSHardwareInventory -Category "MyCategory" -Entry "MyEntry" -Value "MyValue" -ValueType "String"
+if ($bStatus) {
+	Job_WriteLog -Text "Hardware inventory added successfully."
+} else {
+	Job_WriteLog -Text "Failed to add hardware inventory."
+}
 
 ## PARAMETERS
 
 ### -Category
 
-{{ Fill Category Description }}
+Category name
 
 ```yaml
 Type: System.String
@@ -66,7 +71,7 @@ HelpMessage: ''
 
 ### -Entry
 
-{{ Fill Entry Description }}
+Variable name
 
 ```yaml
 Type: System.String
@@ -87,7 +92,9 @@ HelpMessage: ''
 
 ### -Value
 
-{{ Fill Value Description }}
+Value of the variable.
+If the ValueType is Time then the value should be epoch time, meaning the number of seconds since 1970-01-01 00:00:00 UTC.
+You can also set the Time at "" or "0" to set the current time.
 
 ```yaml
 Type: System.String
@@ -108,7 +115,11 @@ HelpMessage: ''
 
 ### -ValueType
 
-{{ Fill ValueType Description }}
+Type of the value.
+Valid values are:
+- String
+- Int
+- Time
 
 ```yaml
 Type: System.String
@@ -138,13 +149,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
 
-{{ Fill in the Notes }}
+https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/19610726295/CMS+AddHardwareInventory
+
 
 ## RELATED LINKS
 

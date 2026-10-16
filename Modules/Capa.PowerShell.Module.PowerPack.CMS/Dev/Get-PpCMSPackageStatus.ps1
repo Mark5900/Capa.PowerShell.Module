@@ -1,4 +1,3 @@
-# TODO: #349 Update Get-Help for Get-PpCMSPackageStatus
 <#
 	.SYNOPSIS
 		Returns the package status for the specified package.
@@ -40,3 +39,4 @@ function Get-PpCMSPackageStatus {
 	)
 	return CMS_GetPackageStatus -package $PackageName -version $PackageVersion
 }
+

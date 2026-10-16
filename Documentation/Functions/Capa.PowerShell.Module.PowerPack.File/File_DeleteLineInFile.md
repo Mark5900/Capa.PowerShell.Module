@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.File
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: File_DeleteLineInFile
 ---
@@ -23,7 +23,7 @@ Delete a line in a file.
 
 ```
 File_DeleteLineInFile [-File] <string> [-Text] <string> [[-OnlyFirstMatch] <bool>]
- [[-IgnoreCase] <bool>] [<CommonParameters>]
+ [[-IgnoreCase] <bool>]
 ```
 
 ## ALIASES

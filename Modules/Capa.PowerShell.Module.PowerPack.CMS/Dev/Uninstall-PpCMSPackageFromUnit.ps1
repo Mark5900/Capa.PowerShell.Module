@@ -1,4 +1,3 @@
-# TODO: #307 Update Get-Help for Uninstall-PpCMSPackageFromUnit
 <#
 	.SYNOPSIS
 		Uninstalls package from unit.
@@ -47,3 +46,4 @@ function Uninstall-PpCMSPackageFromUnit {
 		return CMS_UninstallPackageFromUnit -package $PackageName -version $PackageVersion
 	}
 }
+

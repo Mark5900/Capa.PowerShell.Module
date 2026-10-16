@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.Tools
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-ScriptDirectory
 ---
@@ -22,7 +22,7 @@ Get the directory of the current script.
 ### __AllParameterSets
 
 ```
-Get-ScriptDirectory [<CommonParameters>]
+Get-ScriptDirectory
 ```
 
 ## ALIASES

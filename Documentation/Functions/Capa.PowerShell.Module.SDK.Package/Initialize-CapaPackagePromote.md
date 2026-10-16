@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Initialize-CapaPackagePromote
 ---
@@ -23,7 +23,7 @@ Initializes a package promotion.
 
 ```
 Initialize-CapaPackagePromote [-CapaSDK] <Object> [-PackageType] <string> [-PackageName] <string>
- [-PackageVersion] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-PackageVersion] <string> [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

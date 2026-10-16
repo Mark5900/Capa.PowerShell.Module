@@ -1,4 +1,3 @@
-# TODO: #86 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -17,6 +16,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455768/cs.MSI+IsMSIFileInstalled
 #>
 function MSI_IsMSIFileInstalled {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$MsiFile
@@ -26,3 +26,5 @@ function MSI_IsMSIFileInstalled {
 
 	return $Value
 }
+
+

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.Winget
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Install-PpWingetApp
 ---
@@ -23,7 +23,6 @@ Install an application using winget
 
 ```
 Install-PpWingetApp [-AppId] <string> [[-Locale] <string>] [[-AllowInstallOfWinGet] <bool>]
- [<CommonParameters>]
 ```
 
 ## ALIASES

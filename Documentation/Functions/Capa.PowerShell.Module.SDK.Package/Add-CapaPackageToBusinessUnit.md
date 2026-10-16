@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Add-CapaPackageToBusinessUnit
 ---
@@ -23,7 +23,7 @@ Adds a package to a business unit.
 
 ```
 Add-CapaPackageToBusinessUnit [-CapaSDK] <Object> [-PackageName] <string> [-PackageVersion] <string>
- [-PackageType] <string> [-BusinessUnitName] <string> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-PackageType] <string> [-BusinessUnitName] <string> [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

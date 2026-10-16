@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Inventory
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Set-CapaCustomInventory
 ---
@@ -23,14 +23,14 @@ Set custom inventory for a unit.
 
 ```
 Set-CapaCustomInventory -CapaSDK <Object> -UnitName <string> -UnitType <string> -Section <string>
- -Name <string> -Value <string> -DataType <string> [-WhatIf] [-Confirm] [<CommonParameters>]
+ -Name <string> -Value <string> -DataType <string> [-WhatIf] [-Confirm]
 ```
 
 ### Uuid
 
 ```
 Set-CapaCustomInventory -CapaSDK <Object> -Uuid <string> -Section <string> -Name <string>
- -Value <string> -DataType <string> [-WhatIf] [-Confirm] [<CommonParameters>]
+ -Value <string> -DataType <string> [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

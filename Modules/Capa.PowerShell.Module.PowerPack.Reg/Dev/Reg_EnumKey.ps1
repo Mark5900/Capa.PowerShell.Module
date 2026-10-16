@@ -1,4 +1,3 @@
-# TODO: #91 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -26,6 +25,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455853/cs.Reg+EnumKey
 #>
 function Reg_EnumKey {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKCU', 'HKU')]
@@ -37,3 +37,4 @@ function Reg_EnumKey {
 
 	$Global:cs.Reg_EnumKey($RegRoot, $RegPath, $MustExist)
 }
+

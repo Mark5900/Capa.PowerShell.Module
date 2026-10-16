@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.Tools
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: New-MessageBox
 ---
@@ -23,14 +23,14 @@ New-Popup will display a message box. If a timeout is requested it uses Wscript.
 
 ```
 New-MessageBox -Message <string> -Title <string> [-Time <int>] [-Buttons <string>] [-Icon <string>]
- [-ShowOnTop] [-AsString] [<CommonParameters>]
+ [-ShowOnTop] [-AsString]
 ```
 
 ### DefaultButton
 
 ```
 New-MessageBox -Message <string> -Title <string> [-Buttons <string>] [-Icon <string>]
- [-DefaultButton <string>] [-AsString] [<CommonParameters>]
+ [-DefaultButton <string>] [-AsString]
 ```
 
 ## ALIASES

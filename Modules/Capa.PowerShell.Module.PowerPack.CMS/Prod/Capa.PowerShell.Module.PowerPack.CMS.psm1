@@ -1,5 +1,4 @@
 
-# TODO: #314 Update Get-Help for Add-PpCMSComputerToCalendarGroup. Missing documentation for BU support.
 <#
 	.SYNOPSIS
 		Adds the specified unit to the specified calendar group.
@@ -31,7 +30,7 @@ function Add-PpCMSComputerToCalendarGroup {
 }
 
 
-# TODO: #317 Update Get-Help for Add-PpCMSComputerToDepartmentGroup, missing BU support description
+
 <#
 	.SYNOPSIS
 		Adds a specified computer unit to a department group.
@@ -63,7 +62,7 @@ function Add-PpCMSComputerToDepartmentGroup {
 }
 
 
-# TODO: #321 Update Get-Help for Add-PpCMSComputerToPowerSchemeGroup
+
 <#
 	.SYNOPSIS
 		Adds a specified computer unit to a power scheme group.
@@ -95,7 +94,7 @@ function Add-PpCMSComputerToPowerSchemeGroup {
 }
 
 
-# TODO: #325 Update Get-Help for Add-PpCMSComputerToReinstallGroup, missing BU support description
+
 <#
 	.SYNOPSIS
 		Add a computer to a Reinstall Group.
@@ -127,7 +126,7 @@ function Add-PpCMSComputerToReinstallGroup {
 }
 
 
-# TODO: #309 Update Get-Help for Add-PpCMSComputerToStaticGroup. Missing documentation for BU support.
+
 <#
 	.SYNOPSIS
 		Adds the specified unit to the specified static group.
@@ -159,7 +158,7 @@ function Add-PpCMSComputerToStaticGroup {
 }
 
 
-# TODO: #295 Update Get-Help CMS_AddCustomInventory
+
 <#
 	.SYNOPSIS
 		Adds a custom inventory entry to the database.
@@ -211,7 +210,7 @@ function Add-PpCMSCustomInventory {
 		[ValidateSet('String', 'Integer', 'Time')]
 		[string]$ValueType
 	)
-	switch ($x) {
+	switch ($ValueType) {
 		String {
 			$ValueTypeShort = 'S'
 		}
@@ -230,7 +229,8 @@ function Add-PpCMSCustomInventory {
 }
 
 
-# TODO: #301 Update Get-Help for Add-PpCMSHardwareInventory
+
+
 <#
 	.SYNOPSIS
 		Adds a HardwareInventory row to the database that is persistent.
@@ -280,7 +280,7 @@ function Add-PpCMSHardwareInventory {
 		[ValidateSet('String', 'Int', 'Time')]
 		[string]$ValueType
 	)
-	switch ($x) {
+	switch ($ValueType) {
 		'String' {
 			$ValueTypeShort = 'S'
 		}
@@ -299,7 +299,8 @@ function Add-PpCMSHardwareInventory {
 }
 
 
-# TODO: #329 Update Get-Help for Add-PpCMSPackageToUnit
+
+
 <#
 	.SYNOPSIS
 		Adds the specified package to the unit on which the script is being executed
@@ -333,7 +334,7 @@ function Add-PpCMSPackageToUnit {
 }
 
 
-# TODO: #341 Update Get-Help for Add-PpCMSUnitToBusinessUnit
+
 <#
 	.SYNOPSIS
 		Adds the unit to the specified business unit
@@ -362,7 +363,7 @@ function Add-PpCMSUnitToBusinessUnit {
 }
 
 
-# TODO: #351 Update Get-Help for Get-PpCMSAdvertisedPackages
+
 <#
 	.SYNOPSIS
 		Get a list of advertised packages.
@@ -385,7 +386,7 @@ function Get-PpCMSAdvertisedPackages {
 }
 
 
-# TODO: #291 Update Get-Help for Get-PpCMSDeploymentTemplateVariable
+
 <#
 	.SYNOPSIS
 		Returns a variable from the deployment template linked to the current client
@@ -449,7 +450,7 @@ function Get-PpCMSDeploymentTemplateVariable {
 }
 
 
-# TODO: #359 Update Get-Help for Get-PpCMSGroupMembership
+
 <#
 	.SYNOPSIS
 		Returns an array of the groups to which the client is linked.
@@ -490,7 +491,7 @@ function Get-PpCMSGroupMembership {
 }
 
 
-# TODO: #293 Update the Get-Help for Get-PpCMSInventory
+
 <#
 	.SYNOPSIS
 		Gets inventory values from the database.
@@ -547,7 +548,7 @@ function Get-PpCMSInventory {
 }
 
 
-# TODO: #355 Update Get-Help for Get-PpCMSIsPackageLinked
+
 <#
 	.SYNOPSIS
 		Returns whether the specified package is linked to any unit or group.
@@ -581,7 +582,7 @@ function Get-PpCMSIsPackageLinked {
 }
 
 
-# TODO: #357 Update Get-Help for Get-PpCMSIsPackageScheduleEnabled
+
 <#
 	.SYNOPSIS
 		Returns as boolean indicating if the schedule for a package is enabled.
@@ -615,7 +616,7 @@ function Get-PpCMSIsPackageScheduleEnabled {
 }
 
 
-# TODO: #353 Update Get-Help for Get-PpCMSPackage
+
 <#
 	.SYNOPSIS
 		Returns the specified package.
@@ -701,7 +702,7 @@ function Get-PpCMSPackage {
 }
 
 
-# TODO: #349 Update Get-Help for Get-PpCMSPackageStatus
+
 <#
 	.SYNOPSIS
 		Returns the package status for the specified package.
@@ -745,7 +746,7 @@ function Get-PpCMSPackageStatus {
 }
 
 
-# TODO: #290 Update Get-Help for Get-PpCMSProperty
+
 <#
 	.SYNOPSIS
 		Returns a property from the property table in the SQL database
@@ -772,7 +773,7 @@ function Get-PpCMSProperty {
 }
 
 
-# TODO: #335 Update Get-Help for Initialize-PpCMSRerunPackage
+
 <#
 	.SYNOPSIS
 		Sets status for the specified package to 'Waiting' causing it to rerun the next time the Agent is being executed.
@@ -806,7 +807,7 @@ function Initialize-PpCMSRerunPackage {
 }
 
 
-# TODO: #331 Update Get-Help for Install-PpCMSAdvertisedPackage
+
 <#
 	.SYNOPSIS
 		Installs an advertised package on the unit on which the script is being executed
@@ -840,7 +841,7 @@ function Install-PpCMSAdvertisedPackage {
 }
 
 
-# TODO: #337 Update Get-Help for Invoke-PpCMSRunSystemAgent
+
 <#
 	.SYNOPSIS
 		Reruns the CapaInstaller Service Agent
@@ -870,7 +871,7 @@ function Invoke-PpCMSRunSystemAgent {
 }
 
 
-# TODO: #339 Update Get-Help for Invoke-PpCMSRunUserAgent
+
 <#
 	.SYNOPSIS
 		Sends a CallHomeUser UnitCommand to the BaseAgent which in turn will request the InfoCenter to run the Agent script in the user context.
@@ -900,7 +901,7 @@ function Invoke-PpCMSRunUserAgent {
 }
 
 
-# TODO: #287 Add Get-Help for Invoke-PpJobRetryLater
+
 function Invoke-PpJobRetryLater {
 	[CmdletBinding()]
 	[Alias('CMS_JobRetryLater')]
@@ -910,7 +911,6 @@ function Invoke-PpJobRetryLater {
 }
 
 
-# TODO: #315 Update Get-Help for Remove-PpCMSComputerFromCalendarGroup
 <#
 	.SYNOPSIS
 		Removes a specified computer unit from a calendar group.
@@ -939,7 +939,7 @@ function Remove-PpCMSComputerFromCalendarGroup {
 }
 
 
-# TODO: #319 Update Get-Help for Remove-PpCMSComputerFromDepartmentGroup, missing BU support description
+
 <#
 	.SYNOPSIS
 		Removes a specified computer unit from a department group.
@@ -968,7 +968,7 @@ function Remove-PpCMSComputerFromDepartmentGroup {
 }
 
 
-# TODO: #323 Update Get-Help for Remove-PpCMSComputerFromPowerSchemeGroup
+
 <#
 	.SYNOPSIS
 		Remove a computer from a Power Scheme Group.
@@ -997,7 +997,7 @@ function Remove-PpCMSComputerFromPowerSchemeGroup {
 }
 
 
-# TODO: #327 Update Get-Help for Remove-PpCMSComputerFromReinstallGroup, missing BU support description
+
 <#
 	.SYNOPSIS
 		Remove a computer from a Reinstall Group.
@@ -1026,7 +1026,7 @@ function Remove-PpCMSComputerFromReinstallGroup {
 }
 
 
-# TODO: #311 Update Get-Help for Remove-PpCMSComputerFromStaticGroup. Missing documentation for BU support.
+
 <#
 	.SYNOPSIS
 		Removes the specified unit from the specified static group.
@@ -1055,7 +1055,7 @@ function Remove-PpCMSComputerFromStaticGroup {
 }
 
 
-# TODO: #297 Update Get-Help for Remove-PpCMSCustomInventory
+
 <#
 	.SYNOPSIS
 		Removes a CustomInventory row from the database that is persistent.
@@ -1085,7 +1085,7 @@ function Remove-PpCMSCustomInventory {
 }
 
 
-# TODO: #303 Add Get-Help for Remove-PpCMSHardwareInventory
+
 <#
 	.SYNOPSIS
 		Removes a HardwareInventory row from the database that is persistent.
@@ -1119,7 +1119,7 @@ function Remove-PpCMSHardwareInventory {
 }
 
 
-# TODO: #333 Update Get-Help for Remove-PpCMSPackageFromUnit
+
 <#
 	.SYNOPSIS
 		Removes the specified package from the unit on which the script is being executed
@@ -1153,7 +1153,7 @@ function Remove-PpCMSPackageFromUnit {
 }
 
 
-# TODO: #299 Add Get-Help for Reset-PpCMSCustomInventory
+
 function Reset-PpCMSCustomInventory {
 	[CmdletBinding()]
 	param (
@@ -1163,7 +1163,7 @@ function Reset-PpCMSCustomInventory {
 }
 
 
-# TODO: #305 Add Get-Help for Add-PpCMSCustomInventory
+
 function Set-PpCMSCurrentUser {
 	[CmdletBinding()]
 	param (
@@ -1174,7 +1174,7 @@ function Set-PpCMSCurrentUser {
 }
 
 
-# TODO: #345 Update Get-Help for Set-PpCMSPackageStatusToInstalled
+
 <#
 	.SYNOPSIS
 		Sets the status of the specified package to installed.
@@ -1208,7 +1208,7 @@ function Set-PpCMSPackageStatusToInstalled {
 }
 
 
-# TODO: #347 Update Get-Help for Set-PpCMSPackageStatusToNotCompliant
+
 <#
 	.SYNOPSIS
 		Set the status of a package to Not Compliant.
@@ -1242,7 +1242,7 @@ function Set-PpCMSPackageStatusToNotCompliant {
 }
 
 
-# TODO: #343 Update Get-Help for Test-PpCMSExistPackageOnManagementServer
+
 <#
 	.SYNOPSIS
 		Checks if the specified package exists on the management server the agent is connected to.
@@ -1281,7 +1281,7 @@ function Test-PpCMSExistPackageOnManagementServer {
 }
 
 
-# TODO: #307 Update Get-Help for Uninstall-PpCMSPackageFromUnit
+
 <#
 	.SYNOPSIS
 		Uninstalls package from unit.
@@ -1330,5 +1330,6 @@ function Uninstall-PpCMSPackageFromUnit {
 		return CMS_UninstallPackageFromUnit -package $PackageName -version $PackageVersion
 	}
 }
+
 
 

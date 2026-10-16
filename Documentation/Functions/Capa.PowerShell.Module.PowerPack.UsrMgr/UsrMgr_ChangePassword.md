@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.UsrMgr
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: UsrMgr_ChangePassword
 ---
@@ -22,7 +22,7 @@ Change the password of a local user account.
 ### __AllParameterSets
 
 ```
-UsrMgr_ChangePassword [-UserName] <string> [-Password] <string> [<CommonParameters>]
+UsrMgr_ChangePassword [-UserName] <string> [-Password] <string>
 ```
 
 ## ALIASES

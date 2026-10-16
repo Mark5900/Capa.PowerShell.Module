@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.SystemSdk
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaManagementPoint
 ---
@@ -22,7 +22,7 @@ Get management points or a specific management point.
 ### __AllParameterSets
 
 ```
-Get-CapaManagementPoint [-CapaSDK] <Object> [[-CmpId] <int>] [<CommonParameters>]
+Get-CapaManagementPoint [-CapaSDK] <Object> [[-CmpId] <int>]
 ```
 
 ## ALIASES
@@ -96,7 +96,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Management.Automation.PSObject
+### System.Management.Automation.PSObject[]
 
 {{ Fill in the Description }}
 

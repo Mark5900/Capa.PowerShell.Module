@@ -1,4 +1,3 @@
-# TODO: #345 Update Get-Help for Set-PpCMSPackageStatusToInstalled
 <#
 	.SYNOPSIS
 		Sets the status of the specified package to installed.
@@ -30,3 +29,4 @@ function Set-PpCMSPackageStatusToInstalled {
 	)
 	return CMS_SetPackageStatusToInstalled -package $PackageName -version $PackageVersion
 }
+

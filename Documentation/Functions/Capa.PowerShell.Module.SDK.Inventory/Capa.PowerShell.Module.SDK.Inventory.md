@@ -2,12 +2,12 @@
 author_profile: true
 layout: single
 document type: module
-Help Version: 1.16.0
+Help Version: 1.16.1
 HelpInfoUri: 
 Locale: en-US
 Module Guid: 00000000-0000-0000-0000-000000000000
 Module Name: Capa.PowerShell.Module.SDK.Inventory
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Capa.PowerShell.Module.SDK.Inventory Module
 ---
@@ -54,7 +54,7 @@ Get update inventory for a unit.
 
 ### [Get-CapaUserInventory](Get-CapaUserInventory.md)
 
-Get software inventory for a user.
+Get user inventory (standard inventory of type User) for a user.
 
 ### [Set-CapaCustomInventory](Set-CapaCustomInventory.md)
 

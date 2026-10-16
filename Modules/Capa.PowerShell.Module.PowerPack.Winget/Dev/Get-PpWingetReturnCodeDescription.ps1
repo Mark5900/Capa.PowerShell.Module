@@ -16,6 +16,7 @@
 		Source: https://github.com/microsoft/winget-cli/blob/master/doc/windows/package-manager/winget/returnCodes.md
 #>
 function Get-PpWingetReturnCodeDescription {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[int]$Decimal

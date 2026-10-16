@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.WSUS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaWSUSGroupUnits
 ---
@@ -22,7 +22,7 @@ Gets a list of units linked to a WSUS group.
 ### __AllParameterSets
 
 ```
-Get-CapaWSUSGroupUnits [-CapaSDK] <Object> [-WSUSGroupName] <string> [<CommonParameters>]
+Get-CapaWSUSGroupUnits [-CapaSDK] <Object> [-WSUSGroupName] <string>
 ```
 
 ## ALIASES

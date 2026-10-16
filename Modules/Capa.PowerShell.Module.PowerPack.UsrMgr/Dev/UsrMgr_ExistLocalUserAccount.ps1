@@ -1,5 +1,3 @@
-# TODO: #391 Update Get-Help for UsrMGr_ExistLocalUserAccount
-
 <#
 	.SYNOPSIS
 		Check if a local user account exists.
@@ -17,6 +15,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456227/cs.UsrMgr+ExistLocalUserAccount
 #>
 function UsrMgr_ExistLocalUserAccount {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$UserName

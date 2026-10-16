@@ -1,4 +1,3 @@
-# TODO: #286 Add help for Show-PpMessageBox
 <#
 	.SYNOPSIS
 		Show a message box.
@@ -52,3 +51,4 @@ function Show-PpMessageBox {
 	)
 	return $Global:InputObject.ShowMessageBox($Title, $Message, $Buttons, $DefaultButton, $Icon, $TimeoutSeconds, $Async)
 }
+

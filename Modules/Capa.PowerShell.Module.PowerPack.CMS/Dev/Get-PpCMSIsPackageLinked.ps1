@@ -1,4 +1,3 @@
-# TODO: #355 Update Get-Help for Get-PpCMSIsPackageLinked
 <#
 	.SYNOPSIS
 		Returns whether the specified package is linked to any unit or group.
@@ -30,3 +29,4 @@ function Get-PpCMSIsPackageLinked {
 	)
 	return CMS_IsPackageLinked -package $PackageName -version $PackageVersion
 }
+

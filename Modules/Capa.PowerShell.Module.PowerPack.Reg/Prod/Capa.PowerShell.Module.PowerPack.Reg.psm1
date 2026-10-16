@@ -1,5 +1,4 @@
 
-# TODO: #88 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -21,6 +20,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455819/cs.Reg+CreateKey
 #>
 function Reg_CreateKey {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -33,7 +33,7 @@ function Reg_CreateKey {
 }
 
 
-# TODO: #89 Update and add tests
+
 
 <#
 	.SYNOPSIS
@@ -171,7 +171,7 @@ function Reg_DeleteTree {
 }
 
 
-# TODO: #90 Update and add tests
+
 
 <#
 	.SYNOPSIS
@@ -199,6 +199,7 @@ function Reg_DeleteTree {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455802/cs.Reg+DeleteVariable
 #>
 function Reg_DeleteVariable {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKCU', 'HKU')]
@@ -309,7 +310,7 @@ function Reg_DeleteVariable {
 }
 
 
-# TODO: #91 Update and add tests
+
 
 <#
 	.SYNOPSIS
@@ -337,6 +338,7 @@ function Reg_DeleteVariable {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455853/cs.Reg+EnumKey
 #>
 function Reg_EnumKey {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKCU', 'HKU')]
@@ -350,7 +352,7 @@ function Reg_EnumKey {
 }
 
 
-# TODO: #92 Update and add tests
+
 
 <#
 	.SYNOPSIS
@@ -372,6 +374,7 @@ function Reg_EnumKey {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455870/cs.Reg+ExistKey
 #>
 function Reg_ExistKey {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -386,7 +389,8 @@ function Reg_ExistKey {
 }
 
 
-# TODO: #93 Update and add tests
+
+
 
 <#
 	.SYNOPSIS
@@ -418,6 +422,7 @@ function Reg_ExistKey {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455887/cs.Reg+ExistVariable
 #>
 function Reg_ExistVariable {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -434,7 +439,8 @@ function Reg_ExistVariable {
 }
 
 
-# TODO: #399 Add tests for Reg_GetExpandString
+
+
 
 <#
 	.SYNOPSIS
@@ -456,6 +462,7 @@ function Reg_ExistVariable {
 		PS C:\> Reg_GetExpandString -RegRoot "HKLM" -RegKey "SOFTWARE\CapaSystems" -RegValue "Test"
 #>
 function Reg_GetExpandString {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -470,7 +477,7 @@ function Reg_GetExpandString {
 }
 
 
-# TODO: #400 Add tests for Reg_GetInteger
+
 
 <#
 	.SYNOPSIS
@@ -492,6 +499,7 @@ function Reg_GetExpandString {
 		PS C:\> Reg_GetInteger -RegRoot "HKLM" -RegKey "SOFTWARE\CapaSystems" -RegValue "Test"
 #>
 function Reg_GetInteger {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -506,7 +514,7 @@ function Reg_GetInteger {
 }
 
 
-# TODO: #401 Add tests for Reg_GetMultiString
+
 
 <#
 	.SYNOPSIS
@@ -528,6 +536,7 @@ function Reg_GetInteger {
 		PS C:\> Reg_GetMultiString -RegRoot "HKLM" -RegKey "SOFTWARE\CapaSystems" -RegValue "Test"
 #>
 function Reg_GetMultiString {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -542,7 +551,7 @@ function Reg_GetMultiString {
 }
 
 
-# TODO: #94 Update and add tests
+
 
 <#
 	.SYNOPSIS
@@ -567,6 +576,7 @@ function Reg_GetMultiString {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455904/cs.Reg+GetString
 #>
 function Reg_GetString {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -583,7 +593,8 @@ function Reg_GetString {
 }
 
 
-# TODO: #95 Update and add tests
+
+
 
 <#
 	.SYNOPSIS
@@ -611,6 +622,7 @@ function Reg_GetString {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455921/cs.Reg+SetDword
 #>
 function Reg_SetDword {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -627,7 +639,7 @@ function Reg_SetDword {
 }
 
 
-# TODO: #96 Update and add tests
+
 
 <#
 	.SYNOPSIS
@@ -655,6 +667,7 @@ function Reg_SetDword {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455938/cs.Reg+SetExpandString
 #>
 function Reg_SetExpandString {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -671,7 +684,7 @@ function Reg_SetExpandString {
 }
 
 
-# TODO: #97 Update and add tests
+
 
 <#
 	.SYNOPSIS
@@ -699,6 +712,7 @@ function Reg_SetExpandString {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455955/cs.Reg+SetInteger
 #>
 function Reg_SetInteger {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -715,7 +729,7 @@ function Reg_SetInteger {
 }
 
 
-# TODO: #402 Create tests for Reg_SetQword
+
 
 <#
 	.SYNOPSIS
@@ -740,6 +754,7 @@ function Reg_SetInteger {
 		PS C:\> Reg_SetQword -RegRoot "HKLM" -RegKey "SOFTWARE\CapaSystems" -RegValue "Test" -RegData 123
 #>
 function Reg_SetQword {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -756,7 +771,7 @@ function Reg_SetQword {
 }
 
 
-# TODO: #98 Update and add tests
+
 
 <#
 	.SYNOPSIS
@@ -784,6 +799,7 @@ function Reg_SetQword {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455972/cs.Reg+SetString
 #>
 function Reg_SetString {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -798,6 +814,7 @@ function Reg_SetString {
 
 	$Global:cs.Reg_SetString($RegRoot, $RegKey, $RegValue, $RegData)
 }
+
 
 
 <#
@@ -948,16 +965,15 @@ Function Set-PpRegistryValue {
 			}
 		}
 		Default {
-			# TODO: Change this to use the $RegRoot instead of $Temp_RegRoot
 			switch -Exact ($Datatype) {
 				'String' {
-					$Global:cs.Reg_SetString($Temp_RegRoot, $RegKey, $RegValue, $RegData)
+					$Global:cs.Reg_SetString($RegRoot, $RegKey, $RegValue, $RegData)
 				}
 				'DWORD (32-bit)' {
-					$Global:cs.Reg_SetDword($Temp_RegRoot, $RegKey, $RegValue, [int]$RegData)
+					$Global:cs.Reg_SetDword($RegRoot, $RegKey, $RegValue, [int]$RegData)
 				}
 				'Expanded String' {
-					$Global:cs.Reg_SetExpandString($Temp_RegRoot, $RegKey, $RegValue, $RegData)
+					$Global:cs.Reg_SetExpandString($RegRoot, $RegKey, $RegValue, $RegData)
 				}
 			}
 		}

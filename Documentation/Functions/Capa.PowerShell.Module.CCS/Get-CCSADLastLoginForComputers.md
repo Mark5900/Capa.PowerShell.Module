@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.CCS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CCSADLastLoginForComputers
 ---
@@ -24,7 +24,6 @@ Retrieves last login information for all computers in Active Directory using the
 ```
 Get-CCSADLastLoginForComputers [[-DomainOUPath] <string>] [-Domain] <string> [-Url] <string>
  [-CCSCredential] <pscredential> [[-DomainCredential] <pscredential>] [-PasswordIsEncrypted]
- [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -235,7 +234,7 @@ Returns a list of ADComputerInfo objects containing:
 
 {{ Fill in the Description }}
 
-### System.Collections.Generic.List`1[[System.Management.Automation.PSObject, System.Management.Automation, Version=7.4.6.500, Culture=neutral, PublicKeyToken=31bf3856ad364e35]]
+### System.Collections.Generic.List`1[[System.Management.Automation.PSObject, System.Management.Automation, Version=7.6.0.500, Culture=neutral, PublicKeyToken=31bf3856ad364e35]]
 
 {{ Fill in the Description }}
 

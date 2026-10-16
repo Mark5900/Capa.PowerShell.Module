@@ -1,4 +1,3 @@
-# TODO: #70 Update and add tests
 
 <#
     .SYNOPSIS
@@ -23,7 +22,8 @@
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455547/cs.File+FindFile
 #>
 function File_FindFile {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$FileName,
         [Parameter(Mandatory = $true)]
@@ -35,3 +35,5 @@ function File_FindFile {
 
     return $Value
 }
+
+

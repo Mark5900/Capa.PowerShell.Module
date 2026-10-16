@@ -1,4 +1,3 @@
-# TODO: #90 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -26,6 +25,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455802/cs.Reg+DeleteVariable
 #>
 function Reg_DeleteVariable {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKCU', 'HKU')]
@@ -134,3 +134,4 @@ function Reg_DeleteVariable {
 		}
 	}
 }
+

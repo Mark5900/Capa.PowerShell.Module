@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Add-PpCMSComputerToPowerSchemeGroup
 ---
@@ -15,14 +15,14 @@ title: Add-PpCMSComputerToPowerSchemeGroup
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Adds a specified computer unit to a power scheme group.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Add-PpCMSComputerToPowerSchemeGroup [-Group] <string> [<CommonParameters>]
+Add-PpCMSComputerToPowerSchemeGroup [-Group] <string>
 ```
 
 ## ALIASES
@@ -32,19 +32,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Adds a specified computer unit to a power scheme group.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Add-PpCMSComputerToPowerSchemeGroup -Group "MyPowerSchemeGroup"
+if ($bStatus) {
+	Job_WriteLog -Text "Computer unit added to power scheme group."
+} else {
+	Job_WriteLog -Text "Failed to add computer unit to power scheme group."
+}
 
 ## PARAMETERS
 
 ### -Group
 
-{{ Fill Group Description }}
+The name of the power scheme group to which the computer unit should be added.
 
 ```yaml
 Type: System.String
@@ -74,13 +79,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
 
-{{ Fill in the Notes }}
+https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/19610726200/CMS+AddComputerToPowerSchemeGroup
+
 
 ## RELATED LINKS
 

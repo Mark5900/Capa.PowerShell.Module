@@ -154,7 +154,7 @@ function New-CapaPowerPack {
 		}
 
 		$Query = "UPDATE JOB
-    Set POWERPACK = 'True', INSTALLSCRIPTCONTENT = '$($XML.Info.Package.InstallScriptContent)', UNINSTALLSCRIPTCONTENT =' $($XML.Info.Package.UnInstallScriptContent)'$SqlServerDeploy
+    Set POWERPACK = 'True', INSTALLSCRIPTCONTENT = '$($XML.Info.Package.InstallScriptContent)', UNINSTALLSCRIPTCONTENT = '$($XML.Info.Package.UnInstallScriptContent)'$SqlServerDeploy
     Where NAME = '$PackageName'
     AND VERSION = '$PackageVersion'"
 

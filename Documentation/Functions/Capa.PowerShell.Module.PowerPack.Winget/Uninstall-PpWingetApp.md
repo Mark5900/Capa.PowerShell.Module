@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.Winget
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Uninstall-PpWingetApp
 ---
@@ -22,7 +22,7 @@ Uninstalls an application using winget.
 ### __AllParameterSets
 
 ```
-Uninstall-PpWingetApp [-AppId] <string> [[-AllowInstallOfWinGet] <bool>] [<CommonParameters>]
+Uninstall-PpWingetApp [-AppId] <string> [[-AllowInstallOfWinGet] <bool>]
 ```
 
 ## ALIASES

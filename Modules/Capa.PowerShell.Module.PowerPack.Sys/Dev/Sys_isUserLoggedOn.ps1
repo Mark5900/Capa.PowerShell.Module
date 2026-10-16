@@ -1,4 +1,3 @@
-# TODO: #404 Create tests for Sys_isUserLoggedOn
 
 <#
 	.SYNOPSIS
@@ -15,5 +14,9 @@
 		}
 #>
 function Sys_isUserLoggedOn {
+	[CmdletBinding()]
+	param ()
+
 	return $Global:cs.Sys_isUserLoggedOn()
 }
+

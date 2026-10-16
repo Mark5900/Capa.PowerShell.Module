@@ -1,5 +1,4 @@
 
-# TODO: #75 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -24,7 +23,8 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455649/cs.Ini+ReadEntry
 #>
 function Ini_ReadEntry {
-	param(
+	[CmdletBinding()]
+	param (
 		[Parameter(Mandatory = $true)]
 		[string]$FilePath,
 		[Parameter(Mandatory = $true)]
@@ -39,7 +39,8 @@ function Ini_ReadEntry {
 }
 
 
-# TODO: #76 Update and add tests
+
+
 
 <#
 	.SYNOPSIS
@@ -67,7 +68,8 @@ function Ini_ReadEntry {
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455666/cs.Ini+WriteEntry
 #>
 function Ini_WriteEntry {
-	param(
+	[CmdletBinding()]
+	param (
 		[Parameter(Mandatory = $true)]
 		[string]$FilePath,
 		[Parameter(Mandatory = $true)]
@@ -80,5 +82,7 @@ function Ini_WriteEntry {
 
 	$Global:Cs.Ini_WriteEntry($FilePath, $Section, $Variable, $Value)
 }
+
+
 
 

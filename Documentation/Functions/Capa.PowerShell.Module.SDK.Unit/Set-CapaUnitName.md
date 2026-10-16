@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Set-CapaUnitName
 ---
@@ -23,7 +23,7 @@ Set the name of a unit.
 
 ```
 Set-CapaUnitName [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string> [-Name] <string>
- [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

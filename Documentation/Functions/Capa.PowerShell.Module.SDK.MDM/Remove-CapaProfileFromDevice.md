@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.MDM
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Remove-CapaProfileFromDevice
 ---
@@ -23,14 +23,14 @@ This function will remove a profile from a device.
 
 ```
 Remove-CapaProfileFromDevice -CapaSDK <Object> -UnitName <string> -ProfileName <string>
- [-ChangelogComment <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ChangelogComment <string>] [-WhatIf] [-Confirm]
 ```
 
 ### Uuid
 
 ```
 Remove-CapaProfileFromDevice -CapaSDK <Object> -UUID <string> -ProfileName <string>
- [-ChangelogComment <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ChangelogComment <string>] [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

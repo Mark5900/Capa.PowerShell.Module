@@ -42,6 +42,12 @@ function Get-CapaPackagesOnManagementServer {
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
+
+		# The SDK ignores the packageType argument and returns all package types, so filter here
+		if ($aItem[2] -ne $PackageType) {
+			continue
+		}
+
 		$oaUnits += [pscustomobject]@{
 			Name               = $aItem[0];
 			Version            = $aItem[1];

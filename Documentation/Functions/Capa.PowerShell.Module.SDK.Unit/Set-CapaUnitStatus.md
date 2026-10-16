@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Set-CapaUnitStatus
 ---
@@ -23,7 +23,6 @@ https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306247758/Set+unit
 
 ```
 Set-CapaUnitStatus [-CapaSDK] <Object> [-UnitName] <string> [-Status] <string> [-WhatIf] [-Confirm]
- [<CommonParameters>]
 ```
 
 ## ALIASES

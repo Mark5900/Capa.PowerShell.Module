@@ -1,5 +1,3 @@
-# TODO: #99 Update and add tests
-
 <#
 	.SYNOPSIS
 		Determines if a service exists.
@@ -17,6 +15,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455989/cs.Service+Exist
 #>
 function Service_Exist {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true, Position = 0)]
 		[string]$ServiceName
@@ -26,4 +25,7 @@ function Service_Exist {
 
 	return $Value
 }
+
+
+
 

@@ -6,7 +6,7 @@ HelpUri: https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19306246741
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.CCS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Confirm-CCSADUser
 ---
@@ -24,7 +24,7 @@ Validates a user's credentials against Active Directory.
 ```
 Confirm-CCSADUser [[-DomainOUPath] <string>] [-Domain] <string> [-Url] <string>
  [-CCSCredential] <pscredential> [-DomainCredential] <pscredential> [-PasswordIsEncrypted]
- [-UsePrincipalContext] [<CommonParameters>]
+ [-UsePrincipalContext]
 ```
 
 ## ALIASES

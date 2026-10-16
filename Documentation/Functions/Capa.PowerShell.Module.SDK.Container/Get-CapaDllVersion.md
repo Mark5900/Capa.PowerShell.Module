@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Container
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaDllVersion
 ---
@@ -22,7 +22,7 @@ Get the version of the CapaSDK dll.
 ### __AllParameterSets
 
 ```
-Get-CapaDllVersion [-CapaSDK] <Object> [<CommonParameters>]
+Get-CapaDllVersion [-CapaSDK] <Object>
 ```
 
 ## ALIASES

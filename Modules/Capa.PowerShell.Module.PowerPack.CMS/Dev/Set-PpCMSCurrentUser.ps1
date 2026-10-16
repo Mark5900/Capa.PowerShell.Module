@@ -1,4 +1,3 @@
-# TODO: #305 Add Get-Help for Add-PpCMSCustomInventory
 function Set-PpCMSCurrentUser {
 	[CmdletBinding()]
 	param (
@@ -7,3 +6,4 @@ function Set-PpCMSCurrentUser {
 	)
 	return CMS_SetCurrentUser -username $Username
 }
+

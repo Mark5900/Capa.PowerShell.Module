@@ -1,1 +1,11 @@
-# TODO: #336 Create tests for Initialize-PpCMSRerunPackage
+BeforeAll {
+	. $PSCommandPath.Replace('.Tests.ps1', '.ps1')
+}
+
+Describe 'Initialize-PpCMSRerunPackage' {
+	It 'Has CmdletBinding attribute' {
+		$command = Get-Command -Name 'Initialize-PpCMSRerunPackage' -CommandType Function -ErrorAction Stop
+
+		($command.ScriptBlock.Attributes | Where-Object { $_ -is [System.Management.Automation.CmdletBindingAttribute] }) | Should -Not -BeNullOrEmpty
+	}
+}

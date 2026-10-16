@@ -1,5 +1,3 @@
-# TODO: #392 Update Get-Help for USRMgr_RemoveUserFromLocalGroup
-
 <#
 	.SYNOPSIS
 		Remove a user from a local group.
@@ -20,6 +18,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456244/cs.UsrMgr+RemoveUserFromLocalGroup
 #>
 function UsrMgr_RemoveUserFromLocalGroup {
+	[CmdletBinding()]
 	param (
 		$Domain = '',
 		[Parameter(Mandatory = $true)]

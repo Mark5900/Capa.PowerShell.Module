@@ -1,5 +1,3 @@
-# TODO: #403 Create tests for Shell_ExecuteWithTimeout
-
 <#
 	.SYNOPSIS
 		Executes a command line application with a timeout.
@@ -25,6 +23,7 @@
 		Shell_ExecuteWithTimeout -Command "msiexec" -Arguments "/i C:\Temp\MyInstaller.msi" -Timeout 60
 #>
 function Shell_ExecuteWithTimeout {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Command,

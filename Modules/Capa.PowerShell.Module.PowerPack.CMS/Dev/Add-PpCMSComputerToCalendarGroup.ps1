@@ -1,4 +1,3 @@
-# TODO: #314 Update Get-Help for Add-PpCMSComputerToCalendarGroup. Missing documentation for BU support.
 <#
 	.SYNOPSIS
 		Adds the specified unit to the specified calendar group.
@@ -28,3 +27,4 @@ function Add-PpCMSComputerToCalendarGroup {
 	)
 	return CMS_AddComputerToCalendarGroup -group $Group
 }
+

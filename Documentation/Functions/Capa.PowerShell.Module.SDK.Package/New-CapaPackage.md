@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: New-CapaPackage
 ---
@@ -23,7 +23,7 @@ Create a package in the CapaInstaller.
 
 ```
 New-CapaPackage [-CapaSDK] <Object> [-PackageName] <string> [-PackageVersion] <string>
- [-UnitType] <string> [-DisplayName] <string> [<CommonParameters>]
+ [-UnitType] <string> [-DisplayName] <string>
 ```
 
 ## ALIASES

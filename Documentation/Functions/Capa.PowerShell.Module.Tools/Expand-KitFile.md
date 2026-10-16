@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.Tools
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Expand-KitFile
 ---
@@ -23,7 +23,6 @@ Extracts a CapaInstaller kit file to a destination folder.
 
 ```
 Expand-KitFile [-KitFile] <string> [-DestinationFolder] <string> [-WhatIf] [-Confirm]
- [<CommonParameters>]
 ```
 
 ## ALIASES

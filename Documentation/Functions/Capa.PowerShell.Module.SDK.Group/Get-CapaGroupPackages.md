@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Group
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaGroupPackages
 ---
@@ -23,7 +23,6 @@ Returns packages linked to a group.
 
 ```
 Get-CapaGroupPackages [-CapaSDK] <Object> [-GroupName] <string> [-GroupType] <string>
- [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -39,7 +38,7 @@ Returns array of packages linked to a group.
 
 ### EXAMPLE 1
 
-Get-CapaGroupPackages -CapaSDK $CapaSDK -GroupName $GroupName -Type Dynamic_ADSI
+Get-CapaGroupPackages -CapaSDK $CapaSDK -GroupName $GroupName -GroupType Dynamic_ADSI
 
 ## PARAMETERS
 
@@ -117,7 +116,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Management.Automation.PSObject
+### System.Management.Automation.PSObject[]
 
 {{ Fill in the Description }}
 

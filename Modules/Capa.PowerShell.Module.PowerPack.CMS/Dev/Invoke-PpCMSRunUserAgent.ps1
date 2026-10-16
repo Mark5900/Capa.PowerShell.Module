@@ -1,4 +1,3 @@
-# TODO: #339 Update Get-Help for Invoke-PpCMSRunUserAgent
 <#
 	.SYNOPSIS
 		Sends a CallHomeUser UnitCommand to the BaseAgent which in turn will request the InfoCenter to run the Agent script in the user context.
@@ -26,3 +25,4 @@ function Invoke-PpCMSRunUserAgent {
 	)
 	return CMS_RunUserAgent -delay $Delay
 }
+

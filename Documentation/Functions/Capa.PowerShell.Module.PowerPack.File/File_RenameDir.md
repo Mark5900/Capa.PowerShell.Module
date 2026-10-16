@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.File
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: File_RenameDir
 ---
@@ -22,7 +22,7 @@ Rename a folder.
 ### __AllParameterSets
 
 ```
-File_RenameDir [-Source] <string> [-Destination] <string> [[-Overwrite] <bool>] [<CommonParameters>]
+File_RenameDir [-Source] <string> [-Destination] <string> [[-Overwrite] <bool>]
 ```
 
 ## ALIASES

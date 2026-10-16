@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.MDM
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Add-CapaKeyValueToAppConfigIOS
 ---
@@ -24,7 +24,6 @@ Add a new key/value setting to an existing AppConfig payload in the specified pr
 ```
 Add-CapaKeyValueToAppConfigIOS [-CapaSDK] <Object> [-DeviceApplicationID] <int> [-Key] <string>
  [-Value] <string> [-KeyValueType] <string> [[-ChangelogComment] <string>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
 ```
 
 ## ALIASES

@@ -1,4 +1,3 @@
-# TODO: #65 Update and add tests
 
 <#
     .SYNOPSIS
@@ -20,7 +19,8 @@
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455479/cs.File+DelFile
 #>
 function File_DelFile {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$FilePath,
         [bool]$Recursive = $false
@@ -28,3 +28,5 @@ function File_DelFile {
 
     $Global:Cs.File_DelFile($FilePath, $Recursive)
 }
+
+

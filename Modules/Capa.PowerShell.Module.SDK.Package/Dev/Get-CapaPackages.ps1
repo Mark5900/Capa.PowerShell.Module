@@ -48,6 +48,18 @@ function Get-CapaPackages {
 
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
+
+		# The SDK (FillPackageArray for User packages) concatenates GUID and ID without a splitter,
+		# so User packages only have 14 fields. Split the 36 character GUID from the ID.
+		if ($aItem.Count -eq 14 -and $aItem[7].Length -gt 36) {
+			$aItem = @($aItem[0..6]) + @($aItem[7].Substring(0, 36), $aItem[7].Substring(36)) + @($aItem[8..13])
+		}
+
+		# When a BusinessUnit is specified the SDK does not filter on type, so filter here
+		if ($Type -ne '' -and $aItem[2] -ne $Type) {
+			continue
+		}
+
 		$oaUnits += [pscustomobject]@{
 			Name               = $aItem[0];
 			Version            = $aItem[1];

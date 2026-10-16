@@ -20,6 +20,7 @@
 		Idea from: https://github.com/Romanitho/Winget-Install/blob/main/winget-install.ps1
 #>
 function Confirm-PpWingetAppInstall {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$AppId,

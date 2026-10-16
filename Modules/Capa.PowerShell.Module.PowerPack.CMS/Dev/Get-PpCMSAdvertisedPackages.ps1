@@ -1,4 +1,3 @@
-# TODO: #351 Update Get-Help for Get-PpCMSAdvertisedPackages
 <#
 	.SYNOPSIS
 		Get a list of advertised packages.
@@ -19,3 +18,4 @@ function Get-PpCMSAdvertisedPackages {
 	)
 	return CMS_GetAdvertisedPackages
 }
+

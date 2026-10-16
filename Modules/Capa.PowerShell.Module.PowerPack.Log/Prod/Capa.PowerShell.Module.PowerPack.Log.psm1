@@ -1,5 +1,4 @@
 
-# TODO: #82 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -24,7 +23,8 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455700/cs.Log+SectionHeader
 #>
 function Log_SectionHeader {
-	param(
+	[CmdletBinding()]
+	param (
 		[Parameter(Mandatory = $true)]
 		[string]$Name,
 		[string]$FrameCharacter = 'o'
@@ -32,5 +32,7 @@ function Log_SectionHeader {
 
     $Global:Cs.Log_SectionHeader($Name, $FrameCharacter)
 }
+
+
 
 

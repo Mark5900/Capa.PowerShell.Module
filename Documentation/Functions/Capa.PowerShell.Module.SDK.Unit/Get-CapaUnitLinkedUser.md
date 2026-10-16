@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Unit
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Get-CapaUnitLinkedUser
 ---
@@ -22,7 +22,7 @@ Gets linked user entries for a computer unit.
 ### __AllParameterSets
 
 ```
-Get-CapaUnitLinkedUser [-CapaSDK] <psobject> [-ComputerName] <string> [<CommonParameters>]
+Get-CapaUnitLinkedUser [-CapaSDK] <psobject> [-ComputerName] <string>
 ```
 
 ## ALIASES
@@ -98,7 +98,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Management.Automation.PSObject
+### System.Management.Automation.PSObject[]
 
 {{ Fill in the Description }}
 

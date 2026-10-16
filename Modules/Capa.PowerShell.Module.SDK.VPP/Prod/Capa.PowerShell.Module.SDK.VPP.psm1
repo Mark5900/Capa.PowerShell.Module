@@ -45,8 +45,8 @@ function Get-CapaDevicesLinkedToVppUser {
 			continue
 		}
 
-		$aItem = [string]$sItem -split ';', 12
-		if ($aItem.Count -lt 12) {
+		$aItem = [string]$sItem -split ';', 10
+		if ($aItem.Count -lt 10) {
 			continue
 		}
 
@@ -57,11 +57,10 @@ function Get-CapaDevicesLinkedToVppUser {
 			Status         = $aItem[3];
 			Description    = $aItem[4];
 			GUID           = $aItem[5];
-			ID             = $aItem[7];
-			TypeName       = $aItem[8];
-			UUID           = $aItem[9];
-			IsMobileDevice = $aItem[10];
-			Location       = $aItem[11]
+			ID             = $aItem[6];
+			TypeName       = $aItem[7];
+			UUID           = $aItem[8];
+			IsMobileDevice = $aItem[9]
 		}
 	}
 
@@ -115,8 +114,8 @@ function Get-CapaUsersLinkedToVppUser {
 			continue
 		}
 
-		$aItem = [string]$sItem -split ';', 15
-		if ($aItem.Count -lt 15) {
+		$aItem = [string]$sItem -split ';', 14
+		if ($aItem.Count -lt 14) {
 			continue
 		}
 
@@ -127,14 +126,14 @@ function Get-CapaUsersLinkedToVppUser {
 			Status         = $aItem[3];
 			Description    = $aItem[4];
 			GUID           = $aItem[5];
-			ID             = $aItem[7];
-			TypeName       = $aItem[8];
-			UUID           = $aItem[9];
-			Location       = $aItem[10];
-			FullName       = $aItem[11];
-			EmailPrimary   = $aItem[12];
-			EmailSecondary = $aItem[13];
-			EmailTertiary  = $aItem[14]
+			ID             = $aItem[6];
+			TypeName       = $aItem[7];
+			UUID           = $aItem[8];
+			Location       = $aItem[9];
+			FullName       = $aItem[10];
+			EmailPrimary   = $aItem[11];
+			EmailSecondary = $aItem[12];
+			EmailTertiary  = $aItem[13]
 		}
 	}
 
@@ -182,8 +181,8 @@ function Get-CapaVppPrograms {
 			continue
 		}
 
-		$aItem = [string]$sItem -split ';', 8
-		if ($aItem.Count -lt 8) {
+		$aItem = [string]$sItem -split ';', 7
+		if ($aItem.Count -lt 7) {
 			continue
 		}
 
@@ -194,7 +193,7 @@ function Get-CapaVppPrograms {
 			Email            = $aItem[3];
 			ExpireDate       = $aItem[4];
 			GUID             = $aItem[5];
-			Description      = $aItem[7]
+			Description      = $aItem[6]
 		}
 	}
 
@@ -261,8 +260,8 @@ function Get-CapaVppUsers {
 			continue
 		}
 
-		$aItem = [string]$sItem -split ';', 14
-		if ($aItem.Count -lt 14) {
+		$aItem = [string]$sItem -split ';', 13
+		if ($aItem.Count -lt 13) {
 			continue
 		}
 
@@ -273,13 +272,13 @@ function Get-CapaVppUsers {
 			UserID          = $aItem[3];
 			ClientUserIDStr = $aItem[4];
 			Name            = $aItem[5];
-			Description     = $aItem[7];
-			Email           = $aItem[8];
-			ItsIdHash       = $aItem[9];
-			InviteUrl       = $aItem[10];
-			InviteCode      = $aItem[11];
-			VPPAccountID    = $aItem[12];
-			GUID            = $aItem[13]
+			Description     = $aItem[6];
+			Email           = $aItem[7];
+			ItsIdHash       = $aItem[8];
+			InviteUrl       = $aItem[9];
+			InviteCode      = $aItem[10];
+			VPPAccountID    = $aItem[11];
+			GUID            = $aItem[12]
 		}
 	}
 

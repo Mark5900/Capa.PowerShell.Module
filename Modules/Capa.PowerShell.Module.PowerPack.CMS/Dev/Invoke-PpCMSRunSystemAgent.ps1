@@ -1,4 +1,3 @@
-# TODO: #337 Update Get-Help for Invoke-PpCMSRunSystemAgent
 <#
 	.SYNOPSIS
 		Reruns the CapaInstaller Service Agent
@@ -26,3 +25,4 @@ function Invoke-PpCMSRunSystemAgent {
 	)
 	return CMS_RunSystemAgent -delay $Delay
 }
+

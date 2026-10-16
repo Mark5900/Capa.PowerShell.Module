@@ -1,4 +1,3 @@
-# TODO: #303 Add Get-Help for Remove-PpCMSHardwareInventory
 <#
 	.SYNOPSIS
 		Removes a HardwareInventory row from the database that is persistent.
@@ -30,3 +29,4 @@ function Remove-PpCMSHardwareInventory {
 	)
 	return CMS_RemoveHardwareInventory -category $Category -entry $Entry
 }
+

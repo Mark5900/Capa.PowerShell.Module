@@ -1,4 +1,3 @@
-# TODO: #71 Update and add tests
 
 <#
     .SYNOPSIS
@@ -17,7 +16,8 @@
         For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455564/cs.File+GetFileVersion
 #>
 function File_GetFileVersion {
-    param (
+    [CmdletBinding()]
+	param (
         [Parameter(Mandatory = $true)]
         [string]$FilePath
     )
@@ -26,3 +26,5 @@ function File_GetFileVersion {
 
     return $Value
 }
+
+

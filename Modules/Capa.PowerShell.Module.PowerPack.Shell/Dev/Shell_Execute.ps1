@@ -1,5 +1,3 @@
-# TODO: #102 Update and add tests
-
 <#
 	.SYNOPSIS
 		Executes a command line application.
@@ -28,6 +26,7 @@
 		The working directory for the command, default is empty.
 #>
 function Shell_Execute {
+    [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
         [string]$Command,

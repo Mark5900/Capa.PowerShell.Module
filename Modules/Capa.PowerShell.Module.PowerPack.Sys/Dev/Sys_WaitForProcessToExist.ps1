@@ -1,4 +1,3 @@
-# TODO: #108 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -23,6 +22,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456142/cs.Sys+WaitForProcessToExist
 #>
 function Sys_WaitForProcessToExist {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$ProcessName,
@@ -34,3 +34,4 @@ function Sys_WaitForProcessToExist {
 
 	$Global:cs.Sys_WaitForProcessToExist($ProcessName, $MaxWaitSec, $IntervalSec)
 }
+

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Invoke-PpCMSRunUserAgent
 ---
@@ -15,14 +15,14 @@ title: Invoke-PpCMSRunUserAgent
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Sends a CallHomeUser UnitCommand to the BaseAgent which in turn will request the InfoCenter to run the Agent script in the user context.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Invoke-PpCMSRunUserAgent [[-Delay] <string>] [<CommonParameters>]
+Invoke-PpCMSRunUserAgent [[-Delay] <string>]
 ```
 
 ## ALIASES
@@ -32,19 +32,25 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Sends a CallHomeUser UnitCommand to the BaseAgent which in turn will request the InfoCenter to run the Agent script in the user context.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Invoke-PpCMSRunUserAgent -Delay "10s"
+if ($bStatus) {
+	Job_WriteLog -Text "User Agent has been set to run in 10 seconds."
+} else {
+	Job_WriteLog -Text "Failed to set User Agent to run in 10 seconds."
+}
 
 ## PARAMETERS
 
 ### -Delay
 
-{{ Fill Delay Description }}
+If the delay is empty, the command will be set to now.
+Delay examples: 10s (in 10 seconds), 5m (5 minutes) or 1h20m (1 hour and 20 minutes)
 
 ```yaml
 Type: System.String
@@ -74,13 +80,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
-
-{{ Fill in the Notes }}
 
 ## RELATED LINKS
 

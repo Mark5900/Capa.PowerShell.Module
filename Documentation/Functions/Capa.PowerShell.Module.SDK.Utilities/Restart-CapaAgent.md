@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Utilities
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Restart-CapaAgent
 ---
@@ -23,7 +23,6 @@ Sets an action to restart an agent.
 
 ```
 Restart-CapaAgent [-CapaSDK] <Object> [-UnitName] <string> [-UnitType] <string> [-WhatIf] [-Confirm]
- [<CommonParameters>]
 ```
 
 ## ALIASES

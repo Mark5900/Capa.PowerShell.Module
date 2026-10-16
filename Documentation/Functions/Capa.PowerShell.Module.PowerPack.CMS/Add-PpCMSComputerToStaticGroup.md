@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.PowerPack.CMS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Add-PpCMSComputerToStaticGroup
 ---
@@ -15,14 +15,14 @@ title: Add-PpCMSComputerToStaticGroup
 
 ## SYNOPSIS
 
-{{ Fill in the Synopsis }}
+Adds the specified unit to the specified static group.
 
 ## SYNTAX
 
 ### __AllParameterSets
 
 ```
-Add-PpCMSComputerToStaticGroup [-Group] <string> [<CommonParameters>]
+Add-PpCMSComputerToStaticGroup [-Group] <string>
 ```
 
 ## ALIASES
@@ -32,19 +32,24 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+Adds the specified unit to the specified static group.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
-{{ Add example description here }}
+$bStatus = Add-PpCMSComputerToStaticGroup -Group "CapaInstaller"
+if ($bStatus) {
+	Job_WriteLog -Text "Computer added to group."
+} else {
+	Job_WriteLog -Text "Failed to add computer to group."
+}
 
 ## PARAMETERS
 
 ### -Group
 
-{{ Fill Group Description }}
+The name of the static group to add the unit to.
 
 ```yaml
 Type: System.String
@@ -74,13 +79,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
-
-{{ Fill in the Description }}
-
 ## NOTES
 
-{{ Fill in the Notes }}
+https://capasystems.atlassian.net/wiki/spaces/CI66DOC/pages/19610726236/CMS+AddComputerToStaticGroup
+
 
 ## RELATED LINKS
 

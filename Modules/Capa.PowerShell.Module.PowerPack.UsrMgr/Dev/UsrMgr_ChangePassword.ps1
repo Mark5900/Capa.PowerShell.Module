@@ -1,5 +1,3 @@
-# TODO: #387 Update Get-Help for UsrMgr_ChangePassword
-
 <#
 	.SYNOPSIS
 		Change the password of a local user account.
@@ -20,6 +18,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456210/cs.UsrMgr+ChangePassword
 #>
 function UsrMgr_ChangePassword {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$UserName,

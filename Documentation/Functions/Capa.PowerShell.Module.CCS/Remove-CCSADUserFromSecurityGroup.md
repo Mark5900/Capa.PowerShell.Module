@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.CCS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Remove-CCSADUserFromSecurityGroup
 ---
@@ -24,7 +24,7 @@ Removes a user from a security group in Active Directory using the CCS Web Servi
 ```
 Remove-CCSADUserFromSecurityGroup [-UserName] <string[]> [-SecurityGroupName] <string>
  -Domain <string> -Url <string> -CCSCredential <pscredential> [-DomainOUPath <string>]
- [-DomainCredential <pscredential>] [-PasswordIsEncrypted] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-DomainCredential <pscredential>] [-PasswordIsEncrypted] [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

@@ -1,4 +1,3 @@
-# TODO: #402 Create tests for Reg_SetQword
 
 <#
 	.SYNOPSIS
@@ -23,6 +22,7 @@
 		PS C:\> Reg_SetQword -RegRoot "HKLM" -RegKey "SOFTWARE\CapaSystems" -RegValue "Test" -RegData 123
 #>
 function Reg_SetQword {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[ValidateSet('HKLM', 'HKEY_LOCAL_MACHINE', 'HKCU', 'HKU')]
@@ -37,3 +37,4 @@ function Reg_SetQword {
 
 	return $Global:cs.Reg_SetQword($RegRoot, $RegKey, $RegValue, $RegData)
 }
+

@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.Package
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Update-CapaPackageScriptAndKit
 ---
@@ -24,7 +24,7 @@ Use this function to update a package script and kit in Capa.
 ```
 Update-CapaPackageScriptAndKit -PackageName <string> -PackageVersion <string>
  -ScriptContent <string> -ScriptType <string> -PackageType <string> -PackageBasePath <string>
- -KitFolderPath <string> [<CommonParameters>]
+ -KitFolderPath <string>
 ```
 
 ### PowerPackWithKit
@@ -33,7 +33,6 @@ Update-CapaPackageScriptAndKit -PackageName <string> -PackageVersion <string>
 Update-CapaPackageScriptAndKit -PackageName <string> -PackageVersion <string>
  -ScriptContent <string> -ScriptType <string> -PackageType <string> -PackageBasePath <string>
  -SqlServerInstance <string> -Database <string> -KitFolderPath <string> [-Credential <pscredential>]
- [<CommonParameters>]
 ```
 
 ### VBScript
@@ -41,7 +40,6 @@ Update-CapaPackageScriptAndKit -PackageName <string> -PackageVersion <string>
 ```
 Update-CapaPackageScriptAndKit -PackageName <string> -PackageVersion <string>
  -ScriptContent <string> -ScriptType <string> -PackageType <string> -PackageBasePath <string>
- [<CommonParameters>]
 ```
 
 ### PowerPack
@@ -49,14 +47,14 @@ Update-CapaPackageScriptAndKit -PackageName <string> -PackageVersion <string>
 ```
 Update-CapaPackageScriptAndKit -PackageName <string> -PackageVersion <string>
  -ScriptContent <string> -ScriptType <string> -PackageType <string> -SqlServerInstance <string>
- -Database <string> [-Credential <pscredential>] [<CommonParameters>]
+ -Database <string> [-Credential <pscredential>]
 ```
 
 ### Kit
 
 ```
 Update-CapaPackageScriptAndKit -PackageName <string> -PackageVersion <string>
- -PackageBasePath <string> -KitFolderPath <string> [<CommonParameters>]
+ -PackageBasePath <string> -KitFolderPath <string>
 ```
 
 ## ALIASES

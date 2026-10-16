@@ -121,7 +121,7 @@ function Update-CapaPackageScriptAndKit {
 			throw 'Cannot find the package. Check PackageBasePath'
 		}
 
-		$ScriptPath = Join-Path $PackagePath 'Scripts' $ScriptName
+		$ScriptPath = Join-Path $PackagePath 'Scripts'
 		$KitPath = Join-Path $PackagePath 'Kit'
 	}
 

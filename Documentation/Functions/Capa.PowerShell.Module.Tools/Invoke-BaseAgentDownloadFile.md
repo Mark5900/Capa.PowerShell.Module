@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.Tools
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Invoke-BaseAgentDownloadFile
 ---
@@ -22,7 +22,7 @@ Downloads a file from CI server using the BaseAgent.
 ### __AllParameterSets
 
 ```
-Invoke-BaseAgentDownloadFile [-RemotePath] <string> [-DestinationPath] <string> [<CommonParameters>]
+Invoke-BaseAgentDownloadFile [-RemotePath] <string> [-DestinationPath] <string>
 ```
 
 ## ALIASES

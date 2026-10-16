@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.Tools
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Invoke-DownloadCapaPackage
 ---
@@ -23,7 +23,7 @@ Downloads a Capa package from CI server using the BaseAgent.
 
 ```
 Invoke-DownloadCapaPackage [-PackageName] <string> [-PackageVersion] <string>
- [-DestinationFolder] <string> [<CommonParameters>]
+ [-DestinationFolder] <string>
 ```
 
 ## ALIASES

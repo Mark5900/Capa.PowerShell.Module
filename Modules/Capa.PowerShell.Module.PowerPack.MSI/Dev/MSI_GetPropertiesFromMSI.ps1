@@ -1,4 +1,3 @@
-# TODO: #84 Update and add tests
 
 <#
 	.SYNOPSIS
@@ -20,6 +19,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462455751/cs.MSI+GetPropertiesFromMSI
 #>
 function MSI_GetPropertiesFromMSI {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$MsiFile,
@@ -31,3 +31,5 @@ function MSI_GetPropertiesFromMSI {
 
 	return $Value
 }
+
+

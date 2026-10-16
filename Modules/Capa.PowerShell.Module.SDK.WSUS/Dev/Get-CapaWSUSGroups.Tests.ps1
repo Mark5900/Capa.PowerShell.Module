@@ -8,8 +8,8 @@ Describe 'Get-CapaWSUSGroups' {
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetWSUSGroups -Value {
 			param($PointID)
 			@(
-				'1;Workstations;guid-1',
-				'2;Servers;guid-2'
+				'1;Workstations;guid-1;',
+				'2;Servers;guid-2;'
 			)
 		}
 

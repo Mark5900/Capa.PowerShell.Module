@@ -1,5 +1,3 @@
-# TODO: #506 Create tests for UsrMgr_GetNameBySid
-
 <#
 	.SYNOPSIS
 		Gets the name of a user by its SID.
@@ -14,6 +12,7 @@
 		UsrMgr_GetNameBySid -SID "S-1-5-21-3623811015-3361044348-30300820-1013"
 #>
 function UsrMgr_GetNameBySid {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory=$true)]
 		[string]$SID

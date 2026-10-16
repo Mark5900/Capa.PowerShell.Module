@@ -6,7 +6,7 @@ HelpUri: ''
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.SDK.SystemSdk
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Rebuild-CapaKitFileOnPoint
 ---
@@ -23,7 +23,7 @@ Rebuilds CapaInstaller.kit file on all Management Servers in the given Managemen
 
 ```
 Rebuild-CapaKitFileOnPoint [-CapaSDK] <Object> [-PackageName] <string> [-PackageVersion] <string>
- [-PackageType] <string> [-PointID] <int> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-PackageType] <string> [-PointID] <int> [-WhatIf] [-Confirm]
 ```
 
 ## ALIASES

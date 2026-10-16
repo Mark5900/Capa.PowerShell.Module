@@ -6,7 +6,7 @@ HelpUri: https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19306246741
 layout: single
 Locale: en-US
 Module Name: Capa.PowerShell.Module.CCS
-ms.date: 05/13/2026
+ms.date: 10/16/2026
 PlatyPS schema version: 2024-05-01
 title: Test-CCSADIsUserMemberOfGroup
 ---
@@ -24,7 +24,7 @@ Tests if a user is a member of a security group in Active Directory using the CC
 ```
 Test-CCSADIsUserMemberOfGroup [-UserName] <string> [-GroupName] <string> -Domain <string>
  -Url <string> -CCSCredential <pscredential> [-DomainOUPath <string>]
- [-DomainCredential <pscredential>] [-PasswordIsEncrypted] [<CommonParameters>]
+ [-DomainCredential <pscredential>] [-PasswordIsEncrypted]
 ```
 
 ## ALIASES

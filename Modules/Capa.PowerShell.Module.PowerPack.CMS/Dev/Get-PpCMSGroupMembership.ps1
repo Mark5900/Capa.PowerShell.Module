@@ -1,4 +1,3 @@
-# TODO: #359 Update Get-Help for Get-PpCMSGroupMembership
 <#
 	.SYNOPSIS
 		Returns an array of the groups to which the client is linked.
@@ -37,3 +36,4 @@ function Get-PpCMSGroupMembership {
 	param (	)
 	return CMS_GetGroupMembership
 }
+

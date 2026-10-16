@@ -146,16 +146,15 @@ Function Set-PpRegistryValue {
 			}
 		}
 		Default {
-			# TODO: Change this to use the $RegRoot instead of $Temp_RegRoot
 			switch -Exact ($Datatype) {
 				'String' {
-					$Global:cs.Reg_SetString($Temp_RegRoot, $RegKey, $RegValue, $RegData)
+					$Global:cs.Reg_SetString($RegRoot, $RegKey, $RegValue, $RegData)
 				}
 				'DWORD (32-bit)' {
-					$Global:cs.Reg_SetDword($Temp_RegRoot, $RegKey, $RegValue, [int]$RegData)
+					$Global:cs.Reg_SetDword($RegRoot, $RegKey, $RegValue, [int]$RegData)
 				}
 				'Expanded String' {
-					$Global:cs.Reg_SetExpandString($Temp_RegRoot, $RegKey, $RegValue, $RegData)
+					$Global:cs.Reg_SetExpandString($RegRoot, $RegKey, $RegValue, $RegData)
 				}
 			}
 		}

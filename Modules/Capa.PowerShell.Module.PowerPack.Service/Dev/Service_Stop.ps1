@@ -1,5 +1,3 @@
-# TODO: #101 Update and add tests
-
 <#
 	.SYNOPSIS
 		Stops a service.
@@ -23,6 +21,7 @@
 		For more information, please visit https://capasystems.atlassian.net/wiki/spaces/CI65DOC/pages/19462456023/cs.Service+Stop
 #>
 function Service_Stop {
+	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]$ServiceName,

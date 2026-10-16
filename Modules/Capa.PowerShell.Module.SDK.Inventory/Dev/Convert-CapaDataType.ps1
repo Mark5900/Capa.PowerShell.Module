@@ -27,6 +27,7 @@ function Convert-CapaDataType {
 		1 { $Datatype = 'String' }
 		2 { $Datatype = 'Time' }
 		3 { $Datatype = 'Integer' }
+		4 { $Datatype = 'Text' }
 		'I' { $Datatype = 'Integer' }
 		'T' { $Datatype = 'Time' }
 		'S' { $Datatype = 'String' }

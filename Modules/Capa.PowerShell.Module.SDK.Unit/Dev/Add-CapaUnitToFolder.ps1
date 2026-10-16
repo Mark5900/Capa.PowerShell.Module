@@ -62,7 +62,9 @@ function Add-CapaUnitToFolder {
 		return
 	}
 
-	$aUnits = $CapaSDK.AddUnitToFolder($UnitName, $UnitType, $FolderStructure, $CreateFolder)
+	# The SDK parameter is a Boolean; passing the string 'false' to COM would be coerced to $true
+	$bCreateFolder = $CreateFolder -eq 'true'
+	$aUnits = $CapaSDK.AddUnitToFolder($UnitName, $UnitType, $FolderStructure, $bCreateFolder)
 
 	return $aUnits
 }

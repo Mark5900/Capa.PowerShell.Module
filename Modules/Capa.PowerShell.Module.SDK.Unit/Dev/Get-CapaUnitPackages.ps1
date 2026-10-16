@@ -54,8 +54,8 @@ function Get-CapaUnitPackages {
 			continue
 		}
 
-		$aItem = [string]$sItem -split ';', 16
-		if ($aItem.Count -lt 16) {
+		$aItem = [string]$sItem -split ';', 15
+		if ($aItem.Count -lt 15) {
 			continue
 		}
 
@@ -66,15 +66,15 @@ function Get-CapaUnitPackages {
 			DisplayName        = $aItem[3];
 			IsMandatory        = $aItem[4];
 			ScheduleId         = $aItem[5];
-			Description        = $aItem[7];
-			GUID               = $aItem[8];
-			ID                 = $aItem[9];
-			IsInteractive      = $aItem[10];
-			DependendPackageID = $aItem[11];
-			IsInventoryPackage = $aItem[12];
-			CollectMode        = $aItem[13];
-			Priority           = $aItem[14];
-			ServerDeploy       = $aItem[15]
+			Description        = $aItem[6];
+			GUID               = $aItem[7];
+			ID                 = $aItem[8];
+			IsInteractive      = $aItem[9];
+			DependendPackageID = $aItem[10];
+			IsInventoryPackage = $aItem[11];
+			CollectMode        = $aItem[12];
+			Priority           = $aItem[13];
+			ServerDeploy       = $aItem[14]
 		}
 	}
 

@@ -6,7 +6,7 @@ Describe 'Get-CapaVppPrograms' {
 	It 'Parses SDK response into program objects' {
 		$CapaSDK = [pscustomobject]@{}
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetVppPrograms -Value {
-			return @('1;Program 1;Org A;org@example.com;2026-12-31;guid;x;Desc A')
+			return @('1;Program 1;Org A;org@example.com;2026-12-31;guid;Desc A')
 		}
 
 		$Result = Get-CapaVppPrograms -CapaSDK $CapaSDK
@@ -20,7 +20,7 @@ Describe 'Get-CapaVppPrograms' {
 	It 'Skips empty and malformed rows' {
 		$CapaSDK = [pscustomobject]@{}
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetVppPrograms -Value {
-			return @('', 'too;short', '2;Program 2;Org B;orgb@example.com;2027-01-01;guid2;x;Desc B')
+			return @('', 'too;short', '2;Program 2;Org B;orgb@example.com;2027-01-01;guid2;Desc B')
 		}
 
 		$Result = Get-CapaVppPrograms -CapaSDK $CapaSDK

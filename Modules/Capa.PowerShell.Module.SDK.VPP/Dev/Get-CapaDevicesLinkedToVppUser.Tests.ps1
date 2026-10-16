@@ -7,7 +7,7 @@ Describe 'Get-CapaDevicesLinkedToVppUser' {
 		$CapaSDK = [pscustomobject]@{}
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetDevicesLinkedToVppUser -Value {
 			param($VppUserID)
-			return @('PC01;2026-01-01;2026-01-02;OK;Desc;guid;x;42;Computer;uuid-1;false;Root\\Computers')
+			return @('PC01;2026-01-01;2026-01-02;OK;Desc;guid;42;Computer;uuid-1;false')
 		}
 
 		$Result = Get-CapaDevicesLinkedToVppUser -CapaSDK $CapaSDK -vppUserID 1
@@ -16,14 +16,14 @@ Describe 'Get-CapaDevicesLinkedToVppUser' {
 		$Result[0].Name | Should -Be 'PC01'
 		$Result[0].ID | Should -Be '42'
 		$Result[0].TypeName | Should -Be 'Computer'
-		$Result[0].Location | Should -Be 'Root\\Computers'
+		$Result[0].IsMobileDevice | Should -Be 'false'
 	}
 
 	It 'Skips empty and malformed rows' {
 		$CapaSDK = [pscustomobject]@{}
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetDevicesLinkedToVppUser -Value {
 			param($VppUserID)
-			return @('', 'too;short', 'PC02;2026-01-01;2026-01-02;OK;Desc;guid;x;43;Computer;uuid-2;false;Root\\Devices')
+			return @('', 'too;short', 'PC02;2026-01-01;2026-01-02;OK;Desc;guid;43;Computer;uuid-2;false')
 		}
 
 		$Result = Get-CapaDevicesLinkedToVppUser -CapaSDK $CapaSDK -vppUserID 2

@@ -29,7 +29,7 @@ function Get-CapaExternalTools {
 	$aUnits = $CapaSDK.GetExternalTools()
 
 	foreach ($sItem in $aUnits) {
-		$aItem = $sItem.Split(';')
+		$aItem = [string]$sItem -split ';', 4
 		$oaUnits += [pscustomobject]@{
 			ID        = $aItem[0];
 			Name      = $aItem[1];

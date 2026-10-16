@@ -57,7 +57,8 @@ function Remove-CapaPackage {
 	)
 	if ($BusinessUnitName -eq '') {
 		if ($PSCmdlet.ShouldProcess("$PackageName $PackageVersion", 'Delete package')) {
-			$value = $CapaSDK.DeletePackage($PackageName, $PackageVersion, $PackageType, $Force)
+			# Convert to a real boolean; passing the string 'False' to the COM Boolean parameter is converted to $true
+			$value = $CapaSDK.DeletePackage($PackageName, $PackageVersion, $PackageType, ($Force -eq 'True'))
 			return $value
 		}
 	} else {

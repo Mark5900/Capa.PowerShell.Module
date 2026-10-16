@@ -9,7 +9,7 @@ Describe 'Get-CapaVppUsers' {
 		$CapaSDK = [pscustomobject]@{}
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetVppUsersAll -Value {
 			$script:CalledAll = $true
-			return @('1;Active;2026-01-01;u1;client1;User One;x;Desc;u1@example.com;hash;url;code;acc;guid')
+			return @('1;Active;2026-01-01;u1;client1;User One;Desc;u1@example.com;hash;url;code;acc;guid')
 		}
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetVppUsers -Value {
 			param($VppProgramID)
@@ -32,7 +32,7 @@ Describe 'Get-CapaVppUsers' {
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetVppUsers -Value {
 			param($VppProgramID)
 			$script:ProgramIdReceived = $VppProgramID
-			return @('2;Active;2026-01-02;u2;client2;User Two;x;Desc2;u2@example.com;hash2;url2;code2;acc2;guid2')
+			return @('2;Active;2026-01-02;u2;client2;User Two;Desc2;u2@example.com;hash2;url2;code2;acc2;guid2')
 		}
 
 		$Result = Get-CapaVppUsers -CapaSDK $CapaSDK -VppProgramID 9
@@ -45,7 +45,7 @@ Describe 'Get-CapaVppUsers' {
 	It 'Skips empty and malformed rows' {
 		$CapaSDK = [pscustomobject]@{}
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetVppUsersAll -Value {
-			return @('', 'too;short', '3;Active;2026-01-03;u3;client3;User Three;x;Desc3;u3@example.com;hash3;url3;code3;acc3;guid3')
+			return @('', 'too;short', '3;Active;2026-01-03;u3;client3;User Three;Desc3;u3@example.com;hash3;url3;code3;acc3;guid3')
 		}
 
 		$Result = Get-CapaVppUsers -CapaSDK $CapaSDK

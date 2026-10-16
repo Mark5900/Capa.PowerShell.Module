@@ -38,8 +38,8 @@ function Get-CapaVppPrograms {
 			continue
 		}
 
-		$aItem = [string]$sItem -split ';', 8
-		if ($aItem.Count -lt 8) {
+		$aItem = [string]$sItem -split ';', 7
+		if ($aItem.Count -lt 7) {
 			continue
 		}
 
@@ -50,7 +50,7 @@ function Get-CapaVppPrograms {
 			Email            = $aItem[3];
 			ExpireDate       = $aItem[4];
 			GUID             = $aItem[5];
-			Description      = $aItem[7]
+			Description      = $aItem[6]
 		}
 	}
 

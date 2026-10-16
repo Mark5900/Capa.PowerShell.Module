@@ -48,14 +48,17 @@ function Get-CapaPackageUnits {
 	foreach ($sItem in $aUnits) {
 		$aItem = $sItem.Split(';')
 		$oaUnits += [pscustomobject]@{
-			Name         = $aItem[0];
-			Created      = $aItem[1];
-			LastExecuted = $aItem[2];
-			Status       = $aItem[3];
-			Description  = $aItem[4];
-			GUID         = $aItem[5];
-			ID           = $aItem[6];
-			TypeName     = $aItem[7]
+			Name           = $aItem[0];
+			Created        = $aItem[1];
+			LastExecuted   = $aItem[2];
+			Status         = $aItem[3];
+			Description    = $aItem[4];
+			GUID           = $aItem[5];
+			ID             = $aItem[6];
+			TypeName       = $aItem[7];
+			UUID           = $aItem[8];
+			IsMobileDevice = $aItem[9];
+			Location       = $aItem[10]
 		}
 	}
 

@@ -22,13 +22,14 @@
 		Status of the unit. Valid values are Active and Inactive.
 
 	.PARAMETER Uuid
-		Optional UUID used when UnitDeviceType is specified.
+		Optional UUID for the unit. If not specified, the SDK generates a new UUID.
 
 	.PARAMETER SerialNumber
-		Optional serial number used when UnitDeviceType is specified.
+		Optional serial number for the unit (only used for Computer units).
 
 	.PARAMETER UnitDeviceType
-		Optional device type. When specified, the extended CreateUnit overload is used.
+		Optional device type (only used for Computer units). If not specified, the
+		SDK default 'Unknown' is used.
 
 	.EXAMPLE
 		PS C:\> Create-CapaUnit -CapaSDK $CapaSDK -UnitName 'PC-01' -UnitType Computer -LinkToManagementServerID 2
@@ -76,10 +77,12 @@ function Create-CapaUnit {
 		return
 	}
 
-	if ($UnitDeviceType -eq '') {
+	if ($UnitDeviceType -eq '' -and $Uuid -eq '' -and $SerialNumber -eq '') {
 		$value = $CapaSDK.CreateUnit($UnitName, $UnitType, $LinkToManagementServerID, $Status)
 	} else {
-		$value = $CapaSDK.CreateUnit($UnitName, $UnitType, $LinkToManagementServerID, $Status, $Uuid, $SerialNumber, $UnitDeviceType)
+		# 'Unknown' is the SDK default for unitDevicetype and behaves like the 4-argument call
+		$DeviceType = if ($UnitDeviceType -eq '') { 'Unknown' } else { $UnitDeviceType }
+		$value = $CapaSDK.CreateUnit($UnitName, $UnitType, $LinkToManagementServerID, $Status, $Uuid, $SerialNumber, $DeviceType)
 	}
 
 	return $value

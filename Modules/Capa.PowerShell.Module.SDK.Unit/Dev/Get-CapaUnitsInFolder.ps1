@@ -60,8 +60,8 @@ function Get-CapaUnitsInFolder {
 			continue
 		}
 
-		$aItem = [string]$sItem -split ';', 12
-		if ($aItem.Count -lt 12) {
+		$aItem = [string]$sItem -split ';', 11
+		if ($aItem.Count -lt 11) {
 			continue
 		}
 
@@ -72,11 +72,11 @@ function Get-CapaUnitsInFolder {
 			Status         = $aItem[3];
 			Description    = $aItem[4];
 			GUID           = $aItem[5];
-			ID             = $aItem[7];
-			TypeName       = $aItem[8];
-			UUID           = $aItem[9];
-			IsMobileDevice = $aItem[10];
-			Location       = $aItem[11]
+			ID             = $aItem[6];
+			TypeName       = $aItem[7];
+			UUID           = $aItem[8];
+			IsMobileDevice = $aItem[9];
+			Location       = $aItem[10]
 		}
 	}
 

@@ -72,12 +72,14 @@ function Get-CapaUnitLinkedUser {
 		}
 
 		if ($UseRelationsFallback) {
-			$aItem = [string]$sItem -split ';', 15
-			if ($aItem.Count -lt 15) {
+			# FillUnitRelationsArray: RelationType;Name;Created;LastExecuted;Status;Description;GUID;ID;TypeName;UUID;IsMobile;Location;CmpId;BuId
+			$aItem = [string]$sItem -split ';', 14
+			if ($aItem.Count -lt 14) {
 				continue
 			}
 
-			if ($aItem[9] -ne 'User') {
+			# TypeName is the plural unit type name (e.g. 'Users')
+			if (@('User', 'Users') -notcontains $aItem[8]) {
 				continue
 			}
 
@@ -87,9 +89,10 @@ function Get-CapaUnitLinkedUser {
 				LastExecuted = $aItem[3];
 				Status       = $aItem[4];
 				Description  = $aItem[5];
-				GUID         = $aItem[7];
-				ID           = $aItem[8];
-				TypeName     = $aItem[9]
+				GUID         = $aItem[6];
+				ID           = $aItem[7];
+				TypeName     = $aItem[8];
+				RelationType = $aItem[0]
 			}
 		} else {
 			$aItem = [string]$sItem -split ';', 9

@@ -7,7 +7,7 @@ Describe 'Get-CapaUsersLinkedToVppUser' {
 		$CapaSDK = [pscustomobject]@{}
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetUsersLinkedToVppUser -Value {
 			param($VppUserID)
-			return @('User01;2026-01-01;2026-01-02;OK;Desc;guid;x;51;User;uuid-u1;Root\\Users;Test User;a@b.c;b@c.d;c@d.e')
+			return @('User01;2026-01-01;2026-01-02;OK;Desc;guid;51;User;uuid-u1;Root\\Users;Test User;a@b.c;b@c.d;c@d.e')
 		}
 
 		$Result = Get-CapaUsersLinkedToVppUser -CapaSDK $CapaSDK -VppUserID 1
@@ -22,7 +22,7 @@ Describe 'Get-CapaUsersLinkedToVppUser' {
 		$CapaSDK = [pscustomobject]@{}
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetUsersLinkedToVppUser -Value {
 			param($VppUserID)
-			return @('', 'too;short', 'User02;2026-01-01;2026-01-02;OK;Desc;guid;x;52;User;uuid-u2;Root\\Users;Second User;a2@b.c;b2@c.d;c2@d.e')
+			return @('', 'too;short', 'User02;2026-01-01;2026-01-02;OK;Desc;guid;52;User;uuid-u2;Root\\Users;Second User;a2@b.c;b2@c.d;c2@d.e')
 		}
 
 		$Result = Get-CapaUsersLinkedToVppUser -CapaSDK $CapaSDK -VppUserID 2

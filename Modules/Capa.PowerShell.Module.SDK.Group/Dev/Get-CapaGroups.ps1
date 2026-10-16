@@ -8,7 +8,7 @@
 	.PARAMETER CapaSDK
 		CapaSDK object.
 
-	.PARAMETER Type
+	.PARAMETER GroupType
 		If specified, only groups of this type will be returned.
 		Can be one of the following: Dynamic_ADSI, Calendar, Department, Dynamic_SQL, Reinstall, Security or Static.
 
@@ -56,8 +56,18 @@ function Get-CapaGroups {
 
 		if ($aItem[2] -eq '1') {
 			$UnitType = 'Computer'
-		} else {
+		} elseif ($aItem[2] -eq '2') {
 			$UnitType = 'User'
+		} else {
+			$UnitType = ''
+		}
+
+		$GUID = $aItem[4]
+		$ID = $aItem[5]
+		# The SDK writes Catalog groups without a splitter between GUID and ID
+		if ($aItem.Count -eq 5 -and $aItem[4].Length -gt 36) {
+			$GUID = $aItem[4].Substring(0, 36)
+			$ID = $aItem[4].Substring(36)
 		}
 
 		$oaUnits += [pscustomobject]@{
@@ -66,8 +76,8 @@ function Get-CapaGroups {
 			UnitTypeID   = $aItem[2];
 			UnitTypeName = $UnitType;
 			Description  = $aItem[3];
-			GUID         = $aItem[4];
-			ID           = $aItem[5]
+			GUID         = $GUID;
+			ID           = $ID
 		}
 	}
 

@@ -41,7 +41,7 @@ function Get-CapaWSUSGroups {
 			continue
 		}
 
-		$aItem = [string]$sItem -split ';', 3
+		$aItem = [string]$sItem -split ';', 4
 		if ($aItem.Count -lt 3) {
 			continue
 		}

@@ -8,8 +8,8 @@ Describe 'Get-CapaWSUSGroupUnits' {
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetWSUSGroupUnits -Value {
 			param($WSUSGroupName)
 			@(
-				'PC001;2026-01-01;2026-01-10;Installed;Description A;guid-a;Unused;101;Computer;uuid-a;False;HQ',
-				'PC002;2026-01-02;2026-01-11;Pending;Description B;guid-b;Unused;102;Computer;uuid-b;True;Branch'
+				'PC001;2026-01-01;2026-01-10;Installed;Description A;guid-a;101;Computers;uuid-a;False',
+				'PC002;2026-01-02;2026-01-11;Pending;Description B;guid-b;102;Computers;uuid-b;True'
 			)
 		}
 
@@ -18,8 +18,8 @@ Describe 'Get-CapaWSUSGroupUnits' {
 		$Result.Count | Should -Be 2
 		$Result[0].Name | Should -Be 'PC001'
 		$Result[0].ID | Should -Be '101'
-		$Result[0].TypeName | Should -Be 'Computer'
-		$Result[0].Location | Should -Be 'HQ'
+		$Result[0].TypeName | Should -Be 'Computers'
+		$Result[0].UUID | Should -Be 'uuid-a'
 		$Result[1].Name | Should -Be 'PC002'
 		$Result[1].IsMobileDevice | Should -Be 'True'
 	}
@@ -31,7 +31,7 @@ Describe 'Get-CapaWSUSGroupUnits' {
 		$CapaSDK | Add-Member -MemberType ScriptMethod -Name GetWSUSGroupUnits -Value {
 			param($WSUSGroupName)
 			$script:ReceivedWSUSGroupName = $WSUSGroupName
-			@('PC001;2026-01-01;2026-01-10;Installed;Description A;guid-a;Unused;101;Computer;uuid-a;False;HQ')
+			@('PC001;2026-01-01;2026-01-10;Installed;Description A;guid-a;101;Computers;uuid-a;False')
 		}
 
 		Get-CapaWSUSGroupUnits -CapaSDK $CapaSDK -WSUSGroupName 'My Group' | Out-Null
@@ -46,7 +46,7 @@ Describe 'Get-CapaWSUSGroupUnits' {
 			@(
 				'',
 				'PC-Invalid;Too;Few;Columns',
-				'PC003;2026-01-03;2026-01-12;Installed;Description C;guid-c;Unused;103;Computer;uuid-c;False;Remote'
+				'PC003;2026-01-03;2026-01-12;Installed;Description C;guid-c;103;Computers;uuid-c;False'
 			)
 		}
 

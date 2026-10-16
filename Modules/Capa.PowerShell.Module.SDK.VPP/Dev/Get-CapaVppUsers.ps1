@@ -57,8 +57,8 @@ function Get-CapaVppUsers {
 			continue
 		}
 
-		$aItem = [string]$sItem -split ';', 14
-		if ($aItem.Count -lt 14) {
+		$aItem = [string]$sItem -split ';', 13
+		if ($aItem.Count -lt 13) {
 			continue
 		}
 
@@ -69,13 +69,13 @@ function Get-CapaVppUsers {
 			UserID          = $aItem[3];
 			ClientUserIDStr = $aItem[4];
 			Name            = $aItem[5];
-			Description     = $aItem[7];
-			Email           = $aItem[8];
-			ItsIdHash       = $aItem[9];
-			InviteUrl       = $aItem[10];
-			InviteCode      = $aItem[11];
-			VPPAccountID    = $aItem[12];
-			GUID            = $aItem[13]
+			Description     = $aItem[6];
+			Email           = $aItem[7];
+			ItsIdHash       = $aItem[8];
+			InviteUrl       = $aItem[9];
+			InviteCode      = $aItem[10];
+			VPPAccountID    = $aItem[11];
+			GUID            = $aItem[12]
 		}
 	}
 

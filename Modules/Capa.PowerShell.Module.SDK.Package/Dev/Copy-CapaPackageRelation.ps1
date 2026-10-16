@@ -178,7 +178,7 @@ function Copy-CapaPackageRelation {
 			if ($CopyUnits) {
 				Write-Progress -Activity "Copying unit $($Unit.Name)" -Status 'Progress' -PercentComplete (($Count / $AllFromUnits.Count) * 100)
 
-				$AllreadyLinked = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.Type -eq $UnitType }
+				$AllreadyLinked = $AllToUnits | Where-Object { $_.Name -eq $Unit.Name -and $_.TypeName -eq $Unit.TypeName }
 				if ($AllreadyLinked.Count -eq 0) {
 					try {
 						$bool = Add-CapaUnitToPackage -CapaSDK $CapaSDK -PackageName $ToPackageName -PackageVersion $ToPackageVersion -PackageType $ToPackageType -UnitName $UnitUUID -UnitType $UnitType

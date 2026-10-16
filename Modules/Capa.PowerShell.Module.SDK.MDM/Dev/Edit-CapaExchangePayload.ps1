@@ -54,6 +54,9 @@
 		How often the device will sync with the Exchange server. Allowed values: Automatic Push, Manually, 15 minutes, 30 minutes, 60 minutes.
 
 	.PARAMETER SyncEmail
+		Whether to synchronize email between the device and the server.
+
+	.PARAMETER SyncCalendar
 		Whether to synchronize calendar between the device and the server.
 
 	.PARAMETER SyncContacts
@@ -83,6 +86,7 @@
 			AllowRecentAddressSyncing = $true
 			syncinterval = "30 minutes"
 			SyncEmail = $true
+			SyncCalendar = $true
 			SyncContacts = $true
 			SyncTasks = $false
 			ChangelogComment = "Editing Exchange Payload"
@@ -135,6 +139,8 @@ function Edit-CapaExchangePayload {
 		[ValidateSet('False', 'True')]
 		[bool]$SyncEmail = $false,
 		[ValidateSet('False', 'True')]
+		[bool]$SyncCalendar = $false,
+		[ValidateSet('False', 'True')]
 		[bool]$SyncContacts = $false,
 		[ValidateSet('False', 'True')]
 		[bool]$SyncTasks = $false,
@@ -142,7 +148,7 @@ function Edit-CapaExchangePayload {
 	)
 
 	if ($PSCmdlet.ShouldProcess($ProfileID, "Edit Exchange payload '$CurrentAccountName'")) {
-		$value = $CapaSDK.EditExchangePayload($ProfileID, $CurrentAccountName, $AccountName, $DomainandUserName, $Password, $EmailAddress, $ExchangeActiveSyncHost, $UseSSL, $PastDaysofMailtoSync, $AllowMove, $UseOnlyinMail, $UseSMIME, $AllowRecentAddressSyncing, $Syncinterval, $SyncEmail, $SyncContacts, $SyncTasks, $ChangelogComment)
+		$value = $CapaSDK.EditExchangePayload($ProfileID, $CurrentAccountName, $AccountName, $DomainandUserName, $Password, $EmailAddress, $ExchangeActiveSyncHost, $UseSSL, $PastDaysofMailtoSync, $AllowMove, $UseOnlyinMail, $UseSMIME, $AllowRecentAddressSyncing, $Syncinterval, $SyncEmail, $SyncCalendar, $SyncContacts, $SyncTasks, $ChangelogComment)
 		return $value
 	}
 }

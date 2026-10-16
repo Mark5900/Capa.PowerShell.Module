@@ -3,7 +3,7 @@
 		Create a new profile in the Default Management Point.
 
 	.DESCRIPTION
-		Create a new profile in the Default Management Point. If BusinessUnitName is specified, the profile will be linked to the specified business unit.
+		Create a new profile in the Default Management Point. If BusinessUnitId is specified, the profile will be linked to the specified business unit.
 
 	.PARAMETER CapaSDK
 		The CapaSDK object.
@@ -17,8 +17,8 @@
 	.PARAMETER Priority
 		The priority of the new profile.
 
-	.PARAMETER BusinessUnitName
-		The name of the business unit you wish to assign the profile to.
+	.PARAMETER BusinessUnitId
+		The ID of the business unit you wish to assign the profile to.
 
 	.PARAMETER ChangelogComment
 		The comment you wish to be added to the changelog.
@@ -27,7 +27,7 @@
 		PS C:\> Create-CapaProfile -CapaSDK $CapaSDK -Name 'My Profile' -Description 'My Profile Description' -Priority 1 -ChangelogComment 'Creating new profile'
 
 	.EXAMPLE
-		PS C:\> Create-CapaProfile -CapaSDK $CapaSDK -Name 'My Profile' -Description 'My Profile Description' -Priority 1 -ChangelogComment 'Creating new profile' -BusinessUnitName 'My Business Unit'
+		PS C:\> Create-CapaProfile -CapaSDK $CapaSDK -Name 'My Profile' -Description 'My Profile Description' -Priority 1 -ChangelogComment 'Creating new profile' -BusinessUnitId 1
 
 	.NOTES
 		For more information, see https://capasystems.atlassian.net/wiki/spaces/CI64DOC/pages/19306246572/Create+Profile
